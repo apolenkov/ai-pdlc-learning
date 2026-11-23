@@ -1,0 +1,16 @@
+{
+  "file": "block-i2-720p.mp4",
+  "sha256": "727f79a126fb4f09f255e03dcf77727630a979472ca0b5daf56961f34c207120",
+  "size": 5705167,
+  "url": "https://github.com/apolenkov/ai-pdlc-learning/releases/download/media-v1/727f79a126fb-block-i2-720p.mp4",
+  "version": "727f79a126fb",
+  "audio": "voice-only",
+  "master": {
+    "file": "block-i2-1080p.mp4",
+    "sha256": "002063e3612e1231da7839fe75dbcd5e7d9451bb7a8cb66ffdb809d79085c1d2",
+    "size": 11602679,
+    "lost": "утерян до сдачи Mac 25.11.2026: файла нет ни на Диске, ни локально; пин сохранён"
+  },
+  "duration": 181,
+  "note": "TASK-688 / TASK-671 v3: только озвучка без музыки и SFX; видеопоток прежний, AAC-LC 192k 48 кГц моно; I −16,084 LUFS, TP −2,407 dBTP, 8 688 000 отсчётов = основе. Подготовленный пин: загрузка в Registry и слух владельца — отдельный этап. Мастер 1080p — прежний микс (вне этапа)."
+}

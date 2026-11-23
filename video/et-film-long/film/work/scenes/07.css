@@ -1,0 +1,11 @@
+.s7-pair { position: absolute; top: 200px; display: flex; align-items: center; gap: 18px; padding: 16px 30px; border-radius: 22px; border: 3px solid var(--k-line); background: var(--k-panel); font-size: 44px; font-weight: 800; white-space: nowrap; }
+.s7-pair.no { color: var(--k-text-2); }
+.s7-pair.yes { border-color: var(--k-ok); color: var(--k-ok); }
+.s7-stop { position: absolute; top: 0; width: 300px; text-align: center; }
+.s7-node { margin: 0 auto; width: 96px; height: 96px; border-radius: 50%; display: grid; place-items: center; background: var(--k-panel-2); border: 5px solid var(--k-line); }
+.s7-lab { margin-top: 16px; font-size: 34px; font-weight: 800; line-height: 1.2; }
+.s7-sub { margin-top: 8px; font-size: 30px; font-weight: 600; line-height: 1.25; color: var(--k-text-2); }
+.s7-gate { position: absolute; display: inline-flex; align-items: center; gap: 12px; padding: 8px 20px; border-radius: 16px; border: 2px solid var(--k-accent); background: var(--k-accent-tint); font-size: 32px; font-weight: 800; color: var(--k-accent-soft); white-space: nowrap; }
+.s7-chart { position: absolute; left: 96px; top: 700px; width: 1728px; height: 330px; padding: 26px 40px; }
+.s7-chart h3 { font-size: 40px; font-weight: 800; }
+.s7-cap { position: absolute; font-size: 32px; font-weight: 700; color: var(--k-text-2); white-space: nowrap; }

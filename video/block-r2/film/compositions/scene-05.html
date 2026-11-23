@@ -1,0 +1,201 @@
+<template id="scene-05-template">
+  <div data-composition-id="scene-05" data-width="1920" data-height="1080" data-duration="29.4">
+    <style>
+      [data-composition-id="scene-05"] .sc-gl { height: 100%; display: flex; align-items: center; gap: 22px; font-size: 38px; font-weight: 800; letter-spacing: -0.01em; white-space: nowrap; }
+      [data-composition-id="scene-05"] .sc-gl .sep { color: var(--k-text-2); font-weight: 500; }
+      [data-composition-id="scene-05"] .sc-gl .tx { color: var(--k-text-2); font-weight: 600; }
+      [data-composition-id="scene-05"] .sc-br { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+      [data-composition-id="scene-05"] .sc-br .lab { font-size: 28px; font-weight: 600; color: var(--k-text-2); letter-spacing: 0.02em; }
+      [data-composition-id="scene-05"] .sc-br .val { font-family: var(--k-font-mono); font-size: 34px; font-weight: 600; white-space: nowrap; }
+      [data-composition-id="scene-05"] .sc-arrow { position: absolute; width: 150px; height: 50px; }
+      [data-composition-id="scene-05"] .sc-arrow svg { display: block; width: 100%; height: 100%; overflow: visible; }
+      [data-composition-id="scene-05"] .sc-main { height: 100%; display: flex; align-items: center; justify-content: center; gap: 20px; }
+      [data-composition-id="scene-05"] .sc-main .mn { position: relative; font-family: var(--k-font-mono); font-size: 34px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-05"] .sc-main .mn i { position: absolute; left: -8px; right: -8px; top: 52%; height: 5px; border-radius: 3px; background: var(--k-accent); transform-origin: 0 50%; transform: scaleX(0); }
+      [data-composition-id="scene-05"] .sc-main svg { width: 34px; height: 34px; color: var(--k-accent-soft); opacity: 0; }
+      [data-composition-id="scene-05"] .sc-tabs { display: flex; align-items: center; gap: 14px; height: 52px; }
+      [data-composition-id="scene-05"] .sc-tab { font-size: 30px; font-weight: 600; color: var(--k-text-2); padding: 6px 18px; border-radius: 12px; }
+      [data-composition-id="scene-05"] .sc-tab.on { color: var(--k-text); background: var(--k-panel-2); border: 2px solid var(--k-line); }
+      [data-composition-id="scene-05"] .sc-only { margin-left: 14px; font-family: var(--k-font-mono); font-size: 30px; font-weight: 700; color: var(--k-ok); padding: 2px 12px; border-radius: 10px; background: var(--k-ok-tint); opacity: 0; }
+      [data-composition-id="scene-05"] .sc-dl { position: relative; margin-top: 8px; }
+      [data-composition-id="scene-05"] .sc-dl .l { position: relative; height: 44px; line-height: 44px; padding-left: 52px; font-family: var(--k-font-mono); font-size: 30px; white-space: nowrap; background: var(--k-diff-add-bg); border-left: 4px solid var(--k-diff-add-bar); margin-bottom: 4px; }
+      [data-composition-id="scene-05"] .sc-dl .l::before { content: "+"; position: absolute; left: 14px; color: var(--k-ok); font-weight: 700; }
+      [data-composition-id="scene-05"] .sc-dl .l.dim { background: transparent; border-left-color: transparent; }
+      [data-composition-id="scene-05"] .sc-dl .l.dim::before { content: ""; }
+      [data-composition-id="scene-05"] .sc-dl .sw { position: absolute; left: 0; right: 0; top: 0; height: 44px; background: rgba(255,255,255,0.09); border-left: 4px solid var(--k-text-2); opacity: 0; }
+      [data-composition-id="scene-05"] .sc-ic { margin: 6px 0 0 52px; height: 92px; border-radius: 14px; background: var(--k-panel-2); border: 2px solid var(--k-accent); padding: 6px 22px; display: flex; flex-direction: column; justify-content: center; opacity: 0; }
+      [data-composition-id="scene-05"] .sc-ic .who { font-size: 28px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-05"] .sc-ic .rw { display: flex; align-items: center; gap: 18px; white-space: nowrap; }
+      [data-composition-id="scene-05"] .sc-ic .tx { font-size: 36px; font-weight: 700; }
+      [data-composition-id="scene-05"] .sc-ic b { font-size: 28px; font-weight: 700; color: var(--k-accent-soft); padding: 2px 14px; border-radius: 10px; background: var(--k-accent-tint); opacity: 0; }
+      [data-composition-id="scene-05"] .sc-mr { height: 100%; display: flex; align-items: center; gap: 22px; font-size: 40px; font-weight: 800; letter-spacing: -0.01em; white-space: nowrap; }
+      [data-composition-id="scene-05"] .sc-mr .id { font-family: var(--k-font-mono); font-size: 36px; font-weight: 600; color: var(--k-accent-soft); }
+      [data-composition-id="scene-05"] .sc-cm { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 18px; font-size: 34px; font-weight: 700; white-space: nowrap; }
+      [data-composition-id="scene-05"] .cnt { display: inline-grid; margin-left: 10px; }
+      [data-composition-id="scene-05"] .cnt span { grid-area: 1 / 1; }
+      [data-composition-id="scene-05"] .cnt span:last-child { opacity: 0; }
+      [data-composition-id="scene-05"] .sc-cm .upd { font-size: 30px; font-weight: 700; color: var(--k-ok); padding: 6px 16px; border-radius: 12px; background: var(--k-ok-tint); opacity: 0; }
+      [data-composition-id="scene-05"] .sc-desc { height: 100%; display: flex; align-items: center; gap: 24px; }
+      [data-composition-id="scene-05"] .sc-desc .lab { font-size: 30px; font-weight: 600; color: var(--k-text-2); margin-right: 8px; }
+      [data-composition-id="scene-05"] .sc-chip { display: flex; align-items: center; gap: 14px; height: 64px; padding: 0 26px; border-radius: 18px; background: var(--k-panel-2); border: 2px solid var(--k-line); font-size: 34px; font-weight: 700; white-space: nowrap; opacity: 0; }
+      [data-composition-id="scene-05"] .sc-chip .k { color: var(--k-info); }
+      [data-composition-id="scene-05"] .sc-cmt .who { font-size: 28px; font-weight: 600; color: var(--k-text-2); margin-bottom: 10px; }
+      [data-composition-id="scene-05"] .sc-cmt .row { display: flex; align-items: baseline; gap: 14px; margin-top: 10px; font-size: 32px; font-weight: 500; line-height: 1.25; opacity: 0; }
+      [data-composition-id="scene-05"] .sc-cmt .row b { flex: none; font-size: 28px; font-weight: 700; color: var(--k-accent-soft); padding: 2px 12px; border-radius: 10px; background: var(--k-accent-tint); }
+      [data-composition-id="scene-05"] .sc-cm1 { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+      [data-composition-id="scene-05"] .sc-cm1 .who { font-size: 28px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-05"] .sc-cm1 .tx { font-size: 38px; font-weight: 700; line-height: 1.2; }
+      [data-composition-id="scene-05"] .sc-commit { height: 100%; display: flex; align-items: center; gap: 20px; font-family: var(--k-font-mono); font-size: 30px; white-space: nowrap; }
+      [data-composition-id="scene-05"] .sc-commit .dot { flex: none; width: 22px; height: 22px; border-radius: 50%; background: var(--k-ok); }
+      [data-composition-id="scene-05"] .sc-commit .br { margin-left: auto; color: var(--k-text-2); font-size: 28px; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("05"), t = S.t, DUR = 29.4;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.end("файл.") < 1.5) throw new Error("Недостаточный хвост сцены");
+        const tok = Kit.token, tl = S.tl;
+        const q = (el, c) => el.querySelector(c);
+        const E_OUT = tok("--k-ease-out");
+        // въезд сбоку: пояснение, а не всплытие
+        // появление без blur: текст читается сразу
+        const crisp = (el, x, at, d = 0.5) => tl.fromTo(el, { autoAlpha: 0, x }, { autoAlpha: 1, x: 0, duration: d, ease: E_OUT, immediateRender: false }, at);
+        const slide = (el, x, at, d = 0.7) => tl.fromTo(el, { autoAlpha: 0, x, filter: "blur(10px)" }, { autoAlpha: 1, x: 0, filter: "blur(0px)", duration: d, ease: E_OUT, immediateRender: false }, at);
+        const fade = (el, at, d = 0.4) => tl.to(el, { opacity: 1, duration: d }, at);
+        const ARROW = '<svg viewBox="0 0 150 50" fill="none"><path class="ar" pathLength="1" d="M4 25H138M120 8L140 25L120 42" stroke="' + tok("--k-accent") + '" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+        Kit.header(S, { header: { mode: "parts", total: 7 }, chapter: "Запрос на слияние", step: 5, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const T_OUT1 = t("Добавьте") + 0.1, T_IN2 = T_OUT1 + 0.5;
+        const T_OUT2 = S.end("сам.") + 0.3, T_IN3 = T_OUT2 + 0.5;
+
+        /* ================= План 1: New merge request ================= */
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+        const bar = Kit.aside(S, { parent: s1, x: 96, y: 225, w: 1728, h: 84, tail: false,
+          html: '<div class="sc-gl"><span>GitLab</span><span class="sep">·</span><span class="tx">New merge request</span></div>' });
+        bar.show(2.0);   // до 2.0 с — заставка части
+        read("GitLab New merge request", 2.0, T_OUT1);
+
+        const src = Kit.aside(S, { parent: s1, x: 96, y: 335, w: 740, h: 120, tail: false,
+          html: '<div class="sc-br"><div class="lab">Source · откуда</div><div class="val">course/…/stage-2-reset</div></div>' });
+        crisp(src.el, -70, 2.1);
+        read("Source откуда course stage-2-reset", 2.7, T_OUT1);
+
+        const tgt = Kit.aside(S, { parent: s1, x: 1084, y: 335, w: 740, h: 120, tail: false,
+          html: '<div class="sc-br"><div class="lab">Target · куда</div><div class="val">course/…/stage-1-error-result</div></div>' });
+        crisp(tgt.el, 70, 2.25);
+        read("Target куда course stage-1-error-result", 2.85, T_OUT1);
+        // акцент по очереди на словах диктора: откуда → куда
+        tl.to(src.el, { borderColor: tok("--k-accent"), duration: 0.3 }, t("из новой"));
+        tl.to(src.el, { borderColor: tok("--k-line"), duration: 0.3 }, t("в прежнюю") - 0.05);
+        tl.to(tgt.el, { borderColor: tok("--k-accent"), duration: 0.3 }, t("в прежнюю"));
+        tl.to(tgt.el, { borderColor: tok("--k-line"), duration: 0.3 }, t("не в"));
+
+        const arrow = document.createElement("div");
+        arrow.className = "sc-arrow"; arrow.style.left = "855px"; arrow.style.top = "345px";
+        arrow.innerHTML = ARROW; s1.appendChild(arrow);
+        gsap.set(q(arrow, ".ar"), { strokeDasharray: 1, strokeDashoffset: 1 });
+        gsap.set(arrow, { autoAlpha: 0 });
+        tl.set(arrow, { autoAlpha: 1 }, 2.5);
+        tl.to(q(arrow, ".ar"), { strokeDashoffset: 0, duration: 0.7, ease: "power2.out" }, 2.5);
+
+        const main = Kit.aside(S, { parent: s1, x: 860, y: 405, w: 216, h: 66, tail: false,
+          html: '<div class="sc-main"><span class="mn">main<i></i></span>' + Kit.icons.check.replace("M10 29l12 12 24-26", "M12 12l32 32M44 12L12 44") + "</div>" });
+        main.el.style.padding = "0 14px";
+        main.show(t("не в") + 0.1);
+        tl.to(q(main.el, ".mn i"), { scaleX: 1, duration: 0.35, ease: "power2.out" }, t("main:") + 0.1);
+        tl.to(q(main.el, "svg"), { opacity: 1, duration: 0.3 }, t("main:") + 0.35);
+        read("main", t("не в") + 0.7, T_OUT1);
+
+        const diff = Kit.aside(S, { parent: s1, x: 96, y: 490, w: 1728, h: 300, tail: false,
+          html: '<div class="sc-tabs"><span class="sc-tab">Overview</span><span class="sc-tab">Commits</span><span class="sc-tab on">Changes<b class="sc-only">+4</b></span></div>' +
+                '<div class="sc-dl"><div class="l">«Сбросить» возвращает сумму 3 000 000 ₽ и ставку 16%.</div><div class="l">| Сброс после расчёта | … |</div>' +
+                '<div class="l">| Сброс после ошибки | … |</div><div class="l">| Повторный сброс | … |</div></div>' });
+        tl.fromTo(diff.el, { autoAlpha: 0, y: 50 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: E_OUT, immediateRender: false }, t("тогда") - 0.3);
+        fade(q(diff.el, ".sc-only"), t("только"), 0.4);
+
+        /* ================= План 2: описание, замечание, ответ ================= */
+        const s2 = S.stage();
+        const title = Kit.aside(S, { parent: s2, x: 96, y: 225, w: 1060, h: 96, tail: false,
+          html: '<div class="sc-mr"><span class="id">!7</span><span>Описать сброс формы</span></div>' });
+        title.show(T_IN2 + 0.05);
+        read("!7 Описать сброс формы", T_IN2 + 0.05, T_OUT2);
+        const cm = Kit.aside(S, { parent: s2, x: 1180, y: 225, w: 644, h: 96, tail: false,
+          html: '<div class="sc-cm"><span>Коммитов<b class="cnt"><span>1</span><span>2</span></b></span><span class="upd">обновлён</span></div>' });
+        cm.show(T_IN2 + 0.2);
+        read("Коммитов 1", T_IN2 + 0.2, t("запрос обновляется"));
+
+        const desc = Kit.aside(S, { parent: s2, x: 96, y: 339, w: 1728, h: 84, tail: false,
+          html: '<div class="sc-desc"><span class="lab">Описание</span><span class="sc-chip c1"><span class="k">Jira</span>ссылка на задачу</span><span class="sc-chip c2"><span class="k">8</span>сценариев</span></div>' });
+        desc.show(T_IN2 + 0.35);
+        tl.fromTo(q(desc.el, ".c1"), { autoAlpha: 0, scale: 0.9 }, { autoAlpha: 1, scale: 1, duration: 0.6, ease: "back.out(2)", immediateRender: false }, t("джире") - 0.1);
+        tl.fromTo(q(desc.el, ".c2"), { autoAlpha: 0, scale: 0.9 }, { autoAlpha: 1, scale: 1, duration: 0.6, ease: "back.out(2)", immediateRender: false }, t("восемь") - 0.1);
+        read("Jira ссылка на задачу", t("джире") + 0.5, T_OUT2);
+        read("8 сценариев", t("восемь") + 0.5, T_OUT2);
+
+        // только добавления шага 2 (зелёные), замечание — прямо под строкой, к которой оно относится
+        const dcard = Kit.aside(S, { parent: s2, x: 96, y: 434, w: 1728, h: 384, tail: false,
+          html: '<div class="sc-lab" style="font-size:28px;font-weight:600;color:var(--k-text-2)">Changes · specification.md</div>' +
+                '<div class="sc-dl"><div class="sw"></div><div class="l">| Сброс после расчёта | … |</div><div class="l">| Сброс после ошибки | … |</div><div class="l l3">| Повторный сброс | … |</div></div>' +
+                '<div class="sc-ic"><div class="who">Аналитик · комментарий к строке</div><div class="rw"><span class="tx">Что остаётся после повторного сброса?</span><b class="p1">неясно</b><b class="p2">уточнить</b></div></div>' });
+        crisp(dcard.el, -90, t("Проверяющий") - 0.05, 0.6);
+        const sw = q(dcard.el, ".sw");
+        tl.set(sw, { opacity: 1 }, t("читает") + 0.1);
+        [0, 48, 96].forEach((y, i) => tl.fromTo(sw, { y: i ? y - 48 : y }, { y, duration: 0.4, ease: "power1.inOut", immediateRender: false }, t("читает") + 0.1 + i * 0.4));
+        tl.to(sw, { opacity: 0, duration: 0.4 }, S.end("целиком") + 0.1);
+        const l3 = q(dcard.el, ".l3");
+        const ic = q(dcard.el, ".sc-ic");
+        tl.to(l3, { borderLeftColor: tok("--k-accent"), duration: 0.4 }, t("к строке"));
+        tl.fromTo(ic, { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.5, ease: E_OUT, immediateRender: false }, t("замечание") + 0.2);
+        fade(q(dcard.el, ".p1"), t("неясно"), 0.4);
+        fade(q(dcard.el, ".p2"), t("уточнить."), 0.4);
+        read("Changes specification.md Сброс после расчёта", t("Проверяющий") + 0.65, T_OUT2);
+        read("Что остаётся после повторного сброса?", t("замечание") + 0.8, T_OUT2);
+        read("неясно", t("неясно") + 0.4, T_OUT2, 0);
+        read("уточнить", t("уточнить.") + 0.4, T_OUT2, 0);
+
+        const commit = Kit.aside(S, { parent: s2, x: 124, y: 751, w: 1000, h: 54, tail: false,
+          html: '<div class="sc-commit"><span class="dot"></span><span>docs: уточнить повторный сброс</span></div>' });
+        commit.show(t("правкой"));
+        read("docs уточнить повторный сброс", t("правкой"), T_OUT2);
+        tl.to(q(cm.el, ".cnt span:first-child"), { opacity: 0, duration: 0.1 }, t("запрос обновляется") - 0.15);   // старое значение уходит раньше, без призрака
+        tl.fromTo(q(cm.el, ".cnt span:last-child"), { opacity: 0 }, { opacity: 1, duration: 0.15, immediateRender: false }, t("запрос обновляется") - 0.05);
+        fade(q(cm.el, ".upd"), t("запрос обновляется"), 0.3);
+        read("обновлён", t("запрос обновляется"), T_OUT2, 0.3);
+
+        /* ================= План 3: договорённость переносим в файл ================= */
+        const s3 = S.stage();
+        const note = Kit.aside(S, { parent: s3, x: 96, y: 440, w: 700, h: 180, tail: false,
+          html: '<div class="sc-cm1"><div class="who">Замечание</div><div class="tx">Что остаётся после повторного сброса?</div></div>' });
+        note.show(T_IN3 + 0.1);
+        note.el.style.borderColor = tok("--k-accent");
+        read("Замечание Что остаётся после повторного сброса", T_IN3 + 0.1, DUR);
+        const arr3 = document.createElement("div");
+        arr3.className = "sc-arrow"; arr3.style.left = "812px"; arr3.style.top = "505px";
+        arr3.innerHTML = ARROW; s3.appendChild(arr3);
+        gsap.set(q(arr3, ".ar"), { strokeDasharray: 1, strokeDashoffset: 1 });
+        gsap.set(arr3, { autoAlpha: 0 });
+        tl.set(arr3, { autoAlpha: 1 }, t("из комментария"));
+        tl.to(q(arr3, ".ar"), { strokeDashoffset: 0, duration: 0.8, ease: "power2.out" }, t("из комментария"));
+        const file = Kit.editor(S, { parent: s3, x: 990, y: 395, w: 834, crumb: "stage-2-reset", visible: false,
+          tabs: [{ name: "specification.md", active: true }],
+          lines: ["| Сброс после ошибки | … |", { t: "| Повторный сброс | … без расчёта |", add: true }] });
+        file.show(t("из комментария") + 0.3);
+        file.reveal(0, 0, t("из комментария") + 0.5);
+        file.addLine(1, t("переносите") + 0.1, { dur: 0.7 });
+        file.caretOff(S.end("файл.") + 0.2);
+        read("Повторный сброс без расчёта", t("переносите") + 0.1, DUR, 0.9);
+
+        Kit.stageOut(S, s1, T_OUT1); Kit.stageIn(S, s2, T_IN2);
+        Kit.stageOut(S, s2, T_OUT2); Kit.stageIn(S, s3, T_IN3);
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

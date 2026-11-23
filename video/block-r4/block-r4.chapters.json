@@ -1,0 +1,92 @@
+[
+  {
+    "n": 0,
+    "title": "Вступление",
+    "step": null,
+    "chapter": "Вступление",
+    "start": 0,
+    "titleStart": 0,
+    "speechStart": 0,
+    "end": 59.9
+  },
+  {
+    "n": 1,
+    "title": "Карта метарепозитория",
+    "step": 1,
+    "chapter": "Карта метарепозитория",
+    "start": 59.9,
+    "titleStart": 59.9,
+    "speechStart": 59.9,
+    "end": 82
+  },
+  {
+    "n": 2,
+    "title": "Форк и выданная ветка",
+    "step": 2,
+    "chapter": "Форк и выданная ветка",
+    "start": 82,
+    "titleStart": 82,
+    "speechStart": 82,
+    "end": 102.2
+  },
+  {
+    "n": 3,
+    "title": "Подготовка и своя ветка",
+    "step": 3,
+    "chapter": "Подготовка и своя ветка",
+    "start": 102.2,
+    "titleStart": 102.2,
+    "speechStart": 102.2,
+    "end": 120.6
+  },
+  {
+    "n": 4,
+    "title": "Задача в Jira",
+    "step": 4,
+    "chapter": "Задача в Jira",
+    "start": 120.6,
+    "titleStart": 120.6,
+    "speechStart": 120.6,
+    "end": 132.1
+  },
+  {
+    "n": 5,
+    "title": "Вопросы модели",
+    "step": 5,
+    "chapter": "Вопросы модели",
+    "start": 132.1,
+    "titleStart": 132.1,
+    "speechStart": 132.1,
+    "end": 168
+  },
+  {
+    "n": 6,
+    "title": "Изменение",
+    "step": 6,
+    "chapter": "Изменение",
+    "start": 168,
+    "titleStart": 168,
+    "speechStart": 168,
+    "end": 187.5
+  },
+  {
+    "n": 7,
+    "title": "Проверка и одобрение",
+    "step": 7,
+    "chapter": "Проверка и одобрение",
+    "start": 187.5,
+    "titleStart": 187.5,
+    "speechStart": 187.5,
+    "end": 247.9
+  },
+  {
+    "n": 8,
+    "title": "Сохранить и передать",
+    "step": 8,
+    "chapter": "Сохранить и передать",
+    "start": 247.9,
+    "titleStart": 247.9,
+    "speechStart": 247.9,
+    "end": 280.1
+  }
+]

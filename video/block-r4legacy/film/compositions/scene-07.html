@@ -1,0 +1,96 @@
+<template id="scene-07-template">
+  <div data-composition-id="scene-07" data-width="1920" data-height="1080" data-duration="20.2">
+    <style>
+      [data-composition-id="scene-07"] .fl { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 6px; opacity: 0; }
+      [data-composition-id="scene-07"] .fl b { font-size: 40px; font-weight: 800; letter-spacing: -0.01em; line-height: 1.2; }
+      [data-composition-id="scene-07"] .fl span { font-size: 32px; font-weight: 500; color: var(--k-text-2); line-height: 1.25; }
+      [data-composition-id="scene-07"] .fl span.mono { font-family: var(--k-font-mono); font-size: 30px; color: var(--k-code-inline); }
+      [data-composition-id="scene-07"] .fl.c1 b { color: var(--k-ok); }
+      [data-composition-id="scene-07"] .fl.c2 b { color: var(--k-info); }
+      [data-composition-id="scene-07"] .fl.c3 b { color: var(--k-accent-soft); }
+      [data-composition-id="scene-07"] .fa { position: absolute; width: 56px; height: 30px; opacity: 0; }
+      [data-composition-id="scene-07"] .sp { height: 100%; display: flex; align-items: center; justify-content: center; font-family: var(--k-font-mono); font-size: 36px; font-weight: 600; color: var(--k-code-inline); opacity: 0; white-space: nowrap; }
+      [data-composition-id="scene-07"] .up { position: absolute; left: 0; width: 100%; display: flex; align-items: center; justify-content: center; gap: 18px; font-size: 34px; font-weight: 700; color: var(--k-accent-soft); opacity: 0; }
+      [data-composition-id="scene-07"] .up svg { width: 30px; height: 56px; }
+      [data-composition-id="scene-07"] .pl { height: 100%; display: flex; align-items: center; gap: 22px; font-size: 36px; font-weight: 800; letter-spacing: -0.015em; line-height: 1.2; }
+      [data-composition-id="scene-07"] .pl svg { flex: none; width: 46px; height: 46px; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("07"), t = S.t, DUR = 20.2;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.5) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»: ${(off - at - reveal).toFixed(2)} < ${needed.toFixed(2)}`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const rev = (el, at, d = 0.45) => { gsap.set(el, { y: 14 }); S.tl.to(el, { opacity: 1, y: 0, duration: d, ease: "power3.out" }, at); };
+
+        Kit.header(S, { header: { mode: "parts", total: 7 }, chapter: "Следующее пожелание", step: 7, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const OK = Kit.token("--k-ok"), INFO = Kit.token("--k-info"), ACC = Kit.token("--k-accent");
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* ---- Цепочка: изменение -> архив -> главные спецификации ---- */
+        const GAP = 64, CY = 215, CH = 140, W1 = 500, W2 = 430, W3 = 1728 - W1 - W2 - 2 * GAP;
+        const CH_DEF = [
+          { cls: "c1", b: "Принятое изменение", s: "baseline-current-state", mono: true, x: 96, at: t("Принятое") + 0.1, w: W1 },
+          { cls: "c2", b: "Архив", s: "на этапе разработки", x: 96 + W1 + GAP, at: t("архивируют"), w: W2 },
+          { cls: "c3", b: "Три главные спецификации", s: "по одной на компонент", x: 96 + W1 + W2 + 2 * GAP, at: t("три главные"), w: W3 },
+        ];
+        CH_DEF.forEach((d, i) => {
+          const a = Kit.aside(S, { parent: s1, x: d.x, y: CY, w: d.w, h: CH, tail: false,
+            html: '<div class="fl ' + d.cls + '"><b>' + d.b + "</b><span" + (d.mono ? ' class="mono"' : "") + ">" + d.s + "</span></div>" });
+          a.el.style.padding = "0 24px";
+          a.el.style.borderColor = [OK, INFO, ACC][i];
+          a.show(d.at);
+          S.tl.to(a.el.querySelector(".fl"), { opacity: 1, duration: 0.3 }, d.at + 0.2);
+          read(d.b + " " + d.s, d.at, DUR);
+          if (i) {
+            const ar = document.createElement("div"); ar.className = "fa"; ar.style.left = d.x - GAP + 4 + "px"; ar.style.top = CY + CH / 2 - 15 + "px";
+            ar.innerHTML = '<svg viewBox="0 0 56 30" width="56" height="30" fill="none"><path d="M3 15H49M39 5L50 15L39 25" stroke="' + Kit.token("--k-text-2") + '" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+            s1.appendChild(ar); S.tl.to(ar, { opacity: 1, duration: 0.3 }, d.at - 0.1);
+          }
+        });
+
+        /* ---- Три главные спецификации, по одной на компонент ---- */
+        const SPW = 560, SPG = 24;
+        ["payment-calculation", "input-validation", "calculator-screen"].forEach((nm, i) => {
+          const a = Kit.aside(S, { parent: s1, x: 96 + i * (SPW + SPG), y: 385, w: SPW, h: 90, tail: false, html: '<div class="sp">' + nm + "</div>" });
+          a.el.style.padding = "0 12px";
+          a.el.style.borderColor = ACC;
+          const at = t("по одной") + i * 0.3;
+          a.show(at);
+          S.tl.to(a.el.querySelector(".sp"), { opacity: 1, duration: 0.3 }, at + 0.2);
+          read(nm, at, DUR);
+        });
+
+        /* ---- Новое изменение поверх ---- */
+        const T_NEW = t("доработку");
+        const nw = Kit.aside(S, { parent: s1, x: 96, y: 565, w: 1728, h: 116, tail: false,
+          html: '<div class="fl c1"><b>Новое изменение</b><span>пример: лимит суммы из системы банка</span></div>' });
+        nw.el.style.padding = "0 28px"; nw.el.style.borderColor = OK;
+        nw.show(T_NEW);
+        S.tl.to(nw.el.querySelector(".fl"), { opacity: 1, duration: 0.3 }, T_NEW + 0.2);
+        read("Новое изменение пример: лимит суммы из системы банка", T_NEW, DUR);
+        const T_UP = t("поверх");
+        const up = document.createElement("div"); up.className = "up"; up.style.top = "490px"; up.style.height = "62px";
+        up.innerHTML = '<svg viewBox="0 0 30 56" fill="none"><path d="M15 53V6M5 16L15 5L25 16" stroke="' + ACC + '" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>поверх</span>';
+        s1.appendChild(up); S.tl.to(up, { opacity: 1, duration: 0.4 }, T_UP);
+        read("поверх", T_UP, DUR);
+
+        /* ---- Плашка-запрет ---- */
+        const T_NO = t("Не смешивайте");
+        const no = Kit.aside(S, { x: 96, y: 697, w: 1728, h: 80, tail: false,
+          html: '<div class="pl"><svg viewBox="0 0 24 24" fill="none" stroke="' + ACC + '" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M6 6l12 12"/></svg><span>Не смешивайте восстановление текущего состояния с новой доработкой</span></div>' });
+        no.el.style.borderColor = ACC;
+        no.show(T_NO);
+        read("Не смешивайте восстановление текущего состояния с новой доработкой", T_NO, DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

@@ -1,0 +1,250 @@
+[
+  {
+    "n": "0m",
+    "duration": 8.1,
+    "chapter": "Зачем это нужно",
+    "step": null,
+    "title": "Карта маршрута",
+    "audio": "assets/vo/scene-0m.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 7
+    },
+    "audioDuration": 6.56
+  },
+  {
+    "n": 0,
+    "duration": 33.3,
+    "chapter": "Зачем это нужно",
+    "step": null,
+    "title": "Зачем это нужно",
+    "audio": "assets/vo/scene-0.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 7
+    },
+    "audioDuration": 31.7
+  },
+  {
+    "n": "0b",
+    "duration": 29.6,
+    "chapter": "Как меняется процесс",
+    "step": null,
+    "title": "Как меняется процесс",
+    "audio": "assets/vo/scene-0b.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 7
+    },
+    "audioDuration": 27.95
+  },
+  {
+    "id": "t1",
+    "kind": "title",
+    "of": 1,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Вход и выход",
+    "step": 1,
+    "title": "Вход и выход",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 7
+    }
+  },
+  {
+    "n": 1,
+    "duration": 23.9,
+    "chapter": "Вход и выход",
+    "step": 1,
+    "title": "Вход и выход",
+    "audio": "assets/vo/scene-1.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 7
+    },
+    "audioDuration": 21.83
+  },
+  {
+    "id": "t2",
+    "kind": "title",
+    "of": 2,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Копия базы и источники",
+    "step": 2,
+    "title": "Копия базы и источники",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 7
+    }
+  },
+  {
+    "n": 2,
+    "duration": 22.8,
+    "chapter": "Копия базы и источники",
+    "step": 2,
+    "title": "Копия базы и источники",
+    "audio": "assets/vo/scene-2.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 7
+    },
+    "audioDuration": 20.75
+  },
+  {
+    "id": "t3",
+    "kind": "title",
+    "of": 3,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Три компонента",
+    "step": 3,
+    "title": "Три компонента",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 7
+    }
+  },
+  {
+    "n": 3,
+    "duration": 19.1,
+    "chapter": "Три компонента",
+    "step": 3,
+    "title": "Три компонента",
+    "audio": "assets/vo/scene-3.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 7
+    },
+    "audioDuration": 17.09
+  },
+  {
+    "id": "t4",
+    "kind": "title",
+    "of": 4,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Черновик модели",
+    "step": 4,
+    "title": "Черновик модели",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 7
+    }
+  },
+  {
+    "n": 4,
+    "duration": 26.5,
+    "chapter": "Черновик модели",
+    "step": 4,
+    "title": "Черновик модели",
+    "audio": "assets/vo/scene-4.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 7
+    },
+    "audioDuration": 24.41
+  },
+  {
+    "id": "t5",
+    "kind": "title",
+    "of": 5,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Шесть расхождений",
+    "step": 5,
+    "title": "Шесть расхождений",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 7
+    }
+  },
+  {
+    "n": 5,
+    "duration": 49,
+    "chapter": "Шесть расхождений",
+    "step": 5,
+    "title": "Шесть расхождений",
+    "audio": "assets/vo/scene-5.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 7
+    },
+    "audioDuration": 46.9
+  },
+  {
+    "id": "t6",
+    "kind": "title",
+    "of": 6,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Проверка и одобрение",
+    "step": 6,
+    "title": "Проверка и одобрение",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 7
+    }
+  },
+  {
+    "n": 6,
+    "duration": 44.5,
+    "chapter": "Проверка и одобрение",
+    "step": 6,
+    "title": "Проверка и одобрение",
+    "audio": "assets/vo/scene-6.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 7
+    },
+    "audioDuration": 42.49
+  },
+  {
+    "id": "t7",
+    "kind": "title",
+    "of": 7,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Следующее пожелание",
+    "step": 7,
+    "title": "Следующее пожелание",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 7
+    }
+  },
+  {
+    "n": 7,
+    "duration": 20.2,
+    "chapter": "Следующее пожелание",
+    "step": 7,
+    "title": "Следующее пожелание",
+    "audio": "assets/vo/scene-7.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 7
+    },
+    "audioDuration": 18.16
+  },
+  {
+    "n": 8,
+    "duration": 22.7,
+    "chapter": "Что дальше",
+    "step": null,
+    "title": "Что дальше",
+    "audio": "assets/vo/scene-8.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 7
+    },
+    "audioDuration": 19.68
+  }
+]

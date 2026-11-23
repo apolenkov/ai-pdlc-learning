@@ -1,0 +1,8 @@
+renders/
+.hopa/
+.hf/
+node_modules/
+.hyperframes/
+work/snaps*/
+work/*.log
+work/critique*

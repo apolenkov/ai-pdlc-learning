@@ -1,0 +1,153 @@
+<template id="scene-07-template">
+  <div data-composition-id="scene-07" data-width="1920" data-height="1080" data-duration="22.2">
+    <style>
+      [data-composition-id="scene-07"] .scp { height: 100%; display: flex; flex-direction: column; gap: 16px; }
+      [data-composition-id="scene-07"] .scp .ttl { font-size: 28px; font-weight: 700; letter-spacing: 0.1em; color: var(--k-text-2); }
+      [data-composition-id="scene-07"] .scp .msg { position: relative; min-height: 112px; border: 2px solid var(--k-line); border-radius: 12px; padding: 12px 16px; background: var(--k-win); font-size: 30px; line-height: 1.3; font-weight: 500; }
+      [data-composition-id="scene-07"] .scp .msg .ph { color: var(--k-text-2); }
+      [data-composition-id="scene-07"] .scp .msg .val { position: absolute; left: 16px; right: 16px; top: 12px; }
+      [data-composition-id="scene-07"] .scp .btn { position: relative; height: 66px; border-radius: 12px; background: var(--k-accent); color: var(--k-on-accent); font-size: 32px; font-weight: 700; }
+      [data-composition-id="scene-07"] .scp .btn span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 12px; }
+      [data-composition-id="scene-07"] .scp .btn svg { width: 34px; height: 34px; }
+      [data-composition-id="scene-07"] .scp .btn .l2 { opacity: 0; }
+      [data-composition-id="scene-07"] .scp .gh { display: flex; justify-content: space-between; align-items: center; font-size: 30px; font-weight: 700; margin-top: 4px; }
+      [data-composition-id="scene-07"] .scp .cnt { position: relative; width: 44px; height: 40px; border-radius: 20px; background: var(--k-panel-2); border: 2px solid var(--k-line); }
+      [data-composition-id="scene-07"] .scp .cnt i { position: absolute; inset: 0; display: grid; place-items: center; font-style: normal; font-size: 28px; font-weight: 700; }
+      [data-composition-id="scene-07"] .scp .cnt i.z { opacity: 0; }
+      [data-composition-id="scene-07"] .scp .list { position: relative; height: 192px; }
+      [data-composition-id="scene-07"] .scp .file { position: absolute; left: 0; right: 0; height: 92px; display: flex; align-items: center; gap: 16px; padding: 0 14px; border-radius: 12px; border: 2px solid transparent; }
+      [data-composition-id="scene-07"] .scp .file .nm { font-size: 30px; font-weight: 600; line-height: 1.2; }
+      [data-composition-id="scene-07"] .scp .file .dir { font-size: 28px; font-weight: 500; color: var(--k-text-2); line-height: 1.2; }
+      [data-composition-id="scene-07"] .scp .file .st { margin-left: auto; font-family: var(--k-font-mono); font-size: 30px; font-weight: 700; }
+      [data-composition-id="scene-07"] .scp .file .st.m { color: var(--k-code-bold); }
+      [data-composition-id="scene-07"] .scp .file .st.u { color: var(--k-ok); }
+      [data-composition-id="scene-07"] .scp .file .cb { position: relative; flex: none; width: 36px; height: 36px; border-radius: 50%; border: 3px solid var(--k-line); display: grid; place-items: center; color: var(--k-ok); }
+      [data-composition-id="scene-07"] .scp .file .cb svg { width: 24px; height: 24px; opacity: 0; }
+      [data-composition-id="scene-07"] .scp .none { position: absolute; left: 0; right: 0; top: 0; display: flex; align-items: center; gap: 16px; height: 92px; font-size: 32px; font-weight: 700; color: var(--k-ok); opacity: 0; }
+      [data-composition-id="scene-07"] .scp .none svg { width: 38px; height: 38px; flex: none; }
+      [data-composition-id="scene-07"] .scp .foot { margin-top: auto; font-family: var(--k-font-mono); font-size: 28px; font-weight: 500; color: var(--k-text-2); white-space: nowrap; }
+      [data-composition-id="scene-07"] .note { height: 100%; display: flex; align-items: center; font-size: 30px; font-weight: 700; line-height: 1.25; letter-spacing: -0.01em; }
+      [data-composition-id="scene-07"] .note b { color: var(--k-accent-soft); margin-right: 10px; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("07"), t = S.t, DUR = 22.2;
+        if (DUR - S.end("задаче") < 1.5) throw new Error("Недостаточный хвост сцены");
+
+        Kit.header(S, { header: { mode: "parts", total: 7 }, chapter: "Сохранить и отправить", step: 7, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const BR = "course/demo/stage-1-error-result";
+        const MSG = "docs: уточнить результат при ошибке ввода";
+
+        /* ---- Панель Source Control (макет) ---- */
+        const T_MSG0 = t("пояснением"), T_MSG1 = S.end("ввода");
+        const T_COMMIT = T_MSG1 + 0.3;
+        const T_SWAP = t("опубликуйте") + 0.1;
+        const T_PUBLISH = S.end("форк") - 0.2;
+        const sc = Kit.aside(S, { x: 96, y: 205, w: 600, h: 604, tail: false,
+          html: '<div class="scp">' +
+            '<div class="ttl">SOURCE CONTROL</div>' +
+            '<div class="msg"><span class="ph">Message</span><span class="val">' + MSG + "</span></div>" +
+            '<div class="btn"><span class="l1">' + Kit.icons.check + 'Commit</span><span class="l2">' + Kit.icons.cloud + "Publish Branch</span></div>" +
+            '<div class="gh"><span>Changes</span><span class="cnt"><i class="two">2</i><i class="z">0</i></span></div>' +
+            '<div class="list">' +
+              '<div class="file f1" style="top:0"><span class="cb">' + Kit.icons.check + '</span><span><div class="nm">specification.md</div></span><span class="st m">M</span></div>' +
+              '<div class="file f2" style="top:98px"><span class="cb">' + Kit.icons.check + '</span><span><div class="nm">clear-calculation-result.md</div><div class="dir">intents</div></span><span class="st u">U</span></div>' +
+              '<div class="none">' + Kit.icons.check + "Изменений нет</div>" +
+            "</div>" +
+            '<div class="foot">' + BR + "</div>" +
+          "</div>" });
+        sc.show(2.1); // the part title overlay covers the first 2 s
+        const q = (sel) => sc.el.querySelector(sel);
+        const f1 = q(".f1"), f2 = q(".f2");
+
+        // выбранный файл подсвечен, пока читаем разницу; на «Выберите» галочки у обоих файлов
+        const SEL = { backgroundColor: Kit.token("--k-accent-tint"), borderColor: Kit.token("--k-accent") };
+        S.tl.to(f1, Object.assign({ duration: 0.4 }, SEL), t("прочитайте"));
+        S.tl.to(f1.querySelector(".cb"), { borderColor: Kit.token("--k-ok"), duration: 0.3 }, t("файл спецификации"));
+        S.tl.to(f1.querySelector("svg"), { opacity: 1, duration: 0.3 }, t("файл спецификации"));
+        S.tl.to(f2, Object.assign({ duration: 0.4 }, SEL), t("свой замысел") - 0.2);
+        S.tl.to(f2.querySelector(".cb"), { borderColor: Kit.token("--k-ok"), duration: 0.3 }, t("свой замысел"));
+        S.tl.to(f2.querySelector("svg"), { opacity: 1, duration: 0.3 }, t("свой замысел"));
+
+        // сообщение коммита печатается по речи
+        S.tl.to(q(".ph"), { opacity: 0, duration: 0.2 }, T_MSG0 - 0.2);
+        // посимвольная печать: маска по ширине открывала бы обе строки сразу (две строки при переносе)
+        const val = q(".val");
+        val.innerHTML = Array.from(MSG).map((c) => '<span class="ch">' + (c === " " ? " " : c) + "</span>").join("");
+        const chs = val.querySelectorAll(".ch");
+        gsap.set(chs, { opacity: 0 });
+        S.tl.to(chs, { opacity: 1, duration: 0.01, stagger: (T_MSG1 - T_MSG0) / chs.length }, T_MSG0);
+
+        // Commit: нажатие, список изменений очищается
+        const btn = q(".btn");
+        S.tl.to(btn, { scale: 0.96, duration: 0.12 }, T_COMMIT).to(btn, { scale: 1, duration: 0.2 }, T_COMMIT + 0.12);
+        S.tl.to([f1, f2], { autoAlpha: 0, duration: 0.35 }, T_COMMIT + 0.2);
+        S.tl.to(q(".cnt .two"), { opacity: 0, duration: 0.25 }, T_COMMIT + 0.2);
+        S.tl.to(q(".cnt .z"), { opacity: 1, duration: 0.25 }, T_COMMIT + 0.2);
+        S.tl.to(q(".none"), { opacity: 1, duration: 0.4 }, T_COMMIT + 0.5);
+        // Commit -> Publish Branch
+        S.tl.to(q(".l1"), { opacity: 0, duration: 0.25 }, T_SWAP);
+        S.tl.to(q(".l2"), { opacity: 1, duration: 0.25 }, T_SWAP + 0.1);
+        S.tl.to(btn, { scale: 0.96, duration: 0.12 }, T_PUBLISH).to(btn, { scale: 1, duration: 0.2 }, T_PUBLISH + 0.12);
+        S.tl.to(btn, { backgroundColor: Kit.token("--k-panel-2"), color: Kit.token("--k-text-2"), duration: 0.4 }, T_PUBLISH + 0.35);
+
+        /* ---- Разница по specification.md (реальный git diff) ---- */
+        const diff = Kit.editor(S, { x: 730, y: 205, w: 1094, crumb: "credit-calculator", visible: false,
+          tabs: [{ name: "specification.md · разница", active: true }],
+          lines: [
+            "+При ошибочном вводе предыдущий результат очищается до «—», а сообщение указывает ошибочное поле.",
+            "…",
+            "+| Успешный расчёт → ошибочный ввод | Сначала 120 000 ₽; 0%; 12 месяцев, затем срок 1,5 месяца | Сначала 10 000 ₽, затем ошибка у поля срока и «—» вместо результата |",
+            "…",
+            "-Сбрасывать ли результат предыдущего расчёта после ошибки?",
+            "+В этом упражнении открытых вопросов нет.",
+          ] });
+        ["13", "", "25", "", "33", "33"].forEach((n, i) => { diff.rows[i].no.textContent = n; });
+        const T_DIFF = t("разницу") - 0.3;
+        diff.show(T_DIFF);
+        diff.reveal(0, 5, T_DIFF + 0.6);
+        diff.caretOff(T_DIFF);
+        diff.mark(0, t("правило"), { tone: "ok" });
+        diff.mark(2, t("сценарий"), { tone: "ok" });
+        diff.mark(4, t("сценарий") + 0.7, { tone: "accent" });
+        diff.mark(5, t("сценарий") + 0.7, { tone: "ok" });
+        const T_DIFF_OUT = T_COMMIT - 0.1;
+        diff.hide(T_DIFF_OUT);
+
+        /* ---- Реальный вывод commit и push ---- */
+        const term = Kit.editor(S, { x: 730, y: 205, w: 1094, crumb: "credit-calculator", visible: false,
+          tabs: [{ name: "Вывод git", active: true }],
+          lines: [
+            "[course/demo/stage-1-error-result 90df6d9] docs: уточнить результат при ошибке ввода",
+            " 2 files changed, 51 insertions(+), 1 deletion(-)",
+            " create mode 100644 intents/clear-calculation-result.md",
+            "To gitlab… · ваш форк",
+            " * [new branch]      course/demo/stage-1-error-result -> course/demo/stage-1-error-result",
+            "branch 'course/demo/stage-1-error-result' set up to track 'origin/course/demo/stage-1-error-result'.",
+          ] });
+        term.el.querySelector(".k-ed-code").style.fontSize = "26px";
+        term.show(T_COMMIT + 0.3);
+        term.caretOff(T_COMMIT);
+        term.reveal(0, 2, T_COMMIT + 0.6);
+        term.reveal(3, 5, T_PUBLISH + 0.3);
+        term.mark(0, T_COMMIT + 0.7, { tone: "ok", off: T_COMMIT + 2.2 });
+        term.mark(4, T_PUBLISH + 0.4, { tone: "ok", off: T_PUBLISH + 2.0 });
+
+        /* ---- Jira и где живут договорённости ---- */
+        const jira = Kit.aside(S, { x: 730, y: 728, w: 480, h: 80, tail: false,
+          html: '<div class="note"><b>Jira:</b><span>одна ссылка на ветку</span></div>' });
+        jira.el.style.borderColor = Kit.token("--k-accent");
+        jira.show(t("джире"));
+        const rule = Kit.aside(S, { x: 1234, y: 728, w: 590, h: 80, tail: false,
+          html: '<div class="note"><span>Договорённости —<br>в спецификации, не в задаче</span></div>' });
+        rule.el.style.borderColor = Kit.token("--k-ok");
+        rule.show(t("Договорённости"));
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

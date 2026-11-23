@@ -1,0 +1,50 @@
+[
+  {
+    "n": 1,
+    "duration": 9.8,
+    "chapter": "Семь этапов PDLC",
+    "title": "Цикл продукта · PDLC",
+    "audioDuration": 8.25,
+    "audio": "assets/vo/scene-01.mp3"
+  },
+  {
+    "n": 2,
+    "duration": 12.6,
+    "chapter": "Как было",
+    "title": "Как было",
+    "audioDuration": 10.93,
+    "audio": "assets/vo/scene-02.mp3"
+  },
+  {
+    "n": 3,
+    "duration": 20,
+    "chapter": "Агенту есть за что зацепиться",
+    "title": "Почему репозиторий",
+    "audioDuration": 18.44,
+    "audio": "assets/vo/scene-03.mp3"
+  },
+  {
+    "n": 4,
+    "duration": 13.2,
+    "chapter": "Агент готовит, человек решает",
+    "title": "Как стало · с ИИ-агентами",
+    "audioDuration": 11.68,
+    "audio": "assets/vo/scene-04.mp3"
+  },
+  {
+    "n": 5,
+    "duration": 11.1,
+    "chapter": "История не теряется",
+    "title": "История не теряется",
+    "audioDuration": 9.55,
+    "audio": "assets/vo/scene-05.mp3"
+  },
+  {
+    "n": 6,
+    "duration": 5.9,
+    "chapter": "Подробнее — в гайде",
+    "title": "Подробнее — в гайде",
+    "audioDuration": 3.29,
+    "audio": "assets/vo/scene-06.mp3"
+  }
+]

@@ -1,0 +1,65 @@
+# The course site on GitHub Pages (https://apolenkov.github.io/ai-pdlc-learning/).
+# Quality gates run locally in pre-push (lefthook.yml); this workflow builds the site with the lesson
+# videos and publishes it. Pull requests build and check the same site without publishing.
+# Repository setting: Settings -> Pages -> Source: GitHub Actions.
+name: pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    permissions:
+      contents: read
+      pages: read
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+      # The lockfile is written by npm from packageManager; `prepare` (lefthook install) is not needed here.
+      - run: npx --yes npm@12.2.0 ci --ignore-scripts --no-audit --no-fund
+      # Lesson videos come from the media release by manifest (size and sha256 checked on download).
+      - run: npm run video:fetch
+      - run: npm run build:site
+        env:
+          PAGES_WITH_VIDEO: '1'
+      # Every film of the course (GUIDE_VIDEOS) is in the site with the size and sha256 of its manifest.
+      - run: node --experimental-strip-types scripts/check-pages-videos.ts dist/site
+      # The uploaded artifact, players and subtitles included: no outside request, build marker or internal name.
+      - run: node --experimental-strip-types scripts/check-published-site.ts dist/site
+      # The publication checks also run here: a change made in the web editor skips the local pre-push hook.
+      - run: node --experimental-strip-types --test scripts/build-learning-pages.test.ts scripts/site-requests.test.ts
+      - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+        if: github.event_name != 'pull_request'
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        if: github.event_name != 'pull_request'
+        with:
+          path: dist/site
+
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

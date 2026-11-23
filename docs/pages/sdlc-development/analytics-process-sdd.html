@@ -1,0 +1,2515 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Как ускорение генерации кода смещает внимание на спецификацию, проверку и весь путь изменения; SDD связывает цель, границы, условия готовности и подтверждения.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='8' fill='seagreen'/%3E%3C/svg%3E">
+  <link rel="stylesheet" data-site-nav-styles href="site-nav.css">
+  <title>Обзор SDD и OpenSpec · AI PDLC Learning</title>
+  <style>
+    :root {
+      --color-paper: #F3F0E8;
+      --color-paper-raised: #FCFAF4;
+      --color-modal-surface: #FFFFFF;
+      --color-ink: #1A202A;
+      --color-ink-raised: #242D3A;
+      --color-text-primary: #1B2028;
+      --color-text-on-dark: #F7F4EC;
+      --color-text-on-green: #BFE8D1;
+      --color-text-secondary: #686760;
+      --color-dark-muted: #9BA5B5;
+      --color-line: #D8D2C6;
+      --color-line-dark: #3A4656;
+      --color-green: #126F5E;
+      --color-green-bright: #4FC58E;
+      --color-amber: #F4AE2B;
+      --color-coral: #A94E3B;
+      --color-dot-muted: #D8D5CB;
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.25rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+      --space-16: 4rem;
+      --space-20: 5rem;
+      --radius-small: 0.5rem;
+      --radius-card: 1.25rem;
+      --radius-panel: 1.75rem;
+      --radius-pill: 999px;
+      --slide-inset: clamp(1.5rem, 6.8vw, 6.5rem);
+      --slide-top: clamp(2rem, 5.2vw, 5rem);
+      --slide-bottom: clamp(2.5rem, 6vw, 5.75rem);
+      --deck-slide-max: 1408px;
+      --deck-page-gutter: 16px;
+      --font-primary: var(--customdev-font-body, Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif);
+      --font-mono: var(--customdev-font-mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace);
+      --ease-emphasis: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    /* Deep links and slide controls must land deterministically below the
+       fixed navigation; animated document scrolling caused a visible jump
+       after first paint and desynchronised the active-slide counter. */
+    html { scroll-behavior: auto; }
+
+    body {
+      margin: 0;
+      background: var(--color-ink);
+      color: var(--color-text-primary);
+      font-family: var(--font-primary);
+      font-size: clamp(0.9rem, 1.1vw, 1.15rem);
+      line-height: 1.45;
+      text-rendering: optimizeLegibility;
+    }
+
+    body.is-presentation { overflow-x: hidden; overflow-y: auto; overflow-anchor: none; }
+
+    button {
+      border: 0;
+      font: inherit;
+    }
+
+    button:focus-visible,
+    a:focus-visible,
+    [tabindex]:focus-visible {
+      outline: 0.2rem solid var(--color-amber);
+      outline-offset: 0.2rem;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .skip-link {
+      position: fixed;
+      z-index: 30;
+      top: var(--space-3);
+      left: var(--space-3);
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+      border: 0;
+      border-radius: var(--radius-small);
+      background: var(--color-amber);
+      color: var(--color-text-primary);
+      font-weight: 760;
+      text-decoration: none;
+    }
+
+    .skip-link:focus { width: auto; height: auto; padding: var(--space-2) var(--space-3); margin: 0; overflow: visible; clip-path: none; white-space: normal; }
+
+    .site-frame {
+      position: relative;
+      z-index: 20;
+      padding-top: 24px;
+      background: var(--color-paper);
+      color: var(--color-text-primary);
+    }
+
+    /* In presentation mode the shared frame overlays the deck. Keeping the
+       frame out of normal flow prevents it from extending a 100dvh slide. */
+    body.is-presentation .site-frame {
+      position: fixed;
+      inset: 0 0 auto;
+      padding: 0;
+      background: transparent;
+      pointer-events: none;
+    }
+
+    body.is-presentation .site-frame .deck-topbar { pointer-events: auto; }
+
+    .topbar-start { display: flex; align-items: center; gap: var(--space-3); min-width: 0; }
+    .home-link { display: inline-flex; align-items: center; gap: var(--space-2); min-height: 2.15rem; padding: var(--space-1) var(--space-3); border: 1px solid var(--color-line); border-radius: var(--radius-pill); color: var(--color-text-primary); background: var(--color-paper); font-size: clamp(0.75rem, 0.74vw, 0.78rem); font-weight: 750; text-decoration: none; white-space: nowrap; }
+    .home-link:hover { border-color: var(--color-green); color: var(--color-green); }
+    .home-link svg { width: 0.9rem; height: 0.9rem; fill: none; stroke: currentColor; stroke-width: 1.7; }
+
+    body.is-presentation .deck-topbar {
+      position: fixed;
+      top: var(--space-4);
+      right: auto;
+      left: 50%;
+      width: min(var(--site-shell-max), calc(100vw - 48px));
+      transform: translateX(-50%);
+      margin: 0;
+    }
+
+    .deck-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      min-width: 0;
+      color: var(--color-text-secondary);
+      font-size: clamp(0.75rem, 0.78vw, 0.82rem);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .deck-brand-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    .brand-mark {
+      display: inline-block;
+      flex: 0 0 auto;
+      width: 0.7rem;
+      height: 0.7rem;
+      border-radius: 50%;
+      background: var(--color-green);
+      box-shadow: 0 0 0 0.2rem var(--color-line);
+    }
+
+    .controls {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+
+    .control-button {
+      display: inline-flex;
+      min-height: 2.25rem;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      border: 1px solid var(--color-line);
+      border-radius: var(--radius-small);
+      background: transparent;
+      color: var(--color-text-primary);
+      cursor: pointer;
+      font-size: clamp(0.75rem, 0.84vw, 0.9rem);
+      font-weight: 700;
+      transition: transform 120ms ease-out, background-color 120ms ease-out, border-color 120ms ease-out;
+    }
+
+    .control-button:hover { border-color: var(--color-green); background: var(--color-paper); }
+    .control-button:active { transform: translateY(1px); }
+    .control-button:disabled { cursor: not-allowed; opacity: 0.42; }
+
+    .control-button--primary { border-color: var(--color-green); background: var(--color-green); color: var(--color-text-on-dark); }
+
+    .control-button--primary:hover { border-color: var(--color-green-bright); background: var(--color-green); }
+
+    .counter {
+      min-width: 4.5rem;
+      padding: 0 var(--space-2);
+      color: var(--color-text-secondary);
+      font-family: var(--font-mono);
+      font-size: clamp(0.75rem, 0.8vw, 0.85rem);
+      text-align: center;
+    }
+
+    .deck-progress {
+      position: fixed;
+      z-index: 21;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 0.25rem;
+      background: var(--color-line);
+    }
+
+    .deck-progress > span {
+      display: block;
+      width: 9.1%;
+      height: 100%;
+      background: var(--color-green);
+      transition: width 240ms ease-in-out;
+    }
+
+    .deck {
+      display: grid;
+      gap: var(--space-6);
+      min-width: 0;
+      width: min(100%, 1440px);
+      margin: 0 auto;
+      padding: var(--space-4) var(--space-4) var(--space-12);
+    }
+
+    body.is-presentation .deck {
+      display: grid;
+      gap: var(--space-6);
+      width: 100%;
+      max-width: none;
+      padding: 0;
+    }
+
+    .slide {
+      position: relative;
+      display: flex;
+      min-width: 0;
+      min-height: min(810px, calc(100dvh - 5rem));
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      padding: var(--slide-top) var(--slide-inset) var(--slide-bottom);
+      border: 1px solid var(--color-line);
+      border-radius: var(--radius-panel);
+      background: var(--color-paper);
+      box-shadow: 0 0 0 1px rgb(31 45 42 / 0.07), 0 0.85rem 2.25rem rgb(31 45 42 / 0.08);
+      color: var(--color-text-primary);
+      isolation: isolate;
+      scroll-margin-top: 0;
+    }
+
+    .slide--dark { border-color: var(--color-line); background: var(--color-paper); color: var(--color-text-primary); }
+
+    .slide--green { border-color: var(--color-line); background: var(--color-paper); color: var(--color-text-primary); }
+
+    body.is-presentation .slide {
+      display: flex;
+      width: 100%;
+      height: auto;
+      min-height: 100dvh;
+      overflow: visible;
+      padding-top: 5.25rem;
+      padding-bottom: 2.75rem;
+      border: 0;
+      border-radius: 0;
+    }
+
+    body.is-presentation .slide.is-active {
+      display: flex;
+      animation: slide-in 240ms ease-in-out both;
+    }
+
+    @keyframes slide-in {
+      from { opacity: 0; transform: translateY(0.5rem); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .slide-head {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-8);
+    }
+
+    .slide-head > div:first-child { max-width: 75%; }
+
+    #slide-1 .slide-head > div:first-child { max-width: 90%; }
+
+    .eyebrow {
+      margin: 0 0 var(--space-3);
+      color: var(--color-text-secondary);
+      font-family: var(--font-mono);
+      font-size: clamp(0.75rem, 0.78vw, 0.82rem);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      line-height: 1.25;
+      text-transform: uppercase;
+    }
+
+    .slide--dark .eyebrow,
+    .slide--green .eyebrow { color: var(--color-green); }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1, h2, h3 {
+      text-wrap: balance;
+    }
+
+    h1 {
+      margin-bottom: var(--space-5);
+      font-size: clamp(2.1rem, 4vw, 4rem);
+      font-weight: 760;
+      letter-spacing: -0.035em;
+      line-height: 1.02;
+    }
+
+    h2 {
+      margin-bottom: var(--space-4);
+      font-size: clamp(1.55rem, 2.5vw, 2.55rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.08;
+    }
+
+    h3 {
+      margin-bottom: var(--space-2);
+      font-size: clamp(1rem, 1.35vw, 1.35rem);
+      font-weight: 720;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .slide-title { margin-bottom: 0; }
+    /* Подзаголовок не прилипает ко второй строке заголовка слайда. */
+    .slide-title + .lead { margin-top: var(--space-4); }
+    .slide-title span { color: var(--color-green); }
+    .slide--dark .slide-title span,
+    .slide--green .slide-title span { color: var(--color-green); }
+
+    .lead {
+      max-width: 47rem;
+      margin-bottom: 0;
+      color: var(--color-text-secondary);
+      font-size: clamp(1.05rem, 1.55vw, 1.55rem);
+      font-weight: 460;
+      letter-spacing: -0.01em;
+      line-height: 1.35;
+      text-wrap: pretty;
+    }
+
+    .slide--dark .lead,
+    .slide--green .lead { color: var(--color-text-secondary); }
+
+    .slide-note {
+      max-width: 20rem;
+      margin: 0;
+      color: var(--color-text-secondary);
+      font-size: clamp(0.75rem, 0.9vw, 0.95rem);
+      text-align: left;
+      text-wrap: pretty;
+    }
+
+    .slide--dark .slide-note,
+    .slide--green .slide-note { color: var(--color-text-secondary); }
+
+    .slide-content {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      align-content: center;
+      gap: var(--space-8);
+      margin: var(--space-8) 0;
+    }
+
+    .slide-footer {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--space-6);
+      color: var(--color-text-secondary);
+      font-size: clamp(0.75rem, 0.9vw, 0.95rem);
+    }
+
+    .slide--dark .slide-footer,
+    .slide--green .slide-footer { color: var(--color-text-secondary); }
+
+    .slide-number {
+      flex: 0 0 auto;
+      font-family: var(--font-mono);
+      font-weight: 650;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      align-items: center;
+      gap: var(--space-6);
+    }
+
+    .hero-title {
+      max-width: 58rem;
+      margin-bottom: var(--space-6);
+      font-size: clamp(2.6rem, 4.8vw, 4.8rem);
+      letter-spacing: -0.055em;
+      line-height: 0.98;
+    }
+
+    .hero-title span { color: var(--color-green); white-space: nowrap; }
+
+    .hero-claim {
+      max-width: 32rem;
+      margin-bottom: var(--space-8);
+      color: var(--color-text-secondary);
+      font-size: clamp(1.15rem, 1.8vw, 1.8rem);
+      line-height: 1.25;
+    }
+
+    .hero-claim strong { color: var(--color-green); font-weight: 760; }
+
+    .hero-visual {
+      padding: var(--space-6);
+      border: 1px solid var(--color-line-dark);
+      border-radius: var(--radius-panel);
+      background: var(--color-ink-raised);
+      box-shadow: inset 0 0 0 1px var(--color-line-dark);
+    }
+
+    .hero-cycle {
+      display: grid;
+      gap: var(--space-3);
+    }
+
+    .hero-cycle-row {
+      display: grid;
+      grid-template-columns: minmax(8rem, 0.9fr) minmax(0, 5fr);
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    .hero-cycle-row + .hero-cycle-row {
+      padding-top: var(--space-3);
+      border-top: 1px solid var(--color-line-dark);
+    }
+
+    .hero-cycle-label {
+      display: grid;
+      gap: var(--space-2);
+      color: var(--color-text-on-dark);
+      font-size: clamp(0.82rem, 1.05vw, 1.08rem);
+      font-weight: 740;
+    }
+
+    .hero-cycle-label strong {
+      color: var(--color-green-bright);
+      font-family: var(--font-mono);
+      font-size: clamp(0.75rem, 0.72vw, 0.76rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero-cycle .stage-rail { gap: var(--space-1); }
+
+    .hero-cycle .stage {
+      min-height: 4.7rem;
+      padding: var(--space-2);
+      border-radius: var(--radius-small);
+    }
+
+    .hero-cycle .stage-label {
+      font-size: clamp(0.75rem, 0.78vw, 0.82rem);
+      letter-spacing: -0.02em;
+    }
+
+    .hero-cycle .stage::after,
+    .hero-cycle .stage::before,
+    .pdlc-board .stage::after,
+    .pdlc-board .stage::before { display: none; }
+
+    .visual-kicker {
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-4);
+      margin-bottom: var(--space-5);
+      color: var(--color-dark-muted);
+      font-family: var(--font-mono);
+      font-size: clamp(0.75rem, 0.78vw, 0.82rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .visual-kicker strong { color: var(--color-green-bright); font-weight: 700; }
+
+    .stage-rail {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: var(--space-2);
+    }
+
+    .stage-rail--five { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    .stage-rail--six { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+
+    .hero-delivery-summary { display: grid; gap: var(--space-2); min-width: 0; }
+    .hero-feedback { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: flex-end; gap: var(--space-2); color: var(--color-dark-muted); font-family: var(--font-mono); font-size: clamp(0.75rem, 0.72vw, 0.76rem); letter-spacing: 0.04em; }
+    .hero-feedback span { color: var(--color-green-bright); font-weight: 700; }
+
+    .stage {
+      position: relative;
+      display: grid;
+      min-width: 0;
+      min-height: 7.2rem;
+      align-content: space-between;
+      gap: var(--space-2);
+      padding: var(--space-3);
+      border: 1px solid var(--color-line);
+      border-radius: var(--radius-card);
+      background: var(--color-paper-raised);
+      color: var(--color-text-primary);
+    }
+
+    .stage::after {
+      position: absolute;
+      top: 50%;
+      right: -0.55rem;
+      width: 0.55rem;
+      height: 1px;
+      background: var(--color-line-dark);
+      content: "";
+      transform: translateY(-50%);
+    }
+
+    .stage::before {
+      position: absolute;
+      top: 50%;
+      right: -0.62rem;
+      width: 0;
+      height: 0;
+      border-top: 0.25rem solid transparent;
+      border-bottom: 0.25rem solid transparent;
+      border-left: 0.32rem solid var(--color-line-dark);
+      content: "";
+      transform: translateY(-50%);
+    }
+
+    .stage:last-child::after { display: none; }
+    .stage:last-child::before { display: none; }
+
+    .stage--active {
+      border-color: var(--color-green);
+      background: var(--color-green);
+      color: var(--color-text-on-dark);
+      box-shadow: inset 0 0 0 0.2rem var(--color-green);
+      animation: active-stage 480ms var(--ease-emphasis) both;
+    }
+
+    .stage--target {
+      border-color: var(--color-green-bright);
+      background: var(--color-green);
+      color: var(--color-text-on-dark);
+    }
+
+    @keyframes active-stage {
+      from { opacity: 0.4; transform: translateY(0.5rem); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Motion follows the reading order: evidence first, then the route and decision. */
+    body.is-presentation .slide.is-active .evidence-card,
+    body.is-presentation .slide.is-active .local-flow .stage,
+    body.is-presentation .slide.is-active .process-card,
+    body.is-presentation .slide.is-active .maturity-card,
+    body.is-presentation .slide.is-active .roadmap-step,
+    body.is-presentation .slide.is-active .decision-box {
+      animation: content-arrive 420ms var(--ease-emphasis) both;
+      animation-delay: calc(var(--motion-order, 0) * 70ms + 90ms);
+    }
+
+    body.is-presentation .slide.is-active .evidence-card:nth-child(1),
+    body.is-presentation .slide.is-active .local-flow .stage:nth-child(1),
+    body.is-presentation .slide.is-active .process-card:nth-child(1),
+    body.is-presentation .slide.is-active .maturity-card:nth-child(1),
+    body.is-presentation .slide.is-active .roadmap-step:nth-child(1) { --motion-order: 1; }
+    body.is-presentation .slide.is-active .evidence-card:nth-child(2),
+    body.is-presentation .slide.is-active .local-flow .stage:nth-child(2),
+    body.is-presentation .slide.is-active .process-card:nth-child(2),
+    body.is-presentation .slide.is-active .maturity-card:nth-child(2),
+    body.is-presentation .slide.is-active .roadmap-step:nth-child(2) { --motion-order: 2; }
+    body.is-presentation .slide.is-active .evidence-card:nth-child(3),
+    body.is-presentation .slide.is-active .local-flow .stage:nth-child(3),
+    body.is-presentation .slide.is-active .process-card:nth-child(3),
+    body.is-presentation .slide.is-active .maturity-card:nth-child(3),
+    body.is-presentation .slide.is-active .roadmap-step:nth-child(3) { --motion-order: 3; }
+    body.is-presentation .slide.is-active .local-flow .stage:nth-child(4),
+    body.is-presentation .slide.is-active .process-card:nth-child(4),
+    body.is-presentation .slide.is-active .roadmap-step:nth-child(4) { --motion-order: 4; }
+    body.is-presentation .slide.is-active .local-flow .stage:nth-child(5),
+    body.is-presentation .slide.is-active .process-card:nth-child(5) { --motion-order: 5; }
+    body.is-presentation .slide.is-active .local-flow .stage:nth-child(6),
+    body.is-presentation .slide.is-active .process-card:nth-child(6) { --motion-order: 6; }
+    body.is-presentation .slide.is-active .local-flow .stage:nth-child(7),
+    body.is-presentation .slide.is-active .process-card:nth-child(7) { --motion-order: 7; }
+
+    body.is-presentation .slide.is-active .stage--active,
+    body.is-presentation .slide.is-active .stage--target,
+    body.is-presentation .slide.is-active .maturity-card--target {
+      animation-name: content-arrive, focus-ring;
+      animation-duration: 420ms, 760ms;
+      animation-delay: calc(var(--motion-order, 0) * 70ms + 90ms), 760ms;
+      animation-iteration-count: 1, 1;
+    }
+
+    body.is-presentation .slide.is-active .process-card::after,
+    body.is-presentation .slide.is-active .stage::after {
+      animation: route-draw 360ms ease-out both;
+      animation-delay: calc(var(--motion-order, 0) * 70ms + 360ms);
+      transform-origin: left center;
+    }
+
+    @keyframes content-arrive {
+      from { opacity: 0; transform: translateY(0.7rem); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes focus-ring {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(43, 122, 88, 0); }
+      50% { box-shadow: 0 0 0 0.28rem rgba(43, 122, 88, 0.22); }
+    }
+
+    @keyframes route-draw {
+      from { opacity: 0; transform: translateY(-50%) scaleX(0); }
+      to { opacity: 1; transform: translateY(-50%) scaleX(1); }
+    }
+
+    .stage-number {
+      color: var(--color-text-secondary);
+      font-family: var(--font-mono);
+      font-size: clamp(0.75rem, 0.86vw, 0.9rem);
+      font-weight: 700;
+    }
+
+    .stage--active .stage-number { color: var(--color-text-on-dark); }
+    .stage--target .stage-number { color: var(--color-text-on-dark); }
+    .stage--active .stage-label,
+    .stage--target .stage-label { color: var(--color-text-on-dark); }
+    .stage--active .card-copy,
+    .stage--target .card-copy { color: var(--color-text-on-dark); opacity: 1; }
+
+    .stage-label {
+      overflow-wrap: anywhere;
+      font-size: clamp(0.75rem, 0.88vw, 0.95rem);
+      font-weight: 720;
+      line-height: 1.15;
+    }
+
+    .hero-visual .stage-label {
+      max-width: 100%;
+      overflow-wrap: normal;
+      font-size: clamp(0.75rem, 0.78vw, 0.82rem);
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+
+    .hero-visual .stage::after {
+      right: -0.5rem;
+      width: 0.5rem;
+    }
+
+    .hero-visual .stage::before {
+      right: -0.58rem;
+      border-top-width: 0.2rem;
+      border-bottom-width: 0.2rem;
+      border-left-width: 0.28rem;
+    }
+
+    .hero-footnote {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      max-width: 54rem;
+      margin-top: var(--space-5);
+      color: var(--color-text-secondary);
+      font-size: clamp(0.76rem, 0.92vw, 0.98rem);
+      text-wrap: pretty;
+    }
+
+    .hero-footnote::before {
+      width: 0.65rem;
+      height: 0.65rem;
+      border-radius: 50%;
+      background: var(--color-green);
+      content: "";
+    }
+
+    .opening-context {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-6);
+    }
+
+    .opening-context article {
+      display: grid;
+      gap: var(--space-2);
+      padding-top: var(--space-4);
+      border-top: 1px solid var(--color-line);
+    }
+
+    .context-label {
+      color: var(--color-green);
+      font-family: var(--font-mono);
+      font-size: clamp(0.75rem, 0.78vw, 0.82rem);
+      font-weight: 760;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .opening-context p {
+      max-width: 38rem;
+      margin: 0;
+      font-size: clamp(0.9rem, 1.1vw, 1.15rem);
+      text-wrap: pretty;
+    }
+
+    .slide-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      margin: 0;
+      padding-top: var(--space-3);
+      border-top: 1px solid var(--color-line);
+    }
+    /* Ссылки слайда и номер «02 / 07» — с одинаковым воздухом на всех слайдах. */
+    .slide > .slide-links + .slide-footer { margin-top: var(--space-6); }
+    .slide-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      color: var(--color-green);
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-underline-offset: .18em;
+    }
+    .evidence-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-2);
+      padding: var(--space-3);
+      border: 1px solid var(--color-line-dark);
+      border-radius: var(--radius-card);
+      background: var(--color-ink-raised);
+      color: var(--color-text-on-dark);
+    }
+    .evidence-strip article { display: grid; gap: .25rem; min-width: 0; padding: var(--space-2); border-left: .18rem solid var(--color-green); }
+    .evidence-strip article:nth-child(2) { border-left-color: var(--color-amber); }
+    .evidence-strip article:nth-child(3) { border-left-color: var(--color-blue); }
+    .evidence-strip strong { font-size: .78rem; }
+    .evidence-strip span { color: var(--color-dark-muted); font-size: 0.75rem; line-height: 1.25; }
+
+    .process-matrix {
+      display: grid;
+      gap: var(--space-2);
+    }
+    .process-matrix-head {
+      display: grid;
+      grid-template-columns: minmax(9rem, 0.7fr) minmax(0, 0.9fr) minmax(0, 1fr) minmax(0, 1fr) minmax(9rem, 0.8fr);
+      gap: var(--space-2);
+      padding: 0 var(--space-3);
+      color: var(--color-text-secondary);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .process-matrix-row {
+      display: grid;
+      grid-template-columns: minmax(9rem, 0.7fr) minmax(0, 0.9fr) minmax(0, 1fr) minmax(0, 1fr) minmax(9rem, 0.8fr);
+      gap: var(--space-2);
+      align-items: stretch;
+      min-width: 0;
+      padding: var(--space-2);
+      border: 1px solid var(--color-line);
+      border-left: .3rem solid var(--color-green);
+      border-radius: var(--radius-card);
+      background: var(--color-paper-raised);
+      box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.42);
+    }
+    /* Лесенка слоёв — только отступом в ячейке «Слой»: остальные столбцы стоят под своими подписями. */
+    .process-layer--2 { border-left-color: #648da5; background: #f1f6f7; }
+    .process-layer--3 { border-left-color: var(--color-green); background: #edf5f0; }
+    .process-layer--4 { border-left-color: var(--color-amber); background: #fbf5e8; }
+    .process-layer--2 > .process-layer-label { padding-left: calc(var(--space-3) + .6rem); }
+    .process-layer--3 > .process-layer-label { padding-left: calc(var(--space-3) + 1.2rem); }
+    .process-layer--4 > .process-layer-label { padding-left: calc(var(--space-3) + 1.8rem); }
+    .process-layer-label,
+    .process-tile { min-width: 0; padding: var(--space-2) var(--space-3); }
+    .process-layer-label { display: grid; align-content: center; gap: .15rem; }
+    .process-layer-label strong { color: var(--color-green); font-size: .8rem; }
+    .process-layer-label span { color: var(--color-text-secondary); font-size: 0.75rem; line-height: 1.2; }
+    .process-tile { display: grid; align-content: center; gap: .2rem; border-left: 1px solid color-mix(in srgb, var(--color-line) 76%, transparent); }
+    .process-tile b { color: var(--color-text-primary); font-size: 0.75rem; }
+    .process-tile span { color: var(--color-text-secondary); font-size: 0.75rem; line-height: 1.25; }
+    .process-tile-pair { display: grid; gap: var(--space-1, .25rem); min-width: 0; }
+    .process-tile-pair .process-tile + .process-tile { border-top: 1px solid color-mix(in srgb, var(--color-line) 76%, transparent); }
+    @media (max-width: 720px) {
+      .process-matrix-head { display: none; }
+      .process-matrix-row { grid-template-columns: minmax(0, 1fr) !important; margin-left: 0 !important; }
+      .process-matrix-row > [data-label]::before { content: attr(data-label); color: var(--color-text-secondary); font-family: var(--font-mono); font-size: 0.7rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+      .process-tile { border-left: 0; border-top: 1px solid color-mix(in srgb, var(--color-line) 76%, transparent); }
+      .process-tile-pair { gap: 0; }
+      /* The «Проверка» label sits in a pair, not in a tile: give it the tile's inline padding (space-2 below 1024px) so it lines up with its neighbours. */
+      .process-tile-pair[data-label]::before { padding-inline: var(--space-2); }
+    }
+    .process-tile--was b { color: var(--color-coral); }
+    .process-tile--was { background: rgb(0 0 0 / 0.025); }
+    .process-tile--quality b { color: var(--color-green); }
+    .process-layer--1 .process-tile--quality b { color: var(--color-coral); }
+    .process-layer--2 .process-tile--quality b { color: #3f6f88; }
+    .process-layer--4 .process-tile--quality b { color: #8a5a12; }
+
+    .meta-links { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+    .meta-links a { color: var(--color-green); font-size: 0.75rem; font-weight: 800; text-underline-offset: .18em; }
+    .meta-flow { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr); gap: var(--space-2); align-items: stretch; grid-column: 1 / -1; }
+    .meta-flow article { display: grid; gap: .25rem; min-width: 0; padding: var(--space-3); border: 1px solid var(--color-line); border-radius: var(--radius-small); background: var(--color-paper); }
+    .meta-flow article span { color: var(--color-green); font-family: var(--font-mono); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; }
+    .meta-flow article strong { font-size: .78rem; }
+    .meta-flow article small { color: var(--color-text-secondary); font-size: 0.75rem; line-height: 1.25; }
+    .meta-flow > span { align-self: center; color: var(--color-green); font-size: 1.2rem; font-weight: 900; }
+    /* Three side-by-side mini-cards are too narrow on a phone: their text left
+       the card. One column; the arrows between the cards point down. */
+    @media (max-width: 560px) {
+      .evidence-strip, .meta-flow { grid-template-columns: minmax(0, 1fr); }
+      .meta-flow > span { justify-self: center; transform: rotate(90deg); }
+    }
+    @media (max-width: 360px) {
+      .opening-context { grid-template-columns: minmax(0, 1fr); }
+    }
+    .maturity-ribbon-wide { min-width: 0; border-color: #9bb6c5 !important; background: #e4f0f2 !important; }
+
+    .local-flow-panel {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .local-flow {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: var(--space-2);
+    }
+
+    .local-flow .stage {
+      min-height: 8rem;
+      align-content: start;
+      padding: var(--space-3);
+    }
+
+    /* Название этапа держит две строки во всём ряду: подписи под ним начинаются на одной высоте. */
+    .local-flow .stage-label {
+      min-height: 2.24em;
+      font-size: clamp(0.75rem, 0.8vw, 0.86rem);
+      line-height: 1.12;
+      overflow-wrap: anywhere;
+      text-wrap: pretty;
+    }
+
+    .local-flow .card-copy {
+      font-size: clamp(0.75rem, 0.76vw, 0.8rem);
+      line-height: 1.25;
+      overflow-wrap: anywhere;
+      text-wrap: pretty;
+    }
+
+    .measurement-path {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--color-line-dark);
+    }
+
+    .measurement-path span {
+      color: var(--color-text-on-dark);
+      font-size: clamp(0.82rem, 1.1vw, 1.12rem);
+      font-weight: 720;
+      text-align: center;
+    }
+
+    .measurement-path span:nth-of-type(2) { color: var(--color-green-bright); }
+    .measurement-path b { color: var(--color-dark-muted); font-family: var(--font-mono); font-weight: 500; }
+
+    .measurement-caption {
+      margin: 0;
+      color: var(--color-dark-muted);
+      font-size: clamp(0.76rem, 0.94vw, 0.96rem);
+      text-align: center;
+      text-wrap: pretty;
+    }
+
+    .measurement-metrics {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: center;
+      gap: var(--space-5);
+      padding: var(--space-4) var(--space-5);
+      border-top: 1px solid var(--color-line-dark);
+    }
+
+    .measurement-metrics strong { color: var(--color-green-bright); font-size: clamp(0.98rem, 1.25vw, 1.28rem); }
+    .measurement-metrics span { color: var(--color-dark-muted); font-size: clamp(0.78rem, 0.98vw, 1rem); text-wrap: pretty; }
+
+    .pdlc-explanation {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-6);
+      padding-top: var(--space-6);
+      border-top: 1px solid var(--color-line);
+    }
+
+    .explanation-block { display: grid; gap: var(--space-2); }
+    .explanation-label { color: var(--color-green); font-size: clamp(0.75rem, 0.78vw, 0.82rem); font-weight: 760; letter-spacing: 0.08em; text-transform: uppercase; }
+    .explanation-block p { margin: 0; font-size: clamp(0.9rem, 1.1vw, 1.15rem); text-wrap: pretty; }
+
+    .pdlc-board {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: var(--space-2);
+    }
+
+    .pdlc-board .stage {
+      min-height: 10rem;
+      background: var(--color-paper-raised);
+    }
+
+    .pdlc-board .stage--active,
+    .pdlc-board .stage--target {
+      background: var(--color-green);
+      color: var(--color-text-on-dark);
+    }
+
+    .pdlc-board .stage .stage-label {
+      font-size: clamp(0.78rem, 1.05vw, 1.05rem);
+      line-height: 1.08;
+      overflow-wrap: break-word;
+      word-break: normal;
+      hyphens: none;
+      text-wrap: pretty;
+    }
+
+    .bottleneck-callout {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: center;
+      gap: var(--space-5);
+      padding: var(--space-5) var(--space-6);
+      border: 1px solid var(--color-green);
+      border-radius: var(--radius-card);
+      background: var(--color-paper-raised);
+      color: var(--color-text-primary);
+    }
+
+    .callout-mark {
+      display: grid;
+      width: 3rem;
+      height: 3rem;
+      place-items: center;
+      border: 1px solid var(--color-green);
+      border-radius: 50%;
+      font-family: var(--font-mono);
+      font-weight: 760;
+    }
+
+    /* Жирным только начало «Учебное исключение:» и «Минимальный первый шаг:», пояснение обычным. */
+    .bottleneck-callout p { max-width: 68ch; margin: 0; color: var(--color-text-primary); font-size: clamp(0.95rem, 1.1vw, 1.05rem); font-weight: 450; line-height: 1.45; text-wrap: pretty; }
+    .bottleneck-callout strong { font-weight: 760; }
+    .bottleneck-callout strong { color: var(--color-green); }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-6);
+    }
+
+    .sdd-loop-column {
+      display: grid;
+      align-content: center;
+      gap: var(--space-3);
+      min-width: 0;
+    }
+
+    .pdlc-feedback {
+      display: grid;
+      gap: var(--space-1);
+      margin: 0;
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--color-green);
+      border-radius: var(--radius-small);
+      background: var(--color-ink-raised);
+    }
+
+    .pdlc-feedback-label {
+      color: var(--color-green-bright);
+      font-family: var(--font-mono);
+      font-size: clamp(0.75rem, 0.82vw, 0.86rem);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .pdlc-feedback p {
+      margin: 0;
+      color: var(--color-dark-muted);
+      font-size: clamp(0.76rem, 0.94vw, 0.96rem);
+      text-wrap: pretty;
+    }
+
+    .definition {
+      display: grid;
+      align-content: center;
+      gap: var(--space-5);
+      padding: clamp(var(--space-5), 4vw, var(--space-8));
+      border: 1px solid var(--color-line-dark);
+      border-radius: var(--radius-panel);
+      background: var(--color-ink-raised);
+    }
+
+    .definition-term {
+      color: var(--color-green-bright);
+      font-family: var(--font-mono);
+      font-size: clamp(1.1rem, 1.8vw, 1.8rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .definition p { margin: 0; color: var(--color-text-on-dark); font-size: clamp(1rem, 1.35vw, 1.35rem); line-height: 1.35; text-wrap: pretty; }
+
+    .definition strong { color: var(--color-green-bright); }
+
+    .definition--proposed {
+      border-color: var(--color-green);
+      background: var(--color-green);
+    }
+
+    .definition--proposed .definition-term,
+    .definition--proposed p,
+    .definition--proposed strong { color: var(--color-text-on-dark); }
+
+    .definition--proposed .spec-anatomy > div {
+      border-color: var(--color-text-on-green);
+      color: var(--color-text-on-green);
+    }
+
+    .definition--proposed .spec-anatomy strong { color: var(--color-text-on-dark); }
+
+    .spec-anatomy {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-2);
+    }
+
+    .spec-anatomy > div {
+      padding: var(--space-3);
+      border: 1px solid var(--color-line-dark);
+      border-radius: var(--radius-small);
+      color: var(--color-dark-muted);
+      font-size: clamp(0.76rem, 0.92vw, 0.98rem);
+    }
+
+    .spec-anatomy strong { display: block; margin-bottom: var(--space-1); color: var(--color-text-on-dark); font-weight: 700; }
+
+    .loop {
+      display: grid;
+      align-content: center;
+      gap: var(--space-2);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .loop li {
+      display: grid;
+      grid-template-columns: 2.5rem minmax(0, 1fr) auto;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--color-line-dark);
+      border-radius: var(--radius-small);
+      background: var(--color-ink-raised);
+    }
+
+    .loop li:nth-child(2), .loop li:nth-child(4) { border-color: var(--color-green); }
+
+    .loop-index {
+      color: var(--color-green-bright);
+      font-family: var(--font-mono);
+      font-weight: 700;
+    }
+
+    .loop-label { color: var(--color-text-on-dark); font-size: clamp(0.85rem, 1.1vw, 1.15rem); font-weight: 680; }
+    .loop-arrow { color: var(--color-dark-muted); font-family: var(--font-mono); }
+
+    .stage-map {
+      display: grid;
+      gap: var(--space-2);
+      padding: var(--space-3);
+      border: 1px solid var(--color-line-dark);
+      border-radius: var(--radius-panel);
+      background: var(--color-ink-raised);
+    }
+
+    .map-row {
+      display: grid;
+      grid-template-columns: minmax(7rem, 0.8fr) minmax(0, 5fr) minmax(8rem, 1fr);
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3);
+      border-bottom: 1px solid var(--color-line-dark);
+    }
+
+    .map-row:last-child { border-bottom: 0; }
+
+    .map-label { color: var(--color-text-on-dark); font-size: clamp(0.82rem, 1.2vw, 1.2rem); font-weight: 740; }
+    .map-note { color: var(--color-dark-muted); font-size: clamp(0.75rem, 0.9vw, 0.95rem); text-wrap: pretty; }
+
+    .map-stages {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: var(--space-1);
+    }
+
+    .map-stage {
+      display: grid;
+      min-height: 4.3rem;
+      align-content: center;
+      gap: var(--space-1);
+      padding: var(--space-2);
+      border: 1px solid var(--color-line-dark);
+      border-radius: var(--radius-small);
+      color: var(--color-dark-muted);
+      font-size: clamp(0.75rem, 0.76vw, 0.8rem);
+      overflow-wrap: anywhere;
+      text-align: center;
+      text-wrap: balance;
+    }
+
+    .map-stage b { color: var(--color-text-on-dark); font-family: var(--font-mono); font-size: clamp(0.75rem, 0.76vw, 0.8rem); }
+    .map-stage--amber { border-color: var(--color-amber); background: var(--color-amber); color: var(--color-text-primary); }
+    .map-stage--amber b { color: var(--color-text-primary); }
+    .map-stage--green { border-color: var(--color-green-bright); background: var(--color-green); color: var(--color-text-on-dark); }
+    .map-stage--green b { color: var(--color-text-on-dark); }
+
+    .map-takeaway {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-6);
+      padding: var(--space-5) var(--space-6);
+      border-top: 1px solid var(--color-line-dark);
+    }
+
+    .map-takeaway strong { color: var(--color-green-bright); font-size: clamp(1rem, 1.35vw, 1.35rem); }
+    .map-takeaway span { color: var(--color-dark-muted); font-size: clamp(0.82rem, 1vw, 1rem); text-align: right; }
+
+    .map-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+      padding: var(--space-2) var(--space-3) 0;
+      color: var(--color-dark-muted);
+      font-size: clamp(0.75rem, 0.82vw, 0.86rem);
+    }
+
+    .map-legend span { display: inline-flex; align-items: center; gap: var(--space-2); }
+
+    .legend-swatch {
+      display: inline-block;
+      width: 0.72rem;
+      height: 0.72rem;
+      border-radius: 50%;
+    }
+
+    .legend-swatch--amber { background: var(--color-amber); }
+    .legend-swatch--green { background: var(--color-green-bright); }
+
+    .evidence-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-3);
+    }
+
+    .evidence-card {
+      display: grid;
+      align-content: start;
+      gap: var(--space-3);
+      min-height: 12.5rem;
+      padding: var(--space-5);
+      border: 1px solid var(--color-line-dark);
+      border-radius: var(--radius-card);
+      background: var(--color-ink);
+      color: var(--color-text-on-dark);
+    }
+
+    .evidence-card--green { border-color: var(--color-green); background: var(--color-green); }
+    .evidence-card--amber { border-color: var(--color-amber); background: var(--color-paper-raised); color: var(--color-text-primary); }
+    .evidence-card h3 { margin: 0; color: var(--color-green-bright); font-size: clamp(1rem, 1.3vw, 1.3rem); }
+    .evidence-card--amber h3 { color: var(--color-text-primary); }
+    .evidence-card p { margin: 0; color: var(--color-dark-muted); font-size: clamp(0.82rem, 1vw, 1rem); text-wrap: pretty; }
+    .evidence-card--green h3,
+    .evidence-card--green .evidence-label,
+    .evidence-card--green p { color: var(--color-text-on-dark); }
+    .evidence-card--amber p { color: var(--color-text-primary); }
+    .evidence-card .evidence-label { color: var(--color-green-bright); font-family: var(--font-mono); font-size: clamp(0.75rem, 0.78vw, 0.82rem); font-weight: 740; letter-spacing: 0.08em; text-transform: uppercase; }
+    .evidence-card--green .evidence-label { color: var(--color-text-on-dark); }
+    .evidence-card--amber .evidence-label { color: var(--color-coral); }
+
+    .source-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-3) var(--space-6);
+      padding-top: var(--space-3);
+      border-top: 1px solid var(--color-line-dark);
+      color: var(--color-text-secondary);
+      font-size: clamp(0.75rem, 0.8vw, 0.84rem);
+    }
+
+    .source-strip strong { color: var(--color-green); font-family: var(--font-mono); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+    .source-strip a { color: var(--color-text-primary); text-decoration-color: var(--color-green); text-underline-offset: 0.18em; }
+    .source-strip a:hover { color: var(--color-green); }
+
+    .maturity-list {
+      display: grid;
+      gap: var(--space-3);
+    }
+
+    .maturity-card {
+      display: grid;
+      grid-template-columns: 4.5rem minmax(0, 1fr) auto;
+      align-items: center;
+      gap: var(--space-5);
+      padding: var(--space-5) var(--space-6);
+      border: 1px solid var(--color-line);
+      border-radius: var(--radius-card);
+      background: var(--color-paper-raised);
+    }
+
+    .maturity-card--target { border-color: var(--color-line-dark); background: var(--color-ink); color: var(--color-text-on-dark); }
+
+    .maturity-number {
+      color: var(--color-text-secondary);
+      font-family: var(--font-mono);
+      font-size: clamp(1.35rem, 2vw, 2rem);
+      font-weight: 700;
+    }
+
+    .maturity-card--target .maturity-number { color: var(--color-dark-muted); }
+    .maturity-title { margin: 0 0 var(--space-1); font-size: clamp(1.05rem, 1.6vw, 1.6rem); font-weight: 720; }
+    .maturity-subtitle { margin: 0; color: var(--color-text-secondary); font-size: clamp(0.78rem, 1vw, 1rem); }
+    .maturity-card--target .maturity-subtitle { color: var(--color-dark-muted); }
+    .maturity-tool { padding: var(--space-2) var(--space-3); border: 1px solid var(--color-line); border-radius: var(--radius-pill); color: var(--color-text-secondary); font-family: var(--font-mono); font-size: clamp(0.75rem, 0.82vw, 0.86rem); white-space: nowrap; }
+    .maturity-card--target .maturity-tool { border-color: var(--color-green); color: var(--color-green-bright); }
+
+    .process-rail {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      align-items: stretch;
+      gap: var(--space-8);
+    }
+
+    .process-card {
+      position: relative;
+      display: grid;
+      align-content: start;
+      gap: var(--space-3);
+      min-height: 13rem;
+      padding: var(--space-6);
+      border: 1px solid var(--color-line);
+      border-radius: var(--radius-card);
+      background: var(--color-paper-raised);
+      transition: transform 120ms ease-out, border-color 120ms ease-out;
+    }
+
+    .process-card:hover, .process-card:focus-within { transform: translateY(-0.2rem); border-color: var(--color-green); }
+
+    .process-card::after {
+      position: absolute;
+      top: 50%;
+      right: -2.1rem;
+      width: 1.7rem;
+      height: 1px;
+      background: var(--color-line);
+      content: "";
+      transform: translateY(-50%);
+    }
+
+    .process-card::before {
+      position: absolute;
+      top: 50%;
+      right: -2.2rem;
+      width: 0;
+      height: 0;
+      border-top: 0.25rem solid transparent;
+      border-bottom: 0.25rem solid transparent;
+      border-left: 0.32rem solid var(--color-line);
+      content: "";
+      transform: translateY(-50%);
+    }
+
+    .process-card:last-child::after { display: none; }
+    .process-card:last-child::before { display: none; }
+
+    .process-card--dark { border-color: var(--color-line-dark); background: var(--color-ink); color: var(--color-text-on-dark); }
+    .process-card--dark::after { background: var(--color-line-dark); }
+    .process-card--dark::before { border-left-color: var(--color-line-dark); }
+    .process-card--green { border-color: var(--color-green); background: var(--color-green); color: var(--color-text-on-dark); }
+
+    .card-role { color: var(--color-green); font-family: var(--font-mono); font-size: clamp(0.75rem, 0.8vw, 0.84rem); font-weight: 740; letter-spacing: 0.08em; text-transform: uppercase; }
+    .process-card--dark .card-role, .process-card--green .card-role { color: var(--color-text-on-green); }
+    .card-title { margin: 0; font-size: clamp(1rem, 1.35vw, 1.35rem); font-weight: 720; line-height: 1.18; text-wrap: pretty; }
+    .card-copy { margin: 0; color: var(--color-text-secondary); font-size: clamp(0.82rem, 1vw, 1rem); text-wrap: pretty; }
+    .process-card--dark .card-copy { color: var(--color-dark-muted); }
+    .process-card--green .card-copy { color: var(--color-text-on-dark); }
+
+    .pros-cons {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: var(--space-10);
+      padding-top: var(--space-6);
+      border-top: 1px solid var(--color-line);
+    }
+
+    .slide--dark .pros-cons { border-color: var(--color-line); }
+    .pros-cons h3 { margin-bottom: var(--space-3); color: var(--color-green); font-family: var(--font-mono); font-size: clamp(0.75rem, 0.86vw, 0.92rem); letter-spacing: 0.1em; text-transform: uppercase; }
+    .pros-cons .minus h3 { color: var(--color-coral); }
+    .pros-cons ul { display: grid; gap: var(--space-2); margin: 0; padding: 0; list-style: none; }
+    .pros-cons li { position: relative; padding-left: var(--space-5); font-size: clamp(0.82rem, 1.05vw, 1.08rem); text-wrap: pretty; }
+    .pros-cons li::before { position: absolute; top: 0.55em; left: 0; width: 0.45rem; height: 0.45rem; border-radius: 50%; background: var(--color-green); content: ""; }
+    .pros-cons .minus li::before { background: var(--color-coral); }
+
+    .wide-process {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: var(--space-3);
+    }
+
+    .wide-process .process-card { min-height: 15rem; padding: var(--space-5); }
+    .wide-process .process-card::after { right: -0.75rem; width: 0.55rem; }
+    .wide-process .process-card::before { right: -0.86rem; }
+
+    .openspec-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.15fr);
+      align-items: stretch;
+      gap: var(--space-3);
+    }
+
+    .openspec-flow > .process-card { min-height: 14rem; padding: var(--space-5); }
+
+    .openspec-fork {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: var(--space-2);
+      min-width: 0;
+    }
+
+    .openspec-fork > span {
+      color: var(--color-dark-muted);
+      font-family: var(--font-mono);
+      font-size: clamp(0.9rem, 1vw, 1rem);
+    }
+
+    .openspec-fork-branches { display: grid; gap: var(--space-2); min-width: 0; }
+
+    .openspec-fork .process-card {
+      min-height: 6.4rem;
+      padding: var(--space-3);
+    }
+
+    .openspec-fork .process-card::after,
+    .openspec-fork .process-card::before { display: none; }
+
+    .openspec-fork .card-role { font-size: clamp(0.75rem, 0.72vw, 0.76rem); }
+    .openspec-fork .card-title { font-size: clamp(0.84rem, 1vw, 1rem); }
+    .openspec-fork .card-copy { font-size: clamp(0.75rem, 0.78vw, 0.82rem); }
+
+    body.is-presentation #slide-1 {
+      min-height: 100dvh;
+      padding-top: 5rem;
+      padding-bottom: 3rem;
+    }
+
+    body.is-presentation #slide-1 .hero-title { margin-bottom: var(--space-4); }
+    body.is-presentation #slide-1 .hero-title { max-width: 70rem; font-size: clamp(2.45rem, 4.1vw, 4.1rem); }
+    body.is-presentation #slide-1 .hero-claim { max-width: 68rem; margin-bottom: var(--space-2); font-size: clamp(1rem, 1.35vw, 1.35rem); line-height: 1.22; }
+    body.is-presentation #slide-1 .hero-claim + .hero-claim { margin-top: var(--space-2); }
+    body.is-presentation #slide-1 .hero-footnote { margin-top: var(--space-3); margin-bottom: var(--space-2); }
+    body.is-presentation #slide-1 .slide-content { gap: var(--space-3); margin: var(--space-3) 0; }
+    body.is-presentation #slide-1 .slide-content > div .lead { max-width: 64rem; font-size: clamp(0.98rem, 1.3vw, 1.3rem); }
+    body.is-presentation #slide-1 .hero-visual { padding: var(--space-4); }
+    body.is-presentation #slide-1 .visual-kicker { margin-bottom: var(--space-3); }
+    body.is-presentation #slide-1 .stage { min-height: 5.5rem; }
+    body.is-presentation #slide-1 .local-flow .stage { align-content: start; }
+    body.is-presentation #slide-1 .local-flow .stage-label {
+      display: block;
+      min-height: 2.24em;
+    }
+    body.is-presentation #slide-1 .local-flow .card-copy {
+      display: block;
+      min-height: 2.5em;
+    }
+
+    .maturity-ribbon {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.5fr);
+      gap: var(--space-2);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      font-variant-numeric: tabular-nums;
+    }
+    .maturity-ribbon li { display: grid; gap: .15rem; padding: var(--space-2) var(--space-3); border: 1px solid var(--color-line); border-radius: var(--radius-small); background: var(--color-paper-raised); }
+    .maturity-ribbon strong { color: var(--color-green); font-family: var(--font-mono); font-size: .82rem; }
+    .maturity-ribbon span { color: var(--color-text-secondary); font-size: 0.75rem; line-height: 1.2; }
+
+    .level-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-3); }
+    /* Колонка: ссылка «Инструкция шага» встаёт вниз карточки, на одну линию у всех трёх. */
+    .level-card { display: flex; flex-direction: column; min-width: 0; gap: var(--space-3); padding: var(--space-4); border: 1px solid var(--color-line); border-radius: var(--radius-card); background: var(--color-paper-raised); }
+    .level-card.is-new { border: 2px solid var(--color-green); }
+    .level-card.is-ai { border-color: #4f7f99; background: #edf4f7; }
+    .level-head { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: var(--space-3); }
+    .level-number { display: grid; min-width: 2.8rem; width: auto; height: 2.4rem; padding-inline: .35rem; place-items: center; border-radius: 999px; background: var(--color-green); color: white; font-family: var(--font-mono); font-weight: 800; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .is-ai .level-number { background: #3f6f88; }
+    .level-head h3 { margin: 0; font-size: clamp(.92rem, 1.15vw, 1.15rem); line-height: 1.12; }
+    .level-head p { margin: .15rem 0 0; color: var(--color-text-secondary); font-size: 0.75rem; line-height: 1.2; }
+    .level-actions { display: grid; grid-template-columns: min-content minmax(0, 1fr); gap: var(--space-2); margin: 0; padding: 0; list-style: none; }
+    .level-actions li { display: grid; grid-column: 1 / -1; grid-template-columns: subgrid; gap: var(--space-2); padding-top: var(--space-2); border-top: 1px solid var(--color-line); }
+    .level-actions b { color: var(--color-green); font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: .05em; text-transform: uppercase; }
+    .level-actions a { color: var(--color-green); text-underline-offset: .18em; }
+    .level-actions span { color: var(--color-text-primary); font-size: clamp(0.75rem, .82vw, 0.84rem); line-height: 1.25; overflow-wrap: anywhere; text-wrap: pretty; }
+    .level-meta { display: flex; flex-wrap: wrap; gap: var(--space-1); }
+    .tool-chip, .state-chip { display: inline-flex; align-items: center; min-height: 1.45rem; padding: .16rem .42rem; border-radius: var(--radius-pill); font-size: 0.75rem; font-weight: 760; }
+    .tool-chip { background: #e4eee9; color: var(--color-green); }
+    .state-chip { border: 1px solid var(--color-line); color: var(--color-text-secondary); }
+    .state-chip.is-new { border-color: var(--color-green); color: var(--color-green); }
+    .state-chip.is-human { border-color: #4f7f99; color: #315f79; }
+    .guide-link { display: inline-flex; align-items: center; justify-content: space-between; gap: var(--space-2); margin-top: auto; padding-top: var(--space-2); border-top: 1px solid var(--color-line); color: var(--color-green); font-size: 0.75rem; font-weight: 800; text-decoration-thickness: 1px; text-underline-offset: .18em; }
+
+    .review-lanes { display: grid; gap: var(--space-3); }
+    .review-lane { display: grid; grid-template-columns: 9rem 1fr auto 1fr auto 1fr; align-items: stretch; gap: var(--space-2); }
+    .review-role, .review-step, .review-gate { display: grid; align-content: center; min-width: 0; padding: var(--space-3); border: 1px solid var(--color-line); border-radius: var(--radius-small); background: var(--color-paper-raised); }
+    .review-role { color: var(--color-green); font-family: var(--font-mono); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; }
+    .review-step strong { font-size: .82rem; }
+    .review-step span { color: var(--color-text-secondary); font-size: 0.75rem; }
+    .review-gate { place-items: center; border-color: var(--color-green); background: #e4eee9; color: var(--color-green); font-size: 0.75rem; font-weight: 800; text-align: center; }
+    .review-arrow { align-self: center; color: var(--color-green); font-weight: 800; }
+
+    .repo-map { display: grid; grid-template-columns: 1.12fr .88fr; gap: var(--space-4); }
+    .repo-core, .repo-services { display: grid; gap: var(--space-3); padding: var(--space-4); border: 1px solid var(--color-line); border-radius: var(--radius-card); background: var(--color-paper-raised); }
+    .repo-core { border: 2px solid var(--color-green); }
+    .repo-title { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); }
+    .repo-title h3 { margin: 0; font-size: 1rem; }
+    .repo-title span { color: var(--color-green); font-family: var(--font-mono); font-size: 0.75rem; font-weight: 800; }
+    .repo-link { color: var(--color-green); font-family: var(--font-mono); font-size: 0.75rem; font-weight: 800; text-underline-offset: .18em; }
+    .file-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2); }
+    .file-tile { padding: var(--space-2); border-left: 2px solid var(--color-green); background: var(--color-paper); }
+    .file-tile code { display: block; overflow-wrap: anywhere; color: var(--color-green); font-size: 0.75rem; font-weight: 800; }
+    .file-tile span { display: block; margin-top: .18rem; color: var(--color-text-secondary); font-size: 0.75rem; line-height: 1.2; }
+    .service-list { display: grid; gap: var(--space-2); }
+    .service-item { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-2); padding: var(--space-2); border: 1px dashed var(--color-line); border-radius: var(--radius-small); }
+    .service-item b { color: var(--color-green); font-family: var(--font-mono); font-size: 0.75rem; }
+    .service-item span { color: var(--color-text-secondary); font-size: 0.75rem; line-height: 1.2; }
+    .meta-guide { display: grid; gap: .22rem; padding: var(--space-2) var(--space-3); border-left: 2px solid var(--color-amber); background: #fbf5e8; }
+    .meta-guide strong { color: var(--color-text-primary); font-size: 0.75rem; }
+    .meta-guide span { color: var(--color-green); font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; }
+    .meta-guide small { color: var(--color-text-secondary); font-size: 0.75rem; line-height: 1.25; }
+
+    .rollout-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-3); }
+    .rollout-card { position: relative; display: grid; align-content: start; gap: var(--space-3); padding: var(--space-4); border: 1px solid var(--color-line); border-radius: var(--radius-card); background: var(--color-paper-raised); }
+    .rollout-card:not(:last-child)::after { position: absolute; top: 50%; right: -.85rem; content: "→"; color: var(--color-green); font-weight: 900; transform: translateY(-50%); }
+    .rollout-card strong { font-size: 1rem; }
+    .rollout-card p { margin: 0; color: var(--color-text-secondary); font-size: .76rem; }
+    .rollout-card ul { display: grid; gap: var(--space-1); margin: 0; padding-left: 1rem; color: var(--color-text-primary); font-size: 0.75rem; }
+
+    @media (max-width: 1300px) {
+      .level-card { padding: var(--space-3); }
+      .level-actions span { font-size: 0.75rem; }
+      .review-lane { grid-template-columns: 7rem 1fr auto 1fr auto 1fr; }
+    }
+
+    .roadmap {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-3);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: roadmap;
+    }
+
+    .roadmap-step {
+      position: relative;
+      display: grid;
+      align-content: start;
+      gap: var(--space-3);
+      min-height: 14rem;
+      padding: var(--space-5);
+      border: 1px solid var(--color-line);
+      border-radius: var(--radius-card);
+      background: var(--color-paper-raised);
+      counter-increment: roadmap;
+    }
+
+    .roadmap-step::before {
+      content: counter(roadmap, decimal-leading-zero);
+      color: var(--color-green);
+      font-family: var(--font-mono);
+      font-size: clamp(1.15rem, 1.7vw, 1.75rem);
+      font-weight: 720;
+    }
+
+    .roadmap-time { color: var(--color-coral); font-family: var(--font-mono); font-size: clamp(0.75rem, 0.8vw, 0.84rem); font-weight: 740; letter-spacing: 0.08em; text-transform: uppercase; }
+    .roadmap-step h3 { margin: 0; }
+    .roadmap-step p { margin: 0; color: var(--color-text-secondary); font-size: clamp(0.78rem, 0.98vw, 1rem); text-wrap: pretty; }
+    .evidence { margin-top: auto; padding-top: var(--space-3); border-top: 1px solid var(--color-line); color: var(--color-text-primary); font-size: clamp(0.75rem, 0.88vw, 0.92rem); font-weight: 650; text-wrap: pretty; }
+    .evidence-label { color: var(--color-green); }
+
+    .practice-strip {
+      display: grid;
+      gap: var(--space-3);
+      padding-top: var(--space-5);
+      border-top: 1px solid var(--color-line);
+    }
+
+    .practice-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-4); }
+    .practice-head h3 { margin: 0; color: var(--color-green); font-family: var(--font-mono); font-size: clamp(0.75rem, 0.86vw, 0.92rem); letter-spacing: 0.1em; text-transform: uppercase; }
+    .practice-head p { margin: 0; color: var(--color-text-secondary); font-size: clamp(0.75rem, 0.9vw, 0.94rem); }
+
+    .practice-steps {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: var(--space-2);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: practice;
+    }
+
+    .practice-steps li {
+      display: grid;
+      align-content: start;
+      gap: var(--space-1);
+      min-height: 4.5rem;
+      padding: var(--space-2);
+      border-left: 2px solid var(--color-green);
+      counter-increment: practice;
+    }
+
+    .practice-steps li::before { content: counter(practice); color: var(--color-green); font-family: var(--font-mono); font-weight: 700; }
+    .practice-steps span { font-size: clamp(0.75rem, 0.8vw, 0.84rem); text-wrap: pretty; }
+    .practice-steps .practice-step--branch { grid-column: span 2; }
+    .practice-branch { display: grid; gap: 0.18rem; margin-top: var(--space-1); }
+    .practice-route { display: block; padding-left: var(--space-2); border-left: 1px solid var(--color-line); line-height: 1.16; }
+    .practice-route strong { color: var(--color-text-primary); font-weight: 720; }
+    .practice-route .code { font-size: 0.9em; }
+    .code { color: var(--color-green); font-family: var(--font-mono); font-size: 0.92em; font-weight: 650; }
+
+    .tools-line {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      margin: 0;
+      color: var(--color-text-secondary);
+      font-size: clamp(0.75rem, 0.88vw, 0.92rem);
+    }
+
+    .tools-line strong { color: var(--color-text-primary); }
+
+    .matrix-wrap { overflow-x: auto; border: 1px solid var(--color-line-dark); border-radius: var(--radius-panel); }
+    .matrix { width: 100%; border-collapse: collapse; min-width: 42rem; }
+    .matrix th, .matrix td { padding: var(--space-4) var(--space-5); border-right: 1px solid var(--color-line-dark); border-bottom: 1px solid var(--color-line-dark); text-align: center; vertical-align: middle; }
+    .matrix th:last-child, .matrix td:last-child { border-right: 0; }
+    .matrix tr:last-child td { border-bottom: 0; }
+    .matrix th { color: var(--color-text-secondary); font-size: clamp(0.75rem, 0.9vw, 0.95rem); font-weight: 700; }
+    .matrix td:first-child, .matrix th:first-child { width: 28%; text-align: left; }
+    .matrix td:first-child strong { display: block; color: var(--color-text-primary); font-size: clamp(0.9rem, 1.1vw, 1.15rem); }
+    .matrix td:first-child span { color: var(--color-text-secondary); font-size: clamp(0.75rem, 0.84vw, 0.88rem); }
+    .matrix tr.target { background: var(--color-ink-raised); }
+    .matrix tr.target td:first-child strong { color: var(--color-green-bright); }
+    .matrix tr.target td:first-child span { color: var(--color-dark-muted); }
+    .dots { display: inline-flex; gap: var(--space-1); }
+    .dot { width: 0.7rem; height: 0.7rem; border-radius: 50%; background: var(--color-dot-muted); }
+    .dot.is-on { background: var(--color-green-bright); }
+    .dot.is-warm { background: var(--color-amber); }
+    .metric-status { display: inline-flex; color: var(--color-amber); font-family: var(--font-mono); font-size: clamp(0.75rem, 0.8vw, 0.84rem); font-weight: 740; letter-spacing: 0.04em; text-transform: uppercase; }
+    .matrix tr.target .metric-status { color: var(--color-amber); }
+
+    .decision-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(15rem, 0.9fr); align-items: end; gap: var(--space-8); }
+    .decision-title { max-width: 50rem; margin-bottom: var(--space-4); font-size: clamp(2rem, 4.5vw, 4.5rem); font-weight: 760; letter-spacing: -0.055em; line-height: 0.98; }
+    .decision-title span { color: var(--color-green); }
+    .decision-copy { max-width: 42rem; margin: 0; color: var(--color-text-secondary); font-size: clamp(0.95rem, 1.3vw, 1.3rem); text-wrap: pretty; }
+    .decision-box { display: grid; gap: var(--space-3); padding: var(--space-6); border: 1px solid var(--color-green-bright); border-radius: var(--radius-card); background: var(--color-green); }
+    .decision-box small { color: var(--color-text-on-dark); font-family: var(--font-mono); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+    .decision-box strong { color: var(--color-text-on-dark); font-size: clamp(1.05rem, 1.5vw, 1.5rem); line-height: 1.2; }
+    .decision-box span { color: var(--color-text-on-dark); font-size: clamp(0.78rem, 0.96vw, 1rem); opacity: 0.86; text-wrap: pretty; }
+
+    .overview {
+      position: fixed;
+      z-index: 26;
+      top: 50%;
+      left: 50%;
+      width: min(var(--deck-slide-max), calc(100vw - (2 * var(--deck-page-gutter))));
+      max-height: min(72dvh, 44rem);
+      display: none;
+      overflow: auto;
+      padding: var(--space-8);
+      border: 1px solid var(--color-line);
+      border-radius: var(--radius-panel);
+      background: var(--color-paper);
+      color: var(--color-text-primary);
+      box-shadow: 0 1.5rem 5rem rgb(20 28 24 / 0.24);
+      transform: translate(-50%, -50%);
+    }
+
+    .overview.is-open { display: block; }
+    .overview-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-6); }
+    .overview-head h2 { margin: 0; }
+    .overview-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-3); }
+    .overview-item { display: grid; min-height: 8rem; align-content: space-between; gap: var(--space-3); padding: var(--space-4); border: 1px solid var(--color-line); border-radius: var(--radius-card); background: var(--color-paper-raised); color: var(--color-text-primary); cursor: pointer; text-align: left; transition: transform 120ms ease-out, border-color 120ms ease-out; }
+    .overview-item:hover { transform: translateY(-0.2rem); border-color: var(--color-green); }
+    .overview-item.is-current { border-color: var(--color-amber); }
+    .overview-item span { color: var(--color-text-secondary); font-family: var(--font-mono); font-size: clamp(0.75rem, 0.78vw, 0.82rem); }
+    .overview-item strong { font-size: clamp(0.86rem, 1.05vw, 1.08rem); line-height: 1.2; text-wrap: pretty; }
+    .overview-scrim {
+      position: fixed;
+      z-index: 25;
+      inset: 0;
+      display: none;
+      background: rgb(20 28 24 / 0.52);
+    }
+    .overview-scrim.is-open { display: block; }
+    .speaker-scrim {
+      position: fixed;
+      z-index: 25;
+      inset: 0;
+      display: none;
+      background: rgb(20 28 24 / 0.52);
+    }
+    .speaker-scrim.is-open { display: block; }
+    .speaker-panel {
+      position: fixed;
+      z-index: 26;
+      top: calc(var(--site-nav-reserve) + var(--space-4));
+      right: auto;
+      bottom: var(--space-6);
+      left: 50%;
+      display: none;
+      width: min(var(--deck-slide-max), calc(100vw - (2 * var(--deck-page-gutter))));
+      overflow: auto;
+      padding: var(--space-8);
+      border: 1px solid var(--color-line);
+      border-radius: var(--radius-panel);
+      background: var(--color-modal-surface);
+      color: var(--color-text-primary);
+      box-shadow: 0 1.5rem 5rem rgb(20 28 24 / 0.24);
+      transform: translateX(-50%);
+    }
+    .speaker-panel.is-open { display: block; }
+    .speaker-head { display: flex; align-items: start; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-6); }
+    .speaker-head h2 { margin: 0; font-size: clamp(1.55rem, 2.2vw, 2.25rem); }
+    .speaker-head p { margin: var(--space-1) 0 0; color: var(--color-text-secondary); font-family: var(--font-mono); font-size: 0.78rem; }
+    .speaker-content { display: grid; gap: var(--space-5); }
+    .speaker-section { display: grid; gap: var(--space-2); padding-left: var(--space-4); border-left: 0.22rem solid var(--color-green); }
+    .speaker-section--boundary { border-left-color: var(--color-amber); }
+    .speaker-section h3 { margin: 0; color: var(--color-text-secondary); font-size: 0.76rem; letter-spacing: 0.08em; text-transform: uppercase; }
+    .speaker-section p { max-width: 72ch; margin: 0; font-size: clamp(0.96rem, 1.15vw, 1.12rem); line-height: 1.58; }
+
+    @media (min-width: 1024px) and (max-width: 1300px) {
+      .hero-visual .stage { padding: var(--space-2); }
+      .hero-visual .stage-label {
+        font-size: clamp(0.75rem, 0.78vw, 0.82rem);
+        letter-spacing: -0.02em;
+      }
+      body.is-presentation #slide-3 .map-takeaway { padding-block: var(--space-3); }
+    }
+
+    @media (min-width: 1024px) and (max-height: 850px) {
+      body.is-presentation .deck-topbar { top: var(--space-2); }
+
+      body.is-presentation .slide {
+        padding-top: 4.25rem;
+        padding-bottom: 1.75rem;
+      }
+
+      body.is-presentation .slide:not(#slide-1) .slide-content {
+        gap: var(--space-5);
+        margin-block: var(--space-5);
+      }
+
+      body.is-presentation #slide-3 .definition {
+        gap: var(--space-3);
+        padding: var(--space-6);
+      }
+
+      body.is-presentation #slide-3 .spec-anatomy > div {
+        padding: var(--space-2);
+      }
+
+      body.is-presentation #slide-3 .loop li {
+        gap: var(--space-3);
+        padding: var(--space-2) var(--space-3);
+      }
+
+    }
+
+    @media (min-width: 1024px) and (max-height: 760px) {
+      /* Keep the agreed desktop deck usable at the smallest supported
+         presentation viewport without changing the 100% desktop layout. */
+      body.is-presentation .slide {
+        padding-top: 4.75rem !important;
+        padding-bottom: 1rem !important;
+      }
+      body.is-presentation .slide:not(#slide-1) .slide-content {
+        gap: var(--space-3);
+        margin-block: var(--space-3);
+      }
+      body.is-presentation .slide-links { padding-top: var(--space-2); }
+      body.is-presentation #slide-1 .hero-title { margin-bottom: var(--space-3); font-size: clamp(2.2rem, 3.5vw, 3.5rem); }
+      body.is-presentation #slide-1 .hero-claim { font-size: 1rem; }
+      body.is-presentation #slide-1 .hero-footnote { margin-top: var(--space-2); }
+      body.is-presentation #slide-1 .opening-context { gap: var(--space-3); }
+      body.is-presentation #slide-1 .stage-map { gap: var(--space-2); padding: var(--space-3); }
+      body.is-presentation #slide-1 .local-flow .stage { min-height: 5.25rem; padding: var(--space-2); }
+      body.is-presentation #slide-1 .stage-map { padding: var(--space-2); }
+      body.is-presentation #slide-1 .evidence-strip { padding: var(--space-2); }
+      body.is-presentation #slide-2 .slide-content { gap: var(--space-3); margin-block: var(--space-3); }
+      body.is-presentation #slide-2 .definition { gap: var(--space-3); padding: var(--space-5); }
+      body.is-presentation #slide-6 .repo-map { gap: var(--space-2); }
+      body.is-presentation #slide-6 .repo-core,
+      body.is-presentation #slide-6 .repo-services { gap: var(--space-2); padding: var(--space-2); }
+      body.is-presentation #slide-6 .file-grid,
+      body.is-presentation #slide-6 .service-list { gap: var(--space-1); }
+      body.is-presentation #slide-6 .meta-flow article { padding: var(--space-2); }
+      body.is-presentation #slide-7 .rollout-grid { gap: var(--space-2); }
+      body.is-presentation #slide-7 .rollout-card { padding: var(--space-3); }
+      body.is-presentation #slide-7 .bottleneck-callout { gap: var(--space-3); padding: var(--space-3) var(--space-4); }
+      body.is-presentation #slide-3 .definition { gap: var(--space-2); padding: var(--space-5); }
+      body.is-presentation #slide-3 .loop { gap: var(--space-1); }
+      body.is-presentation #slide-3 .loop li { gap: var(--space-2); padding: var(--space-1) var(--space-2); }
+    }
+
+    @media (min-width: 1024px) {
+      body.is-presentation { overflow: hidden; }
+      body.is-presentation .deck { overflow: hidden; }
+      body.is-presentation .slide { overflow: hidden; }
+    }
+
+    @media (min-width: 1024px) and (max-width: 1300px) {
+      body.is-presentation #slide-2 .slide-content {
+        gap: var(--space-4);
+        margin: var(--space-4) 0;
+      }
+      body.is-presentation #slide-5 .slide-content { gap: var(--space-3); margin: var(--space-3) 0; }
+      body.is-presentation #slide-5 .stage-map { gap: var(--space-1); padding: var(--space-2); }
+      body.is-presentation #slide-5 .map-row { padding: var(--space-2); }
+      body.is-presentation #slide-5 .map-stage { min-height: 3.8rem; padding: var(--space-1); }
+      body.is-presentation #slide-5 .map-legend { padding-top: var(--space-1); }
+      body.is-presentation #slide-5 .map-takeaway { padding-block: var(--space-3); }
+    }
+
+    @media (max-width: 1023px) {
+      .deck-progress { display: none; }
+      .local-flow .stage { padding-inline: var(--space-2); }
+      /* P11-768: seven fractional columns are narrower than the longest stage word on a tablet,
+         so the deck wraps them into rows instead of breaking words between letters. */
+      .local-flow { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .level-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .slide { padding-top: max(var(--slide-top), 5.5rem); }
+      body.is-presentation { overflow-x: hidden; overflow-y: auto; }
+      body.is-presentation .deck-topbar {
+        top: var(--space-2);
+        right: var(--space-2);
+        left: var(--space-2);
+        width: auto;
+        transform: none;
+      }
+      body.is-presentation .deck { padding: 0; }
+      body.is-presentation .slide {
+        height: auto;
+        min-height: 100dvh;
+        overflow: visible;
+        padding-top: calc(6rem + var(--slide-top));
+      }
+      .slide-head { display: block; }
+      .slide-head > div:first-child,
+      #slide-1 .slide-head > div:first-child { max-width: none; }
+      .slide-note { max-width: 38rem; margin-top: var(--space-4); text-align: left; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-visual { max-width: 56rem; }
+      .hero-cycle-row { grid-template-columns: 1fr; gap: var(--space-2); }
+      .stage-rail { grid-template-columns: repeat(7, minmax(5.1rem, 1fr)); }
+      .pdlc-board { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .process-matrix-head, .process-matrix-row { grid-template-columns: minmax(7.5rem, .8fr) minmax(0, .9fr) minmax(0, 1fr) minmax(0, 1fr) minmax(6rem, .8fr); gap: var(--space-1); }
+      .process-tile, .process-layer-label { padding: var(--space-2) var(--space-1); }
+      .pdlc-board .stage:nth-child(4)::after,
+      .pdlc-board .stage:nth-child(4)::before { display: none; }
+      .pdlc-board .stage-label { overflow-wrap: normal; word-break: normal; hyphens: none; text-wrap: pretty; }
+      .matrix { min-width: 0; }
+      .matrix th, .matrix td { padding: var(--space-3) var(--space-2); }
+      .map-row {
+        grid-template-columns: minmax(8rem, 0.8fr) minmax(0, 3fr);
+        align-items: start;
+      }
+      .map-stages { grid-column: 2; }
+      .map-note { grid-column: 1 / -1; }
+      .wide-process { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .wide-process .process-card:last-child { grid-column: span 2; }
+      .wide-process .process-card:nth-child(3)::after { display: none; }
+      .roadmap { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .practice-steps { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .overview-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
+    /* P11-768: just above the tablet breakpoint the seven stage columns keep 12px padding and one
+       stage word no longer fits; the tablet padding carries over while the slide is still narrow. */
+    @media (min-width: 1024px) and (max-width: 1180px) {
+      .local-flow .stage { padding-inline: var(--space-2); }
+    }
+
+    @media (max-width: 767px) {
+      body { background: var(--color-paper); }
+      .deck-topbar { position: sticky; top: var(--space-2); width: calc(100% - var(--space-4)); margin-bottom: var(--space-2); }
+      .deck-brand { flex: 1 1 auto; max-width: none; min-width: 0; }
+      .deck-brand-label { font-size: 0; }
+      .deck-brand-label::after { content: "Аналитика"; font-size: 0.75rem; letter-spacing: 0.02em; }
+      .control-button { padding: var(--space-2); }
+      .control-button span { display: none; }
+      .counter { min-width: 3.7rem; }
+      .deck { gap: var(--space-4); padding: 0 var(--space-2) var(--space-8); }
+      .slide { min-height: 42rem; overflow: visible; padding: var(--space-12) var(--space-5) var(--space-10); padding-top: 5.5rem; border-radius: var(--radius-card); }
+      body.is-presentation { overflow-x: hidden; overflow-y: auto; }
+      body.is-presentation .deck-topbar { position: fixed; top: var(--space-2); right: var(--space-2); left: var(--space-2); width: auto; }
+      body.is-presentation .deck { padding: 0; }
+      body.is-presentation .slide { min-height: 100dvh; height: auto; overflow: visible; padding-top: calc(6rem + var(--space-12)); }
+      .slide-head { display: block; }
+      .slide-head > div:first-child { max-width: none; }
+      .slide-note { max-width: 28rem; margin-top: var(--space-4); text-align: left; }
+      .slide-content { margin: var(--space-8) 0; }
+      .slide-footer { display: block; }
+      .slide-footer > span:last-child { display: block; margin-top: var(--space-2); }
+      .hero-title { font-size: clamp(2.35rem, 11.5vw, 4.5rem); }
+      .hero-grid { gap: var(--space-8); }
+      .hero-visual { padding: var(--space-4); }
+      .hero-cycle-row { gap: var(--space-2); }
+      .hero-cycle .stage-label { white-space: normal; }
+      .stage-rail, .pdlc-board { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .pdlc-board .stage .stage-label { font-size: clamp(0.82rem, 3.5vw, 1rem); }
+      .hero-visual .stage-label { font-size: clamp(0.82rem, 3.5vw, 1rem); letter-spacing: -0.02em; }
+      .stage { min-height: 6.4rem; }
+      .stage::after { display: none; }
+      .stage::before { display: none; }
+      .pdlc-explanation, .two-column, .pros-cons, .decision-grid { grid-template-columns: 1fr; }
+      .repo-map, .rollout-grid { grid-template-columns: 1fr; }
+      .repo-core, .repo-services, .rollout-card { min-width: 0; }
+      .rollout-card:not(:last-child)::after {
+        top: auto;
+        right: auto;
+        bottom: -1.15rem;
+        left: 50%;
+        content: "↓";
+        transform: translateX(-50%);
+      }
+      .bottleneck-callout { align-items: start; }
+      .stage-map { padding: var(--space-2); }
+      .map-row { grid-template-columns: 1fr; gap: var(--space-2); }
+      .map-stages, .map-note { grid-column: 1; }
+      .map-stages { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .map-stage { min-width: 0; overflow-wrap: anywhere; font-size: clamp(0.75rem, 2.2vw, 0.78rem); }
+      .map-stage b { font-size: clamp(0.75rem, 1.7vw, 0.75rem); }
+      .map-note { text-align: left; }
+      .map-takeaway { display: block; }
+      .map-takeaway span { display: block; margin-top: var(--space-2); text-align: left; }
+      /* The seven-step explanatory routes are readable as a vertical
+         sequence on a phone. Keeping seven fractional columns here makes
+         every label narrower than its own word and creates hidden overflow
+         inside the cards. */
+      .local-flow { grid-template-columns: 1fr; }
+      .local-flow .stage { min-width: 0; min-height: auto; }
+      .evidence-grid { grid-template-columns: 1fr; }
+      .maturity-ribbon { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .maturity-ribbon li { min-width: 0; overflow-wrap: anywhere; }
+      .level-grid { grid-template-columns: 1fr; }
+      .level-actions li { grid-template-columns: 1fr; }
+      .level-actions b { min-width: 0; }
+      .review-lane { grid-template-columns: 1fr; gap: var(--space-2); }
+      .review-arrow { justify-self: center; transform: rotate(90deg); }
+      /* The slide controls may remain horizontally scrollable, but their
+         overflow belongs to this action strip and must not become document
+         width on narrow screens. */
+      .site-page-actions { contain: paint; }
+      .maturity-card { grid-template-columns: 3rem minmax(0, 1fr); gap: var(--space-3); padding: var(--space-4); }
+      .maturity-tool { grid-column: 2; justify-self: start; }
+      .process-rail, .wide-process, .roadmap { grid-template-columns: 1fr; }
+      .wide-process .process-card:last-child { grid-column: auto; }
+      .wide-process .process-card:nth-child(3)::after { display: block; }
+      .process-card, .wide-process .process-card, .roadmap-step { min-height: auto; }
+      .process-card::after, .wide-process .process-card::after { top: auto; right: auto; bottom: -1.15rem; left: 50%; width: 0; height: 0; border-top: 0.38rem solid var(--color-line); border-right: 0.28rem solid transparent; border-bottom: 0; border-left: 0.28rem solid transparent; transform: translateX(-50%); }
+      .process-card::before, .wide-process .process-card::before { display: none; }
+      .process-card--dark::after, .wide-process .process-card--dark::after { border-top-color: var(--color-line-dark); border-left-color: transparent; }
+      .process-card:last-child::after, .wide-process .process-card:last-child::after { display: none; }
+      /* Slide 9 keeps the five-step flow on wide screens, but becomes a
+         readable vertical route on phones instead of squeezing cards into
+         unusable narrow columns. The fork remains one semantic step with
+         two stacked branches. */
+      .openspec-flow { grid-template-columns: 1fr; gap: var(--space-6); }
+      .openspec-flow > .process-card { min-height: auto; padding: var(--space-5); }
+      .openspec-fork { grid-template-columns: 1fr; gap: var(--space-2); }
+      .openspec-fork > span { justify-self: center; transform: rotate(90deg); }
+      .openspec-fork-branches { width: 100%; }
+      .practice-head { display: block; }
+      .practice-head p { margin-top: var(--space-2); }
+      .practice-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .matrix-wrap { margin-inline: calc(var(--space-2) * -1); overflow: visible; border: 0; border-radius: 0; }
+      .matrix { display: block; min-width: 0; }
+      .matrix thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+      .matrix tbody { display: grid; gap: var(--space-3); }
+      .matrix tr,
+      .matrix tr.target {
+        display: grid;
+        gap: var(--space-2);
+        padding: var(--space-4);
+        border: 1px solid var(--color-line-dark);
+        border-radius: var(--radius-card);
+        background: var(--color-paper-raised);
+      }
+      .matrix tr.target { background: var(--color-ink-raised); }
+      .matrix th,
+      .matrix td {
+        display: grid;
+        grid-template-columns: minmax(7.5rem, 0.9fr) minmax(0, 1fr);
+        width: auto;
+        padding: var(--space-2) 0;
+        border: 0;
+        text-align: right;
+      }
+      .matrix td:first-child {
+        display: block;
+        width: auto;
+        padding-bottom: var(--space-3);
+        border-bottom: 1px solid var(--color-line-dark);
+        text-align: left;
+      }
+      .matrix td:not(:first-child)::before {
+        color: var(--color-text-secondary);
+        font-size: clamp(0.75rem, 3.2vw, 0.9rem);
+        font-weight: 700;
+        text-align: left;
+      }
+      .matrix td:nth-child(2)::before { content: "Скорость"; }
+      .matrix td:nth-child(3)::before { content: "Качество ФС"; }
+      .matrix td:nth-child(4)::before { content: "Прозрачность"; }
+      .matrix td:nth-child(5)::before { content: "Связь с кодом"; }
+      .matrix tr.target td:not(:first-child)::before { color: var(--color-dark-muted); }
+      .matrix td:not(:first-child) .dots { justify-self: end; }
+      /* A phone sheet under the fixed menu and 8px from the other edges: the desktop
+         centring (left/top 50% and the -50% shift) must go with it. */
+      .overview { inset: calc(var(--site-nav-reserve, 64px) + var(--space-1)) var(--space-2) var(--space-2); width: auto; max-height: none; padding: var(--space-5); transform: none; }
+      .overview-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    /* Presentation mode is a focused desktop canvas. The shared global frame
+       remains available without adding a duplicate material-level row. Keep
+       the deck on the same warm paper ground as the companion deck. */
+    :root {
+      --slide-inset: clamp(2.2rem, 4.2vw, 4.8rem);
+      --slide-top: 6rem;
+    }
+    body { background: var(--color-ink); }
+    body.is-presentation .deck { display: grid; gap: var(--space-6); width: min(var(--deck-slide-max), calc(100vw - (2 * var(--deck-page-gutter)))); margin: 0 auto; padding: calc(var(--site-nav-reserve) + var(--space-4)) 0 var(--space-12); }
+    body.is-presentation .slide {
+      width: 100%;
+      min-height: calc(100dvh - var(--site-nav-reserve) - var(--space-8));
+      padding-top: 6rem !important;
+      border: 1px solid rgb(216 210 198 / 0.96);
+      border-radius: var(--radius-panel);
+      box-shadow: 0 0 0 1px rgb(255 255 255 / 0.06), 0 1.25rem 3rem rgb(0 0 0 / 0.28);
+    }
+    .control-button svg { flex: 0 0 auto; }
+    .control-button--icon { padding-inline: .65rem; }
+    .deck-topbar :is(.site-catalog-return, .control-button, .counter) {
+      font-family: var(--deck-control-font);
+      font-size: var(--deck-control-font-size);
+      font-weight: var(--deck-control-font-weight);
+      line-height: 1;
+    }
+    .deck-topbar .counter { font-family: var(--deck-control-font); font-variant-numeric: proportional-nums; letter-spacing: 0; }
+
+    @media (max-width: 1300px) and (min-width: 1024px) {
+      .process-matrix-head, .process-matrix-row { grid-template-columns: minmax(8rem, .8fr) minmax(9rem, 1fr) minmax(10rem, 1.2fr) minmax(10rem, 1.2fr) minmax(8rem, .8fr); }
+      .process-matrix-head > *, .process-matrix-row > * { padding: var(--space-2); }
+      .process-matrix-row > strong { font-size: .76rem; }
+      .process-matrix-row b { font-size: 0.75rem; }
+      .process-matrix-row span { font-size: 0.75rem; }
+    }
+
+    @media (min-width: 1024px) and (max-height: 760px) {
+      /* This override follows the focused-canvas block above, whose
+         100%-height padding is intentionally strong at the normal size. */
+      body.is-presentation .slide { padding-top: 4.75rem !important; padding-bottom: 1rem !important; }
+    }
+
+    @media (min-width: 1024px) and (min-height: 761px) and (max-height: 850px) {
+      /* Keep the 16:9-ish desktop deck within the viewport while retaining
+         the same reading order and slide width as the larger canvas. */
+      body.is-presentation .slide { padding-top: 4.75rem !important; padding-bottom: 1.5rem !important; }
+      body.is-presentation #slide-1 .slide-content { margin-block: var(--space-2); }
+    }
+
+    /* The fixed global frame owns the first 88px paint band plus a breathing
+       gap. The active slide starts below that band, while the page remains
+       scrollable when a compact desktop viewport needs the extra height. */
+    @media (min-width: 1024px) {
+      .deck :is(.slide, [id]) { scroll-margin-top: calc(var(--site-nav-reserve) + var(--space-4)); }
+      body.is-presentation { overflow-x: hidden; overflow-y: auto; }
+      body.is-presentation .deck { overflow: visible; }
+      body.is-presentation .slide { display: flex; overflow: visible; padding-top: var(--slide-top) !important; }
+      /* A slide scrolled to the scroll-padding line must still end inside the viewport. */
+      body.is-presentation .slide, body.is-presentation #slide-1 { min-height: calc(100dvh - var(--site-nav-reserve) - var(--space-4)); }
+    }
+
+    @media (min-width: 1024px) and (max-height: 950px) {
+      body.is-presentation .slide { padding-top: 2.5rem !important; padding-bottom: 1.5rem !important; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-delay: 0ms !important; animation-duration: 1ms !important; transition-duration: 1ms !important; }
+    }
+
+    @media print {
+      @page { size: 16in 9in; margin: 0; }
+      html, body { background: var(--color-paper); }
+      body { color-adjust: exact; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .site-frame, .deck-progress, .overview, .overview-scrim, .speaker-scrim, .speaker-panel, .skip-link { display: none !important; }
+      .deck { display: block; width: 100%; max-width: none; padding: 0; }
+      .slide, body.is-presentation .slide, body.is-presentation .slide.is-active { display: flex !important; width: 100%; height: 100vh; min-height: 100vh; break-after: page; border: 0; border-radius: 0; }
+      .slide:last-child { break-after: auto; }
+      .slide::after { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#content">К содержанию</a>
+
+  <header class="site-frame">
+    <nav class="deck-topbar site-topbar" data-global-nav data-expanded="false" onkeydown="if(event.key==='Escape'&&this.getAttribute('data-expanded')==='true'){this.setAttribute('data-expanded','false');document.documentElement.style.removeProperty('--site-nav-reserve');var more=this.querySelector('.site-nav-more');if(more){more.setAttribute('aria-expanded','false');more.focus()}}" aria-label="Основная навигация PDLC"><div class="site-topbar__identity"><a class="site-home" data-global-home data-home-link data-course-root data-nav-item="home" href="__CUSTOMDEV_ROOT__" aria-current="location">Маршрут курса</a><button class="site-nav-more" type="button" aria-expanded="false" onclick="var nav=this.closest('nav');var open=nav.getAttribute('data-expanded')!=='true';nav.setAttribute('data-expanded',open);this.setAttribute('aria-expanded',open);var root=document.documentElement.style;if(open){root.setProperty('--site-nav-reserve',nav.getBoundingClientRect().height+2*(parseFloat(getComputedStyle(nav).top)||0)+'px')}else{root.removeProperty('--site-nav-reserve')}">Ещё</button></div><div class="site-page-actions"><a class="site-catalog-return" data-catalog-return href="__CUSTOMDEV_ROOT__"><span aria-hidden="true">←</span><span>К маршруту курса</span></a>
+
+      <button class="control-button" id="previous" type="button" aria-label="Назад · Предыдущий слайд" title="Предыдущий слайд">
+        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3 5 8l5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Назад</span>
+      </button>
+      <span class="counter" id="counter" aria-live="polite">01 / 07</span>
+      <button class="control-button" id="next" type="button" aria-label="Далее · Следующий слайд" title="Следующий слайд">
+        <span>Далее</span><svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="m6 3 5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="control-button control-button--icon" id="overview-toggle" type="button" aria-expanded="false" aria-controls="overview" aria-label="Открыть обзор слайдов" title="Обзор слайдов"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2.2" y="2.2" width="4" height="4" rx=".7" stroke="currentColor" stroke-width="1.3"/><rect x="9.8" y="2.2" width="4" height="4" rx=".7" stroke="currentColor" stroke-width="1.3"/><rect x="2.2" y="9.8" width="4" height="4" rx=".7" stroke="currentColor" stroke-width="1.3"/><rect x="9.8" y="9.8" width="4" height="4" rx=".7" stroke="currentColor" stroke-width="1.3"/></svg><span>Обзор</span></button>
+      <button class="control-button" id="speaker-toggle" type="button" aria-expanded="false" aria-controls="speaker-panel" aria-label="Доклад · Открыть заметки докладчика" title="Заметки докладчика"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 6.2h2.2L8 3.8v8.4L5.2 9.8H3z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M10.4 6a2.8 2.8 0 0 1 0 4M11.9 4.5a5 5 0 0 1 0 7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg><span>Доклад</span></button>
+    </div></nav>
+  </header>
+
+  <div class="deck-progress" aria-hidden="true"><span id="progress"></span></div>
+
+  <main class="deck" id="content" tabindex="-1">
+    <section class="slide slide--dark is-active" id="slide-1" data-slide="1" aria-labelledby="slide-1-title" tabindex="-1">
+      <div class="slide-head">
+        <div>
+          <p class="eyebrow">классический SDLC</p>
+          <h1 class="hero-title" id="slide-1-title">Разработка ускорилась. Теперь важен <span>весь путь.</span></h1>
+          <p class="hero-claim">Сравниваем весь путь изменения — от замысла и спецификации до проверки, выпуска и наблюдаемого результата.</p>
+        </div>
+      </div>
+      <div class="slide-content">
+        <section class="opening-context" aria-label="Смена фокуса в классическом жизненном цикле разработки">
+          <article><span class="context-label">ПРОБЛЕМА · фокус на разработке</span><p>В классическом SDLC основная сложность и время часто воспринимаются как задача разработки.</p></article>
+          <article><span class="context-label">ЦЕЛЬ · фокус на спецификации</span><p>Когда код создаётся быстрее, внимание смещается к спецификации, ревью и подтверждению результата.</p></article>
+        </section>
+        <section class="stage-map local-flow-panel" aria-label="Семь этапов классического SDLC и смещение фокуса к спецификации">
+          <div class="visual-kicker"><span>Классический SDLC, для сравнения</span><strong>Фокус: спецификация и проверка</strong></div>
+          <div class="local-flow">
+            <div class="stage"><span class="stage-number">01</span><span class="stage-label">Планирование</span><span class="card-copy">цель и приоритет</span></div>
+            <div class="stage stage--active" aria-current="step"><span class="stage-number">02</span><span class="stage-label">Анализ и спецификация</span><span class="card-copy">границы и условия готовности</span></div>
+            <div class="stage stage--active"><span class="stage-number">03</span><span class="stage-label">Дизайн</span><span class="card-copy">решение и архитектура</span></div>
+            <div class="stage"><span class="stage-number">04</span><span class="stage-label">Разработка</span><span class="card-copy">реализация быстрее</span></div>
+            <div class="stage"><span class="stage-number">05</span><span class="stage-label">Тестирование</span><span class="card-copy">проверка качества</span></div>
+            <div class="stage"><span class="stage-number">06</span><span class="stage-label">Развёртывание</span><span class="card-copy">проверка в среде</span></div>
+            <div class="stage stage--target"><span class="stage-number">07</span><span class="stage-label">Эксплуатация</span><span class="card-copy">эффект и обратная связь</span></div>
+          </div>
+        </section>
+        <section class="evidence-strip" aria-label="Отраслевые сигналы и измерения команды">
+          <article><strong>Отраслевая рамка</strong><span>Жизненный цикл включает больше, чем написание кода.</span></article>
+          <article><strong>Опросы</strong><span>85% считают, что узкое место сместилось с написания кода на ревью и проверку; 79% отмечают рост личной продуктивности без ускорения поставки (GitLab, 1528 респондентов, 06.2026).</span></article>
+          <article><strong>Что проверяем у себя</strong><span>Локальное узкое место и время на спецификацию измеряем на данных своей команды.</span></article>
+        </section>
+        <p class="slide-links"><a href="https://dora.dev/guides/dora-metrics/" target="_blank" rel="noopener noreferrer">DORA: метрики потока <span aria-hidden="true">↗</span></a><a href="https://about.gitlab.com/press/releases/2026-06-23-gitlab-research-reveals-organizations-are-generating-ai-code-faster-than-they-can-control-it/" target="_blank" rel="noopener noreferrer">GitLab: внешний сигнал <span aria-hidden="true">↗</span></a></p>
+      </div>
+      <footer class="slide-footer"><span class="slide-number">01 / 07</span><span>SDLC сохраняет семь этапов; меняется управленческий фокус — к спецификации и ревью.</span></footer>
+    </section>
+
+    <section class="slide slide--dark" id="slide-2" data-slide="2" aria-labelledby="slide-2-title">
+      <header class="slide-head">
+        <div><p class="eyebrow">концепция</p><h2 class="slide-title" id="slide-2-title">Разработка, управляемая спецификацией <span>(Specification-Driven Development, SDD)</span></h2><p class="lead">Спецификация — проверяемый план до генерации кода: цель, границы, сценарии и условия готовности. Результаты проверок могут потребовать скорректировать спецификацию.</p></div>
+      </header>
+      <div class="slide-content two-column">
+        <article class="definition">
+          <span class="definition-term">SDD</span>
+          <p><strong>Specification-Driven Development</strong> — сначала формулируем, <strong>что должно измениться</strong>, затем пропускаем это через проверки качества и передаём команде разработки. Подтверждения показывают, что нужно оставить, а что — скорректировать.</p>
+          <section class="spec-anatomy" aria-label="Состав качественной спецификации"><div><strong>Цель изменения</strong>зачем это нужно</div><div><strong>Границы изменения</strong>что входит и не входит</div><div><strong>Сценарии</strong>как ведёт себя система</div><div><strong>Условия готовности</strong>как подтвердим результат</div></section>
+        </article>
+        <div class="sdd-loop-column">
+        <ol class="loop" aria-label="Цикл разработки, управляемой спецификацией">
+          <li><span class="loop-index">01</span><span class="loop-label">Спецификация · цель и границы</span><span class="loop-arrow">→</span></li>
+          <li><span class="loop-index">02</span><span class="loop-label">Проверки качества · полнота и согласованность</span><span class="loop-arrow">→</span></li>
+          <li><span class="loop-index">03</span><span class="loop-label">Реализация · человек + модель</span><span class="loop-arrow">→</span></li>
+          <li><span class="loop-index">04</span><span class="loop-label">Подтверждения · код, тесты и условия готовности</span><span class="loop-arrow">→</span></li>
+          <li><span class="loop-index">05</span><span class="loop-label">Коррекция · уточняем спецификацию</span><span class="loop-arrow">↺</span></li>
+        </ol>
+        </div>
+      </div>
+      <p class="slide-links"><a href="guides/s1-git.html">Инструкция: спецификация <span aria-hidden="true">→</span></a><a href="guides/s2-review.html">Инструкция: проверка <span aria-hidden="true">→</span></a></p>
+      <footer class="slide-footer"><span class="slide-number">02 / 07</span><span>SDD переносит проверку на уровень цели и границ изменения до кода.</span></footer>
+    </section>
+
+    <section class="slide slide--dark" id="slide-3" data-slide="3" aria-labelledby="slide-3-title">
+      <header class="slide-head">
+        <div><p class="eyebrow">матрица процесса</p><h2 class="slide-title" id="slide-3-title">Четыре слоя делают путь <span>проверяемым</span></h2><p class="lead">Каждый слой добавляет артефакт и явную проверку. Так устроен путь изменения в целевой модели.</p></div>
+        <p class="slide-note">Сначала фиксируем замысел (шапка и пять частей: проблема, результат, границы, признаки успеха, открытые вопросы), затем добавляем версию, независимое содержание и техническую готовность.</p>
+      </header>
+      <div class="slide-content">
+        <section class="process-matrix" aria-label="Четыре слоя процесса анализа">
+          <div class="process-matrix-head"><span>Слой</span><span>Проблема</span><span>Артефакт и инструменты</span><span>Проверка</span><span>Качество результата</span></div>
+          <article class="process-matrix-row process-layer--1"><div class="process-layer-label"><strong>01 · замысел</strong><span>Передача идеи</span></div><div data-label="Проблема" class="process-tile process-tile--was"><b>Word · Google Docs · чат · почта</b><span>Идея передаётся вручную; задача приходит без обязательного ревью.</span></div><div data-label="Артефакт и инструменты" class="process-tile"><b>intent.md в Git</b><span>Что нужно и зачем — в одном файле с историей версий.</span></div><div data-label="Проверка" class="process-tile"><b>Инициатор · владелец решения</b><span>Инициатор подтверждает смысл, владелец решения принимает замысел.</span></div><div data-label="Качество результата" class="process-tile process-tile--quality"><b>Замысел согласован</b><span>От него считаются требования.</span></div></article>
+          <article class="process-matrix-row process-layer--2"><div class="process-layer-label"><strong>02 · спецификация</strong><span>Единая версия</span></div><div data-label="Проблема" class="process-tile process-tile--was"><b>Документ отдельно от кода</b><span>Версии расходятся, решения остаются в переписке.</span></div><div data-label="Артефакт и инструменты" class="process-tile"><b>Markdown-спецификация в Git</b><span>Границы, сценарии и условия готовности. Confluence — зеркало Git; рекомендуется GitLab.</span></div><div data-label="Проверка" class="process-tile"><b>Проверка автора</b><span>Факты и полнота до передачи дальше.</span></div><div data-label="Качество результата" class="process-tile process-tile--quality"><b>Готово к проверке</b><span>Есть версия, которую можно проверить.</span></div></article>
+          <article class="process-matrix-row process-layer--3"><div class="process-layer-label"><strong>03 · содержание</strong><span>Независимый контроль</span></div><div data-label="Проблема" class="process-tile process-tile--was"><b>Ревью по желанию</b><span>Одобрение не привязано к версии документа.</span></div><div data-label="Артефакт и инструменты" class="process-tile"><b>Git · версия спецификации · Jira</b><span>Артефакты остаются прослеживаемыми.</span></div><div data-label="Проверка" class="process-tile"><b>Владелец продукта · аналитик</b><span>«Это то, что я просил» — смысл, полнота и проверяемость.</span></div><div data-label="Качество результата" class="process-tile process-tile--quality"><b>Одобрение и комментарий</b><span>Содержание проверено независимыми ролями.</span></div></article>
+          <article class="process-matrix-row process-layer--4"><div class="process-layer-label"><strong>04 · готовность</strong><span>Связи и решение</span></div><div data-label="Проблема" class="process-tile process-tile--was"><b>Реализуемость после старта</b><span>Ограничения выясняются уже в разработке.</span></div><div data-label="Артефакт и инструменты" class="process-tile"><b>OpenSpec · product-meta</b><span>Затронутые сервисы и ограничения.</span></div><div data-label="Проверка" class="process-tile-pair"><div class="process-tile"><b>Техлид</b><span>Реализуемость, ИБ и тестируемость; слияние после одобрения и комментариев.</span></div><div class="process-tile"><b>Архитектор</b><span>Комментарий по признакам или при споре.</span></div></div><div data-label="Качество результата" class="process-tile process-tile--quality"><b>Одобрение и комментарии</b><span>Изменение готово к разработке.</span></div></article>
+        </section>
+        <p class="slide-links"><a href="guides/s2-review.html">Инструкция: проверка <span aria-hidden="true">→</span></a><a href="guides/s3-openspec.html">Инструкция: OpenSpec <span aria-hidden="true">→</span></a></p>
+      </div>
+      <footer class="slide-footer"><span class="slide-number">03 / 07</span><span>Четыре слоя — от замысла до готовности — делают проверку видимой.</span></footer>
+    </section>
+
+    <section class="slide" id="slide-4" data-slide="4" aria-labelledby="slide-4-title">
+      <header class="slide-head">
+        <div><p class="eyebrow">базовый процесс</p><h2 class="slide-title" id="slide-4-title">Одна цель, три <span>уровня зрелости</span></h2><p class="lead">Уровень 1: шаблон в Git. Уровень 2: последовательная проверка людьми. Уровень 3: управляемые изменения в OpenSpec.</p></div>
+        <p class="slide-note">Курс тренирует все три; зрелость продукта подтверждается отдельно.</p>
+      </header>
+      <div class="slide-content">
+        <ol class="maturity-ribbon" aria-label="Три уровня зрелости и помощь модели"><li><strong>1</strong><span>Шаблон в Git</span></li><li><strong>2</strong><span>Одобрение людей</span></li><li><strong>3</strong><span>OpenSpec</span></li><li class="maturity-ribbon-wide"><strong><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 8V4H9M2 12v4m20-4v4"/><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M8 13v2m8-2v2m-7 2h6"/></svg></strong><span>Блоки «С моделью» — внутри шагов 1–3</span></li></ol>
+        <section class="level-grid" aria-label="Три уровня зрелости: 1, 2 и 3">
+          <article class="level-card is-new"><div class="level-head"><span class="level-number">1</span><div><h3>Шаблон и версия</h3><p>Стартовый стандарт для каждого аналитика</p></div></div><ul class="level-actions"><li><b>Аналитик</b><span>Формулирует цель, границы, сценарии и условия готовности.</span></li><li><b>Среда</b><span>Markdown-файл хранится в репозитории продукта.</span></li><li><b>Результат</b><span>Файл спецификации в вашей ветке и ссылка на него в личной задаче Jira.</span></li></ul><div class="level-meta"><span class="tool-chip" translate="no">VS Code</span><span class="tool-chip" translate="no">GitLab / GitHub</span><span class="tool-chip" translate="no">Jira</span><span class="state-chip is-new">Новое</span></div><a class="guide-link" href="guides/s1-git.html">Инструкция шага 1 <span aria-hidden="true">→</span></a></article>
+          <article class="level-card is-new"><div class="level-head"><span class="level-number">2</span><div><h3>Последовательная проверка</h3><p>Наследует уровень 1</p></div></div><ul class="level-actions"><li><b>Владелец продукта</b><span>Сверяет результат со своим запросом («это то, что я просил»).</span></li><li><b>Аналитик · техлид</b><span>Проверяют смысл, полноту и реализуемость; архитектор подключается по признакам или при споре.</span></li><li><b>Результат</b><span>Одобрение и комментарии на последней версии запроса на слияние (Merge Request, MR) — по <a href="guides/index.html#acceptance-rule">правилу приёмки</a>.</span></li></ul><div class="level-meta"><span class="tool-chip">Запрос на слияние</span><span class="tool-chip" translate="no">Jira</span><span class="state-chip">Унаследовано: 1</span><span class="state-chip is-new">Новое</span></div><a class="guide-link" href="guides/s2-review.html">Инструкция шага 2 <span aria-hidden="true">→</span></a></article>
+          <article class="level-card is-new"><div class="level-head"><span class="level-number">3</span><div><h3>Управляемое изменение</h3><p>Наследует уровни 1 и 2</p></div></div><ul class="level-actions"><li><b>Аналитик</b><span>Ведёт изменение продукта в OpenSpec и поддерживает его прослеживаемость.</span></li><li><b>Архитектор</b><span>Связывает затронутые сервисы и технические решения.</span></li><li><b>Результат</b><span>Проверенное изменение связано с Jira и запросами на слияние сервисов.</span></li></ul><div class="level-meta"><span class="tool-chip" translate="no">OpenSpec</span><span class="tool-chip" translate="no">Git</span><span class="state-chip">Унаследовано: 1–2</span><span class="state-chip is-new">Новое</span></div><a class="guide-link" href="guides/s3-openspec.html">Инструкция шага 3 <span aria-hidden="true">→</span></a></article>
+        </section>
+      </div>
+      <p class="slide-links"><a href="guides/s2-review.html">Пошаговая проверка шага 2 <span aria-hidden="true">→</span></a><a href="guides/s3-openspec.html">Переход к OpenSpec <span aria-hidden="true">→</span></a></p>
+      <footer class="slide-footer"><span class="slide-number">04 / 07</span><span>Уровни меняют управляемость процесса; цель анализа у всех уровней одна.</span></footer>
+    </section>
+
+    <section class="slide" id="slide-5" data-slide="5" aria-labelledby="slide-5-title">
+      <header class="slide-head">
+        <div><p class="eyebrow">помощь модели</p><h2 class="slide-title" id="slide-5-title">Где модель помогает, <span>а где обязательна</span></h2><p class="lead">В шагах 1–3 блоки «С моделью» помогают выполнить упражнение; в шаге 3 модель работает после принятого ручного изменения. Шаг 5 проходит с моделью.</p></div>
+      </header>
+      <div class="slide-content">
+        <ol class="maturity-ribbon" aria-label="Где в шагах 1–3 помогает модель"><li><strong>1</strong><span>Блок «С моделью» — по желанию</span></li><li><strong>2</strong><span>Блок «С моделью» — по желанию</span></li><li><strong>3</strong><span>Блок «С моделью» — по желанию</span></li><li class="maturity-ribbon-wide"><strong>5</strong><span>Только с моделью · метарепозиторий продукта</span></li></ol>
+        <section class="level-grid" aria-label="Блоки «С моделью» в практиках шагов 1–3">
+          <article class="level-card is-ai"><div class="level-head"><span class="level-number">1</span><div><h3>Черновик с моделью</h3><p>Блок «С моделью» в шаге 1</p></div></div><ul class="level-actions"><li><b>Модель</b><span>Структурирует вводные и предлагает вопросы к пропускам; файлы не меняет без подтверждения.</span></li><li><b>Человек</b><span>Проверяет факты, границы и итоговую формулировку; шаг можно выполнить и вручную.</span></li><li><b>Результат</b><span>Сохранены черновик, исправления и итоговая версия.</span></li></ul><div class="level-meta"><span class="state-chip is-human">Блок по желанию</span><span class="state-chip is-human">Одобрение дают люди</span><span class="tool-chip" translate="no">Kilo / VS Code</span></div><a class="guide-link" href="guides/s1-git.html">Инструкция шага 1 <span aria-hidden="true">→</span></a></article>
+          <article class="level-card is-ai"><div class="level-head"><span class="level-number">2</span><div><h3>Предварительная проверка</h3><p>Блок «С моделью» в шаге 2</p></div></div><ul class="level-actions"><li><b>Модель</b><span>Ищет противоречия, непроверяемые условия и пропуски.</span></li><li><b>Человек</b><span>Разбирает каждое замечание; одобрение и комментарии — по <a href="guides/index.html#acceptance-rule">правилу приёмки</a>.</span></li><li><b>Результат</b><span>Решения по замечаниям зафиксированы в запросе на слияние.</span></li></ul><div class="level-meta"><span class="state-chip is-human">Блок по желанию</span><span class="state-chip is-human">Одобрение людей</span><span class="tool-chip">Запрос на слияние</span></div><a class="guide-link" href="guides/s2-review.html">Инструкция шага 2 <span aria-hidden="true">→</span></a></article>
+          <article class="level-card is-ai"><div class="level-head"><span class="level-number">3</span><div><h3>Упражнение с изменением OpenSpec</h3><p>Блок «С моделью» в шаге 3</p></div></div><ul class="level-actions"><li><b>Модель</b><span>Готовит дополнительное изменение (Change) по принятому ручному изменению.</span></li><li><b>Человек</b><span>Подтверждает продолжение и проверяет документы; код и применение изменения не входят в задание.</span></li><li><b>Результат</b><span>Необязательное упражнение после принятого ручного шага 3.</span></li></ul><div class="level-meta"><span class="state-chip is-human">Блок по желанию</span><span class="state-chip is-human">Одобрение дают люди</span><span class="tool-chip" translate="no">OpenSpec</span></div><a class="guide-link" href="guides/s3-openspec.html">Инструкция шага 3 <span aria-hidden="true">→</span></a></article>
+        </section>
+      </div>
+      <p class="slide-links"><a href="guides/s1-git.html">Блок «С моделью» в шаге 1 <span aria-hidden="true">→</span></a><a href="guides/s3-openspec.html">Блок «С моделью» в шаге 3 <span aria-hidden="true">→</span></a></p>
+      <footer class="slide-footer"><span class="slide-number">05 / 07</span><span>Гипотеза пробного запуска: модель может сократить ручную подготовку; одобрение и ответственность остаются у людей.</span></footer>
+    </section>
+
+    <section class="slide slide--dark" id="slide-6" data-slide="6" aria-labelledby="slide-6-title">
+      <header class="slide-head">
+        <div><p class="eyebrow">рабочее место продукта</p><h2 class="slide-title" id="slide-6-title">Метарепозиторий даёт <span>одну точку входа</span></h2><p class="lead">В рабочей модели product-meta хранит контекст и ссылки, отдельный product-specs (OpenSpec Store) — требования и изменения (Changes), сервисы — код и тесты. Шаг 5 использует совмещённый учебный Store-пример, реализация отдельно.</p></div>
+        <p class="slide-note">Несколько микросервисов в одном продукте — обычное дело; ручной поиск контекста по ним — потеря времени.</p>
+      </header>
+      <div class="slide-content repo-map">
+        <section class="repo-core" aria-label="Состав продуктового метарепозитория"><div class="repo-title"><h3>product-meta/</h3><a class="repo-link" href="https://github.com/apolenkov/ai-pdlc-learning-stage-4-requirements" target="_blank" rel="noopener noreferrer">Учебный Store-пример ↗</a></div><div class="file-grid"><div class="file-tile"><code>product.yaml</code><span>Граница продукта и состав сервисов</span></div><div class="file-tile"><code>CONTEXT.md</code><span>Предметный язык и определения</span></div><div class="file-tile"><code>AGENTS.md</code><span>Команды, запреты и порядок проверок</span></div><div class="file-tile"><code>services.lock.yaml</code><span>Разрешённые URL, классификация и точные SHA</span></div><div class="file-tile"><code>product-specs ↗</code><span>Ссылка на отдельный Store: openspec/specs и changes</span></div><div class="file-tile"><code>.workspace/</code><span>Снимок сервиса для чтения после навыка подготовки</span></div></div><div class="bottleneck-callout"><span class="callout-mark">↘</span><p>В учебном примере контекст продукта и требования лежат в одном репозитории. Навык подготовки скачивает код сервисов только для чтения: на этапе анализа код не меняется.</p></div></section>
+        <section class="repo-services" aria-label="Связанные репозитории сервисов"><div class="repo-title"><h3>Репозитории сервисов</h3><span>Локальное владение</span></div><div class="service-list"><div class="service-item"><b>service-a</b><span>Код · тесты · владелец реализации</span></div><div class="service-item"><b>service-b</b><span>Код · локальные ADR · проверки · свой запрос на слияние</span></div><div class="service-item"><b>service-c</b><span>Очищенный пакет контрактов вместо кода, если доступ ограничен</span></div></div><div class="meta-guide"><strong>Маршрут шага 5</strong><span>форк · навык подготовки · обсуждение вопросами по документам (grill-with-docs) · одобрение и комментарии</span><small>Организатор переносит базовые спецификации и все фактические активные изменения принятой базы. Аналитик согласует лимит суммы; код не меняется.</small></div><div class="level-meta"><span class="tool-chip" translate="no">OpenSpec Store</span><span class="state-chip">Проверенный план</span><span class="state-chip">Код не меняется</span></div><a class="guide-link" href="guides/s4-product.html">Открыть гайд шага 5 <span aria-hidden="true">→</span></a></section>
+        <section class="meta-flow" aria-label="Связь продуктового и сервисных изменений"><article><span>01 · продукт</span><strong>Цель и сквозные требования</strong><small>Требования — в отдельном Store product-specs</small></article><span aria-hidden="true">→</span><article><span>02 · сервисы</span><strong>Технические изменения</strong><small>Каждый владелец — свой запрос на слияние</small></article><span aria-hidden="true">→</span><article><span>03 · граница</span><strong>Архив после реализации</strong><small>Архивирует разработчик; не доказывает выпуск</small></article></section>
+      </div>
+      <p class="slide-links"><a href="guides/p4-metarepository.html">Гайд по метарепозиторию <span aria-hidden="true">→</span></a><a href="https://openspec.dev/">Справка OpenSpec <span aria-hidden="true">↗</span></a></p>
+      <footer class="slide-footer"><span class="slide-number">06 / 07</span><span>Метарепозиторий связывает продукт; сервисные репозитории сохраняют локальное техническое владение.</span></footer>
+    </section>
+
+    <section class="slide" id="slide-7" data-slide="7" aria-labelledby="slide-7-title">
+      <header class="slide-head">
+        <div><p class="eyebrow">внедрение</p><h2 class="slide-title" id="slide-7-title">От учебного примера — <span>к портфелю продуктов</span></h2><p class="lead">Сначала подтверждаем воспроизводимость на учебном примере, затем проверяем стандарт на одном реальном продукте и только после полезного результата обсуждаем масштаб.</p></div>
+        <p class="slide-note">Каждый переход к следующему масштабу идёт по наблюдаемому критерию.</p>
+      </header>
+      <div class="slide-content">
+        <section class="rollout-grid" aria-label="Три этапа внедрения стандарта">
+          <article class="rollout-card"><span class="roadmap-time">01 · обучение</span><strong>Кредитный калькулятор</strong><p>Маршрут: подготовка → шаги 1–3 → команда продукта (шаг 4) → шаг 5 → ветви шага 6 → практикум (шаг 7).</p><ul><li>1 · очистка результата при ошибке</li><li>2 · сброс формы и одобрение людей</li><li>3 · срок в годах и изменение OpenSpec</li><li>5 · лимит суммы в хранилище OpenSpec с моделью</li></ul><a class="guide-link" href="guides/">Открыть учебный маршрут <span aria-hidden="true">→</span></a></article>
+          <article class="rollout-card"><span class="roadmap-time">02 · пробный запуск</span><strong>Один продукт</strong><p>Создаём метарепозиторий и связываем только нужные сервисы.</p><ul><li>Предметный язык и граница продукта</li><li>Один выбранный сервис за раз</li><li>Одобрение людей и обязательный конвейер</li><li>Сравнение с исходным уровнем</li></ul><span class="evidence"><span class="evidence-label">Переход:</span> результат повторён без ухудшения качества</span></article>
+          <article class="rollout-card"><span class="roadmap-time">03 · портфель</span><strong>Версионированный стандарт</strong><p>Центральный пакет обновляет продукты через видимые запросы на слияние.</p><ul><li>Шаблоны, схемы и проверки одной версии</li><li>Без скрытой перезаписи продуктовых файлов</li><li>Локальные исключения остаются явными</li><li>Метрики собираются по сопоставимым изменениям</li></ul><span class="evidence"><span class="evidence-label">Переход:</span> принято отдельное решение о масштабе</span></article>
+        </section>
+        <div class="bottleneck-callout"><span class="callout-mark">→</span><p><strong>Минимальный первый шаг:</strong> синтетический калькулятор, учебный маршрут и один реальный продукт. Критерий расширения — принятая спецификация, одобрение владельца продукта и комментарии ревьюеров, связь Jira, Git и OpenSpec, журнал проверок и сопоставление с исходным уровнем без ухудшения качества.</p></div>
+      </div>
+      <p class="slide-links"><a href="guides/">Учебный маршрут <span aria-hidden="true">→</span></a><a href="guides/s4-product.html">Критерии шага 5 <span aria-hidden="true">→</span></a></p>
+      <footer class="slide-footer"><span class="slide-number">07 / 07</span><span>Сначала доказываем воспроизводимость на малом масштабе, затем принимаем решение о расширении.</span></footer>
+    </section>
+  </main>
+
+  <div class="overview-scrim" id="overview-scrim" aria-hidden="true"></div>
+  <aside class="overview" id="overview" role="dialog" aria-modal="true" aria-labelledby="overview-title" aria-hidden="true">
+    <div class="overview-head"><h2 id="overview-title">Обзор</h2><button class="control-button" id="overview-close" type="button">Закрыть</button></div>
+      <div class="overview-grid">
+      <button class="overview-item" type="button" data-jump="1"><span>01</span><strong>Разработка ускорилась. Важен весь путь</strong></button>
+      <button class="overview-item" type="button" data-jump="2"><span>02</span><strong>Разработка, управляемая спецификацией</strong></button>
+      <button class="overview-item" type="button" data-jump="3"><span>03</span><strong>Четыре слоя проверяемого процесса</strong></button>
+      <button class="overview-item" type="button" data-jump="4"><span>04</span><strong>Три уровня зрелости</strong></button>
+      <button class="overview-item" type="button" data-jump="5"><span>05</span><strong>Блоки «С моделью» и одобрение людей</strong></button>
+      <button class="overview-item" type="button" data-jump="6"><span>06</span><strong>Метарепозиторий продукта</strong></button>
+      <button class="overview-item" type="button" data-jump="7"><span>07</span><strong>Внедрение: пример → продукт → портфель</strong></button>
+    </div>
+  </aside>
+
+  <div class="speaker-scrim" id="speaker-scrim" aria-hidden="true"></div>
+  <div class="speaker-panel" id="speaker-panel" role="dialog" aria-modal="true" aria-labelledby="speaker-title" aria-hidden="true">
+    <div class="speaker-head">
+      <div><h2 id="speaker-title">Доклад</h2><p id="speaker-context">Слайд 1 · 35–60 секунд</p></div>
+      <button class="control-button" id="speaker-close" type="button">Закрыть</button>
+    </div>
+    <div class="speaker-content">
+      <section class="speaker-section" aria-labelledby="speaker-thesis-title"><h3 id="speaker-thesis-title">Главная мысль</h3><p id="speaker-thesis"></p></section>
+      <section class="speaker-section" aria-labelledby="speaker-copy-title"><h3 id="speaker-copy-title">Текст доклада</h3><p id="speaker-copy"></p></section>
+      <section class="speaker-section speaker-section--boundary" aria-labelledby="speaker-boundary-title"><h3 id="speaker-boundary-title">Не утверждаем</h3><p id="speaker-boundary"></p></section>
+      <section class="speaker-section" aria-labelledby="speaker-transition-title"><h3 id="speaker-transition-title">Переход</h3><p id="speaker-transition"></p></section>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const slides = [...document.querySelectorAll(".slide")];
+      const previous = document.getElementById("previous");
+      const next = document.getElementById("next");
+      const counter = document.getElementById("counter");
+      const progress = document.getElementById("progress");
+      const overview = document.getElementById("overview");
+      const overviewScrim = document.getElementById("overview-scrim");
+      const overviewToggle = document.getElementById("overview-toggle");
+      const overviewClose = document.getElementById("overview-close");
+      const speakerPanel = document.getElementById("speaker-panel");
+      const speakerScrim = document.getElementById("speaker-scrim");
+      const speakerToggle = document.getElementById("speaker-toggle");
+      const speakerClose = document.getElementById("speaker-close");
+      const speakerTitle = document.getElementById("speaker-title");
+      const speakerContext = document.getElementById("speaker-context");
+      const speakerThesis = document.getElementById("speaker-thesis");
+      const speakerCopy = document.getElementById("speaker-copy");
+      const speakerBoundary = document.getElementById("speaker-boundary");
+      const speakerTransition = document.getElementById("speaker-transition");
+      const overviewItems = [...document.querySelectorAll("[data-jump]")];
+      const pageRegions = [...document.querySelectorAll(".deck-topbar, .deck-progress, .deck, .skip-link")];
+      const total = slides.length;
+      const speakerNotes = [
+        { title: "Разработка ускорилась. Важен весь путь", thesis: "Ускорение написания кода само по себе не ускоряет поставку изменения.", copy: "Пройдём по классическому SDLC: от цели и спецификации через дизайн, разработку и проверки к выпуску и наблюдаемому результату. Внешние отраслевые сигналы помогают увидеть сдвиг внимания к полному пути, но не заменяют измерение нашего процесса.", boundary: "Это рабочая карта и внешние сигналы, а не доказанное узкое место нашей команды или локальная метрика.", transition: "Дальше покажу практику, которая превращает замысел в проверяемую спецификацию." },
+        { title: "Разработка, управляемая спецификацией", thesis: "До реализации команда фиксирует, что меняется, в каких границах и как проверят результат.", copy: "Слева показан состав спецификации: цель, границы, сценарии и условия готовности. Справа — замкнутый цикл от описания до реализации, проверки и возможного уточнения. Спецификация здесь не дополнительный отчёт, а проверяемый план изменения, который связывает замысел с кодом и доказательствами.", boundary: "Это не возврат к жёсткой каскадной модели: спецификация может уточняться по результатам проверок. Подход не обещает универсального прироста производительности.", transition: "Следующий слайд раскладывает этот путь на четыре слоя." },
+        { title: "Четыре слоя делают путь проверяемым", thesis: "Каждый слой добавляет артефакт и явную роль проверки — от цели до готовности.", copy: "Матрица показывает разницу между незафиксированным поручением и целевой моделью. Jira хранит задачу, Confluence — зеркало версии из Git, владелец продукта сверяет результат с запросом, аналитик — содержание, техлид — реализуемость, безопасность и тестируемость; архитектор подключается по признакам или при споре. Ревью — это одобрение владельца продукта и комментарии аналитика и техлида; одобрение владельца продукта, владельца решения в нашем примере, — ещё и принятие изменения.", boundary: "Это целевая модель процесса, а не утверждение, что все команды уже работают одинаково.", transition: "Теперь покажу уровни, которыми эту модель можно вводить постепенно." },
+        { title: "Три уровня зрелости процесса", thesis: "Единый шаблон, одобрение людей и управляемое изменение образуют три накопительных уровня зрелости.", copy: "Эта шкала не меняется от числа учебных упражнений. Учебный маршрут — подготовка и семь шагов: шаги 1–3, «Как работает команда продукта» (шаг 4), шаг 5, ветви шага 6 (6а/6б) и практикум (шаг 7). Ручное изменение в шаге 3 обязательно, блок «С моделью» внутри него — по желанию. В шаге 5 участник получает проверенную базу с точным SHA; код во время анализа не реализуется.", boundary: "Прохождение курса не подтверждает зрелость реального продукта. Для неё нужны собственные подтверждённые доказательства.", transition: "Далее — необязательные блоки «С моделью» в шагах 1–3 и маршрут только с моделью в шаге 5." },
+        { title: "Блоки «С моделью» и одобрение людей", thesis: "Пробный запуск проверяет, может ли модель сократить ручную подготовку; одобрение дают люди.", copy: "В шагах 1–3 есть свёрнутые блоки «С моделью»: модель готовит черновик и замечания, проверку выполняют люди по правилу приёмки. Шаг 5 — обязательный маршрут в хранилище OpenSpec с моделью.", boundary: "Не предполагается автоматическое право на реализацию кода или доступ к промышленной среде без отдельного решения. Внешний маршрут — только для учебного контекста; модель не даёт одобрение за людей.", transition: "Следующий слайд показывает, как хранилище OpenSpec связывает продукт и сервисы в обязательный маршрут шага 5." },
+        { title: "Метарепозиторий даёт одну точку входа", thesis: "Хранилище OpenSpec хранит требования и изменения, а сервисный репозиторий сохраняет код и тесты.", copy: "Аналитик получает готовый продуктовый контур, запускает навык подготовки и ведёт изменение с моделью в VS Code. Фактические активные изменения принятой базы переносятся с зависимостями в хранилище. Затем аналитик проходит маршрут шага 5 по лимиту суммы. Код не меняется на этом этапе. Навык подготовки подключает копию сервиса; применение изменения выполняет разработчик после его принятия.", boundary: "Метарепозиторий не даёт права изменять все сервисы как единый пакет; разработчик работает в отдельной папке сервиса, а не в read-only .workspace. Ссылки на гайд и OpenSpec — рабочие точки входа, а не финальный бизнес-результат.", transition: "Последний слайд показывает, как проверяется расширение на один продукт и портфель." },
+        { title: "От учебного примера — к портфелю продуктов", thesis: "Стандарт расширяется только после наблюдаемого результата на предыдущем масштабе.", copy: "Сначала ученик проходит подготовку, затем шаги 1–3, «Как работает команда продукта» (шаг 4), шаг 5 с моделью и ветви шага 6; практикум идёт после них. Ручное изменение OpenSpec со сроком в годах в шаге 3 — обязательная часть маршрута; для шага 5 нужна проверенная выданная база или ваш принятый результат шага 3. Одобрение и комментарии шага 5 оставляют разные люди. Блоки «С моделью» используют те же файлы. Реализация вынесена в отдельный практикум. Затем один реальный продукт получает хранилище OpenSpec и измеримый пробный запуск. При стабильности критерии переносятся в портфель через управляемые запросы на слияние.", boundary: "Учебный пример подтверждает маршрут ТЗ; он не доказывает бизнес-эффект или готовность всего контура.", transition: "Ближайший шаг — повторяемый пробный запуск с сохранённой базой требований и независимыми проверками." },
+      ];
+      const initialSlideMatch = window.location.hash.match(/slide-(\d+)/);
+      const initialSlide = Number.parseInt(initialSlideMatch?.[1] || "1", 10);
+      let index = Number.isFinite(initialSlide) ? Math.max(0, Math.min(total - 1, initialSlide - 1)) : 0;
+      const hasInitialSlideHash = Boolean(initialSlideMatch);
+      // This page is a slide deck, so it always uses the focused canvas. The
+      // former presentation/document switch was removed from the UI; keeping
+      // one deterministic mode avoids a second navigation model and layout
+      // jumps between the catalog and the deck.
+      const presentation = true;
+
+      const pad = value => String(value).padStart(2, "0");
+
+      const updateUrl = () => {
+        const url = new URL(window.location.href);
+        url.hash = `slide-${index + 1}`;
+        window.history.replaceState(null, "", url);
+      };
+
+      const render = ({ syncUrl = true } = {}) => {
+        document.body.classList.toggle("is-presentation", presentation);
+        slides.forEach((slide, slideIndex) => {
+          const active = slideIndex === index;
+          slide.classList.toggle("is-active", active);
+          slide.setAttribute("aria-hidden", "false");
+          if (active) slide.setAttribute("tabindex", "-1");
+          else slide.removeAttribute("tabindex");
+        });
+        counter.textContent = `${pad(index + 1)} / ${pad(total)}`;
+        progress.style.width = `${((index + 1) / total) * 100}%`;
+        previous.disabled = index === 0;
+        next.disabled = index === total - 1;
+        overviewItems.forEach(item => { item.classList.toggle("is-current", Number(item.dataset.jump) === index + 1); });
+        const note = speakerNotes[index];
+        speakerTitle.textContent = `Доклад: ${note.title}`;
+        speakerContext.textContent = `Слайд ${index + 1} · 35–60 секунд`;
+        speakerThesis.textContent = note.thesis;
+        speakerCopy.textContent = note.copy;
+        speakerBoundary.textContent = note.boundary;
+        speakerTransition.textContent = note.transition;
+        if (syncUrl) updateUrl();
+      };
+
+      let navigationTarget = null;
+
+      const go = target => {
+        const nextIndex = Math.max(0, Math.min(total - 1, target));
+        const alreadyAtTarget = nextIndex === index;
+        index = nextIndex;
+        const targetSlide = document.getElementById(`slide-${index + 1}`);
+        navigationTarget = alreadyAtTarget ? null : index;
+        render();
+        targetSlide.scrollIntoView({ behavior: "auto", block: "start" });
+        targetSlide.focus({ preventScroll: true });
+      };
+
+      let overviewOpener = overviewToggle;
+      let speakerOpener = speakerToggle;
+      let modalScrollLock = null;
+
+      const syncModalScrollLock = () => {
+        const modalOpen = overview.classList.contains("is-open") || speakerPanel.classList.contains("is-open");
+        if (modalOpen && modalScrollLock === null) {
+          modalScrollLock = {
+            scrollY: window.scrollY,
+            htmlOverflow: document.documentElement.style.overflow,
+            bodyOverflow: document.body.style.overflow,
+          };
+          document.documentElement.style.overflow = "hidden";
+          document.body.style.overflow = "hidden";
+        } else if (!modalOpen && modalScrollLock !== null) {
+          const previous = modalScrollLock;
+          modalScrollLock = null;
+          document.documentElement.style.overflow = previous.htmlOverflow;
+          document.body.style.overflow = previous.bodyOverflow;
+          window.scrollTo(0, previous.scrollY);
+        }
+      };
+
+      const trapFocus = (event, container) => {
+        const focusable = [...container.querySelectorAll("button, [href], input, select, textarea, [tabindex]:not([tabindex=\"-1\"])")].filter(element => !element.disabled && !element.hidden);
+        const first = focusable[0];
+        const last = focusable.at(-1);
+        if (!first || !last) return;
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+      };
+
+      const setSpeaker = (open, restoreFocus = true) => {
+        if (open && overview.classList.contains("is-open")) setOverview(false, false);
+        if (open) {
+          const activeElement = document.activeElement;
+          speakerOpener = activeElement instanceof HTMLElement && !speakerPanel.contains(activeElement) ? activeElement : speakerToggle;
+        }
+        speakerPanel.classList.toggle("is-open", open);
+        speakerScrim.classList.toggle("is-open", open);
+        speakerPanel.setAttribute("aria-hidden", String(!open));
+        speakerToggle.setAttribute("aria-expanded", String(open));
+        pageRegions.forEach(region => { region.inert = open; });
+        syncModalScrollLock();
+        if (open) speakerClose.focus();
+        else if (restoreFocus) (speakerOpener?.isConnected ? speakerOpener : speakerToggle).focus();
+      };
+
+      const setOverview = (open, restoreFocus = true) => {
+        if (open && speakerPanel.classList.contains("is-open")) setSpeaker(false, false);
+        if (open) {
+          const activeElement = document.activeElement;
+          overviewOpener = activeElement instanceof HTMLElement && !overview.contains(activeElement)
+            ? activeElement
+            : overviewToggle;
+        }
+        overview.classList.toggle("is-open", open);
+        overviewScrim.classList.toggle("is-open", open);
+        overview.setAttribute("aria-hidden", String(!open));
+        overviewToggle.setAttribute("aria-expanded", String(open));
+        pageRegions.forEach(region => { region.inert = open; });
+        syncModalScrollLock();
+        if (open) overviewClose.focus();
+        if (!open && restoreFocus) {
+          const returnFocus = overviewOpener?.isConnected ? overviewOpener : overviewToggle;
+          returnFocus.focus();
+          overviewOpener = overviewToggle;
+        }
+      };
+
+      previous.addEventListener("click", () => go(index - 1));
+      next.addEventListener("click", () => go(index + 1));
+      overviewToggle.addEventListener("click", () => setOverview(!overview.classList.contains("is-open")));
+      overviewClose.addEventListener("click", () => setOverview(false));
+      overviewScrim.addEventListener("click", () => setOverview(false));
+      speakerToggle.addEventListener("click", () => setSpeaker(!speakerPanel.classList.contains("is-open")));
+      speakerClose.addEventListener("click", () => setSpeaker(false));
+      speakerScrim.addEventListener("click", () => setSpeaker(false));
+      overviewItems.forEach(item => { item.addEventListener("click", () => { setOverview(false); go(Number(item.dataset.jump) - 1); }); });
+
+      let scrollFrame = 0;
+      window.addEventListener("scroll", () => {
+        if (scrollFrame) return;
+        scrollFrame = window.requestAnimationFrame(() => {
+          scrollFrame = 0;
+          const rootStyles = getComputedStyle(document.documentElement);
+          const reserve = Number.parseFloat(rootStyles.getPropertyValue("--site-nav-reserve")) || 112;
+          const breathingRoom = Number.parseFloat(rootStyles.getPropertyValue("--space-4")) || 16;
+          const anchor = reserve + breathingRoom;
+          const nearest = slides.reduce((best, slide, slideIndex) => {
+            const distance = Math.abs(slide.getBoundingClientRect().top - anchor);
+            return distance < best.distance ? { slideIndex, distance } : best;
+          }, { slideIndex: index, distance: Number.POSITIVE_INFINITY });
+          if (navigationTarget !== null) {
+            if (nearest.slideIndex !== navigationTarget) return;
+            navigationTarget = null;
+          }
+          if (nearest.slideIndex !== index) {
+            index = nearest.slideIndex;
+            render();
+          }
+        });
+      }, { passive: true });
+
+      document.addEventListener("keydown", event => {
+        if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) return;
+        if (speakerPanel.classList.contains("is-open")) {
+          if (event.key === "Escape") { event.preventDefault(); setSpeaker(false); return; }
+          if (event.key === "Tab") trapFocus(event, speakerPanel);
+          return;
+        }
+        if (overview.classList.contains("is-open")) {
+          if (event.key === "Escape" || event.key.toLowerCase() === "o") {
+            event.preventDefault();
+            setOverview(false);
+            return;
+          }
+          if (event.key === "Tab") trapFocus(event, overview);
+          return;
+        }
+        if (event.key === "ArrowRight" || event.key === "PageDown") { event.preventDefault(); go(index + 1); }
+        if (event.key === "ArrowLeft" || event.key === "PageUp") { event.preventDefault(); go(index - 1); }
+        if (event.key === "Home") { event.preventDefault(); go(0); }
+        if (event.key === "End") { event.preventDefault(); go(total - 1); }
+        if (event.key.toLowerCase() === "o") { event.preventDefault(); setOverview(!overview.classList.contains("is-open")); }
+        if (event.key === "Escape" && overview.classList.contains("is-open")) { event.preventDefault(); setOverview(false); }
+      });
+
+      window.addEventListener("hashchange", () => {
+        const match = window.location.hash.match(/slide-(\d+)/);
+        if (match) {
+          const requestedSlide = Number.parseInt(match[1], 10);
+          index = Math.max(0, Math.min(total - 1, requestedSlide - 1));
+          render();
+          document.getElementById(`slide-${index + 1}`).scrollIntoView({ behavior: "auto", block: "start" });
+        }
+      });
+
+      render({ syncUrl: hasInitialSlideHash });
+      if (hasInitialSlideHash) {
+        navigationTarget = index;
+        window.requestAnimationFrame(() => {
+          document.getElementById(`slide-${index + 1}`).scrollIntoView({ behavior: "auto", block: "start" });
+        });
+      } else {
+        window.scrollTo({ top: 0, behavior: "auto" });
+      }
+    })();
+  </script>
+</body>
+</html>

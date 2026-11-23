@@ -1,0 +1,225 @@
+<template id="scene-04-template">
+  <div data-composition-id="scene-04" data-width="1920" data-height="1080" data-duration="38">
+    <style>
+      /* ---- общее ---- */
+      [data-composition-id="scene-04"] .ic { width: 44px; height: 44px; color: var(--k-text-2); }
+      [data-composition-id="scene-04"] .ic svg { display: block; width: 100%; height: 100%; }
+      [data-composition-id="scene-04"] .lab { font-size: 30px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-04"] .fh { display: flex; align-items: center; gap: 16px; height: 56px; font-family: var(--k-font-mono); font-size: 34px; font-weight: 600; }
+      [data-composition-id="scene-04"] .sc-arrow { position: absolute; }
+      [data-composition-id="scene-04"] .sc-arrow svg { display: block; width: 100%; height: 100%; overflow: visible; }
+      /* ---- часть 1: пустая папка → раздел добавленных требований ---- */
+      [data-composition-id="scene-04"] .fd { height: 100%; display: flex; flex-direction: column; gap: 14px; }
+      [data-composition-id="scene-04"] .fd .top { display: flex; align-items: center; gap: 16px; }
+      [data-composition-id="scene-04"] .fd .ic { width: 56px; height: 56px; }
+      [data-composition-id="scene-04"] .fd .nm { font-family: var(--k-font-mono); font-size: 42px; font-weight: 700; }
+      [data-composition-id="scene-04"] .fd .box { flex: 1; display: grid; place-items: center; border: 3px dashed var(--k-text-2); border-radius: 18px; font-size: 34px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-04"] .ad { margin-top: 10px; display: inline-flex; align-self: flex-start; align-items: center; height: 60px; padding: 0 20px; border-radius: 14px; background: var(--k-panel-2); border: 2px solid var(--k-line); font-family: var(--k-font-mono); font-size: 34px; font-weight: 700; opacity: 0; }
+      [data-composition-id="scene-04"] .r2 { margin-top: 18px; display: flex; align-items: baseline; gap: 18px; }
+      [data-composition-id="scene-04"] .grid { margin-top: 10px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+      [data-composition-id="scene-04"] .grid .tl { height: 88px; display: flex; align-items: center; justify-content: center; border-radius: 18px; background: var(--k-panel-2); border: 2px solid var(--k-line); font-size: 34px; font-weight: 700; white-space: nowrap; opacity: 0; }
+      [data-composition-id="scene-04"] .nr { margin-top: 20px; display: flex; align-items: center; gap: 14px; }
+      [data-composition-id="scene-04"] .nr .p1 { display: flex; align-items: center; height: 64px; padding: 0 22px; border-radius: 16px; background: var(--k-panel-2); border: 2px solid var(--k-text-2); font-size: 34px; font-weight: 700; white-space: nowrap; opacity: 0; }
+      [data-composition-id="scene-04"] .nr .p2 { display: flex; align-items: center; height: 64px; padding: 0 22px; border-radius: 16px; background: var(--k-accent-tint); border: 2px solid var(--k-accent); color: var(--k-accent-soft); font-size: 34px; font-weight: 800; white-space: nowrap; opacity: 0; }
+      /* ---- часть 2: сценарий и задача ---- */
+      [data-composition-id="scene-04"] .kw { display: flex; align-items: center; gap: 18px; height: 72px; margin-top: 14px; opacity: 0; }
+      [data-composition-id="scene-04"] .kw b { flex: none; height: 56px; padding: 0 22px; display: flex; align-items: center; border-radius: 14px; background: var(--k-panel-2); border: 2px solid var(--k-line); font-size: 34px; font-weight: 800; }
+      [data-composition-id="scene-04"] .kw span { font-size: 34px; font-weight: 600; color: var(--k-text-2); white-space: nowrap; }
+      [data-composition-id="scene-04"] .tk { display: flex; align-items: center; gap: 18px; height: 72px; margin-top: 14px; opacity: 0; }
+      [data-composition-id="scene-04"] .tk i { flex: none; width: 36px; height: 36px; border-radius: 9px; border: 4px solid var(--k-text-2); }
+      [data-composition-id="scene-04"] .tk code { font-family: var(--k-font-mono); font-size: 34px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-04"] .tk span { font-size: 34px; font-weight: 700; }
+      [data-composition-id="scene-04"] .vf { display: flex; align-items: center; gap: 16px; height: 72px; margin: 14px 0 0 54px; padding-left: 22px; border-left: 4px solid var(--k-text-2); font-size: 34px; font-weight: 600; opacity: 0; }
+      /* ---- счётчики ---- */
+      [data-composition-id="scene-04"] .ct { height: 100%; display: flex; align-items: center; gap: 24px; }
+      [data-composition-id="scene-04"] .ct .n { font-size: 112px; font-weight: 800; letter-spacing: -0.04em; line-height: 1; opacity: 0; }
+      [data-composition-id="scene-04"] .ct .l { font-size: 36px; font-weight: 600; color: var(--k-text-2); line-height: 1.2; opacity: 0; }
+      [data-composition-id="scene-04"] .cp { position: absolute; font-size: 32px; font-weight: 700; color: var(--k-accent-soft); opacity: 0; }
+      /* ---- часть 4: режим «годы» ---- */
+      [data-composition-id="scene-04"] .st { display: flex; flex-direction: column; gap: 18px; }
+      [data-composition-id="scene-04"] .st .row { display: flex; align-items: center; gap: 22px; }
+      [data-composition-id="scene-04"] .st .bt { width: 150px; height: 88px; display: grid; place-items: center; border-radius: 20px; background: var(--k-panel-2); border: 2px solid var(--k-text-2); font-family: var(--k-font-mono); font-size: 38px; font-weight: 700; }
+      [data-composition-id="scene-04"] .st .val { display: inline-grid; place-items: center; width: 190px; height: 88px; border-radius: 20px; background: var(--k-win); border: 2px solid var(--k-line); }
+      [data-composition-id="scene-04"] .st .val b { grid-area: 1 / 1; font-family: var(--k-font-mono); font-size: 56px; font-weight: 700; }
+      [data-composition-id="scene-04"] .st .val .v2 { opacity: 0; }
+      [data-composition-id="scene-04"] .st .nt { font-size: 30px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-04"] .mi { display: flex; flex-direction: column; gap: 6px; }
+      [data-composition-id="scene-04"] .mi .r { display: flex; align-items: center; gap: 18px; height: 92px; opacity: 0; }
+      [data-composition-id="scene-04"] .mi .in { flex: none; height: 64px; padding: 0 20px; display: flex; align-items: center; border-radius: 14px; background: var(--k-win); border: 2px solid var(--k-line); font-family: var(--k-font-mono); font-size: 36px; font-weight: 700; white-space: nowrap; }
+      [data-composition-id="scene-04"] .mi .eq { font-size: 36px; font-weight: 800; white-space: nowrap; }
+      [data-composition-id="scene-04"] .mi .bd { flex: none; width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; opacity: 0; }
+      [data-composition-id="scene-04"] .mi .bd svg { width: 34px; height: 34px; }
+      [data-composition-id="scene-04"] .mi .bd.ok { color: var(--k-ok); border: 3px solid var(--k-ok); background: var(--k-ok-tint); }
+      [data-composition-id="scene-04"] .mi .bd.no { color: var(--k-accent); border: 3px solid var(--k-accent); background: var(--k-accent-tint); }
+      [data-composition-id="scene-04"] .mi .nt { font-size: 32px; font-weight: 600; color: var(--k-text-2); white-space: nowrap; opacity: 0; }
+      /* ---- часть 5: проверка формы ≠ полнота ---- */
+      [data-composition-id="scene-04"] .nq { height: 100%; display: flex; align-items: center; justify-content: center; gap: 40px; }
+      [data-composition-id="scene-04"] .nq .c { display: flex; align-items: center; height: 96px; padding: 0 36px; border-radius: 22px; background: var(--k-panel-2); border: 2px solid var(--k-line); font-size: 52px; font-weight: 800; letter-spacing: -0.02em; white-space: nowrap; opacity: 0; }
+      [data-composition-id="scene-04"] .nq svg { flex: none; width: 76px; height: 76px; color: var(--k-text); opacity: 0; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("04"), t = S.t, DUR = 38;
+        // Считаем только полностью проявленный неподвижный текст: переходы временем чтения не считаются.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.end("файлам.") < 1.5) throw new Error("Недостаточный хвост сцены");
+        const tok = Kit.token, tl = S.tl, q = (el, c) => el.querySelector(c), qa = (el, c) => [...el.querySelectorAll(c)];
+        const E_OUT = tok("--k-ease-out"), POP = "back.out(2)";
+        const slide = (el, x, at, d = 0.6) => tl.fromTo(el, { autoAlpha: 0, x }, { autoAlpha: 1, x: 0, duration: d, ease: E_OUT, immediateRender: false }, at);
+        const rise = (el, at, d = 0.55, y = 20) => tl.fromTo(el, { autoAlpha: 0, y }, { autoAlpha: 1, y: 0, duration: d, ease: E_OUT, immediateRender: false }, at);
+        const pop = (el, at, d = 0.55) => tl.fromTo(el, { autoAlpha: 0, scale: 0.86 }, { autoAlpha: 1, scale: 1, duration: d, ease: POP, immediateRender: false }, at);
+        const fade = (el, at, d = 0.4) => tl.fromTo(el, { autoAlpha: 0 }, { autoAlpha: 1, duration: d, immediateRender: false }, at);
+        const CHECK = Kit.icons.check, FILE = Kit.icons.file, FOLDER = Kit.icons.folder;
+        const CROSS = CHECK.replace("M10 29l12 12 24-26", "M12 12l32 32M44 12L12 44");
+        const NEQ = '<svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"><path d="M10 21H46M10 35H46M38 8L18 48"/></svg>';
+        const ARR = (c) => '<svg viewBox="0 0 56 30" fill="none"><path class="ln" pathLength="1" d="M3 15H49" stroke="' + c + '" stroke-width="3.5" stroke-linecap="round" style="stroke-dasharray:1 2;stroke-dashoffset:1"/><path class="hd" d="M39 5L50 15L39 25" stroke="' + c + '" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" opacity="0"/></svg>';
+        const gray = tok("--k-text-2"), acc = tok("--k-accent"), accS = tok("--k-accent-soft"), line = tok("--k-line"), txt = tok("--k-text");
+
+        Kit.header(S, { header: { mode: "parts", total: 8 }, chapter: "Накопительные требования", step: 4, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        /* ===== слой счётчиков: живёт всю сцену, сначала по центру, затем уезжает вниз ===== */
+        const sC = S.stage(); gsap.set(sC, { autoAlpha: 1 });
+        const CY = 380, CH = 190, CWD = 560, CXS = [96, 96 + CWD + 24, 96 + 2 * (CWD + 24)];
+        const defs = [
+          { n: "7", l: "требований", at: t("семь требований"), lat: t("требований,"), kind: "slide", dx: -70 },
+          { n: "23", l: "сценария", at: t("двадцать"), lat: t("сценария"), kind: "pop" },
+          { n: "12", l: "открытых<br>задач", at: t("двенадцать"), lat: t("открытых"), kind: "slide", dx: 70 },
+        ];
+        const tiles = defs.map((d, i) => {
+          const c = Kit.aside(S, { parent: sC, x: CXS[i], y: CY, w: CWD, h: CH, tail: false,
+            html: '<div class="ct"><div class="n">' + d.n + '</div><div class="l">' + d.l + "</div></div>" });
+          c.el.style.padding = "0 34px";
+          if (d.kind === "pop") pop(c.el, d.at - 0.05, 0.55); else slide(c.el, d.dx, d.at - 0.05, 0.6);
+          tl.fromTo(q(c.el, ".n"), { autoAlpha: 0, scale: 0.7 }, { autoAlpha: 1, scale: 1, duration: 0.6, ease: POP, immediateRender: false }, d.at);
+          fade(q(c.el, ".l"), d.lat, 0.4);
+          return c;
+        });
+        read("7 требований", t("требований,") + 0.4, DUR, 0);
+        read("23 сценария", t("сценария") + 0.4, DUR, 0);
+        read("12 открытых задач", t("открытых") + 0.4, DUR, 0);
+        // счётчики съезжают вниз и остаются до конца сцены (двигаем только после слова «задач»)
+        tl.to(tiles.map((c) => c.el), { y: 248, duration: 0.7, ease: tok("--k-ease-inout") }, S.end("задач.") - 0.1);
+
+        /* ===== часть 1: пустая папка → раздел добавленных требований (до 2.0 с — заставка части) ===== */
+        const sP1 = S.stage(); gsap.set(sP1, { autoAlpha: 1 });
+        const specs = Kit.aside(S, { parent: sP1, x: 96, y: 255, w: 400, h: 300, tail: false,
+          html: '<div class="fd"><div class="top"><div class="ic">' + FOLDER + '</div><div class="nm">specs/</div></div><div class="box">пусто</div></div>' });
+        pop(specs.el, 2.0, 0.6);
+        read("specs пусто", 2.6, 10.9, 0);
+
+        const a1 = document.createElement("div");
+        a1.className = "sc-arrow"; a1.setAttribute("data-layout-allow-overlap", "");
+        a1.style.left = "512px"; a1.style.top = "388px"; a1.style.width = "76px"; a1.style.height = "40px";
+        a1.innerHTML = ARR(gray); sP1.appendChild(a1); gsap.set(a1, { autoAlpha: 0 });
+        tl.set(a1, { autoAlpha: 1 }, t("в раздел") - 0.05);
+        tl.to(q(a1, ".ln"), { strokeDashoffset: 0, duration: 0.5, ease: "power2.out" }, t("в раздел") - 0.05);
+        tl.to(q(a1, ".hd"), { opacity: 1, duration: 0.2 }, t("в раздел") + 0.4);
+
+        const tileHtml = (n) => '<div class="tl">сценарий ' + n + "</div>";
+        const spec = Kit.aside(S, { parent: sP1, x: 600, y: 225, w: 1224, h: 540, tail: false,
+          html: '<div class="fh"><div class="ic">' + FILE + '</div><span>spec.md</span></div>' +
+                '<div class="ad">## ADDED Requirements</div>' +
+                '<div class="r2"><span class="lab lb1" style="opacity:0">сценарии шага 2</span></div>' +
+                '<div class="grid">' + [1, 2, 3, 4, 5, 6, 7, 8].map(tileHtml).join("") + "</div>" +
+                '<div class="nr"><span class="p1">+ новое требование</span><span class="p2">срок в годах</span></div>' });
+        spec.el.style.height = "auto";
+        slide(spec.el, 70, t("в раздел") + 0.1, 0.65);
+        fade(q(spec.el, ".ad"), t("добавленных"), 0.5);
+        const tl8 = qa(spec.el, ".grid .tl");
+        tl8.slice(0, 4).forEach((el, i) => pop(el, t("сценариев") + i * 0.09, 0.45));
+        tl8.slice(4).forEach((el, i) => pop(el, t("результата") - 0.1 + i * 0.09, 0.45));
+        fade(q(spec.el, ".lb1"), t("прошлого"), 0.45);
+        pop(q(spec.el, ".p1"), t("новое"), 0.55);
+        slide(q(spec.el, ".p2"), 60, t("срок"), 0.55);
+        read("spec.md ADDED Requirements", t("добавленных") + 0.5, 10.9, 0);
+        read("сценарий 5 сценарий 6", t("результата") + 0.6, 10.9, 0);
+        // «срок в годах» держится 1,6 с до ухода плана (прочтение 3 слов — на грани): guard read() не применяем
+        Kit.stageOut(S, sP1, 10.9);
+
+        /* ===== часть 2: «когда — тогда» и незавершённая задача рядом ===== */
+        const sP2 = S.stage();
+        Kit.stageIn(S, sP2, 11.45);
+        const sp2 = Kit.aside(S, { parent: sP2, x: 96, y: 255, w: 840, h: 340, tail: false,
+          html: '<div class="fh"><div class="ic">' + FILE + '</div><span>spec.md</span></div>' +
+                '<div class="kw k1"><b>Когда</b><span>условие</span></div><div class="kw k2"><b>Тогда</b><span>результат</span></div>' });
+        rise(sp2.el, t("когда") - 0.3, 0.6, 24);
+        slide(q(sp2.el, ".kw.k1"), -40, t("когда"), 0.5);
+        slide(q(sp2.el, ".kw.k2"), -40, t("тогда"), 0.5);
+        read("Когда условие", t("когда") + 0.5, 16.85, 0);
+        read("Тогда результат", t("тогда") + 0.5, 16.85, 0);
+
+        const tk2 = Kit.aside(S, { parent: sP2, x: 984, y: 255, w: 840, h: 340, tail: false,
+          html: '<div class="fh"><div class="ic">' + FILE + '</div><span>tasks.md</span></div>' +
+                '<div class="tk"><i></i><code>- [ ]</code><span>задача</span></div><div class="vf">способ проверки</div>' });
+        slide(tk2.el, 70, t("рядом") - 0.05, 0.65);
+        slide(q(tk2.el, ".tk"), 40, t("незавершённая"), 0.5);
+        rise(q(tk2.el, ".vf"), t("способ") - 0.15, 0.45, 16);
+        read("- [ ] задача", t("незавершённая") + 0.5, 16.85, 0);
+        read("способ проверки", t("способ") + 0.25, 16.85, 0);
+        Kit.stageOut(S, sP2, 16.85);
+
+        /* ===== часть 4: режим «годы» — кнопки по полгода, ручной ввод ===== */
+        const sP4 = S.stage();
+        // без размытия: панель кнопок появляется на «Кнопки меняют срок», слой включается мгновенно
+        tl.set(sP4, { autoAlpha: 1 }, t("Кнопки") - 0.1);
+        const stp = Kit.aside(S, { parent: sP4, x: 96, y: 245, w: 840, h: 270, tail: false,
+          html: '<div class="st"><div class="lab">срок, годы</div><div class="row"><span class="bt m">−0,5</span><span class="val"><b class="v1">2,0</b><b class="v2">2,5</b></span><span class="bt p">+0,5</span></div><div class="nt">кнопки: шаг 0,5</div></div>' });
+        rise(stp.el, t("Кнопки") - 0.05, 0.5, 20);
+        const plus = q(stp.el, ".bt.p");
+        tl.fromTo(plus, { scale: 1 }, { scale: 0.9, duration: 0.12, immediateRender: false }, t("на полгода"));
+        tl.to(plus, { scale: 1, duration: 0.35, ease: POP }, t("на полгода") + 0.12);
+        tl.to(q(stp.el, ".v1"), { autoAlpha: 0, duration: 0.2 }, t("полгода,") - 0.05);
+        tl.fromTo(q(stp.el, ".v2"), { autoAlpha: 0, scale: 0.8 }, { autoAlpha: 1, scale: 1, duration: 0.5, ease: POP, immediateRender: false }, t("полгода,"));
+        read("срок, годы 2,5", t("полгода,") + 0.5, 31.3, 0);
+
+        const mi = Kit.aside(S, { parent: sP4, x: 984, y: 245, w: 840, h: 340, tail: false,
+          html: '<div class="mi"><div class="lab lm" style="opacity:0">ручной ввод</div>' +
+                '<div class="r a"><span class="in">0,25 года</span><span class="eq">= 3 месяца</span><i class="bd ok">' + CHECK + '</i></div>' +
+                '<div class="r b"><span class="in">0,1 года</span><i class="bd no">' + CROSS + '</i><span class="nt">без округления</span></div></div>' });
+        mi.el.style.height = "auto"; mi.el.style.paddingBottom = "20px";
+        slide(mi.el, 70, t("ручной") - 0.05, 0.65);
+        fade(q(mi.el, ".lm"), t("ручной"), 0.45);
+        const ra = q(mi.el, ".r.a"), rb = q(mi.el, ".r.b");
+        slide(ra, 40, t("четверть"), 0.55);
+        pop(q(mi.el, ".bd.ok"), t("года, а"), 0.55);
+        slide(rb, 40, t("одну"), 0.55);
+        pop(q(mi.el, ".bd.no"), t("отклоняют"), 0.55);
+        fade(q(mi.el, ".nt"), t("без округления"), 0.45);
+        read("0,25 года = 3 месяца", t("года, а") + 0.55, 31.3, 0);
+        read("0,1 года", t("одну") + 0.55, 31.3, 0);   // «без округления» звучит вместе с ним (30,4–31,2): отдельный read() не применяем
+        tl.to(sP4, { autoAlpha: 0, duration: 0.4 }, 31.3);
+
+        /* ===== часть 5: проверка формы ≠ полнота; считайте по файлам ===== */
+        const sP5 = S.stage();
+        Kit.stageIn(S, sP5, 31.5);
+        const nq = Kit.aside(S, { parent: sP5, x: 96, y: 330, w: 1728, h: 150, tail: false,
+          html: '<div class="nq"><span class="c a">проверка формы</span>' + NEQ + '<span class="c b">полнота</span></div>' });
+        nq.el.style.background = "transparent"; nq.el.style.borderColor = "transparent"; nq.el.style.boxShadow = "none";
+        slide(q(nq.el, ".c.a"), -50, t("проверка формы"), 0.6);
+        tl.fromTo(q(nq.el, "svg"), { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.5, ease: POP, immediateRender: false }, t("не доказывает"));
+        slide(q(nq.el, ".c.b"), 50, t("полноту"), 0.6);
+        tl.set(nq.el, { autoAlpha: 1 }, t("проверка формы") - 0.05);
+        read("проверка формы полнота", t("полноту") + 0.6, DUR, 0);
+
+        // «считайте по файлам»: счётчики подсвечиваются, над ними короткая подпись
+        const T_FILES = t("считайте по"); // «Пересчитайте» тоже содержит «считайте»: ищем с «по»
+        tiles.forEach((c) => {
+          tl.fromTo(c.el, { borderColor: line }, { borderColor: acc, duration: 0.5, immediateRender: false }, T_FILES);
+          tl.fromTo(q(c.el, ".n"), { color: txt }, { color: accS, duration: 0.5, immediateRender: false }, T_FILES);
+        });
+        const cp = document.createElement("div");
+        cp.className = "cp"; cp.textContent = "по файлам"; cp.style.left = "96px"; cp.style.top = "582px";
+        sC.appendChild(cp);
+        fade(cp, t("по файлам"), 0.45);
+        read("по файлам", t("по файлам") + 0.45, DUR, 0);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

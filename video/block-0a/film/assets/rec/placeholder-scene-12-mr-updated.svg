@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <rect width="1920" height="1080" fill="#eef0f3"/>
+  <rect x="60" y="60" width="1800" height="960" rx="36" fill="none" stroke="#ff7a59" stroke-width="8" stroke-dasharray="36 24"/>
+  <text x="960" y="470" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="104" font-weight="700" fill="#0f1115">запись: scene-12-mr-updated</text>
+  <text x="960" y="590" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="64" font-weight="500" fill="#4a5160">GitLab: тот же MR, вкладка Changes</text>
+  <text x="960" y="700" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="56" font-weight="500" fill="#4a5160">заглушка, подставится scene-12-mr-updated.mp4</text>
+</svg>

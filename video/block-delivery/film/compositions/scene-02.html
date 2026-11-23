@@ -1,0 +1,98 @@
+<template id="scene-02-template">
+  <div data-composition-id="scene-02" data-width="1920" data-height="1080" data-duration="30.8">
+    <style>
+      [data-composition-id="scene-02"] .d2-abs { position: absolute; }
+      [data-composition-id="scene-02"] .d2-fold { top: 250px; width: 380px; height: 120px; padding: 0 26px; display: flex; align-items: center; gap: 18px; font-size: 42px; font-weight: 800; letter-spacing: -0.01em; }
+      [data-composition-id="scene-02"] .d2-ic { width: 58px; height: 58px; color: var(--k-text-2); flex: none; }
+      [data-composition-id="scene-02"] .d2-ic svg { width: 100%; height: 100%; display: block; }
+      [data-composition-id="scene-02"] .d2-fork { left: 496px; top: 480px; width: 380px; height: 120px; padding: 0 26px; display: flex; align-items: center; gap: 18px; font-size: 40px; font-weight: 800; }
+      [data-composition-id="scene-02"] .d2-arr { left: 671px; top: 376px; width: 30px; height: 100px; }
+      [data-composition-id="scene-02"] .d2-send { left: 721px; top: 400px; font-size: 32px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-02"] .d2-row { left: 900px; width: 924px; height: 80px; padding: 0 20px; display: flex; align-items: center; gap: 16px; border-radius: 20px; border: 2px solid var(--k-line); background: var(--k-panel); }
+      [data-composition-id="scene-02"] .d2-n { width: 42px; height: 42px; border-radius: 50%; border: 3px solid var(--k-text-2); color: var(--k-text-2); font-size: 28px; font-weight: 700; line-height: 36px; text-align: center; flex: none; }
+      [data-composition-id="scene-02"] .d2-t { flex: 1; font-size: 30px; font-weight: 600; line-height: 1.2; white-space: nowrap; }
+      [data-composition-id="scene-02"] .d2-tk { position: relative; width: 52px; height: 52px; border-radius: 14px; border: 3px solid var(--k-text-2); flex: none; }
+      [data-composition-id="scene-02"] .d2-tk svg { position: absolute; left: 3px; top: 3px; width: 40px; height: 40px; }
+      [data-composition-id="scene-02"] .d2-plate { left: 96px; top: 710px; width: 1728px; height: 108px; padding: 0 38px; display: flex; align-items: center; gap: 24px; border-color: var(--k-accent); background: var(--k-accent-tint); white-space: nowrap; }
+      [data-composition-id="scene-02"] .d2-plate .lk { width: 62px; height: 62px; color: var(--k-accent-soft); flex: none; }
+      [data-composition-id="scene-02"] .d2-plate .lb { font-size: 44px; font-weight: 800; }
+      [data-composition-id="scene-02"] .d2-plate .ch { padding: 6px 26px; border-radius: 18px; border: 2px solid var(--k-accent); font-size: 42px; font-weight: 800; color: var(--k-accent-soft); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("02"), t = S.t, DUR = 30.8;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const div = (cls, html, parent) => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; parent.appendChild(el); return el; };
+        const CHECK = '<svg viewBox="0 0 56 56" fill="none" stroke="#eef0f3" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M10 29l12 12 24-26"/></svg>';
+        const LOCK = '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="18" width="26" height="18" rx="4"/><path d="M12 18v-5a8 8 0 0 1 16 0v5"/></svg>';
+        const ARR = '<svg viewBox="0 0 30 100" fill="none" stroke="#a3a9b4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M15 4v88"/><path pathLength="1" d="M4 78l11 16 11-16"/></svg>';
+        const T0 = 2.0;   // the part title covers the first 2 s: nothing is visible before it
+
+        Kit.header(S, { header: { mode: "parts", total: 7 }, chapter: "Подготовка", step: 2, duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* ---- две папки рядом и форк кода ---- */
+        const f1 = div("k-card d2-abs d2-fold", `<span class="d2-ic">${Kit.icons.folder}</span>требования`, s1); f1.style.left = "96px";
+        const f2 = div("k-card d2-abs d2-fold", `<span class="d2-ic">${Kit.icons.folder}</span>код`, s1); f2.style.left = "496px";
+        hide(f1, f2);
+        S.tl.fromTo(f1, { autoAlpha: 0, x: -80 }, { autoAlpha: 1, x: 0, duration: 0.8, ease: "power3.out", immediateRender: false }, T0);
+        S.tl.fromTo(f2, { autoAlpha: 0, y: 40, scale: 0.94 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(2)", immediateRender: false }, t("код.") - 0.05);
+        read("требования код", t("код."), DUR);
+
+        const fk = div("k-card d2-abs d2-fork", `<span class="d2-ic">${Kit.icons.cloud}</span>форк кода`, s1); hide(fk);
+        s1.insertAdjacentHTML("beforeend", `<div class="d2-abs d2-arr">${ARR}</div>`);
+        const arr = s1.querySelector(".d2-arr"); hide(arr);
+        const send = div("d2-abs d2-send", "результат", s1); hide(send);
+        const T_FK = t("Форк");
+        S.tl.fromTo(fk, { autoAlpha: 0, scale: 1.06, filter: "blur(14px)" }, { autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: 0.7, ease: "power3.out", immediateRender: false }, T_FK);
+        S.tl.set(arr, { autoAlpha: 1 }, t("кода нужен"));
+        arr.querySelectorAll("path").forEach((p, i) => S.tl.fromTo(p, { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.5, ease: "power2.out", immediateRender: false }, t("кода нужен") + i * 0.35));
+        S.tl.fromTo(send, { autoAlpha: 0, x: -20 }, { autoAlpha: 1, x: 0, duration: 0.6, ease: "power3.out", immediateRender: false }, t("отправки"));
+        read("форк кода результат", t("отправки"), DUR);
+
+        /* ---- пять условий: пустые строки, затем текст и галочка на своих словах ---- */
+        const conds = [
+          ["Версия требований совпала с принятой", t("Версия"), t("принятой")],
+          ["Ветка кода создана от версии сервиса", t("Ветка"), t("сервиса.")],
+          ["Владелец разрешил реализацию и назвал охват", t("Владелец"), t("охват.")],
+          ["Модель прочитала правила обеих папок", t("Модель"), t("папок.")],
+          ["Обе папки чисты", t("и обе папки"), t("чисты")],
+        ];
+        const tickFrom = [{}, { scale: 0.2 }, { y: -26 }, { rotation: -90, scale: 0.4 }, { scale: 1.8, filter: "blur(8px)" }];
+        const T_ROWS = t("пять");
+        conds.forEach(([txt, tTxt, tTick], i) => {
+          const row = div("d2-abs d2-row", `<span class="d2-n">${i + 1}</span><span class="d2-t">${txt}</span><span class="d2-tk">${CHECK}</span>`, s1);
+          row.style.top = 232 + i * 92 + "px";
+          const tx = row.querySelector(".d2-t"), tk = row.querySelector(".d2-tk svg"), p = tk.querySelector("path");
+          hide(row, tx, tk);
+          S.tl.fromTo(row, { autoAlpha: 0, x: 60 }, { autoAlpha: 1, x: 0, duration: 0.6, ease: "power3.out", immediateRender: false }, T_ROWS + i * 0.14);
+          S.tl.fromTo(tx, { autoAlpha: 0, x: 30 }, { autoAlpha: 1, x: 0, duration: 0.6, ease: "power3.out", immediateRender: false }, tTxt);
+          S.tl.fromTo(tk, { autoAlpha: 0, ...tickFrom[i] }, { autoAlpha: 1, x: 0, y: 0, scale: 1, rotation: 0, filter: "blur(0px)", duration: 0.5, ease: i === 0 ? "power2.out" : "back.out(2)", immediateRender: false }, tTick);
+          S.tl.fromTo(p, { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out", immediateRender: false }, tTick);
+          read(txt, tTxt, DUR);
+        });
+
+        /* ---- пока не выполнены: только чтение и проверки ---- */
+        const pl = div("k-card d2-abs d2-plate", `<span class="lk">${LOCK}</span><span class="lb">Разрешено только</span><span class="ch c1">чтение</span><span class="ch c2">проверки</span>`, s1);
+        const lk = pl.querySelector(".lk"), lb = pl.querySelector(".lb"), c1 = pl.querySelector(".c1"), c2 = pl.querySelector(".c2");
+        hide(pl, lb, c1, c2);
+        S.tl.fromTo(pl, { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, duration: 0.7, ease: "power3.out", immediateRender: false }, t("разрешены") - 0.15);
+        S.tl.fromTo(lk, { scale: 1.5, rotation: -14 }, { scale: 1, rotation: 0, duration: 0.5, ease: "back.out(2)", immediateRender: false }, t("разрешены") + 0.1);
+        Kit.popIn(S, lb, t("разрешены"));
+        S.tl.fromTo(c1, { autoAlpha: 0, x: -30 }, { autoAlpha: 1, x: 0, duration: 0.6, ease: "power3.out", immediateRender: false }, t("чтение"));
+        Kit.popIn(S, c2, t("проверки."));
+        read("Разрешено только чтение проверки", t("разрешены"), DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

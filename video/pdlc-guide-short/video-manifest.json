@@ -1,0 +1,17 @@
+{
+  "file": "pdlc-guide-short-720p.mp4",
+  "sha256": "d67a78bbb8eed2cc048d91db4e7185ccf49f717570c55f57c0d9124471327494",
+  "size": 4408786,
+  "url": "https://github.com/apolenkov/ai-pdlc-learning/releases/download/media-v1/d67a78bbb8ee-pdlc-guide-short-720p.mp4",
+  "version": "d67a78bbb8ee",
+  "audio": "voice-only",
+  "master": {
+    "file": "pdlc-guide-short-1080p.mp4",
+    "sha256": "0dc595da464241cb48497e2e3e1e751f313d652b939e1879277e5eac72acb082",
+    "size": 22393179,
+    "url": "https://github.com/apolenkov/ai-pdlc-learning/releases/download/media-v1/0dc595da4642-pdlc-guide-short-1080p.mp4",
+    "version": "0dc595da4642"
+  },
+  "duration": 89.5,
+  "note": "Registry (проект 6656): пакеты pdlc-guide-short-video / pdlc-guide-short-master, версия = первые 12 знаков sha256; readback MATCH 24.10. TASK-671: звук только из голоса (озвучка без музыки и SFX), видео побайтно прежнее, AAC-LC 48 кГц моно, около −16 LUFS; мастер 1080p — прежний микс (вне этапа)"
+}

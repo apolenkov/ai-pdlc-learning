@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ru" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <link rel="stylesheet" href="kit/tokens.css" />
+    <link rel="stylesheet" href="kit/components.css" />
+    <link rel="stylesheet" href="kit/sketch.css" />
+    <script src="assets/gsap.min.js"></script>
+    <script src="assets/vo/scene-0m.alignment.js"></script>
+    <script src="assets/vo/scene-00.alignment.js"></script>
+    <script src="assets/vo/scene-0b.alignment.js"></script>
+    <script src="assets/vo/scene-01.alignment.js"></script>
+    <script src="assets/vo/scene-02.alignment.js"></script>
+    <script src="assets/vo/scene-03.alignment.js"></script>
+    <script src="assets/vo/scene-04.alignment.js"></script>
+    <script src="assets/vo/scene-05.alignment.js"></script>
+    <script src="assets/vo/scene-06.alignment.js"></script>
+    <script>window.KIT_SCENES = {"0m":{"n":"0m","duration":10.3,"chapter":"Зачем это нужно","step":null,"title":"Карта маршрута","audio":"assets/vo/scene-0m.mp3","header":{"mode":"parts","total":5},"audioDuration":8.72},"00":{"n":0,"duration":31,"chapter":"Зачем это нужно","step":null,"title":"Зачем это нужно","audio":"assets/vo/scene-0.mp3","header":{"mode":"parts","total":5},"audioDuration":28.95},"0b":{"n":"0b","duration":25.8,"chapter":"Как меняется процесс","step":null,"title":"Как меняется процесс","audio":"assets/vo/scene-0b.mp3","header":{"mode":"parts","total":5},"audioDuration":23.93},"t1":{"id":"t1","kind":"title","of":1,"overlay":true,"duration":2,"chapter":"Спецификация до кода","step":1,"title":"Спецификация до кода","audio":null,"header":{"mode":"parts","total":5}},"01":{"n":1,"duration":39.4,"chapter":"Спецификация до кода","step":1,"title":"Спецификация до кода","audio":"assets/vo/scene-1.mp3","header":{"mode":"parts","total":5},"audioDuration":37.32},"t2":{"id":"t2","kind":"title","of":2,"overlay":true,"duration":2,"chapter":"Где лежат требования","step":2,"title":"Где лежат требования","audio":null,"header":{"mode":"parts","total":5}},"02":{"n":2,"duration":32.3,"chapter":"Где лежат требования","step":2,"title":"Где лежат требования","audio":"assets/vo/scene-2.mp3","header":{"mode":"parts","total":5},"audioDuration":30.48},"t3":{"id":"t3","kind":"title","of":3,"overlay":true,"duration":2,"chapter":"Стандарт анализа","step":3,"title":"Стандарт анализа","audio":null,"header":{"mode":"parts","total":5}},"03":{"n":3,"duration":21.6,"chapter":"Стандарт анализа","step":3,"title":"Стандарт анализа","audio":"assets/vo/scene-3.mp3","header":{"mode":"parts","total":5},"audioDuration":19.54},"t4":{"id":"t4","kind":"title","of":4,"overlay":true,"duration":2,"chapter":"Три уровня","step":4,"title":"Три уровня","audio":null,"header":{"mode":"parts","total":5}},"04":{"n":4,"duration":31.1,"chapter":"Три уровня","step":4,"title":"Три уровня","audio":"assets/vo/scene-4.mp3","header":{"mode":"parts","total":5},"audioDuration":29.01},"t5":{"id":"t5","kind":"title","of":5,"overlay":true,"duration":2,"chapter":"Куда мы идём","step":5,"title":"Куда мы идём","audio":null,"header":{"mode":"parts","total":5}},"05":{"n":5,"duration":27.3,"chapter":"Куда мы идём","step":5,"title":"Куда мы идём","audio":"assets/vo/scene-5.mp3","header":{"mode":"parts","total":5},"audioDuration":25.21},"06":{"n":6,"duration":18.7,"chapter":"Что дальше","step":null,"title":"Что дальше","audio":"assets/vo/scene-6.mp3","header":{"mode":"parts","total":5},"audioDuration":15.61}};</script>
+    <script>window.KIT_TERMS = [["сорс контрол(?:е|а|у|ом)?","Source Control"],["ворд(?:е|а|у|ом)?","Word"],["конфлюенс(?:е|а|у|ом)?","Confluence"],["мейнтейнер(?:а|у|ом|ы)?","Maintainer"],["пятнадцать десять","15.10"],["intent точка эм-ди","intent.md"],["мёрдж реквест","Merge Request"],["эс-ди-ди","SDD"],["опенспек(?:е|а|у|ом)?","OpenSpec"],["гитлаб(?:е|а|у|ом)?","GitLab"],["гитигнор",".gitignore"],["маркдаун","Markdown"],["гит(?:е|а|у|ом)?","Git"],["джир(?:е|а|у|ой)","Jira"],["эм-эр","MR"],["сентри","Sentry"],["дарк фактори","Dark Factory"],["эй-ай","AI"],["пи-ди-эл-си","PDLC"],["эс-ди-эл-си","SDLC"],["эм-си-пи","MCP"]];</script>
+    <script src="kit/kit.js"></script>
+    <script src="kit/sketches.js"></script>
+    <script src="kit/sketch.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--k-bg); }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--k-bg); }
+      #bg { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: hidden; }
+      #grid { position: absolute; left: -128px; top: -128px; width: 2176px; height: 1336px; background-image: linear-gradient(var(--k-grid) 1px, transparent 1px), linear-gradient(90deg, var(--k-grid) 1px, transparent 1px); background-size: 64px 64px; }
+      #glow { position: absolute; left: 1100px; top: -380px; width: 1100px; height: 1100px; border-radius: 50%; background: radial-gradient(closest-side, var(--k-glow), transparent); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="237.5" data-width="1920" data-height="1080">
+      <div id="bg"><div id="grid"></div><div id="glow"></div></div>
+      <div id="scene-0m" class="clip" data-composition-id="scene-0m" data-composition-src="compositions/scene-0m.html" data-start="0" data-duration="10.3" data-track-index="1"></div>
+      <audio id="vo-0m" src="assets/vo/scene-0m.mp3" data-start="0" data-duration="8.72" data-track-index="15" data-volume="1"></audio>
+      <div id="scene-00" class="clip" data-composition-id="scene-00" data-composition-src="compositions/scene-00.html" data-start="10.3" data-duration="31" data-track-index="2"></div>
+      <audio id="vo-00" src="assets/vo/scene-0.mp3" data-start="10.3" data-duration="28.95" data-track-index="16" data-volume="1"></audio>
+      <div id="scene-0b" class="clip" data-composition-id="scene-0b" data-composition-src="compositions/scene-0b.html" data-start="41.3" data-duration="25.8" data-track-index="3"></div>
+      <audio id="vo-0b" src="assets/vo/scene-0b.mp3" data-start="41.3" data-duration="23.93" data-track-index="17" data-volume="1"></audio>
+      <div id="scene-01" class="clip" data-composition-id="scene-01" data-composition-src="compositions/scene-01.html" data-start="67.1" data-duration="39.4" data-track-index="4"></div>
+      <audio id="vo-01" src="assets/vo/scene-1.mp3" data-start="67.1" data-duration="37.32" data-track-index="18" data-volume="1"></audio>
+      <div id="scene-02" class="clip" data-composition-id="scene-02" data-composition-src="compositions/scene-02.html" data-start="106.5" data-duration="32.3" data-track-index="5"></div>
+      <audio id="vo-02" src="assets/vo/scene-2.mp3" data-start="106.5" data-duration="30.48" data-track-index="19" data-volume="1"></audio>
+      <div id="scene-03" class="clip" data-composition-id="scene-03" data-composition-src="compositions/scene-03.html" data-start="138.8" data-duration="21.6" data-track-index="6"></div>
+      <audio id="vo-03" src="assets/vo/scene-3.mp3" data-start="138.8" data-duration="19.54" data-track-index="20" data-volume="1"></audio>
+      <div id="scene-04" class="clip" data-composition-id="scene-04" data-composition-src="compositions/scene-04.html" data-start="160.4" data-duration="31.1" data-track-index="7"></div>
+      <audio id="vo-04" src="assets/vo/scene-4.mp3" data-start="160.4" data-duration="29.01" data-track-index="21" data-volume="1"></audio>
+      <div id="scene-05" class="clip" data-composition-id="scene-05" data-composition-src="compositions/scene-05.html" data-start="191.5" data-duration="27.3" data-track-index="8"></div>
+      <audio id="vo-05" src="assets/vo/scene-5.mp3" data-start="191.5" data-duration="25.21" data-track-index="22" data-volume="1"></audio>
+      <div id="scene-06" class="clip" data-composition-id="scene-06" data-composition-src="compositions/scene-06.html" data-start="218.8" data-duration="18.7" data-track-index="9"></div>
+      <audio id="vo-06" src="assets/vo/scene-6.mp3" data-start="218.8" data-duration="15.61" data-track-index="23" data-volume="1"></audio>
+      <div id="scene-t1" class="clip" data-composition-id="scene-t1" data-composition-src="compositions/scene-t1.html" data-start="67.1" data-duration="2" data-track-index="10" style="z-index:55"></div>
+      <div id="scene-t2" class="clip" data-composition-id="scene-t2" data-composition-src="compositions/scene-t2.html" data-start="106.5" data-duration="2" data-track-index="11" style="z-index:55"></div>
+      <div id="scene-t3" class="clip" data-composition-id="scene-t3" data-composition-src="compositions/scene-t3.html" data-start="138.8" data-duration="2" data-track-index="12" style="z-index:55"></div>
+      <div id="scene-t4" class="clip" data-composition-id="scene-t4" data-composition-src="compositions/scene-t4.html" data-start="160.4" data-duration="2" data-track-index="13" style="z-index:55"></div>
+      <div id="scene-t5" class="clip" data-composition-id="scene-t5" data-composition-src="compositions/scene-t5.html" data-start="191.5" data-duration="2" data-track-index="14" style="z-index:55"></div>
+      <div id="scene-poster" class="clip" data-composition-id="scene-poster" data-composition-src="compositions/scene-poster.html" data-start="0" data-duration="2.6" data-track-index="90" style="z-index:70"></div>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#grid", { x: 0, y: 0 }, { x: -64, y: -64, duration: 237.5, ease: "none" }, 0);
+      tl.fromTo("#glow", { x: 0, y: 0 }, { x: -120, y: 80, duration: 237.5, ease: "none" }, 0);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,130 @@
+<template id="scene-06-template">
+  <div data-composition-id="scene-06" data-width="1920" data-height="1080" data-duration="33.9">
+    <style>
+      [data-composition-id="scene-06"] .bl-hd { display: flex; align-items: center; gap: 16px; height: 56px; font-size: 40px; font-weight: 800; letter-spacing: -0.01em; }
+      [data-composition-id="scene-06"] .bl-sub { margin: 2px 0 0 60px; font-size: 30px; font-weight: 500; color: var(--k-text-2); }
+      [data-composition-id="scene-06"] .bl-hd svg { width: 44px; height: 44px; color: var(--k-text-2); }
+      [data-composition-id="scene-06"] .bl-row { display: flex; align-items: center; gap: 14px; margin-top: 16px; }
+      [data-composition-id="scene-06"] .ch { display: flex; align-items: center; gap: 10px; height: 56px; padding: 0 20px; border-radius: 16px; background: var(--k-panel-2); border: 2px solid var(--k-line); font-size: 30px; font-weight: 700; white-space: nowrap; opacity: 0; }
+      [data-composition-id="scene-06"] .ch svg { flex: none; width: 28px; height: 28px; color: var(--k-ok); }
+      [data-composition-id="scene-06"] .ch.r1, [data-composition-id="scene-06"] .ch.r2 { border-color: var(--k-ok); background: var(--k-ok-tint); }
+      [data-composition-id="scene-06"] .ch.mono { font-family: var(--k-font-mono); font-size: 30px; font-weight: 600; }
+      [data-composition-id="scene-06"] .ch.eq { padding: 0; border: 0; background: transparent; font-size: 40px; font-weight: 400; color: var(--k-text-2); opacity: 0; }
+      [data-composition-id="scene-06"] .bl-row .ar { flex: none; width: 80px; height: 34px; opacity: 0; }
+      [data-composition-id="scene-06"] .bl-row .ok { flex: none; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; color: var(--k-ok); border: 3px solid var(--k-ok); background: var(--k-ok-tint); opacity: 0; }
+      [data-composition-id="scene-06"] .bl-row .ok svg { width: 28px; height: 28px; }
+      [data-composition-id="scene-06"] .bar-row { height: 100%; display: flex; align-items: center; gap: 20px; font-size: 34px; font-weight: 700; white-space: nowrap; }
+      [data-composition-id="scene-06"] .bar-row svg { flex: none; width: 44px; height: 44px; color: var(--k-text-2); }
+      [data-composition-id="scene-06"] .bar-row .m { font-family: var(--k-font-mono); font-size: 32px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-06"] .bar-row .tag { margin-left: auto; height: 52px; padding: 0 18px; display: flex; align-items: center; border-radius: 14px; background: var(--k-panel-2); border: 2px solid var(--k-line); font-size: 30px; font-weight: 700; color: var(--k-text-2); opacity: 0; }
+      [data-composition-id="scene-06"] .dk { position: relative; display: flex; align-items: center; gap: 18px; font-size: 36px; font-weight: 700; white-space: nowrap; height: 100%; }
+      [data-composition-id="scene-06"] .dk svg { flex: none; width: 48px; height: 48px; color: var(--k-text-2); }
+      [data-composition-id="scene-06"] .dk .tx { position: relative; }
+      [data-composition-id="scene-06"] .dk .strike { position: absolute; left: -12px; right: -12px; top: 52%; height: 5px; border-radius: 3px; background: var(--k-accent); transform-origin: 0 50%; transform: scaleX(0); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("06"), t = S.t, DUR = 33.9;
+        // Считаем только полностью проявленный неподвижный текст: переходы временем чтения не считаются.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.end("защищает.") < 1.5) throw new Error("Недостаточный хвост сцены");
+        const tok = Kit.token, tl = S.tl, q = (el, c) => el.querySelector(c);
+        const E_OUT = tok("--k-ease-out"), POP = "back.out(2)";
+        const slide = (el, x, at, d = 0.6) => tl.fromTo(el, { autoAlpha: 0, x }, { autoAlpha: 1, x: 0, duration: d, ease: E_OUT, immediateRender: false }, at);
+        const rise = (el, at, d = 0.55, y = 18) => tl.fromTo(el, { autoAlpha: 0, y }, { autoAlpha: 1, y: 0, duration: d, ease: E_OUT, immediateRender: false }, at);
+        const pop = (el, at, d = 0.55) => tl.fromTo(el, { autoAlpha: 0, scale: 0.86 }, { autoAlpha: 1, scale: 1, duration: d, ease: POP, immediateRender: false }, at);
+        const CHECK = Kit.icons.check;
+        const LOCK = '<svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><rect x="11" y="25" width="34" height="25" rx="5"/><path d="M18 25v-7a10 10 0 0 1 20 0v7"/></svg>';
+        const DISK = '<svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="28" cy="14" rx="18" ry="7"/><path d="M10 14v28c0 4 8 7 18 7s18-3 18-7V14M10 28c0 4 8 7 18 7s18-3 18-7"/></svg>';
+        const ARROW = '<svg class="ar" viewBox="0 0 80 34" fill="none"><path class="ln" pathLength="1" d="M4 17H70M56 5L70 17L56 29" stroke="' + tok("--k-accent") + '" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" style="stroke-dasharray:1 2;stroke-dashoffset:1"/></svg>';
+
+        Kit.header(S, { header: { mode: "parts", total: 7 }, chapter: "Сохранение и слияние", step: 6, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* ---- два репозитория: одинаковая колонка событий, разные слова диктора ---- */
+        const block = (x, name, ver, tgt, accept) => {
+          const b = Kit.aside(S, { parent: s1, x, y: 225, w: 840, h: 146, tail: false,
+            html: '<div class="bl-hd">' + Kit.icons.folder + '<span>' + name + '</span></div><div class="bl-sub">отдельный репозиторий</div>' +
+                  '<div class="bl-row"><span class="ch v">' + ver + '</span></div>' +
+                  '<div class="bl-row rq"><span class="ch q">запрос</span>' + ARROW + '<span class="ch mono tg">' + tgt + '</span></div>' +
+                  '<div class="bl-row rv"><span class="ch r1">ревью</span><span class="ch r2">' + accept + '</span></div>' +
+                  '<div class="bl-row sy"><span class="ch s1">локально</span><span class="ch eq">=</span><span class="ch s2">на сервере</span><i class="ok">' + CHECK + '</i></div>' });
+          const e = {};
+          ["v", "q", "tg", "r1", "r2", "s1", "eq", "s2"].forEach((k) => { e[k] = q(b.el, ".ch." + k); });
+          e.ar = q(b.el, ".ar"); e.ln = q(b.el, ".ar .ln"); e.ok = q(b.el, ".ok");
+          return Object.assign(b, { e });
+        };
+        const L = block(96, "Форк кода", "версия · код + тесты", "main форка кода", "принимает техлид");
+        const R = block(984, "Форк требований", "версия · отметки задач", "main форка требований", "одобрение владельца продукта");
+        slide(L.el, -70, 2.0, 0.65);                                   // до 2.0 с — заставка части
+        slide(R.el, 70, 2.15, 0.65);
+        read("Форк кода", 2.0, DUR); read("Форк требований", 2.15, DUR);
+        // два результата: обе рамки коротко подсвечиваются
+        [L.el, R.el].forEach((el) => {
+          tl.to(el, { borderColor: tok("--k-accent"), duration: 0.35 }, t("результатов два"));
+          tl.to(el, { borderColor: tok("--k-line"), duration: 0.5 }, t("результатов два") + 1.2);
+        });
+
+        // блоки растут вместе с содержимым: пустых карточек нет
+        const grow = (h, at) => tl.to([L.el, R.el], { height: h, duration: 0.45, ease: E_OUT }, at);
+        grow(218, t("код с тестами") - 0.1); grow(290, t("запроса") - 0.1); grow(362, t("ревью") - 0.1); grow(434, t("локальные") - 0.1);
+
+        // сохранённые версии
+        pop(L.e.v, t("код с тестами"), 0.55);
+        pop(R.e.v, t("статусы задач"), 0.55);
+        read("версия код тесты", t("код с тестами") + 0.55, DUR, 0);
+        read("версия отметки задач", t("статусы задач") + 0.55, DUR, 0);
+
+        // два запроса: запрос → main форка
+        slide(L.e.q, -40, t("запроса"), 0.5); slide(R.e.q, -40, t("запроса") + 0.25, 0.5);
+        const drawArrow = (b, at) => {
+          tl.set(b.e.ar, { opacity: 1 }, at);
+          tl.to(b.e.ln, { strokeDashoffset: 0, duration: 0.6, ease: "power2.out" }, at);
+        };
+        drawArrow(L, t("в главную ветку форка кода"));
+        slide(L.e.tg, 50, t("форка кода"), 0.55);
+        drawArrow(R, t("в главную ветку форка требований"));
+        slide(R.e.tg, 50, t("форка требований"), 0.55);
+        read("запрос main форка кода", t("форка кода") + 0.55, DUR, 0);
+        read("запрос main форка требований", t("форка требований") + 0.55, DUR, 0);
+
+        // ревью: у кода принимает техлид (этап 04), у требований — одобрение владельца продукта (этап 02)
+        pop(L.e.r1, t("ревью"), 0.5); pop(R.e.r1, t("ревью") + 0.25, 0.5);
+        pop(L.e.r2, t("техлид"), 0.5); pop(R.e.r2, t("одобрения"), 0.5);
+        read("ревью принимает техлид одобрение владельца продукта", t("одобрения") + 0.75, DUR, 0);
+
+        // main общего репозитория не меняется
+        const bar = Kit.aside(S, { parent: s1, x: 96, y: 690, w: 840, h: 90, tail: false,
+          html: '<div class="bar-row">' + LOCK + '<span class="m">main общего репозитория</span><span class="tag">не меняется</span></div>' });
+        bar.el.style.padding = "0 26px";
+        pop(bar.el, t("главная ветка общего"), 0.6);
+        pop(q(bar.el, ".tag"), t("не меняется"), 0.5);
+        read("main общего репозитория не меняется", t("не меняется") + 0.5, DUR, 0);
+
+        // локальные и удалённые версии совпадают: зелёная галочка только после сверки
+        [L, R].forEach((b, i) => {
+          rise(b.e.s1, t("локальные") + i * 0.2, 0.5, 14);
+          rise(b.e.eq, t("локальные") + 0.6 + i * 0.2, 0.4, 0);
+          rise(b.e.s2, t("удалённые") + i * 0.2, 0.5, 14);
+          pop(b.e.ok, t("версии:", 2) + i * 0.25, 0.5);
+        });
+        read("локально на сервере", t("удалённые") + 0.7, DUR, 0);
+
+        // версия только на диске — не защита
+        const dk = Kit.aside(S, { parent: s1, x: 984, y: 690, w: 840, h: 90, tail: false,
+          html: '<div class="dk">' + DISK + '<span class="tx">только диск<i class="strike"></i></span></div>' });
+        dk.el.style.padding = "0 26px";
+        slide(dk.el, 60, t("версия только на вашем диске"), 0.6);
+        tl.to(q(dk.el, ".strike"), { scaleX: 1, duration: 0.5, ease: "power2.out" }, t("результат не защищает"));
+        read("только диск", t("версия только на вашем диске") + 0.6, DUR, 0);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

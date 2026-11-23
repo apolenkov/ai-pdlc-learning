@@ -1,0 +1,44 @@
+[
+  {
+    "n": 1,
+    "title": "Зачем страница",
+    "duration": 8.7,
+    "audio": "assets/vo/scene-01.mp3",
+    "audioDuration": 7.63
+  },
+  {
+    "n": 2,
+    "title": "Карта этапов",
+    "duration": 10.8,
+    "audio": "assets/vo/scene-02.mp3",
+    "audioDuration": 9.75
+  },
+  {
+    "n": 3,
+    "title": "Курс",
+    "duration": 10,
+    "audio": "assets/vo/scene-03.mp3",
+    "audioDuration": 8.93
+  },
+  {
+    "n": 4,
+    "title": "Среда и команды",
+    "duration": 8.6,
+    "audio": "assets/vo/scene-04.mp3",
+    "audioDuration": 7.58
+  },
+  {
+    "n": 5,
+    "title": "Команда развития",
+    "duration": 8.8,
+    "audio": "assets/vo/scene-05.mp3",
+    "audioDuration": 7.75
+  },
+  {
+    "n": 6,
+    "title": "С чего начать",
+    "duration": 11.1,
+    "audio": "assets/vo/scene-06.mp3",
+    "audioDuration": 9
+  }
+]

@@ -1,0 +1,58 @@
+[
+  {
+    "n": 1,
+    "duration": 9.8,
+    "chapter": "Цикл продукта · PDLC",
+    "title": "Цикл продукта · PDLC",
+    "audioDuration": 8.25,
+    "audio": "assets/vo/scene-01.mp3"
+  },
+  {
+    "n": 2,
+    "duration": 10.9,
+    "chapter": "Как было",
+    "title": "Как было",
+    "audioDuration": 9.39,
+    "audio": "assets/vo/scene-02.mp3"
+  },
+  {
+    "n": 3,
+    "duration": 13.2,
+    "chapter": "Как стало · с ИИ-агентами",
+    "title": "Как стало · с ИИ-агентами",
+    "audioDuration": 11.68,
+    "audio": "assets/vo/scene-03.mp3"
+  },
+  {
+    "n": 4,
+    "duration": 16.7,
+    "chapter": "Четыре входа",
+    "title": "Четыре входа",
+    "audioDuration": 15.1,
+    "audio": "assets/vo/scene-04.mp3"
+  },
+  {
+    "n": 5,
+    "duration": 15.9,
+    "chapter": "Курс · команда развития",
+    "title": "Курс · команда развития",
+    "audioDuration": 14.31,
+    "audio": "assets/vo/scene-05.mp3"
+  },
+  {
+    "n": 6,
+    "duration": 12.9,
+    "chapter": "Найдите свой этап",
+    "title": "Найдите свой этап",
+    "audioDuration": 11.32,
+    "audio": "assets/vo/scene-06.mp3"
+  },
+  {
+    "n": 7,
+    "duration": 9.2,
+    "chapter": "Начните с карты",
+    "title": "Начните с карты",
+    "audioDuration": 6.6,
+    "audio": "assets/vo/scene-07.mp3"
+  }
+]

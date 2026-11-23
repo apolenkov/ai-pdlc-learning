@@ -1,0 +1,264 @@
+{
+  "events": [
+    {
+      "kind": "pop",
+      "t": 3.14,
+      "note": "00:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 4.537,
+      "note": "00:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 6.032,
+      "note": "00:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 8.028,
+      "note": "00:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 9.648,
+      "note": "00:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 11.885,
+      "note": "00:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 13.325,
+      "note": "00:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 18.082,
+      "note": "00:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 22.787,
+      "note": "00:popIn"
+    },
+    {
+      "kind": "swipe",
+      "t": 33.12,
+      "pan": -0.5
+    },
+    {
+      "kind": "pop",
+      "t": 35.35,
+      "note": "01:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 39.019,
+      "note": "01:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 41.168,
+      "note": "01:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 43.039,
+      "note": "01:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 45.463,
+      "note": "01:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 46.741,
+      "note": "01:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 52.066,
+      "note": "01:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 56.254,
+      "note": "01:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 58.615,
+      "note": "01:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 61.191,
+      "note": "01:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 68.743,
+      "note": "01:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 71.023,
+      "note": "01:popIn"
+    },
+    {
+      "kind": "swipe",
+      "t": 78.61999999999999,
+      "pan": 0.5
+    },
+    {
+      "kind": "pop",
+      "t": 80.85,
+      "note": "02:stageInSoft"
+    },
+    {
+      "kind": "pop",
+      "t": 89.644,
+      "note": "02:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 95.265,
+      "note": "02:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 98.072,
+      "note": "02:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 100.03,
+      "note": "02:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 102.391,
+      "note": "02:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 108.555,
+      "note": "02:popIn"
+    },
+    {
+      "kind": "swipe",
+      "t": 116.598,
+      "note": "02:stageIn"
+    },
+    {
+      "kind": "pop",
+      "t": 118.046,
+      "note": "02:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 123.251,
+      "note": "02:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 132.741,
+      "note": "02:popIn"
+    },
+    {
+      "kind": "swipe",
+      "t": 138.01999999999998,
+      "pan": -0.5
+    },
+    {
+      "kind": "pop",
+      "t": 140.25,
+      "note": "03:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 145.179,
+      "note": "03:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 152.732,
+      "note": "03:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 154.315,
+      "note": "03:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 159.384,
+      "note": "03:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 160.688,
+      "note": "03:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 166.143,
+      "note": "03:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 171.109,
+      "note": "03:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 174.532,
+      "note": "03:popIn"
+    },
+    {
+      "kind": "swipe",
+      "t": 178.32,
+      "pan": 0.5
+    },
+    {
+      "kind": "pop",
+      "t": 180.55,
+      "note": "04:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 182.976,
+      "note": "04:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 186.464,
+      "note": "04:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 189.547,
+      "note": "04:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 192.822,
+      "note": "04:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 195.114,
+      "note": "04:popIn"
+    },
+    {
+      "kind": "subdrop",
+      "t": 198.29999999999998,
+      "pan": 0
+    }
+  ]
+}

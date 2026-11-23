@@ -1,0 +1,72 @@
+[
+  {
+    "n": 0,
+    "title": "Вступление",
+    "step": null,
+    "chapter": "Вступление",
+    "start": 0,
+    "titleStart": 0,
+    "speechStart": 0,
+    "end": 70.5
+  },
+  {
+    "n": 1,
+    "title": "Вход и выход",
+    "step": 1,
+    "chapter": "Вход и выход",
+    "start": 70.5,
+    "titleStart": 70.5,
+    "speechStart": 70.5,
+    "end": 102.4
+  },
+  {
+    "n": 2,
+    "title": "Пустой репозиторий и копия",
+    "step": 2,
+    "chapter": "Пустой репозиторий и копия",
+    "start": 102.4,
+    "titleStart": 102.4,
+    "speechStart": 102.4,
+    "end": 124.4
+  },
+  {
+    "n": 3,
+    "title": "Окружение с моделью",
+    "step": 3,
+    "chapter": "Окружение с моделью",
+    "start": 124.4,
+    "titleStart": 124.4,
+    "speechStart": 124.4,
+    "end": 151.1
+  },
+  {
+    "n": 4,
+    "title": "Замысел и первое изменение",
+    "step": 4,
+    "chapter": "Замысел и первое изменение",
+    "start": 151.1,
+    "titleStart": 151.1,
+    "speechStart": 151.1,
+    "end": 201.2
+  },
+  {
+    "n": 5,
+    "title": "Проверка и одобрение",
+    "step": 5,
+    "chapter": "Проверка и одобрение",
+    "start": 201.2,
+    "titleStart": 201.2,
+    "speechStart": 201.2,
+    "end": 243.6
+  },
+  {
+    "n": 6,
+    "title": "Дальше — «Практикум разработки»",
+    "step": 6,
+    "chapter": "Дальше — «Практикум разработки»",
+    "start": 243.6,
+    "titleStart": 243.6,
+    "speechStart": 243.6,
+    "end": 270.3
+  }
+]

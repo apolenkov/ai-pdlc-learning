@@ -1,0 +1,25 @@
+.s6-g { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+.s6-ag { position: absolute; width: 228px; text-align: center; font-size: 28px; line-height: 1.25; color: var(--k-text-2); }
+.s6-ag svg { display: inline-block; vertical-align: -9px; margin-right: 6px; }
+.s6-rl { position: absolute; width: 228px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 31px; letter-spacing: -.02em; font-weight: 800; color: var(--k-accent-soft); }
+.s6-cta { position: absolute; width: 214px; margin-left: 7px; text-align: center; padding: 6px 0; border: 2px solid var(--k-line); border-radius: 16px; font-size: 28px; font-weight: 700; color: var(--k-text-2); background: var(--k-panel); }
+.s6-cta.on { border-color: var(--k-ok); color: var(--k-ok); background: var(--k-ok-tint); }
+.s6-cur { position: absolute; left: 0; top: 0; width: 56px; height: 56px; }
+.s6-ring { position: absolute; width: 90px; height: 90px; border-radius: 50%; border: 5px solid var(--k-accent); }
+.s6-page { position: absolute; left: 96px; top: 690px; width: 1000px; padding: 22px 30px; border: 3px solid var(--k-ok); border-radius: 24px; background: var(--k-panel); }
+.s6-page h3 { font-size: 38px; font-weight: 800; margin-bottom: 14px; }
+.s6-page .row { display: flex; gap: 14px; flex-wrap: wrap; }
+.s6-gl { position: absolute; top: 168px; font-size: 34px; font-weight: 800; letter-spacing: -.01em; }
+.s6-gl small { font-size: 28px; font-weight: 600; color: var(--k-text-2); margin-left: 10px; }
+.s6-sn { position: absolute; width: 76px; height: 76px; border-radius: 50%; display: grid; place-items: center; border: 4px solid var(--k-line); background: var(--k-panel-2); color: var(--k-text-2); font-size: 32px; font-weight: 800; }
+.s6-sn.on { border-color: var(--k-ok); color: var(--k-ok); background: var(--k-ok-tint); }
+.s6-cap { position: absolute; left: 96px; width: 1728px; top: 346px; font-size: 44px; font-weight: 800; letter-spacing: -.01em; }
+.s6-cap em { font-style: normal; color: var(--k-ok); }
+.s6-meta { position: absolute; left: 96px; top: 450px; width: 620px; padding: 26px 30px; border: 3px solid var(--k-ok); border-radius: 26px; background: var(--k-ok-tint); }
+.s6-meta b { display: flex; align-items: center; gap: 16px; font-size: 40px; font-weight: 800; line-height: 1.15; }
+.s6-meta span { display: block; margin-top: 10px; font-size: 30px; color: var(--k-text-2); line-height: 1.3; }
+.s6-lk { position: absolute; left: 960px; width: 860px; padding: 14px 28px; border: 2px solid var(--k-line); border-radius: 18px; background: var(--k-panel); font-size: 34px; font-weight: 700; display: flex; align-items: center; gap: 16px; }
+.s6-step { position: absolute; left: 96px; top: 450px; width: 820px; padding: 24px 32px; border: 3px solid var(--k-ok); border-radius: 26px; background: var(--k-panel); }
+.s6-step h3 { font-size: 38px; font-weight: 800; margin-bottom: 14px; }
+.s6-sr { display: flex; align-items: center; gap: 18px; padding: 10px 0; font-size: 36px; font-weight: 700; }
+.s6-who { position: absolute; left: 96px; top: 748px; display: flex; align-items: center; gap: 14px; font-size: 34px; font-weight: 700; }

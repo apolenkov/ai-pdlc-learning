@@ -1,0 +1,83 @@
+<template id="scene-03-template">
+  <div data-composition-id="scene-03" data-width="1920" data-height="1080" data-duration="38.6">
+    <style>
+      .s3-g { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+      .s3-tag { position: absolute; left: 96px; }
+      .s3-p { position: absolute; width: 72px; }
+      .s3-ic { position: absolute; width: 56px; height: 56px; border-radius: 50%; background: var(--k-bg); display: grid; place-items: center; }
+      .s3-bst { position: absolute; width: 140px; height: 100px; overflow: visible; }
+      .s3-ag { position: absolute; width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center; background: var(--k-panel); border: 3px solid var(--k-ok); }
+      .s3-ag i { position: absolute; right: -10px; top: -10px; width: 28px; height: 28px; border-radius: 50%; background: var(--k-ok); display: grid; place-items: center; font-style: normal; color: var(--k-on-accent); font-size: 20px; font-weight: 900; }
+      .s3-dec { position: absolute; width: 228px; text-align: center; font-size: 28px; font-weight: 600; line-height: 1.2; color: var(--k-text-2); }
+      .s3-dec b { display: block; font-size: 30px; letter-spacing: -.02em; font-weight: 800; color: var(--k-accent-soft); margin-bottom: 4px; }
+      .s3-plank { position: absolute; left: 96px; top: 850px; width: 1728px; padding: 22px 36px; border: 3px solid var(--k-ok); border-radius: 26px; background: var(--k-panel); font-size: 36px; font-weight: 700; line-height: 1.3; text-align: center; }
+      .s3-plank span { color: var(--k-ok); }
+    </style>
+    <script>
+      (function () {
+        const L = Long.begin("03"), { S, tl, el, show, hide, at, t, DUR } = L;
+        L.head("Проблема → <span>цель</span>");
+        const names = ["Намерение и план", "Анализ требований", "Архитектура и дизайн", "Реализация", "Тестирование", "Выпуск", "Наблюдение"];
+        const gB = el("s3-g"); const OFF = 180, TB = 186;
+        const tagB = el("s3-tag f-tag was", "ПРОБЛЕМА", gB); tagB.style.top = TB - 52 + "px"; show(tagB, 0.2);
+        const rb = L.ribbon({ top: TB, names, cls: "", reveal: (i) => 0.3 + i * 0.1 });
+        gB.appendChild(rb.rail);
+        const cx = (i) => rb.cx(i);
+        // под каждым узлом — человек, делает всё сам
+        const pers = names.map((_, i) => { const p = el("s3-p", F.person(90, F.C.t2, 5), gB); F.setPos(p, cx(i) - 36, TB + 172); show(p, t("человек") + i * 0.33, 10); return p; });
+        // между этапами — письма, встречи, страницы, ручной регресс: рассыпаются стрелками
+        const icons = [["mail", "письма"], ["cal", "встречи"], ["doc", "конфлюенс"], ["box", "ручной"], ["cal", null, 8.55], ["mail", null, 8.8]];
+        const bursts = [];
+        icons.forEach(([nm, key, fix], g) => {
+          const x = (cx(g) + cx(g + 1)) / 2, y = TB + 217, when = key ? t(key) : fix;
+          const ic = el("s3-ic", F.icon(nm, 40, F.C.accS, 2.2), gB); F.setPos(ic, x - 28, y - 28); show(ic, when, 0);
+          tl.fromTo(ic, { rotation: -10 }, { rotation: 10, duration: 0.45, ease: "sine.inOut", yoyo: true, repeat: 5, immediateRender: false }, when);
+          const bs = el("s3-bst", "", gB); F.setPos(bs, x - 70, y - 50);
+          const sv = document.createElementNS("http://www.w3.org/2000/svg", "svg"); sv.setAttribute("viewBox", "-70 -50 140 100"); sv.setAttribute("width", 140); sv.setAttribute("height", 100); bs.appendChild(sv);
+          [[-0.78, 1], [-2.36, 1], [0.78, 1], [2.36, 1]].forEach(([a]) => {
+            const r0 = 40, r1 = 64, x0 = Math.cos(a) * r0, y0 = Math.sin(a) * r0 * 0.8, x1 = Math.cos(a) * r1, y1 = Math.sin(a) * r1 * 0.8;
+            const p = F.path(sv, `M ${x0} ${y0} L ${x1} ${y1} M ${x1 - Math.cos(a - 0.5) * 11} ${y1 - Math.sin(a - 0.5) * 9} L ${x1} ${y1} L ${x1 - Math.cos(a + 0.5) * 11} ${y1 - Math.sin(a + 0.5) * 9}`, F.C.acc, 3.5);
+            F.draw(tl, p, when + 0.15, 0.4, "power2.out");
+          });
+          bursts.push(bs, ic);
+        });
+        gsap.set(gB, { y: OFF });
+        // «С агентами…»: ряд БЫЛО уходит вверх и бледнеет, снизу строится СТАЛО
+        const nAt = t("С агентами");
+        tl.to(gB, { y: 0, duration: 0.8, ease: "power2.inOut" }, nAt - 0.3);
+        tl.to([...pers, ...bursts], { y: -84, duration: 0.5, ease: "power2.inOut" }, nAt - 0.3);
+        tl.to(rb.stops.map((s) => s.querySelector(".lg-lab")), { autoAlpha: 0, duration: 0.3 }, nAt - 0.3);
+        tl.to(gB, { opacity: 0.5, duration: 0.6 }, nAt + 0.1);
+        const TN = 452;
+        const tagN = el("s3-tag f-tag now", "ЦЕЛЬ"); tagN.style.top = TN - 52 + "px"; show(tagN, nAt + 0.2);
+        const rn = L.ribbon({ top: TN, names, cls: "ok", reveal: (i) => nAt + 0.3 + i * 0.2 });
+        // агент → человек под каждым узлом
+        const AY = TN + 176, ags = [], hum = [], arr = [];
+        names.forEach((_, i) => {
+          const a = el("s3-ag", People.robotIcon(34) + "<i>✓</i>"); F.setPos(a, cx(i) - 92, AY + 14);
+          const chk = a.querySelector("i"); gsap.set(chk, { scale: 0 });
+          show(a, t("Агент предлагает") + i * 0.3, 10); ags.push(a);
+          const ar = el("f-abs", F.icon("link", 1, "#000"), S.root); ar.remove();
+          const hp = el("s3-p", F.person(90, F.C.t2, 5)); F.setPos(hp, cx(i) + 16, AY - 4); show(hp, t("решает человек") + i * 0.33, 10); hum.push(hp);
+          tl.to(chk, { scale: 1, duration: 0.3, ease: "back.out(3)" }, t("автопроверки") + i * 0.2);
+          const svgA = F.layer(S.root);
+          const sp = F.path(svgA, `M ${cx(i) - 28} ${AY + 44} L ${cx(i) + 8} ${AY + 44}`, F.C.ok, 4);
+          F.draw(tl, sp, t("решает человек") + i * 0.33, 0.3, "power1.out");
+        });
+        const plank = el("s3-plank", "<span>Человек</span> владеет целью и принимает решение. <span>Агент</span> готовит и исполняет внутри границ"); show(plank, t("А решает"), 14);
+        // решающие подписи зажигаются по одной
+        const verbs = ["Решает", "Подтверждает", "Утверждает", "Принимает", "Решает", "Допускает", "Наблюдает"];
+        const roles = ["Владелец продукта", "Владелец продукта", "Архитектор (ADR)", "Технический лидер", "QA", "Технический лидер", "Владелец продукта"];
+        const lit = [t("Владелец продукта") + 0.3, t("что делаем"), t("зачем"), t("Архитектор"), t("принимает"), t("инженер"), 0];
+        lit[2] = t("Архитектор"); lit[5] = t("допускает"); lit[6] = t("зачем") + 0.1; lit[1] = t("что делаем") + 0.1; lit[0] = t("Владелец продукта") + 0.3;
+        lit[3] = t("принимает") + 0.1; lit[4] = t("инженер") + 0.1;
+        verbs.forEach((v, i) => {
+          const d = el("s3-dec", "<b>" + v + "</b>" + roles[i]); F.setPos(d, cx(i) - 114, AY + 106); show(d, lit[i], 10);
+          tl.to(hum[i].querySelector("svg"), { stroke: F.C.acc, duration: 0.3 }, lit[i]);
+          tl.to(rn.nodes[i], { borderColor: F.C.acc, color: F.C.accS, duration: 0.3 }, lit[i]);
+        });
+        L.fin();
+      })();
+    </script>
+  </div>
+</template>

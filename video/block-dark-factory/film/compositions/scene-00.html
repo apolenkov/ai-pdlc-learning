@@ -1,0 +1,79 @@
+<template id="scene-00-template">
+  <div data-composition-id="scene-00" data-width="1920" data-height="1080" data-duration="19.3">
+    <style>
+      [data-composition-id="scene-00"] .lb { font-size: 28px; font-weight: 700; color: var(--k-text-2); }
+      [data-composition-id="scene-00"] .lb.night { color: var(--k-info); }
+      [data-composition-id="scene-00"] .tx { font-size: 40px; font-weight: 700; line-height: 1.15; margin-top: 6px; }
+      [data-composition-id="scene-00"] .fd-h { display: flex; align-items: center; gap: 18px; font-size: 40px; font-weight: 700; }
+      [data-composition-id="scene-00"] .fd-h svg { width: 56px; height: 56px; flex: none; }
+      [data-composition-id="scene-00"] .fd-h span { color: var(--k-accent-soft); }
+      [data-composition-id="scene-00"] .fd-r { display: flex; align-items: center; gap: 16px; margin-top: 14px; padding: 8px 18px; border-radius: 14px; background: var(--k-panel-2); font-size: 36px; font-weight: 600; }
+      [data-composition-id="scene-00"] .fd-r svg { width: 34px; height: 40px; flex: none; }
+      [data-composition-id="scene-00"] .ch { position: absolute; left: 800px; top: 590px; display: flex; gap: 16px; }
+      [data-composition-id="scene-00"] .ch > div { padding: 10px 26px; border: 2px solid var(--k-ok); border-radius: 28px; background: var(--k-ok-tint); color: var(--k-ok); font-size: 34px; font-weight: 700; }
+      [data-composition-id="scene-00"] .dir { position: absolute; left: 800px; width: 1024px; top: 690px; font-size: 40px; font-weight: 700; color: var(--k-accent-soft); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("00"), t = S.t, DUR = 19.3;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»: ${(off - at - reveal).toFixed(1)} с, нужно ${needed.toFixed(1)}`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const div = (cls, html, parent) => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; parent.appendChild(el); return el; };
+        const NS = "http://www.w3.org/2000/svg";
+        const add = (svg, tag, attrs) => { const e = document.createElementNS(NS, tag); Object.entries(attrs).forEach(([k, v]) => e.setAttribute(k, v)); svg.appendChild(e); return e; };
+        const C = (n) => Kit.token("--k-" + n);
+
+        Kit.header(S, { header: { mode: "parts", total: 7 }, chapter: "Зачем это нужно", step: null, mode: "intro", duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        // город на весь эпизод: ночью окно офиса горит и гаснет, утром встаёт солнце
+        const s0 = S.stage(); gsap.set(s0, { autoAlpha: 1 });
+        const city = Kit.sketch(S, { parent: s0, name: "night-city", x: 96, y: 300, w: 640, at: 0.1, dur: 2.0 });
+        const glow = add(city.svg, "rect", { x: 175, y: 233, width: 26, height: 30, rx: 5, fill: C("accent"), opacity: 0 });
+        const win = add(city.svg, "rect", { x: 182, y: 240, width: 12, height: 16, fill: C("accent"), opacity: 0 });
+        S.tl.to(win, { opacity: 1, duration: 0.3 }, 0.5).to(glow, { opacity: 0.3, duration: 0.3 }, 0.5);
+        S.tl.to([win, glow], { opacity: 0, duration: 0.4, ease: "power2.in" }, t("утром") - 0.4);
+        S.tl.to([...city.svg.querySelectorAll('path[stroke="#7cc4ff"]')], { opacity: 0, duration: 0.6 }, t("утром"));
+        const sun = add(city.svg, "g", { opacity: 0 });
+        add(sun, "circle", { cx: 560, cy: 96, r: 28, stroke: C("accent"), "stroke-width": 4 });
+        for (let i = 0; i < 8; i += 1) {
+          const a = (i * Math.PI) / 4;
+          add(sun, "path", { d: `M${560 + Math.cos(a) * 42} ${96 + Math.sin(a) * 42} L${560 + Math.cos(a) * 54} ${96 + Math.sin(a) * 54}`, stroke: C("accent"), "stroke-width": 4, "stroke-linecap": "round" });
+        }
+        S.tl.fromTo(sun, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1.2, ease: "power2.out", immediateRender: false }, t("утром") + 0.2);
+
+        // вечер: маршрут и замысел
+        const sA = S.stage(); gsap.set(sA, { autoAlpha: 1 });
+        const plate = Kit.aside(S, { parent: sA, x: 800, y: 300, w: 1024, tail: false, title: "Перед этим", html: '<div class="lb">Перед этим · подготовка</div><div class="tx">«Что такое SDD и OpenSpec»</div>' });
+        plate.show(0.2);
+        read("Перед этим подготовка SDD и OpenSpec", 0.2, t("черновик"));
+        const ev = Kit.aside(S, { parent: sA, x: 800, y: 480, w: 1024, tail: false, html: '<div class="lb night">Вечер</div><div class="tx">Владелец продукта записал замысел</div>' });
+        ev.show(t("владелец")); read("Вечер Владелец продукта записал замысел", t("владелец"), t("черновик"));
+
+        // утро: папка «Готово к проверке»
+        const sB = S.stage();
+        const doc = '<svg viewBox="0 0 48 56"><path d="M6 4h24l12 12v34a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" fill="' + C("info") + '"/><path d="M30 4v12h12z" fill="' + C("line") + '"/></svg>';
+        const folder = '<svg viewBox="0 0 56 56"><path d="M5 14a4 4 0 0 1 4-4h12l5 6h21a4 4 0 0 1 4 4v24a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4z" fill="' + C("accent") + '"/></svg>';
+        const fd = Kit.aside(S, { parent: sB, x: 800, y: 240, w: 1024, tail: false, html: '<div class="fd-h">' + folder + "<div><span>Утро ·</span> «Готово к проверке»</div></div>" });
+        gsap.set(fd.el, { autoAlpha: 1 });
+        read("Утро Готово к проверке", t("черновик") + 0.5, DUR);
+        [["Черновик спецификации", "черновик", 0.6], ["Изменение", "изменение", 0], ["Исправление кода", "исправление", 0]].forEach(([txt, w, d]) => {
+          const r = div("fd-r", doc + "<span>" + txt + "</span>", fd.el); hide(r); Kit.popIn(S, r, t(w) + d); read(txt, t(w) + d, DUR);
+        });
+        const ch = div("ch", "", sB);
+        [["Прочитать", "прочитать"], ["Проверить", "проверить"], ["Решить", "решить"]].forEach(([txt, w]) => {
+          const c = div("", txt, ch); hide(c); Kit.popIn(S, c, t(w)); read(txt, t(w), DUR);
+        });
+        const dir = div("dir", "Не сегодняшний день — направление", sB); hide(dir); Kit.popIn(S, dir, t("Это")); read(dir.textContent, t("Это"), DUR);
+        Kit.stageOut(S, sA, t("черновик")); Kit.stageIn(S, sB, t("черновик") + 0.5);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

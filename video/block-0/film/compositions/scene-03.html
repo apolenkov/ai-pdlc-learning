@@ -1,0 +1,132 @@
+<template id="scene-03-template">
+  <div data-composition-id="scene-03" data-width="1920" data-height="1080" data-duration="51.2">
+    <style>
+      [data-composition-id="scene-03"] .q-cap { font-size: 30px; line-height: 1.25; font-weight: 500; color: var(--k-text-2); }
+      [data-composition-id="scene-03"] .q-line { font-size: 36px; line-height: 1.25; font-weight: 700; margin-top: 8px; }
+      [data-composition-id="scene-03"] .q-syn { font-size: 34px; line-height: 1.25; font-weight: 600; }
+      [data-composition-id="scene-03"] .q-card { padding: 20px 26px 22px; }
+      [data-composition-id="scene-03"] .q-syn-box { border-color: var(--k-text-2); }
+      [data-composition-id="scene-03"] .q-list { display: grid; gap: 6px; margin-top: 12px; }
+      [data-composition-id="scene-03"] .q-item { position: relative; display: flex; align-items: center; justify-content: space-between; padding: 8px 14px 8px 18px; border-left: 6px solid rgba(0, 0, 0, 0); border-radius: 12px; background-color: rgba(0, 0, 0, 0); font-size: 36px; font-weight: 600; line-height: 1.2; color: var(--k-text-2); }
+      [data-composition-id="scene-03"] .q-item svg { width: 34px; height: 34px; color: var(--k-text-2); }
+      [data-composition-id="scene-03"] .q-role { display: flex; gap: 18px; align-items: flex-start; }
+      [data-composition-id="scene-03"] .q-role svg { flex: none; width: 52px; height: 52px; margin-top: 4px; }
+      [data-composition-id="scene-03"] .q-init { border-color: var(--k-text-2); }
+      [data-composition-id="scene-03"] .q-init svg { color: var(--k-text-2); }
+      [data-composition-id="scene-03"] .q-mgr { border-color: var(--k-text); }
+      [data-composition-id="scene-03"] .q-mgr svg { color: var(--k-text); }
+      [data-composition-id="scene-03"] .q-how { background: transparent; border: 3px dashed var(--k-text-2); box-shadow: none; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("03"), t = S.t, DUR = 51.2;
+        // Static reading time counted from the moment the narrator says the line (the line appears with the word).
+        const read = (text, at, off) => {
+          const needed = text.trim().split(/\s+/).filter((w) => /[\p{L}\p{N}]/u.test(w)).length / 3 + 0.1;
+          if (off - at < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»: ${(off - at).toFixed(2)} < ${needed.toFixed(2)}`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const COL = 1400, COLW = 424;   // right column next to the editor window (x 96..1336)
+        const nb = (h) => h.replace(/(^|[\s>])(в|к|с|у|о|а|и|на|не|за|по|до|от|из|ли|во|со|что)\s+(?=[^<\s])/gi, "$1$2\u00a0");   // no one-letter or short word at the end of a line
+        const hide = (el) => { gsap.set(el, { autoAlpha: 0 }); return el; };
+        const aside = (parent, y, html, cls) => { const a = Kit.aside(S, { parent, x: COL, y, w: COLW, tail: false, html: nb(html) }); a.el.classList.add("q-card"); if (cls) a.el.classList.add(...cls.split(" ")); return a; };
+
+        // Parts of the intent in the order of the narration: [label said, last words of its sentence].
+        const PARTS = [
+          { name: "Проблема", say: "Проблема:", last: "новый результат." },
+          { name: "Результат", say: "Результат:", last: "не выполнен." },
+          { name: "Границы", say: "Границы:", last: "формула прежняя." },
+          { name: "Признаки успеха", say: "Признак успеха:", last: "старая сумма." },
+          { name: "Открытые вопросы", say: "Открытых вопросов", last: "получены." },
+        ];
+        const T_LIST = [t("проблема,"), t("результат,"), t("границы,"), t("признаки успеха"), t("открытые вопросы")];
+        const T_HEAD = t("В курсе") + 0.02;       // header of the document is typed after «На странице курса…»
+        const T_SRC = t("источник указан");
+        const T_SRC2 = t("Источник —");
+        const T_INIT = t("Инициатор отвечает"), T_OWNER = t("владелец продукта"), T_WHY = t("Замысел отвечает"), T_HOW = t("осталось описать");
+
+        Kit.header(S, { header: { mode: "parts", total: 9 }, chapter: "Записываем замысел", step: 3, duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* The document: intent.md in the editor window; the header first, then five parts one by one. */
+        const lines = [
+          "# Замысел",
+          "Автор: …",
+          "Владелец решения: владелец продукта",
+          "Состояние: черновик",
+          "Источник: ответ инициатора",
+          "**Проблема:** старую сумму можно принять за новый результат",
+          "**Результат:** при ошибке ясно, что новый расчёт не выполнен",
+          "**Границы:** меняем проверку ввода и показ результата, формула прежняя",
+          "**Признаки успеха:** при неверном сроке видно сообщение, а не старая сумма",
+          "**Открытые вопросы:** нет, все ответы инициатора получены",
+        ];
+        const ed = Kit.editor(S, { parent: s1, x: 96, y: 210, w: 1240, h: 600, tabs: [{ name: "intent.md", active: true }], lines });
+        ed.el.querySelector(".k-ed-code").style.fontSize = "26px";   // 12 строк с переносами целиком выше зоны субтитров
+        ed.show(0.2);
+        ed.type(0, 0, t("в коротком") - 0.1, S.end("замысле."));
+        ed.type(1, 4, T_HEAD, T_HEAD + 2.4);
+        const dim = (i, at) => S.tl.to(ed.rows[i].tx, { opacity: 0.6, duration: 0.4 }, at);
+        const PR = [5, 6, 7, 8, 9];
+        PARTS.forEach((p, i) => {
+          const at = t(p.say);
+          ed.type(PR[i], PR[i], at - 0.1, S.end(p.last));
+          if (i === 0) [1, 2, 3, 4].forEach((r) => dim(r, at));
+          else dim(PR[i - 1], at);
+        });
+        // «Источник — в шапке»: the source line of the header lights up (twice: when it is named and when it is explained).
+        ed.mark(4, T_SRC, { off: S.end("в шапке.") + 0.2 });
+        ed.mark(4, T_SRC2, { off: T_INIT - 0.1 });
+        S.tl.to(ed.rows[4].tx, { opacity: 1, duration: 0.3 }, T_SRC2);
+        PR.forEach((r) => S.tl.to(ed.rows[r].tx, { opacity: 0.6, duration: 0.3 }, T_SRC2));
+
+        /* Right column: the term, the five parts as a progress list, then the two roles and the closing pair. */
+        const syn = aside(s1, 214, '<div class="q-syn">в курсе — файл intent.md</div>', "q-syn-box");
+        syn.show(t("В курсе") - 0.1);
+        read("в курсе — файл intent.md", t("В курсе"), t("В нашем примере") - 0.1);
+        syn.hide(t("В нашем примере") - 0.1);
+
+        const list = aside(s1, 316, '<div class="q-cap">пять частей</div><div class="q-list">' + PARTS.map((p) =>
+          '<div class="q-item"><span>' + p.name + '</span><svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 29l12 12 24-26"/></svg></div>').join("") + "</div>");
+        const items = Array.from(list.el.querySelectorAll(".q-item")), ticks = items.map((el) => hide(el.querySelector("svg")));
+        items.forEach(hide);
+        list.show(t("пять частей") - 0.1);
+        items.forEach((el, i) => Kit.popIn(S, el, T_LIST[i] - 0.1));
+        const BG = Kit.token("--k-panel-2"), BAR = Kit.token("--k-accent"), TX = Kit.token("--k-text"), TX2 = Kit.token("--k-text-2"), CLEAR = "rgba(0, 0, 0, 0)";
+        PARTS.forEach((p, i) => {
+          const on = t(p.say) - 0.1, off = i < 4 ? t(PARTS[i + 1].say) - 0.1 : S.end(p.last) + 0.3;
+          S.tl.to(items[i], { backgroundColor: BG, borderLeftColor: BAR, color: TX, duration: 0.3 }, on);
+          S.tl.to(items[i], { backgroundColor: CLEAR, borderLeftColor: CLEAR, color: TX2, duration: 0.3 }, off);
+          S.tl.to(ticks[i], { autoAlpha: 1, duration: 0.3 }, off);
+        });
+        read("пять частей", t("пять частей"), T_INIT - 0.4);
+        const OUT_LIST = T_INIT - 0.4;
+        list.hide(OUT_LIST);
+
+        /* Roles: different checks for different people. */
+        const mark = (cls) => '<svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><circle cx="28" cy="28" r="23"' + (cls === "mgr" ? ' fill="currentColor" fill-opacity="0.2"' : "") + '/><path d="M16 29l9 9 16-18"/></svg>';
+        const init = aside(s1, 330, '<div class="q-role">' + mark("init") + '<div><div class="q-cap">инициатор</div><div class="q-line">отвечает на вопросы</div></div></div>', "q-init");
+        const mgr = aside(s1, 540, '<div class="q-role">' + mark("mgr") + '<div><div class="q-cap">владелец продукта</div><div class="q-line">одобряет замысел</div></div></div>', "q-mgr");
+        init.show(T_INIT - 0.1); mgr.show(T_OWNER - 0.1);
+        const OUT_ROLES = T_WHY - 0.4;
+        read("инициатор отвечает на вопросы", T_INIT, OUT_ROLES);
+        // Роль названа в конце фразы: до смены кадра меньше 1,1 с, поэтому подписи карточки
+        // проверяются по отдельности (обе видны одновременно, каждая короткая).
+        read("владелец продукта", T_OWNER, OUT_ROLES);
+        read("одобряет замысел", T_OWNER, OUT_ROLES);
+        init.hide(OUT_ROLES); mgr.hide(OUT_ROLES);
+
+        /* Closing: the intent answers «why»; «how» is still to be described. */
+        const why = aside(s1, 330, '<div class="q-line">Замысел отвечает на вопрос «зачем»</div>');
+        const how = aside(s1, 560, '<div class="q-line">осталось описать «как»</div>', "q-how");
+        why.show(T_WHY - 0.1); how.show(T_HOW - 0.1);
+        read("Замысел отвечает на вопрос «зачем»", T_WHY, DUR);
+        read("осталось описать «как»", T_HOW, DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

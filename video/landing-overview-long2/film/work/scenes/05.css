@@ -1,0 +1,24 @@
+.s5-g { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+.s5-chip { position: absolute; left: 96px; width: 520px; padding: 18px 26px; border: 2px solid var(--k-line); border-radius: 20px; background: var(--k-panel); font-size: 34px; font-weight: 700; color: var(--k-text-2); display: flex; align-items: center; gap: 16px; }
+.s5-cap { position: absolute; left: 96px; top: 610px; width: 560px; font-size: 32px; font-weight: 700; color: var(--k-text-2); }
+.s5-ag { position: absolute; left: 740px; top: 392px; width: 128px; height: 128px; border-radius: 50%; display: grid; place-items: center; background: var(--k-panel); border: 4px solid var(--k-ok); }
+.s5-q { position: absolute; left: 782px; top: 330px; font-size: 60px; font-weight: 800; color: var(--k-accent-soft); }
+.s5-repo { position: absolute; left: 960px; top: 170px; width: 864px; padding: 26px 30px 30px; border: 3px solid var(--k-line); border-radius: 28px; background: var(--k-panel); }
+.s5-rh { display: flex; align-items: center; gap: 16px; font-size: 38px; font-weight: 800; margin-bottom: 16px; }
+.s5-rh em { font-style: normal; font-size: 28px; font-weight: 700; padding: 4px 16px; border-radius: 14px; background: var(--k-ok-tint); color: var(--k-ok); }
+.s5-base { margin-left: auto; font-style: normal; font-size: 28px; font-weight: 800; padding: 4px 16px; border-radius: 14px; background: var(--k-ok); color: var(--k-on-accent); }
+.s5-file { display: flex; align-items: center; gap: 16px; padding: 12px 20px; margin-bottom: 8px; border: 2px solid transparent; border-radius: 14px; background: var(--k-panel-2); font-size: 32px; font-weight: 600; color: var(--k-text-2); }
+.s5-file code { font-family: var(--k-font-mono); font-size: 32px; color: var(--k-text); }
+.s5-file .rl { margin-left: auto; font-size: 30px; }
+.s5-ext { position: absolute; left: 96px; top: 290px; width: 560px; padding: 26px 30px; border: 3px dashed var(--k-text-2); border-radius: 24px; background: var(--k-panel); }
+.s5-ext b { display: block; font-size: 46px; font-weight: 800; }
+.s5-ext span { display: block; margin-top: 8px; font-size: 30px; line-height: 1.3; color: var(--k-text-2); }
+.s5-spec { position: absolute; left: 96px; top: 280px; width: 440px; padding: 28px 30px; border: 3px solid var(--k-ok); border-radius: 26px; background: var(--k-ok-tint); text-align: center; }
+.s5-spec code { display: block; font-family: var(--k-font-mono); font-size: 56px; font-weight: 800; color: var(--k-ok); }
+.s5-spec span { display: block; margin-top: 8px; font-size: 32px; font-weight: 600; color: var(--k-text); }
+.s5-tgt { position: absolute; left: 790px; width: 1034px; height: 118px; padding: 0 32px; display: flex; align-items: center; gap: 22px; border: 3px solid var(--k-line); border-radius: 24px; background: var(--k-panel); font-size: 40px; font-weight: 800; }
+.s5-tgt small { font-size: 30px; font-weight: 600; color: var(--k-text-2); margin-left: auto; }
+.s5-hist { position: absolute; left: 96px; top: 640px; font-size: 38px; font-weight: 800; }
+.s5-hist span { color: var(--k-ok); }
+.s5-w { position: absolute; top: 758px; width: 200px; text-align: center; font-size: 38px; font-weight: 800; color: var(--k-accent-soft); }
+.s5-mem { position: absolute; left: 1330px; top: 640px; display: flex; align-items: center; gap: 14px; padding: 10px 24px; border: 2px dashed var(--k-line); border-radius: 18px; font-size: 32px; font-weight: 700; color: var(--k-text-2); text-decoration: line-through; text-decoration-color: var(--k-accent); text-decoration-thickness: 3px; }

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 336" fill="none" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Кольцо шести задач команды развития процессов AI PDLC вокруг продукта: мониторинг, исследование, метод, аудит готовности, обучение и сопровождение">
+  <title>Кольцо шести задач команды развития процессов AI PDLC вокруг продукта</title>
+  <desc>Замкнутый цикл шести задач команды развития вокруг продукта: мониторинг, исследование, метод, аудит готовности, обучение и сопровождение.</desc>
+  <defs>
+    <marker id="ring-arrow" viewBox="0 0 7 7" refX="6.8" refY="3.5" markerWidth="7" markerHeight="7" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0 0 L7 3.5 L0 7 Z" fill="#216650"/>
+    </marker>
+  </defs>
+  <!-- Six tasks keep only the number and the name; the detailed outputs live in the "Задачи" cards. -->
+  <rect x="336" y="10" width="288" height="52" rx="10.4" fill="#fffdf8" stroke="#d6d0c4" stroke-width="0.8"/>
+  <text x="354" y="41.5" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="15.7" font-weight="800">1. Мониторинг</text>
+  <rect x="656" y="58" width="268" height="52" rx="10.4" fill="#fffdf8" stroke="#d6d0c4" stroke-width="0.8"/>
+  <text x="674" y="89.5" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="15.7" font-weight="800">2. Исследование</text>
+  <rect x="656" y="178" width="268" height="52" rx="10.4" fill="#fffdf8" stroke="#d6d0c4" stroke-width="0.8"/>
+  <text x="674" y="209.5" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="15.7" font-weight="800">3. Метод</text>
+  <rect x="336" y="240" width="288" height="52" rx="10.4" fill="#fffdf8" stroke="#d6d0c4" stroke-width="0.8"/>
+  <text x="354" y="271.5" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="15.7" font-weight="800">4. Аудит готовности</text>
+  <rect x="36" y="178" width="268" height="52" rx="10.4" fill="#fffdf8" stroke="#d6d0c4" stroke-width="0.8"/>
+  <text x="54" y="209.5" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="15.7" font-weight="800">5. Обучение</text>
+  <rect x="36" y="58" width="268" height="52" rx="10.4" fill="#fffdf8" stroke="#d6d0c4" stroke-width="0.8"/>
+  <text x="54" y="89.5" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="15.7" font-weight="800">6. Сопровождение</text>
+  <rect x="344" y="128" width="272" height="104" rx="10.4" fill="#eef3ef" stroke="#d6d0c4" stroke-width="0.8"/>
+  <text x="480" y="164" text-anchor="middle" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="15.7" font-weight="800">Продукт и поток</text>
+  <text x="480" y="186" text-anchor="middle" fill="#216650" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="13" font-weight="700">7 этапов PDLC в Git</text>
+  <text x="480" y="206" text-anchor="middle" fill="#626862" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="12.2" font-weight="600">решения за командой продукта</text>
+  <!-- One arrow system: six thin arrows of a single colour around the ring. -->
+  <path d="M628 44 L652 62" stroke="#216650" stroke-width="1.3" marker-end="url(#ring-arrow)"/>
+  <path d="M790 114 L790 174" stroke="#216650" stroke-width="1.3" marker-end="url(#ring-arrow)"/>
+  <path d="M652 226 L628 246" stroke="#216650" stroke-width="1.3" marker-end="url(#ring-arrow)"/>
+  <path d="M332 252 L308 224" stroke="#216650" stroke-width="1.3" marker-end="url(#ring-arrow)"/>
+  <path d="M170 174 L170 114" stroke="#216650" stroke-width="1.3" marker-end="url(#ring-arrow)"/>
+  <path d="M308 66 L332 44" stroke="#216650" stroke-width="1.3" marker-end="url(#ring-arrow)"/>
+  <text x="36" y="316" fill="#626862" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="12.2" font-weight="600">Цикл: 1. Мониторинг → 2. Исследование → 3. Метод → 4. Аудит готовности → 5. Обучение → 6. Сопровождение</text>
+  <text x="924" y="316" text-anchor="end" fill="#216650" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="12.2" font-weight="700">Команда работает сама</text>
+</svg>

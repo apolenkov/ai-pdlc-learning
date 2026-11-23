@@ -1,0 +1,173 @@
+<template id="scene-08-template">
+  <div data-composition-id="scene-08" data-width="1920" data-height="1080" data-duration="32.2">
+    <style>
+      [data-composition-id="scene-08"] .ck { height: 100%; display: flex; flex-direction: column; gap: 12px; }
+      [data-composition-id="scene-08"] .ttl8 { font-size: 30px; font-weight: 700; letter-spacing: 0.1em; color: var(--k-text-2); height: 40px; }
+      [data-composition-id="scene-08"] .ck .row { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 104px; padding: 0 20px; border-radius: 14px; border: 2px solid var(--k-line); background: var(--k-win); opacity: 0; }
+      [data-composition-id="scene-08"] .ck .row .nm { font-size: 32px; font-weight: 700; line-height: 1.2; letter-spacing: -0.01em; }
+      [data-composition-id="scene-08"] .ck .row .cm { font-family: var(--k-font-mono); font-size: 30px; font-weight: 500; color: var(--k-code-inline); line-height: 1.25; }
+      [data-composition-id="scene-08"] .ck .row .sb { font-size: 30px; font-weight: 500; color: var(--k-text-2); line-height: 1.25; }
+      [data-composition-id="scene-08"] .ck .row .ex { flex: none; padding: 4px 16px; border-radius: 12px; border: 2px solid var(--k-ok); background: var(--k-ok-tint); color: var(--k-ok); font-family: var(--k-font-mono); font-size: 32px; font-weight: 700; opacity: 0; white-space: nowrap; }
+      [data-composition-id="scene-08"] .sc8 { height: 100%; display: flex; flex-direction: column; gap: 12px; }
+      [data-composition-id="scene-08"] .sc8 .file { position: relative; display: flex; align-items: center; gap: 16px; height: 76px; padding: 0 16px; border-radius: 14px; border: 2px solid transparent; font-family: var(--k-font-mono); font-size: 30px; font-weight: 500; white-space: nowrap; opacity: 0; }
+      [data-composition-id="scene-08"] .sc8 .file .cb { position: relative; flex: none; width: 38px; height: 38px; border-radius: 50%; border: 3px solid var(--k-line); display: grid; place-items: center; color: var(--k-ok); }
+      [data-composition-id="scene-08"] .sc8 .file .cb svg { width: 24px; height: 24px; opacity: 0; }
+      [data-composition-id="scene-08"] .sc8 .btn { position: relative; height: 72px; margin-top: auto; border-radius: 12px; background: var(--k-accent); color: var(--k-on-accent); font-size: 34px; font-weight: 800; opacity: 0; }
+      [data-composition-id="scene-08"] .sc8 .btn span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 12px; }
+      [data-composition-id="scene-08"] .sc8 .btn svg { width: 34px; height: 34px; }
+      [data-composition-id="scene-08"] .sc8 .btn .l2 { opacity: 0; }
+      [data-composition-id="scene-08"] .mr { height: 100%; display: flex; flex-direction: column; gap: 14px; }
+      [data-composition-id="scene-08"] .mr .hd { font-size: 36px; font-weight: 800; letter-spacing: -0.015em; line-height: 1.2; opacity: 0; }
+      [data-composition-id="scene-08"] .mr .ln { display: flex; align-items: center; gap: 20px; }
+      [data-composition-id="scene-08"] .mr .br { padding: 8px 20px; border-radius: 12px; font-family: var(--k-font-mono); font-size: 32px; font-weight: 600; white-space: nowrap; opacity: 0; }
+      [data-composition-id="scene-08"] .mr .br.src { background: var(--k-accent-tint); border: 2px solid var(--k-accent); color: var(--k-accent-soft); }
+      [data-composition-id="scene-08"] .mr .br.dst { background: var(--k-ok-tint); border: 2px solid var(--k-ok); color: var(--k-ok); }
+      [data-composition-id="scene-08"] .mr .br.main { position: relative; border: 2px dashed var(--k-line); color: var(--k-text-2); }
+      [data-composition-id="scene-08"] .mr .br.main i { position: absolute; left: 10px; right: 10px; top: 50%; height: 4px; margin-top: -2px; border-radius: 2px; background: var(--k-accent); transform-origin: 0 50%; transform: scaleX(0); }
+      [data-composition-id="scene-08"] .mr .ar { flex: none; width: 70px; height: 38px; opacity: 0; }
+      [data-composition-id="scene-08"] .pl8 { height: 100%; display: flex; align-items: center; gap: 22px; font-size: 40px; font-weight: 800; letter-spacing: -0.015em; line-height: 1.2; }
+      [data-composition-id="scene-08"] .pl8 svg { flex: none; width: 52px; height: 52px; }
+      [data-composition-id="scene-08"] .tk { height: 100%; display: flex; flex-direction: column; gap: 12px; }
+      [data-composition-id="scene-08"] .tk .it { display: flex; align-items: center; gap: 16px; height: 72px; padding: 0 16px; border-radius: 14px; background: var(--k-win); border: 2px solid var(--k-line); font-size: 34px; font-weight: 700; line-height: 1.2; opacity: 0; }
+      [data-composition-id="scene-08"] .tk .it svg { flex: none; width: 38px; height: 38px; }
+      [data-composition-id="scene-08"] .tk .it.no { color: var(--k-ok); border-color: var(--k-ok); background: var(--k-ok-tint); }
+      [data-composition-id="scene-08"] .msg8 { height: 100%; display: flex; flex-direction: column; gap: 6px; }
+      [data-composition-id="scene-08"] .msg8 .hd { font-size: 36px; font-weight: 800; letter-spacing: -0.015em; line-height: 1.2; opacity: 0; }
+      [data-composition-id="scene-08"] .msg8 .f { display: flex; align-items: flex-start; gap: 16px; padding: 6px 16px; border-radius: 14px; background: var(--k-win); border: 2px solid var(--k-line); font-size: 34px; font-weight: 600; line-height: 1.2; opacity: 0; }
+      [data-composition-id="scene-08"] .msg8 .f .n { flex: none; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--k-accent-tint); color: var(--k-accent-soft); font-size: 30px; font-weight: 800; }
+      [data-composition-id="scene-08"] .msg8 .f .m { display: block; margin-top: 4px; font-family: var(--k-font-mono); font-size: 30px; font-weight: 500; color: var(--k-code-inline); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("08"), t = S.t, DUR = 32.2;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.5) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»: ${(off - at - reveal).toFixed(2)} < ${needed.toFixed(2)}`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const rev = (el, at, d = 0.45) => { gsap.set(el, { y: 14 }); S.tl.to(el, { opacity: 1, y: 0, duration: d, ease: "power3.out" }, at); };
+        const fade = (el, at, d = 0.35) => S.tl.to(el, { opacity: 1, duration: d }, at);
+        const OK = Kit.token("--k-ok"), ACC = Kit.token("--k-accent"), INFO = Kit.token("--k-info");
+        const tick = (c) => '<svg viewBox="0 0 24 24" fill="none" stroke="' + c + '" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-7"/></svg>';
+
+        Kit.header(S, { header: { mode: "parts", total: 8 }, chapter: "Сохранить и передать", step: 8, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const T_OUT1 = t("Одобрение собирайте") - 0.1, T_IN2 = T_OUT1 + 0.5;
+
+        /* ---- Кадр 1: три проверки, Source Control, запрос в выданную базу ---- */
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        const CHK = [
+          { nm: "Строгая проверка изменения", sub: "в хранилище", mono: false },
+          { nm: "Проверка проекта", sub: "npm run check", mono: true },
+          { nm: "Проверка чистоты разницы", sub: "git diff --check", mono: true },
+        ];
+        const ck = Kit.aside(S, { parent: s1, x: 96, y: 210, w: 760, h: 430, tail: false,
+          html: '<div class="ck"><div class="ttl8">ТРИ ПРОВЕРКИ</div>' +
+            CHK.map((c, i) => '<div class="row r' + i + '"><div><div class="nm">' + c.nm + '</div><div class="' + (c.mono ? "cm" : "sb") + '">' + c.sub + '</div></div><span class="ex">exit 0</span></div>').join("") + "</div>" });
+        ck.show(t("три проверки") - 0.2);
+        const kq = (s) => ck.el.querySelector(s);
+        const T_RUN = t("три проверки");
+        const T_EX = [t("код завершения"), t("код завершения") + 0.45, t("код завершения") + 0.9];
+        CHK.forEach((c, i) => {
+          rev(kq(".r" + i), T_RUN + 0.1 + i * 0.45);
+          S.tl.to(kq(".r" + i + " .ex"), { opacity: 1, duration: 0.35 }, T_EX[i]);
+          read(c.nm + " " + c.sub, T_RUN + 0.1 + i * 0.45, T_OUT1);
+          read("exit 0", T_EX[i], T_OUT1);
+        });
+
+        const FILES = [
+          { p: "openspec/changes/limit-credit-amount", at: t("папку") },
+          { p: "docs/course/requirements-traceability.md", at: t("таблицу") },
+        ];
+        const SEL = { backgroundColor: Kit.token("--k-accent-tint"), borderColor: ACC };
+        const sc = Kit.aside(S, { parent: s1, x: 890, y: 210, w: 934, h: 430, tail: false,
+          html: '<div class="sc8"><div class="ttl8">SOURCE CONTROL</div>' +
+            FILES.map((f, i) => '<div class="file f' + i + '"><span class="cb">' + Kit.icons.check + "</span><span>" + f.p + "</span></div>").join("") +
+            '<div class="btn"><span class="l1">' + Kit.icons.cloud + 'Push</span></div></div>' });
+        sc.show(t("сорс"));
+        const sq = (s) => sc.el.querySelector(s);
+        FILES.forEach((f, i) => {
+          const row = sq(".f" + i);
+          rev(row, f.at);
+          S.tl.to(row, Object.assign({ duration: 0.4 }, SEL), f.at + 0.4);
+          S.tl.to(row.querySelector(".cb"), { borderColor: OK, duration: 0.3 }, f.at + 0.4);
+          S.tl.to(row.querySelector("svg"), { opacity: 1, duration: 0.3 }, f.at + 0.4);
+          read(f.p, f.at, T_OUT1);
+        });
+        const btn = sq(".btn"), T_PUSH = t("отправьте");
+        rev(btn, T_PUSH);
+        S.tl.to(btn, { scale: 0.96, duration: 0.12 }, t("ветку") + 0.2).to(btn, { scale: 1, duration: 0.2 }, t("ветку") + 0.32);
+        read("Push", T_PUSH, T_OUT1);
+
+        const T_MR = t("создайте запрос");
+        const mr = Kit.aside(S, { parent: s1, x: 96, y: 656, w: 1728, h: 160, tail: false,
+          html: '<div class="mr"><div class="hd">Запрос на слияние (MR)</div><div class="ln">' +
+            '<span class="br src">course/&lt;LOGIN&gt;/stage-4-amount-limits</span>' +
+            '<svg class="ar" viewBox="0 0 56 30" fill="none"><path d="M3 15H49M39 5L50 15L39 25" stroke="' + ACC + '" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+            '<span class="br dst">IMPORT_BASE_BRANCH</span>' +
+            '<span class="br main">main<i></i></span></div></div>' });
+        mr.show(T_MR);
+        const mq = (s) => mr.el.querySelector(s);
+        rev(mq(".hd"), T_MR + 0.2);
+        const T_SRC = t("внутри форка"), T_DST = t("выданную"), T_MAIN = t("не в основную");
+        rev(mq(".br.src"), T_SRC);
+        fade(mq(".ar"), t("в выданную"));
+        rev(mq(".br.dst"), T_DST);
+        rev(mq(".br.main"), T_MAIN);
+        S.tl.to(mq(".br.main i"), { scaleX: 1, duration: 0.4, ease: "power2.out" }, t("основную"));
+        mq(".br.main").setAttribute("data-layout-allow-occlusion", "");
+        read("Запрос на слияние MR course LOGIN stage-4-amount-limits IMPORT_BASE_BRANCH main", T_MR, T_OUT1);
+
+        /* ---- Кадр 2: одобрение, задача, сообщение разработчику ---- */
+        const s2 = S.stage();
+        const T_MK = t("Одобрение собирайте");
+        // плашка стоит по центру кадра, пока она одна, и поднимается наверх к приходу задачи
+        const wrap = document.createElement("div");
+        wrap.style.cssText = "position:absolute;left:0;top:0;width:1920px;height:0";
+        s2.appendChild(wrap); gsap.set(wrap, { y: 215 });
+        S.tl.to(wrap, { y: 0, duration: 0.6, ease: "power3.inOut" }, t("джире") - 0.75);
+        const mk = Kit.aside(S, { parent: wrap, x: 96, y: 215, w: 1728, h: 100, tail: false,
+          html: '<div class="pl8">' + tick(ACC) + '<span>Одобрение — на последней версии; после правок — заново</span></div>' });
+        mk.el.style.borderColor = ACC;
+        mk.show(T_IN2 + 0.15);
+        read("Одобрение — на последней версии; после правок — заново", T_IN2 + 0.15, DUR);
+
+        const T_TASK = t("джире");
+        const task = Kit.aside(S, { parent: s2, x: 96, y: 345, w: 760, h: 340, tail: false,
+          html: '<div class="tk"><div class="ttl8">ЗАДАЧА</div>' +
+            '<div class="it i1">' + tick(INFO) + '<span>ссылка на запрос</span></div>' +
+            '<div class="it i2">' + tick(INFO) + '<span>числа сценариев</span></div>' +
+            '<div class="it i3 no">' + tick(OK) + '<span>реализация не выполнялась</span></div></div>' });
+        task.show(T_TASK - 0.1);
+        const tq = (s) => task.el.querySelector(s);
+        rev(tq(".i1"), t("ссылку")); rev(tq(".i2"), t("числа")); rev(tq(".i3"), t("реализация"));
+        read("ссылка на запрос", t("ссылку"), DUR); read("числа сценариев", t("числа"), DUR); read("реализация не выполнялась", t("реализация"), DUR);
+
+        const T_MSG = t("Разработчику");
+        const FLD = [
+          { l: "имя хранилища", m: "sdd-credit-calculator-product-meta", at: T_MSG + 0.5 },
+          { l: "путь папки требований", at: T_MSG + 0.95 },
+          { l: "номер версии планирования", at: T_MSG + 1.4 },
+          { l: "номер версии сервиса", at: T_MSG + 1.85 },
+          { l: "список действующих изменений", at: T_MSG + 2.3 },
+        ];
+        const msg = Kit.aside(S, { parent: s2, x: 890, y: 345, w: 934, h: 470, tail: false,
+          html: '<div class="msg8"><div class="hd">Одно сообщение разработчику: пять полей</div>' +
+            FLD.map((f, i) => '<div class="f f' + i + '"><span class="n">' + (i + 1) + '</span><span>' + f.l + (f.m ? '<span class="m">' + f.m + "</span>" : "") + "</span></div>").join("") + "</div>" });
+        msg.el.style.borderColor = ACC;
+        msg.show(T_MSG);
+        const gq = (s) => msg.el.querySelector(s);
+        rev(gq(".hd"), T_MSG + 0.2);
+        FLD.forEach((f, i) => { rev(gq(".f" + i), f.at); read(f.l + (f.m ? " " + f.m : ""), f.at, DUR); });
+        read("Одно сообщение разработчику: пять полей", T_MSG + 0.2, DUR);
+
+        Kit.stageOut(S, s1, T_OUT1); Kit.stageIn(S, s2, T_IN2);
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

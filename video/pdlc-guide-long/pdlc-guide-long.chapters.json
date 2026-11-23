@@ -1,0 +1,102 @@
+[
+  {
+    "n": 1,
+    "title": "Семь этапов",
+    "step": null,
+    "chapter": "Семь этапов",
+    "start": 0,
+    "titleStart": 0,
+    "speechStart": 0.4,
+    "end": 34.9
+  },
+  {
+    "n": 2,
+    "title": "Принцип этапов",
+    "step": null,
+    "chapter": "Принцип этапов",
+    "start": 34.9,
+    "titleStart": 34.9,
+    "speechStart": 34.9,
+    "end": 66.2
+  },
+  {
+    "n": 3,
+    "title": "Намерение и план",
+    "step": null,
+    "chapter": "Намерение и план",
+    "start": 66.2,
+    "titleStart": 66.2,
+    "speechStart": 66.2,
+    "end": 119.3
+  },
+  {
+    "n": 4,
+    "title": "Анализ требований",
+    "step": null,
+    "chapter": "Анализ требований",
+    "start": 119.3,
+    "titleStart": 119.3,
+    "speechStart": 119.3,
+    "end": 169.9
+  },
+  {
+    "n": 5,
+    "title": "Архитектура и дизайн",
+    "step": null,
+    "chapter": "Архитектура и дизайн",
+    "start": 169.9,
+    "titleStart": 169.9,
+    "speechStart": 169.9,
+    "end": 215.2
+  },
+  {
+    "n": 6,
+    "title": "Реализация",
+    "step": null,
+    "chapter": "Реализация",
+    "start": 215.2,
+    "titleStart": 215.2,
+    "speechStart": 215.2,
+    "end": 268.3
+  },
+  {
+    "n": 7,
+    "title": "Тестирование",
+    "step": null,
+    "chapter": "Тестирование",
+    "start": 268.3,
+    "titleStart": 268.3,
+    "speechStart": 268.3,
+    "end": 316.6
+  },
+  {
+    "n": 8,
+    "title": "Выпуск",
+    "step": null,
+    "chapter": "Выпуск",
+    "start": 316.6,
+    "titleStart": 316.6,
+    "speechStart": 316.6,
+    "end": 362.7
+  },
+  {
+    "n": 9,
+    "title": "Наблюдение",
+    "step": null,
+    "chapter": "Наблюдение",
+    "start": 362.7,
+    "titleStart": 362.7,
+    "speechStart": 362.7,
+    "end": 421.3
+  },
+  {
+    "n": 10,
+    "title": "Итог",
+    "step": null,
+    "chapter": "Итог",
+    "start": 421.3,
+    "titleStart": 421.3,
+    "speechStart": 421.3,
+    "end": 455.5
+  }
+]

@@ -1,0 +1,30 @@
+<template id="scene-01-template">
+  <div data-composition-id="scene-01" data-width="1920" data-height="1080" data-duration="8.5">
+    <style>
+      [data-composition-id="scene-01"] .et-h { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 58px; font-weight: 800; }
+      [data-composition-id="scene-01"] .et-card { position: absolute; left: 96px; top: 250px; width: 1000px; padding: 36px 40px; border: 2px solid var(--k-ok); border-radius: 28px; background: var(--k-panel); }
+      [data-composition-id="scene-01"] .et-team { display: flex; align-items: center; gap: 20px; font-size: 40px; font-weight: 800; }
+      [data-composition-id="scene-01"] .et-team i { font-style: normal; font-size: 44px; color: var(--k-ok); }
+      [data-composition-id="scene-01"] .et-d { margin-top: 14px; font-size: 32px; line-height: 1.35; color: var(--k-text-2); }
+      [data-composition-id="scene-01"] .et-d b { color: var(--k-text); }
+      [data-composition-id="scene-01"] .et-rail { position: absolute; left: 96px; top: 700px; width: 1728px; font-size: 30px; color: var(--k-text-2); }
+      [data-composition-id="scene-01"] .et-rail b { color: var(--k-ok); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("01"), DUR = 8.5;
+        const h = document.createElement("div"); h.className = "et-h"; h.textContent = "Команда развития"; S.root.appendChild(h);
+        S.tl.fromTo(h, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out", immediateRender: true }, 0.1);
+        const card = document.createElement("div"); card.className = "et-card";
+        card.innerHTML = '<div class="et-team"><i>✦</i>Команда развития</div><div class="et-d">Формирует <b>методологию ИИ-процессов</b> в рамках PDLC и <b>помогает командам</b> перейти на неё.</div>';
+        S.root.appendChild(card);
+        S.tl.fromTo(card, { autoAlpha: 0, y: 22 }, { autoAlpha: 1, y: 0, duration: 0.45, ease: "power2.out", immediateRender: true }, Math.min(S.t("Команда развития"), DUR - 4));
+        const rail = document.createElement("div"); rail.className = "et-rail";
+        rail.innerHTML = "7 этапов PDLC: <b>①②③④⑤⑥⑦</b> · метод работает на каждом";
+        S.root.appendChild(rail);
+        S.tl.fromTo(rail, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4, immediateRender: true }, Math.min(S.t("помогает"), DUR - 2));
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

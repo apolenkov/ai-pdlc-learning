@@ -1,0 +1,60 @@
+<template id="scene-04-template">
+  <div data-composition-id="scene-04" data-width="1920" data-height="1080" data-duration="13.2">
+    <style>
+      [data-composition-id="scene-04"] .ov-h { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 58px; font-weight: 800; }
+      [data-composition-id="scene-04"] .ov-h span { color: var(--k-ok); }
+      [data-composition-id="scene-04"] .ov-rail { position: absolute; left: 96px; top: 400px; width: 1728px; height: 140px; }
+      [data-composition-id="scene-04"] .ov-link { position: absolute; top: 56px; height: 8px; background: var(--k-ok); border-radius: 4px; }
+      [data-composition-id="scene-04"] .ov-stop { position: absolute; top: 0; width: 228px; text-align: center; }
+      [data-composition-id="scene-04"] .ov-node { position: relative; margin: 0 auto; width: 80px; height: 80px; border-radius: 50%; display: grid; place-items: center; font-size: 34px; font-weight: 800; background: var(--k-panel-2); border: 4px solid var(--k-ok); color: var(--k-ok); }
+      [data-composition-id="scene-04"] .ov-agent { position: absolute; top: -18px; right: 52px; font-size: 34px; line-height: 1; color: var(--k-ok); background: var(--k-bg); padding: 0 4px; }
+      [data-composition-id="scene-04"] .ov-lab { margin-top: 16px; font-size: 26px; font-weight: 600; line-height: 1.25; color: var(--k-text); }
+      [data-composition-id="scene-04"] .ov-role { margin-top: 6px; font-size: 22px; font-weight: 600; line-height: 1.2; color: var(--k-text-2); }
+      [data-composition-id="scene-04"] .ov-chip { position: absolute; top: 250px; padding: 10px 18px; border: 2px solid var(--k-ok); border-radius: 14px; background: var(--k-panel-2); font-size: 24px; font-weight: 600; color: var(--k-text); white-space: nowrap; }
+      [data-composition-id="scene-04"] .ov-sub { position: absolute; left: 96px; top: 700px; width: 1728px; font-size: 44px; font-weight: 700; line-height: 1.3; }
+      [data-composition-id="scene-04"] .ov-sub span { color: var(--k-ok); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("04"), DUR = 13.2;
+        const h = document.createElement("div"); h.className = "ov-h";
+        h.innerHTML = 'Агент готовит, <span>человек решает</span>'; S.root.appendChild(h);
+        S.tl.fromTo(h, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out", immediateRender: false }, 0.1);
+        const rail = document.createElement("div"); rail.className = "ov-rail"; S.root.appendChild(rail);
+        const names = ["Намерение", "Анализ", "Архитектура", "Реализация", "Тестирование", "Выпуск", "Наблюдение"];
+        const roles = ["решает", "подтверждает", "утверждает", "принимает", "проверяет", "допускает", "наблюдает"];
+        const withAgent = [1, 2, 3, 4, 5];
+        const W = 1728, pitch = W / 7, cx = (i) => pitch * (i + 0.5);
+        names.forEach((n, i) => {
+          if (i < 6) {
+            const link = document.createElement("div"); link.className = "ov-link";
+            link.style.left = (cx(i) + 48) + "px"; link.style.width = (pitch - 96) + "px";
+            rail.appendChild(link);
+            S.tl.fromTo(link, { autoAlpha: 0, scaleX: 0.4 }, { autoAlpha: 1, scaleX: 1, duration: 0.4, ease: "power2.inOut", immediateRender: false }, 0.3 + i * 0.15);
+          }
+          const stop = document.createElement("div"); stop.className = "ov-stop";
+          stop.style.left = (cx(i) - 114) + "px";
+          stop.innerHTML = '<div class="ov-node">' + (withAgent.includes(i) ? '<span class="ov-agent">' + People.robotIcon(22) + '</span>' : "") + '👤</div><div class="ov-lab">' + n + '</div><div class="ov-role">' + roles[i] + "</div>";
+          rail.appendChild(stop);
+          S.tl.fromTo(stop, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: "power2.out", immediateRender: false }, 0.3 + i * 0.15);
+        });
+        // чипы артефактов на связях — то, что теперь живёт в Git между этапами
+        const chips = ["Intent в Git", "MR", "ADR", "Tests", "Pipeline", "DORA"];
+        chips.forEach((label, i) => {
+          const el = document.createElement("div"); el.className = "ov-chip"; el.textContent = label;
+          el.style.left = "-1000px"; S.root.appendChild(el);
+          el.style.left = 96 + (cx(i) + cx(i + 1)) / 2 - el.offsetWidth / 2 + "px";
+          S.tl.fromTo(el, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: "power2.out", immediateRender: false }, 0.75 + i * 0.15);
+        });
+        const sub = document.createElement("div"); sub.className = "ov-sub";
+        sub.innerHTML = "Требования, решения и тесты — <span>в Git рядом с кодом</span>";
+        S.root.appendChild(sub);
+        S.tl.fromTo(sub, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out", immediateRender: false }, Math.min(S.t("принимает"), DUR - 1.8));
+        const tt = (w, d) => { try { return S.t(w); } catch (e) { return d; } }, pic = (n, x, y, w, at, dur) => Kit.sketch(S, { name: n, x, y, w, at, dur: dur || 2.4 });
+        pic("pair-start", 1450, 700, 340, tt("готовит", 3), 3);
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

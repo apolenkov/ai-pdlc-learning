@@ -1,0 +1,97 @@
+<template id="scene-10-template">
+  <div data-composition-id="scene-10" data-width="1920" data-height="1080" data-duration="11.6">
+    <style>
+      [data-composition-id="scene-10"] .sc-flow { display: flex; flex-direction: column; align-items: stretch; gap: 0; }
+      [data-composition-id="scene-10"] .sc-node { padding: 16px 24px; border-radius: 22px; background: var(--k-panel-2); border: 2px solid var(--k-line); font-size: 36px; font-weight: 700; text-align: center; letter-spacing: -0.01em; }
+      [data-composition-id="scene-10"] .sc-node small { display: block; font-size: 28px; font-weight: 500; color: var(--k-text-2); letter-spacing: 0; }
+      [data-composition-id="scene-10"] .sc-arr { display: flex; align-items: center; justify-content: center; gap: 22px; height: 100px; }
+      [data-composition-id="scene-10"] .sc-arr svg { width: 34px; height: 76px; }
+      [data-composition-id="scene-10"] .sc-arr b { padding: 6px 22px; border-radius: 16px; background: var(--k-accent-tint); border: 2px solid var(--k-accent); font-size: 34px; font-weight: 700; }
+      [data-composition-id="scene-10"] .sc-log { margin-top: 14px; }
+      [data-composition-id="scene-10"] .sc-row { position: relative; padding: 0 0 18px 40px; }
+      [data-composition-id="scene-10"] .sc-row:last-child { padding-bottom: 0; }
+      [data-composition-id="scene-10"] .sc-row::before { content: ""; position: absolute; left: 6px; top: 12px; width: 18px; height: 18px; border-radius: 50%; background: var(--k-git-main); }
+      [data-composition-id="scene-10"] .sc-row::after { content: ""; position: absolute; left: 14px; top: 34px; bottom: -4px; width: 2px; background: var(--k-git-line); }
+      [data-composition-id="scene-10"] .sc-row:last-child::after { display: none; }
+      [data-composition-id="scene-10"] .sc-row .why { font-size: 30px; font-weight: 700; line-height: 1.2; }
+      [data-composition-id="scene-10"] .sc-row .who { font-size: 28px; font-weight: 500; color: var(--k-text-2); margin-top: 2px; }
+    </style>
+    <!-- кадр статуса Merged: assets/rec/scene-10-merged.png (кадр записи GitLab, retime-scene-10.py).
+         запись: производная scene-14-pull.retimed.mp4 (ход 1x, вырезаны только неподвижные участки 6.7-7.05 и 7.65-8.05 исходной записи); data-start — число из скрипта. -->
+    <video id="rec-pull" class="clip" src="assets/rec/scene-14-pull.retimed.mp4" muted playsinline data-start="3.00" data-duration="8.6"></video>
+    <script>
+      (function () {
+        const S = Kit.scene("10");
+        const t = S.t;
+        const R = Kit.layout;
+        const DUR = 11.6;
+        const NAT = { w: 1920, h: 1080 };
+        const WIN = { y: 174, h: 630 };
+        const WIN_REC = { y: 266, h: 504 };   // запись: плашка Source Control (окно − 66) не выше y 200; низ окна 770
+        // текст на экране держится не меньше слов/3 + 1 с
+        const rd = (txt, a, b) => { const w = txt.trim().split(/\s+/).length; if (b - a < w / 3 + 1 - 1e-6) throw new Error(`текст «${txt}» на экране ${(b - a).toFixed(1)} с, нужно ${(w / 3 + 1).toFixed(1)} с`); };
+        const HOVER = 0.8;   // курсор задерживается над целью до нажатия
+        const withHover = (cl) => { const out = [], wp = []; cl.forEach((c) => { wp.push(out.length); out.push({ t: c.t - HOVER, x: c.x, y: c.y }); out.push(c); }); return { out, wp }; };
+        const noPulse = (scr, hv) => { const pu = scr.layer.querySelectorAll(".k-pulse"); hv.wp.forEach((i) => { pu[2 * i].remove(); pu[2 * i + 1].remove(); }); };
+
+        Kit.header(S, { duration: DUR });
+
+        const T_SW = 2.65;   // конец плана 1 (статус Merged); запись входит через 0,5 с
+
+        /* ---- план 1: правка принята и объединена (кадр GitLab, широкое окно) ---- */
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+        const scr1 = Kit.screen(S, { parent: s1, natural: NAT, layout: "wide", ...WIN, alt: "GitLab: запрос на слияние со статусом Merged",
+          src: "assets/rec/scene-10-merged.png",
+          camera: [{ t: 0, cx: 935, cy: 342, scale: 1.55, dur: 0 }] });
+        scr1.show(0, true);
+
+        /* ---- план 2: запись, забираем main на компьютер ---- */
+        const s2 = S.stage();
+        const hv = withHover([
+          { t: 0.9, x: 37, y: 205, label: "Source Control" },
+          { t: 3.3, x: 542, y: 576 },
+        ]);
+        const scr2 = Kit.screen(S, { parent: s2, natural: NAT, x: 96, w: 1180, ...WIN_REC, alt: "Кадр VS Code: Source Control, входящие изменения, Pull",
+          video: { el: "#rec-pull", start: 3.0, duration: 8.6, poster: "assets/rec/scene-14-pull.retimed.first.png", clicks: hv.out },
+          from: { x: 300, y: 300 },
+          camera: [
+            { t: 0, cx: 340, cy: 180, scale: 2.82, dur: 0, protect: [{ x: 20, y: 50, w: 660, h: 240 }] },     // значок Source Control и Sync Changes целиком
+            { t: 4.6, cx: 340, cy: 650, scale: 2.82, dur: 0.01, protect: [{ x: 70, y: 555, w: 610, h: 170 }] }, // граф и кнопка Pull, без редактора
+            { t: 9.3, cx: 1320, cy: 416, scale: 1.6, dur: 0.01, protect: [{ x: 720, y: 190, w: 1130, h: 430 }] }, // результат: новая строка в документе
+          ] });
+        noPulse(scr2, hv);
+        scr2.show(T_SW + 0.5);
+
+        Kit.stageOut(S, s1, T_SW); Kit.stageIn(S, s2, T_SW + 0.5);
+
+        /* ---- справа: откуда и куда (та же версия) -> кто и зачем ---- */
+        const RX = R.rightX, RW = R.rightW;
+        const t1 = t("мэйн") + 0.1, o1 = t("видно") - 0.45;
+        const flow = Kit.aside(S, { parent: S.root, x: RX, y: 250, w: RW, tail: false, html:
+          '<div class="sc-flow"><div class="sc-node">GitLab<small>main</small></div>' +
+          '<div class="sc-arr"><svg viewBox="0 0 30 40" fill="none"><path d="M15 3v31M5 25l10 11 10-11" stroke="#a3a9b4" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg><b>Pull</b></div>' +
+          '<div class="sc-node">Компьютер<small>main</small></div></div>' });
+        flow.show(t1); flow.hide(o1);
+        const nodes = flow.el.querySelectorAll(".sc-node");
+        // та же версия: оба узла одинаково зеленеют
+        S.tl.to(nodes, { borderColor: Kit.token("--k-ok"), duration: 0.6, ease: "power2.out" }, t("та же версия"));
+        rd("GitLab main Pull Компьютер main", t1, o1);
+
+        const t2 = t("видно");
+        const log = Kit.aside(S, { parent: S.root, x: RX, y: 250, w: RW, tail: false, title: "Учебный автор",
+          html: '<div class="sc-log">' +
+            '<div class="sc-row"><div class="why">Уточнить поведение сверх предела</div></div>' +
+            '<div class="sc-row"><div class="why">Добавить предел выгрузки</div></div></div>' });
+        log.show(t2);
+        rd("Учебный автор Уточнить поведение сверх предела Добавить предел выгрузки", t2, DUR);
+        // причины въезжают одна за другой: кто (заголовок) -> зачем
+        const rows = log.el.querySelectorAll(".sc-row");
+        gsap.set(rows, { autoAlpha: 0 });
+        [t("зачем"), t("менял") - 0.2].forEach((at, i) => S.tl.fromTo(rows[i], { x: 40, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.55, ease: "power3.out", immediateRender: false }, at));
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

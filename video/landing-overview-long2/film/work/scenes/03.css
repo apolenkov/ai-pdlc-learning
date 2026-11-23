@@ -1,0 +1,11 @@
+.s3-g { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+.s3-tag { position: absolute; left: 96px; }
+.s3-p { position: absolute; width: 72px; }
+.s3-ic { position: absolute; width: 56px; height: 56px; border-radius: 50%; background: var(--k-bg); display: grid; place-items: center; }
+.s3-bst { position: absolute; width: 140px; height: 100px; overflow: visible; }
+.s3-ag { position: absolute; width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center; background: var(--k-panel); border: 3px solid var(--k-ok); }
+.s3-ag i { position: absolute; right: -10px; top: -10px; width: 28px; height: 28px; border-radius: 50%; background: var(--k-ok); display: grid; place-items: center; font-style: normal; color: var(--k-on-accent); font-size: 20px; font-weight: 900; }
+.s3-dec { position: absolute; width: 228px; text-align: center; font-size: 28px; font-weight: 600; line-height: 1.2; color: var(--k-text-2); }
+.s3-dec b { display: block; font-size: 30px; letter-spacing: -.02em; font-weight: 800; color: var(--k-accent-soft); margin-bottom: 4px; }
+.s3-plank { position: absolute; left: 96px; top: 850px; width: 1728px; padding: 22px 36px; border: 3px solid var(--k-ok); border-radius: 26px; background: var(--k-panel); font-size: 36px; font-weight: 700; line-height: 1.3; text-align: center; }
+.s3-plank span { color: var(--k-ok); }

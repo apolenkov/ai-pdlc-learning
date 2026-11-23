@@ -1,0 +1,43 @@
+{
+ "variant": "D",
+ "description": "подписи шапки B плюс SUB_FIX субтитров («Опенспек» → OpenSpec, «ориджин» → origin)",
+ "bodySha256": "53be24eac90943ad294cfe82df9bab68007d1d46371652ba466d9e63341da928",
+ "hunks": [
+  {
+   "start": 148,
+   "remove": [
+    "      ? (m === \"intro\" ? `<b>${total} частей</b>` : m === \"done\" ? `<b>Готово: ${total} из ${total}</b>` : `<b>Часть ${n} из ${total}</b>`)"
+   ],
+   "add": [
+    "      ? (m === \"intro\" ? `<b>${total} частей</b>` : m === \"done\" ? `<b>Готово</b>` : `<b>Часть ${n} ·</b>`)"
+   ]
+  },
+  {
+   "start": 150,
+   "remove": [
+    "      : m === \"done\" ? `<b>Готово: ${total} из ${total}</b>`",
+    "      : `<b>Шаг ${n} из ${total}</b><span> · ${left(n)}</span>`;"
+   ],
+   "add": [
+    "      : m === \"done\" ? `<b>Готово</b>`",
+    "      : `<b>Шаг ${n}</b><span> · ${left(n)}</span>`;"
+   ]
+  },
+  {
+   "start": 246,
+   "remove": [],
+   "add": [
+    "  const SUB_FIX = (s) => s.replace(/[Оо]пенспек(?:а|у|е|ом)?/g, \"OpenSpec\").replace(/«ориджин»/g, \"«origin»\"); // озвучка по-русски, на экране — как на странице"
+   ]
+  },
+  {
+   "start": 265,
+   "remove": [
+    "        cues.push({ text: backSub(text.slice(pa, pb + 1)), start, end });"
+   ],
+   "add": [
+    "        cues.push({ text: backSub(SUB_FIX(text.slice(pa, pb + 1))), start, end });"
+   ]
+  }
+ ]
+}

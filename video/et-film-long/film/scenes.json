@@ -1,0 +1,66 @@
+[
+  {
+    "n": 1,
+    "duration": 24.8,
+    "chapter": "Зачем команда",
+    "title": "Зачем команда",
+    "audio": "assets/vo/scene-01.mp3",
+    "audioDuration": 23.3
+  },
+  {
+    "n": 2,
+    "duration": 23.4,
+    "chapter": "Три яруса",
+    "title": "Три яруса",
+    "audio": "assets/vo/scene-02.mp3",
+    "audioDuration": 21.82
+  },
+  {
+    "n": 3,
+    "duration": 33.4,
+    "chapter": "Шесть задач",
+    "title": "Шесть задач",
+    "audio": "assets/vo/scene-03.mp3",
+    "audioDuration": 31.88
+  },
+  {
+    "n": 4,
+    "duration": 22.6,
+    "chapter": "Семь этапов",
+    "title": "Семь этапов",
+    "audio": "assets/vo/scene-04.mp3",
+    "audioDuration": 21.07
+  },
+  {
+    "n": 5,
+    "duration": 23.4,
+    "chapter": "План изменений",
+    "title": "План изменений",
+    "audio": "assets/vo/scene-05.mp3",
+    "audioDuration": 21.8
+  },
+  {
+    "n": 6,
+    "duration": 25.5,
+    "chapter": "Один путь",
+    "title": "Один путь",
+    "audio": "assets/vo/scene-06.mp3",
+    "audioDuration": 23.91
+  },
+  {
+    "n": 7,
+    "duration": 27.9,
+    "chapter": "Выход из сопровождения",
+    "title": "Выход из сопровождения",
+    "audio": "assets/vo/scene-07.mp3",
+    "audioDuration": 26.35
+  },
+  {
+    "n": 8,
+    "duration": 28.6,
+    "chapter": "До старта договориться",
+    "title": "До старта договориться",
+    "audio": "assets/vo/scene-08.mp3",
+    "audioDuration": 25.95
+  }
+]

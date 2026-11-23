@@ -1,0 +1,134 @@
+<template id="scene-00-template">
+  <div data-composition-id="scene-00" data-width="1920" data-height="1080" data-duration="33">
+    <style>
+      [data-composition-id="scene-00"] .cl-wrap { position: absolute; left: 96px; top: 206px; width: 820px; }
+      [data-composition-id="scene-00"] .cl-wrap > .k-aside { position: relative; left: 0; top: 0; padding: 20px 26px 24px; }
+      [data-composition-id="scene-00"] .cl-ttl { display: flex; align-items: center; gap: 16px; font-size: 40px; font-weight: 700; line-height: 1.1; margin-bottom: 16px; }
+      [data-composition-id="scene-00"] .cl-ttl svg { width: 52px; height: 52px; flex-shrink: 0; color: var(--k-accent-soft); }
+      [data-composition-id="scene-00"] .cl-f { display: grid; grid-template-columns: 190px 1fr; align-items: center; column-gap: 16px; margin-bottom: 12px; }
+      [data-composition-id="scene-00"] .cl-l { font-size: 32px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-00"] .cl-v { position: relative; display: grid; align-items: center; height: 56px; padding: 0 22px; border: 3px solid var(--k-line); border-radius: 14px; background: var(--k-panel-2); font-size: 42px; font-weight: 700; }
+      [data-composition-id="scene-00"] .cl-v > span { grid-area: 1 / 1; }
+      [data-composition-id="scene-00"] .cl-hint { height: 44px; margin: 0 0 10px 206px; font-size: 32px; font-weight: 600; line-height: 44px; color: #ff8a8a; }
+      [data-composition-id="scene-00"] .cl-res { margin-top: 8px; padding: 10px 22px 14px; border: 3px solid var(--k-line); border-radius: 18px; background: var(--k-win); }
+      [data-composition-id="scene-00"] .cl-rl { font-size: 32px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-00"] .cl-rn { font-size: 112px; font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; color: var(--k-ok); }
+      [data-composition-id="scene-00"] .cl-chips { display: flex; gap: 12px; height: 44px; }
+      [data-composition-id="scene-00"] .cl-chip { padding: 5px 16px; border-radius: 14px; border: 2px solid var(--k-accent); background: var(--k-accent-tint); color: var(--k-accent-soft); font-size: 30px; font-weight: 700; line-height: 1.2; white-space: nowrap; }
+      [data-composition-id="scene-00"] .cl-chip.red { border-color: #ff8a8a; background: rgba(255, 138, 138, 0.14); color: #ff8a8a; }
+      [data-composition-id="scene-00"] .rt { position: absolute; left: 980px; width: 844px; }
+      [data-composition-id="scene-00"] .rt > .k-aside { position: relative; left: 0; top: 0; }
+      [data-composition-id="scene-00"] .rt-cap { font-size: 30px; font-weight: 600; color: var(--k-text-2); line-height: 1.2; }
+      [data-composition-id="scene-00"] .rt-q { font-size: 46px; font-weight: 700; line-height: 1.2; margin-top: 8px; }
+      [data-composition-id="scene-00"] .rt-h { font-size: 58px; font-weight: 700; line-height: 1.1; color: var(--k-accent); }
+      [data-composition-id="scene-00"] .rd { display: flex; align-items: center; gap: 22px; padding: 12px 24px; }
+      [data-composition-id="scene-00"] .rd svg { width: 56px; height: 56px; flex-shrink: 0; color: var(--k-accent-soft); }
+      [data-composition-id="scene-00"] .rd-t { font-size: 44px; font-weight: 700; line-height: 1.15; }
+      [data-composition-id="scene-00"] .rd-n { font-size: 30px; font-weight: 600; color: var(--k-text-2); line-height: 1.1; }
+      [data-composition-id="scene-00"] .rt-goal { border-color: var(--k-ok); background: var(--k-ok-tint); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("00"), t = S.t, DUR = 33;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const div = (cls, html, parent) => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; parent.appendChild(el); return el; };
+        const ic = (inner) => `<svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">${inner}</svg>`;
+        const CALC = ic('<rect x="9" y="5" width="38" height="46" rx="6"/><rect x="16" y="12" width="24" height="9" rx="2"/><path d="M18 31h2M28 31h2M38 31h2M18 41h2M28 41h2M38 41h2"/>');
+        const EYE = ic('<path d="M4 28C11 16 19 11 28 11s17 5 24 17c-7 12-15 17-24 17S11 40 4 28z"/><circle cx="28" cy="28" r="7"/>');
+        const INFO = Kit.token("--k-info"), LINE = Kit.token("--k-line"), RED = "#ff8a8a", ACC = Kit.token("--k-accent");
+
+        Kit.header(S, { header: { mode: "parts", total: 7 }, chapter: "Зачем это нужно", step: null, mode: "intro", duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const sA = S.stage(); gsap.set(sA, { autoAlpha: 1 });
+        const T0 = t("Клиент");   // the first phrase names the film to watch before this one
+        const plate = Kit.aside(S, { parent: sA, x: 96, y: 400, w: 1300, tail: false, title: "Перед этим", text: "Что такое SDD и OpenSpec" });
+        plate.show(0); plate.hide(T0 - 0.1);
+        read("Перед этим Что такое SDD и OpenSpec", 0, T0 - 0.1, 0.2);
+
+        /* Calculator: visible from the first frame, with the payment already on screen. It starts centred and moves left when the right column is needed. */
+        const wrap = div("cl-wrap", "", sA);
+        const calc = Kit.aside(S, { parent: wrap, tail: false, html:
+          `<div class="cl-ttl">${CALC}Кредитный калькулятор</div>` +
+          '<div class="cl-f"><div class="cl-l">Сумма</div><div class="cl-v"><span>120 000 ₽</span></div></div>' +
+          '<div class="cl-f"><div class="cl-l">Ставка</div><div class="cl-v"><span>0 %</span></div></div>' +
+          '<div class="cl-f"><div class="cl-l">Срок</div><div class="cl-v"><span class="cl-t1">12 мес.</span><span class="cl-t2">1,5 мес.</span></div></div>' +
+          '<div class="cl-hint">Проверьте срок</div>' +
+          '<div class="cl-res"><div class="cl-rl">Платёж в месяц</div><div class="cl-rn">10 000 ₽</div>' +
+          '<div class="cl-chips"><span class="cl-chip">прошлый расчёт</span><span class="cl-chip red">расчёт не выполнен</span></div></div>' });
+        gsap.set(calc.el, { autoAlpha: 1 });
+        gsap.set(wrap, { x: 454, autoAlpha: 0 });
+        S.tl.to(wrap, { autoAlpha: 1, duration: 0.5 }, T0);
+        const q = (sel) => Array.from(calc.el.querySelectorAll(sel));
+        const fields = q(".cl-v"), t1 = q(".cl-t1")[0], t2 = q(".cl-t2")[0], hint = q(".cl-hint")[0], res = q(".cl-res")[0], rn = q(".cl-rn")[0], chips = q(".cl-chip");
+        hide(t2, hint, ...chips);
+
+        // The narrator names the three inputs: each box is outlined in blue for a moment.
+        const flash = (el, at, len = 1.1) => { S.tl.to(el, { borderColor: INFO, duration: 0.25 }, at); S.tl.to(el, { borderColor: LINE, duration: 0.3 }, at + len); };
+        flash(fields[0], t("сто двадцать")); flash(fields[1], t("ставка")); flash(fields[2], t("двенадцать"));
+        flash(res, t("десять"), 1.0);
+        read("120 000 ₽ 0 % 12 мес. Платёж в месяц 10 000 ₽", T0, t("Меняет"), 0);
+
+        // The term becomes 1,5; the red hint appears, but the old payment stays.
+        const T_CH = t("полтора");
+        S.tl.to(t1, { autoAlpha: 0, duration: 0.3 }, T_CH);
+        S.tl.to(t2, { autoAlpha: 1, duration: 0.3 }, T_CH);
+        S.tl.to(fields[2], { borderColor: RED, color: RED, duration: 0.3 }, T_CH);
+        Kit.popIn(S, hint, T_CH + 0.2);
+        read("1,5 мес. Проверьте срок", T_CH, DUR);
+        // The stale payment: warm accent, then the two marks.
+        const T_STALE = t("по-прежнему");
+        S.tl.to(res, { borderColor: ACC, backgroundColor: "rgba(255, 122, 89, 0.14)", duration: 0.4 }, T_STALE);
+        S.tl.to(rn, { color: Kit.token("--k-accent-soft"), duration: 0.4 }, T_STALE);
+        Kit.popIn(S, chips[0], T_STALE + 0.1);
+        Kit.popIn(S, chips[1], t("не выполнен") - 0.4);
+        read("прошлый расчёт", T_STALE + 0.1, DUR); read("расчёт не выполнен", t("не выполнен") - 0.4, DUR);
+
+        /* Right column: the analyst's wish, then the question and three readers. */
+        const T_RIGHT = t("Раньше");
+        S.tl.to(wrap, { x: 0, duration: 0.8, ease: "power2.inOut" }, T_RIGHT - 0.5);
+
+        const slotA = div("rt", "", sA); slotA.style.top = "206px";
+        const note = Kit.aside(S, { parent: slotA, tail: false, html: '<div class="rt-cap">Аналитик пишет разработчику</div><div class="rt-q">«показывать понятную ошибку»</div>' });
+        const noteQ = note.el.querySelector(".rt-q");
+        hide(noteQ);
+        note.show(T_RIGHT + 0.1); Kit.popIn(S, noteQ, t("«показывать"));
+        read("Аналитик пишет разработчику", T_RIGHT + 0.1, t("Покажем"));
+        read("показывать понятную ошибку", t("«показывать"), t("Покажем"));
+        const T_GOAL = t("Покажем");
+        note.hide(T_GOAL - 0.1);
+
+        const goal = Kit.aside(S, { parent: slotA, tail: false, html: '<div class="rt-cap">Цель</div><div class="rt-q" style="font-size:40px">записать один раз — проверит любой</div>' });
+        goal.el.classList.add("rt-goal");
+        goal.el.style.position = "absolute"; goal.el.style.left = "0"; goal.el.style.top = "0"; goal.el.style.width = "844px";
+        goal.show(T_GOAL + 0.35);
+        read("Цель записать один раз проверит любой", T_GOAL + 0.35, DUR);
+
+        const qh = div("rt rt-h", "Что считать ошибкой?", sA); qh.style.top = "356px";
+        hide(qh); Kit.popIn(S, qh, t("Что считать"));
+        read("Что считать ошибкой?", t("Что считать"), DUR);
+
+        const rdWrap = div("rt", "", sA); rdWrap.style.top = "446px"; rdWrap.style.display = "grid"; rdWrap.style.gap = "14px";
+        const readers = [
+          ["Читатель 1", "«показать 0»", t("ошибкой,")],
+          ["Читатель 2", "«оставить старый платёж»", t("что показать")],
+          ["Читатель 3", "«понятное сообщение»", t("как это")],
+        ];
+        readers.forEach(([lab, ans, at]) => {
+          const card = Kit.aside(S, { parent: rdWrap, tail: false, html: `<div class="rd">${EYE}<div><div class="rd-n">${lab}</div><div class="rd-t">${ans}</div></div></div>` });
+          card.el.style.padding = "0";
+          card.show(at);
+          read(`${lab} ${ans}`, at, DUR);
+        });
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

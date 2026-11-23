@@ -1,0 +1,209 @@
+[
+  {
+    "n": "0m",
+    "duration": 9,
+    "chapter": "Проблема → цель",
+    "step": null,
+    "title": "Карта маршрута",
+    "audio": "assets/vo/scene-0m.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 6
+    },
+    "audioDuration": 7.44
+  },
+  {
+    "n": 0,
+    "duration": 26,
+    "chapter": "Проблема → цель",
+    "step": null,
+    "title": "Проблема → цель",
+    "audio": "assets/vo/scene-0.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 6
+    },
+    "audioDuration": 24.42
+  },
+  {
+    "n": "0b",
+    "duration": 35.5,
+    "chapter": "Как меняется работа",
+    "step": null,
+    "title": "Как меняется работа",
+    "audio": "assets/vo/scene-0b.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 6
+    },
+    "audioDuration": 33.78
+  },
+  {
+    "id": "t1",
+    "kind": "title",
+    "of": 1,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Вход и выход",
+    "step": 1,
+    "title": "Вход и выход",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 6
+    }
+  },
+  {
+    "n": 1,
+    "duration": 31.9,
+    "chapter": "Вход и выход",
+    "step": 1,
+    "title": "Вход и выход",
+    "audio": "assets/vo/scene-1.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 6
+    },
+    "audioDuration": 29.8
+  },
+  {
+    "id": "t2",
+    "kind": "title",
+    "of": 2,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Пустой репозиторий и копия",
+    "step": 2,
+    "title": "Пустой репозиторий и копия",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 6
+    }
+  },
+  {
+    "n": 2,
+    "duration": 22,
+    "chapter": "Пустой репозиторий и копия",
+    "step": 2,
+    "title": "Пустой репозиторий и копия",
+    "audio": "assets/vo/scene-2.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 6
+    },
+    "audioDuration": 19.95
+  },
+  {
+    "id": "t3",
+    "kind": "title",
+    "of": 3,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Окружение с моделью",
+    "step": 3,
+    "title": "Окружение с моделью",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 6
+    }
+  },
+  {
+    "n": 3,
+    "duration": 26.7,
+    "chapter": "Окружение с моделью",
+    "step": 3,
+    "title": "Окружение с моделью",
+    "audio": "assets/vo/scene-3.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 6
+    },
+    "audioDuration": 24.67
+  },
+  {
+    "id": "t4",
+    "kind": "title",
+    "of": 4,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Замысел и первое изменение",
+    "step": 4,
+    "title": "Замысел и первое изменение",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 6
+    }
+  },
+  {
+    "n": 4,
+    "duration": 50.1,
+    "chapter": "Замысел и первое изменение",
+    "step": 4,
+    "title": "Замысел и первое изменение",
+    "audio": "assets/vo/scene-4.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 6
+    },
+    "audioDuration": 48.05
+  },
+  {
+    "id": "t5",
+    "kind": "title",
+    "of": 5,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Проверка и одобрение",
+    "step": 5,
+    "title": "Проверка и одобрение",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 6
+    }
+  },
+  {
+    "n": 5,
+    "duration": 42.4,
+    "chapter": "Проверка и одобрение",
+    "step": 5,
+    "title": "Проверка и одобрение",
+    "audio": "assets/vo/scene-5.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 6
+    },
+    "audioDuration": 40.82
+  },
+  {
+    "id": "t6",
+    "kind": "title",
+    "of": 6,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Дальше — «Практикум разработки»",
+    "step": 6,
+    "title": "Дальше — «Практикум разработки»",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 6
+    }
+  },
+  {
+    "n": 6,
+    "duration": 26.7,
+    "chapter": "Дальше — «Практикум разработки»",
+    "step": 6,
+    "title": "Дальше — «Практикум разработки»",
+    "audio": "assets/vo/scene-6.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 6
+    },
+    "audioDuration": 23.69
+  }
+]

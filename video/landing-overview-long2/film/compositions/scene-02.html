@@ -1,0 +1,42 @@
+<template id="scene-02-template">
+  <div data-composition-id="scene-02" data-width="1920" data-height="1080" data-duration="24.5">
+    <style>
+      .s2-pd { position: absolute; left: 96px; width: 1728px; top: 170px; text-align: center; font-size: 54px; font-weight: 800; letter-spacing: -.01em; }
+      .s2-pd em { font-style: normal; color: var(--k-ok); }
+      .s2-pd span { color: var(--k-text-2); font-weight: 700; }
+      .s2-note { position: absolute; left: 360px; width: 1200px; text-align: center; top: 770px; font-size: 38px; font-weight: 800; color: var(--k-accent-soft); }
+      .s2-sdlc { position: absolute; text-align: center; font-size: 34px; font-weight: 800; color: var(--k-info); }
+    </style>
+    <script>
+      (function () {
+        const L = Long.begin("02"), { S, tl, el, show, hide, at, t, DUR } = L;
+        L.head("Один маршрут · <span>семь этапов</span>");
+        const names = ["Намерение и план", "Анализ требований", "Архитектура и дизайн", "Реализация", "Тестирование", "Выпуск", "Наблюдение"];
+        const keys = ["намерение", "анализ", "архитектура", "реализация", "тестирование", "выпуск", "наблюдение"];
+        const TOP = 440;
+        const times = keys.map((k) => at(k, 1, DUR - 8));
+        const rb = L.ribbon({ top: TOP, names, cls: "ok", reveal: (i) => times[i] });
+        const svg = F.layer(S.root);
+        const pd = el("s2-pd", "<em>PDLC</em> <span>· жизненный цикл продукта</span>"); show(pd, t("пи-ди-эл-си") - 0.2);
+        const pb = F.path(svg, `M 96 312 L 96 276 L 1824 276 L 1824 312`, F.C.ok, 5);
+        F.draw(tl, pb, t("семь") - 0.2, 1.3);
+        // возврат сигнала: наблюдение → новое намерение
+        const x7 = rb.cx(6), x1 = rb.cx(0), BY = TOP + 190;
+        const ret = F.path(svg, `M ${x7} ${BY} C ${x7} ${BY + 80}, ${x7 - 80} ${BY + 110}, ${x7 - 200} ${BY + 110} L ${x1 + 200} ${BY + 110} C ${x1 + 80} ${BY + 110}, ${x1} ${BY + 80}, ${x1} ${BY + 14}`, F.C.acc, 6);
+        const rAt = t("возвращает");
+        F.draw(tl, ret, rAt, 2.0);
+        const ah = F.arrowHead(svg, x1, BY + 6, -90, F.C.acc, 16); tl.to(ah, { opacity: 1, duration: 0.2 }, rAt + 1.9);
+        const note = el("s2-note", "сигнал → новое намерение"); show(note, t("сигнал"));
+        // SDLC: скобка над этапами 2–6
+        const a = rb.cx(1) - 100, b = rb.cx(5) + 100;
+        const sb = F.path(svg, `M ${a} 420 L ${a} 394 L ${b} 394 L ${b} 420`, F.C.info, 5);
+        const sd = el("s2-sdlc", "SDLC · от анализа до выпуска"); F.setPos(sd, a, 336, b - a);
+        const sAt = t("Разработка");
+        F.draw(tl, sb, sAt, 1.0); show(sd, sAt + 0.3);
+        [1, 2, 3, 4, 5].forEach((i) => tl.to(rb.nodes[i], { borderColor: F.C.info, color: F.C.info, duration: 0.4 }, sAt + 0.2 + i * 0.12));
+        L.focus(rb.stops, times, rAt - 0.1);
+        L.fin();
+      })();
+    </script>
+  </div>
+</template>

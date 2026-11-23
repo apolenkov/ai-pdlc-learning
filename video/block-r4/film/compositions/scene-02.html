@@ -1,0 +1,94 @@
+<template id="scene-02-template">
+  <div data-composition-id="scene-02" data-width="1920" data-height="1080" data-duration="20.2">
+    <style>
+      [data-composition-id="scene-02"] .k-sg:nth-child(-n+1) em { background: var(--k-accent); border-radius: 9px; }
+      [data-composition-id="scene-02"] .ch-card { box-sizing: border-box; padding: 0 26px; display: flex; flex-direction: column; justify-content: center; }
+      [data-composition-id="scene-02"] .ch-t { font-size: 44px; font-weight: 800; line-height: 1.15; }
+      [data-composition-id="scene-02"] .ch-s { font-size: 30px; font-weight: 500; line-height: 1.25; color: var(--k-text-2); margin-top: 4px; }
+      [data-composition-id="scene-02"] .ch-s.cm { font-family: var(--k-font-mono); font-weight: 500; color: var(--k-accent-soft); }
+      [data-composition-id="scene-02"] .ch-chip { position: absolute; right: 22px; top: 50%; margin-top: -26px; height: 52px; box-sizing: border-box; padding: 0 18px; display: flex; align-items: center; gap: 10px; border: 3px solid var(--k-info); border-radius: 14px; background: var(--k-panel-2); font-size: 30px; font-weight: 700; white-space: nowrap; }
+      [data-composition-id="scene-02"] .ch-chip svg { width: 28px; height: 28px; }
+      [data-composition-id="scene-02"] .ch-chip .m { font-family: var(--k-font-mono); font-weight: 500; }
+      [data-composition-id="scene-02"] .ch-chip.ok { border-color: var(--k-ok); color: var(--k-ok); background: var(--k-ok-tint); }
+      [data-composition-id="scene-02"] .ch-arr { position: absolute; left: 96px; width: 780px; height: 44px; display: grid; place-items: center; }
+      [data-composition-id="scene-02"] .ch-arr svg { width: 34px; height: 40px; color: var(--k-text-2); }
+      [data-composition-id="scene-02"] .cd-h { font-size: 40px; font-weight: 800; line-height: 1.15; margin-bottom: 4px; }
+      [data-composition-id="scene-02"] .cd-f { margin-top: 8px; height: 52px; box-sizing: border-box; padding: 0 18px; display: flex; align-items: center; border: 3px solid var(--k-line); border-radius: 12px; background: var(--k-panel-2); font-family: var(--k-font-mono); font-size: 32px; font-weight: 500; }
+      [data-composition-id="scene-02"] .st { position: absolute; left: 96px; top: 736px; width: 1728px; height: 96px; box-sizing: border-box; padding: 0 30px; display: flex; align-items: center; gap: 24px; border-color: #ff8a8a; background: rgba(255, 138, 138, 0.12); }
+      [data-composition-id="scene-02"] .st-a, [data-composition-id="scene-02"] .st-b { font-size: 40px; font-weight: 800; line-height: 1.1; white-space: nowrap; }
+      [data-composition-id="scene-02"] .st-a { color: #ff8a8a; }
+      [data-composition-id="scene-02"] .st-x { font-size: 44px; font-weight: 300; color: var(--k-text-2); line-height: 1; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("02"), t = S.t, DUR = 20.2;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const div = (cls, html, parent) => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; parent.appendChild(el); return el; };
+        const INFO = Kit.token("--k-info"), LINE = Kit.token("--k-line"), OK = Kit.token("--k-ok"), RED = "#ff8a8a";
+        const LOCK = '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="12" width="18" height="12" rx="3"/><path d="M9 12V9a5 5 0 0 1 10 0v3"/></svg>';
+        const DOWN = '<svg viewBox="0 0 34 40" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 4v30M7 24l10 10 10-10"/></svg>';
+
+        Kit.header(S, { header: { mode: "parts", total: 8 }, chapter: "Форк и выданная ветка", step: 2, duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* Left: chain «метарепозиторий → ваш форк → выданная ветка». */
+        const C = [
+          { y: 206, t: "Метарепозиторий", s: "общий, на сервере", chip: `${LOCK}<span><span class="m">main</span> защищён</span>`, at: t("подготовил"), chipAt: t("защищена") },
+          { y: 386, t: "Ваш форк", s: "копия на сервере", chip: "клонируете в VS Code", at: t("форк"), chipAt: t("копируете") },
+          { y: 566, t: "Выданная ветка", s: "IMPORT_BASE_BRANCH", mono: true, chip: "рабочая", ok: true, at: t("выбираете"), chipAt: t("только в") },
+        ];
+        const cards = C.map((c, i) => {
+          const a = Kit.aside(S, { parent: s1, x: 96, y: c.y, w: 780, h: 136, tail: false, html:
+            `<div class="ch-t">${c.t}</div><div class="ch-s${c.mono ? " cm" : ""}">${c.s}</div><div class="ch-chip${c.ok ? " ok" : ""}">${c.chip}</div>` });
+          a.el.classList.add("ch-card");
+          a.show(c.at);
+          const chip = a.el.querySelector(".ch-chip"); hide(chip); Kit.popIn(S, chip, c.chipAt);
+          read(c.t + " " + c.s, c.at, DUR); read(chip.textContent, c.chipAt, DUR);
+          if (i) { const ar = div("ch-arr", DOWN, s1); ar.style.top = (c.y - 44) + "px"; hide(ar); Kit.popIn(S, ar, c.at - 0.25); }
+          return a.el;
+        });
+
+        /* Right: the six-field card. */
+        const F = ["META_REPOSITORY_URL", "IMPORT_BASE_BRANCH", "IMPORT_BASE_SHA", "PLANNING_SHA", "SERVICE_SHA", "REVIEW_REFERENCE"];
+        const card = Kit.aside(S, { parent: s1, x: 940, y: 206, w: 884, tail: false, html:
+          '<div class="cd-h">Карточка организатора: шесть полей</div>' + F.map((f) => `<div class="cd-f">${f}</div>`).join("") });
+        card.show(t("карточку"));
+        const fields = Array.from(card.el.querySelectorAll(".cd-f")); hide(...fields);
+        fields.forEach((f, i) => Kit.popIn(S, f, t("шести") + i * 0.12));
+        read("Карточка организатора шесть полей META_REPOSITORY_URL IMPORT_BASE_BRANCH IMPORT_BASE_SHA PLANNING_SHA SERVICE_SHA REVIEW_REFERENCE", t("шести") + 0.7, DUR);
+
+        const hl = (el, on, off, col) => {
+          S.tl.to(el, { borderColor: col || INFO, duration: 0.3 }, on);
+          S.tl.to(el, { borderColor: LINE, duration: 0.3 }, off);
+        };
+        hl(cards[0], t("подготовил"), t("Вы делаете") - 0.1);
+        hl(cards[1], t("форк"), t("выбираете") - 0.1);
+        hl(cards[2], t("выбираете"), t("Главная") - 0.1);
+        hl(fields[1], t("выданную"), t("Главная") - 0.1);
+        hl(cards[0], t("Главная"), t("вы работаете") - 0.1, OK);
+        hl(cards[2], t("вы работаете"), t("Если версия") - 0.1, OK);
+        hl(fields[2], t("версия"), DUR - 0.5, RED);
+
+        /* Bottom signal: mismatch → stop. */
+        const st = Kit.aside(S, { parent: s1, x: 96, y: 722, w: 1728, h: 96, tail: false, html:
+          '<div class="st-a">версия не совпала с карточкой</div><div class="st-x">→</div><div class="st-b">остановитесь, скажите организатору</div>' });
+        st.el.classList.add("st");
+        const stX = st.el.querySelector(".st-x"), stB = st.el.querySelector(".st-b");
+        hide(stX, stB);
+        st.show(t("Если версия"));
+        Kit.popIn(S, stX, t("остановитесь") - 0.3); Kit.popIn(S, stB, t("остановитесь"));
+        read("версия не совпала с карточкой", t("Если версия"), DUR); read("остановитесь скажите организатору", t("остановитесь"), DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

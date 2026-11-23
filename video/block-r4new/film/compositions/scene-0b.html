@@ -1,0 +1,139 @@
+<template id="scene-0b-template">
+  <div data-composition-id="scene-0b" data-width="1920" data-height="1080" data-duration="35.5">
+    <style>
+      [data-composition-id="scene-0b"] .fk-h { box-sizing: border-box; display: flex; align-items: center; padding: 0 30px; font-size: 44px; font-weight: 700; line-height: 1.15; }
+      [data-composition-id="scene-0b"] .fk-ar { position: absolute; left: 596px; width: 88px; text-align: center; font-size: 64px; font-weight: 300; line-height: 72px; height: 72px; color: var(--k-text-2); }
+      [data-composition-id="scene-0b"] .fk-br { height: 100%; box-sizing: border-box; padding: 0 30px; display: flex; align-items: center; gap: 28px; }
+      [data-composition-id="scene-0b"] .fk-cd { flex: none; padding: 4px 18px; border-radius: 12px; background: var(--k-accent-tint); color: var(--k-accent-soft); font-size: 50px; font-weight: 800; line-height: 1.2; }
+      [data-composition-id="scene-0b"] .fk-t2 { font-size: 42px; font-weight: 800; line-height: 1.12; }
+      [data-composition-id="scene-0b"] .fk-c { box-sizing: border-box; padding: 0; }
+      [data-composition-id="scene-0b"] .fk-in { height: 100%; box-sizing: border-box; padding: 24px 26px; display: flex; flex-direction: column; }
+      [data-composition-id="scene-0b"] .fk-t { font-size: 44px; font-weight: 800; line-height: 1.15; }
+      [data-composition-id="scene-0b"] .fk-b { margin-top: auto; }
+      [data-composition-id="scene-0b"] .fk-e { font-size: 38px; font-weight: 700; line-height: 1.15; color: var(--k-accent-soft); }
+      [data-composition-id="scene-0b"] .fk-n { font-size: 30px; font-weight: 500; line-height: 1.25; color: var(--k-text-2); margin-top: 8px; }
+      [data-composition-id="scene-0b"] .fk-cap { box-sizing: border-box; display: flex; align-items: center; font-size: 38px; font-weight: 700; line-height: 1.15; padding: 0 28px; }
+      [data-composition-id="scene-0b"] .fk-cap.no { color: var(--k-text-2); }
+      [data-composition-id="scene-0b"] .pr-row { position: absolute; left: 96px; width: 1728px; display: grid; align-items: stretch; }
+      [data-composition-id="scene-0b"] .pr-flow { top: 250px; height: 290px; grid-template-columns: 1fr 64px 1fr 64px 1fr 64px 1fr; }
+      [data-composition-id="scene-0b"] .pr-row > .k-aside { position: relative; left: 0; top: 0; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; }
+      [data-composition-id="scene-0b"] .pr-gh { grid-row: 1; border: 3px dashed var(--k-win-dot); border-radius: var(--k-r-card); }
+      [data-composition-id="scene-0b"] .pr-row > * { grid-row: 1; }
+      [data-composition-id="scene-0b"] .pr-t { font-size: 44px; font-weight: 700; line-height: 1.12; }
+      [data-composition-id="scene-0b"] .pr-c { font-size: 34px; line-height: 1.25; color: var(--k-text-2); margin-top: 10px; }
+      [data-composition-id="scene-0b"] .pr-arr { align-self: center; text-align: center; font-size: 56px; font-weight: 300; color: var(--k-text-2); line-height: 1; }
+      [data-composition-id="scene-0b"] .pr-pl { position: absolute; left: 96px; width: 1728px; height: 88px; padding: 0 34px; display: flex; align-items: center; gap: 28px; box-sizing: border-box; }
+      [data-composition-id="scene-0b"] .pr-pl .lab { font-size: 34px; font-weight: 700; color: var(--k-accent-soft); min-width: 250px; }
+      [data-composition-id="scene-0b"] .pr-pl .txt { font-size: 46px; font-weight: 700; line-height: 1.1; }
+      [data-composition-id="scene-0b"] .pr-ok { border-color: var(--k-ok); background: var(--k-ok-tint); }
+      [data-composition-id="scene-0b"] .pr-ok .lab { color: var(--k-ok); }
+      [data-composition-id="scene-0b"] .pr-no .lab { color: var(--k-text-2); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("0b"), t = S.t, DUR = 35.5;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const div = (cls, html, parent) => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; parent.appendChild(el); return el; };
+        const INFO = Kit.token("--k-info"), LINE = Kit.token("--k-line"), ACC = Kit.token("--k-accent");
+
+        Kit.header(S, { header: { mode: "parts", total: 6 }, chapter: "Как меняется работа", step: null, mode: "intro", duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const T_OUT = t("Источники") - 0.08, T_IN = T_OUT + 0.5;   // «Источники» — начало второго плана: первый уходит до него, второй входит сразу после
+
+        /* ---------- план 1: после шага 5 маршрут ветвится на 6а и 6б ---------- */
+        const sA = S.stage(); gsap.set(sA, { autoAlpha: 1 });
+
+        const head = Kit.aside(S, { parent: sA, x: 96, y: 206, w: 1124, h: 92, tail: false, html: "После шага 5 маршрут ветвится: 6а и 6б" });
+        head.el.classList.add("fk-h");
+        head.show(0.15);
+        read("После шага 5 маршрут ветвится 6а и 6б", 0.15, T_OUT);
+        const both = Kit.aside(S, { parent: sA, x: 1244, y: 206, w: 580, h: 92, tail: false, html: "можно пройти оба" });
+        both.el.classList.add("fk-cap");
+        both.show(t("можно пройти") - 0.1);
+        read("можно пройти оба", t("можно пройти") - 0.1, T_OUT);
+
+        const c5 = Kit.aside(S, { parent: sA, x: 96, y: 330, w: 500, h: 372, tail: false, html:
+          '<div class="fk-in"><div class="fk-t">Требования в контексте продукта</div><div class="fk-b"><div class="fk-e">шаг 5</div><div class="fk-n">Контекст продукта</div></div></div>' });
+        c5.el.classList.add("fk-c");
+        c5.show(t("пять") - 0.1);
+        read("Требования в контексте продукта шаг 5 Контекст продукта", t("пять") - 0.1, T_OUT);
+
+        const BR = [
+          { y: 330, cd: "6а", ttl: "Начинаем требования для нового продукта", sub: "новый продукт — пустой репозиторий", at: t("шесть-а") },
+          { y: 524, cd: "6б", ttl: "Описываем действующий продукт", sub: "действующий продукт — старые документы", at: t("шесть-бэ") },
+        ];
+        const brs = BR.map((b) => {
+          const ar = div("fk-ar", "→", sA); ar.style.top = (b.y + 89 - 36) + "px"; hide(ar); Kit.popIn(S, ar, b.at - 0.3);
+          const a = Kit.aside(S, { parent: sA, x: 684, y: b.y, w: 1140, h: 178, tail: false, html:
+            `<div class="fk-br"><div class="fk-cd">${b.cd}</div><div class="fk-tx"><div class="fk-t2">${b.ttl}</div><div class="fk-n">${b.sub}</div></div></div>` });
+          a.el.classList.add("fk-c");
+          a.show(b.at);
+          read(b.cd + " " + b.ttl + " " + b.sub, b.at, T_OUT);
+          S.tl.to(a.el, { borderColor: INFO, duration: 0.3 }, b.at);
+          return a;
+        });
+        // 6б отходит, когда названа 6а как ваша; 6а выделена
+        S.tl.to(brs[1].el, { borderColor: LINE, duration: 0.3 }, t("Вы на шаге") - 0.1);
+        S.tl.to(brs[1].el.querySelector(".fk-br"), { opacity: 0.55, duration: 0.4 }, t("Вы на шаге"));
+        S.tl.to(brs[0].el, { borderColor: ACC, backgroundColor: "rgba(255, 122, 89, 0.14)", duration: 0.4 }, t("Вы на шаге"));
+
+        /* captions: who picks the branch; there is no product to study */
+        const cap1 = Kit.aside(S, { parent: sA, x: 96, y: 722, w: 1000, h: 88, tail: false, html: "Ветвь выбирает то, что выдал организатор" });
+        cap1.el.classList.add("fk-cap"); cap1.show(t("Ветвь"));
+        read("Ветвь выбирает то, что выдал организатор", t("Ветвь"), T_OUT);
+        const cap2 = Kit.aside(S, { parent: sA, x: 1124, y: 722, w: 700, h: 88, tail: false, html: "продукта нет — изучать нечего" });
+        cap2.el.classList.add("fk-cap", "no"); cap2.show(t("Здесь") - 0.08);
+        read("продукта нет изучать нечего", t("Здесь") - 0.08, T_OUT);
+
+        Kit.stageOut(S, sA, T_OUT);
+
+        /* ---------- план 2: источники → черновики → проверка → люди ---------- */
+        const sB = S.stage();
+        Kit.stageIn(S, sB, T_IN);
+
+        const flow = div("pr-row pr-flow", "", sB);
+        const hl = (tile, on, off) => {
+          S.tl.to(tile.el, { borderColor: INFO, duration: 0.3 }, on);
+          S.tl.to(tile.el, { borderColor: LINE, duration: 0.3 }, off);
+        };
+        const steps = [
+          ["Замысел и ответы владельца продукта", "источники", t("Источники") + 0.5, t("Модель готовит") - 0.1],
+          ["Черновики модели", "готовит", t("Модель готовит"), t("независимо") - 0.1],
+          ["Независимая проверка", "проверяет источники", t("независимо"), t("а решают") - 0.1],
+          ["Люди", "решают", t("а решают"), t("Кода") - 0.1],
+        ];
+        const tiles = steps.map(([title, sub, at, off], i) => {
+          // dashed slot marks the place of the next tile until its word is spoken
+          if (i) { const gh = div("pr-gh", "", flow); gh.style.gridColumn = String(i * 2 + 1); S.tl.set(gh, { autoAlpha: 0 }, at); }
+          const tile = Kit.aside(S, { parent: flow, tail: false, html: `<div class="pr-t">${title}</div><div class="pr-c">${sub}</div>` });
+          tile.el.style.gridColumn = String(i * 2 + 1);
+          Kit.popIn(S, tile.el, at);
+          read(title + " " + sub, at, DUR);
+          hl(tile, at, off);
+          if (i < 3) { const ar = div("pr-arr", "→", flow); ar.style.gridColumn = String(i * 2 + 2); hide(ar); Kit.popIn(S, ar, steps[i + 1][2] - 0.3); }
+          return tile;
+        });
+
+        const plate = (cls, top, lab, html, at, words) => {
+          const p = Kit.aside(S, { parent: sB, x: 96, y: top, w: 1728, tail: false, html: `<div class="lab">${lab}</div><div class="txt">${html}</div>` });
+          p.el.className += " pr-pl " + cls;
+          p.el.style.left = "96px"; p.el.style.top = top + "px"; p.el.style.width = "1728px";
+          p.show(at);
+          read(words, at, DUR);
+          return p;
+        };
+        plate("pr-no", 626, "Здесь", "кода и главной спецификации нет", t("Кода"), "Здесь кода и главной спецификации нет");
+        plate("pr-ok", 730, "На выходе", "окружение + принятое изменение", t("На выходе"), "На выходе окружение принятое изменение");
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

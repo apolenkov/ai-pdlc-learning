@@ -1,0 +1,58 @@
+[
+  {
+    "n": 1,
+    "duration": 8.5,
+    "chapter": "Команда развития",
+    "title": "Команда развития",
+    "audioDuration": 6.93,
+    "audio": "assets/vo/scene-01.mp3"
+  },
+  {
+    "n": 2,
+    "duration": 10.1,
+    "chapter": "Шесть задач",
+    "title": "Шесть задач",
+    "audioDuration": 9.57,
+    "audio": "assets/vo/scene-02.mp3"
+  },
+  {
+    "n": 3,
+    "duration": 12.2,
+    "chapter": "Команда → наставник → продукт",
+    "title": "Три яруса",
+    "audioDuration": 10.69,
+    "audio": "assets/vo/scene-03.mp3"
+  },
+  {
+    "n": 4,
+    "duration": 19.8,
+    "chapter": "Roadmap · шаг за шагом",
+    "title": "Roadmap · шаг за шагом",
+    "audioDuration": 17.38,
+    "audio": "assets/vo/scene-04.mp3"
+  },
+  {
+    "n": 5,
+    "duration": 11.5,
+    "chapter": "Шаблоны аудита",
+    "title": "Шаблоны аудита",
+    "audioDuration": 9.74,
+    "audio": "assets/vo/scene-05.mp3"
+  },
+  {
+    "n": 6,
+    "duration": 13.8,
+    "chapter": "Метрики до и после",
+    "title": "Метрики до и после",
+    "audioDuration": 11.7,
+    "audio": "assets/vo/scene-06.mp3"
+  },
+  {
+    "n": 7,
+    "duration": 8.1,
+    "chapter": "Начните с аудита",
+    "title": "Начните с аудита",
+    "audioDuration": 5.44,
+    "audio": "assets/vo/scene-07.mp3"
+  }
+]

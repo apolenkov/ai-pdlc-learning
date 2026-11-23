@@ -1,0 +1,114 @@
+<template id="scene-02-template">
+  <div data-composition-id="scene-02" data-width="1920" data-height="1080" data-duration="14.7">
+    <style>
+      [data-composition-id="scene-02"] .r2-status { position: absolute; left: 0; right: 0; bottom: 0; height: 56px; padding: 0 26px; display: flex; align-items: center; gap: 14px; background: var(--k-win-bar); border-top: 1px solid var(--k-line); font-family: var(--k-font-mono); font-size: 28px; color: var(--k-text-2); }
+      [data-composition-id="scene-02"] .r2-status svg { width: 30px; height: 30px; color: var(--k-text-2); }
+      [data-composition-id="scene-02"] .r2-sc { display: flex; align-items: center; justify-content: space-between; }
+      [data-composition-id="scene-02"] .r2-sct { font-size: 34px; font-weight: 700; }
+      [data-composition-id="scene-02"] .r2-badge { min-width: 44px; height: 44px; border-radius: 22px; background: var(--k-accent); color: var(--k-on-accent); font-size: 30px; font-weight: 800; line-height: 44px; text-align: center; }
+      [data-composition-id="scene-02"] .r2-file { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; font-family: var(--k-font-mono); font-size: 30px; }
+      [data-composition-id="scene-02"] .r2-file b { color: var(--k-accent-soft); font-family: var(--k-font-sans); font-weight: 800; }
+      [data-composition-id="scene-02"] .r2-chip { display: inline-block; margin-top: 14px; padding: 6px 20px; border-radius: 16px; border: 2px solid var(--k-accent); background: var(--k-accent-tint); color: var(--k-accent-soft); font-size: 32px; font-weight: 700; }
+      [data-composition-id="scene-02"] .r2-head { position: absolute; left: 1304px; top: 448px; width: 520px; height: 68px; border-radius: 22px; border: 2px solid var(--k-line); display: flex; align-items: center; justify-content: center; }
+      [data-composition-id="scene-02"] .r2-head span { position: absolute; font-size: 34px; font-weight: 700; white-space: nowrap; }
+      [data-composition-id="scene-02"] .r2-head .a { color: var(--k-text-2); }
+      [data-composition-id="scene-02"] .r2-head .b { color: var(--k-accent-soft); font-size: 32px; }
+      [data-composition-id="scene-02"] .r2-bad { position: absolute; left: 1304px; width: 520px; height: 64px; display: flex; align-items: center; gap: 16px; padding: 0 22px; border-radius: 20px; background: var(--k-panel-2); border: 2px solid var(--k-line); font-size: 34px; font-weight: 700; }
+      [data-composition-id="scene-02"] .r2-bad svg { width: 38px; height: 38px; color: var(--k-text-2); flex: none; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("02"), t = S.t, DUR = 14.7;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const div = (cls, html, parent) => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; parent.appendChild(el); return el; };
+        const ic = (inner) => `<svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">${inner}</svg>`;
+        const GLYPH = {
+          extra: ic('<circle cx="28" cy="28" r="20"/><path d="M28 17v22M17 28h22"/>'),
+          gap: ic('<circle cx="28" cy="28" r="20" stroke-dasharray="7 8"/>'),
+          num: ic('<path d="M10 20h36M10 36h36M22 48l12-40"/>'),
+          erase: ic('<path d="M22 10h28v36H22L6 28z"/><path d="M30 21l14 14M44 21L30 35"/>'),
+        };
+        const ACC = Kit.token("--k-accent"), TINT = Kit.token("--k-accent-tint"), LINE = Kit.token("--k-line"), PANEL2 = Kit.token("--k-panel-2");
+        const bads_at = [t("лишнее,"), t("пропустить"), t("подменить"), t("стереть")];
+
+        Kit.header(S, { header: { mode: "parts", total: 7 }, chapter: "Черновик модели", step: 2, duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* ---- слева: черновик вставлен в specification.md, версия не сохранена ---- */
+        const LN = [1, 2, "", 9, 10, 11, 12, "", 15];   // real line numbers of draft.md: the window shows an excerpt, gaps are marked with «…»
+        const ed = Kit.editor(S, { parent: s1, x: 96, y: 215, w: 1180, h: 596, crumb: "credit-calculator", visible: false,
+          tabs: [{ name: "specification.md", active: true }],
+          lines: [
+            "# Кредитный калькулятор",
+            "",
+            "…",
+            "### ПРАВИЛА",
+            "",
+            "Допустимы положительная сумма кредита, неотрицательная…",
+            "",
+            "…",
+            "Перед сбросом калькулятор спрашивает подтверждение. Действие «Сбросить»…",
+          ] });
+        ed.rows.forEach((r, i) => { r.no.textContent = LN[i]; });
+        const bar = div("r2-status", `${Kit.icons.branch}<span>stage-2-reset</span>`, ed.el);
+        ed.show(2.05);   // the part title card covers the first 2 s: no text before it ends
+        // a paste, not typing: the lines land one after another almost at once
+        const T_PASTE = 2.2;
+        ed.rows.forEach((r, i) => (r.chars.length ? ed.reveal(i, i, T_PASTE + i * 0.07) : S.tl.set(r.no, { opacity: 1 }, T_PASTE + i * 0.07)));
+        ed.caretOff(2.1);
+        ed.dirty(T_PASTE + 0.7);
+        read("specification.md stage-2-reset", 2.05, DUR);
+
+        /* ---- справа: в Source Control один изменённый файл, версия не сохранена ---- */
+        const sc = Kit.aside(S, { parent: s1, x: Kit.layout.rightX, y: 215, w: Kit.layout.rightW, tail: false,
+          html: '<div class="r2-sc"><span class="r2-sct">Source Control</span><span class="r2-badge">1</span></div><div class="r2-file"><span>specification.md</span><b>M</b></div><span class="r2-chip">не сохранено</span>' });
+        const chip = sc.el.querySelector(".r2-chip"); hide(chip);
+        sc.show(t("пока не"));
+        Kit.popIn(S, chip, t("сохраняйте"));
+        read("Source Control 1 specification.md не сохранено", t("сохраняйте"), DUR);
+
+        /* ---- четыре способа ошибиться, потом — главный навык ---- */
+        const head = div("r2-head", '<span class="a">Четыре риска</span><span class="b">Ключевой навык: проверка</span>', s1);
+        const ha = head.querySelector(".a"), hb = head.querySelector(".b");
+        hide(head, hb);
+        Kit.popIn(S, head, t("Модель может"));
+        const bads = [
+          ["extra", "лишнее", t("лишнее,"), { x: 90 }],
+          ["gap", "пропущенный случай", t("пропустить"), { scale: 0.7 }],
+          ["num", "подмена числа", t("подменить"), { y: 56, filter: "blur(10px)" }],
+          ["erase", "стёртое принятое", t("стереть"), { clipPath: "inset(0 100% 0 0)" }],
+        ].map(([g, label, at, from], i) => {
+          const el = div("r2-bad", GLYPH[g] + label, s1);
+          el.style.top = 536 + i * 74 + "px"; hide(el);
+          const to = { autoAlpha: 1, x: 0, y: 0, scale: 1, filter: "blur(0px)", clipPath: "inset(0 0% 0 0)", duration: i === 3 ? 0.8 : 0.6, ease: i === 1 ? "back.out(2)" : "power3.out", immediateRender: false };
+          S.tl.fromTo(el, { autoAlpha: 0, clipPath: "inset(0 0% 0 0)", ...from }, to, at);
+          S.tl.to(el, { borderColor: ACC, backgroundColor: TINT, duration: 0.3 }, at + 0.2);   // the chip being named is in focus, the previous one goes quiet
+          if (i < 3) S.tl.to(el, { borderColor: LINE, backgroundColor: PANEL2, duration: 0.4 }, bads_at[i + 1] + 0.1);
+          return el;
+        });
+        const T_SKILL = t("Поэтому");
+        S.tl.to(bads, { opacity: 0.5, duration: 0.5 }, T_SKILL - 0.1);
+        S.tl.to(bads[3], { borderColor: LINE, backgroundColor: PANEL2, duration: 0.4 }, T_SKILL - 0.1);
+        S.tl.to(head, { borderColor: ACC, backgroundColor: TINT, duration: 0.5 }, T_SKILL + 0.3);
+        S.tl.to(ha, { autoAlpha: 0, duration: 0.3 }, T_SKILL + 0.3);
+        S.tl.fromTo(hb, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out", immediateRender: false }, t("проверка"));
+        S.tl.fromTo(head, { scale: 1 }, { scale: 1.04, duration: 0.25, ease: "power2.out", immediateRender: false }, t("главный"));
+        S.tl.to(head, { scale: 1, duration: 0.4, ease: "power2.inOut" }, t("главный") + 0.25);
+        read("Четыре риска", t("Модель может"), T_SKILL + 0.3);
+        read("лишнее", t("лишнее,"), DUR); read("пропущенный случай", t("пропустить"), DUR);
+        read("подмена числа", t("подменить"), DUR); read("стёртое принятое", t("стереть"), DUR);
+        read("Ключевой навык проверка", t("проверка"), DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

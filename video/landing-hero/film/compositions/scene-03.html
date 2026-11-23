@@ -1,0 +1,34 @@
+<template id="scene-03-template">
+  <div data-composition-id="scene-03" data-width="1920" data-height="1080" data-duration="10">
+    <style>
+      [data-composition-id="scene-03"] .h-h { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 58px; font-weight: 800; }
+      [data-composition-id="scene-03"] .h-card { position: absolute; padding: 28px 34px; border: 2px solid var(--k-line); border-radius: 26px; background: var(--k-panel); }
+      [data-composition-id="scene-03"] .h-card b { color: var(--k-text); }
+      [data-composition-id="scene-03"] .h-t { font-size: 48px; font-weight: 800; }
+      [data-composition-id="scene-03"] .h-d { margin-top: 14px; font-size: 36px; line-height: 1.35; color: var(--k-text-2); }
+      [data-composition-id="scene-03"] .h-chip { position: absolute; padding: 18px 32px; border: 2px solid var(--k-line); border-radius: 22px; background: var(--k-panel-2); font-size: 42px; font-weight: 700; }
+      [data-composition-id="scene-03"] .h-line { position: absolute; font-size: 44px; font-weight: 800; }
+      [data-composition-id="scene-03"] .h-line span { color: var(--k-ok); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("03"), DUR = 10;
+        const tt = (w, d) => { try { return S.t(w); } catch (e) { return d; } };
+        const pic = (n, x, y, w, at, dur) => Kit.sketch(S, { name: n, x, y, w, at, dur: dur || 2.4 });
+        const el = (cls, html, x, y, w) => { const e = document.createElement("div"); e.className = cls; e.innerHTML = html; e.style.left = x + "px"; e.style.top = y + "px"; if (w) e.style.width = w + "px"; S.root.appendChild(e); return e; };
+        const show = (e, at) => { (Array.isArray(e) ? e : [e]).forEach((x) => { gsap.set(x, { autoAlpha: 0 }); S.tl.fromTo(x, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: "power2.out", immediateRender: false }, at); }); };
+        const head = (txt, at) => { const h = el("h-h", txt, 96, 64); show(h, at == null ? 0.1 : at); return h; };
+        head("Курс этапа");
+        const stg = [["01", "Намерение и план", true], ["02", "Анализ требований", true], ["03", "Архитектура и дизайн", false], ["04", "Реализация", false], ["05", "Тестирование", false], ["06", "Выпуск", false], ["07", "Наблюдение", false]];
+        const cards = stg.map(([nn, nm, ok], i) => {
+          const c = el("h-card", '<div style="font-size:34px;font-weight:800;color:var(--k-accent-soft)">' + nn + '</div><div style="margin-top:10px;font-size:36px;font-weight:800;min-height:44px;line-height:1.2">' + nm + '</div><div class="h-st" style="margin-top:12px;font-size:32px;font-weight:800;color:' + (ok ? "var(--k-ok)" : "var(--k-text-2)") + '">' + (ok ? "Курс →" : "Курс в работе") + "</div>", 96 + (i % 4) * 436, 190 + Math.floor(i / 4) * 250, 410); c.style.padding = "22px 26px"; c.style.height = "216px"; show(c, 0.4 + i * 0.1); return c;
+        });
+        const chips = [["шаги", 96], ["ролик", 330], ["проверяемый результат", 580]].map(([t, x], i) => { const c = el("h-chip", t, x, 730); show(c, tt(["шаги", "ролик", "проверяемый"][i], 6 + i)); return c; });
+        pic("team-done", 1330, 640, 420, tt("шаги", 6), 3);
+        People.focus(S, [cards[1], [cards[0], cards[1]], chips[0], chips[1], chips[2], cards.slice(2)], [tt("Нажмите", 1), tt("У намерения", 3), tt("шаги", 6), tt("ролик", 7), tt("проверяемый", 8), tt("остальных", 9.5)], DUR - 1.0, { color: ["acc", "ok", "ok", "ok", "ok", "ok"] });
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

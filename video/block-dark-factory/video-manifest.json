@@ -1,0 +1,16 @@
+{
+  "file": "block-dark-factory-720p.mp4",
+  "sha256": "54d6a1940967fc6aee41376765902aea5fcc2c8a8b35a39abe0007fdded19da3",
+  "size": 4473493,
+  "url": "https://github.com/apolenkov/ai-pdlc-learning/releases/download/media-v1/54d6a1940967-block-dark-factory-720p.mp4",
+  "version": "54d6a1940967",
+  "audio": "voice-only",
+  "master": {
+    "file": "block-dark-factory-1080p.mp4",
+    "sha256": "a36daf0b8acfc96911107e6e35a87515a34e776fa20ae550c6c4cd8de4d8bb66",
+    "size": 13033840,
+    "lost": "утерян до сдачи Mac 25.11.2026: файла нет ни на Диске, ни локально; пин сохранён"
+  },
+  "duration": 174.3,
+  "note": "TASK-671: звук только из голоса (озвучка без музыки и SFX), видео побайтно прежнее, AAC-LC 48 кГц моно, около −16 LUFS; мастер 1080p — прежний микс (вне этапа)"
+}

@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="ru" data-atmos data-section="analysis">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Курс этапа анализа: подготовка (зачем, Markdown и Git, SDD и OpenSpec), практика с требованиями на кредитном калькуляторе и помощь модели.">
+  <title>{{COURSE_TITLE}} · AI PDLC Learning</title>
+  <link rel="stylesheet" href="guide.css">
+  <link rel="stylesheet" href="learning-enhancements.css">
+  <link rel="stylesheet" data-site-nav-styles href="../site-nav.css">
+<link rel="stylesheet" data-atmos-styles href="../atmosphere.css"></head>
+<body class="route-page">
+  <a class="skip-link" href="#guide-content">К основному содержанию</a>
+  <div class="shell">
+    <nav class="site-topbar" data-global-nav data-expanded="false" onkeydown="if(event.key==='Escape'&&this.getAttribute('data-expanded')==='true'){this.setAttribute('data-expanded','false');document.documentElement.style.removeProperty('--site-nav-reserve');var more=this.querySelector('.site-nav-more');if(more){more.setAttribute('aria-expanded','false');more.focus()}}" aria-label="Основная навигация PDLC"><div class="site-topbar__identity"><a class="site-home" data-global-home data-home-link data-course-root data-nav-item="home" href="__CUSTOMDEV_ROOT__" aria-current="location">Маршрут курса</a></div><div class="site-page-actions"></div></nav>
+    <header class="hero">
+      <div>
+        <p class="eyebrow">{{LIFECYCLE_NAME}} · практический маршрут аналитика</p>
+        <h1>{{COURSE_TITLE}}</h1>
+        <p>Здравствуйте. Вы на курсе «{{COURSE_TITLE}}». Он о том, как описывать требования в Git через OpenSpec и согласовывать их командой. Три части: подготовка, практика, разработка. Начнём с того, зачем меняем процесс.</p>
+        <a class="hero-start" href="p1-zachem.html">Начать · {{SHORT_STEP:0}} →</a>
+        <p class="platform-note">Инструкции для Windows, Linux и macOS.</p>
+      </div>
+      <aside class="proof">
+        <span>Проверяемый результат обучения</span>
+        <strong>Согласованные требования, которые можно передать разработчику.</strong>
+        <a class="proof-link" href="../examples/credit-calculator.html"><span>Открыть исходную версию калькулятора</span><span aria-hidden="true">→</span></a>
+      </aside>
+    </header>
+
+    <main id="guide-content" tabindex="-1">
+      <section class="map-howto" id="how-to-use-map" aria-labelledby="how-to-use-map-title">
+        <div class="map-howto__head">
+          <h2 id="how-to-use-map-title">Как пользоваться картой</h2>
+        </div>
+        <p class="map-howto__legend"><span class="map-howto__key"><i aria-hidden="true"></i>точка — гайд</span><span class="map-howto__key is-passed"><i aria-hidden="true"></i>заливка — пройден</span><span class="map-howto__key is-selfchecked"><i aria-hidden="true"></i>галочка — самопроверка пройдена</span><span class="map-howto__key is-current"><i aria-hidden="true"></i>кольцо — вы смотрите</span><span>Та же линия всегда вверху страницы.</span><button type="button" class="map-howto__reset" data-route-reset hidden>Сбросить прогресс</button></p>
+        <div class="map-howto__film" id="howto-film"></div>
+        <ol class="map-howto__steps" role="list">
+          <li><strong>Что на карте</strong><p>7 шагов и подготовка: основы, практика и разработка. Каждая строка — один гайд: что получите, что пройти раньше, для кого он и длина ролика.</p></li>
+          <li><strong>С чего начать</strong><p>Подготовка — если ещё не работали с Markdown, Git и SDD. Начните с части <a href="p1-zachem.html">«Зачем меняем процесс»</a>. Если уже умеете работать с Markdown и Git и знаете SDD, переходите к шагу {{SHORT_STEP:1}}.</p></li>
+          <li><strong>Как выбрать маршрут</strong><p>После шага {{SHORT_STEP:3-star}} выберите ветвь шага 6: {{SHORT_STEP:4-new}} или {{SHORT_STEP:4-legacy}}; можно оба. Строка «Перед этим» подскажет, что пройти раньше.</p></li>
+          <li><strong>Как вернуться</strong><p>Откройте учебный маршрут по ссылке внизу гайда.</p></li>
+        </ol>
+        <p id="acceptance-rule">Для одобрения требований нужны комментарии аналитика (смысл и полнота) и техлида (реализуемость) на последней версии и одно одобрение владельца продукта («это то, что я просил»). Код принимает техлид. Архитектор — по признакам (данных, интеграций, безопасности, производительности) или при споре, решение — в <code>design.md</code>. Код, архив изменения и обновление главной спецификации — следующий этап, разработка.</p>
+      </section>
+      <section class="course-introduction" id="intent-course" aria-labelledby="intent-course-title">
+        <h2 id="intent-course-title">Курс этапа 1: Намерение и план</h2>
+        <p>Этап 1 PDLC: сначала короткая запись намерения — проблема, эффект, границы, план изменений, — затем проверка и одно одобрение. <a href="intent.html">Открыть курс «Намерение и план» →</a></p>
+      </section>
+      <!-- course-map:start -->
+<section class="course-map" id="course-map" aria-labelledby="course-map-title"><h2 id="course-map-title">Карта курса</h2><p class="course-map__lead">Подготовка: 4 гайда и дополнение о фабрике. Шаги 1–7, ветви 6а/6б.</p><div class="course-map__group"><h3>Подготовка</h3><ol class="course-map__list" role="list"><li class="course-map__step" id="map-П1" data-route-id="0"><div class="course-map__body"><h4><a href="p1-zachem.html">Зачем меняем процесс и как устроен анализ</a></h4><ul class="course-map__facts"><li data-film="guides/p1-zachem.html" hidden><span>Ролик</span><a href="p1-zachem.html#lesson-video">6:47</a></li><li><span>Что получите</span>Знаете, зачем меняем процесс, и записали замысел (intent.md)</li><li><b>Нужно</b> Браузер · <b>Для кого</b> Инициаторам и владельцам решений, аналитикам, техлидам и архитекторам</li></ul></div></li><li class="course-map__step" id="map-П2" data-route-id="0a"><div class="course-map__body"><h4><a href="p2-git.html">Markdown, Git и совместная работа в GitLab с нуля</a></h4><ul class="course-map__facts"><li><span>Что получите</span>Умеете вести файл в Git и отправлять правки в GitLab</li><li><span>Перед этим</span>Подготовка · Зачем меняем процесс</li><li><b>Нужно</b> Git, VS Code, Markdown · <b>Для кого</b> Авторам документов и проверяющим, которые начинают работать с Markdown, Git и GitLab</li></ul></div></li><li class="course-map__step" id="map-П3" data-route-id="sdd"><div class="course-map__body"><h4><a href="p3-sdd.html">Что такое SDD и OpenSpec</a></h4><ul class="course-map__facts"><li data-film="guides/p3-sdd.html" hidden><span>Ролик</span><a href="p3-sdd.html#lesson-video">3:58</a></li><li><span>Что получите</span>Понимаете подход SDD и стандарт OpenSpec</li><li><span>Перед этим</span>Подготовка · Markdown, Git, GitLab</li><li><b>Нужно</b> Браузер · <b>Для кого</b> Аналитикам перед практикой оформления требований</li></ul></div></li><li class="course-map__step course-map__step--extra" id="map-П3+" data-route-id="sdd"><div class="course-map__body"><p class="course-map__kind">Дополнение</p><h4><a href="p3-sdd.html#step-06">Перспектива: фабрика</a></h4><ul class="course-map__facts"><li data-film="guides/p3-sdd.html#dark" hidden><span>Ролик</span><a href="p3-sdd.html#lesson-video-dark">2:54</a></li><li><span>Что получите</span>Куда ведёт процесс: петля самоулучшения, где проверка остаётся за людьми.</li><li><span>Продолжение гайда</span>Подготовка · SDD и OpenSpec</li><li><b>Для кого</b> Аналитикам после знакомства с SDD и OpenSpec, которые хотят понять перспективу процесса</li></ul></div></li><li class="course-map__step" id="map-П4" data-route-id="metarepo"><div class="course-map__body"><h4><a href="p4-metarepository.html">Мета‑<wbr>репозиторий продукта</a></h4><ul class="course-map__facts"><li data-film="guides/p4-metarepository.html" hidden><span>Ролик</span><a href="p4-metarepository.html#lesson-video">3:45</a></li><li><span>Что получите</span>Находите контекст продукта, проверенный SHA и связи между требованиями и кодом</li><li><span>Перед этим</span>Подготовка · SDD и OpenSpec</li><li><b>Нужно</b> Git, Markdown, доступ к репозиториям продукта · <b>Для кого</b> Аналитикам, техлидам, архитекторам и разработчикам перед работой в продукте</li></ul></div></li></ol></div><div class="course-map__group"><h3>Шаги курса</h3><ol class="course-map__list" role="list"><li class="course-map__step" id="map-С1" data-route-id="1"><span class="course-map__no">1</span><div class="course-map__body"><h4><a href="s1-git.html">Требования в Git</a></h4><ul class="course-map__facts"><li data-film="guides/s1-git.html" hidden><span>Ролик</span><a href="s1-git.html#lesson-video">4:44</a></li><li><span>Что получите</span>Первая версия требований в вашей ветке</li><li><span>Перед этим</span>Подготовка · Мета‑репозиторий</li><li><b>Нужно</b> Git, VS Code, Jira · <b>Для кого</b> Аналитикам, которые переходят от замысла к спецификации</li></ul></div></li><li class="course-map__step" id="map-С2" data-route-id="2"><span class="course-map__no">2</span><div class="course-map__body"><h4><a href="s2-review.html">Проверяем и согласуем требования</a></h4><ul class="course-map__facts"><li data-film="guides/s2-review.html" hidden><span>Ролик</span><a href="s2-review.html#lesson-video">4:45</a></li><li><span>Что получите</span>Требования проверены и приняты: одобрение владельца продукта и комментарии аналитика и техлида</li><li><span>Перед этим</span>1 · Требования в Git</li><li><b>Нужно</b> Git, VS Code, GitLab (Merge Request), Jira · <b>Для кого</b> Аналитикам, владельцам продукта и техническим проверяющим требований</li></ul></div></li><li class="course-map__step" id="map-С3" data-route-id="3"><span class="course-map__no">3</span><div class="course-map__body"><h4><a href="s3-openspec.html">Оформляем изменение в OpenSpec</a></h4><ul class="course-map__facts"><li data-film="guides/s3-openspec.html" hidden><span>Ролик</span><a href="s3-openspec.html#lesson-video">5:06</a></li><li><span>Что получите</span>Принятое изменение в OpenSpec, готовое к работе в контексте продукта</li><li><span>Перед этим</span>2 · Проверяем и согласуем</li><li><b>Нужно</b> Git, VS Code, Node.js 22+, OpenSpec CLI, Jira · <b>Для кого</b> Аналитикам после согласования требований; техлидам как проверяющим</li></ul></div></li><li class="course-map__step" id="map-С4-команда" data-route-id="4-team"><span class="course-map__no">4</span><div class="course-map__body"><h4><a href="s4-team.html">Как работает команда продукта</a></h4><ul class="course-map__facts"><li data-film="guides/s4-team.html" hidden><span>Ролик</span><a href="s4-team.html#lesson-video">4:33</a></li><li><span>Что получите</span>Видите целевую картину: роли, репозитории, права</li><li><span>Перед этим</span>3 · Изменение в OpenSpec</li><li><b>Нужно</b> Браузер · <b>Для кого</b> Владельцам продукта, аналитикам, техлидам, архитекторам и разработчикам</li></ul></div></li><li class="course-map__step" id="map-С5" data-route-id="3-star"><span class="course-map__no">5</span><div class="course-map__body"><h4><a href="s4-product.html">Требования в контексте продукта</a></h4><ul class="course-map__facts"><li data-film="guides/s4-product.html" hidden><span>Ролик</span><a href="s4-product.html#lesson-video">5:05</a></li><li><span>Что получите</span>Принятое изменение в метарепозитории продукта</li><li><span>Перед этим</span>4 · Команда продукта</li><li><b>Нужно</b> VS Code, Kilo Code, корпоративная модель, Git, OpenSpec, Node.js 22+, Jira · <b>Для кого</b> Аналитикам и проверяющим изменения в общем репозитории продукта</li></ul></div></li><li class="course-map__branches"><p class="course-map__branch-note">Ветви шага 6 после шага 5: выберите вход по ситуации: «новый продукт», «действующий продукт» или оба.</p><ol class="course-map__list course-map__list--branches" role="list"><li class="course-map__step course-map__step--branch" id="map-С4а" data-route-id="4-new"><span class="course-map__no">6а</span><div class="course-map__body"><h4><a href="s4a-new.html">Начинаем требования для нового продукта</a></h4><ul class="course-map__facts"><li data-film="guides/s4a-new.html" hidden><span>Ролик</span><a href="s4a-new.html#lesson-video">4:30</a></li><li><span>Что получите</span>Окружение и первое изменение для нового продукта</li><li><span>Перед этим</span>5 · Контекст продукта</li><li><b>Нужно</b> VS Code, Kilo Code, корпоративная модель, Git, OpenSpec · <b>Для кого</b> Аналитикам нового продукта</li></ul></div></li><li class="course-map__step course-map__step--branch" id="map-С4б" data-route-id="4-legacy"><span class="course-map__no">6б</span><div class="course-map__body"><h4><a href="s4b-legacy.html">Описываем действующий продукт</a></h4><ul class="course-map__facts"><li data-film="guides/s4b-legacy.html" hidden><span>Ролик</span><a href="s4b-legacy.html#lesson-video">5:00</a></li><li><span>Что получите</span>Требования действующего продукта в Git</li><li><span>Перед этим</span>5 · Контекст продукта</li><li><b>Нужно</b> VS Code, Kilo Code, корпоративная модель, Git, OpenSpec · <b>Для кого</b> Аналитикам действующего продукта</li></ul></div></li></ol></li></ol></div><div class="course-map__group"><h3>Разработка</h3><ol class="course-map__list" role="list"><li class="course-map__step" id="map-Д1" data-route-id="delivery"><span class="course-map__no">7</span><div class="course-map__body"><h4><a href="d1-delivery.html">Практика разработки по согласованным требованиям</a></h4><ul class="course-map__facts"><li data-film="guides/d1-delivery.html" hidden><span>Ролик</span><a href="d1-delivery.html#lesson-video">4:50</a></li><li><span>Что получите</span>Код и архив по принятому изменению</li><li><span>Перед этим</span>5 · Контекст продукта</li><li><b>Нужно</b> VS Code, Kilo Code, корпоративная модель, Git, OpenSpec · <b>Для кого</b> Разработчикам; аналитикам, которые подтверждают поведение по сценариям</li></ul></div></li></ol></div></section>
+<!-- course-map:end -->
+      <section class="comparison" id="why-markdown-git" aria-labelledby="comparison-title">
+        <h2 id="comparison-title">Почему Markdown и Git, а не шаблон в Confluence с согласованием</h2>
+        <p>Главное — требования в машиночитаемом виде: Markdown и OpenSpec дают исходник; повторяемую сверку сценариев с кодом и тестами выполняют агенты и автоматика, а люди проверяют их доказательства и спорные случаи.</p>
+        <div class="comparison-row">
+          <h3>Работа ИИ-агентов</h3>
+          <div class="comparison-pair"><p><strong>Confluence и цепочка согласования</strong>Агент может читать и менять страницы через разрешённые инструменты или API, но доступ и нужную версию получает отдельно.</p><p><strong>Markdown, Git и GitLab</strong>Агент берёт принятую версию требований рядом с кодом; на шагах {{NUMBER:1}}–{{NUMBER:3-star}} модель готовит и проверяет требования, в <a href="d1-delivery.html">практикуме разработки</a> пишет код, а другая модель сверяет его с принятым изменением; люди подтверждают результат.</p></div>
+        </div>
+        <div class="comparison-row">
+          <h3>Согласование и ответственность</h3>
+          <div class="comparison-pair"><p><strong>Confluence и цепочка согласования</strong>Цепочка согласования в Confluence может не пустить документ без обязательных согласований, но это зависит от редакции и расширений. В GitLab CE одобрения необязательны.</p><p><strong>Markdown, Git и GitLab</strong>Решения принимают люди: одно одобрение владельца продукта и комментарии в запросе на слияние; в GitLab CE это держится на шаблоне запроса и ручной проверке техлида.</p></div>
+        </div>
+        <div class="comparison-row">
+          <h3>Изменения и история</h3>
+          <div class="comparison-pair"><p><strong>Confluence и цепочка согласования</strong>Есть история страниц, сравнение версий и комментарии к выделенному тексту; связь с кодом — ссылка на версию страницы.</p><p><strong>Markdown, Git и GitLab</strong>Git хранит историю; в MR виден построчный diff всего изменения до принятия версии, обсуждение привязано к конкретным строкам.</p></div>
+        </div>
+        <div class="comparison-row">
+          <h3>Связь «требование → код → тест»</h3>
+          <div class="comparison-pair"><p><strong>Confluence и цепочка согласования</strong>Ссылки на задачи, код и тесты хранят вручную; цепочка согласования их полноту не проверяет.</p><p><strong>Markdown, Git и GitLab</strong>Сценариям задают идентификаторы, а код, тесты и MR ссылаются на них; связь держится на правилах команды и закреплённых версиях репозиториев.</p></div>
+        </div>
+        <div class="comparison-row">
+          <h3>Проверки в CI</h3>
+          <div class="comparison-pair"><p><strong>Confluence и цепочка согласования</strong>Согласование в Confluence само тесты не запускает; для автоматических проверок нужны интеграции.</p><p><strong>Markdown, Git и GitLab</strong>Настроенный CI проверяет структуру, ссылки и тесты, результат виден в MR; в учебных упражнениях проверки локальные, CI — в репозитории продукта (см. <a href="s4-team.html">шаг 4</a>).</p></div>
+        </div>
+        <div class="comparison-row">
+          <h3>Цена выбора</h3>
+          <div class="comparison-pair"><p><strong>Confluence и цепочка согласования</strong>Удобен для работы в браузере; если процесс уже даёт нужные связи и проверки, смена формата сама по себе ничего не улучшит.</p><p><strong>Markdown, Git и GitLab</strong>Нужны навыки работы с файлами, ветками, MR и конфликтами; выбираем этот путь для требований, которые проверяются вместе с разработкой, Confluence остаётся местом обзоров.</p></div>
+        </div>
+        <p class="sources">Возможности инструментов: <a href="https://confluence.atlassian.com/doc/page-history-and-page-comparison-views-139379.html">история и сравнение страниц Confluence</a>, <a href="https://confluence.atlassian.com/doc/comment-on-pages-and-blog-posts-139483.html">комментарии к выделенному тексту Confluence</a>, <a href="https://docs.gitlab.com/user/project/merge_requests/reviews/">ревью в GitLab</a>, <a href="https://docs.gitlab.com/ci/pipelines/merge_request_pipelines/">проверки MR в CI</a>, <a href="https://docs.gitlab.com/user/project/merge_requests/approvals/">одобрения MR и доступность по редакциям GitLab</a>.</p>
+        <p><a href="p2-git.html">{{STEP:0a}}</a></p>
+        <p class="video-links">В ролике: <a href="p1-zachem.html#lesson-video">{{SHORT_STEP:0}} — «проблема и цель»</a>.</p>
+      </section>
+      <section class="git-rationale" aria-labelledby="git-rationale-title">
+        <h2 id="git-rationale-title">Зачем меняем процесс и инструменты</h2>
+        <p class="git-rationale-lead">Связываем потребность, требования, решения и проверки, чтобы следующий участник и модель брали понятный контекст нужной версии. Смысл формулируют и проверяют люди, результат принимает владелец решения.</p>
+        <ol class="sdlc-overview" aria-label="Полный цикл и текущая практика"><li>Намерение и план</li><li class="sdlc-overview__current"><strong>Анализ требований</strong><span>сейчас учимся здесь</span></li><li>Архитектура и дизайн</li><li>Реализация</li><li>Тестирование</li><li>Выпуск</li><li>Наблюдение</li></ol>
+        <p>Общая идея передачи согласованных материалов между этапами описана в <a href="https://claude.com/resources/articles/the-ai-native-sdlc-playbook">playbook Anthropic (англ.)</a>. У него шесть этапов; в нашей карте анализ выделен отдельно. Здесь подробно учимся анализу.</p>
+        <ol class="git-rationale-flow">
+          <li>
+            <span class="git-rationale-stage">Откуда начинаем</span>
+            <h3>Контекст приходится собирать</h3>
+            <div class="context-sources" role="group" aria-label="Разрозненные источники"><span>Документ Word</span><span>Страница Confluence</span><span>Код продукта</span></div>
+            <p>Материалы лежат в разных местах. Перед задачей человек ищет нужные версии и передаёт их модели.</p>
+          </li>
+          <li>
+            <span class="git-rationale-stage">Первый шаг курса</span>
+            <h3>Согласованные версии в Git</h3>
+            <div class="context-version"><svg class="intro-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M8 15l3 3 5-6"/></svg><span>Требования<br><strong>Проверены командой</strong></span></div>
+            <p>Видно, что изменилось, кто проверил правки и какая версия принята. Изменения модели проходят ту же проверку.</p>
+          </li>
+          <li>
+            <span class="git-rationale-stage">К этому идём · пример на шаге {{NUMBER:3-star}} курса</span>
+            <h3>Общий контекст для ИИ</h3>
+            <div class="context-repository"><strong>Требования в контексте продукта</strong><ul><li>Требования и документация</li><li>Архитектурные схемы и решения</li><li>Связанные репозитории кода</li></ul></div>
+            <p>Единая точка входа связывает материалы продукта. Модель получает нужные источники и их версии для конкретной задачи.</p>
+          </li>
+        </ol>
+        <p class="git-rationale-note">Git хранит версии; актуальность материалов и результат работы модели проверяют люди. Метарепозиторий может связывать несколько репозиториев. <a href="p1-zachem.html">Подробнее о новом процессе анализа · {{SHORT_STEP:0}}</a>.</p>
+      </section>
+      <nav class="learning-path" aria-label="Основной учебный путь">
+        <p class="route-block-title">Практика на одном примере: кредитный калькулятор</p>
+        <ol><li><a href="s1-git.html"><strong>{{SHORT_STEP:1}}</strong></a></li><li><a href="s2-review.html"><strong>{{SHORT_STEP:2}}</strong></a></li><li><a href="s3-openspec.html"><strong>{{SHORT_STEP:3}}</strong></a></li><li><a href="s4-product.html"><strong>{{SHORT_STEP:3-star}}</strong></a></li></ol>
+        <p class="learning-path__note">Шаг 4 «Команда продукта» — обзор без практики между шагами 3 и 5: <a href="s4-team.html">открыть страницу шага</a>.</p>
+      </nav>
+      <div class="route-legend" role="group" aria-label="Обозначения маршрута">
+        <span><span class="model-label"><svg class="model-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 8V4H9M2 12v4m20-4v4"/><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M8 13v2m8-2v2m-7 2h6"/></svg>С моделью</span> · помощь на шагах {{NUMBER:1}}–{{NUMBER:3}} курса по желанию, на шаге {{NUMBER:3-star}} курса — часть задания</span>
+      </div>
+
+      <section class="course-introduction" aria-labelledby="course-introduction-title">
+        <h2 id="course-introduction-title">Подготовка</h2>
+        <details class="route-preparation-details">
+          <summary>Перед практикой: доступы и рабочее место</summary>
+          <div class="route-preparation-body">
+            <p>Проверьте три вещи до первого задания:</p>
+            <ul class="route-before">
+              <li><a href="../corporate-resources.html#git" target="_blank" rel="noopener noreferrer">GitLab и право создать форк</a> — вашу личную копию репозитория на сервере. Если форки запрещены, сообщите организатору.</li>
+              <li><a href="../corporate-resources.html#tools" target="_blank" rel="noopener noreferrer">Git и редактор VS Code</a> — чтобы работать с файлами на компьютере.</li>
+              <li><a href="../corporate-resources.html#jira" target="_blank" rel="noopener noreferrer">Доступ к проекту вашей команды в Jira</a> — для задач курса.</li>
+            </ul>
+            <p id="git-process-title">Создание копии, сохранение версий и отправка на проверку разобраны в <a href="p2-git.html#git-process-title">карте Git-процесса в подготовке «Markdown, Git, GitLab»</a>. Для шага {{NUMBER:3-star}} курса предусмотрена отдельная копия репозитория требований — по инструкции шага {{SHORT_STEP:3-star}}.</p>
+            <p>Практика OpenSpec обязательна: перед ней поставьте Node.js 22+ и OpenSpec CLI (заявка и согласование ИБ и ИТ — по предупреждению ниже). Шаги {{NUMBER:1}}–{{NUMBER:3}} курса идут в одной учебной папке; для шага {{SHORT_STEP:3-star}} предусмотрена отдельная копия репозитория требований.</p>
+            <aside class="warning machine-install-warning" role="note"><strong>Установка инструментов:</strong> если на маршруте нужны Git, Node.js, OpenSpec, Kilo Code, OpenCode, VS Code или WSL (среда Linux в Windows), на Windows и в VDI (виртуальном рабочем столе) до установки оформите заявку и получите согласование служб информационной безопасности (ИБ) и информационных технологий (ИТ); используйте <a href="../corporate-resources.html#installation-request" target="_blank" rel="noopener noreferrer">заявку на установку ПО</a>. На личных macOS и Linux используйте официальные инструкции из <a href="../corporate-resources.html#tools" target="_blank" rel="noopener noreferrer">карточки ресурсов</a>.</aside>
+          </div>
+        </details>
+      </section>
+      <section class="route-board" aria-label="Практика с требованиями">
+        <p class="route-block-title">Git · требования и совместная проверка <span>шаги {{NUMBER:1}}–{{NUMBER:2}} курса · Git</span></p>
+        <div class="route-row route-row--solo">
+          <div class="route-marker" aria-hidden="true">{{NUMBER:1}}</div>
+          <article class="route-card route-card--base">
+            <div class="route-card-head"><span class="route-kind">Основа</span><span class="route-inherits">Старт · шаг {{NUMBER:1}} курса</span></div>
+            <h2>Требования в Git</h2>
+            <p>За один ручной проход уточните правило ошибки и сценарий в <code>specification.md</code>. Вы увидите хорошую спецификацию, сверите с ней свой файл, опубликуете личную ветку и сохраните ссылку для шага {{SHORT_STEP:2}}.</p>
+            <ul class="route-tools"><li>VS Code</li><li>Markdown</li><li>GitLab</li><li>Jira</li></ul>
+            <p><strong>Результат:</strong> вы увидели хорошую спецификацию и сверили с ней свой файл; опубликованная личная ветка — вход для шага {{SHORT_STEP:2}}.</p>
+            <p><strong>Роли:</strong> аналитик пишет и проверяет текст; организатор выдаёт доступ.</p>
+            <p class="submission-note route-example"><span class="route-example__path"><strong>Пример:</strong> <a href="https://github.com/apolenkov/ai-pdlc-learning-stage-1/tree/main">учебный образец шага {{NUMBER:1}} на GitHub</a></span><span>В GitLab работайте в копии от организатора. Инструкция и команды — в гайде ниже.</span></p>
+            <a class="route-open" href="s1-git.html"><span>Открыть «Требования в Git»</span><span aria-hidden="true">→</span></a>
+          </article>
+        </div>
+
+        <div class="route-row route-row--solo">
+          <div class="route-marker" aria-hidden="true">{{NUMBER:2}}</div>
+          <article class="route-card route-card--base">
+            <div class="route-card-head"><span class="route-kind">Контроль</span><span class="route-inherits">После шага {{SHORT_STEP:1}}</span></div>
+            <h2>Проверяем и согласуем требования</h2>
+            <p>Проверьте учебный черновик требований по пяти вопросам, исправьте требование сброса и откройте запрос на слияние в свою ветку шага {{NUMBER:1}}.</p>
+            <ul class="route-tools"><li>Запрос на слияние</li><li>Комментарии</li><li>Одобрение людей</li></ul>
+            <p><strong>Результат:</strong> проверенный по пяти вопросам и исправленный черновик, восемь сценариев и запрос с одобрением людей — вход для шага {{SHORT_STEP:3}}.</p>
+            <p><strong>Роли:</strong> аналитик проверяет и правит учебный черновик; модель помогает по желанию; люди дают одобрение по <a href="#acceptance-rule">правилу приёмки</a>.</p>
+            <p class="submission-note route-example"><span class="route-example__path"><strong>Отдельный старт с шага {{SHORT_STEP:2}}:</strong> <a href="https://github.com/apolenkov/ai-pdlc-learning-stage-2/tree/main">учебный образец шага {{NUMBER:2}} на GitHub</a></span><span>В основном маршруте продолжайте собственный репозиторий шага {{NUMBER:1}} курса.</span></p>
+            <a class="route-open" href="s2-review.html"><span>Открыть «Проверяем и согласуем требования»</span><span aria-hidden="true">→</span></a>
+          </article>
+        </div>
+
+        <p class="route-block-title">OpenSpec · изменение требований <span>шаг {{SHORT_STEP:3}}</span></p>
+      <section class="specification-bridge" aria-labelledby="specification-bridge-title">
+        <div>
+          <span class="route-kind">От спецификации к изменению</span>
+          <h2 id="specification-bridge-title">От спецификации к управляемому изменению</h2>
+          <p>На шагах {{NUMBER:1}}–{{NUMBER:2}} хватает одного файла <code>specification.md</code>. С шага {{NUMBER:3}} требования оформляются <a href="p3-sdd.html">изменением OpenSpec</a>: отдельно зачем, что проверяем и как сделаем (схема <a href="https://openspec.dev/docs/schemas/spec-driven"><code>spec-driven</code></a>).</p>
+        </div>
+        <ol class="specification-bridge__steps">
+          <li><strong>Спецификация</strong><span>цель и границы, требования и сценарии, проектные замечания, открытые вопросы, условия готовности</span></li>
+          <li><strong>Предложение</strong><span>зачем нужно изменение и его границы</span></li>
+          <li><strong>Требования</strong><span>то, что можно проверить</span></li>
+          <li><strong>Устройство решения → задачи</strong><span>Устройство решения — как будет сделано. Задачи — шаги реализации.</span></li>
+        </ol>
+      </section>
+        <div class="route-row route-row--solo">
+          <div class="route-marker" aria-hidden="true">{{NUMBER:3}}</div>
+          <article class="route-card route-card--base">
+            <div class="route-card-head"><span class="route-kind">Прослеживаемость · изменение</span><span class="route-inherits">После шага {{SHORT_STEP:2}}</span></div>
+            <h2>Оформляем изменение в OpenSpec</h2>
+            <p>В той же папке подготовьте изменение в OpenSpec: перенесите все восемь сценариев шага {{NUMBER:2}} курса в действующее изменение и добавьте срок в годах. Требования пока описывают будущее поведение; задачи реализации остаются незавершёнными. Нужны Node.js 22+ и OpenSpec CLI.</p>
+            <ul class="route-tools"><li>OpenSpec</li><li>Исходное состояние и изменение</li><li>Одобрение людей</li></ul>
+            <p><strong>Результат:</strong> полный add-reset-and-years-term и одобрение людей в запросе на слияние — вход для шага {{SHORT_STEP:4-team}}, затем для шага {{SHORT_STEP:3-star}}.</p>
+            <p><strong>Роли:</strong> аналитик переносит требования; команда проверяет по <a href="#acceptance-rule">правилу приёмки</a>.</p>
+            <p class="submission-note route-example"><span class="route-example__path"><strong>Отдельный старт с шага {{SHORT_STEP:3}}:</strong> <code>ai-pdlc-learning-stage-3/</code></span><span>Если вы пришли из шага 2 «Проверяем и согласуем», продолжайте личную ветку без повторного копирования и переноса требований.</span><span class="route-example__links"><a class="guide-repo-link" href="https://github.com/apolenkov/ai-pdlc-learning-stage-3/tree/main">Учебный образец для старта с шага {{SHORT_STEP:3}} на GitHub →</a></span></p>
+            <a class="route-open" href="s3-openspec.html"><span>Открыть «Оформляем изменение в OpenSpec»</span><span aria-hidden="true">→</span></a>
+          </article>
+        </div>
+      <p class="route-block-title">Контекст продукта · шаги {{NUMBER:4-team}}–{{NUMBER:4-legacy}} курса <span>— после шага {{SHORT_STEP:3}}</span></p>
+      <div class="route-row route-row--solo route-row--r4"><div class="route-marker" aria-hidden="true">{{NUMBER:4-team}}</div><div class="r4-entries">
+      <aside class="team-practice star-route star-route--team" aria-labelledby="star-route-team-title">
+        <div>
+          <span class="route-kind">{{STEP:4-team}}</span>
+          <h2 id="star-route-team-title">Как работает команда продукта</h2>
+        </div>
+        <div>
+          <p>Обзор без практики: кто в команде за что отвечает, где лежат требования и код, какие права настраивает техлид. Git и OpenSpec CLI не нужны.</p>
+          <a class="route-open" href="s4-team.html"><span>Открыть «Как работает команда продукта»</span><span aria-hidden="true">→</span></a>
+        </div>
+      </aside>
+      <aside class="team-practice star-route" aria-labelledby="star-route-title" data-route-marker="{{NUMBER:3-star}}">
+        <div>
+          <span class="route-kind">{{STEP:3-star}}</span>
+          <h2 id="star-route-title">Требования в контексте продукта</h2>
+          <p><strong>Вход</strong> — запрос в Jira, замысел 2 «лимит суммы из системы банка» и проверенный организатором комплект (или ваш принятый результат шага {{SHORT_STEP:3}}).</p>
+          <p><strong>Выход</strong> — одобренное изменение <code>limit-credit-amount</code> с <code>design.md</code>.</p>
+        </div>
+        <div><strong>Что делаете</strong>
+          <ol><li>В форке обсудите требование с моделью и создайте изменение.</li><li>Сверьте интеграцию с архитектором.</li><li>Дайте модели проверить изменение в новой задаче без истории. Получите <a href="#acceptance-rule">одобрение людей</a>. Код не меняйте.</li></ol>
+          <p class="submission-note route-example"><span class="route-example__path"><strong>Учебный метарепозиторий:</strong> <code>ai-pdlc-learning-stage-4-requirements/</code></span><span>Требования — в корне. Снимки в <code>.workspace</code> — для чтения.</span><span class="route-example__links"><a class="guide-repo-link" href="https://github.com/apolenkov/ai-pdlc-learning-stage-4-requirements/tree/main">Учебный образец на GitHub →</a><a href="https://openspec.dev/docs/stores">Хранилища OpenSpec →</a></span></p>
+          <a class="route-open" href="s4-product.html"><span>Открыть «Требования в контексте продукта»</span><span aria-hidden="true">→</span></a>
+        </div>
+      </aside>
+      <aside class="team-practice star-route star-route--new" aria-labelledby="star-route-new-title" data-route-marker="{{NUMBER:4-new}}">
+        <div>
+          <span class="route-kind">{{STEP:4-new}}</span>
+          <h2 id="star-route-new-title">Начинаем требования для нового продукта</h2>
+        </div>
+        <div>
+          <p>Вход — пустой репозиторий от организатора и запрос владельца продукта. Выход — окружение метарепозитория и принятое изменение <code>add-monthly-payment</code> с ADDED-требованиями. Модель готовит черновики, владелец продукта отвечает на вопросы; независимая проверка моделью предшествует одобрению людей. После реализации и архива на этапе разработки появится главная спецификация. Следующие изменения продукта оформляются как на шаге {{SHORT_STEP:3-star}}.</p>
+          <a class="route-open" href="s4a-new.html"><span>Открыть «Начинаем требования для нового продукта»</span><span aria-hidden="true">→</span></a>
+        </div>
+      </aside>
+      <aside class="team-practice star-route star-route--legacy" aria-labelledby="star-route-legacy-title" data-route-marker="{{NUMBER:4-legacy}}">
+        <div>
+          <span class="route-kind">{{STEP:4-legacy}}</span>
+          <h2 id="star-route-legacy-title">Описываем действующий продукт</h2>
+        </div>
+        <div>
+          <p>Вход — работающий продукт, старое ТЗ в Word, страница Confluence и наблюдения аналитика. Выход — принятое изменение <code>baseline-current-state</code> с требованиями текущего состояния по компонентам. Модель готовит черновик, аналитик разбирает расхождения, а источники проверяет та же модель в новой задаче Kilo. Затем люди дают одобрение по <a href="#acceptance-rule">правилу приёмки</a>. После архива на этапе разработки это первое изменение станет главной спецификацией.</p>
+          <a class="route-open" href="s4b-legacy.html"><span>Открыть «Описываем действующий продукт»</span><span aria-hidden="true">→</span></a>
+        </div>
+      </aside>
+      </div></div>
+      </section>
+      <section id="implementation" class="route-outcome" data-route-marker="{{NUMBER:delivery}}">
+        <div>
+          <span class="route-kind">Практикум · этап разработки</span>
+          <h2>Практика разработки по согласованным требованиям</h2>
+          <p>Вход — принятое на шаге {{SHORT_STEP:3-star}} изменение limit-credit-amount или комплект организатора. Разработчик ведёт реализацию, аналитик сопровождает: проверяет сценарии и сверяет главную спецификацию после архива. Это отдельный практикум после курса анализа.</p>
+          <ol>
+            <li><strong>Код моделью:</strong> в отдельной папке кода по согласованному договору.</li>
+            <li><strong>Проверка другой моделью:</strong> новая задача Kilo без истории реализации, только чтение.</li>
+            <li><strong>Разработчик и аналитик:</strong> ревью кода, локальные проверки и сценарии в браузере; задачи отмечаются по доказательствам. Решение по тестированию принимает инженер качества.</li>
+            <li><strong>Слияние в main форков:</strong> отдельные коммиты и MR кода и проверенных задач.</li>
+            <li><strong>Архивация:</strong> после слияния кода и проверки задач, по <a href="p1-zachem.html#step-05">шагу 5 «Жизнь одного изменения» в гайде «Зачем меняем процесс»</a>; отдельный MR архива.</li>
+            <li><strong>Главная спецификация:</strong> архив обновляет <code>openspec/specs/</code>; аналитик сверяет её с принятым изменением.</li>
+          </ol>
+          <a class="route-open" href="d1-delivery.html"><span>Открыть практикум сквозного цикла</span><span aria-hidden="true">→</span></a>
+        </div>
+        <p class="specification-bridge__note">Передача источников и разрешение на код — в <a href="s4-product.html">шаге {{SHORT_STEP:3-star}}</a>, в блоке «Передача разработчику после принятия изменения». Цикл реализации, слияния и архива — в практикуме; принятое изменение завершает этап анализа.</p>
+      </section>
+      <section class="route-outcome" aria-labelledby="route-outcome-title">
+        <div>
+          <span class="route-kind">Итоговый зачёт</span>
+          <h2 id="route-outcome-title">Требования подтверждаются до передачи в реализацию</h2>
+        </div>
+        <ol>
+          <li><strong>OpenSpec и хранилище</strong><span>Принятое изменение, которое явно различает исходное состояние и незавершённые требования.</span></li>
+          <li><strong>Передача</strong><span>Источники требований с указанием пути, репозитория и номера версии для этапа разработки.</span></li>
+          <li><strong>Подтверждения</strong><span>Одобрение людей по <a href="#acceptance-rule">правилу приёмки</a> относится к текущей версии требований; после правок их нужно получить заново.</span></li>
+        </ol>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<template id="scene-09-template">
+  <div data-composition-id="scene-09" data-width="1920" data-height="1080" data-duration="16.4">
+    <style>
+      [data-composition-id="scene-09"] .sc-abs { position: absolute; }
+      [data-composition-id="scene-09"] .sc-task { text-align: center; padding: 20px 30px 24px; }
+      [data-composition-id="scene-09"] .sc-task .ttl { font-size: 40px; }
+      [data-composition-id="scene-09"] .sc-route { height: 130px; justify-content: center; gap: 18px; font-size: 34px; font-weight: 700; letter-spacing: -0.01em; }
+      [data-composition-id="scene-09"] .sc-route svg { width: 56px; height: 56px; flex: 0 0 56px; color: var(--k-info); }
+      [data-composition-id="scene-09"] .sc-lbl { font-size: 30px; font-weight: 600; line-height: 1.25; text-align: center; color: var(--k-text); }
+      [data-composition-id="scene-09"] .sc-dot { width: 24px; height: 24px; border-radius: 50%; background: var(--k-text-2); }
+      [data-composition-id="scene-09"] .sc-by { padding: 4px 22px 6px; background: var(--k-bg); font-size: 30px; font-weight: 600; line-height: 1.25; white-space: nowrap; color: var(--k-text); }
+      [data-composition-id="scene-09"] .sc-skip { display: flex; justify-content: center; }
+      [data-composition-id="scene-09"] .sc-cat { font-size: 34px; font-weight: 600; text-align: center; color: var(--k-text); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("09"), t = S.t, DUR = 16.4;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        const mk = (parent, cls, html) => { const e = document.createElement("div"); e.className = cls; e.innerHTML = html || ""; parent.appendChild(e); return e; };
+        const hid = (el) => gsap.set(el, { autoAlpha: 0 });
+        const T_TASK = Math.max(t("попробуйте"), 2.05);   // the first 2 s are covered by the part title card
+        const T_START = t("Освойте");
+        const T_T1 = t("Markdown") - 0.2;
+        const T_THEN = t("затем");
+        const T_TS = t("SDD") - 0.2;
+        const T_GO = t("переходите");
+        const T_T2 = t("требованиям") - 0.25;
+        const T_COND = t("Если");
+        const T_KNOWN = t("знакомы");
+        const T_FIRST = t("первому");
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+
+        // The state caption would repeat the header, so it stays blank.
+        Kit.header(S, { header: { mode: "parts", total: 9 }, chapter: "Что дальше", step: 9, duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* Beat 1: the task. */
+        const task = Kit.aside(S, { parent: s1, x: 360, y: 214, w: 1200, tail: false, title: "Попробуйте то же на своём запросе" });
+        task.el.classList.add("sc-task"); task.show(T_TASK);
+        read("Попробуйте то же на своём запросе", T_TASK, DUR, 0.5);
+
+        /* Beat 2: the route, three tiles in the spoken order (Markdown and Git, then SDD and OpenSpec, then the first step); the start dot opens it. */
+        const TY = 400, RW = 520, GAP = 84, RX1 = 96, RX2 = RX1 + RW + GAP, RX3 = RX2 + RW + GAP;
+        const tile1 = Kit.aside(S, { parent: s1, x: RX1, y: TY, w: RW, h: 130, tail: false, html: Kit.icons.branch + "Markdown и Git" });
+        tile1.el.className = "k-tile sc-abs sc-route"; tile1.el.style.cssText = `left:${RX1}px;top:${TY}px;width:${RW}px`; hid(tile1.el); Kit.popIn(S, tile1.el, T_T1);
+        const tileS = mk(s1, "k-tile sc-abs sc-route", Kit.icons.file + "SDD и OpenSpec");
+        tileS.style.cssText = `left:${RX2}px;top:${TY}px;width:${RW}px`; hid(tileS); Kit.popIn(S, tileS, T_TS);
+        const tile2 = mk(s1, "k-tile sc-abs sc-route", Kit.icons.check + "Требования и проверка");
+        tile2.style.cssText = `left:${RX3}px;top:${TY}px;width:${RW}px`; hid(tile2); Kit.popIn(S, tile2, T_T2);
+        read("Markdown и Git", T_T1, DUR, 0.6); read("SDD и OpenSpec", T_TS, DUR, 0.6); read("Требования и проверка", T_T2, DUR, 0.6);
+        const arrowSvg = '<svg width="56" height="40" viewBox="0 0 150 40" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20H144M130 8l14 12-14 12"/></svg>';
+        const arrow = (x, at) => {
+          const el = mk(s1, "sc-abs", arrowSvg); el.style.cssText = `left:${x + (GAP - 56) / 2}px;top:${TY + 45}px;color:var(--k-text-2)`; hid(el);
+          S.tl.fromTo(el, { autoAlpha: 0, x: -10 }, { autoAlpha: 1, x: 0, duration: 0.5, ease: "power2.out", immediateRender: false }, at);
+        };
+        arrow(RX1 + RW, T_THEN); arrow(RX2 + RW, T_GO);
+        const then = mk(s1, "sc-abs sc-lbl", "затем"); then.style.cssText = `left:${RX1 + RW + GAP / 2 - 100}px;top:${TY - 52}px;width:200px`; hid(then);
+        Kit.popIn(S, then, T_THEN, 0.4);
+        read("затем", T_THEN, DUR, 0.4);
+
+        /* Beat 3: whoever already knows the tools skips the preparation and goes straight to step 1 (the course page says the same). */
+        const skip = mk(s1, "sc-abs sc-skip", '<span class="sc-by">Markdown, Git и SDD знакомы — сразу к шагу 1</span>');
+        skip.style.cssText = `left:${RX1}px;top:${TY + 150}px;width:${RX3 + RW - RX1}px`; hid(skip);
+        Kit.popIn(S, skip, T_COND, 0.4);
+        read("Markdown, Git и SDD знакомы — сразу к шагу 1", T_COND, DUR, 0.4);
+        S.tl.to(tile2, { borderColor: "var(--k-accent)", boxShadow: "0 0 0 2px #0f1115, 0 0 26px rgba(255, 122, 89, 0.55)", duration: 0.5 }, T_FIRST);
+
+        /* The full catalogue lives on the course page: one quiet caption, no list of guides. */
+        const cat = mk(s1, "sc-abs sc-cat", "полный каталог — на странице курса"); cat.style.cssText = `left:360px;top:760px;width:1200px`; hid(cat);
+        const T_CAT = T_KNOWN;
+        S.tl.fromTo(cat, { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out", immediateRender: false }, T_CAT);
+        read("полный каталог — на странице курса", T_CAT, DUR, 0.5);
+
+        Kit.subtitles(S, {});
+        // Keep the last spoken cue with the final frame through the silent tail.
+        const lastSubtitle = S.root.querySelector(".k-sub:last-child");
+        S.tl.getTweensOf(lastSubtitle).find((tw) => tw.vars.autoAlpha === 0).kill();
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

@@ -1,0 +1,91 @@
+<template id="scene-01-template">
+  <div data-composition-id="scene-01" data-width="1920" data-height="1080" data-duration="23.9">
+    <style>
+      [data-composition-id="scene-01"] .cp { position: absolute; font-size: 34px; font-weight: 700; line-height: 1.2; color: var(--k-text-2); }
+      [data-composition-id="scene-01"] .sr { box-sizing: border-box; padding: 0 24px; display: flex; align-items: center; gap: 16px; font-size: 38px; font-weight: 700; line-height: 1.15; }
+      [data-composition-id="scene-01"] .sr svg { width: 44px; height: 44px; flex-shrink: 0; color: var(--k-accent-soft); }
+      [data-composition-id="scene-01"] .ar { position: absolute; width: 64px; text-align: center; font-size: 60px; font-weight: 300; line-height: 1; color: var(--k-text-2); }
+      [data-composition-id="scene-01"] .ot { box-sizing: border-box; padding: 18px 28px; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+      [data-composition-id="scene-01"] .ot-t { font-size: 46px; font-weight: 800; line-height: 1.1; }
+      [data-composition-id="scene-01"] .ot-m { font-family: var(--k-font-mono); font-size: 36px; font-weight: 500; line-height: 1.2; color: var(--k-accent-soft); }
+      [data-composition-id="scene-01"] .ot-s { font-size: 34px; font-weight: 600; line-height: 1.2; color: var(--k-text-2); }
+      [data-composition-id="scene-01"] .ch { box-sizing: border-box; padding: 14px 28px; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
+      [data-composition-id="scene-01"] .ch-t { font-size: 44px; font-weight: 800; line-height: 1.1; }
+      [data-composition-id="scene-01"] .ch-s { font-size: 32px; font-weight: 500; line-height: 1.2; color: var(--k-text-2); }
+      [data-composition-id="scene-01"] .ch-s.m { font-family: var(--k-font-mono); color: var(--k-accent-soft); }
+      [data-composition-id="scene-01"] .lk { box-sizing: border-box; display: flex; align-items: center; gap: 22px; padding: 0 34px; border-color: #ff8a8a; background: rgba(255, 138, 138, 0.12); font-size: 46px; font-weight: 800; line-height: 1.1; color: #ff8a8a; }
+      [data-composition-id="scene-01"] .lk svg { width: 52px; height: 52px; flex-shrink: 0; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("01"), t = S.t, DUR = 23.9;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const div = (cls, html, parent) => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; parent.appendChild(el); return el; };
+        const INFO = Kit.token("--k-info"), LINE = Kit.token("--k-line"), ACC = Kit.token("--k-accent"), OK = Kit.token("--k-ok");
+        const DOC = '<svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h22l10 10v36H13z"/><path d="M35 5v10h10M21 28h16M21 38h16"/></svg>';
+        const LOCK = '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="12" width="18" height="12" rx="3"/><path d="M9 12V9a5 5 0 0 1 10 0v3"/></svg>';
+
+        Kit.header(S, { header: { mode: "parts", total: 7 }, chapter: "Вход и выход", step: 1, duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+        const cap = (txt, x, y, at) => { const c = div("cp", txt, s1); c.style.left = x + "px"; c.style.top = y + "px"; hide(c); Kit.popIn(S, c, at); return c; };
+        const arrow = (x, y, at) => { const a = div("ar", "→", s1); a.style.left = x + "px"; a.style.top = y + "px"; hide(a); Kit.popIn(S, a, at); return a; };
+
+        /* Row 1: input (three sources) → output (accepted change). */
+        cap("Вход", 96, 206, 0.1);
+        const SRC = [["ТЗ 2021 в Word", t("задание")], ["страница Confluence", t("страница")], ["наблюдения аналитика", t("наблюдения")]];
+        SRC.forEach(([txt, at], i) => {
+          const a = Kit.aside(S, { parent: s1, x: 96, y: 262 + i * 86, w: 700, h: 76, tail: false, html: DOC + `<span>${txt}</span>` });
+          a.el.classList.add("sr");
+          a.show(at); read(txt, at, DUR);
+        });
+        const T_OUT = t("Выход");
+        cap("Выход", 1000, 206, T_OUT);
+        arrow(868, 356, T_OUT - 0.1);
+        const out = Kit.aside(S, { parent: s1, x: 1000, y: 262, w: 824, h: 248, tail: false, html:
+          '<div class="ot-t">Принятое изменение</div><div class="ot-m">baseline-current-state</div><div class="ot-s">добавленные требования (ADDED) по компонентам</div>' });
+        out.el.classList.add("ot");
+        const outS = out.el.querySelector(".ot-s"); hide(outS);
+        out.show(t("принятое")); Kit.popIn(S, outS, t("добавленными"));
+        read("Принятое изменение baseline-current-state", t("принятое"), DUR); read("добавленные требования ADDED по компонентам", t("добавленными"), DUR);
+
+        /* Row 2: «архив → главная спецификация»; the lock plate says nobody edits the main spec by hand. */
+        const spec = Kit.aside(S, { parent: s1, x: 1000, y: 548, w: 824, h: 138, tail: false, html:
+          '<div class="ch-t">Главная спецификация</div><div class="ch-s m">openspec/specs/&lt;компонент&gt;/spec.md</div>' });
+        spec.el.classList.add("ch");
+        spec.show(t("Главную"));
+        read("Главная спецификация openspec specs компонент spec.md", t("Главную"), DUR);
+
+        const lk = Kit.aside(S, { parent: s1, x: 96, y: 716, w: 1728, h: 92, tail: false, html: LOCK + "<span>руками не правят — даже первую</span>" });
+        lk.el.classList.add("lk");
+        lk.show(t("руками"));
+        read("руками не правят даже первую", t("руками"), DUR);
+
+        const arc = Kit.aside(S, { parent: s1, x: 96, y: 548, w: 700, h: 138, tail: false, html:
+          '<div class="ch-t">Архив</div><div class="ch-s">этап разработки · вне курса</div>' });
+        arc.el.classList.add("ch");
+        arc.show(t("после архива"));
+        read("Архив этап разработки вне курса", t("после архива"), DUR);
+        arrow(866, 586, t("оно станет") - 0.3);
+
+        /* Highlights follow the narrator: first change (the output), then archive, then the main spec. */
+        const hl = (el, on, off, col) => {
+          S.tl.to(el, { borderColor: col, duration: 0.3 }, on);
+          if (off) S.tl.to(el, { borderColor: LINE, duration: 0.3 }, off);
+        };
+        hl(out.el, t("текущее состояние"), t("а после") - 0.1, ACC);
+        hl(arc.el, t("после архива"), t("оно станет") - 0.1, INFO);
+        hl(spec.el, t("станет"), 0, OK);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

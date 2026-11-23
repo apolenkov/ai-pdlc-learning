@@ -1,0 +1,157 @@
+<template id="scene-0b-template">
+  <div data-composition-id="scene-0b" data-width="1920" data-height="1080" data-duration="61.4">
+    <style>
+      [data-composition-id="scene-0b"] .p-rail { position: absolute; left: 96px; top: 206px; width: 1728px; height: 76px; display: flex; align-items: center; }
+      [data-composition-id="scene-0b"] .p-tile { position: relative; flex: 1; height: 76px; display: grid; place-items: center; border-radius: 22px; background: var(--k-panel-2); border: 2px solid var(--k-line); font-size: 36px; font-weight: 700; white-space: nowrap; }
+      [data-composition-id="scene-0b"] .p-dash { position: absolute; inset: -2px; border: 3px dashed var(--k-text-2); border-radius: 22px; }
+      [data-composition-id="scene-0b"] .p-arr { flex: none; width: 84px; height: 40px; }
+      [data-composition-id="scene-0b"] .p-cap { font-size: 40px; line-height: 1.25; font-weight: 600; color: var(--k-text); }
+      [data-composition-id="scene-0b"] .p-line { font-size: 64px; line-height: 1.2; font-weight: 700; margin-top: 10px; }
+      [data-composition-id="scene-0b"] .p-sub { font-size: 48px; line-height: 1.25; font-weight: 600; margin-top: 14px; }
+      [data-composition-id="scene-0b"] .p-term { display: inline-block; margin-top: 14px; padding: 6px 20px; border: 2px solid var(--k-text-2); border-radius: 12px; font-size: 38px; line-height: 1.25; font-weight: 600; }
+      [data-composition-id="scene-0b"] .p-compact .p-line { font-size: 48px; }
+      [data-composition-id="scene-0b"] .p-compact .p-sub { font-size: 38px; }
+      [data-composition-id="scene-0b"] .p-compact .p-fin { font-size: 42px; }
+      [data-composition-id="scene-0b"] .p-fin { font-size: 60px; line-height: 1.15; font-weight: 700; margin-top: 18px; color: var(--k-text); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("0b"), t = S.t, DUR = 61.4;
+        // Static reading time counted from the moment the narrator says the line (the line appears with the word).
+        const read = (text, at, off) => {
+          const needed = text.trim().split(/\s+/).filter((w) => /[\p{L}\p{N}]/u.test(w)).length / 3 + 0.1;
+          if (off - at < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»: ${(off - at).toFixed(2)} < ${needed.toFixed(2)}`);
+        };
+        const SK = { x: 96, y: 306, w: 700 };       // sketch, left
+        const COL = 900, COLW = 924, CY = 390;      // card column, right
+        const nb = (h) => h.replace(/(^|[\s>])(в|к|с|у|о|а|и|на|не|за|по|до|от|из|ли|во|со|что)\s+(?=[^<\s])/gi, "$1$2\u00a0");   // no one-letter or short word at the end of a line
+        const hide = (el) => { gsap.set(el, { autoAlpha: 0 }); return el; };
+        // Lines of a card take no room until their word is said: the card grows, it is never an empty box.
+        const late = (el) => { el.dataset.disp = getComputedStyle(el).display; gsap.set(el, { autoAlpha: 0, display: "none" }); return el; };
+        const pop = (el, at, d) => { S.tl.set(el, { display: el.dataset.disp }, at - 0.01); return Kit.popIn(S, el, at, d); };
+        const sub = (card, sel) => Array.from(card.el.querySelectorAll(sel)).map(late);
+
+        Kit.header(S, { header: { mode: "parts", total: 9 }, chapter: "Как меняется процесс", step: null, mode: "intro", duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const sM = S.stage();
+        Kit.stageIn(S, sM, 0.1);   // entry into the new process: blur and scale
+
+        /* Spine of the process: three tiles, empty at first, filled with the narrator's words. */
+        const rail = document.createElement("div"); rail.className = "p-rail"; sM.appendChild(rail);
+        const arrow = () => '<svg class="p-arr" viewBox="0 0 84 40" fill="none"><path d="M18 20h46M54 10l11 10-11 10" stroke="' + Kit.token("--k-text-2") + '" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        const tiles = [];
+        ["замысел", "проверяемые требования", "принятие"].forEach((label, i) => {
+          if (i) rail.insertAdjacentHTML("beforeend", arrow());
+          const el = document.createElement("div"); el.className = "p-tile"; rail.appendChild(el);
+          el.innerHTML = '<span class="p-dash"></span><span class="p-lab">' + label + "</span>";
+          tiles.push({ el, dash: el.querySelector(".p-dash"), lab: hide(el.querySelector(".p-lab")) });
+        });
+        const arrows = Array.from(rail.querySelectorAll(".p-arr"));
+        gsap.set(rail, { autoAlpha: 0 }); gsap.set(arrows, { opacity: 0.6 });
+        Kit.popIn(S, rail, t("Вот как он устроен") - 0.1);
+        const OK = Kit.token("--k-text-2");   // filled tile: a solid neutral outline, the sketches keep the only accent
+        const fill = (i, at) => {
+          S.tl.to(tiles[i].dash, { autoAlpha: 0, duration: 0.3 }, at);
+          S.tl.to(tiles[i].el, { borderColor: OK, duration: 0.4 }, at);
+          Kit.popIn(S, tiles[i].lab, at);
+        };
+        fill(0, t("замысел") - 0.1);
+        fill(1, t("проверяемые") - 0.1);
+        fill(2, t("результат проверяет") - 0.1);
+
+        /* Cards on the right, a sketch on the left: the same layout as in «Как было», calm and green. */
+        const card = (y, html) => { const c = Kit.aside(S, { parent: sM, x: COL, y, w: COLW, tail: false, html: nb(html) }); c.show = (at) => Kit.popIn(S, c.el, at, 0.45);
+          [c.el, ...c.el.querySelectorAll("*")].forEach((e) => e.setAttribute("data-layout-allow-overlap", "")); return c; };  // cards hand over with a short cross-fade
+        const sk = (name, at, dur) => Kit.sketch(S, { parent: sM, name, ...SK, at, dur: dur || 2.4 });
+
+        // 1. The idea is written down first.
+        const sIdea = sk("intro-idea", 0.3);   // the process starts from an idea: it is drawn on the first phrase
+        const A = card(CY, '<div class="p-line">что нужно и зачем</div><div class="p-term">в курсе — файл intent.md</div>');
+        const [aTerm] = sub(A, ".p-term");
+        A.show(t("что нужно") - 0.1); pop(aTerm, t("В курсе") - 0.1);
+        const OA = t("Шаблон один") - 0.3;
+        read("что нужно и зачем", t("что нужно"), OA); read("в курсе — файл intent.md", t("В курсе"), OA);
+        A.hide(OA); sIdea.out(t("Из замысла") - 0.3);
+
+        // 2. From the idea we prepare checkable requirements (the sheet is handed over), one template for everyone.
+        const sMerge = sk("merge", t("Из замысла"));
+        const C = card(CY, '<div class="p-line">Шаблон один</div><div class="p-sub">любой читает замысел одинаково</div>');
+        const [cSub] = sub(C, ".p-sub");
+        C.show(t("Шаблон один") - 0.1); pop(cSub, t("любой читает") - 0.1);
+        const OC = t("а единые") - 0.3;
+        read("любой читает замысел одинаково", t("любой читает"), OC);
+        C.hide(OC); sMerge.out(OC);
+
+        // 3. Uniform questions help to notice gaps.
+        const sTeam = sk("team-done", t("а единые"));
+        const D = card(CY, '<div class="p-line">единые вопросы</div><div class="p-sub">помогают заметить пропуски и проверить ответы</div>');
+        const [dSub] = sub(D, ".p-sub");
+        D.show(t("единые вопросы") - 0.1); pop(dSub, t("помогают") - 0.1);
+        const OD = t("Markdown") - 0.3;
+        read("помогают заметить пропуски и проверить ответы", t("помогают"), OD);
+        D.hide(OD);
+
+        // 4. Markdown, then Git: definitions next to the sketch, one definition per card.
+        const E = card(CY, '<div class="p-line">Markdown</div><div class="p-sub">простой текст с разметкой</div>');
+        const [eSub] = sub(E, ".p-sub");
+        E.show(t("Markdown") - 0.1); pop(eSub, t("простой текст") - 0.1);
+        const OE = t("Git") - 0.3;
+        read("простой текст с разметкой", t("простой текст"), OE);
+        E.hide(OE); sTeam.out(OE);
+
+        const sMind = sk("thinking", t("Git"), 1.6);
+        const F = card(CY, '<div class="p-line">Git</div><div class="p-sub">хранит версии и позволяет сравнить изменения</div>');
+        const [fSub] = sub(F, ".p-sub");
+        F.show(t("Git") - 0.1); pop(fSub, t("хранит версии") - 0.1);
+        const folder = sk("thinking-folder", t("хранит версии"), 1.4);
+        const OF = t("Требования хранятся") - 0.3;
+        read("хранит версии и позволяет сравнить изменения", t("хранит версии"), OF);
+        F.hide(OF); sMind.out(OF); folder.out(OF);
+
+        // 5. Requirements live in the repository and are linked to the code: the wall gets a bridge.
+        const sWall = sk("was-apart", t("Требования хранятся"), 2.0);
+        const G = card(CY, '<div class="p-cap">Требования хранятся</div><div class="p-line">в репозитории</div><div class="p-term">репозиторий — место хранения</div><div class="p-line">связаны с кодом</div>');
+        const [gA, gB] = sub(G, ".p-line"), [gT] = sub(G, ".p-term");
+        G.show(t("Требования хранятся") - 0.1); pop(gA, t("в репозитории") - 0.1);
+        pop(gT, t("месте хранения") - 0.1); pop(gB, t("связаны") - 0.1);
+        const bridge = sk("was-bridge", t("связаны") - 0.3, 1.0);
+        const OG = t("Общие файлы") - 0.12;
+        read("репозиторий — место хранения", t("месте хранения"), OG);
+        read("связаны с кодом", t("связаны"), OG);
+        G.hide(OG); sWall.out(OG); bridge.out(OG);
+
+        // 6. Shared files for people and the connected model; the person checks the result.
+        const sTeam2 = sk("team-done", t("Общие файлы"));
+        const H = card(CY, '<div class="p-cap">Общие файлы доступны</div><div class="p-line">людям и подключённой модели</div><div class="p-term">программа искусственного интеллекта</div><div class="p-sub">результат проверяет человек</div>');
+        const [hLine] = sub(H, ".p-line"), [hTerm] = sub(H, ".p-term"), [hSub] = sub(H, ".p-sub");
+        H.show(t("Общие файлы") - 0.1); pop(hLine, t("людям") - 0.1); pop(hTerm, t("программе") - 0.1);
+        pop(hSub, t("результат проверяет") - 0.1);
+        const OH = t("Мы строим") - 0.45;
+        read("людям и подключённой модели", t("людям"), OH);
+        read("программа искусственного интеллекта", t("программе"), OH);
+        read("результат проверяет человек", t("результат проверяет"), OH);
+        H.hide(OH);
+
+        // 7. The summary stays to the end of the speech.
+        const I = card(CY, '<div class="p-cap">Мы строим процесс</div><div class="p-sub">с документами работают и люди, и ИИ</div><div class="p-fin">документы ведём как код</div>');
+        const [iSub] = sub(I, ".p-sub"), [iFin] = sub(I, ".p-fin");
+        I.show(t("Мы строим") - 0.3); pop(iSub, t("с документами") - 0.1); pop(iFin, t("Поэтому документы") - 0.1);
+        const OI = t("Сначала работа") - 0.3;
+        read("с документами работают и люди, и ИИ", t("с документами"), OI);
+        read("документы ведём как код", t("Поэтому документы"), OI);
+        I.hide(OI);
+
+        // 8. Speed: slower at first, then faster; an urgent change still goes through a request.
+        const J = card(370, '<div class="p-compact"><div class="p-cap">Скорость</div><div class="p-line">сначала медленнее — шаг назад</div><div class="p-sub">потом быстрее: требования, история и контекст переиспользуются</div><div class="p-fin">срочное — тоже через запрос, спецификацию дописывают сразу после</div></div>');
+        const [jLine] = sub(J, ".p-line"), [jSub] = sub(J, ".p-sub"), [jFin] = sub(J, ".p-fin");
+        J.show(t("Сначала работа") - 0.1); pop(jLine, t("шаг назад") - 0.1); pop(jSub, t("Потом") - 0.1); pop(jFin, t("Даже срочное") - 0.1);
+        read("сначала медленнее — шаг назад", t("шаг назад"), t("Потом"));
+        read("потом быстрее: требования, история и контекст переиспользуются", t("Потом"), t("Даже срочное"));
+        read("срочное — тоже через запрос, спецификацию дописывают сразу после", t("Даже срочное"), DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

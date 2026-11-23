@@ -1,0 +1,79 @@
+<template id="scene-0b-template">
+  <div data-composition-id="scene-0b" data-width="1920" data-height="1080" data-duration="15.2">
+    <style>
+      [data-composition-id="scene-0b"] .rb-abs { position: absolute; }
+      [data-composition-id="scene-0b"] .rb-an { left: 96px; top: 240px; width: 1060px; height: 170px; padding: 18px 26px; }
+      [data-composition-id="scene-0b"] .rb-md { left: 1188px; top: 240px; width: 636px; height: 170px; padding: 0 30px; display: flex; align-items: center; justify-content: space-between; }
+      [data-composition-id="scene-0b"] .rb-who { display: flex; align-items: center; gap: 22px; font-size: 46px; font-weight: 800; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 18px; }
+      [data-composition-id="scene-0b"] .rb-hand { padding: 4px 18px; border-radius: 16px; border: 2px solid var(--k-text-2); color: var(--k-text-2); font-size: 32px; font-weight: 600; }
+      [data-composition-id="scene-0b"] .rb-chips { display: flex; gap: 14px; }
+      [data-composition-id="scene-0b"] .rb-chip { padding: 6px 20px; border-radius: 16px; border: 2px solid var(--k-line); background: var(--k-panel-2); font-size: 32px; font-weight: 600; white-space: nowrap; }
+      [data-composition-id="scene-0b"] .rb-md .rb-who { display: inline-block; margin-bottom: 0; color: var(--k-text-2); }
+      [data-composition-id="scene-0b"] .rb-md .rb-lock { width: 76px; height: 76px; color: var(--k-text-2); flex: none; }
+      [data-composition-id="scene-0b"] .rb-strike { position: absolute; left: -8px; right: -8px; top: 50%; height: 7px; margin-top: -2px; border-radius: 4px; background: var(--k-accent); transform-origin: 0 50%; }
+      [data-composition-id="scene-0b"] .rb-lab { left: 96px; top: 470px; font-size: 32px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--k-text-2); }
+      [data-composition-id="scene-0b"] .rb-o1 { left: 96px; top: 514px; width: 1060px; height: 124px; padding: 0 30px; display: flex; align-items: center; gap: 20px; font-size: 40px; font-weight: 800; white-space: nowrap; }
+      [data-composition-id="scene-0b"] .rb-o1 small { display: block; font-size: 30px; font-weight: 600; color: var(--k-text-2); margin-bottom: 4px; }
+      [data-composition-id="scene-0b"] .rb-o1 .pl { color: var(--k-text-2); }
+      [data-composition-id="scene-0b"] .rb-o2 { left: 1188px; top: 514px; width: 636px; height: 124px; padding: 0 30px; display: flex; align-items: center; gap: 20px; font-size: 40px; font-weight: 800; white-space: nowrap; }
+      [data-composition-id="scene-0b"] .rb-o2 svg { width: 52px; height: 52px; color: var(--k-text-2); flex: none; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("0b"), t = S.t, DUR = 15.2;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const div = (cls, html, parent) => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; parent.appendChild(el); return el; };
+        const LOCK = '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="18" width="26" height="18" rx="4"/><path d="M12 18v-5a8 8 0 0 1 16 0v5"/></svg>';
+        const strike = (host, at) => { host.style.position = "relative"; host.setAttribute("data-layout-allow-occlusion", ""); const s = div("rb-strike", "", host); s.setAttribute("data-layout-allow-occlusion", ""); gsap.set(s, { scaleX: 0 }); S.tl.to(s, { scaleX: 1, duration: 0.45, ease: "power2.out" }, at); return s; };
+
+        Kit.header(S, { header: { mode: "parts", total: 8 }, chapter: "Как меняется работа", step: null, mode: "intro", duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* ---- работа ручная: аналитик, модель не вызывают ---- */
+        const an = div("k-card rb-abs rb-an", `<div class="rb-who">Аналитик<span class="rb-hand">вручную</span></div><div class="rb-chips"><span class="rb-chip a">читает подсказки OpenSpec</span><span class="rb-chip b">пишет требования и план</span></div>`, s1);
+        const hand = an.querySelector(".rb-hand"), ca = an.querySelector(".a"), cb = an.querySelector(".b");
+        hide(an, hand, ca, cb);
+        S.tl.fromTo(an, { autoAlpha: 0, x: -80 }, { autoAlpha: 1, x: 0, duration: 0.7, ease: "power3.out", immediateRender: false }, t("аналитик") - 0.05);
+        Kit.popIn(S, hand, t("ручная:"), 0.5);
+        S.tl.fromTo(ca, { autoAlpha: 0, x: -30 }, { autoAlpha: 1, x: 0, duration: 0.6, ease: "power3.out", immediateRender: false }, t("читает"));
+        Kit.popIn(S, cb, t("пишет"), 0.5);
+        read("Аналитик вручную", t("аналитик"), DUR);
+        read("читает подсказки OpenSpec", t("читает"), DUR);
+        read("пишет требования и план", t("пишет"), DUR);
+
+        const md = div("k-card rb-abs rb-md", `<div class="rb-who"><span>Модель</span></div><span class="rb-lock">${LOCK}</span>`, s1);
+        const mt = md.querySelector(".rb-who span"), lk = md.querySelector(".rb-lock");
+        hide(md, lk); mt.style.display = "inline-block";
+        S.tl.fromTo(md, { autoAlpha: 0, scale: 1.06, filter: "blur(14px)" }, { autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: 0.7, ease: "power3.out", immediateRender: false }, t("Модель") - 0.05);
+        strike(mt, t("не привлекайте"));
+        S.tl.fromTo(lk, { autoAlpha: 0, scale: 1.6, rotation: -16 }, { autoAlpha: 1, scale: 1, rotation: 0, duration: 0.5, ease: "back.out(2)", immediateRender: false }, t("привлекайте"));
+        read("Модель", t("Модель"), DUR);
+
+        /* ---- на выходе: принятое изменение без кода ---- */
+        const lab = div("rb-abs rb-lab", "На выходе", s1); hide(lab);
+        S.tl.fromTo(lab, { autoAlpha: 0, x: -30 }, { autoAlpha: 1, x: 0, duration: 0.6, ease: "power3.out", immediateRender: false }, t("На выходе") - 0.05);
+        const o1 = div("k-card rb-abs rb-o1", `<div><small>принятое изменение</small><span class="a">8 сценариев шага 2</span> <span class="pl b">+ срок в годах</span></div>`, s1);
+        const oa = o1.querySelector(".a"), ob = o1.querySelector(".b"), osm = o1.querySelector("small");
+        hide(o1, oa, ob);
+        S.tl.fromTo(o1, { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, duration: 0.7, ease: "power3.out", immediateRender: false }, t("принятое") - 0.05);
+        S.tl.fromTo(oa, { autoAlpha: 0, x: -30 }, { autoAlpha: 1, x: 0, duration: 0.6, ease: "power3.out", immediateRender: false }, t("восемь"));
+        S.tl.fromTo(ob, { autoAlpha: 0, x: 30 }, { autoAlpha: 1, x: 0, duration: 0.6, ease: "power3.out", immediateRender: false }, t("срок"));
+        const o2 = div("k-card rb-abs rb-o2", `${LOCK}код не менялся`, s1); hide(o2);
+        Kit.popIn(S, o2, t("без кода"));
+        read("принятое изменение 8 сценариев шага 2", t("восемь"), DUR);
+        read("срок в годах", t("срок"), DUR);
+        read("код не менялся", t("без кода"), DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

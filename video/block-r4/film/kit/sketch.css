@@ -1,0 +1,4 @@
+/* Скетчи людей (Kit.sketch): позиция задаётся x/y/w из компонента; штрихи до старта анимации спрятаны. */
+.k-sketch { position: absolute; pointer-events: none; }
+.k-sketch svg { display: block; width: 100%; height: auto; overflow: visible; }
+.k-sketch .s { stroke-dasharray: 1 2; stroke-dashoffset: 1; }

@@ -1,0 +1,48 @@
+<template id="scene-05-template">
+  <div data-composition-id="scene-05" data-width="1920" data-height="1080" data-duration="37">
+    <style>
+      [data-composition-id="scene-05"] .k-sg em { font-size:28px }
+      [data-composition-id="scene-05"] .flow-label { position:absolute;top:238px;font-size:36px;font-weight:700;color:var(--k-text-2) }
+      [data-composition-id="scene-05"] .flow-card { position:absolute;padding:20px 28px;background:var(--k-panel);border:2px solid var(--k-line);border-radius:var(--k-r-card);font-size:32px;line-height:1.2 }
+      [data-composition-id="scene-05"] .flow-card strong { display:block;font-size:36px;color:var(--k-accent-soft);margin-bottom:12px }
+      [data-composition-id="scene-05"] .flow-card p { margin:0 0 10px }
+      [data-composition-id="scene-05"] .flow-target { color:var(--k-text-2);font-size:30px }
+      [data-composition-id="scene-05"] .flow-join { position:absolute;left:516px;top:658px;width:774px;text-align:center;font-size:30px;color:var(--k-ok);border:2px solid var(--k-ok);border-radius:18px;padding:14px;background:var(--k-panel) }
+      [data-composition-id="scene-05"] .flow-note { position:absolute;left:516px;top:740px;width:1308px;font-size:28px;line-height:1.15;color:var(--k-text-2) }
+      [data-composition-id="scene-05"] .flow-sha { font-family:var(--k-font-mono);font-size:28px;color:var(--k-text) }
+      [data-composition-id="scene-05"] .flow-who { position:absolute;left:96px;top:642px;width:378px;font-size:30px;line-height:1.35;color:var(--k-text-2) }
+      [data-composition-id="scene-05"] .flow-arrow { position:absolute;top:392px;font-size:52px;color:var(--k-text-2) }
+    </style>
+    <script>
+      (function () {
+        const S=Kit.scene("05"),t=S.t,DUR=37.0;
+        const read=(text,at,off,reveal=.6)=>{const need=text.trim().split(/\s+/).filter(w=>/[\p{L}\p{N}]/u.test(w)).length/3+1;if(off-at-reveal<need)throw Error("Недостаточно чтения: "+text);};
+        const stage=S.stage();gsap.set(stage,{autoAlpha:1});
+        const el=(cls,html,x,y,w)=>{const e=document.createElement("div");e.className=cls;e.innerHTML=html;Object.assign(e.style,{left:x+"px",top:y+"px",width:w+"px"});stage.appendChild(e);gsap.set(e,{autoAlpha:0});return e;};
+        const enter=(e,at,pop=false)=>{S.tl.fromTo(e,pop?{autoAlpha:0,scale:.96}:{autoAlpha:0,x:-24},pop?{autoAlpha:1,scale:1,duration:.6,ease:"back.out(1.4)"}:{autoAlpha:1,x:0,duration:.7,ease:"power3.out"},at);};
+        const card=(html,x,y,w,h,at)=>{const e=el("flow-card",html,x,y,w);e.style.height=h+"px";enter(e,at);read(e.textContent,at,DUR);return e;};
+        const revealLine=(card,selector,phrase,n=1)=>{const line=card.querySelector(selector);gsap.set(line,{autoAlpha:0});S.tl.to(line,{autoAlpha:1,duration:.2,ease:"power2.out"},t(phrase,n)-.2);read(line.textContent,t(phrase,n),DUR,0);};
+        Kit.header(S,{header:{mode:"parts",total:5},chapter:"Три этапа, четыре запроса",step:5,duration:DUR,parts:[{n:1,blank:true,at:0}]});
+        const header=S.root.querySelector('.k-header');gsap.set(header,{autoAlpha:0});S.tl.set(header,{autoAlpha:1},1.9);
+        const planning=t("Планирование"),implementation=t("Реализация"),code=t("код и тесты"),tasks=t("принятое изменение"),both=t("После слияния обоих запросов"),archive=t("архив"),versions=t("Версии");
+        enter(el("flow-label","Планирование",96,238,378),planning);
+        const mr1=card('<strong>MR 1 · требования</strong><p>→ выданная база Store</p><p class="flow-target">Форк требований</p>',96,304,378,278,planning);revealLine(mr1,'p','выданную базу');revealLine(mr1,'.flow-target','форка требований');
+        // Narrow gap: connection is encoded by the adjacent stage groups, no overflowing arrow here.
+        enter(el("flow-label","Реализация · два запроса",516,238,774),implementation);
+        const mr2=card('<strong>MR 2 · код и тесты</strong><p class="flow-target">→ main форка сервиса</p>',516,304,774,148,code);revealLine(mr2,'.flow-target','мейн форка сервиса');
+        const mr3=card('<strong>MR 3 · принятое изменение</strong><p>Подтверждённые статусы в tasks.md</p><p class="flow-target">→ main форка требований</p>',516,476,774,184,tasks);revealLine(mr3,'p','подтверждёнными статусами задач');revealLine(mr3,'.flow-target','мейн форка требований');
+        const join=el("flow-join","Оба MR слиты после проверки",516,684,774);enter(join,both,true);read(join.textContent,both,DUR);
+        const dependency=el('flow-arrow','↗',1304,640,60);enter(dependency,archive,true);
+        enter(el("flow-label","Архив",1374,238,450),archive);
+        const mr4=card('<strong>MR 4 · отдельный запрос</strong><p class="flow-target">→ main форка требований</p>',1374,304,450,278,archive);revealLine(mr4,'.flow-target','мейн форка требований',2);
+        const definition=el("flow-note",'<span>main — основная ветка</span><span class="fork-definition"> · форк — личная копия на сервере</span>',516,752,1308);enter(definition,t("Мейн —"));revealLine(definition,'.fork-definition','форк —');read(definition.textContent,t("Мейн —"),versions-.4);
+        S.tl.to(definition,{autoAlpha:0,duration:.4,ease:"power2.in"},versions-.4);
+        const sha=el("flow-note",'<div class="flow-sha">Пример · требования: &lt;sha&gt;</div><div class="flow-sha">Пример · код: &lt;sha&gt;</div>',516,756,1308);enter(sha,versions);read("Связь версий пример полных SHA требования код",versions,DUR);
+        const who=el("flow-who","В команде — сливает техлид после ревью",96,638,378);enter(who,t("В команде"));read(who.textContent,t("В команде"),DUR);
+        const you=el("flow-who","В учебном форке — вы",96,752,378);enter(you,t("в учебном"),true);read(you.textContent,t("в учебном"),DUR);
+        if(DUR-t("в учебном")-.6<5)throw Error("Финальная карточка должна стоять не меньше 5 с");
+        Kit.subtitles(S,{});S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

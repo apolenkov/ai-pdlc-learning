@@ -1,0 +1,170 @@
+:root {
+  --reference-paper: var(--customdev-page-bg);
+  --reference-raised: var(--customdev-surface);
+  --reference-ink: var(--customdev-ink);
+  --reference-muted: var(--customdev-muted);
+  --reference-line: var(--customdev-line);
+  --reference-blue: var(--customdev-blue);
+  --reference-blue-soft: var(--customdev-blue-soft);
+  --reference-green: var(--customdev-green);
+}
+
+* { box-sizing: border-box; }
+body.reference-page { min-width: 320px; margin: 0; background: var(--customdev-page-bg, #f6f3eb); color: var(--reference-ink); font-family: var(--customdev-font-body, Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif); line-height: 1.5; }
+/* EXPORT: self-contained shell — the learning build does not own a site-nav contract. */
+.reference-shell { width: min(var(--site-shell-max, 1408px), calc(100% - (2 * var(--site-page-gutter, 16px)))); margin: 0 auto; padding: var(--site-nav-reserve, 112px) 0 76px; }
+.reference-intro { max-width: 100%; padding: 24px 28px 28px; border: 1px solid var(--reference-line); border-radius: 12px; background: var(--customdev-white); margin-bottom: 24px; }
+.reference-kicker { margin: 0 0 12px; color: var(--reference-blue); font-size: .75rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+.reference-intro h1 { max-width: 20ch; margin: 0; overflow-wrap: normal; hyphens: manual; font-size: clamp(2.5rem, 5.2vw, 5rem); line-height: 1.05; letter-spacing: -.035em; text-wrap: balance; }
+.reference-intro > p:not(.reference-kicker) { max-width: 760px; margin: 18px 0 0; color: var(--reference-muted); font-size: 1.04rem; }
+.reference-section { border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.reference-section__heading { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 20px 22px; border-bottom: 1px solid var(--reference-line); border-radius: 23px 23px 0 0; background: linear-gradient(120deg, var(--customdev-paper-tint), var(--customdev-paper-2)); }
+.reference-section__heading > * { min-width: 0; }
+.reference-section__heading h2 { margin: 0; font-size: 1.25rem; letter-spacing: -.02em; }
+.reference-section__heading > p { max-width: 430px; margin: 0; color: var(--reference-muted); font-size: .82rem; }
+.reference-section__eyebrow { margin: 0 0 4px; color: var(--reference-green); font-size: 0.75rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+.reference-table-wrap:focus-visible { outline: 3px solid var(--reference-blue); outline-offset: 3px; }
+.reference-table-wrap { overflow: visible; }
+.reference-table { width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 0; background: transparent; font-size: .86rem; text-align: left; }
+.reference-table th, .reference-table td { font-variant-numeric: tabular-nums; }
+.reference-table th, .reference-table td { min-width: 0; vertical-align: top; padding: 15px 16px; border-bottom: 1px solid var(--reference-line); overflow-wrap: anywhere; }
+.reference-table thead th { position: sticky; z-index: 20; top: var(--site-nav-reserve, 112px); background: var(--customdev-surface-blue); color: var(--customdev-reference-slate); box-shadow: 0 1px 0 var(--reference-line), 0 8px 18px color-mix(in srgb, var(--customdev-ink) 10%, transparent); font-size: 0.75rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; overflow-wrap: normal; word-break: normal; }
+.reference-table tbody th { color: var(--reference-ink); font-weight: 850; }
+.reference-table td { color: var(--reference-muted); }
+#roles-c4 .reference-table td { color: var(--reference-ink); }
+/* C4 has four short rows: a sticky header would hide the first row once the page is scrolled. */
+#roles-c4 .reference-table thead th { position: static; }
+.reference-table tbody tr:last-child > * { border-bottom: 0; }
+.reference-role-row > *, .reference-glossary-row > * { background: var(--customdev-white); }
+.reference-table tbody tr:hover > * { background: var(--customdev-green-soft); color: var(--reference-ink); }
+.reference-group-index { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; padding: 14px 22px; border-bottom: 1px solid var(--reference-line); background: var(--customdev-paper-tint); }
+.reference-group-index a { display: grid; min-width: 0; gap: 5px; align-content: start; padding: 11px 12px; border: 1px solid var(--reference-line); border-radius: 12px; background: var(--reference-raised); color: var(--reference-ink); text-decoration: none; }
+.reference-group-index a:hover, .reference-group-index a:focus-visible { border-color: var(--reference-blue); background: var(--reference-blue-soft); }
+.reference-group-index span { overflow-wrap: anywhere; font-size: .76rem; font-weight: 850; line-height: 1.2; }
+.reference-group-index small { color: var(--reference-muted); font-size: 0.75rem; }
+.reference-group-row > th { padding: 13px 16px 11px; border: 1px solid var(--customdev-line-green); border-bottom-color: var(--reference-line); border-radius: 16px 16px 0 0; background: var(--customdev-white); box-shadow: inset 4px 0 0 var(--reference-green); color: var(--reference-green); font-size: 0.75rem; letter-spacing: .08em; text-align: left; text-transform: uppercase; }
+.reference-group-row > th span, .reference-group-row > th small { display: inline; }
+.reference-group-row > th small { margin-left: 12px; color: var(--reference-muted); font-size: .76rem; font-weight: 600; letter-spacing: 0; text-transform: none; }
+.reference-links { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 14px 20px; align-items: start; padding: 15px 22px; border-bottom: 1px solid var(--reference-line); background: var(--customdev-paper-tint); color: var(--reference-muted); font-size: .78rem; }
+.reference-links > strong { color: var(--reference-green); font-size: 0.75rem; letter-spacing: .08em; text-transform: uppercase; }
+.reference-links > div { display: flex; flex-wrap: wrap; gap: 7px 16px; }
+.reference-panel > header a,
+.reference-links a { color: var(--reference-blue); font-weight: 750; text-underline-offset: 3px; }
+.reference-panel > header a:hover,
+.reference-links a:hover { color: var(--reference-green); }
+
+/* Glossary composition mirrors the approved Scales page: a quiet overview,
+   then independent bordered families rather than one continuous table frame. */
+.reference-section--roles .reference-section__heading,
+.reference-section--glossary .reference-section__heading { border: 1px solid var(--reference-line); border-bottom: 0; border-radius: var(--customdev-radius-lg) var(--customdev-radius-lg) 0 0; background: var(--customdev-surface-quiet); }
+.reference-section--glossary .reference-group-index { padding: 0 22px 20px; border: 1px solid var(--reference-line); border-top: 0; border-bottom: 0; background: var(--customdev-surface-quiet); }
+.reference-section--glossary .reference-group-index a { min-height: 82px; padding: 13px 14px; border-radius: 8px; background: var(--customdev-white); }
+.reference-section--glossary .reference-group-index span { font-size: .8rem; }
+.reference-section--glossary .reference-links { padding: 15px 22px 18px; border: 1px solid var(--reference-line); border-top: 0; border-radius: 0 0 var(--customdev-radius-lg) var(--customdev-radius-lg); background: var(--customdev-surface-quiet); }
+.reference-glossary-list { display: grid; gap: 28px; width: min(100%, 1000px); margin-top: 30px; }
+.reference-role-group,
+.reference-glossary-group { overflow: hidden; border: 1px solid var(--reference-line); border-radius: var(--customdev-radius-sm); background: var(--customdev-white); scroll-margin-top: 104px; }
+.reference-role-group > header,
+.reference-glossary-group > header { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 17px 20px; }
+.reference-role-group > header > div,
+.reference-glossary-group > header > div { min-width: 0; }
+.reference-glossary-group > header h3 { margin: 0; color: var(--reference-ink); font-size: 1.08rem; letter-spacing: -.02em; }
+.reference-role-group > header p,
+.reference-glossary-group > header p { margin: 3px 0 0; color: var(--reference-muted); font-size: .8rem; }
+.reference-role-group > header > span,
+.reference-glossary-group > header > span { flex: 0 0 auto; padding: 6px 10px; border: 1px solid color-mix(in srgb, var(--customdev-reference-border-green) 35%, transparent); border-radius: 999px; background: color-mix(in srgb, var(--customdev-white) 72%, transparent); color: var(--reference-green); font-size: 0.75rem; font-weight: 850; }
+.reference-glossary-group dl { margin: 0; }
+.reference-glossary-row { display: grid; grid-template-columns: 280px minmax(0, 1fr); border-bottom: 1px solid var(--reference-line); background: var(--customdev-white); }
+.reference-glossary-row:last-child { border-bottom: 0; }
+.reference-glossary-row dt, .reference-glossary-row dd { min-width: 0; margin: 0; padding: 17px 20px; overflow-wrap: anywhere; }
+.reference-glossary-row dt { color: var(--customdev-reference-ink); font-size: .9rem; font-weight: 850; }
+.reference-glossary-row dd { border-left: 1px solid var(--reference-line); color: var(--reference-muted); font-size: .88rem; }
+.reference-glossary-row:hover { background: var(--customdev-paper-tint); }
+.reference-glossary-row:hover dt, .reference-glossary-row:hover dd { color: var(--reference-ink); }
+
+/* Roles use the same approved Scales hierarchy, but the content is shaped as
+   responsibility cards instead of forcing eight fields into narrow columns. */
+.reference-role-index { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding: 0 22px 22px; border: 1px solid var(--reference-line); border-top: 0; border-radius: 0 0 var(--customdev-radius-lg) var(--customdev-radius-lg); background: var(--customdev-surface-quiet); }
+.reference-role-index a { display: grid; gap: 6px; min-width: 0; min-height: 88px; align-content: center; padding: 15px 16px; border: 1px solid var(--reference-line); border-radius: 8px; background: var(--customdev-white); color: var(--reference-ink); text-decoration: none; }
+.reference-role-index a::before { width: 34px; height: 3px; border-radius: 999px; background: var(--reference-green); content: ""; }
+.reference-role-index a:nth-child(even)::before { background: var(--reference-blue); }
+.reference-role-index a:hover, .reference-role-index a:focus-visible { border-color: var(--reference-green); background: var(--customdev-paper-2); }
+.reference-role-index span { font-size: .9rem; font-weight: 850; }
+.reference-role-index small { color: var(--reference-muted); font-size: 0.75rem; }
+.reference-role-list { display: grid; gap: 30px; margin-top: 30px; }
+.reference-role-group > header h3 { margin: 0; font-size: 1.08rem; letter-spacing: -.02em; }
+.reference-role-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; gap: 16px; padding: 16px; background: var(--customdev-paper-tint); }
+.reference-role-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.reference-role-card { display: flex; flex-direction: column; min-width: 0; overflow: hidden; border: 1px solid var(--reference-line); border-radius: 8px; background: var(--customdev-white); }
+.reference-role-card > header { padding: 18px 20px 0; border: 0; border-radius: 0; background: var(--customdev-white); }
+.reference-role-card > header h4 { margin: 0; color: var(--customdev-reference-ink); font-size: 1rem; letter-spacing: -.015em; }
+.reference-role-card > header p { margin: 8px 0 0; color: var(--reference-ink); font-size: .86rem; font-weight: 700; line-height: 1.42; }
+.reference-role-card dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 24px; margin: 0; padding: 16px 20px; }
+.reference-role-card dl > div { min-width: 0; }
+.reference-role-card dl > .reference-role-card__evidence { grid-column: 1 / -1; }
+.reference-role-card dt { margin: 0 0 5px; color: var(--reference-green); font-size: 13px; font-weight: 600; }
+.reference-role-card dd { margin: 0; color: var(--reference-muted); font-size: .78rem; line-height: 1.42; overflow-wrap: anywhere; }
+.reference-role-card:hover { border-color: var(--customdev-line-green); box-shadow: var(--customdev-shadow-card); }
+.reference-role-list .reference-role-row > * { border-right: 0; border-bottom: 0; border-left: 0; border-radius: 0; }
+
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* Prose measure: about 70 characters per line. */
+.reference-glossary-row dd { max-width: 72ch; }
+.reference-intro > p:not(.reference-kicker) { max-width: 70ch; }
+
+/* Narrow screens: one column for cards and glossary rows so labels and words stay whole. */
+@media (max-width: 719px) {
+  /* C4: no scrolling and no broken words; every level becomes a card, cells become "label: value" lines (labels come from data-label). */
+  #roles-c4 .reference-table, #roles-c4 .reference-table tbody, #roles-c4 .reference-table tr, #roles-c4 .reference-table th, #roles-c4 .reference-table td { display: block; }
+  #roles-c4 .reference-table thead { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  #roles-c4 .reference-table tbody tr { margin-bottom: 12px; border: 1px solid var(--reference-line); background: var(--customdev-white); }
+  #roles-c4 .reference-table tbody tr:last-child { margin-bottom: 0; }
+  #roles-c4 .reference-table tbody th { padding: 12px 14px; border-bottom: 1px solid var(--reference-line); background: var(--customdev-surface-blue); overflow-wrap: normal; word-break: normal; }
+  #roles-c4 .reference-table tbody td { display: grid; grid-template-columns: minmax(6.5rem, 38%) minmax(0, 1fr); gap: 12px; padding: 10px 14px; overflow-wrap: normal; word-break: normal; }
+  #roles-c4 .reference-table tbody tr:last-child > td:last-child, #roles-c4 .reference-table tbody td:last-child { border-bottom: 0; }
+  #roles-c4 .reference-table tbody tr:last-child > *:not(:last-child) { border-bottom: 1px solid var(--reference-line); }
+  #roles-c4 .reference-table tbody td::before { content: attr(data-label); color: var(--customdev-reference-slate); font-size: 0.75rem; font-weight: 900; letter-spacing: .04em; text-transform: uppercase; }
+  .reference-section__heading { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .reference-group-index { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 12px; }
+  .reference-glossary-row { grid-template-columns: minmax(0, 1fr); }
+  .reference-glossary-row dd { border-top: 1px solid var(--reference-line); border-left: 0; padding-top: 12px; }
+  .reference-glossary-row dt { padding-bottom: 12px; }
+  .reference-role-grid { grid-template-columns: minmax(0, 1fr); padding: 12px; }
+  .reference-role-index { grid-template-columns: minmax(0, 1fr); }
+  .reference-role-card dl { grid-template-columns: minmax(0, 1fr); }
+  .reference-links { grid-template-columns: minmax(0, 1fr); }
+  .reference-links > div { display: grid; gap: 12px; }
+  .reference-panel .reference-team-grid { grid-template-columns: minmax(0, 1fr); padding: 12px; }
+  .reference-role-map > div { grid-template-columns: minmax(0, 1fr); }
+  .reference-role-map dt { border-right: 0; border-bottom: 1px solid var(--reference-line); }
+  .reference-intro h1 { font-size: clamp(2rem, 8.8vw, 2.5rem); }
+}
+
+/* Роль ≠ человек, состав команды продукта и шаблон «роль → кто держит» (TASK-590) */
+.reference-panel { margin-top: 24px; overflow: hidden; border: 1px solid var(--reference-line); border-radius: var(--customdev-radius-sm); background: var(--reference-raised); }
+.reference-panel + .reference-section { margin-top: 24px; }
+.reference-panel > header { padding: 17px 20px; }
+.reference-panel > header h2 { margin: 0; font-size: 1.08rem; letter-spacing: -.02em; }
+.reference-panel > header p { margin: 3px 0 0; color: var(--reference-muted); font-size: .8rem; }
+.reference-rule-list { display: grid; gap: 12px; margin: 0; padding: 0 20px 17px 40px; list-style: disc; }
+.reference-table-wrap + .reference-rule-list { padding-top: 17px; }
+.reference-rule-list > li { color: var(--reference-ink); font-size: .88rem; line-height: 1.5; }
+.reference-rule-list strong { color: var(--reference-green); }
+.reference-team-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; padding: 16px; }
+.reference-team-grid > div { min-width: 0; overflow-wrap: anywhere; padding: 16px 18px; border: 1px solid var(--reference-line); border-radius: var(--customdev-radius-sm); }
+.reference-team-grid h3 { margin: 0; color: var(--reference-blue); font-size: 1rem; letter-spacing: -.015em; }
+.reference-team-grid p { margin: 6px 0 10px; color: var(--reference-muted); font-size: .8rem; }
+.reference-team-grid ul { display: grid; gap: 6px; margin: 0; padding-left: 18px; color: var(--reference-ink); font-size: .86rem; }
+.reference-role-map { margin: 0; padding: 0; }
+.reference-role-map > div { display: grid; grid-template-columns: minmax(200px, 34%) minmax(0, 1fr); border-bottom: 1px solid var(--reference-line); }
+.reference-role-map > div:last-child { border-bottom: 0; }
+.reference-role-map dt { padding: 13px 18px; border-right: 1px solid var(--reference-line); color: var(--reference-ink); font-size: .88rem; font-weight: 800; }
+.reference-role-map dd { display: flex; align-items: center; margin: 0; padding: 13px 18px; }
+.reference-role-map__slot { flex: 1; min-height: 22px; border-bottom: 1px dashed var(--customdev-line-control); color: var(--reference-muted); font-size: .78rem; }
+
+/* Чипы ролей в контурах (TASK-570) */
+.reference-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.reference-chips i { padding: 3px 9px; border: 1px solid var(--reference-line); border-radius: 999px; background: var(--customdev-surface-quiet); font-size: .75rem; font-style: normal; font-weight: 700; color: var(--reference-ink); }
+.reference-role-index a:nth-child(even) .reference-chips i { background: var(--customdev-surface-blue); }
+.reference-chips i { white-space: nowrap; }

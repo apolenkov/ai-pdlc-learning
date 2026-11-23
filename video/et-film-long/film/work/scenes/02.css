@@ -1,0 +1,8 @@
+.s2-tier { position: absolute; left: 96px; width: 1100px; height: 160px; display: flex; align-items: center; gap: 28px; padding: 0 36px; }
+.s2-tier b { display: block; font-size: 46px; font-weight: 800; line-height: 1.15; }
+.s2-tier span { display: block; font-size: 32px; color: var(--k-text-2); margin-top: 4px; }
+.s2-lab { position: absolute; left: 540px; width: 760px; font-size: 34px; font-weight: 700; line-height: 1.25; color: var(--k-accent-soft); white-space: nowrap; }
+.s2-lab.g { color: var(--k-ok); }
+.s2-spine { position: absolute; width: 300px; text-align: center; top: 168px; font-size: 34px; font-weight: 800; line-height: 1.2; }
+.s2-spine small { display: block; font-size: 28px; font-weight: 600; color: var(--k-text-2); margin-top: 4px; }
+.s2-colleagues { position: absolute; right: 40px; top: 44px; display: flex; gap: 20px; align-items: flex-end; }

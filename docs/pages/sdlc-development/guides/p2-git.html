@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ru" data-atmos data-section="analysis">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Markdown, Git и GitLab: intent.md в Markdown, история версий и ветки на компьютере, затем отправка ветки, Merge Request, ревью, исправления и принятая общая версия."><title>Подготовка · Markdown, Git и совместная работа в GitLab с нуля · AI PDLC Learning</title><link rel="stylesheet" href="guide.css"><link rel="stylesheet" href="learning-enhancements.css"><link rel="stylesheet" data-site-nav-styles href="../site-nav.css"><link rel="icon" href="../favicon.svg" type="image/svg+xml"><link rel="stylesheet" data-atmos-styles href="../atmosphere.css"></head>
+<body data-stage="0a"><a class="skip-link" href="#guide-content">К&nbsp;основному содержанию</a><div class="shell"><nav class="site-topbar" data-global-nav data-expanded="false" onkeydown="if(event.key==='Escape'&&this.getAttribute('data-expanded')==='true'){this.setAttribute('data-expanded','false');document.documentElement.style.removeProperty('--site-nav-reserve');var more=this.querySelector('.site-nav-more');if(more){more.setAttribute('aria-expanded','false');more.focus()}}" aria-label="Основная навигация PDLC"><div class="site-topbar__identity"><a class="site-home" data-global-home data-home-link data-course-root data-nav-item="home" href="__CUSTOMDEV_ROOT__" aria-current="location">Маршрут курса</a></div><div class="site-page-actions"><a class="site-catalog-return" data-catalog-return href="__CUSTOMDEV_ROOT__"><span aria-hidden="true">←</span><span>К маршруту курса</span></a></div></nav><header class="hero"><div><h1>Подготовка · Markdown, Git и совместная работа в GitLab с нуля</h1><p class="hero-summary"></p></div><aside class="proof"><span>Наблюдаемый результат</span><strong></strong></aside></header><main class="grid" id="guide-content" tabindex="-1"></main><template id="guide-supplement">
+      <section class="git-process" aria-labelledby="git-process-title">
+        <details class="git-process__fold"><summary><h2 id="git-process-title">От рабочей копии к принятому изменению</h2><span class="git-process-strip"><span>Рабочая копия</span><span aria-hidden="true"> → </span><span>Ветка</span><span aria-hidden="true"> → </span><span>Изменение</span><span aria-hidden="true"> → </span><span>Версия</span><span aria-hidden="true"> → </span><span>Отправка</span><span aria-hidden="true"> → </span><span>Запрос на слияние</span><span aria-hidden="true"> → </span><span>Проверка</span><span aria-hidden="true"> → </span><span>Принятие правок</span></span><span class="git-process__more">Этапы, схема и пояснения</span></summary>
+        <ol class="git-process-map">
+          <li id="git-process-fork"><strong>Рабочая копия</strong><span>Скопируйте репозиторий на компьютер (Clone). Форк — отдельная копия в GitLab — нужен только при таком порядке работы в проекте.</span></li>
+          <li id="git-process-branch"><strong>Ветка</strong><span>Create Branch (Создать ветку) для своей задачи.</span></li>
+          <li id="git-process-change"><strong>Изменение</strong><span>Отредактируйте файл и просмотрите разницу версий (diff).</span></li>
+          <li id="git-process-commit"><strong>Версия</strong><span>Source Control (Управление версиями): Stage (Выбрать правки) → Commit (Сохранить версию).</span></li>
+          <li id="git-process-push"><strong>Отправка</strong><span>Publish Branch (Опубликовать ветку) или Push (Отправить) в репозиторий, куда у вас есть право записи.</span></li>
+          <li id="git-process-pr"><strong>Запрос на слияние (Merge Request, MR)</strong><span>Откройте запрос на слияние (в GitHub — Pull Request). Выберите целевую ветку по правилам проекта.</span></li>
+          <li id="git-process-review"><strong>Проверка</strong><span>Коллеги смотрят изменения и оставляют замечания. Состав проверяющих определяет команда.</span></li>
+          <li id="git-process-merge"><strong>Принятие правок</strong><span>После проверок объедините изменения с целевой веткой (Merge), если у вас есть такое право.</span></li>
+        </ol>
+        <figure class="course-figure course-figure--wide gitlab-workflow" aria-labelledby="gitlab-workflow-caption">
+          <div class="course-figure__viewport" role="group" tabindex="0" aria-label="Схема компьютера и GitLab; при узком окне можно прокрутить горизонтально">
+            <svg viewBox="0 0 800 626" role="img" aria-labelledby="gitlab-workflow-title gitlab-workflow-desc">
+              <title id="gitlab-workflow-title">Документ на компьютере и совместная проверка в GitLab</title>
+              <desc id="gitlab-workflow-desc">Clone и Pull получают версии из GitLab. В своей ветке автор правит intent.md и сохраняет Commit. Push отправляет версию в GitLab. Merge Request собирает проверку. Замечание возвращается автору; новый Push обновляет тот же запрос. После проверок уполномоченный участник выполняет Merge в целевую ветку. Pull получает принятую версию на компьютер.</desc>
+              <defs><marker id="gitlab-workflow-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="currentColor"/></marker></defs>
+              <g class="gitlab-workflow__zone"><rect x="6" y="20" width="320" height="580" rx="12"/><rect x="466" y="20" width="320" height="580" rx="12"/></g>
+              <g class="gitlab-workflow__labels"><text x="14" y="58" class="course-figure__title">Компьютер · VS Code</text><text x="474" y="58" class="course-figure__title">GitLab · проект команды</text></g>
+              <g class="gitlab-workflow__node"><rect x="14" y="80" width="304" height="100" rx="8"/><rect x="474" y="80" width="304" height="100" rx="8"/><rect x="14" y="218" width="304" height="100" rx="8"/><rect x="474" y="218" width="304" height="100" rx="8"/><rect x="14" y="376" width="304" height="100" rx="8"/><rect x="474" y="376" width="304" height="100" rx="8"/><rect x="14" y="520" width="304" height="66" rx="8"/></g>
+              <g class="gitlab-workflow__labels">
+                <text x="22" y="117" class="course-figure__title">Рабочая копия</text><text x="22" y="148" class="course-figure__small">Перед правкой выберите ветку</text>
+                <text x="482" y="117" class="course-figure__title">Репозиторий и общая версия</text><text x="482" y="148" class="course-figure__small">Адрес и целевая ветка известны</text>
+                <text x="22" y="255" class="course-figure__title">Правка → сравнение → Commit</text><text x="22" y="286" class="course-figure__small">Версия сохранена на компьютере</text>
+                <text x="482" y="255" class="course-figure__title">Ветка → Merge Request → ревью</text><text x="482" y="286" class="course-figure__small">Коллеги проверяют текст</text>
+                <text x="22" y="413" class="course-figure__title">Исправить → Commit → Push</text><text x="22" y="444" class="course-figure__small">Та же ветка, тот же запрос</text>
+                <text x="482" y="413" class="course-figure__title">Повторная проверка → Merge</text><text x="482" y="444" class="course-figure__small">Принято в целевую ветку</text>
+                <text x="22" y="548" class="course-figure__title">Целевая ветка на компьютере</text><text x="22" y="573" class="course-figure__small">Принятый intent.md после Pull</text>
+              </g>
+              <g class="gitlab-workflow__paths" fill="none" stroke="currentColor" stroke-width="2.5" marker-end="url(#gitlab-workflow-arrow)">
+                <path d="M474 130H318"/><path d="M166 180V218"/><path d="M318 252H474"/><path d="M474 304H395V352H166V376"/><path d="M318 426H474"/><path d="M626 318V376"/><path d="M626 476V554H318"/>
+              </g>
+              <g class="gitlab-workflow__labels"><text x="395" y="112" text-anchor="middle" class="course-figure__small">Clone ←</text><text x="395" y="235" text-anchor="middle" class="course-figure__small">Push →</text><text x="350" y="339" text-anchor="middle" class="course-figure__small">Замечание ←</text><text x="395" y="409" text-anchor="middle" class="course-figure__small">Новый Push →</text><text x="395" y="535" text-anchor="middle" class="course-figure__small">Pull ←</text><text x="178" y="204" class="course-figure__small">Править файл</text><text x="638" y="352" class="course-figure__small">Проверено</text></g>
+            </svg>
+          </div>
+          <figcaption id="gitlab-workflow-caption">Git сохраняет версии на компьютере; GitLab хранит отправленные ветки и обсуждение. Замечания возвращают автора к той же ветке. Merge переносит проверенные правки в целевую ветку в GitLab (выполняет участник с нужными правами), затем Pull обновляет общую ветку на компьютере.</figcaption>
+        </figure>
+        <p>Нужны исправления? Вернитесь в ту же ветку: правка → Commit → Push → повторная проверка того же запроса. После Merge получите общую версию через Pull. Все эти действия есть в шагах инструкции ниже.</p>
+        <p>Практика на компьютере завершается документом с историей версий. Для совместной работы нужны адрес GitLab, доступ и правила проекта. Конкретные учебные репозитории и участники заданы в <a href="index.html">маршруте анализа</a>; команды описаны в <a href="../corporate-resources.html#git">справке по Git и VS Code</a>.</p>
+        </details>
+      </section>
+</template><nav class="footer-nav" aria-label="Переход между инструкциями"><a href="index.html">← К учебному маршруту</a><a id="next-stage" href="p3-sdd.html">Следующий гайд →</a></nav></div><script src="guide-stages.js"></script><script src="guide-data.js"></script></body>
+</html>

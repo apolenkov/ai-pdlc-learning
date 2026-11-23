@@ -1,0 +1,33 @@
+/* Ролик «Команда развития» (подробно, R11-T-long): плашки, бумажные панели скетчей, карточки из текста страницы. Текст ≥28 px. */
+.tm-paper { position: absolute; background: #f4f1e8; border-radius: 22px; overflow: hidden; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45); }
+.tm-paper svg { display: block; width: 100%; height: auto; }
+.tm-hl { position: absolute; border: 6px solid var(--k-accent); border-radius: 16px; background: rgba(255, 122, 89, 0.10); box-shadow: 0 0 0 4px rgba(15, 17, 21, 0.35), 0 0 28px rgba(255, 122, 89, 0.55); pointer-events: none; }
+.tm-hl.ok { border-color: var(--k-ok); background: rgba(60, 207, 145, 0.12); box-shadow: 0 0 0 4px rgba(15, 17, 21, 0.35), 0 0 28px rgba(60, 207, 145, 0.5); }
+.tm-plate { position: absolute; left: 96px; top: 142px; height: 66px; display: inline-flex; align-items: center; padding: 0 30px; border: 3px solid var(--k-ok); border-radius: 22px; background: var(--k-panel); font-size: 36px; font-weight: 800; letter-spacing: -.01em; color: var(--k-text); white-space: nowrap; }
+.tm-plate.acc { border-color: var(--k-accent); color: var(--k-accent-soft); }
+.tm-plate.info { border-color: var(--k-info); color: var(--k-info); }
+.tm-card { position: absolute; padding: 26px 32px; border: 3px solid var(--k-line); border-radius: 26px; background: var(--k-panel); }
+.tm-card.ok { border-color: var(--k-ok); }
+.tm-card.acc { border-color: var(--k-accent); }
+.tm-card.info { border-color: var(--k-info); }
+.tm-card h3 { font-size: 40px; font-weight: 800; line-height: 1.15; margin-bottom: 12px; letter-spacing: -.01em; }
+.tm-card h4 { font-size: 34px; font-weight: 800; line-height: 1.2; margin-bottom: 8px; }
+.tm-card p, .tm-card li { font-size: 32px; line-height: 1.3; color: var(--k-text-2); }
+.tm-card p b, .tm-card li b, .tm-card b { color: var(--k-text); font-weight: 800; }
+.tm-card ul { list-style: none; }
+.tm-card li { padding: 8px 0; }
+.tm-kick { font-size: 28px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--k-text-2); margin-bottom: 10px; }
+.tm-pill { display: inline-block; padding: 4px 18px; border-radius: 14px; font-size: 28px; font-weight: 800; border: 2px solid var(--k-line); background: var(--k-panel-2); color: var(--k-text-2); }
+.tm-pill.ok { color: var(--k-ok); border-color: var(--k-ok); background: var(--k-ok-tint); }
+.tm-pill.acc { color: var(--k-accent-soft); border-color: var(--k-accent); background: var(--k-accent-tint); }
+.tm-pill.info { color: var(--k-info); border-color: var(--k-info); background: rgba(124, 196, 255, 0.12); }
+.tm-row { position: absolute; display: flex; align-items: center; gap: 22px; padding: 0 28px; border: 3px solid var(--k-line); border-radius: 22px; background: var(--k-panel); font-size: 34px; font-weight: 700; }
+.tm-row .n { flex: none; width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; font-size: 30px; font-weight: 800; border: 3px solid var(--k-line); color: var(--k-text-2); background: var(--k-panel-2); }
+.tm-row small { display: block; font-size: 28px; font-weight: 600; color: var(--k-text-2); margin-top: 2px; }
+.tm-node { position: absolute; width: 228px; text-align: center; }
+.tm-node .c { margin: 0 auto; width: 84px; height: 84px; border-radius: 50%; display: grid; place-items: center; font-size: 38px; font-weight: 800; background: var(--k-panel-2); border: 5px solid var(--k-info); color: var(--k-info); }
+.tm-node.ok .c { border-color: var(--k-ok); color: var(--k-ok); }
+.tm-node.acc .c { border-color: var(--k-accent); color: var(--k-accent-soft); }
+.tm-node .l { margin-top: 14px; font-size: 30px; font-weight: 700; line-height: 1.2; }
+.tm-bar { position: absolute; height: 8px; border-radius: 4px; background: var(--k-line); transform-origin: left center; }
+.tm-arrow { position: absolute; font-size: 56px; font-weight: 800; color: var(--k-text-2); line-height: 1; }

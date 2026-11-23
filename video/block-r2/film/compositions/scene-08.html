@@ -1,0 +1,83 @@
+<template id="scene-08-template">
+  <div data-composition-id="scene-08" data-width="1920" data-height="1080" data-duration="23.1">
+    <style>
+      [data-composition-id="scene-08"] .sc-item { height: 100%; display: flex; align-items: center; gap: 28px; font-size: 44px; font-weight: 700; letter-spacing: -0.015em; line-height: 1.15; white-space: nowrap; }
+      [data-composition-id="scene-08"] .sc-ok { flex: none; width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center; color: var(--k-ok); border: 3px solid var(--k-ok); background: var(--k-ok-tint); }
+      [data-composition-id="scene-08"] .sc-ok svg { width: 44px; height: 44px; opacity: 0; }
+      [data-composition-id="scene-08"] .sc-spec { height: 100%; display: flex; align-items: center; gap: 30px; white-space: nowrap; }
+      [data-composition-id="scene-08"] .sc-spec .mono { font-family: var(--k-font-mono); font-size: 36px; font-weight: 600; padding: 4px 16px; border-radius: 10px; background: var(--k-panel-2); color: var(--k-text); }
+      [data-composition-id="scene-08"] .sc-spec .eq { display: flex; align-items: baseline; gap: 14px; font-size: 44px; font-weight: 700; }
+      [data-composition-id="scene-08"] .sc-spec .eq b { font-size: 72px; font-weight: 800; line-height: 1; letter-spacing: -0.03em; opacity: 0; }
+      [data-composition-id="scene-08"] .sc-spec .eq span { opacity: 0; }
+      [data-composition-id="scene-08"] .sc-next { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+      [data-composition-id="scene-08"] .sc-next .lab { font-size: 36px; font-weight: 700; color: var(--k-accent-soft); white-space: nowrap; }
+      [data-composition-id="scene-08"] .sc-next .nm { position: relative; font-size: 58px; font-weight: 800; letter-spacing: -0.02em; white-space: nowrap; color: var(--k-text-2); }
+      [data-composition-id="scene-08"] .sc-next .nm .ul { position: absolute; left: 0; bottom: -6px; height: 5px; width: 100%; border-radius: 3px; background: var(--k-text); transform-origin: 0 50%; transform: scaleX(0); }
+      [data-composition-id="scene-08"] .sc-next svg { flex: none; width: 76px; height: 41px; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("08"), t = S.t, DUR = 23.1;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.end("опенспеке»") < 1.5) throw new Error("Недостаточный хвост сцены");
+        const tok = Kit.token, tl = S.tl;
+        const NEXT = "Оформляем изменение в OpenSpec";   // course-names.json → guides.3.title
+
+        /* Итог без шага: все части пройдены */
+        Kit.header(S, { header: { mode: "parts", total: 7 }, chapter: "Что дальше", step: null, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* Три галочки по фразам диктора */
+        const items = [
+          { html: "Проверили черновик по пяти вопросам", words: "Проверили черновик по пяти вопросам", at: 0.25, tick: t("пяти") + 0.4 },
+          { html: "Правки на ревью, одобрение людей", words: "Правки на ревью, одобрение людей", at: t("отправили") - 0.2, tick: t("собрали") + 0.4 },
+          { html: "Приняли версию", words: "Приняли версию", at: t("приняли") - 0.25, tick: S.end("версию") - 0.2 },
+        ];
+        items.forEach((it, i) => {
+          const row = Kit.aside(S, { parent: s1, x: 96, y: 225 + i * 112, w: 1160, h: 94, tail: false,
+            html: '<div class="sc-item"><span class="sc-ok">' + Kit.icons.check + "</span><span>" + it.html + "</span></div>" });
+          row.show(it.at);
+          const svg = row.el.querySelector(".sc-ok svg");
+          tl.fromTo(svg, { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2)", immediateRender: false }, it.tick);
+          read(it.words, it.at, DUR);
+        });
+
+        /* Спецификация на восемь сценариев */
+        const T_SPEC = t("спецификация");
+        const spec = Kit.aside(S, { parent: s1, x: 96, y: 566, w: 1160, h: 94, tail: false,
+          html: '<div class="sc-spec"><span class="mono">specification.md</span><span class="eq"><b>8</b><span>сценариев</span></span></div>' });
+        spec.show(T_SPEC - 0.1);
+        const eqB = spec.el.querySelector(".eq b"), eqS = spec.el.querySelector(".eq span");
+        tl.fromTo(eqB, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.55, ease: "back.out(2)", immediateRender: false }, t("восемь") - 0.05);
+        tl.to(eqS, { opacity: 1, duration: 0.4 }, t("сценариев"));
+        read("specification.md 8 сценариев", t("сценариев"), DUR, 0.5);
+
+        /* Скетч: за результатом стоят люди (рисуется, пока идёт итог) */
+        Kit.sketch(S, { parent: s1, name: "team-done", x: 1330, y: 205, w: 494, at: 0.8, dur: 9.0 });
+
+        /* Мост к следующему гайду */
+        const T_NEXT = t("Дальше");
+        const next = Kit.aside(S, { parent: s1, x: 96, y: 680, w: 1728, h: 138, tail: false,
+          html: '<div class="sc-next"><div><div class="lab">Дальше</div><div class="nm">' + NEXT.split(" ").map((w) => "<span class=\"w\">" + w + "</span>").join(" ") + '<i class="ul"></i></div></div>' +
+                '<svg viewBox="0 0 56 30" fill="none"><path d="M3 15H49M39 5L50 15L39 25" stroke="' + tok("--k-accent") + '" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>' });
+        next.el.style.borderColor = tok("--k-accent");
+        next.show(T_NEXT);
+        read("Дальше " + NEXT, T_NEXT, DUR);
+        // хвост кадра живой: название гайда «прописывается» словами диктора, стрелка мягко подталкивает вперёд
+        const ws = [...next.el.querySelectorAll(".nm .w")];
+        [t("«Оформляем"), t("изменение"), t("в опенспеке"), t("в опенспеке") + 0.3].forEach((at, i) => tl.to(ws[i], { color: tok("--k-text"), duration: 0.3 }, at));
+        tl.to(next.el.querySelector(".nm .ul"), { scaleX: 1, duration: S.end("опенспеке»") - t("«Оформляем"), ease: "none" }, t("«Оформляем"));
+        tl.to(next.el.querySelector("svg"), { x: 14, duration: 0.55, ease: "sine.inOut", yoyo: true, repeat: 3 }, S.end("опенспеке»"));
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

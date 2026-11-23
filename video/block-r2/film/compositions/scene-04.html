@@ -1,0 +1,175 @@
+<template id="scene-04-template">
+  <div data-composition-id="scene-04" data-width="1920" data-height="1080" data-duration="16.2">
+    <style>
+      [data-composition-id="scene-04"] .sc-ttl { font-size: 36px; font-weight: 800; letter-spacing: -0.01em; line-height: 1.2; }
+      [data-composition-id="scene-04"] .sc-sec { margin-top: 20px; font-size: 30px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-04"] .sc-sec b { color: var(--k-text); margin-left: 8px; }
+      [data-composition-id="scene-04"] .cnt { display: inline-grid; }
+      [data-composition-id="scene-04"] .cnt span { grid-area: 1 / 1; }
+      [data-composition-id="scene-04"] .cnt span:last-child { opacity: 0; }
+      [data-composition-id="scene-04"] .sc-body { position: relative; margin-top: 14px; height: 70px; }
+      [data-composition-id="scene-04"] .sc-file, [data-composition-id="scene-04"] .sc-none { position: absolute; left: 0; right: 0; top: 0; height: 64px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; border-radius: 14px; background: var(--k-panel-2); }
+      [data-composition-id="scene-04"] .sc-file .mono { font-family: var(--k-font-mono); font-size: 30px; font-weight: 400; }
+      [data-composition-id="scene-04"] .sc-file .m { font-family: var(--k-font-mono); font-size: 30px; font-weight: 700; color: var(--k-accent-soft); }
+      [data-composition-id="scene-04"] .sc-none { opacity: 0; justify-content: flex-start; gap: 16px; font-size: 32px; font-weight: 600; color: var(--k-ok); background: var(--k-ok-tint); }
+      [data-composition-id="scene-04"] .sc-none svg { width: 32px; height: 32px; }
+      [data-composition-id="scene-04"] .sc-lab { font-size: 28px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-04"] .sc-msg { margin-top: 10px; font-family: var(--k-font-mono); font-size: 30px; font-weight: 400; white-space: pre; line-height: 1.3; }
+      [data-composition-id="scene-04"] .sc-btnbox { height: 100%; display: flex; align-items: center; }
+      [data-composition-id="scene-04"] .sc-btn { position: relative; width: 100%; height: 72px; border-radius: 16px; border: 2px solid var(--k-line); background: var(--k-panel-2); display: grid; place-items: center; font-size: 36px; font-weight: 700; }
+      [data-composition-id="scene-04"] .sc-btn span { grid-area: 1 / 1; }
+      [data-composition-id="scene-04"] .sc-btn .pb { opacity: 0; }
+      [data-composition-id="scene-04"] .sc-keep { height: 100%; display: flex; align-items: center; gap: 18px; font-size: 34px; font-weight: 600; white-space: nowrap; }
+      [data-composition-id="scene-04"] .sc-keep svg { flex: none; width: 36px; height: 36px; color: var(--k-text-2); }
+      [data-composition-id="scene-04"] .sc-fork-h { display: flex; align-items: center; gap: 22px; font-size: 46px; font-weight: 800; letter-spacing: -0.02em; }
+      [data-composition-id="scene-04"] .sc-fork-h svg { width: 56px; height: 56px; color: var(--k-text-2); }
+      [data-composition-id="scene-04"] .sc-br { position: absolute; left: 26px; right: 26px; height: 96px; border-radius: 16px; display: flex; align-items: center; padding: 0 24px; font-family: var(--k-font-mono); font-size: 38px; }
+      [data-composition-id="scene-04"] .sc-br.old { background: var(--k-panel-2); color: var(--k-text-2); }
+      [data-composition-id="scene-04"] .sc-br.slot { right: auto; width: 520px; border: 3px dashed var(--k-line); }
+      [data-composition-id="scene-04"] .sc-pill { position: absolute; width: 520px; height: 96px; padding: 0 24px; border-radius: 16px; display: flex; align-items: center; justify-content: space-between; gap: 18px; font-family: var(--k-font-mono); font-size: 38px; font-weight: 600; background: var(--k-panel-2); border: 3px solid var(--k-accent); color: var(--k-text); white-space: nowrap; }
+      [data-composition-id="scene-04"] .sc-pill .st { position: relative; display: grid; justify-items: end; }
+      [data-composition-id="scene-04"] .sc-pill .st i { grid-area: 1 / 1; }
+      [data-composition-id="scene-04"] .sc-pill .st .b { opacity: 0; color: var(--k-ok); }
+      [data-composition-id="scene-04"] .sc-pill i { font-style: normal; font-family: var(--k-font-sans); font-size: 28px; font-weight: 700; color: var(--k-accent-soft); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("04"), t = S.t, DUR = 16.2;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.end("форк.") < 1.5) throw new Error("Недостаточный хвост сцены");
+        const tok = Kit.token;
+        // чёткое появление без blur: сразу после заставки панели должны читаться
+        const crisp = (el, at) => S.tl.fromTo(el, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: tok("--k-ease-out"), immediateRender: false }, at);
+
+        Kit.header(S, { header: { mode: "parts", total: 7 }, chapter: "Сохранить и отправить", step: 4, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* ---- Левая колонка: панель Source Control, сообщение, кнопка ---- */
+        const T_PUB = S.end("Branch");                 // нажатие Publish Branch
+        const T_EDOUT = t("ветка уходит") - 0.35;          // разница уже прочитана — окно уходит
+        const panel = Kit.aside(S, { parent: s1, x: 96, y: 255, w: 560, h: 222, tail: false,
+          html: '<div class="sc-ttl">Source Control</div><div class="sc-sec">Changes<b class="cnt"><span>1</span><span>0</span></b></div>' +
+                '<div class="sc-body"><div class="sc-file"><span class="mono">specification.md</span><span class="m">M</span></div>' +
+                '<div class="sc-none">' + Kit.icons.check + '<span>изменений нет</span></div></div>' });
+        crisp(panel.el, 2.0);   // до 2.0 с — заставка части
+        read("Source Control Changes 1 specification.md M", 2.0, T_PUB + 0.2);
+        const q = (el, c) => el.querySelector(c);
+        S.tl.to(q(panel.el, ".sc-file"), { autoAlpha: 0, duration: 0.25 }, T_PUB + 0.1);
+        S.tl.to(q(panel.el, ".sc-none"), { opacity: 1, duration: 0.5 }, T_PUB + 0.45);
+        S.tl.to(q(panel.el, ".cnt span:first-child"), { opacity: 0, duration: 0.3 }, T_PUB + 0.2);
+        S.tl.fromTo(q(panel.el, ".cnt span:last-child"), { opacity: 0 }, { opacity: 1, duration: 0.3, immediateRender: false }, T_PUB + 0.3);
+        read("изменений нет", T_PUB + 0.45, DUR);
+
+        const MSG = "docs: описать сброс формы";
+        const msg = Kit.aside(S, { parent: s1, x: 96, y: 497, w: 560, h: 124, tail: false,
+          html: '<div class="sc-lab">Сообщение версии</div><div class="sc-msg"></div>' });
+        const mEl = q(msg.el, ".sc-msg");
+        mEl.innerHTML = [...MSG].map((c) => "<span>" + c + "</span>").join("");
+        const mc = mEl.querySelectorAll("span");
+        gsap.set(mc, { opacity: 0 });
+        const typeChars = (a, b, t0, t1) => { for (let i = a; i < b; i++) S.tl.set(mc[i], { opacity: 1 }, t0 + ((i - a + 1) / (b - a)) * (t1 - t0)); };
+        msg.show(t("Сохраните"));
+        typeChars(0, 6, t("с пояснением") + 0.1, t("с пояснением") + 0.6);          // «docs: »
+        typeChars(6, MSG.length, t("«описать"), t("формы»"));            // сама фраза
+        read("Сообщение версии docs: описать сброс формы", S.end("формы»"), DUR);
+
+        const btn = Kit.aside(S, { parent: s1, x: 96, y: 641, w: 560, h: 108, tail: false,
+          html: '<div class="sc-btnbox"><div class="sc-btn"><span class="cm">Commit</span><span class="pb">Publish Branch</span></div></div>' });
+        btn.show(t("версию"));
+        const b = q(btn.el, ".sc-btn");
+        const T_COMMIT = S.end("формы»") + 0.15;
+        S.tl.to(b, { scale: 0.95, borderColor: tok("--k-accent"), duration: 0.12 }, T_COMMIT);
+        S.tl.to(b, { scale: 1, duration: 0.25 }, T_COMMIT + 0.12);
+        S.tl.to(q(b, ".cm"), { opacity: 0, duration: 0.3 }, t("Publish") - 0.15);
+        S.tl.to(q(b, ".pb"), { opacity: 1, duration: 0.3 }, t("Publish") - 0.1);
+        S.tl.to(b, { backgroundColor: tok("--k-accent"), color: tok("--k-on-accent"), borderColor: tok("--k-accent"), duration: 0.3 }, t("Publish") - 0.1);
+        S.tl.to(b, { scale: 0.95, duration: 0.12 }, T_PUB);
+        S.tl.to(b, { scale: 1, duration: 0.25 }, T_PUB + 0.12);
+        Kit.popOut(S, btn.el, T_PUB + 0.6);
+        read("Commit", t("версию"), T_COMMIT);
+
+        /* ---- Правая часть, план А: разница specification.md ---- */
+        const ed = Kit.editor(S, { parent: s1, x: 690, y: 255, w: 1134, crumb: "credit-calculator", visible: false,
+          tabs: [{ name: "specification.md", active: true }],
+          lines: [
+            "### ПРАВИЛА",                                                         // 0
+            "…",                                                                   // 1
+            { t: "«Сбросить» возвращает сумму 3 000 000 ₽ и ставку 16%.", add: true }, // 2
+            "…",                                                                   // 3
+            "### СЦЕНАРИИ",                                                        // 4
+            "| Обычная ставка | … |",                                               // 5
+            "…",                                                                   // 6
+            { t: "| Сброс после расчёта | … |", add: true },                        // 7
+            { t: "| Сброс после ошибки | … |", add: true },                         // 8
+            { t: "| Повторный сброс | … |", add: true },                            // 9
+          ] });
+        const T_ED = Math.max(t("разницу") - 0.4, 2.0);
+        crisp(ed.el, T_ED);
+        ed.reveal(0, 1, T_ED + 0.2); ed.reveal(4, 6, T_ED + 0.2);
+        const T_ADD = t("правило") - 0.1;
+        ed.reveal(3, 3, T_ADD);   // второе «…» — вместе с добавленной строкой 16: до неё пропуск 10–18 показан одним «…»
+        ed.addLine(2, T_ADD, { dur: 0.9 });
+        // номера — настоящие номера строк draft.md; пропуск показан строкой «…» без номера (то же правило, что в сценах 2 и 3);
+        // до добавленной строки 19 и 20 — «СЦЕНАРИИ» и «Обычная ставка», после неё 20 и 21
+        const NO = ["9", "", "16", "", "19", "20", "", "28", "29", "30"];
+        ed.rows.forEach((r, i) => { r.no.textContent = NO[i]; });
+        [4, 5].forEach((i) => {
+          const r = ed.rows[i], alt = document.createElement("span");
+          alt.className = "k-no"; alt.textContent = String(19 + i - 4 + 1); alt.style.cssText = "position:absolute;left:0;top:0";
+          r.row.appendChild(alt); gsap.set(alt, { opacity: 0 });
+          S.tl.set(r.no, { opacity: 0 }, T_ADD); S.tl.set(alt, { opacity: 1 }, T_ADD);
+        });
+        ed.caretOff(t("три") + 0.2);   // каретка гаснет уже после конца печати строки
+        [7, 8, 9].forEach((i, k) => ed.addLine(i, t("три") + k * 0.3, { type: false }));
+        [2, 7, 8, 9].forEach((i) => { ed.rows[i].plus.style.left = "0px"; });   // двузначные номера: «+» не должен лезть на номер
+        // прежние строки остаются на месте — тише
+        [0, 1, 3, 4, 5, 6].forEach((i) => S.tl.to(ed.rows[i].tx, { opacity: 0.62, duration: 0.5 }, t("прежние")));
+        ed.hide(T_EDOUT);
+        read("Сбросить возвращает сумму ставку", t("правило") + 1.0, T_EDOUT);
+        read("Сброс после расчёта", t("три") + 0.9, T_EDOUT);
+
+        const keep = Kit.aside(S, { parent: s1, x: 690, y: 165, w: 760, h: 70, tail: false,
+          html: '<div class="sc-keep">' + Kit.icons.check + '<span>прежние сценарии на месте</span></div>' });
+        keep.show(t("прежние"));
+        keep.hide(T_EDOUT);
+        read("прежние сценарии на месте", t("прежние"), T_EDOUT);
+
+        /* ---- Правая часть, план Б: ветка уходит в форк ---- */
+        const FX = 690, FY = 255, FW = 1134, FH = 440;
+        const fork = Kit.aside(S, { parent: s1, x: FX, y: FY, w: FW, h: FH, tail: false,
+          html: '<div class="sc-fork-h">' + Kit.icons.cloud + '<span>Ваш форк</span></div>' +
+                '<div class="sc-br old" style="top:132px">stage-1-error-result</div>' +
+                '' });
+        fork.show(t("ветка уходит"));
+        read("Ваш форк stage-1-error-result", t("ветка уходит"), DUR);
+        S.tl.to(fork.el, { borderColor: tok("--k-ok"), duration: 0.5 }, S.end("форк.") - 0.1);
+
+        const pill = document.createElement("div");
+        pill.className = "sc-pill";
+        pill.setAttribute("data-layout-allow-overlap", "");
+        pill.innerHTML = 'stage-2-reset<span class="st"><i class="a">новая</i><i class="b">в форке</i></span>';
+        s1.appendChild(pill);
+        const PX0 = 110, PY0 = 760, PX1 = FX + 28, PY1 = FY + 264;
+        // чип сразу внутри карточки форка, слот пустым не показываем
+        gsap.set(pill, { left: PX1, top: PY1, autoAlpha: 0 });
+        Kit.popIn(S, pill, t("уходит") - 0.05, 0.5);
+                // приземлилась — ветка теперь в форке (движение в хвосте кадра)
+        const TL = S.end("форк.") - 0.15;
+        S.tl.to(q(pill, ".a"), { opacity: 0, duration: 0.3 }, TL);
+        S.tl.to(q(pill, ".b"), { opacity: 1, duration: 0.4 }, TL + 0.1);
+        S.tl.to(pill, { borderColor: tok("--k-ok"), duration: 0.4 }, TL + 0.1);
+        S.tl.fromTo(pill, { scale: 1 }, { scale: 1.03, duration: 0.2, yoyo: true, repeat: 1, ease: "power1.out", immediateRender: false }, TL + 0.1);
+        read("в форке", TL + 0.5, DUR, 0);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

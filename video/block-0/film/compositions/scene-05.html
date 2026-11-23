@@ -1,0 +1,141 @@
+<template id="scene-05-template">
+  <div data-composition-id="scene-05" data-width="1920" data-height="1080" data-duration="34.4">
+    <style>
+      [data-composition-id="scene-05"] .sc-doc-ttl { font-size: 40px; font-weight: 700; line-height: 1.2; margin-bottom: 10px; }
+      [data-composition-id="scene-05"] .sc-row { position: relative; display: flex; align-items: center; gap: 22px; height: 60px; margin-bottom: 8px; padding: 0 20px; border: 2px solid var(--k-line); border-radius: 16px; background: var(--k-panel-2); }
+      [data-composition-id="scene-05"] .sc-n { flex: 0 0 44px; width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; border: 2px solid var(--k-text-2); font-size: 30px; font-weight: 700; line-height: 1; }
+      [data-composition-id="scene-05"] .sc-bar { display: block; height: 16px; border-radius: 8px; background: var(--k-line); }
+      [data-composition-id="scene-05"] .sc-slot { height: 100px; margin-bottom: 0; border: 3px dashed var(--k-accent); background: var(--k-accent-tint); }
+      [data-composition-id="scene-05"] .sc-slot .sc-t { font-size: 32px; line-height: 1.25; font-weight: 700; }
+      [data-composition-id="scene-05"] .sc-slot .sc-n { border-color: var(--k-accent); }
+      [data-composition-id="scene-05"] .sc-abs { position: absolute; }
+      [data-composition-id="scene-05"] .sc-role { padding: 12px 20px 14px; border-radius: 18px; font-size: 30px; font-weight: 600; line-height: 1.25; }
+      [data-composition-id="scene-05"] .sc-role small { display: block; margin-top: 2px; font-size: 30px; font-weight: 500; color: var(--k-text-2); }
+      [data-composition-id="scene-05"] .sc-brace { left: 64px; top: 566px; width: 136px; height: 14px; border: 3px solid var(--k-info); border-top: 0; border-radius: 0 0 10px 10px; }
+      [data-composition-id="scene-05"] .sc-brace::after { content: ""; position: absolute; left: 66px; top: 11px; width: 3px; height: 52px; background: var(--k-info); }
+      [data-composition-id="scene-05"] .sc-role b { font-weight: 700; }
+      [data-composition-id="scene-05"] .sc-arrow { height: 3px; background: var(--k-info); transform-origin: 0 50%; }
+      [data-composition-id="scene-05"] .sc-arrow::after { content: ""; position: absolute; right: -2px; top: -9px; border: 10px solid transparent; border-left: 18px solid var(--k-info); border-right: 0; }
+      [data-composition-id="scene-05"] .sc-term { font-size: 44px; font-weight: 700; text-align: center; color: var(--k-text); }
+      [data-composition-id="scene-05"] .sc-find { font-size: 34px; font-weight: 600; line-height: 1.25; color: var(--k-text); }
+      [data-composition-id="scene-05"] .sc-q { font-size: 34px; line-height: 1.22; font-weight: 700; }
+      [data-composition-id="scene-05"] .sc-tag { padding: 2px 18px 4px; border: 2px solid var(--k-ok); border-radius: 999px; background: var(--k-panel); font-size: 30px; font-weight: 700; line-height: 1.3; white-space: nowrap; }
+      [data-composition-id="scene-05"] .sc-chip { display: flex; align-items: center; height: 56px; padding: 0 22px; font-size: 30px; font-weight: 700; white-space: nowrap; border-radius: 28px; border: 2px solid var(--k-ok); background: var(--k-panel); }
+      [data-composition-id="scene-05"] .sc-chip-no { border: 3px dashed var(--k-text-2); background: transparent; color: var(--k-text); }
+      [data-composition-id="scene-05"] .sc-chip-no span { text-decoration: line-through; text-decoration-thickness: 3px; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("05"), t = S.t, DUR = 34.4;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        const mk = (parent, cls, html) => { const e = document.createElement("div"); e.className = cls; e.innerHTML = html || ""; parent.appendChild(e); return e; };
+        const hid = (el) => gsap.set(el, { autoAlpha: 0 });
+
+        const T_LEAD = t("техлид");
+        const T_AN = t("другой аналитик");
+        const T_REVIEW = t("ревью:");
+        const T_FIND = t("находит");
+        const T_AUTHOR = t("автор");
+        const T_DRAFT = t("четыре");
+        const T_GAP = t("нет случая");
+        const T_Q = t("после успешного");
+        const T_ASK = t("Проверяющий");
+        const T_ADD = t("Аналитик");
+        const T_FIVE = t("пятый");
+        const T_OLD = t("старое число");
+        const T_NOTE = t("Замечание");
+        const T_DOC = t("в документ,");
+        const T_CHAT = t("в переписке.");
+        const T_OK = t("можно одобрять");
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+
+        // The state caption would repeat the header, so the part strip stays empty.
+        Kit.header(S, { header: { mode: "parts", total: 9 }, chapter: "Проверяем", step: 5, duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* Left: the author and two colleagues (the first 2 s are covered by the part title card). */
+        const sk = Kit.sketch(S, { parent: s1, name: "team-done", x: 40, y: 214, w: 500, at: t("коллеги") + 0.1, dur: 2.6 });
+        const role = (x, y, w, html, at, cls) => { const e = mk(s1, "k-card sc-abs sc-role " + (cls || ""), html); e.style.cssText = `left:${x}px;top:${y}px;width:${w}px`; hid(e); S.tl.fromTo(e, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out", immediateRender: false }, at); return e; };
+        const rAuthor = role(215, 576, 130, "автор", T_AUTHOR);
+        const rLead = role(64, 630, 520, "<b>техлид</b> — ведущий разработчик команды", T_LEAD);
+        const rAn = role(64, 762, 520, "другой аналитик", T_AN);
+        // The bracket joins the two colleagues with their role cards.
+        const brace = mk(s1, "sc-abs sc-brace"); hid(brace);
+        S.tl.fromTo(brace, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5, ease: "power2.out", immediateRender: false }, T_LEAD);
+        read("автор", T_AUTHOR, DUR, 0.5);
+        read("техлид — ведущий разработчик команды", T_LEAD, DUR, 0.5);
+        read("другой аналитик", T_AN, DUR, 0.5);
+
+        /* Right: the requirements draft. Four scenarios are visible at once, the fifth slot is the missing case. */
+        const DX = 800, DW = 1024;
+        const doc = Kit.aside(S, { parent: s1, x: DX, y: 214, w: DW, tail: false,
+          html: '<div class="sc-doc-ttl">Требования</div><div class="sc-rows"></div>' });
+        // The draft appears right after the part title card (the first 2 s), so the two never overlap.
+        gsap.set(doc.el, { autoAlpha: 0, height: 360, overflow: "hidden", paddingTop: "18px", paddingBottom: "18px" });
+        S.tl.fromTo(doc.el, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.45, ease: "power2.out", immediateRender: false }, 2.05);
+        S.tl.to(doc.el, { height: 472, duration: 0.5, ease: "power2.out" }, T_GAP - 0.1);
+        const rows = doc.el.querySelector(".sc-rows");
+        rows.setAttribute("data-layout-allow-overflow", "");
+        [78, 64, 70, 56].forEach((w, i) => mk(rows, "sc-row", `<span class="sc-n">${i + 1}</span><i class="sc-bar" style="width:${w}%"></i>`));
+        const draftRows = Array.from(rows.querySelectorAll(".sc-row"));
+        draftRows.forEach((r, i) => S.tl.to(r, { borderColor: Kit.token("--k-info"), duration: 0.3 }, T_DRAFT + i * 0.25));
+        const slot = mk(rows, "sc-row sc-slot", '<span class="sc-n">5</span><span class="sc-t">старое число исчезает и не выдаёт себя за результат новой попытки</span>');
+        const slotN = slot.querySelector(".sc-n"), slotT = slot.querySelector(".sc-t");
+        gsap.set([slot, slotT], { autoAlpha: 0 });
+        S.tl.fromTo(slot, { autoAlpha: 0, scale: 0.97 }, { autoAlpha: 1, scale: 1, duration: 0.5, ease: "power2.out", immediateRender: false }, T_GAP);
+        // The fifth scenario fills the slot: the dashed problem frame becomes an accepted (green) card.
+        S.tl.set(slot, { borderStyle: "solid" }, T_FIVE);
+        S.tl.to(slot, { borderColor: "var(--k-ok)", backgroundColor: "var(--k-ok-tint)", duration: 0.5 }, T_FIVE);
+        S.tl.to(slotN, { borderColor: "var(--k-ok)", duration: 0.4 }, T_FIVE);
+        S.tl.fromTo(slotT, { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out", immediateRender: false }, T_OLD);
+        read("старое число исчезает и не выдаёт себя за результат новой попытки", T_OLD, DUR, 0.5);
+
+        /* «ревью»: colleagues read the document; the arrow goes from them to the draft. */
+        const arrow = mk(s1, "sc-abs sc-arrow"); arrow.style.cssText = "left:560px;top:420px;width:216px";
+        hid(arrow); S.tl.fromTo(arrow, { autoAlpha: 0, scaleX: 0.2 }, { autoAlpha: 1, scaleX: 1, duration: 0.5, ease: "power2.out", immediateRender: false }, T_REVIEW - 0.1);
+        const term = mk(s1, "sc-abs sc-term", "ревью"); term.style.cssText = "left:560px;top:352px;width:216px"; hid(term);
+        Kit.popIn(S, term, T_REVIEW, 0.5);
+        read("ревью", T_REVIEW, DUR, 0.5);
+
+        /* What the review does: finds what the author does not see (said, then cleared before the question). */
+        const find = mk(s1, "k-card sc-abs sc-find", "находит то, что автор не видит"); find.style.cssText = `left:${DX}px;top:700px;width:640px`; hid(find);
+        Kit.popIn(S, find, T_FIND, 0.4); Kit.popOut(S, find, T_DRAFT - 0.3);
+        read("находит то, что автор не видит", T_FIND, T_DRAFT - 0.3, 0.4);
+
+        /* The reviewer asks the case that is missing; the tail points back to the colleagues. */
+        const ask = Kit.aside(S, { parent: s1, x: DX + 54, y: 706, w: DW - 54,
+          html: '<div class="sc-q">После успешного расчёта ввести неверный срок?</div>' });
+        ask.show(T_Q);
+        const tailPath = ask.el.querySelector(".tail path");
+        // «Проверяющий спрашивает»: both colleagues light up, then calm down.
+        // One coral accent in the frame (the missing slot): the question tail stays blue.
+        S.tl.set(tailPath, { stroke: "var(--k-info)" }, 0);
+        read("После успешного расчёта ввести неверный срок?", T_Q, T_DOC - 0.2, 0.6);
+
+        /* The remark goes into the document, not the chat; then the requirements can be approved. */
+        const tag = mk(s1, "sc-abs sc-tag", "замечание"); tag.style.cssText = `left:${DX + DW - 240}px;top:686px`; hid(tag);
+        Kit.popIn(S, tag, T_NOTE, 0.5);
+        S.tl.set(tailPath, { stroke: "var(--k-ok)" }, T_NOTE);
+        S.tl.to(ask.el, { borderColor: "var(--k-ok)", duration: 0.4 }, T_NOTE);
+        S.tl.to([ask.el, tag], { autoAlpha: 0, duration: 0.4 }, T_DOC - 0.2);
+        const chip = (x, w, cls, text, at) => { const c = mk(s1, "sc-abs sc-chip " + cls, `<span>${text}</span>`); c.style.cssText = `left:${x}px;top:720px;width:${w}px`; hid(c); Kit.popIn(S, c, at, 0.5); return c; };
+        chip(DX, 250, "", "в документ", T_DOC);
+        chip(DX + 280, 290, "sc-chip-no", "в переписке", T_CHAT);
+        chip(DX + 600, 360, "", "можно одобрять", T_OK);
+        S.tl.to(doc.el, { borderColor: "var(--k-ok)", duration: 0.5 }, T_NOTE);
+        read("в документ", T_DOC, DUR, 0.5); read("в переписке", T_CHAT, DUR, 0.5); read("можно одобрять", T_OK, DUR, 0.5);
+
+        Kit.subtitles(S, {});
+        // Keep the last spoken cue with the final frame through the silent tail.
+        const lastSubtitle = S.root.querySelector(".k-sub:last-child");
+        S.tl.getTweensOf(lastSubtitle).find((tw) => tw.vars.autoAlpha === 0).kill();
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

@@ -1,0 +1,89 @@
+<template id="scene-04-template">
+  <div data-composition-id="scene-04" data-width="1920" data-height="1080" data-duration="18.1">
+    <style>
+      [data-composition-id="scene-04"] .sc-add { display: flex; align-items: center; gap: 18px; font-size: 38px; font-weight: 700; letter-spacing: -0.01em; color: var(--k-ok); }
+      [data-composition-id="scene-04"] .sc-add i { flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--k-ok); }
+    </style>
+    <!-- записи: производные scene-04-*.v3.retimed.mp4 (assets/rec/retime-scene-04.py печатает data-start и длительность; kit сверяет числа с video.start/duration).
+         data-duration больше длины файла: после конца записи держится последний кадр, пока окно на экране. -->
+    <video id="rec-graph" class="clip" src="assets/rec/scene-04-graph.v3.retimed.mp4" muted playsinline data-start="0" data-duration="8.0"></video>
+    <video id="rec-diff" class="clip" src="assets/rec/scene-04-diff.v3.retimed.mp4" muted playsinline data-start="7.3" data-duration="10.8"></video>
+    <script>
+      (function () {
+        const S = Kit.scene("04");
+        const t = S.t;
+        const R = Kit.layout;                          // правая колонка: R.rightX, R.rightW
+        const NAT = { w: 1920, h: 1080 };
+        const DUR = 18.1;
+        // текст на экране держится не меньше слов/3 + 1 с
+        const rd = (txt, a, b) => { const w = txt.trim().split(/\s+/).length; if (b - a < w / 3 + 1 - 1e-6) throw new Error(`текст «${txt}» на экране ${(b - a).toFixed(1)} с, нужно ${(w / 3 + 1).toFixed(1)} с`); };
+        // курсор стоит над целью 1 с до клика: перед каждым кликом путевая точка (её пульсы убираются)
+        const HOVER = 1.0;
+        const withHover = (cl) => { const out = [], wp = []; cl.forEach((c) => { wp.push(out.length); out.push({ t: c.t - HOVER, x: c.x, y: c.y }); out.push(c); }); return { out, wp }; };
+        const noPulse = (scr, hv) => { const pu = scr.layer.querySelectorAll(".k-pulse"); hv.wp.forEach((i) => { pu[2 * i].remove(); pu[2 * i + 1].remove(); }); };
+        // положение подписей-областей при камере (cx, zoom): запись → «пиксели записи при масштабе 1» для scr.areas
+        const camX = (cx, z) => { const left = Math.min(NAT.w - NAT.w / z, Math.max(0, cx - NAT.w / (2 * z))); return (x) => Math.max(0, Math.min(NAT.w, (x - left) * z)); };
+        Kit.header(S, { duration: DUR });
+
+        const s2 = S.stage(); gsap.set(s2, { autoAlpha: 1 });
+        const T_GRAPH_OUT = S.end("осталась") + 0.1;      // «версия один осталась» отзвучало
+        const T_DIFF = S.end("осталась") + 0.05;          // окно сравнения входит поверх окна графа (то же место)
+
+        /* кадр 1: запись версии два (Stage уже нажат под заставкой), список версий */
+        const hvA = withHover([{ t: 2.1, x: 246, y: 132, label: "Message" }, { t: 3.45, x: 230, y: 198, label: "Commit" }, { t: 5.85, x: 236, y: 600 }]);
+        const scrA = Kit.screen(S, { parent: s2, natural: NAT, h: 566, alt: "VS Code: сообщение, Commit и список версий в Source Control",
+          video: { el: "#rec-graph", start: 0, duration: 8.0, poster: "assets/rec/scene-04-graph.v3.retimed.first.png", clicks: hvA.out },
+          from: { x: 364, y: 235 },
+          camera: [{ t: 3.9, cx: 225, cy: 620, scale: 4.2, dur: 0.7 }] });                       // после Commit — список версий внизу
+        { // камера стоит на левой колонке с первого кадра (повторяет расчёт Kit.screen для cx 225, cy 158, масштаб 3,8; до 3,9 с — Message и Commit; строка Changes под сообщением в две строки не срезается)
+          const k = scrA.b * 3.8;
+          gsap.set(scrA.layer, { scale: k, x: Math.min(0, Math.max(scrA.vw - k * NAT.w, scrA.vw / 2 - k * 225)), y: Math.min(0, Math.max(scrA.vh - k * NAT.h, scrA.vh / 2 - k * 158)) });
+        }
+        noPulse(scrA, hvA);
+        scrA.layer.setAttribute("data-layout-allow-overflow", "");
+        scrA.show(0, true);
+        scrA.hide(T_DIFF + 0.6);
+
+        /* схема: две версии на дорожке main, по словам «два» и «один» */
+        const gbox = document.createElement("div"); gbox.style.cssText = "position:absolute;left:0;top:0;width:1920px;height:1080px;pointer-events:none;"; s2.appendChild(gbox); gsap.set(gbox, { autoAlpha: 0 }); Kit.popIn(S, gbox, t("Появилась"));
+        Kit.gitGraph(S, { parent: gbox, x: R.rightX, y: 330, w: R.rightW, h: 200,
+          lanes: [{ id: "main", label: "main", color: "var(--k-git-main)", y: 100 }],
+          commits: [{ id: "v1", lane: "main", col: 0, label: "1", at: t("один") },
+                    { id: "v2", lane: "main", col: 1, label: "2", at: t("два") }],
+          edges: [{ from: "v1", to: "v2", at: t("один") + 0.3 }] });
+
+        /* кадр 2: сравнение — старый текст слева, новый справа */
+        const s3 = S.stage(); gsap.set(s3, { autoAlpha: 1 });
+        const hvB = withHover([{ t: 1.05, x: 236, y: 235 }]);
+        const scrB = Kit.screen(S, { parent: s3, natural: NAT, h: 566, alt: "VS Code: сравнение двух версий intent.md",
+          video: { el: "#rec-diff", start: 7.3, duration: 10.8, poster: "assets/rec/scene-04-diff.v3.retimed.first.png", clicks: hvB.out },
+          from: { x: 236, y: 235 }, cursorHold: 0.4,
+          camera: [
+            { t: T_DIFF - 0.5, cx: 768, cy: 342, scale: 1.25, dur: 0.01 },
+            { t: t("слева") + 0.1, cx: 763, cy: 256, scale: 2.9, dur: 0.01 },                        // левая панель целиком: старый текст
+            { t: t("справа") + 0.1, cx: 1515, cy: 458, scale: 2.9, dur: 0.01 } ] });                    // правая панель целиком: новый текст
+        noPulse(scrB, hvB);
+        scrB.layer.setAttribute("data-layout-allow-overflow", "");
+        scrB.show(T_DIFF);
+        const L = camX(766, 2.75), Rr = camX(1515, 2.6);
+        scrB.areas([
+          { text: "старый текст", x0: L(424), x1: L(1108), tone: "accent", at: t("старый"), off: t("справа") + 0.05 },
+          { text: "новый текст", x0: Rr(1152), x1: Rr(1878), tone: "ok", at: t("новый"), align: "right" } ]);
+
+        /* правая колонка: добавленная строка, затем итог */
+        const T_ADD_OFF = t("Вернуться") - 0.1;
+        const add = Kit.aside(S, { parent: s3, x: R.rightX, y: 300, w: R.rightW, tail: false, html: `<div class="sc-add"><i></i><span>добавленная строка</span></div>` });
+        add.show(t("добавленная")); add.hide(T_ADD_OFF);
+        rd("добавленная строка", t("добавленная"), T_ADD_OFF);
+        const back = Kit.aside(S, { parent: s3, x: R.rightX, y: 470, w: R.rightW, tail: false, title: "Версия 1", text: "прежний текст всегда можно вернуть" });
+        back.show(t("Вернуться"));
+        rd("Версия 1 прежний текст всегда можно вернуть", t("Вернуться"), DUR);
+
+        Kit.stageIn(S, s3, T_DIFF);
+        Kit.stageOut(S, s2, T_GRAPH_OUT + 0.7);
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

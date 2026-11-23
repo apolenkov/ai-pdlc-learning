@@ -1,0 +1,91 @@
+<template id="scene-00-template">
+  <div data-composition-id="scene-00" data-width="1920" data-height="1080" data-duration="33.3">
+    <style>
+      [data-composition-id="scene-00"] .dc { box-sizing: border-box; padding: 14px 26px; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
+      [data-composition-id="scene-00"] .dc-h { display: flex; align-items: center; gap: 16px; font-size: 40px; font-weight: 700; line-height: 1.15; }
+      [data-composition-id="scene-00"] .dc-h svg { width: 48px; height: 48px; flex-shrink: 0; color: var(--k-accent-soft); }
+      [data-composition-id="scene-00"] .dc-d { font-size: 32px; font-weight: 500; line-height: 1.25; }
+      [data-composition-id="scene-00"] .cl-ttl { display: flex; align-items: center; gap: 16px; font-size: 40px; font-weight: 700; line-height: 1.1; margin-bottom: 14px; }
+      [data-composition-id="scene-00"] .cl-ttl svg { width: 52px; height: 52px; flex-shrink: 0; color: var(--k-accent-soft); }
+      [data-composition-id="scene-00"] .cl-f { display: grid; grid-template-columns: 330px 1fr; align-items: center; column-gap: 14px; margin-bottom: 12px; }
+      [data-composition-id="scene-00"] .cl-l { font-size: 30px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-00"] .cl-v { display: grid; height: 64px; padding: 0 22px; align-items: center; border: 3px solid var(--k-line); border-radius: 14px; background: var(--k-panel-2); font-size: 42px; font-weight: 700; }
+      [data-composition-id="scene-00"] .cl-v > span { grid-area: 1 / 1; }
+      [data-composition-id="scene-00"] .cl-v .vb { opacity: 0; }
+      [data-composition-id="scene-00"] .cl-v.res { border-color: var(--k-ok); background: var(--k-ok-tint); color: var(--k-ok); }
+      [data-composition-id="scene-00"] .cl-no { font-size: 32px; font-weight: 600; color: var(--k-ok); line-height: 1.2; margin-top: 4px; }
+      [data-composition-id="scene-00"] .fin { box-sizing: border-box; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 68px; font-weight: 800; letter-spacing: -0.01em; border-color: var(--k-accent); background: var(--k-accent-tint); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("00"), t = S.t, DUR = 33.3;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const INFO = Kit.token("--k-info"), LINE = Kit.token("--k-line"), ACC = Kit.token("--k-accent");
+        const ic = (inner) => `<svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">${inner}</svg>`;
+        const CALC = ic('<rect x="9" y="5" width="38" height="46" rx="6"/><rect x="16" y="12" width="24" height="9" rx="2"/><path d="M18 31h2M28 31h2M38 31h2M18 41h2M28 41h2M38 41h2"/>');
+        const DOC = ic('<path d="M13 5h22l10 10v36H13z"/><path d="M35 5v10h10M21 28h16M21 38h16"/>');
+
+        Kit.header(S, { header: { mode: "parts", total: 7 }, chapter: "Зачем это нужно", step: null, mode: "intro", duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const sA = S.stage(); gsap.set(sA, { autoAlpha: 1 });
+        const T0 = t("Калькулятор");   // the first phrase names the film to watch before this one
+        const plate = Kit.aside(S, { parent: sA, x: 96, y: 400, w: 1300, tail: false, title: "Перед этим", text: "Требования в контексте продукта" });
+        plate.show(0); plate.hide(T0 - 0.1);
+        read("Перед этим Требования в контексте продукта", 0, T0 - 0.1, 0.2);
+
+        /* Right: the calculator that works. Starts with the screen's initial values, then takes 500 ₽. */
+        const calc = Kit.aside(S, { parent: sA, x: 980, y: 206, w: 844, tail: false, html:
+          `<div class="cl-ttl">${CALC}Кредитный калькулятор</div>` +
+          '<div class="cl-f"><div class="cl-l">Сумма кредита, ₽</div><div class="cl-v" id="f-sum"><span class="va">3 000 000</span><span class="vb">500</span></div></div>' +
+          '<div class="cl-f"><div class="cl-l">Ставка, % годовых</div><div class="cl-v"><span class="va">16</span><span class="vb">0</span></div></div>' +
+          '<div class="cl-f"><div class="cl-l">Срок, месяцев</div><div class="cl-v"><span class="va">240</span><span class="vb">10</span></div></div>' +
+          '<div class="cl-f"><div class="cl-l">Результат</div><div class="cl-v res"><span class="va">41 738 ₽</span><span class="vb">50 ₽</span></div></div>' +
+          '<div class="cl-no" style="opacity:0">сообщения нет</div>' });
+        calc.show(T0);
+        read("Кредитный калькулятор Сумма кредита 3 000 000 Ставка 16 Срок 240 Результат 41 738 ₽", 0.1, t("пятьсот"));
+        const vas = Array.from(calc.el.querySelectorAll(".va")), vbs = Array.from(calc.el.querySelectorAll(".vb")), noMsg = calc.el.querySelector(".cl-no");
+        const T_500 = t("пятьсот");
+        S.tl.to(vas, { opacity: 0, duration: 0.35 }, T_500);
+        S.tl.to(vbs, { opacity: 1, duration: 0.35 }, T_500);
+        S.tl.to(noMsg, { opacity: 1, duration: 0.35 }, T_500 + 0.3);
+        read("Кредитный калькулятор Сумма кредита 500 Ставка 0 Срок 10 Результат 50 ₽ сообщения нет", T_500 + 0.65, DUR, 0);
+
+        /* Left: three documents. Each gets its detail line on the narrator's words. */
+        const docs = [
+          { y: 206, h: 170, ttl: "ТЗ 2021 · Word", det: "ФТ-7: сумма не ограничивается", at: t("техническое задание"), dAt: t("сумма без"), hl: [t("Задание говорит"), t("Комментарий") - 0.1] },
+          { y: 396, h: 230, ttl: "Страница · Confluence", det: "комментарий 14.03.2023: минимум 10&nbsp;000&nbsp;₽ (в&nbsp;текст&nbsp;не&nbsp;внесён)", at: t("страница"), dAt: t("минимум"), hl: [t("Комментарий"), t("А экран") - 0.1] },
+          { y: 646, h: 170, ttl: "Заметки аналитика", det: "500 ₽, 0%, 10 месяцев → 50 ₽", at: t("заметки"), dAt: T_500 + 0.2, hl: [t("А экран"), t("Покажем") - 0.1] },
+        ];
+        const cards = docs.map((d) => {
+          const a = Kit.aside(S, { parent: sA, x: 96, y: d.y, w: 820, h: d.h, tail: false, html: `<div class="dc-h">${DOC}<span>${d.ttl}</span></div><div class="dc-d">${d.det}</div>` });
+          a.el.classList.add("dc");
+          const det = a.el.querySelector(".dc-d"); hide(det);
+          a.show(d.at); Kit.popIn(S, det, d.dAt);
+          read(d.ttl, d.at, DUR); read(d.det, d.dAt, DUR);
+          S.tl.to(a.el, { borderColor: INFO, duration: 0.3 }, d.hl[0]);
+          S.tl.to(a.el, { borderColor: LINE, duration: 0.3 }, d.hl[1]);
+          return a.el;
+        });
+        S.tl.to(calc.el, { borderColor: INFO, duration: 0.3 }, t("А экран"));
+        S.tl.to(calc.el, { borderColor: LINE, duration: 0.3 }, t("Покажем") - 0.1);
+        /* «источник»: every claim leans on a source — all three documents get the accent frame. */
+        S.tl.to(cards, { borderColor: ACC, duration: 0.4 }, t("источник"));
+
+        /* Final plate: «есть» ≠ «хотим». */
+        const fin = Kit.aside(S, { parent: sA, x: 980, y: 690, w: 844, h: 126, tail: false, html: "«есть» ≠ «хотим»" });
+        fin.el.classList.add("fin");
+        fin.show(t("«есть»"));
+        read("есть не равно хотим", t("«есть»"), DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

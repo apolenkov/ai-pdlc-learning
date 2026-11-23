@@ -1,0 +1,62 @@
+[
+  {
+    "n": 1,
+    "title": "Обзор страницы",
+    "step": null,
+    "chapter": "Обзор страницы",
+    "start": 0,
+    "titleStart": 0,
+    "speechStart": 2,
+    "end": 10.5
+  },
+  {
+    "n": 2,
+    "title": "Карта PDLC",
+    "step": null,
+    "chapter": "Карта PDLC",
+    "start": 10.5,
+    "titleStart": 10.5,
+    "speechStart": 10.5,
+    "end": 36.3
+  },
+  {
+    "n": 3,
+    "title": "Как встроить ИИ",
+    "step": null,
+    "chapter": "Как встроить ИИ",
+    "start": 36.3,
+    "titleStart": 36.3,
+    "speechStart": 36.3,
+    "end": 50.8
+  },
+  {
+    "n": 4,
+    "title": "Команда развития",
+    "step": null,
+    "chapter": "Команда развития",
+    "start": 50.8,
+    "titleStart": 50.8,
+    "speechStart": 50.8,
+    "end": 64.1
+  },
+  {
+    "n": 5,
+    "title": "Разделы страницы",
+    "step": null,
+    "chapter": "Разделы страницы",
+    "start": 64.1,
+    "titleStart": 64.1,
+    "speechStart": 64.1,
+    "end": 82.2
+  },
+  {
+    "n": 6,
+    "title": "С чего начать",
+    "step": null,
+    "chapter": "С чего начать",
+    "start": 82.2,
+    "titleStart": 82.2,
+    "speechStart": 82.2,
+    "end": 92.2
+  }
+]

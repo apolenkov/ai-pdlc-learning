@@ -1,0 +1,144 @@
+<template id="scene-07-template">
+  <div data-composition-id="scene-07" data-width="1920" data-height="1080" data-duration="60.4">
+    <style>
+      [data-composition-id="scene-07"] .fl { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 2px; opacity: 0; }
+      [data-composition-id="scene-07"] .fl b { font-size: 34px; font-weight: 800; letter-spacing: -0.01em; line-height: 1.2; }
+      [data-composition-id="scene-07"] .fl span { font-size: 30px; font-weight: 500; color: var(--k-text-2); line-height: 1.2; }
+      [data-composition-id="scene-07"] .fl.c1 b { color: var(--k-ok); }
+      [data-composition-id="scene-07"] .fl.c2 b { color: var(--k-info); }
+      [data-composition-id="scene-07"] .fl.c3 b { color: var(--k-accent-soft); }
+      [data-composition-id="scene-07"] .fa { position: absolute; width: 56px; height: 30px; opacity: 0; }
+      [data-composition-id="scene-07"] table { width: 100%; border-collapse: separate; border-spacing: 0; table-layout: fixed; }
+      [data-composition-id="scene-07"] th { text-align: left; font-size: 30px; font-weight: 600; color: var(--k-text-2); padding: 4px 16px 12px; border-bottom: 2px solid var(--k-line); opacity: 1; }
+      [data-composition-id="scene-07"] td { font-size: 30px; font-weight: 500; line-height: 1.25; padding: 14px 16px; border-bottom: 1px solid var(--k-line); vertical-align: top; }
+      [data-composition-id="scene-07"] tr:last-child td { border-bottom: 0; }
+      [data-composition-id="scene-07"] td .c { opacity: 0; }
+      [data-composition-id="scene-07"] td.q .c { font-weight: 700; }
+      [data-composition-id="scene-07"] td.d1 .c { color: var(--k-ok); font-weight: 700; }
+      [data-composition-id="scene-07"] td.d2 .c { color: var(--k-info); font-weight: 700; }
+      [data-composition-id="scene-07"] td.w .c { color: var(--k-text-2); }
+      [data-composition-id="scene-07"] .mk { position: relative; height: 100%; display: flex; flex-direction: column; gap: 12px; }
+      [data-composition-id="scene-07"] .mk .ic { flex: none; width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; border: 3px solid var(--k-ok); background: var(--k-ok-tint); color: var(--k-ok); }
+      [data-composition-id="scene-07"] .mk .ic svg { width: 40px; height: 40px; }
+      [data-composition-id="scene-07"] .mk .rl { font-size: 36px; font-weight: 800; letter-spacing: -0.015em; line-height: 1.15; }
+      [data-composition-id="scene-07"] .mk .tx { font-size: 34px; font-weight: 600; line-height: 1.25; color: var(--k-text); }
+      [data-composition-id="scene-07"] .mk .acc { position: absolute; right: 0; top: 4px; padding: 2px 14px; border-radius: 12px; background: var(--k-ok-tint); border: 2px solid var(--k-ok); color: var(--k-ok); font-size: 30px; font-weight: 700; opacity: 0; }
+      [data-composition-id="scene-07"] .pl { height: 100%; display: flex; align-items: center; gap: 22px; font-size: 40px; font-weight: 800; letter-spacing: -0.015em; line-height: 1.2; }
+      [data-composition-id="scene-07"] .pl svg { flex: none; width: 52px; height: 52px; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("07"), t = S.t, DUR = 60.4;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.5) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»: ${(off - at - reveal).toFixed(2)} < ${needed.toFixed(2)}`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const rev = (el, at, d = 0.45) => { gsap.set(el, { y: 14 }); S.tl.to(el, { opacity: 1, y: 0, duration: d, ease: "power3.out" }, at); };
+
+        Kit.header(S, { header: { mode: "parts", total: 8 }, chapter: "Проверка и одобрение", step: 7, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const T_OUT = t("Нужны комментарии") + 0.1, T_IN = T_OUT + 0.5;
+        const OK = Kit.token("--k-ok"), INFO = Kit.token("--k-info"), ACC = Kit.token("--k-accent");
+        const check = (c) => '<svg viewBox="0 0 24 24" fill="none" stroke="' + c + '" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-7"/></svg>';
+
+        /* ---- Кадр (а): замечания модели и решения человека ---- */
+        const sA = S.stage(); gsap.set(sA, { autoAlpha: 1 });
+        const GAP = 70, CY = 205, CH = 104, W1 = 430, W2 = 530, W3 = 1728 - W1 - W2 - 2 * GAP;
+        const CH_DEF = [
+          { cls: "c1", b: "Модель готовит", s: "черновик изменения", x: 96, at: t("черновика") + 0.1, w: W1 },
+          { cls: "c2", b: "Независимая проверка", s: "только чтение и замечания", x: 96 + W1 + GAP, at: t("только читает"), w: W2 },
+          { cls: "c3", b: "Вы решаете", s: "принять или отклонить с причиной", x: 96 + W1 + W2 + 2 * GAP, at: t("принимаете") - 0.1, w: W3 },
+        ];
+        CH_DEF.forEach((d, i) => {
+          const a = Kit.aside(S, { parent: sA, x: d.x, y: CY, w: d.w, h: CH, tail: false, html: '<div class="fl ' + d.cls + '"><b>' + d.b + "</b><span>" + d.s + "</span></div>" });
+          a.el.style.padding = "0 22px";
+          a.el.style.borderColor = [OK, INFO, ACC][i];
+          a.show(d.at);
+          const fl = a.el.querySelector(".fl"); S.tl.to(fl, { opacity: 1, duration: 0.3 }, d.at + 0.2);
+          read(d.b + " " + d.s, d.at, T_OUT);
+          if (i) {
+            const ar = document.createElement("div"); ar.className = "fa"; ar.style.left = d.x - GAP + 7 + "px"; ar.style.top = CY + CH / 2 - 15 + "px";
+            ar.innerHTML = '<svg viewBox="0 0 56 30" width="56" height="30" fill="none"><path d="M3 15H49M39 5L50 15L39 25" stroke="' + Kit.token("--k-text-2") + '" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+            sA.appendChild(ar); S.tl.to(ar, { opacity: 1, duration: 0.3 }, d.at - 0.1);
+          }
+        });
+
+        const R = [
+          ["«Второе ожидание 101 ₽ не заменено»", "Верно: принять, заменить ожиданием для 10 001 ₽.", "Ниже 10 000 ₽ расчёт запрещён. В коротком маршруте второго ожидания нет: такое замечание ложно. Сверяйте файлы."],
+          ["«Что видит клиент, если система банка не ответила?»", "Открытый вопрос владельцу продукта…", "Замысел 2 об этом молчит. Пробел верный, но ответ модели сам по себе не решение."],
+        ];
+        const cell = (cls, txt, id) => '<td class="' + cls + '"><div class="c" id="' + id + '">' + txt + "</div></td>";
+        const tbl = Kit.aside(S, { parent: sA, x: 96, y: 330, w: 1728, tail: false,
+          html: '<table><colgroup><col style="width:470px"><col style="width:520px"><col></colgroup>' +
+            "<thead><tr><th>Замечание модели</th><th>Решение человека</th><th>Почему</th></tr></thead><tbody>" +
+            "<tr>" + cell("q", R[0][0], "s7r1q") + cell("d1", R[0][1], "s7r1d") + cell("w", R[0][2], "s7r1w") + "</tr>" +
+            "<tr>" + cell("q", R[1][0], "s7r2q") + cell("d2", R[1][1], "s7r2d") + cell("w", R[1][2], "s7r2w") + "</tr>" +
+            "</tbody></table>" });
+        tbl.el.style.padding = "18px 12px 10px";
+        tbl.show(t("Каждое замечание"));
+        const c = (id) => tbl.el.querySelector("#" + id);
+        const T = {
+          r1q: t("Второе ожидание"), r1d: t("верно,"), r1w: t("верно,") + 0.1,
+          r2q: t("Что увидит"), r2w: t("клиент"), r2d: t("вопрос владельцу"),
+        };
+        rev(c("s7r1q"), T.r1q); rev(c("s7r1d"), T.r1d); rev(c("s7r1w"), T.r1w);
+        rev(c("s7r2q"), T.r2q); rev(c("s7r2w"), T.r2w); rev(c("s7r2d"), T.r2d);
+        read(R[0][0], T.r1q, T_OUT); read(R[0][1], T.r1d, T_OUT); read(R[0][2], T.r1w, T_OUT);
+        read(R[1][0], T.r2q, T_OUT); read(R[1][1], T.r2d, T_OUT); read(R[1][2], T.r2w, T_OUT);
+
+        /* ---- Плашка: проверка моделью не одобрение (остаётся в обоих кадрах) ---- */
+        const T_NOT = t("Проверка моделью");
+        const not = Kit.aside(S, { x: 96, y: 740, w: 1728, h: 76, tail: false,
+          html: '<div class="pl"><svg viewBox="0 0 24 24" fill="none" stroke="' + ACC + '" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M6 6l12 12"/></svg><span>Проверка моделью не считается одобрением человека</span></div>' });
+        not.el.style.borderColor = ACC;
+        not.show(T_NOT);
+        read("Проверка моделью не считается одобрением человека", T_NOT, DUR);
+
+        /* ---- Кадр (б): одно одобрение владельца продукта, остальные комментируют ---- */
+        const sB = S.stage();
+        const MWS = [420, 320, 320, 596], MG = 24, MY = 215, MH = 340;
+        const MX = [96, 96 + 420 + MG, 96 + 420 + 320 + 2 * MG, 96 + 420 + 640 + 3 * MG];
+        const M = [
+          { rl: "Владелец продукта", tx: "«это то, что я просил»", at: t("владелец продукта") },
+          { rl: "Аналитик", tx: "комментарий: смысл и полнота (не автор запроса)", at: t("аналитик") },
+          { rl: "Техлид", tx: "комментарий: реализуемость", at: t("техлид") },
+          { rl: "Архитектор", tx: "подключается по признакам или при споре; здесь признак — связь с системой банка", at: t("Архитектор") },
+        ];
+        const cards = M.map((m, i) => {
+          const a = Kit.aside(S, { parent: sB, x: MX[i], y: MY, w: MWS[i], h: MH, tail: false,
+            html: '<div class="mk"><div class="ic">' + (i === 0 ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 12.5l3 3 6-7"/></svg>' : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5h14v10H10l-5 4z"/></svg>')+
+              '</div><div class="rl">' + m.rl + '</div><div class="tx">' + m.tx + "</div>" + (i === 0 ? '<span class="acc">одобряет</span>' : "") + "</div>" });
+          a.el.style.borderColor = i === 0 ? OK : INFO;
+          if (i) { if (i === 3) a.el.style.borderStyle = "dashed"; a.el.querySelector(".ic").style.borderColor = INFO; a.el.querySelector(".ic").style.color = INFO; a.el.querySelector(".ic").style.background = "transparent"; }
+          a.show(m.at);
+          read(m.rl + " " + m.tx, m.at, DUR);
+          return a;
+        });
+
+        /* ---- Итог: владелец продукта — владелец решения ---- */
+        const T_OWN = t("Владелец продукта в нашем");
+        const own = Kit.aside(S, { parent: sB, x: 96, y: 562, w: 1728, h: 84, tail: false,
+          html: '<div class="pl" style="font-size:36px"><span>Владелец продукта в нашем примере — владелец решения: одобрение даёт только он</span></div>' });
+        own.el.style.borderColor = OK;
+        own.show(T_OWN);
+        read("Владелец продукта в нашем примере — владелец решения: одобрение даёт только он", T_OWN, DUR);
+        S.tl.to(cards[0].el.querySelector(".acc"), { opacity: 1, duration: 0.4 }, t("владелец решения"));
+        S.tl.to(cards[0].el, { boxShadow: "0 0 0 3px " + OK, duration: 0.4 }, t("владелец решения"));
+
+        /* ---- Слияние делает техлид; бесплатный GitLab одобрения не проверяет ---- */
+        const T_MRG = t("Слияние");
+        const mrg = Kit.aside(S, { parent: sB, x: 96, y: 654, w: 1728, h: 76, tail: false,
+          html: '<div class="pl" style="font-size:32px"><span>Слияние — техлид. GitLab Community одобрения не проверяет: правило держит шаблон запроса</span></div>' });
+        mrg.show(T_MRG);
+        read("Слияние — техлид. GitLab Community одобрения не проверяет: правило держит шаблон запроса", T_MRG, DUR);
+
+        Kit.stageOut(S, sA, T_OUT); Kit.stageIn(S, sB, T_IN);
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

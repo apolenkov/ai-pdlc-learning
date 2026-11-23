@@ -1,0 +1,67 @@
+/* Сетка и узлы: block-sdd/scene-0m; карточки: block-r2/scene-02; финал: block-sdd/scene-06. */
+#grid, #glow { display: none; }
+.p7 { position: absolute; inset: 0; }
+.p7 h1 { position: absolute; left: 96px; top: 72px; width: 1728px; font-size: 58px; line-height: 1.15; font-weight: 800; letter-spacing: -.025em; }
+.p7 .rail { position: absolute; inset: 0; }
+.p7 .mp-track { position: absolute; top: 430px; height: 8px; background: var(--k-line); transform-origin: left center; }
+.p7 .stop { position: absolute; z-index: 1; top: 394px; width: 224px; }
+.p7 .mp-node { margin: 0 auto; width: 80px; height: 80px; border-radius: 50%; display: grid; place-items: center; border: 4px solid var(--k-line); background: var(--k-panel-2); color: var(--k-text-2); }
+.p7 .mp-node svg { width: 42px; height: 42px; }
+.p7 .mp-lab { margin-top: 22px; text-align: center; font-size: 28px; line-height: 1.22; font-weight: 600; color: var(--k-text); }
+.p7 .agent { position: absolute; top: -20px; right: 55px; font-size: 36px; color: var(--k-ok); background: var(--k-bg); line-height: 1; }
+.p7 .wait { position: absolute; top: 295px; width: 250px; padding: 15px 12px; border: 2px solid var(--k-line); border-radius: 16px; background: var(--k-panel-2); font-size: 28px; text-align: center; color: var(--k-text-2); }
+.p7 .statement { position: absolute; left: 96px; top: 670px; width: 1728px; font-size: 46px; line-height: 1.3; font-weight: 700; }
+.p7 .statement b { color: var(--k-ok); }
+.p7 .detail { position: absolute; left: 96px; top: 460px; width: 1728px; height: 345px; display: grid; gap: 24px; }
+.p7 .card { padding: 26px 30px; border: 2px solid var(--k-line); border-radius: 24px; background: var(--k-panel); min-width: 0; }
+.p7 .card h2 { font-size: 38px; line-height: 1.2; margin-bottom: 18px; }
+.p7 .card p { font-size: 30px; line-height: 1.3; color: var(--k-text-2); }
+.p7 .card code { font-family: var(--k-font-mono); color: var(--k-accent-soft); font-size: 30px; }
+.p7 .r2-file { font-family: var(--k-font-mono); font-size: 29px; line-height: 1.55; }
+.p7 .r2-file strong { color: var(--k-accent-soft); }
+.p7 .r2-badge { padding: 9px 15px; border: 2px solid var(--k-ok); border-radius: 16px; color: var(--k-ok); font-size: 29px; font-weight: 700; }
+.p7 .checks { display: flex; gap: 16px; flex-wrap: wrap; }
+.p7 .mr { display: flex; flex-direction: column; gap: 16px; }
+.p7 .mr .checks { margin-top: auto; }
+.p7 .shot { display: block; width: 100%; height: 220px; object-fit: contain; object-position: left top; }
+.p7 .source { margin-top: 10px; font-size: 25px; color: var(--k-text-2); }
+.p7 .sc-ok { color: var(--k-ok); font-size: 38px; font-weight: 700; }
+.p7 .metric { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 14px; padding: 15px 20px; border: 2px solid var(--k-line); border-radius: 16px; font-size: 29px; }
+.p7 .metric b { color: var(--k-ok); white-space: nowrap; }
+.p7 .metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.p7 .roadmap { display: flex; align-items: start; justify-content: space-between; padding-top: 28px; border-top: 5px solid var(--k-line); }
+.p7 .road-stop { width: 280px; text-align: center; font-size: 27px; line-height: 1.25; }
+.p7 .road-stop b { display: block; color: var(--k-accent-soft); font-size: 32px; margin-bottom: 10px; }
+.p7 .mp-pin { color: var(--k-accent-soft); font-size: 30px; font-weight: 800; }
+.p7 .team-head { display: flex; align-items: center; gap: 24px; margin-bottom: 26px; font-size: 36px; font-weight: 700; }
+.p7 .team-head svg { width: 48px; height: 48px; color: var(--k-ok); }
+.p7 .roles { grid-template-columns: repeat(3, 1fr); grid-template-rows: 1fr 1fr; }
+.p7 .role { border: 3px solid var(--k-line); border-radius: 16px; padding: 18px 24px; background: var(--k-panel-2); }
+.p7 .role b { display: block; font-size: 34px; margin-bottom: 10px; }
+.p7 .role span { display: block; font-size: 28px; color: var(--k-text-2); }
+.p7 .sc-next { height: 132px; display: flex; align-items: center; justify-content: space-between; font-size: 44px; font-weight: 800; }
+.p7 .sc-next svg { width: 60px; height: 60px; color: var(--k-accent-soft); }
+.p7 .brand { display: flex; align-items: center; gap: 18px; font-size: 30px; color: var(--k-text-2); }
+.p7 .brand img { width: 42px; height: 42px; }
+
+.p7 .mr { gap:10px; padding-top:20px; }
+.p7 .mr h2 { margin-bottom:6px; font-size:34px; }
+.p7 .mr p { font-size:27px; }
+.p7 .mr .checks { align-items:center; margin-top:0; }
+.p7 .mr .resolved, .p7 .mr .accepted { color:var(--k-ok); }
+
+.p7 .openspec-shot { object-fit:none; object-position:-10px -285px; }
+
+
+.p7 .roadmap { padding-bottom:16px; }
+
+.chapter-card { position:absolute; inset:0; background:var(--k-bg); text-align:center; }
+#scene-t1, #scene-t2, #scene-t3, #scene-t4 { clip-path: inset(0 0 255px 0); }
+.chapter-number { position:absolute; top:290px; left:96px; width:1728px; font-size:110px; font-weight:700; color:var(--k-accent); }
+.chapter-name { position:absolute; top:530px; left:96px; width:1728px; font-size:70px; font-weight:700; }
+.p7 .shot-window { position:relative; width:100%; height:150px; overflow:hidden; background:#faf9ff; }
+.p7 .pipeline-shot { position:absolute; left:0; top:-40px; width:2774px; height:auto; max-width:none; }
+
+.p7 .openspec-shot { width:590px; }
+.p7 .comment { display:flex; align-items:center; gap:10px; white-space:nowrap; }
+.p7 .role-tag { border:1px solid var(--k-line); border-radius:10px; padding:3px 8px; color:var(--k-text); }

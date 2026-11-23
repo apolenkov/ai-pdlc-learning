@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path class="s" pathLength="1" stroke="#eef0f3" stroke-width="4" d="M24 356 L290 354 M52 355 L48 446 M262 354 L266 446"/>
+  <path class="s" pathLength="1" stroke="#eef0f3" stroke-width="4" d="M350 354 L616 356 M378 355 L374 446 M588 356 L592 446"/>
+  <path class="s" pathLength="1" stroke="#eef0f3" stroke-width="4" d="M66 132 L238 124 L250 328 L74 338 Z"/>
+  <path class="s" pathLength="1" stroke="#a3a9b4" stroke-width="3" d="M212 126 L214 152 L242 150"/>
+  <path class="s" pathLength="1" stroke="#8e96a3" stroke-width="3" d="M92 176 L200 172"/>
+  <path class="s" pathLength="1" stroke="#8e96a3" stroke-width="3" d="M92 206 L216 202"/>
+  <path class="s" pathLength="1" stroke="#8e96a3" stroke-width="3" d="M92 236 L184 232"/>
+  <path class="s" pathLength="1" stroke="#8e96a3" stroke-width="3" d="M92 266 L214 262"/>
+  <path class="s" pathLength="1" stroke="#8e96a3" stroke-width="3" d="M92 296 L168 292"/>
+  <path class="s" pathLength="1" stroke="#a3a9b4" stroke-width="3" d="M418 112 L588 104 L596 300"/>
+  <path class="s" pathLength="1" stroke="#eef0f3" stroke-width="4" d="M392 138 L564 128 L576 332 L398 342 Z"/>
+  <path class="s" pathLength="1" stroke="#a3a9b4" stroke-width="3" d="M538 130 L540 156 L568 154"/>
+  <path class="s" pathLength="1" stroke="#8e96a3" stroke-width="3" d="M418 182 L522 178"/>
+  <path class="s" pathLength="1" stroke="#8e96a3" stroke-width="3" d="M418 212 L538 208"/>
+  <path class="s" pathLength="1" stroke="#8e96a3" stroke-width="3" d="M418 242 L500 238"/>
+  <path class="s" pathLength="1" stroke="#8e96a3" stroke-width="3" d="M418 272 L530 268"/>
+  <path class="s" pathLength="1" stroke="#8e96a3" stroke-width="3" d="M418 302 L480 298"/>
+  <path class="s" pathLength="1" stroke="#ff7a59" stroke-width="4" d="M418 238 L508 234"/>
+  <path class="s" pathLength="1" stroke="#ff7a59" stroke-width="3.5" d="M418 268 L536 264 M424 258 L520 276"/>
+  <path class="s" pathLength="1" stroke="#a3a9b4" stroke-width="3" d="M268 214 C298 184 342 184 376 212"/>
+  <path class="s" pathLength="1" stroke="#a3a9b4" stroke-width="3" d="M360 198 L377 213 L356 222"/>
+  <path class="s" pathLength="1" stroke="#a3a9b4" stroke-width="3.5" d="M316 74 C316 60 340 58 340 76 C340 90 322 92 322 106"/>
+  <path class="s" pathLength="1" stroke="#a3a9b4" stroke-width="5" d="M322 122 L322 124"/>
+</svg>

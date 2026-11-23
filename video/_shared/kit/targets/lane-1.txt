@@ -1,0 +1,6 @@
+# Полоса 1 (базовая, уже порождена общей частью): порождаемые копии и кадры до/после.
+landing-before-after
+landing-enabling
+landing-hero
+landing-hero-v3
+landing-overview

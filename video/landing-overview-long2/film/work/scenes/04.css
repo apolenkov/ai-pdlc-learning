@@ -1,0 +1,19 @@
+.s4-card { position: absolute; top: 176px; width: 828px; height: 700px; }
+.s4-card h3 { display: flex; align-items: center; gap: 16px; font-size: 40px; }
+.s4-in { position: absolute; }
+.s4-cap { position: absolute; font-size: 30px; font-weight: 600; line-height: 1.25; color: var(--k-text-2); text-align: center; }
+.s4-file { position: absolute; border: 3px solid var(--k-ok); border-radius: 20px; background: var(--k-panel-2); padding: 16px 22px; }
+.s4-file code { display: block; font-family: var(--k-font-mono); font-size: 28px; font-weight: 700; color: var(--k-ok); margin-bottom: 10px; }
+.s4-ln { display: flex; align-items: center; gap: 12px; font-size: 32px; font-weight: 600; line-height: 1.5; position: relative; }
+.s4-ln i { font-style: normal; color: var(--k-ok); font-weight: 800; }
+.s4-bad { position: absolute; padding: 4px 16px; border-radius: 14px; background: rgba(255,122,89,.2); border: 3px solid var(--k-accent); color: var(--k-accent-soft); font-size: 28px; font-weight: 800; white-space: nowrap; }
+.s4-who { position: absolute; display: flex; align-items: center; gap: 16px; font-size: 32px; font-weight: 700; line-height: 1.2; }
+.s4-who .f-person { flex: none; }
+.s4-chip { position: absolute; padding: 12px 22px; border: 2px solid var(--k-line); border-radius: 18px; background: var(--k-panel-2); font-size: 34px; font-weight: 700; white-space: nowrap; }
+.s4-res { position: absolute; padding: 16px 26px; border: 3px solid var(--k-ok); border-radius: 20px; background: var(--k-ok-tint); font-size: 38px; font-weight: 800; }
+.s4-loop { position: absolute; top: 118px; font-size: 28px; font-weight: 800; color: var(--k-accent-soft); text-align: center; width: 300px; left: 810px; }
+.s4-l4 { position: relative; height: 51px; }
+.s4-l4 span { position: absolute; left: 0; top: 0; display: flex; gap: 12px; white-space: nowrap; }
+.s4-red { color: var(--k-accent-soft); font-weight: 800; }
+.s4-grn { font-weight: 600; }
+.s4-grn i { font-style: normal; color: var(--k-ok); font-weight: 800; }

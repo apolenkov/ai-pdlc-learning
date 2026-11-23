@@ -1,0 +1,126 @@
+<template id="scene-00-template">
+  <div data-composition-id="scene-00" data-width="1920" data-height="1080" data-duration="46.3">
+    <style>
+      [data-composition-id="scene-00"] .o-cap { font-size: 30px; line-height: 1.25; font-weight: 500; color: var(--k-text-2); }
+      [data-composition-id="scene-00"] .o-pre { font-size: 36px; line-height: 1.25; font-weight: 600; color: var(--k-text); }
+      [data-composition-id="scene-00"] .o-big { font-size: 96px; line-height: 1.1; font-weight: 700; margin-top: 6px; }
+      [data-composition-id="scene-00"] .o-line { font-size: 48px; line-height: 1.25; font-weight: 700; margin-top: 14px; }
+      [data-composition-id="scene-00"] .o-warm { color: var(--k-accent-soft); }
+      [data-composition-id="scene-00"] .o-fin { font-size: 52px; line-height: 1.25; font-weight: 700; margin-top: 22px; color: var(--k-accent-soft); }
+      [data-composition-id="scene-00"] .o-items { display: grid; gap: 10px; margin-top: 14px; }
+      [data-composition-id="scene-00"] .o-item { padding: 6px 22px; border-left: 6px solid var(--k-line); border-radius: 8px; background: var(--k-panel-2); font-size: 46px; line-height: 1.2; font-weight: 700; }
+      [data-composition-id="scene-00"] .o-ask { position: absolute; left: 1000px; top: 690px; width: 824px; font-size: 88px; line-height: 1.1; font-weight: 700; }
+      [data-composition-id="scene-00"] .o-chip { position: absolute; left: 1000px; top: 214px; display: inline-flex; align-items: center; height: 60px; padding: 0 28px; border-radius: 30px; border: 2px solid var(--k-accent); background: var(--k-accent-tint); color: var(--k-accent-soft); font-size: 34px; font-weight: 700; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("00"), t = S.t, DUR = 46.3;
+        // Static reading time counted from the moment the narrator says the line (the line appears with the word).
+        const read = (text, at, off) => {
+          const needed = text.trim().split(/\s+/).filter((w) => /[\p{L}\p{N}]/u.test(w)).length / 3 + 0.1;
+          if (off - at < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»: ${(off - at).toFixed(2)} < ${needed.toFixed(2)}`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const COL = 1000, COLW = 824;   // right column; the sketch stays in the left half (x 96..896)
+        const SK = { x: 96, y: 250, w: 800 };
+        const nb = (h) => h.replace(/(^|[\s>])(в|к|с|у|о|а|и|на|не|за|по|до|от|из|ли|во|со|что)\s+(?=[^<\s])/gi, "$1$2\u00a0");   // no one-letter or short word at the end of a line
+        const hide = (el) => { gsap.set(el, { autoAlpha: 0 }); return el; };
+        // Lines of a card take no room until their word is said: the card grows, it is never an empty box.
+        const late = (el) => { el.dataset.disp = getComputedStyle(el).display; gsap.set(el, { autoAlpha: 0, display: "none" }); return el; };
+        const pop = (el, at, d) => { S.tl.set(el, { display: el.dataset.disp }, at - 0.01); return Kit.popIn(S, el, at, d); };
+        const sub = (card, sel) => Array.from(card.el.querySelectorAll(sel)).map(late);
+        const T_OUT_A = t("Сначала") - 0.1;   // hook plan leaves while «Сначала — худший случай» is said
+        const T_B = T_OUT_A + 0.55;           // «как было» plan enters
+
+        Kit.header(S, { header: { mode: "parts", total: 9 }, chapter: "Зачем это нужно", step: null, mode: "intro", duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        /* 1. Hook: asked for one thing, got another (sketch left, two cards right). */
+        const sA = S.stage(); gsap.set(sA, { autoAlpha: 1 });
+        Kit.sketch(S, { parent: sA, name: "ch-gitlab", ...SK, at: t("Просили одно"), dur: 2.4 });
+        const asked = Kit.aside(S, { parent: sA, x: COL, y: 240, w: COLW, tail: false, html: '<div class="o-cap">Просили</div><div class="o-big">одно</div>' });
+        const made = Kit.aside(S, { parent: sA, x: COL, y: 450, w: COLW, tail: false, html: '<div class="o-cap">сделали</div><div class="o-big">другое</div>' });
+        const [askedBig] = sub(asked, ".o-big"), [madeBig] = sub(made, ".o-big");
+        asked.show(t("Просили")); pop(askedBig, t("одно") - 0.1);
+        made.show(t("сделали") - 0.1); pop(madeBig, t("другое") - 0.1);
+        const ask = document.createElement("div"); ask.className = "o-ask"; ask.textContent = "знакомо?"; sA.appendChild(ask);
+        hide(ask); Kit.popIn(S, ask, t("знакомо?") - 0.05);
+        read("одно", t("одно"), T_OUT_A); read("другое", t("другое"), T_OUT_A); read("знакомо?", t("знакомо?"), T_OUT_A);
+
+        /* 2. As it was: every problem is a sketch on the left and its consequence on the right. */
+        const sB = S.stage();
+        const chip = document.createElement("div"); chip.className = "o-chip"; chip.textContent = "Худший случай"; sB.appendChild(chip);
+        hide(chip); Kit.popIn(S, chip, T_B + 0.05);
+        const card = (y, html) => { const c = Kit.aside(S, { parent: sB, x: COL, y, w: COLW, tail: false, html: nb(html) }); [c.el, ...c.el.querySelectorAll("*")].forEach((e) => e.setAttribute("data-layout-allow-overlap", "")); return c; };  // cards hand over to each other with a short cross-fade
+        const items = (names) => '<div class="o-items">' + names.map((n) => `<div class="o-item">${n}</div>`).join("") + "</div>";
+
+        // 2-. Many projects already have requirements in Confluence and a review: a good base; the course assumes the worst case.
+        const k0 = card(300, '<div class="o-pre">У многих проектов уже есть</div>' + items(["Confluence", "ревью"]));
+        const k0i = sub(k0, ".o-item");
+        k0.show(t("У многих"));
+        [t("Confluence"), t("ревью")].forEach((at, i) => pop(k0i[i], at - 0.1));
+        const O0 = t("Но курс") - 0.1;
+        k0.hide(O0);
+        read("Confluence ревью", t("ревью"), O0);
+
+        // 2a. In the worst case requirements live in separate files.
+        const k1 = card(300, '<div class="o-pre">Требования могут жить в</div>' + items(["Word", "Google Docs"]));
+        const k1i = sub(k1, ".o-item");
+        k1.show(O0 + 0.05);
+        [t("Word"), t("Google")].forEach((at, i) => pop(k1i[i], at - 0.1));
+        const sk1 = Kit.sketch(S, { parent: sB, name: "ch-computer", ...SK, at: t("Требования могут"), dur: 2.4 });
+        const O1 = t("Docs,") + 0.75;
+        k1.hide(O1); sk1.out(O1);
+        read("Google Docs", t("Google"), O1);
+
+        // 2b. Decisions got lost in chat and mail.
+        const k2 = card(300, '<div class="o-pre">решения могут теряться в</div>' + items(["чате", "почте"]));
+        const k2i = sub(k2, ".o-item");
+        k2.show(O1 + 0.15);
+        [t("чате"), t("почте")].forEach((at, i) => pop(k2i[i], at - 0.1));
+        const sk2 = Kit.sketch(S, { parent: sB, name: "was-chat", ...SK, at: t("решения теряться"), dur: 1.7 });
+        const O2 = t("Без единого") - 0.1;
+        k2.hide(O2); sk2.out(O2);
+        read("почте", t("почте"), O2);
+
+        // 2c. No single template, no mandatory check: the analyst's gaps become the developer's guesses.
+        const k3 = card(292, '<div class="o-pre">Без единого шаблона</div><div class="o-line">аналитик может не продумать задачу заранее</div><div class="o-line o-warm">разработчик додумает сам</div>');
+        const [k3a, k3b] = sub(k3, ".o-line");
+        k3.show(t("Без единого")); pop(k3a, t("аналитик") - 0.1); pop(k3b, t("разработчик") - 0.1);
+        const k4 = card(598, '<div class="o-pre">Без обязательной проверки</div><div class="o-line o-warm">ошибка может дойти до разработки</div>');
+        const [k4a] = sub(k4, ".o-line");
+        k4.show(t("Без обязательной") - 0.1); pop(k4a, t("ошибка") - 0.1);
+        const sk3 = Kit.sketch(S, { parent: sB, name: "was-guess", ...SK, at: t("Без единого"), dur: 2.2 });
+        const sk3b = Kit.sketch(S, { parent: sB, name: "was-error", ...SK, at: t("Без обязательной"), dur: 2.0 });
+        sk3.out(t("Без обязательной") - 0.15);
+        const O3 = t("Если документы") - 0.05;
+        k3.hide(O3); k4.hide(O3); sk3b.out(O3);
+        read("аналитик может не продумать задачу заранее", t("аналитик"), O3);
+        read("разработчик додумает сам", t("разработчик"), O3);
+        read("ошибка может дойти до разработки", t("ошибка"), O3);
+
+        // 2d. Documents lay apart from the code.
+        const k5 = card(300, '<div class="o-pre">Если документы лежат</div><div class="o-line">отдельно от кода</div><div class="o-line o-warm">спецификации пишутся без взгляда на код</div>');
+        const [k5a, k5b] = sub(k5, ".o-line");
+        k5.show(O3 + 0.05); pop(k5a, t("отдельно") - 0.1); pop(k5b, t("спецификации") - 0.1);
+        const sk4 = Kit.sketch(S, { parent: sB, name: "was-apart", ...SK, at: t("Если документы"), dur: 2.4 });
+        const O4 = t("Без сохранённой") - 0.1;
+        k5.hide(O4); sk4.out(O4);
+        read("отдельно от кода", t("отдельно"), O4);
+        read("спецификации пишутся без взгляда на код", t("спецификации"), O4);
+
+        // 2e. No saved accepted version: decisions come back from memory, and the specification may be wrong.
+        const k6 = card(300, '<div class="o-pre">Без сохранённой принятой версии</div><div class="o-line">решения приходится восстанавливать по памяти</div><div class="o-fin">спецификация может получиться неверной</div>');
+        const [k6a] = sub(k6, ".o-line"), [k6b] = sub(k6, ".o-fin");
+        k6.show(O4 + 0.05); pop(k6a, t("решения приходится") - 0.1); pop(k6b, t("спецификация может") - 0.1);
+        Kit.sketch(S, { parent: sB, name: "thinking", ...SK, at: t("Без сохранённой"), dur: 1.5 });
+        read("решения приходится восстанавливать по памяти", t("решения приходится"), DUR);
+        read("спецификация может получиться неверной", t("спецификация может"), DUR);
+
+        Kit.stageOut(S, sA, T_OUT_A); S.tl.recent().duration(0.55);
+        Kit.stageIn(S, sB, T_B);
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

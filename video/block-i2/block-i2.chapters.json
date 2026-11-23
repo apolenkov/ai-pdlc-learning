@@ -1,0 +1,52 @@
+[
+  {
+    "n": 0,
+    "title": "Вступление",
+    "step": null,
+    "chapter": "Вступление",
+    "start": 0,
+    "titleStart": 0,
+    "speechStart": 0,
+    "end": 27.2
+  },
+  {
+    "n": 1,
+    "title": "Кто затронут и что не меняем",
+    "step": null,
+    "chapter": "Кто затронут и что не меняем",
+    "start": 27.2,
+    "titleStart": 27.2,
+    "speechStart": 27.2,
+    "end": 74
+  },
+  {
+    "n": 2,
+    "title": "Открытые вопросы с адресатом, источником и сроком",
+    "step": null,
+    "chapter": "Открытые вопросы с адресатом, источником и сроком",
+    "start": 74,
+    "titleStart": 74,
+    "speechStart": 74,
+    "end": 117.6
+  },
+  {
+    "n": 3,
+    "title": "Шапка и две проверки",
+    "step": null,
+    "chapter": "Шапка и две проверки",
+    "start": 117.6,
+    "titleStart": 117.6,
+    "speechStart": 117.6,
+    "end": 159.3
+  },
+  {
+    "n": 4,
+    "title": "Документ шагов 1–2 готов",
+    "step": null,
+    "chapter": "Документ шагов 1–2 готов",
+    "start": 159.3,
+    "titleStart": 159.3,
+    "speechStart": 159.3,
+    "end": 181
+  }
+]

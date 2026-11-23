@@ -1,0 +1,84 @@
+<template id="scene-05-template">
+  <div data-composition-id="scene-05" data-width="1920" data-height="1080" data-duration="22.2">
+    <style>
+      [data-composition-id="scene-05"] .ask { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+      [data-composition-id="scene-05"] .ask .tt { font-size: 46px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; }
+      [data-composition-id="scene-05"] .ask .tt em { font-style: normal; color: var(--k-accent-soft); }
+      [data-composition-id="scene-05"] .ask .ss { font-size: 32px; font-weight: 500; color: var(--k-text-2); margin-top: 8px; }
+      [data-composition-id="scene-05"] .ask .chip { flex: none; padding: 14px 28px; border-radius: 18px; border: 2px solid var(--k-accent); background: var(--k-accent-tint); color: var(--k-accent-soft); font-size: 36px; font-weight: 700; white-space: nowrap; opacity: 0; }
+      [data-composition-id="scene-05"] .lab { height: 100%; display: flex; align-items: center; font-size: 34px; font-weight: 700; color: var(--k-text-2); }
+      [data-composition-id="scene-05"] .sc-item { height: 100%; display: flex; align-items: center; gap: 26px; font-size: 38px; font-weight: 700; letter-spacing: -0.015em; line-height: 1.15; }
+      [data-composition-id="scene-05"] .sc-ok { flex: none; width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center; color: var(--k-ok); border: 3px solid var(--k-ok); background: var(--k-ok-tint); }
+      [data-composition-id="scene-05"] .sc-ok svg { width: 36px; height: 36px; opacity: 0; }
+      [data-composition-id="scene-05"] .nomark { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 22px; }
+      [data-composition-id="scene-05"] .nomark .ring { width: 72px; height: 72px; border-radius: 50%; border: 3px dashed var(--k-text-2); }
+      [data-composition-id="scene-05"] .nomark .tx { font-size: 40px; font-weight: 800; letter-spacing: -0.015em; line-height: 1.2; }
+          [data-composition-id="scene-05"] .fl { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+      [data-composition-id="scene-05"] .fl .k { font-size: 30px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-05"] .fl .v { font-size: 44px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; }
+      [data-composition-id="scene-05"] .fl .mono { font-family: var(--k-font-mono); font-size: 36px; font-weight: 700; color: var(--k-code-head); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("05"), t = S.t, DUR = 22.2;
+        if (DUR - S.end("ставит") < 1.5) throw new Error("Недостаточный хвост сцены");
+
+        Kit.header(S, { header: { mode: "parts", total: 7 }, chapter: "Модель и вы", step: 5, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* Карточка режима вопроса */
+        const ask = Kit.aside(S, { parent: s1, x: 96, y: 205, w: 1728, h: 160, tail: false,
+          html: '<div class="ask"><div><div class="tt">Режим вопроса <em>(Ask)</em></div><div class="ss">модель читает файл и предлагает правки</div></div><div class="chip">сама файлы не меняет</div></div>' });
+        ask.el.style.borderColor = Kit.token("--k-accent");
+        ask.show(2.1); // the part title overlay covers the first 2 s
+        S.tl.to(ask.el.querySelector(".chip"), { opacity: 1, duration: 0.4 }, Math.max(t("Файлы"), 2.2));
+
+        /* Схема: файл -> модель -> предложение (до сверки) */
+        const arrow = '<svg viewBox="0 0 56 30" width="56" height="30" fill="none"><path d="M3 15H49M39 5L50 15L39 25" stroke="' + Kit.token("--k-accent") + '" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        const flow = [
+          { k: "файл", v: '<span class="mono">specification.md</span>', x: 96, at: t("файл спецификации") - 0.2 },
+          { k: "режим вопроса", v: "Модель", x: 700, at: t("модель") + 0.3 },
+          { k: "результат", v: "предложение правок", x: 1304, at: t("предложить") - 0.2 },
+        ];
+        const T_FLOW_OUT = t("Вы сверяете") - 0.25;
+        flow.forEach((f, i) => {
+          const c = Kit.aside(S, { parent: s1, x: f.x, y: 420, w: 520, h: 190, tail: false,
+            html: '<div class="fl"><div class="k">' + f.k + '</div><div class="v">' + f.v + "</div></div>" });
+          c.show(Math.max(f.at, 2.1)); c.hide(T_FLOW_OUT);
+          if (i) {
+            const a = Kit.aside(S, { parent: s1, x: f.x - 74, y: 497, w: 56, h: 36, tail: false, html: arrow });
+            a.el.style.cssText += ";background:transparent;border:none;box-shadow:none;padding:0";
+            a.show(Math.max(f.at, 2.1)); a.hide(T_FLOW_OUT);
+          }
+        });
+
+        /* Четыре проверки */
+        const lab = Kit.aside(S, { parent: s1, x: 96, y: 374, w: 1120, h: 52, tail: false, html: '<div class="lab">Вы сверяете предложение с замыслом</div>' });
+        lab.el.style.background = "transparent"; lab.el.style.border = "none"; lab.el.style.boxShadow = "none"; lab.el.style.padding = "0";
+        lab.show(t("Вы сверяете"));
+        const checks = [
+          { html: "Ошибка очищает результат до «—»", at: t("замыслом"), tick: t("ошибка очищает") + 0.5 },
+          { html: "Сообщение называет поле", at: t("сообщение называет") },
+          { html: "Четыре прежних сценария на месте, всего пять", at: t("четыре сценария") },
+          { html: "Принимаете нужное, лишнее отклоняете", at: t("Принимаете") },
+        ];
+        checks.forEach((c, i) => {
+          const row = Kit.aside(S, { parent: s1, x: 96, y: 440 + i * 96, w: 1120, h: 84, tail: false,
+            html: '<div class="sc-item"><span class="sc-ok">' + Kit.icons.check + "</span><span>" + c.html + "</span></div>" });
+          row.show(c.at - 0.1);
+          S.tl.to(row.el.querySelector(".sc-ok svg"), { opacity: 1, duration: 0.3 }, (c.tick || c.at + 0.6));
+        });
+
+        /* Одобрения за людей модель не ставит */
+        const nm = Kit.aside(S, { parent: s1, x: 1252, y: 440, w: 572, h: 288, tail: false,
+          html: '<div class="nomark"><div class="ring"></div><div class="tx">Одобрения за людей модель не ставит</div></div>' });
+        nm.show(t("Одобрения") - 0.1);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

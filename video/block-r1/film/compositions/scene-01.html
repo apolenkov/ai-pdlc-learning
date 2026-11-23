@@ -1,0 +1,122 @@
+<template id="scene-01-template">
+  <div data-composition-id="scene-01" data-width="1920" data-height="1080" data-duration="30.1">
+    <style>
+      [data-composition-id="scene-01"] .sc-doc { padding: 18px 24px 20px; }
+      [data-composition-id="scene-01"] .sc-head { display: flex; align-items: center; justify-content: space-between; gap: 18px; height: 56px; margin-bottom: 12px; }
+      [data-composition-id="scene-01"] .sc-file { font-family: var(--k-font-mono); font-size: 30px; font-weight: 500; padding: 6px 16px; border-radius: 10px; background: var(--k-accent-tint); white-space: nowrap; }
+      [data-composition-id="scene-01"] .sc-title { font-size: 40px; font-weight: 700; line-height: 1.1; white-space: nowrap; color: var(--k-text-2); }
+      [data-composition-id="scene-01"] .sc-flds { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+      [data-composition-id="scene-01"] .sc-fld { padding: 8px 16px 10px; border: 2px solid var(--k-line); border-radius: 14px; background: var(--k-panel-2); }
+      [data-composition-id="scene-01"] .sc-fld .sc-lab { font-size: 28px; font-weight: 600; line-height: 1.2; color: var(--k-text-2); }
+      [data-composition-id="scene-01"] .sc-fld .sc-fv { font-size: 32px; font-weight: 700; line-height: 1.25; white-space: nowrap; }
+      [data-composition-id="scene-01"] .sc-rows { display: grid; gap: 6px; }
+      [data-composition-id="scene-01"] .sc-row { position: relative; display: grid; grid-template-columns: 372px 1fr; column-gap: 14px; align-items: center; height: 54px; padding: 0 14px; border-left: 6px solid rgba(0, 0, 0, 0); border-radius: 14px; background-color: rgba(0, 0, 0, 0); }
+      [data-composition-id="scene-01"] .sc-row .sc-lab { font-size: 34px; font-weight: 700; line-height: 1.2; color: var(--k-text-2); white-space: nowrap; }
+      [data-composition-id="scene-01"] .sc-val { font-size: 30px; font-weight: 500; line-height: 1.2; color: var(--k-text-2); white-space: nowrap; }
+      [data-composition-id="scene-01"] .sc-dash { position: absolute; inset: 0; border: 3px dashed var(--k-text-2); border-radius: 14px; pointer-events: none; }
+      [data-composition-id="scene-01"] .sc-tag { font-size: 34px; font-weight: 600; line-height: 1.25; border-color: var(--k-info); }
+      [data-composition-id="scene-01"] .sc-tag::before { content: ""; position: absolute; left: -44px; top: 50%; width: 42px; height: 3px; margin-top: -1px; background: var(--k-info); }
+      [data-composition-id="scene-01"] .sc-src { font-size: 34px; font-weight: 700; line-height: 1.25; border-color: var(--k-info); }
+      [data-composition-id="scene-01"] .sc-src small { display: block; font-size: 30px; font-weight: 500; color: var(--k-text-2); margin-top: 4px; }
+      [data-composition-id="scene-01"] .sc-ask { font-size: 32px; font-weight: 700; line-height: 1.25; border-color: var(--k-ok); background: var(--k-ok-tint); }
+      [data-composition-id="scene-01"] .sc-ask .st { display: flex; align-items: baseline; gap: 12px; padding: 4px 0; }
+      [data-composition-id="scene-01"] .sc-ask .st b { color: var(--k-ok); font-weight: 700; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("01"), t = S.t, DUR = 30.1;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+
+        // Header fields follow «автор, владелец решения, состояние и источник»; parts follow the five-item list.
+        const FLD = [t("автором,"), t("владельцем"), t("состоянием"), t("источником,")].map((x) => Math.max(x, 2.1));
+        const LIST = [t("проблема,"), t("результат,"), t("границы,"), t("признаки успеха"), t("открытые вопросы")];
+        const LIST_END = S.end("открытые вопросы");
+        const T_HEAD = t("шапка"), T_PARTS = t("пять частей"), T_MAIN = t("главное"), T_SRC = t("У каждого"), T_ASK = t("Если смысл");
+
+        Kit.header(S, { header: { mode: "parts", total: 7 }, chapter: "Замысел", step: 1, duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const fldsData = [["Автор запроса", "представитель кредитного отдела"], ["Владелец решения", "владелец продукта"], ["Состояние", "согласованный учебный пример"], ["Источник", "обращение и ответы"]];
+        const rowsData = [
+          ["Проблема", "клиент принимает старый платёж за новый"],
+          ["Результат", "при ошибке старый результат не показываем"],
+          ["Границы", "формулу платежа не меняем"],
+          ["Признаки успеха", "срок 1,5 мес. — вместо платежа «—»"],
+          ["Открытые вопросы", "новое неподтверждённое — вопросом"],
+        ];
+        const fldsHtml = fldsData.map(([l, v]) => `<div class="sc-fld"><div class="sc-lab">${l}</div><div class="sc-fv">${v}</div></div>`).join("");
+        const rowsHtml = rowsData.map(([l, v]) => `<div class="sc-row"><span class="sc-lab">${l}</span><span class="sc-val">${v}</span></div>`).join("");
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+        /* The document card is on screen from the first frame; field values and part hints appear as the narrator names them. */
+        const doc = Kit.aside(S, { parent: s1, x: 96, y: 200, w: 1250, tail: false,
+          html: `<div class="sc-head"><span class="sc-file">intents/clear-calculation-result.md</span><span class="sc-title">Замысел</span></div>` +
+                `<div class="sc-flds">${fldsHtml}</div><div class="sc-rows">${rowsHtml}</div>` });
+        doc.el.classList.add("sc-doc");
+        doc.show(2.1); // the part title overlay covers the first 2 s
+        const q = (el, sel) => Array.from(el.querySelectorAll(sel));
+        const flds = q(doc.el, ".sc-fld"), rows = q(doc.el, ".sc-row");
+        const fvals = flds.map((f) => f.querySelector(".sc-fv"));
+        const vals = rows.map((r) => r.querySelector(".sc-val"));
+        hide(...fvals, ...vals);
+
+        const HL_BG = Kit.token("--k-panel-2"), HL_LINE = Kit.token("--k-info"), CLEAR = "rgba(0, 0, 0, 0)";
+        const LINE = Kit.token("--k-line"), ACC = Kit.token("--k-accent"), ACC_BG = Kit.token("--k-accent-tint");
+        // Header fields: the field being named is outlined in blue.
+        flds.forEach((f, i) => {
+          Kit.popIn(S, fvals[i], FLD[i]);
+          S.tl.to(f, { borderColor: HL_LINE, duration: 0.3 }, FLD[i]);
+          S.tl.to(f, { borderColor: LINE, duration: 0.3 }, i < 3 ? FLD[i + 1] : S.end("источником,") + 0.5);
+          read(fldsData[i][1], FLD[i], DUR);
+        });
+        // Five parts: hint appears when the part is named; the row is highlighted while it is spoken.
+        rows.forEach((row, i) => {
+          const off = i < 4 ? LIST[i + 1] : LIST_END + 0.4;
+          Kit.popIn(S, vals[i], LIST[i] + 0.1);
+          S.tl.to(row, { backgroundColor: HL_BG, borderLeftColor: HL_LINE, duration: 0.3 }, LIST[i]);
+          S.tl.to(row, { backgroundColor: CLEAR, borderLeftColor: CLEAR, duration: 0.3 }, off);
+          read(rowsData[i][1], LIST[i] + 0.1, DUR);
+        });
+        // Part labels turn bright as they are named.
+        rows.forEach((row, i) => S.tl.to(row.querySelector(".sc-lab"), { color: Kit.token("--k-text"), duration: 0.3 }, LIST[i]));
+        // The open-questions row is drawn as a dashed slot: the answers are not confirmed yet.
+        const dash = document.createElement("div");
+        dash.className = "sc-dash"; rows[4].appendChild(dash);
+        hide(dash); Kit.popIn(S, dash, LIST[4]);
+
+        // «Результат» is the key part: warm highlight, the quote turns bright.
+        S.tl.to(rows[1], { backgroundColor: ACC_BG, borderLeftColor: ACC, duration: 0.4 }, T_MAIN);
+        S.tl.to(vals[1], { color: Kit.token("--k-accent-soft"), fontWeight: 700, duration: 0.4 }, T_MAIN);
+        S.tl.to(rows[1], { backgroundColor: CLEAR, borderLeftColor: CLEAR, duration: 0.4 }, T_SRC - 0.1);
+        S.tl.to(vals[1], { color: Kit.token("--k-text-2"), duration: 0.4 }, T_SRC - 0.1);
+
+        /* Right column: tags, then the source note and the «ask» card. */
+        const tagHead = Kit.aside(S, { parent: s1, x: 1392, y: 318, w: 432, tail: false, html: "<div>шапка</div>" });
+        const tagParts = Kit.aside(S, { parent: s1, x: 1392, y: 600, w: 432, tail: false, html: "<div>пять частей</div>" });
+        tagHead.el.classList.add("sc-tag"); tagParts.el.classList.add("sc-tag");
+        tagHead.show(T_HEAD); tagHead.hide(T_PARTS - 0.3);
+        tagParts.show(T_PARTS); tagParts.hide(T_MAIN - 0.3);
+        read("шапка", T_HEAD, T_PARTS - 0.3); read("пять частей", T_PARTS, T_MAIN - 0.3);
+
+        const src = Kit.aside(S, { parent: s1, x: 1392, y: 318, w: 432, tail: false, html: "<div>у каждого ожидания — источник</div><small>иначе это догадка</small>" });
+        src.el.classList.add("sc-src");
+        src.show(T_SRC);
+        read("у каждого ожидания — источник иначе это догадка", T_SRC, DUR);
+
+        const ask = Kit.aside(S, { parent: s1, x: 1392, y: 528, w: 432, tail: false,
+          html: '<div class="st"><b>1</b>неясно</div><div class="st"><b>2</b>спросить владельца продукта</div><div class="st"><b>3</b>записать в том же замысле</div>' });
+        ask.el.classList.add("sc-ask");
+        ask.show(T_ASK);
+        read("неясно спросить владельца продукта записать в том же замысле", T_ASK, DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

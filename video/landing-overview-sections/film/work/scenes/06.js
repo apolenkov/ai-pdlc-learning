@@ -1,0 +1,22 @@
+// сцена 6 · Концовка · камера Y 3247 → 611 (быстро вверх) → 969; финальный кадр держится до конца
+const { R } = PageWin;
+const W = PageWin.begin(L, { cam: { Y: 3247, s: 1.1 }, spot: R.help });
+W.moveCam(0, 1.5, { Y: 611, s: 1.15 }, "power3.inOut");
+// прожектор не «ездит» по тексту в рывке камеры: гаснет, переходит на карту, загорается у прибытия камеры
+const hop = (rect, out, back) => {
+  const b = PageWin.grow(rect, 7);
+  tl.fromTo(W.spotEl, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.3, ease: "power1.in", immediateRender: false }, out);
+  tl.set(W.spotEl, { left: b.x, top: b.y, width: b.w, height: b.h }, out + 0.35);
+  tl.fromTo(W.spotEl, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4, ease: "power1.out", immediateRender: false }, back);
+  W.spotRect = b;
+};
+hop(R.sdlc, 0.1, 1.3);
+const B = t("Нужна"), C = t("начните");
+W.call("Найдите свой этап", { to: [1380, 676], side: "center", at: 1.7, until: B - 0.2 });
+W.ring({ x: 336, y: 740, w: 52, h: 52 }, 1.8, B - 0.2, "round");
+const pulse = W.ring({ x: 330, y: 734, w: 64, h: 64 }, 2.2, B - 0.2, "round");
+tl.to(pulse, { scale: 1.12, autoAlpha: 0, duration: 0.55, ease: "power1.out", transformOrigin: "50% 50%" }, 2.4); // один импульс, закончен до B−0,2
+W.moveCam(B, 0.9, { Y: 969, s: 1.15 });
+hop(R.enR, B, B + 0.6);
+W.ring(R.btnAudit, C + 0.2, null);
+W.call("Аудит", { to: [1558, 1538], side: "above", gap: 24, align: "r", at: C + 0.2 });

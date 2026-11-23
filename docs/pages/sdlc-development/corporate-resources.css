@@ -1,0 +1,119 @@
+:root {
+  /* Shared color tokens from TASK-589. */
+  --resource-warn-line: #d47b76;
+  --resource-warn-accent: #b42318;
+  --resource-warn-bg: #fff1f0;
+  --resource-warn-ink: #8a1c1c;
+  --resource-warn-ink-strong: #7f1d1d;
+  --resource-template-bg: #fbfaf4;
+}
+.resources-page .reference-intro h1 { max-width: 18ch; }
+/* Критерий PASS пакета: на 1440 нет текста мельче 13 px. Кикер приходит из общего help-reference.css (.75rem),
+   поэтому поднимаем его здесь по контейнеру страницы, общий файл не трогаем. */
+.resources-page .reference-kicker { font-size: .82rem; }
+.resource-index { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+.resource-index a { min-height: 44px; padding: 11px 14px; border: 1px solid var(--reference-line); border-radius: 999px; background: var(--customdev-white); color: var(--reference-ink); font-size: .82rem; font-weight: 800; text-decoration: none; }
+.resource-index a:hover, .resource-index a:focus-visible { border-color: var(--reference-blue); background: var(--reference-blue-soft); }
+.resource-section { scroll-margin-top: var(--site-nav-reserve); margin-top: 24px; }
+.resource-section__header { max-width: none; margin-bottom: 18px; padding: 20px 24px; border: 1px solid var(--reference-line); border-radius: 12px; background: var(--customdev-white); }
+.resource-section__header h2 { margin: 0; font-size: clamp(1.65rem, 3vw, 2.35rem); letter-spacing: -.035em; }
+.resource-section__header > p:last-child { margin: 10px 0 0; color: var(--reference-muted); }
+.resource-list, .resource-groups { display: grid; gap: 16px; margin-top: 22px; }
+.resource-card, .resource-group { scroll-margin-top: var(--site-nav-reserve); overflow: hidden; border: 1px solid var(--reference-line); border-radius: 12px; background: var(--customdev-white); }
+.anchor-alias { display: block; scroll-margin-top: var(--site-nav-reserve); }
+.resource-card > header { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 18px 20px; border-bottom: 1px solid var(--reference-line); background: var(--customdev-paper-tint); }
+.resource-card h3, .resource-group h3 { margin: 0; font-size: 1.2rem; letter-spacing: -.02em; }
+.resource-card__action { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; padding: 10px 14px; border: 1px solid var(--reference-blue); border-radius: 8px; color: var(--reference-blue); font-size: .82rem; font-weight: 850; text-decoration: none; overflow-wrap: anywhere; }
+.resource-card__action:hover, .resource-card__action:focus-visible { background: var(--reference-blue-soft); }
+/* A note in place of an address is not a control: no button frame, no hover. */
+span.resource-card__action { border-style: dashed; color: var(--reference-muted, inherit); font-weight: 700; cursor: default; }
+span.resource-card__action:hover { background: none; }
+.action-group { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+.resource-warning { margin: 16px 20px 0; padding: 12px 14px; border: 1px solid var(--resource-warn-line); border-left: 4px solid var(--resource-warn-accent); border-radius: 8px; background: var(--resource-warn-bg); color: var(--resource-warn-ink); font-size: .88rem; }
+.resource-warning strong { color: var(--resource-warn-ink-strong); }
+.resource-warning--compact { margin-bottom: 0; }
+
+.resource-card__request { margin-top: 16px; padding: 18px 20px; border-top: 1px solid var(--reference-line); background: var(--resource-template-bg); overflow-wrap: anywhere; }
+.resource-card__request h4 { margin: 0 0 8px; font-size: 1.05rem; letter-spacing: -.02em; }
+.resource-card__request > p { margin: 0 0 12px; color: var(--reference-muted); }
+.resource-request__links { font-size: .88rem; }
+/* Кнопки не наследуют шрифт страницы: браузер рисует их Arial (находка lint:ui, правило font-family). */
+.resources-page button { font-family: inherit; }
+.copy-request { display: inline-flex; min-height: 44px; align-items: center; margin-top: 12px; padding: 10px 16px; border: 1px solid var(--reference-blue); border-radius: 8px; background: var(--customdev-white); color: var(--reference-blue); font-size: .85rem; font-weight: 850; cursor: pointer; }
+.copy-request:hover, .copy-request:focus-visible { background: var(--reference-blue-soft); }
+.copy-status { display: block; min-height: 1.4em; margin-top: 6px; color: var(--reference-muted); font-size: .85rem; }
+.resource-request-template { margin: 8px 0 0; padding: 12px 14px; border: 1px solid var(--reference-line); border-radius: 8px; background: var(--customdev-paper-tint); color: var(--reference-ink); font: .82rem/1.5 var(--customdev-font-mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace); white-space: pre-wrap; overflow-wrap: anywhere; }
+/* Текст заявки — 70 строк: открытой остаётся кнопка «Скопировать» и порядок шагов, текст раскрывается по клику. */
+.request-more { margin-top: 10px; border: 1px solid var(--reference-line); border-radius: 8px; background: var(--customdev-paper-tint); }
+.request-more > summary { padding: 12px 14px; cursor: pointer; color: var(--reference-ink); font-size: .88rem; font-weight: 850; }
+.request-more > summary:hover, .request-more > summary:focus-visible { background: var(--reference-blue-soft); }
+.request-more[open] > summary { border-bottom: 1px solid var(--reference-line); }
+.request-more > .resource-request-template { margin: 0; border: 0; border-radius: 0 0 8px 8px; background: var(--customdev-white); }
+
+.resource-card > dl { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; border-top: 1px solid var(--reference-line); }
+.resource-card > dl > div { min-width: 0; padding: 18px 20px; }
+.resource-card > dl > div + div { border-left: 1px solid var(--reference-line); }
+.resource-card dt, .resource-more dt { margin-bottom: 6px; color: var(--reference-green); font-size: .82rem; font-weight: 850; letter-spacing: .06em; text-transform: uppercase; }
+.resource-card dd { margin: 0; color: var(--reference-muted); overflow-wrap: anywhere; }
+.resource-steps { display: grid; gap: 8px; margin: 0; padding-left: 1.25rem; }
+
+.resource-more { border-top: 1px solid var(--reference-line); }
+.resource-more > summary { padding: 14px 20px; cursor: pointer; color: var(--reference-ink); font-size: .9rem; font-weight: 850; }
+.resource-more > summary:hover, .resource-more > summary:focus-visible { background: var(--reference-blue-soft); }
+.resource-more[open] > summary { border-bottom: 1px solid var(--reference-line); }
+.resource-more__body { padding: 4px 20px 16px; overflow-wrap: anywhere; }
+.resource-more dl { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; }
+.resource-more dl > div { min-width: 0; padding: 16px 20px; }
+.resource-more dl > div + div { border-left: 1px solid var(--reference-line); }
+.resource-more dd { margin: 0; color: var(--reference-muted); overflow-wrap: anywhere; }
+
+.resource-groups { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; }
+.resource-group h3 { padding: 18px 20px; border-bottom: 1px solid var(--reference-line); background: var(--customdev-paper-tint); }
+.resource-links { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; }
+.resource-links li { display: grid; gap: 5px; padding: 14px 20px; color: var(--reference-muted); font-size: .88rem; overflow-wrap: anywhere; }
+.resource-links li + li { border-top: 1px solid var(--reference-line); }
+.resource-links a, .resource-links__name { color: var(--reference-blue); font-weight: 800; text-underline-offset: 3px; }
+/* Site link palette instead of browser default blue/purple. */
+:where(.resources-page) a { color: var(--reference-blue); text-underline-offset: 3px; }
+:where(.resources-page) a:visited { color: var(--reference-blue); }
+/* OpenCode screenshots: equal frames regardless of source aspect ratio. */
+.resource-more figure img { width: 100%; aspect-ratio: 16 / 10; height: auto !important; object-fit: cover; object-position: top left; border: 1px solid var(--reference-line); border-radius: 8px; }
+code { font-family: var(--customdev-font-mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace); }
+:where(.resources-page a):focus-visible { outline: 3px solid var(--reference-blue); outline-offset: 3px; }
+:where(.copy-request, .resource-more > summary, .request-more > summary, .resource-request-template):focus-visible { outline: 3px solid var(--reference-blue); outline-offset: 3px; }
+
+/* Длинный список инструментов (18 пунктов) раскладывается на всю ширину в три колонки,
+   иначе под средней и правой карточками остаётся пустое поле ~940×1070 px. */
+@media (min-width: 1100px) {
+  .resource-groups { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .resource-groups > .resource-group:first-child { grid-column: 1 / -1; }
+  .resource-groups > .resource-group:first-child .resource-links { columns: 3; column-gap: 0; }
+  .resource-groups > .resource-group:first-child .resource-links li { break-inside: avoid; }
+}
+
+/* Снимок панели Extensions обрезан до 425 px: подпись встаёт рядом, чтобы карточка не пустовала справа. */
+.resource-shot { margin: 12px 0; }
+@media (min-width: 900px) {
+  .resource-shot { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 20px; align-items: start; }
+  .resource-shot figcaption { margin: 0; }
+}
+
+@media (max-width: 1000px) {
+  .resource-groups { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 800px) {
+  .resource-card > header { align-items: flex-start; flex-direction: column; }
+  .action-group { justify-content: flex-start; }
+  .resource-card > dl, .resource-more dl { grid-template-columns: 1fr; }
+  .resource-card > dl > div + div, .resource-more dl > div + div { border-top: 1px solid var(--reference-line); border-left: 0; }
+}
+
+@media (max-width: 560px) {
+  .reference-shell { width: min(100% - 24px, var(--site-shell-max, 1408px)); }
+  .resources-page .reference-intro h1 { font-size: clamp(2.25rem, 13vw, 3.25rem); }
+  .resource-card__action, .action-group { width: 100%; }
+  .copy-request { width: 100%; justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

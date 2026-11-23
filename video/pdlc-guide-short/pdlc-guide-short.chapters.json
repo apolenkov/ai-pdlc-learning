@@ -1,0 +1,92 @@
+[
+  {
+    "n": 1,
+    "title": "Принцип",
+    "step": null,
+    "chapter": "Принцип",
+    "start": 0,
+    "titleStart": 0,
+    "speechStart": 0.5,
+    "end": 15.4
+  },
+  {
+    "n": 2,
+    "title": "Намерение и план",
+    "step": null,
+    "chapter": "Намерение и план",
+    "start": 15.4,
+    "titleStart": 15.4,
+    "speechStart": 15.4,
+    "end": 25.9
+  },
+  {
+    "n": 3,
+    "title": "Анализ требований",
+    "step": null,
+    "chapter": "Анализ требований",
+    "start": 25.9,
+    "titleStart": 25.9,
+    "speechStart": 25.9,
+    "end": 36.5
+  },
+  {
+    "n": 4,
+    "title": "Архитектура и дизайн",
+    "step": null,
+    "chapter": "Архитектура и дизайн",
+    "start": 36.5,
+    "titleStart": 36.5,
+    "speechStart": 36.5,
+    "end": 47.3
+  },
+  {
+    "n": 5,
+    "title": "Реализация",
+    "step": null,
+    "chapter": "Реализация",
+    "start": 47.3,
+    "titleStart": 47.3,
+    "speechStart": 47.3,
+    "end": 55.9
+  },
+  {
+    "n": 6,
+    "title": "Тестирование",
+    "step": null,
+    "chapter": "Тестирование",
+    "start": 55.9,
+    "titleStart": 55.9,
+    "speechStart": 55.9,
+    "end": 64.3
+  },
+  {
+    "n": 7,
+    "title": "Выпуск",
+    "step": null,
+    "chapter": "Выпуск",
+    "start": 64.3,
+    "titleStart": 64.3,
+    "speechStart": 64.3,
+    "end": 72.2
+  },
+  {
+    "n": 8,
+    "title": "Наблюдение",
+    "step": null,
+    "chapter": "Наблюдение",
+    "start": 72.2,
+    "titleStart": 72.2,
+    "speechStart": 72.2,
+    "end": 80.8
+  },
+  {
+    "n": 9,
+    "title": "Вывод",
+    "step": null,
+    "chapter": "Вывод",
+    "start": 80.8,
+    "titleStart": 80.8,
+    "speechStart": 80.8,
+    "end": 89.5
+  }
+]

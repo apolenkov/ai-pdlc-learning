@@ -1,0 +1,109 @@
+<template id="scene-09-template">
+  <div data-composition-id="scene-09" data-width="1920" data-height="1080" data-duration="31.4">
+    <style>
+      [data-composition-id="scene-09"] .sc-big { font-size: 64px; font-weight: 700; line-height: 1.15; }
+      [data-composition-id="scene-09"] .sc-sub { font-size: 40px; line-height: 1.25; color: var(--k-text-2); margin-top: 12px; }
+      [data-composition-id="scene-09"] .sc-hl { position: absolute; background: var(--k-accent-tint); border: 3px solid var(--k-accent); border-radius: 8px; opacity: 0; pointer-events: none; }
+    </style>
+    <!-- записи: производные assets/rec/derive-scene-09.sh: форма New merge request (scene-10-new-mr с 4,2 с, 7,2 с), замечание (scene-11-comment с 6,5 с, 4 с), Ready to merge и Merge (scene-13-merge с 0,3 с, 5,1 с) -->
+    <video id="rec-mr" class="clip" src="assets/rec/scene-09-mr.v4.mp4" muted playsinline data-start="2.9" data-duration="13.2"></video>
+    <video id="rec-cm" class="clip" src="assets/rec/scene-09-comment.v3.mp4" muted playsinline data-start="9.8" data-duration="4"></video>
+    <video id="rec-mg" class="clip" src="assets/rec/scene-09-merge.v4.mp4" muted playsinline data-start="27.85" data-duration="3.5"></video>
+    <script>
+      (function () {
+        const S = Kit.scene("09");
+        const t = S.t;
+        const R = Kit.layout;
+        const NAT = { w: 1920, h: 1080 };
+        const DUR = 31.4;
+        const rd = (txt, a, b) => { const w = txt.trim().split(/\s+/).length; if (b - a < w / 3 + 1 - 1e-6) throw new Error(`текст «${txt}» на экране ${(b - a).toFixed(1)} с, нужно ${(w / 3 + 1).toFixed(1)} с`); };
+        const HOVER = 1.0;
+        const withHover = (cl) => { const out = [], wp = []; cl.forEach((c) => { wp.push(out.length); out.push({ t: c.t - HOVER, x: c.x, y: c.y }); out.push(c); }); return { out, wp }; };
+        const noPulse = (scr, hv) => { const pu = scr.layer.querySelectorAll(".k-pulse"); hv.wp.forEach((i) => { pu[2 * i].remove(); pu[2 * i + 1].remove(); }); };
+        const hl = (scr, box, at, off) => {
+          const d = document.createElement("div"); d.className = "sc-hl"; d.setAttribute("data-layout-allow-overflow", "");
+          d.style.cssText += `left:${box.x}px;top:${box.y}px;width:${box.w}px;height:${box.h}px;`;
+          scr.layer.appendChild(d);
+          S.tl.to(d, { opacity: 1, duration: 0.4, ease: "power2.out" }, at);
+          S.tl.to(d, { opacity: 0, duration: 0.3, ease: "power2.in" }, off);
+        };
+
+        Kit.header(S, { duration: DUR });
+
+        const T1_OUT = t("читают") - 0.35;              // уходит форма MR
+        const T3 = T1_OUT + 0.5;
+        const T3_OUT = t("Владелец") - 0.25;             // «Одобряет владелец продукта» держится на экране не меньше 2 с
+        const T4 = T3_OUT + 0.5;
+        const T4_OUT = t("Одобрение") + 0.1;
+        const T5 = T4_OUT + 0.5;
+
+        /* ---- план 1: форма New merge request (под заставкой первые 2 с ничего не привязано) ---- */
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+        const V_MR = 2.9;
+        const hvM = withHover([{ t: 1.69, x: 914, y: 271, label: "Source branch" }, { t: 2.76, x: 902, y: 428, label: "limit-rows" }, { t: 4.0, x: 490, y: 419, label: "Compare branches and continue" }]);
+        const scrM = Kit.screen(S, { parent: s1, natural: NAT, h: 550, alt: "GitLab: форма New merge request",
+          video: { el: "#rec-mr", start: V_MR, duration: 13.2, poster: "assets/rec/scene-09-mr.v3.first.png", clicks: hvM.out },
+          from: { x: 1120, y: 330 }, cursorHold: 0.8,
+          camera: [
+            { t: 2.0, cx: 1120, cy: 330, scale: 1.2, dur: 0.01, protect: [{ x: 340, y: 90, w: 1560, h: 360 }] },   // источник и цель, страница по ширине целиком
+            { t: t("проверяющего") + 0.8, cx: 895, cy: 811, scale: 1.7, dur: 0.01, protect: [{ x: 340, y: 780, w: 560, h: 190 }] } ] });      // поле Reviewer
+        noPulse(scrM, hvM);
+        scrM.show(2.1);
+        hl(scrM, { x: 335, y: 184, w: 420, h: 42 }, t("куда") - 0.2, t("проверяющего") + 0.5);    // «From … into main»: куда вносим изменения
+        hl(scrM, { x: 336, y: 893, w: 322, h: 50 }, t("проверяющего") + 1.3, T1_OUT);             // Reviewer
+        const card = (parent, o, at, off, txt) => { const a = Kit.aside(S, Object.assign({ parent, x: R.rightX, y: 330, w: R.rightW, tail: false }, o)); a.show(at); if (off != null) a.hide(off); rd(txt, at, off != null ? off : DUR); return a; };
+        card(s1, { title: "Target branch" }, t("куда") - 0.3, t("проверяющего") + 0.6, "Target branch");
+        card(s1, { title: "Reviewer" }, t("Проверяют") - 0.1, T1_OUT, "Reviewer");
+
+        /* ---- план 2: замечание к строке ---- */
+        const s3 = S.stage();
+        const V_CM = 9.8;
+        const hvC = withHover([{ t: 0.43, x: 126, y: 752, label: "Comment" }, { t: 2.29, x: 756, y: 539 }]);
+        const scrC = Kit.screen(S, { parent: s3, natural: NAT, h: 566, alt: "GitLab: комментарий к строке в Changes",
+          video: { el: "#rec-cm", start: V_CM, duration: 4, poster: "assets/rec/scene-09-comment.v3.first.png", clicks: hvC.out },
+          from: { x: 300, y: 700 }, cursorHold: 0.6,
+          camera: [{ t: T3 + 0.1, cx: 960, cy: 510, scale: 1.0, dur: 0.01, protect: [{ x: 125, y: 100, w: 1260, h: 820 }] }] });   // поле замечания целиком
+        noPulse(scrC, hvC);
+        // Клип снят после слияния: на постере и в первые 1,7 с клипа виден бейдж «Merged». Поверх лежит настоящий бейдж «Open»
+        // из кадра записи до слияния (scene-13-merge), масштаб 1,397 под зум этого клипа. Клип (data-start V_CM, 4 с) заканчивается
+        // раньше, чем план показан (T3 ≈ 14 с), поэтому на экране весь план держится постер: бейдж включаем с конца клипа.
+        const openBadge = document.createElement("div");
+        openBadge.style.cssText = 'position:absolute;left:121px;top:223px;width:939px;height:61px;background:url("assets/rec/scene-09-open-badge.png") 0 0 / 100% 100% no-repeat;pointer-events:none';
+        scrC.layer.appendChild(openBadge);
+        gsap.set(openBadge, { autoAlpha: 0 });
+        S.tl.set(openBadge, { autoAlpha: 1 }, V_CM + 4);
+        scrC.show(T3);
+        // роли по правилу 590: замечания оставляют техлид и аналитик, одобряет владелец продукта (одобрение не равно принятию кода)
+        card(s3, { title: "Comment", text: "техлид и аналитик" }, t("замечание") - 0.3, null, "Comment техлид и аналитик"); // уходит вместе с планом
+        card(s3, { title: "Approve", text: "владелец продукта", y: 500 }, t("Одобряет") - 0.2, T3_OUT, "Approve владелец продукта");
+
+        /* ---- план 3: условия задаёт владелец проекта; Merge выполняет участник с нужными правами (GS: «Владелец проекта задаёт целевую ветку и условия принятия; Merge выполняет участник с нужными правами») ---- */
+        const s4 = S.stage();
+        Kit.aside(S, { parent: s4, x: 410, y: 380, w: 1100, tail: false, html: `<div class="sc-big">Условия задаёт</div><div class="sc-sub">владелец проекта</div>` }).show(T4 + 0.05);
+        rd("Условия задаёт владелец проекта", T4 + 0.05, T4_OUT);
+        Kit.aside(S, { parent: s4, x: 410, y: 640, w: 1100, tail: false, html: `<div class="sc-big">Слияние выполняет</div><div class="sc-sub">участник с нужными правами</div>` }).show(t("слияние выполняет") - 0.3);
+        rd("Слияние выполняет участник с нужными правами", t("слияние выполняет") - 0.3, T4_OUT);
+
+        /* ---- план 4: одобрение — не объединение ---- */
+        const s5 = S.stage();
+        const V_MG = 27.85;   // запись обрезана на 1 с: первые кадры были прокруткой страницы, текст резался на ходу
+        const hvG = withHover([{ t: 1.33, x: 442, y: 540, label: "Merge" }]);
+        const scrG = Kit.screen(S, { parent: s5, natural: NAT, h: 548, alt: "GitLab: Approve и кнопка Merge",
+          video: { el: "#rec-mg", start: V_MG, duration: 3.5, poster: "assets/rec/scene-09-merge.v4.first.png", clicks: hvG.out },
+          from: { x: 520, y: 500 }, cursorHold: 1.0,
+          camera: [{ t: T5 + 0.1, cx: 940, cy: 472, scale: 1.5, dur: 0.01, protect: [{ x: 340, y: 260, w: 1200, h: 320 }] }] });   // Approve и Merge в рамке целиком
+        noPulse(scrG, hvG);
+        scrG.show(T5);
+        if (Math.abs(V_MG + 1.33 - t("Мёрдж", 2)) > 0.05) throw new Error("клик Merge не совпал со словом «Мёрдж»");
+        card(s5, { title: "Approve" }, T5 + 0.1, t("отдельный") - 0.35, "Approve");
+
+        Kit.stageOut(S, s1, T1_OUT); Kit.stageIn(S, s3, T3);
+        Kit.stageOut(S, s3, T3_OUT); Kit.stageIn(S, s4, T4);
+        Kit.stageOut(S, s4, T4_OUT); Kit.stageIn(S, s5, T5);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

@@ -1,0 +1,172 @@
+<template id="scene-05-template">
+  <div data-composition-id="scene-05" data-width="1920" data-height="1080" data-duration="26.1">
+    <style>
+      [data-composition-id="scene-05"] .th { position: relative; height: 80px; font-size: 28px; font-weight: 600; color: var(--k-text-2); line-height: 1.2; }
+      [data-composition-id="scene-05"] .th span { position: absolute; top: 0; height: 74px; display: flex; align-items: center; opacity: 0; }
+      [data-composition-id="scene-05"] .th .h1 { left: 8px; opacity: 1; }
+      [data-composition-id="scene-05"] .th .h2 { left: 208px; width: 310px; }
+      [data-composition-id="scene-05"] .th .h3 { left: 525px; }
+      [data-composition-id="scene-05"] .th .h4 { left: 695px; width: 190px; }
+      [data-composition-id="scene-05"] .rw { position: relative; height: 56px; border-top: 1px solid var(--k-line); border-radius: 0; }
+      [data-composition-id="scene-05"] .rw .nb { position: absolute; left: 8px; top: 6px; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--k-panel-2); border: 2px solid var(--k-line); color: var(--k-text); font-size: 28px; font-weight: 700; opacity: 0; }
+      [data-composition-id="scene-05"] .rw .d { position: absolute; top: 13px; width: 30px; height: 30px; border-radius: 50%; background: var(--k-text-2); color: var(--k-panel-2); display: grid; place-items: center; opacity: 0; }
+      [data-composition-id="scene-05"] .rw .d svg { width: 20px; height: 20px; display: block; }
+      [data-composition-id="scene-05"] .rw .d.c2 { left: 204px; }
+      [data-composition-id="scene-05"] .rw .d.c3 { left: 539px; }
+      [data-composition-id="scene-05"] .rw .d.c4 { left: 709px; }
+      [data-composition-id="scene-05"] .rw .sg { position: absolute; top: 26px; height: 4px; border-radius: 2px; background: var(--k-win-dot); transform-origin: 0 50%; transform: scaleX(0); }
+      [data-composition-id="scene-05"] .rw .sg.s1 { left: 62px; width: 132px; }
+      [data-composition-id="scene-05"] .rw .sg.s2 { left: 244px; width: 285px; }
+      [data-composition-id="scene-05"] .rw .sg.s3 { left: 579px; width: 120px; }
+      [data-composition-id="scene-05"] .rw .gap { position: absolute; left: 192px; top: 8px; width: 150px; height: 40px; border-radius: 12px; border: 3px dashed var(--k-accent); background: var(--k-accent-tint); opacity: 0; }
+      [data-composition-id="scene-05"] .cn { height: 100%; display: flex; align-items: center; gap: 22px; }
+      [data-composition-id="scene-05"] .cn .nn { position: relative; flex: none; width: 190px; height: 90px; }
+      [data-composition-id="scene-05"] .cn .nn b { position: absolute; left: 0; top: 0; font-size: 88px; font-weight: 800; letter-spacing: -0.03em; line-height: 90px; white-space: nowrap; opacity: 0; }
+      [data-composition-id="scene-05"] .cn .nn .n8 { color: var(--k-ok); }
+      [data-composition-id="scene-05"] .cn .nn .n7 { color: var(--k-accent); }
+      [data-composition-id="scene-05"] .cn .lw { display: grid; }
+      [data-composition-id="scene-05"] .cn .lw .lb { grid-area: 1 / 1; }
+      [data-composition-id="scene-05"] .cn .lb { font-size: 30px; font-weight: 600; color: var(--k-text-2); line-height: 1.25; opacity: 0; }
+      [data-composition-id="scene-05"] .ck { height: 100%; display: flex; align-items: center; gap: 16px; font-size: 32px; font-weight: 800; letter-spacing: -0.01em; }
+      [data-composition-id="scene-05"] .ck svg { flex: none; width: 38px; height: 38px; color: var(--k-text-2); }
+      [data-composition-id="scene-05"] .fl { height: 100%; display: flex; align-items: center; gap: 16px; }
+      [data-composition-id="scene-05"] .fl > svg { flex: none; width: 40px; height: 40px; color: var(--k-text-2); }
+      [data-composition-id="scene-05"] .fl .nm { position: relative; font-family: var(--k-font-mono); font-size: 30px; font-weight: 600; white-space: nowrap; }
+      [data-composition-id="scene-05"] .fl .strike { position: absolute; left: -8px; right: -8px; top: 54%; height: 5px; border-radius: 3px; background: var(--k-accent); transform-origin: 0 50%; transform: scaleX(0); }
+      [data-composition-id="scene-05"] .fl .lk { margin-left: auto; flex: none; width: 46px; height: 46px; color: var(--k-text); opacity: 0; }
+      [data-composition-id="scene-05"] .fl .lk svg { width: 100%; height: 100%; }
+      [data-composition-id="scene-05"] .vr { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+      [data-composition-id="scene-05"] .vr .lb { font-size: 28px; font-weight: 600; color: var(--k-text-2); opacity: 0; }
+      [data-composition-id="scene-05"] .vr .row { display: flex; flex-wrap: wrap; gap: 10px; }
+      [data-composition-id="scene-05"] .vr .chip { display: flex; align-items: center; height: 54px; padding: 0 18px; border-radius: 14px; background: var(--k-panel-2); border: 2px solid var(--k-line); font-size: 30px; font-weight: 700; white-space: nowrap; opacity: 0; }
+      [data-composition-id="scene-05"] .os { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+      [data-composition-id="scene-05"] .os .big { font-size: 56px; font-weight: 800; letter-spacing: -0.025em; line-height: 1.1; opacity: 0; }
+      [data-composition-id="scene-05"] .os .sub { font-size: 30px; font-weight: 600; color: var(--k-text-2); line-height: 1.25; opacity: 0; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("05"), t = S.t, DUR = 26.1;
+        // Считаем только полностью проявленный неподвижный текст: переходы временем чтения не считаются.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.end("опенспек.") < 1.5) throw new Error("Недостаточный хвост сцены");
+        const tok = Kit.token, tl = S.tl, q = (el, c) => el.querySelector(c), qa = (el, c) => [...el.querySelectorAll(c)];
+        const E_OUT = tok("--k-ease-out"), POP = "back.out(2)";
+        const slide = (el, x, at, d = 0.6) => tl.fromTo(el, { autoAlpha: 0, x }, { autoAlpha: 1, x: 0, duration: d, ease: E_OUT, immediateRender: false }, at);
+        const rise = (el, at, d = 0.55, y = 20) => tl.fromTo(el, { autoAlpha: 0, y }, { autoAlpha: 1, y: 0, duration: d, ease: E_OUT, immediateRender: false }, at);
+        const pop = (el, at, d = 0.55) => tl.fromTo(el, { autoAlpha: 0, scale: 0.86 }, { autoAlpha: 1, scale: 1, duration: d, ease: POP, immediateRender: false }, at);
+        const fade = (el, at, d = 0.4) => tl.fromTo(el, { autoAlpha: 0 }, { autoAlpha: 1, duration: d, immediateRender: false }, at);
+        const CHECK = Kit.icons.check, FILE = Kit.icons.file;
+        const LOCK = '<svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><rect x="11" y="25" width="34" height="25" rx="5"/><path d="M18 25v-7a10 10 0 0 1 20 0v7"/></svg>';
+
+        Kit.header(S, { header: { mode: "parts", total: 8 }, chapter: "Проверка переноса", step: 5, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* ---- таблица переноса: 8 строк, три связи по словам (до 2.0 с — заставка части) ---- */
+        const N = 8;
+        let rows = "";
+        for (let i = 1; i <= N; i++) rows += '<div class="rw r' + i + '"><i class="nb">' + i + '</i><i class="sg s1"></i><i class="sg s2"></i><i class="sg s3"></i><i class="d c2">' + CHECK + '</i><i class="d c3">' + CHECK + '</i><i class="d c4">' + CHECK + '</i><i class="gap"></i></div>';
+        const tb = Kit.aside(S, { parent: s1, x: 96, y: 235, w: 940, h: 560, tail: false,
+          html: '<div class="th"><span class="h1">Сценарий</span><span class="h2">Требование и сценарий изменения</span><span class="h3">Задача</span><span class="h4">Будущая проверка</span></div>' + rows });
+        tb.el.style.height = "auto";
+        tb.el.style.padding = "14px 26px 20px";
+        rise(tb.el, 2.0, 0.55, 24);
+        const rws = qa(tb.el, ".rw");
+        // колонка 1: номера сценариев по очереди на слове «сценарий»
+        rws.forEach((r, i) => pop(q(r, ".nb"), t("сценарий") + i * 0.07, 0.4));
+        // колонки 2–4: заголовок и точки со связью — на своих словах
+        const col = (hSel, at, dSel, sSel) => {
+          fade(q(tb.el, hSel), at - 0.05, 0.4);
+          rws.forEach((r, i) => {
+            const a = at + 0.25 + i * 0.07;
+            pop(q(r, dSel), a, 0.4);
+            tl.to(q(r, sSel), { scaleX: 1, duration: 0.3, ease: "power2.out" }, a - 0.12);
+          });
+        };
+        col(".h2", t("новым"), ".d.c2", ".sg.s1");
+        col(".h3", t("задачей"), ".d.c3", ".sg.s2");
+        col(".h4", t("будущей"), ".d.c4", ".sg.s3");
+
+        /* ---- правая колонка ---- */
+        const RX = 1076, RW = 748;
+        // счётчик 8/8 (зелёный — единственный «готово»)
+        const cnt = Kit.aside(S, { parent: s1, x: RX, y: 235, w: RW, h: 140, tail: false,
+          html: '<div class="cn"><div class="nn"><b class="n8">8/8</b><b class="n7">7/8</b></div><div class="lw"><div class="lb l1">сценариев<br>сопоставлено</div><div class="lb l2">если хотя бы один<br>не сопоставлен</div></div></div>' });
+        rise(cnt.el, t("Сопоставлены") - 0.05, 0.55, 22);
+        fade(q(cnt.el, ".lb.l1"), t("Сопоставлены") + 0.25, 0.45);
+        tl.fromTo(q(cnt.el, ".n8"), { autoAlpha: 0, scale: 0.7 }, { autoAlpha: 1, scale: 1, duration: 0.6, ease: POP, immediateRender: false }, t("восемь"));
+        read("8/8 сценариев сопоставлено", t("восемь") + 0.6, t("Не сопоставлен"), 0);
+
+        // строгая проверка: строка «Проверка формы пройдена» (нейтральная, без второй зелёной)
+        const ck = Kit.aside(S, { parent: s1, x: RX, y: 395, w: RW, h: 92, tail: false,
+          html: '<div class="ck">' + CHECK + '<span>Проверка формы пройдена</span></div>' });
+        ck.el.style.padding = "0 26px";
+        slide(ck.el, 50, t("строгую") - 0.05, 0.55);
+        read("Проверка формы пройдена", t("строгую") + 0.55, t("Не сопоставлен") - 0.1, 0);
+
+        // старый файл: появляется, затем перечёркивается
+        const fl = Kit.aside(S, { parent: s1, x: RX, y: 507, w: RW, h: 100, tail: false,
+          html: '<div class="fl">' + FILE + '<span class="nm">specification.md<i class="strike"></i></span><span class="lk">' + LOCK + "</span></div>" });
+        fl.el.style.padding = "0 26px";
+        pop(fl.el, t("старый") - 0.05, 0.55);
+        const strike = q(fl.el, ".strike"), nm = q(fl.el, ".nm");
+        tl.to(strike, { scaleX: 1, duration: 0.5, ease: "power2.out" }, t("спецификации:"));
+        tl.to(nm, { color: tok("--k-text-2"), duration: 0.4 }, t("спецификации:") + 0.2);
+
+        // версия остаётся: два чипа
+        const ver = Kit.aside(S, { parent: s1, x: RX, y: 627, w: RW, h: 190, tail: false,
+          html: '<div class="vr"><div class="lb">версия остаётся</div><div class="row"><span class="chip a">принятая ветка</span><span class="chip b">история Git</span></div></div>' });
+        rise(ver.el, t("его версия") - 0.05, 0.55, 22);
+        fade(q(ver.el, ".lb"), t("версия") , 0.4);
+        pop(q(ver.el, ".chip.a"), t("принятой") - 0.05, 0.5);
+        pop(q(ver.el, ".chip.b"), t("истории"), 0.5);
+
+        /* ---- второй исход (коротко): не сопоставлен хотя бы один — файл остаётся; затем возврат к итогу 8/8 ---- */
+        const T_NO = t("Не сопоставлен") - 0.05, T_BACK = t("Теперь") - 0.2;
+        tl.to(ver.el, { autoAlpha: 0, duration: 0.4 }, T_NO);
+        tl.to(ck.el, { autoAlpha: 0, duration: 0.4 }, T_NO);
+        tl.to(strike, { scaleX: 0, duration: 0.35, ease: "power2.in" }, T_NO);
+        tl.to(nm, { color: tok("--k-text"), duration: 0.35 }, T_NO + 0.1);
+        // счётчик 8/8 → 7/8 с подписью
+        tl.to(q(cnt.el, ".n8"), { autoAlpha: 0, duration: 0.25 }, T_NO + 0.1);
+        tl.to(q(cnt.el, ".lb.l1"), { autoAlpha: 0, duration: 0.25 }, T_NO + 0.1);
+        tl.fromTo(q(cnt.el, ".n7"), { autoAlpha: 0, scale: 0.7 }, { autoAlpha: 1, scale: 1, duration: 0.55, ease: POP, immediateRender: false }, T_NO + 0.3);
+        fade(q(cnt.el, ".lb.l2"), T_NO + 0.35, 0.4);
+        // восьмая строка: связь с требованием пропала
+        const r8 = rws[N - 1], r8gone = [q(r8, ".d.c2"), q(r8, ".sg.s1"), q(r8, ".sg.s2")];
+        tl.to(r8gone, { autoAlpha: 0, duration: 0.3 }, T_NO + 0.3);
+        pop(q(r8, ".gap"), T_NO + 0.5, 0.5);
+        // замок над файлом — на «файл не удаляйте»
+        pop(q(fl.el, ".lk"), t("файл", 2), 0.55);
+        tl.to(fl.el, { borderColor: tok("--k-text-2"), duration: 0.5 }, t("файл", 2));
+        read("если хотя бы один не сопоставлен", T_NO + 0.75, T_BACK, 0);
+
+        // возврат к итогу: все строки заполнены, 8/8, старый файл перечёркнут (нейтральная линия), замок снят
+        tl.to(q(r8, ".gap"), { autoAlpha: 0, duration: 0.3 }, T_BACK);
+        tl.to(r8gone, { autoAlpha: 1, duration: 0.4 }, T_BACK + 0.15);
+        tl.to(q(cnt.el, ".n7"), { autoAlpha: 0, duration: 0.25 }, T_BACK);
+        tl.to(q(cnt.el, ".lb.l2"), { autoAlpha: 0, duration: 0.25 }, T_BACK);
+        tl.fromTo(q(cnt.el, ".n8"), { autoAlpha: 0, scale: 0.7 }, { autoAlpha: 1, scale: 1, duration: 0.55, ease: POP, immediateRender: false }, T_BACK + 0.2);
+        fade(q(cnt.el, ".lb.l1"), T_BACK + 0.45, 0.4);
+        tl.to(q(fl.el, ".lk"), { autoAlpha: 0, duration: 0.3 }, T_BACK);
+        tl.to(strike, { scaleX: 1, backgroundColor: tok("--k-text-2"), duration: 0.45, ease: "power2.out" }, T_BACK + 0.3);
+        tl.to(nm, { color: tok("--k-text-2"), duration: 0.4 }, T_BACK + 0.4);
+
+        /* ---- единственный редактируемый источник: подсвеченная карточка OpenSpec ---- */
+        const os = Kit.aside(S, { parent: s1, x: RX, y: 627, w: RW, h: 190, tail: false,
+          html: '<div class="os"><div class="big">OpenSpec</div><div class="sub">единственная редактируемая спецификация</div></div>' });
+        rise(os.el, t("Теперь") - 0.05, 0.6, 24);
+        tl.fromTo(os.el, { borderColor: tok("--k-line") }, { borderColor: tok("--k-accent"), duration: 0.5, immediateRender: false }, t("Теперь") + 0.2);
+        fade(q(os.el, ".sub"), t("единственный"), 0.45);
+        tl.fromTo(q(os.el, ".big"), { autoAlpha: 0, scale: 0.9 }, { autoAlpha: 1, scale: 1, duration: 0.55, ease: POP, immediateRender: false }, t("Теперь"));
+        read("OpenSpec единственная редактируемая спецификация", t("единственный") + 0.45, DUR, 0);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

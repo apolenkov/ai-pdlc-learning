@@ -1,0 +1,136 @@
+<template id="scene-01-template">
+  <div data-composition-id="scene-01" data-width="1920" data-height="1080" data-duration="29.3">
+    <style>
+      [data-composition-id="scene-01"] .k-sg em,
+      [data-composition-id="scene-01"] .k-pl { font-size: 28px; }
+      [data-composition-id="scene-01"] .sc-quote { background: var(--k-panel); }
+      [data-composition-id="scene-01"] .sc-result { font-size: 110px; line-height: 1.15; font-weight: 700; margin: 16px 0; }
+      [data-composition-id="scene-01"] .sc-copy { font-size: 36px; line-height: 1.3; }
+      [data-composition-id="scene-01"] .sc-old { color: var(--k-accent-soft); }
+      [data-composition-id="scene-01"] .sc-payment { position: absolute; left: 1183px; top: 443px; width: 409px; height: 94px; border: 4px solid var(--k-accent); border-radius: 12px; pointer-events: none; }
+      [data-composition-id="scene-01"] .sc-error { margin-top: 16px; padding: 12px 16px; border: 2px solid var(--k-accent-soft); border-radius: 12px; color: var(--k-accent-soft); font-size: 28px; line-height: 1.25; }
+      [data-composition-id="scene-01"] .sc-error-note { margin-top: 10px; color: var(--k-text-2); font-size: 28px; line-height: 1.25; }
+      [data-composition-id="scene-01"] .sc-term { display: flex; align-items: center; gap: 14px; margin-top: 16px; font-size: 28px; line-height: 1.25; }
+      [data-composition-id="scene-01"] .sc-term strong { padding: 8px 16px; border: 2px solid var(--k-accent-soft); border-radius: 10px; font-size: 32px; }
+      [data-composition-id="scene-01"] .sc-dialog { display: flex; gap: 20px; align-items: flex-start; }
+      [data-composition-id="scene-01"] .sc-dialog svg { flex: 0 0 42px; width: 42px; height: 42px; color: var(--k-accent-soft); }
+      [data-composition-id="scene-01"] .sc-reader { margin-top: 24px; font-size: 32px; line-height: 1.3; }
+      [data-composition-id="scene-01"] .sc-missing { margin-top: 16px; font-size: 36px; font-weight: 700; color: var(--k-accent-soft); }
+      [data-composition-id="scene-01"] .sc-decisions { position: absolute; left: 96px; top: 330px; display: grid; grid-template-columns: 510px 510px 644px; gap: 32px; }
+      [data-composition-id="scene-01"] .sc-decisions > .k-aside { position: relative; }
+      [data-composition-id="scene-01"] .k-path { gap: 18px; width: 1728px; justify-content: space-between; }
+      [data-composition-id="scene-01"] .k-tile { padding: 0 22px; gap: 14px; font-size: 34px; height: 112px; }
+      [data-composition-id="scene-01"] .k-tile svg { width: 36px; height: 42px; flex-shrink: 0; }
+    </style>
+    <!-- Plan output: python3 assets/rec/retime-scene-01.py. Encode with --write under LANE. -->
+    <video id="scene-01-rec-calc" class="clip" src="assets/rec/scene-01-calc.retimed.mp4" muted playsinline data-start="0" data-duration="13.2" aria-label="Калькулятор: неверный срок, ошибка и прежний платёж 41 738 рублей"></video>
+    <script>
+      (function () {
+        const S = Kit.scene("01"), t = S.t, DUR = 29.3;
+        const T_SWAP1 = t("Просьба") - 0.5;
+        const T_SWAP2 = t("Что показать") - 0.25;
+        const T_QUOTE = t("Просьба") - 0.1;
+        const T_QUESTIONS = t("Что показать") - 0.1;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        const VIDEO_DURATION = Math.ceil((T_SWAP1 + 0.55) * 30) / 30;
+        if (Math.abs(VIDEO_DURATION - 13.2) > 1e-6) throw new Error("Обновите retime и атрибуты video после изменения речи");
+        if (DUR - S.end("что должно измениться.") < 1.5) throw new Error("Недостаточный хвост сцены");
+
+        Kit.header(S, { header: { mode: "parts", total: 9 }, chapter: "Ошибка передачи", step: 1, duration: DUR,
+          parts: [{ n: 1, name: "Ошибка в расчёте", at: 0 }, { n: 2, name: "Просьба", at: T_QUOTE },
+                  { n: 3, blank: true, at: T_QUESTIONS }] });
+
+        /* 1. Real calculator recording, unchanged pixels; idle cuts and holds live in retime. */
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+        const firstClick = Math.max(1.5, t("рассчитал") - 0.3);
+        const fieldClick = S.end("ввёл неверный срок") - 1.73;
+        const errorClick = t("ошибку");
+        const clicks = [
+          { t: firstClick, x: 780, y: 723 },
+          { t: fieldClick, x: 567, y: 555 },
+          { t: errorClick, x: 780, y: 723 },
+        ];
+        // First target is already `from`; an early waypoint would shift the GSAP root below zero.
+        const hover = [clicks[0], ...clicks.slice(1).flatMap((c) => [{ ...c, t: c.t - 1 }, c])];
+        const protectedAreas = {
+          payment: { x: 1195, y: 455, w: 385, h: 70 },
+          error: { x: 85, y: 645, w: 295, h: 25 },
+          button: { x: 85, y: 690, w: 755, h: 70 },
+          term: { x: 520, y: 500, w: 325, h: 85 },
+          tiles: { x: 1150, y: 605, w: 470, h: 90 },
+          formula: { x: 1110, y: 548, w: 552, h: 28 },
+          labels: { x: 85, y: 480, w: 755, h: 145 },
+        };
+        const allProtected = Object.values(protectedAreas);
+        // Один план без наездов: в кадре весь калькулятор (форма и результат) без соседних карточек страницы;
+        // наезд на форму оставлял у края полосу карточки результата (ревью Opus). Низ окна — 825 (SAFE_BOTTOM).
+        const scr = Kit.screen(S, { parent: s1, x: 40, y: 210, w: 1840, h: 615,
+          natural: { w: 1920, h: 1080 }, from: { x: 780, y: 723 },
+          camera: [
+            { t: 0, cx: 960, cy: 531, scale: 1.05, dur: 0, protect: [...allProtected, { x: 50, y: 273, w: 1820, h: 519 }] },
+          ],
+          video: { el: "#scene-01-rec-calc", start: 0, duration: VIDEO_DURATION,
+                   poster: "assets/rec/scene-01-calc.retimed.first.png", clicks: hover } });
+        const pulses = scr.layer.querySelectorAll(".k-pulse");
+        [1, 3].forEach((i) => { pulses[2 * i].remove(); pulses[2 * i + 1].remove(); });
+        scr.show(0, true);
+        const oldAt = t("прежняя сумма остаётся") + 0.3;
+        const paymentFrame = document.createElement("div");
+        paymentFrame.className = "sc-payment";
+        scr.layer.appendChild(paymentFrame);
+        gsap.set(paymentFrame, { autoAlpha: 0 });
+        S.tl.to(paymentFrame, { autoAlpha: 1, duration: 0.3 }, oldAt);
+        Kit.kinetic(S, { parent: s1, x: 1140, y: 150, w: 740, size: 44, cls: "sc-old", text: "Прежняя сумма осталась", at: oldAt, stagger: 0.06 });
+        read("Прежняя сумма осталась", oldAt, T_SWAP1, 0.87);
+
+        /* 2. One request, kept large and readable throughout the explanation. */
+        const s2 = S.stage();
+        const quote = Kit.aside(S, { parent: s2, x: 160, y: 330, w: 1600, h: 370, tail: false });
+        quote.el.classList.add("sc-quote"); quote.show(T_QUOTE);
+        Kit.kinetic(S, { parent: quote.el, x: 60, y: 60, size: 104, text: "«При ошибке уберите", at: t("Просьба"), stagger: 0.035 });
+        Kit.kinetic(S, { parent: quote.el, x: 60, y: 196, size: 104, text: "старый платёж»", at: t("Просьба") + 0.15, stagger: 0.035 });
+        read("При ошибке уберите старый платёж", t("Просьба"), T_SWAP2, 0.4);
+
+        /* 3. Two open decisions and the information lost in the handoff; stays on screen to the end. */
+        const s3 = S.stage();
+        const decisions = document.createElement("div");
+        decisions.className = "sc-decisions"; s3.appendChild(decisions);
+        const resultAt = t("что показать вместо числа");
+        Kit.aside(S, { parent: decisions, tail: false, title: "Поле результата",
+          html: '<div class="sc-result">—</div><div class="sc-copy">Что показать вместо числа?</div>' }).show(resultAt);
+        Kit.aside(S, { parent: decisions, tail: false,
+          html: '<div class="sc-copy">Где объяснить ошибку?</div>' +
+                '<div class="sc-error">Проверьте введённые значения</div><div class="sc-error-note">одна общая фраза</div>' +
+                '<div class="sc-term"><span aria-hidden="true">→</span><span>Срок, месяцев</span><strong>1,5</strong></div>' }).show(t("Где объяснить"));
+        const chat = Kit.aside(S, { parent: decisions, tail: false,
+          html: '<div class="sc-dialog">' + Kit.icons.file + '<div class="sc-copy">Осталось в переписке</div></div>' +
+                '<div class="sc-reader">Следующий участник увидит</div><div class="sc-missing">только первую фразу</div>' });
+        chat.show(t("осталось в переписке"));
+        const reader = chat.el.querySelector(".sc-reader"), missing = chat.el.querySelector(".sc-missing");
+        gsap.set([reader, missing], { autoAlpha: 0 });
+        Kit.popIn(S, reader, t("следующий участник"));
+        Kit.popIn(S, missing, t("только первую"));
+        read("Поле результата Что показать вместо числа?", resultAt, DUR);
+        read("Где объяснить ошибку? Проверьте введённые значения — одна общая фраза. Срок, месяцев: 1,5", t("Где объяснить"), DUR);
+        read("Осталось в переписке", t("осталось в переписке"), DUR);
+        read("Следующий участник увидит", t("следующий участник"), DUR);
+        read("только первую фразу", t("только первую"), DUR);
+
+        // The brief leaves 0.4 s between exit and entrance; shorten only the first two exits. Cards of step 3 stay through the closing phrase.
+        [[s1, s2, T_SWAP1, T_QUOTE], [s2, s3, T_SWAP2, T_QUESTIONS]].forEach(([out, into, at, enter]) => {
+          Kit.stageOut(S, out, at); S.tl.recent().duration(enter - at);
+          Kit.stageIn(S, into, enter);
+        });
+        Kit.subtitles(S, {});
+        // Keep the last spoken cue with the final cards through the silent tail.
+        const lastSubtitle = S.root.querySelector(".k-sub:last-child");
+        S.tl.getTweensOf(lastSubtitle).find((tw) => tw.vars.autoAlpha === 0).kill();
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

@@ -1,0 +1,306 @@
+[
+  {
+    "n": "0m",
+    "duration": 9.9,
+    "chapter": "Зачем это нужно",
+    "step": null,
+    "title": "Карта маршрута",
+    "audio": "assets/vo/scene-0m.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 9
+    },
+    "audioDuration": 8.4
+  },
+  {
+    "n": 0,
+    "duration": 46.3,
+    "chapter": "Зачем это нужно",
+    "step": null,
+    "title": "Зачем это нужно",
+    "audio": "assets/vo/scene-0.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 9
+    },
+    "audioDuration": 44.68
+  },
+  {
+    "n": "0b",
+    "duration": 61.4,
+    "chapter": "Как меняется процесс",
+    "step": null,
+    "title": "Как меняется процесс",
+    "audio": "assets/vo/scene-0b.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 9
+    },
+    "audioDuration": 59.73
+  },
+  {
+    "id": "t1",
+    "kind": "title",
+    "of": 1,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Ошибка передачи",
+    "step": 1,
+    "title": "Ошибка передачи",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 9
+    }
+  },
+  {
+    "n": 1,
+    "duration": 29.3,
+    "chapter": "Ошибка передачи",
+    "step": 1,
+    "title": "Ошибка передачи",
+    "audio": "assets/vo/scene-1.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 9
+    },
+    "audioDuration": 27.24
+  },
+  {
+    "id": "t2",
+    "kind": "title",
+    "of": 2,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Уточняем запрос",
+    "step": 2,
+    "title": "Уточняем запрос",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 9
+    }
+  },
+  {
+    "n": 2,
+    "duration": 32.5,
+    "chapter": "Уточняем запрос",
+    "step": 2,
+    "title": "Уточняем запрос",
+    "audio": "assets/vo/scene-2.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 9
+    },
+    "audioDuration": 30.4
+  },
+  {
+    "id": "t3",
+    "kind": "title",
+    "of": 3,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Записываем замысел",
+    "step": 3,
+    "title": "Записываем замысел",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 9
+    }
+  },
+  {
+    "n": 3,
+    "duration": 51.2,
+    "chapter": "Записываем замысел",
+    "step": 3,
+    "title": "Записываем замысел",
+    "audio": "assets/vo/scene-3.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 9
+    },
+    "audioDuration": 49.48
+  },
+  {
+    "id": "t4",
+    "kind": "title",
+    "of": 4,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Описываем поведение",
+    "step": 4,
+    "title": "Описываем поведение",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 9
+    }
+  },
+  {
+    "n": 4,
+    "duration": 28.6,
+    "chapter": "Описываем поведение",
+    "step": 4,
+    "title": "Описываем поведение",
+    "audio": "assets/vo/scene-4.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 9
+    },
+    "audioDuration": 26.51
+  },
+  {
+    "id": "t5",
+    "kind": "title",
+    "of": 5,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Проверяем",
+    "step": 5,
+    "title": "Проверяем",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 9
+    }
+  },
+  {
+    "n": 5,
+    "duration": 34.4,
+    "chapter": "Проверяем",
+    "step": 5,
+    "title": "Проверяем",
+    "audio": "assets/vo/scene-5.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 9
+    },
+    "audioDuration": 32.32
+  },
+  {
+    "id": "t6",
+    "kind": "title",
+    "of": 6,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Одобряем и передаём",
+    "step": 6,
+    "title": "Одобряем и передаём",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 9
+    }
+  },
+  {
+    "n": 6,
+    "duration": 32.2,
+    "chapter": "Одобряем и передаём",
+    "step": 6,
+    "title": "Одобряем и передаём",
+    "audio": "assets/vo/scene-6.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 9
+    },
+    "audioDuration": 30.57
+  },
+  {
+    "id": "t7",
+    "kind": "title",
+    "of": 7,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Версии и источники",
+    "step": 7,
+    "title": "Версии и источники",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 9
+    }
+  },
+  {
+    "n": 7,
+    "duration": 22.6,
+    "chapter": "Версии и источники",
+    "step": 7,
+    "title": "Версии и источники",
+    "audio": "assets/vo/scene-7.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 9
+    },
+    "audioDuration": 20.51
+  },
+  {
+    "id": "t8",
+    "kind": "title",
+    "of": 8,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Помощь модели",
+    "step": 8,
+    "title": "Помощь модели",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 9
+    }
+  },
+  {
+    "n": 8,
+    "duration": 21.4,
+    "chapter": "Помощь модели",
+    "step": 8,
+    "title": "Помощь модели",
+    "audio": "assets/vo/scene-8.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 9
+    },
+    "audioDuration": 19.36
+  },
+  {
+    "id": "t9",
+    "kind": "title",
+    "of": 9,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Что дальше",
+    "step": 9,
+    "title": "Что дальше",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 9
+    }
+  },
+  {
+    "n": 9,
+    "duration": 16.4,
+    "chapter": "Что дальше",
+    "step": 9,
+    "title": "Что дальше",
+    "audio": "assets/vo/scene-9.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 9
+    },
+    "audioDuration": 14.84
+  },
+  {
+    "n": 10,
+    "duration": 20.7,
+    "chapter": "Первый шаг",
+    "step": null,
+    "title": "Первый шаг",
+    "audio": "assets/vo/scene-10.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 9
+    },
+    "audioDuration": 17.61
+  }
+]

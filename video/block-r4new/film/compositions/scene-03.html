@@ -1,0 +1,101 @@
+<template id="scene-03-template">
+  <div data-composition-id="scene-03" data-width="1920" data-height="1080" data-duration="26.7">
+    <style>
+      [data-composition-id="scene-03"] .cm { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 14px; }
+      [data-composition-id="scene-03"] .cm-l1 { display: flex; align-items: center; gap: 22px; }
+      [data-composition-id="scene-03"] .cm-tag { flex: none; padding: 4px 18px; border-radius: 12px; background: var(--k-accent-tint); color: var(--k-accent-soft); font-size: 32px; font-weight: 700; }
+      [data-composition-id="scene-03"] .cm-cmd { font-family: var(--k-font-mono); font-size: 36px; font-weight: 600; color: var(--k-code-inline); white-space: nowrap; }
+      [data-composition-id="scene-03"] .cm-l2 { display: flex; align-items: center; gap: 16px; min-height: 56px; }
+      [data-composition-id="scene-03"] .cm-lab { font-size: 32px; font-weight: 600; color: var(--k-text-2); opacity: 0; }
+      [data-composition-id="scene-03"] .cm-ch { font-family: var(--k-font-mono); font-size: 32px; font-weight: 500; padding: 6px 16px; border-radius: 10px; background: var(--k-win); border: 2px solid var(--k-line); white-space: nowrap; opacity: 0; }
+      [data-composition-id="scene-03"] .rq { height: 100%; display: flex; align-items: center; justify-content: center; gap: 28px; font-size: 36px; font-weight: 700; letter-spacing: -0.01em; white-space: nowrap; }
+      [data-composition-id="scene-03"] .rq .a { color: var(--k-text-2); font-weight: 300; font-size: 48px; opacity: 0; }
+      [data-composition-id="scene-03"] .rq .p1 { color: var(--k-accent-soft); opacity: 0; }
+      [data-composition-id="scene-03"] .rq .p2 { opacity: 0; }
+      [data-composition-id="scene-03"] .fc { height: 100%; display: flex; flex-direction: column; }
+      [data-composition-id="scene-03"] .fc-fn { font-family: var(--k-font-mono); font-size: 30px; white-space: nowrap; font-weight: 700; color: var(--k-code-head); line-height: 1.15; }
+      [data-composition-id="scene-03"] .fc-rl { margin-top: 6px; font-size: 34px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.2; }
+      [data-composition-id="scene-03"] .fc-ap { margin-top: auto; margin-bottom: 0; display: flex; align-items: center; gap: 10px; padding: 10px 8px; border-radius: 14px; border: 3px solid var(--k-ok); background: var(--k-ok-tint); opacity: 0; }
+      [data-composition-id="scene-03"] .fc-ap svg { flex: none; width: 30px; height: 30px; color: var(--k-ok); }
+      [data-composition-id="scene-03"] .fc-ap b { display: block; white-space: nowrap; letter-spacing: -0.025em; font-size: 30px; font-weight: 800; line-height: 1.15; }
+      [data-composition-id="scene-03"] .fc-ap span { display: block; font-size: 30px; font-weight: 600; color: var(--k-text-2); line-height: 1.2; }
+      [data-composition-id="scene-03"] .bt { height: 100%; display: flex; align-items: center; gap: 18px; font-size: 38px; font-weight: 800; letter-spacing: -0.01em; white-space: nowrap; }
+      [data-composition-id="scene-03"] .bt svg { flex: none; width: 48px; height: 48px; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("03"), t = S.t, DUR = 26.7;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.5) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»: ${(off - at - reveal).toFixed(2)} < ${needed.toFixed(2)}`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const rev = (el, at, d = 0.45, from = { y: 14 }) => { gsap.set(el, from); S.tl.to(el, { opacity: 1, x: 0, y: 0, duration: d, ease: "power3.out" }, at); };
+        const ACC = Kit.token("--k-accent"), OK = Kit.token("--k-ok"), LINE = Kit.token("--k-line");
+
+        Kit.header(S, { header: { mode: "parts", total: 6 }, chapter: "Окружение с моделью", step: 3, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* ---- Одна команда и то, что она создаёт ---- */
+        const cmd = Kit.aside(S, { parent: s1, x: 96, y: 198, w: 1728, h: 164, tail: false,
+          html: '<div class="cm"><div class="cm-l1"><span class="cm-tag">терминал</span><span class="cm-cmd">openspec init --tools kilocode --language ru --no-animation .</span></div>' +
+            '<div class="cm-l2"><span class="cm-lab">создаёт</span><span class="cm-ch c1">openspec/config.yaml</span><span class="cm-ch c2">openspec/specs/</span><span class="cm-ch c3">openspec/changes/archive/</span></div></div>' });
+        cmd.show(1.2);
+        const cq = (s) => cmd.el.querySelector(s);
+        const T_CFG = t("настройки"), T_DIR = t("папки");
+        rev(cq(".cm-lab"), T_CFG - 0.1); rev(cq(".c1"), T_CFG); rev(cq(".c2"), T_DIR, 0.45, { x: -24 }); rev(cq(".c3"), T_DIR + 0.2, 0.45, { x: -24 });
+        read("openspec init --tools kilocode --language ru --no-animation .", 1.2, DUR, 0.8);
+        read("создаёт openspec/config.yaml", T_CFG, DUR); read("openspec/specs/", T_DIR, DUR); read("openspec/changes/archive/", T_DIR + 0.2, DUR);
+
+        /* ---- Запрос модели → черновики ---- */
+        const T_RQ = t("по вашему запросу");
+        const rq = Kit.aside(S, { parent: s1, x: 96, y: 380, w: 1728, h: 74, tail: false,
+          html: '<div class="rq"><span class="p1">запрос модели</span><span class="a">→</span><span class="p2">черновики на проверку</span></div>' });
+        rq.el.style.padding = "0 26px";
+        rq.show(T_RQ);
+        const rqq = (s) => rq.el.querySelector(s);
+        rev(rqq(".p1"), T_RQ + 0.1); rev(rqq(".a"), t("готовит") - 0.2); rev(rqq(".p2"), t("готовит"), 0.45, { x: -24 });
+        read("запрос модели", T_RQ + 0.1, DUR); read("черновики на проверку", t("готовит"), DUR);
+
+        /* ---- Три файла и утверждающие ---- */
+        const CHECK = '<svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="22" cy="22" r="18"/><path d="M13 23l6 6 12-13"/></svg>';
+        const FILES = [
+          { fn: "README.md", role: "описание продукта", at: t("описание"), who: "владелец продукта", verb: "утверждает", wat: t("Владелец") },
+          { fn: "CONTEXT.md", role: "словарь терминов", at: t("словарь"), who: "аналитик", verb: "сверяет", wat: t("аналитик") },
+          { fn: "AGENTS.md", role: "правила для модели", at: t("правила"), who: "техлид", verb: "утверждает", wat: t("техлид") },
+          { fn: "intent-template.md", role: "шаблон замысла", at: t("шаблон"), who: "аналитик", verb: "сверяет", wat: t("шаблона") },
+        ];
+        FILES.forEach((f, i) => {
+          const card = Kit.aside(S, { parent: s1, x: 96 + i * 438, y: 474, w: 414, h: 262, tail: false,
+            html: '<div class="fc"><div class="fc-fn">' + f.fn + '</div><div class="fc-rl">' + f.role + '</div>' +
+              '<div class="fc-ap">' + CHECK + '<div><b>' + f.who + '</b><span>' + f.verb + "</span></div></div></div>" });
+          card.show(f.at);
+          const ap = card.el.querySelector(".fc-ap");
+          rev(ap, f.wat, 0.5, { x: -30 });
+          S.tl.to(card.el, { borderColor: OK, duration: 0.3 }, f.wat + 0.1).to(card.el, { borderColor: LINE, duration: 0.5 }, f.wat + 1.4);
+          read(f.fn + " " + f.role, f.at, DUR); read(f.who + " " + f.verb, f.wat, DUR);
+        });
+
+        /* ---- Коммит и «требований нет» ---- */
+        const T_C = t("Сохраните");
+        const cm = Kit.aside(S, { parent: s1, x: 96, y: 750, w: 820, h: 74, tail: false,
+          html: '<div class="bt"><span style="color:' + ACC + '">' + Kit.icons.commit + "</span><span>коммит: окружение</span></div>" });
+        cm.el.style.borderColor = ACC; cm.el.style.padding = "0 26px";
+        cm.show(T_C);
+        read("коммит: окружение", T_C, DUR);
+        const T_N = t("Требований");
+        const nr = Kit.aside(S, { parent: s1, x: 940, y: 750, w: 884, h: 74, tail: false,
+          html: '<div class="bt"><span style="color:' + OK + '">' + Kit.icons.check + "</span><span>требований нет</span></div>" });
+        nr.el.style.borderColor = OK; nr.el.style.padding = "0 26px";
+        nr.show(T_N);
+        read("требований нет", T_N, DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

@@ -1,0 +1,154 @@
+{
+  "events": [
+    {
+      "kind": "pop",
+      "t": 0,
+      "note": "01:GSAP et-card"
+    },
+    {
+      "kind": "swipe",
+      "t": 8.32,
+      "note": "scene boundary - 0.18s"
+    },
+    {
+      "kind": "pop",
+      "t": 9.486,
+      "note": "02:GSAP et-task"
+    },
+    {
+      "kind": "pop",
+      "t": 11.341,
+      "note": "02:GSAP et-task"
+    },
+    {
+      "kind": "pop",
+      "t": 13.255,
+      "note": "02:GSAP et-task"
+    },
+    {
+      "kind": "swipe",
+      "t": 18.42,
+      "note": "scene boundary - 0.18s"
+    },
+    {
+      "kind": "pop",
+      "t": 20.44,
+      "note": "03:GSAP et-col"
+    },
+    {
+      "kind": "pop",
+      "t": 22.254,
+      "note": "03:GSAP et-col"
+    },
+    {
+      "kind": "pop",
+      "t": 26.795,
+      "note": "03:GSAP et-col"
+    },
+    {
+      "kind": "swipe",
+      "t": 30.62,
+      "note": "scene boundary - 0.18s"
+    },
+    {
+      "kind": "pop",
+      "t": 33.014,
+      "note": "04:GSAP gantt-row"
+    },
+    {
+      "kind": "pop",
+      "t": 34.593,
+      "note": "04:GSAP gantt-row"
+    },
+    {
+      "kind": "pop",
+      "t": 36.139,
+      "note": "04:GSAP gantt-row"
+    },
+    {
+      "kind": "pop",
+      "t": 38.145,
+      "note": "04:GSAP gantt-row"
+    },
+    {
+      "kind": "pop",
+      "t": 39.448,
+      "note": "04:GSAP gantt-row"
+    },
+    {
+      "kind": "pop",
+      "t": 41.805,
+      "note": "04:GSAP gantt-row"
+    },
+    {
+      "kind": "pop",
+      "t": 43.747,
+      "note": "04:GSAP gantt-row"
+    },
+    {
+      "kind": "swipe",
+      "t": 50.42,
+      "note": "scene boundary - 0.18s"
+    },
+    {
+      "kind": "pop",
+      "t": 52.602,
+      "note": "05:GSAP et-part"
+    },
+    {
+      "kind": "pop",
+      "t": 55.227,
+      "note": "05:GSAP et-part"
+    },
+    {
+      "kind": "pop",
+      "t": 57.232,
+      "note": "05:GSAP et-part"
+    },
+    {
+      "kind": "swipe",
+      "t": 61.92,
+      "note": "scene boundary - 0.18s"
+    },
+    {
+      "kind": "pop",
+      "t": 65.649,
+      "note": "06:GSAP et-m"
+    },
+    {
+      "kind": "pop",
+      "t": 67.892,
+      "note": "06:GSAP et-m"
+    },
+    {
+      "kind": "pop",
+      "t": 69.127,
+      "note": "06:GSAP et-m"
+    },
+    {
+      "kind": "pop",
+      "t": 70.487,
+      "note": "06:GSAP et-m"
+    },
+    {
+      "kind": "pop",
+      "t": 72.033,
+      "note": "06:GSAP et-m own"
+    },
+    {
+      "kind": "swipe",
+      "t": 75.72,
+      "note": "scene boundary - 0.18s"
+    },
+    {
+      "kind": "pop",
+      "t": 76.54,
+      "note": "07:GSAP et-btn"
+    },
+    {
+      "kind": "subdrop",
+      "t": 81.7,
+      "note": "tail"
+    }
+  ]
+}

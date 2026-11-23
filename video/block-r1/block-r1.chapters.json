@@ -1,0 +1,82 @@
+[
+  {
+    "n": 0,
+    "title": "Вступление",
+    "step": null,
+    "chapter": "Вступление",
+    "start": 0,
+    "titleStart": 0,
+    "speechStart": 0,
+    "end": 66.4
+  },
+  {
+    "n": 1,
+    "title": "Замысел",
+    "step": 1,
+    "chapter": "Замысел",
+    "start": 66.4,
+    "titleStart": 66.4,
+    "speechStart": 66.4,
+    "end": 96.5
+  },
+  {
+    "n": 2,
+    "title": "Шаблон спецификации",
+    "step": 2,
+    "chapter": "Шаблон спецификации",
+    "start": 96.5,
+    "titleStart": 96.5,
+    "speechStart": 96.5,
+    "end": 130.7
+  },
+  {
+    "n": 3,
+    "title": "Своя ветка",
+    "step": 3,
+    "chapter": "Своя ветка",
+    "start": 130.7,
+    "titleStart": 130.7,
+    "speechStart": 130.7,
+    "end": 150.8
+  },
+  {
+    "n": 4,
+    "title": "Правило и сценарий",
+    "step": 4,
+    "chapter": "Правило и сценарий",
+    "start": 150.8,
+    "titleStart": 150.8,
+    "speechStart": 150.8,
+    "end": 193.4
+  },
+  {
+    "n": 5,
+    "title": "Модель и вы",
+    "step": 5,
+    "chapter": "Модель и вы",
+    "start": 193.4,
+    "titleStart": 193.4,
+    "speechStart": 193.4,
+    "end": 215.6
+  },
+  {
+    "n": 6,
+    "title": "Сверка с образцом",
+    "step": 6,
+    "chapter": "Сверка с образцом",
+    "start": 215.6,
+    "titleStart": 215.6,
+    "speechStart": 215.6,
+    "end": 242.3
+  },
+  {
+    "n": 7,
+    "title": "Сохранить и отправить",
+    "step": 7,
+    "chapter": "Сохранить и отправить",
+    "start": 242.3,
+    "titleStart": 242.3,
+    "speechStart": 242.3,
+    "end": 264.5
+  }
+]

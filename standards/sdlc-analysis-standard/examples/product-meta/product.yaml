@@ -1,0 +1,11 @@
+schema: sdlc-product/v1
+id: credit-calculator
+name: Credit Calculator
+classification: synthetic-public
+product_open_spec_scope:
+  - cross-service requirements
+  - product scenarios
+  - traceability
+services:
+  - calculator-ui
+  - calculator-core

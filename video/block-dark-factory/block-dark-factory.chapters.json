@@ -1,0 +1,82 @@
+[
+  {
+    "n": 0,
+    "title": "Вступление",
+    "step": null,
+    "chapter": "Вступление",
+    "start": 0,
+    "titleStart": 0,
+    "speechStart": 0,
+    "end": 30.4
+  },
+  {
+    "n": 1,
+    "title": "Что такое фабрика",
+    "step": null,
+    "chapter": "Что такое фабрика",
+    "start": 30.4,
+    "titleStart": 30.4,
+    "speechStart": 30.4,
+    "end": 53.3
+  },
+  {
+    "n": 2,
+    "title": "Откуда берётся работа",
+    "step": null,
+    "chapter": "Откуда берётся работа",
+    "start": 53.3,
+    "titleStart": 53.3,
+    "speechStart": 53.3,
+    "end": 76.7
+  },
+  {
+    "n": 3,
+    "title": "Ночь: работают агенты",
+    "step": null,
+    "chapter": "Ночь: работают агенты",
+    "start": 76.7,
+    "titleStart": 76.7,
+    "speechStart": 76.7,
+    "end": 94.2
+  },
+  {
+    "n": 4,
+    "title": "Утро: решают люди",
+    "step": null,
+    "chapter": "Утро: решают люди",
+    "start": 94.2,
+    "titleStart": 94.2,
+    "speechStart": 94.2,
+    "end": 116.3
+  },
+  {
+    "n": 5,
+    "title": "Петля самоулучшения",
+    "step": null,
+    "chapter": "Петля самоулучшения",
+    "start": 116.3,
+    "titleStart": 116.3,
+    "speechStart": 116.3,
+    "end": 128.6
+  },
+  {
+    "n": 6,
+    "title": "Честно о нагрузке",
+    "step": null,
+    "chapter": "Честно о нагрузке",
+    "start": 128.6,
+    "titleStart": 128.6,
+    "speechStart": 128.6,
+    "end": 144.2
+  },
+  {
+    "n": 7,
+    "title": "Люди остаются",
+    "step": null,
+    "chapter": "Люди остаются",
+    "start": 144.2,
+    "titleStart": 144.2,
+    "speechStart": 144.2,
+    "end": 174.3
+  }
+]

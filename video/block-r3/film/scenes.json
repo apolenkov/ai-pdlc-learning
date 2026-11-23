@@ -1,0 +1,278 @@
+[
+  {
+    "n": "0m",
+    "duration": 7.5,
+    "chapter": "Проблема → цель",
+    "step": null,
+    "title": "Карта маршрута",
+    "audio": "assets/vo/scene-0m.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 8
+    },
+    "audioDuration": 6
+  },
+  {
+    "n": 0,
+    "duration": 27.3,
+    "chapter": "Проблема → цель",
+    "step": null,
+    "title": "Проблема → цель",
+    "audio": "assets/vo/scene-0.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 8
+    },
+    "audioDuration": 25.73
+  },
+  {
+    "n": "0b",
+    "duration": 15.2,
+    "chapter": "Как меняется работа",
+    "step": null,
+    "title": "Как меняется работа",
+    "audio": "assets/vo/scene-0b.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 8
+    },
+    "audioDuration": 13.59
+  },
+  {
+    "id": "t1",
+    "kind": "title",
+    "of": 1,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Вход и ветка",
+    "step": 1,
+    "title": "Вход и ветка",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 8
+    }
+  },
+  {
+    "n": 1,
+    "duration": 26.6,
+    "chapter": "Вход и ветка",
+    "step": 1,
+    "title": "Вход и ветка",
+    "audio": "assets/vo/scene-1.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 8
+    },
+    "audioDuration": 24.46
+  },
+  {
+    "id": "t2",
+    "kind": "title",
+    "of": 2,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Правила и OpenSpec",
+    "step": 2,
+    "title": "Правила и OpenSpec",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 8
+    }
+  },
+  {
+    "n": 2,
+    "duration": 24.9,
+    "chapter": "Правила и OpenSpec",
+    "step": 2,
+    "title": "Правила и OpenSpec",
+    "audio": "assets/vo/scene-2.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 8
+    },
+    "audioDuration": 22.85
+  },
+  {
+    "id": "t3",
+    "kind": "title",
+    "of": 3,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Папка изменения",
+    "step": 3,
+    "title": "Папка изменения",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 8
+    }
+  },
+  {
+    "n": 3,
+    "duration": 25.2,
+    "chapter": "Папка изменения",
+    "step": 3,
+    "title": "Папка изменения",
+    "audio": "assets/vo/scene-3.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 8
+    },
+    "audioDuration": 23.1
+  },
+  {
+    "id": "t4",
+    "kind": "title",
+    "of": 4,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Накопительные требования",
+    "step": 4,
+    "title": "Накопительные требования",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 8
+    }
+  },
+  {
+    "n": 4,
+    "duration": 38,
+    "chapter": "Накопительные требования",
+    "step": 4,
+    "title": "Накопительные требования",
+    "audio": "assets/vo/scene-4.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 8
+    },
+    "audioDuration": 35.93
+  },
+  {
+    "id": "t5",
+    "kind": "title",
+    "of": 5,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Проверка переноса",
+    "step": 5,
+    "title": "Проверка переноса",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 8
+    }
+  },
+  {
+    "n": 5,
+    "duration": 26.1,
+    "chapter": "Проверка переноса",
+    "step": 5,
+    "title": "Проверка переноса",
+    "audio": "assets/vo/scene-5.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 8
+    },
+    "audioDuration": 24.07
+  },
+  {
+    "id": "t6",
+    "kind": "title",
+    "of": 6,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Сохранение версии",
+    "step": 6,
+    "title": "Сохранение версии",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 8
+    }
+  },
+  {
+    "n": 6,
+    "duration": 24,
+    "chapter": "Сохранение версии",
+    "step": 6,
+    "title": "Сохранение версии",
+    "audio": "assets/vo/scene-6.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 8
+    },
+    "audioDuration": 21.92
+  },
+  {
+    "id": "t7",
+    "kind": "title",
+    "of": 7,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Запрос и одобрение",
+    "step": 7,
+    "title": "Запрос и одобрение",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 8
+    }
+  },
+  {
+    "n": 7,
+    "duration": 43.8,
+    "chapter": "Запрос и одобрение",
+    "step": 7,
+    "title": "Запрос и одобрение",
+    "audio": "assets/vo/scene-7.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 8
+    },
+    "audioDuration": 41.79
+  },
+  {
+    "id": "t8",
+    "kind": "title",
+    "of": 8,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Передача в «Контекст продукта»",
+    "step": 8,
+    "title": "Передача в «Контекст продукта»",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 8
+    }
+  },
+  {
+    "n": 8,
+    "duration": 26.7,
+    "chapter": "Передача в «Контекст продукта»",
+    "step": 8,
+    "title": "Передача в «Контекст продукта»",
+    "audio": "assets/vo/scene-8.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 8
+    },
+    "audioDuration": 24.58
+  },
+  {
+    "n": 9,
+    "duration": 21.1,
+    "chapter": "Что дальше",
+    "step": null,
+    "title": "Что дальше",
+    "audio": "assets/vo/scene-9.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 8
+    },
+    "audioDuration": 17.92
+  }
+]

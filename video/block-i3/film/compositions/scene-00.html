@@ -1,0 +1,128 @@
+<template id="scene-00-template">
+  <div data-composition-id="scene-00" data-width="1920" data-height="1080" data-duration="33.3">
+    <style>
+      [data-composition-id="scene-00"] .sc-plate { display: inline-block; margin-top: 46px; font-size: 36px; font-weight: 600; padding: 10px 30px; border-radius: 18px; border: 2px solid var(--k-line); color: var(--k-text-2); }
+      [data-composition-id="scene-00"] .sc-plate b { color: var(--k-text); font-weight: 700; }
+      [data-composition-id="scene-00"] .sc-fill { height: 100%; display: flex; align-items: center; gap: 18px; padding: 0 28px; }
+      [data-composition-id="scene-00"] .sc-fill .cap { font-size: 34px; font-weight: 800; white-space: nowrap; }
+      [data-composition-id="scene-00"] .sc-fill .chips { display: flex; gap: 14px; }
+      [data-composition-id="scene-00"] .sc-fill .ch { font-size: 30px; font-weight: 700; padding: 8px 20px; border-radius: 14px; background: var(--k-ok-tint); border: 2px solid var(--k-ok); color: var(--k-text); white-space: nowrap; }
+      [data-composition-id="scene-00"] .sc-big { height: 100%; padding: 20px 30px; display: flex; flex-direction: column; justify-content: center; gap: 12px; }
+      [data-composition-id="scene-00"] .sc-big .cap { font-size: 56px; font-weight: 800; }
+      [data-composition-id="scene-00"] .sc-big .tag { align-self: flex-start; font-size: 28px; font-weight: 800; padding: 5px 18px; border-radius: 14px; background: var(--k-accent-tint); border: 2px solid var(--k-accent); color: var(--k-accent-soft); }
+      [data-composition-id="scene-00"] .sc-ch { height: 100%; display: flex; align-items: center; gap: 16px; padding: 0 26px; }
+      [data-composition-id="scene-00"] .sc-ch .n { flex: none; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: var(--k-accent-tint); border: 2px solid var(--k-accent); color: var(--k-accent-soft); font-size: 26px; font-weight: 800; }
+      [data-composition-id="scene-00"] .sc-ch .tx { font-size: 30px; font-weight: 700; line-height: 1.15; }
+      [data-composition-id="scene-00"] .sc-ch .tx i { font-style: normal; color: var(--k-text-2); font-weight: 500; }
+      [data-composition-id="scene-00"] .sc-arr { position: absolute; color: var(--k-accent); }
+      [data-composition-id="scene-00"] .sc-arr svg { display: block; }
+      [data-composition-id="scene-00"] .sc-nodate { height: 100%; display: flex; align-items: center; gap: 14px; padding: 0 22px; font-size: 26px; font-weight: 700; }
+      [data-composition-id="scene-00"] .sc-nodate .x { flex: none; padding: 2px 10px; border-radius: 12px; display: grid; place-items: center; border: 3px dashed var(--k-accent); color: var(--k-accent-soft); font-size: 24px; font-weight: 800; }
+      [data-composition-id="scene-00"] .sc-nodate i { font-style: normal; color: var(--k-text-2); font-weight: 500; }
+      [data-composition-id="scene-00"] .sc-def { height: 100%; padding: 14px 30px; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+      [data-composition-id="scene-00"] .sc-def .cap { font-size: 32px; font-weight: 800; }
+      [data-composition-id="scene-00"] .sc-def .row { display: flex; gap: 14px; align-items: center; }
+      [data-composition-id="scene-00"] .sc-def .f { font-size: 28px; font-weight: 700; padding: 7px 18px; border-radius: 13px; background: var(--k-panel-2); border-top: 4px solid var(--k-accent); white-space: nowrap; }
+
+      [data-composition-id="scene-00"] .poster-cover { position:absolute; inset:0; display:grid; place-items:center; background:#F4F1E8; background-image:linear-gradient(#e9e3d7 1px,transparent 1px),linear-gradient(90deg,#e9e3d7 1px,transparent 1px); background-size:64px 64px; }
+      [data-composition-id="scene-00"] .poster-card { position:relative; width:1792px; height:952px; overflow:hidden; box-sizing:border-box; border:2px solid #dedbcf; border-radius:36px; background:#FCFAF7; }
+      [data-composition-id="scene-00"] .poster-copy { position:absolute; left:64px; top:82px; z-index:1; width:1020px; color:#1D3028; }
+      [data-composition-id="scene-00"] .poster-kicker { color:#1C624B; font-size:34px; font-weight:800; letter-spacing:.025em; text-transform:uppercase; }
+      [data-composition-id="scene-00"] .poster-rule { width:120px; height:7px; margin-top:23px; border-radius:4px; background:#9A6500; }
+      [data-composition-id="scene-00"] .poster-heading { margin-top:94px; font-size:102px; font-weight:800; line-height:1.03; letter-spacing:-.025em; }
+      [data-composition-id="scene-00"] .poster-sub { margin-top:27px; color:#1C624B; font-size:52px; font-weight:700; line-height:1.18; }
+      [data-composition-id="scene-00"] .poster-prev { position:absolute; left:64px; bottom:380px; z-index:1; max-width:1020px; color:#1D3028; font-size:34px; font-weight:600; }
+      [data-composition-id="scene-00"] .poster-prev b { color:#1C624B; }
+      [data-composition-id="scene-00"] .poster-art { position:absolute; right:65px; top:240px; width:700px; }
+      [data-composition-id="scene-00"] .poster-art svg { width:100%; height:auto; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("00"), t = S.t, DUR = 33.3;
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+
+        Kit.header(S, { header: { mode: "parts", total: 3 }, chapter: "Одно большое дело", step: null, mode: "intro", duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        /* Открывающий титул + плашка «Перед этим» */
+        const sT = S.stage(); sT.style.zIndex = "55"; gsap.set(sT, { autoAlpha: 1 });
+        S.root.querySelectorAll(".k-header, .k-header *, .k-part, .k-part *").forEach((el) => el.setAttribute("data-layout-allow-occlusion", ""));
+        const cover = document.createElement("div");
+        cover.className = "poster-cover";
+        cover.innerHTML = '<div class="poster-card"><div class="poster-copy"><div class="poster-kicker">Шаг 3</div><div class="poster-rule"></div><div class="poster-heading">Намерение и план</div><div class="poster-sub">План изменений</div></div><div class="poster-prev"><b>Перед этим</b> посмотрите «Границы и вопросы»</div><div class="poster-art"></div></div>';
+        const art = cover.querySelector(".poster-art");
+        art.innerHTML = window.SKETCHES["ch-computer"];
+        art.querySelectorAll("path").forEach((path) => {
+          const colors = { "#eef0f3": "#1D3028", "#8e96a3": "#84938A", "#a3a9b4": "#84938A", "#ff7a59": "#9A6500", "#3ccf91": "#1C624B" };
+          path.setAttribute("stroke", colors[path.getAttribute("stroke")] || "#1D3028");
+          path.style.strokeDasharray = "none";
+          path.style.strokeDashoffset = "0";
+        });
+        sT.appendChild(cover);
+        const T_OPEN = t("Запись почти полна");
+        S.tl.to(sT, { autoAlpha: 0, duration: 0.4, ease: "none" }, T_OPEN - 0.4);
+
+        const s1 = S.stage();
+        S.tl.set(s1, { autoAlpha: 1 }, T_OPEN - 0.05);
+
+        /* Запись почти полна — готовые разделы */
+        const fill = Kit.aside(S, { parent: s1, x: 96, y: 215, w: 1728, h: 92, tail: false,
+          html: '<div class="sc-fill"><span class="cap">Запись почти полна:</span><span class="chips">' +
+            '<span class="ch c1">проблема</span><span class="ch c2">эффект</span><span class="ch c3">границы</span><span class="ch c4">открытые вопросы</span></span></div>' });
+        const chips = [".c1", ".c2", ".c3", ".c4"].map((c) => fill.el.querySelector(c));
+        hide(...chips);
+        fill.show(T_OPEN);
+        Kit.popIn(S, chips[0], t("проблема"));
+        Kit.popIn(S, chips[1], t("эффект"));
+        Kit.popIn(S, chips[2], t("границы"));
+        Kit.popIn(S, chips[3], t("открытые вопросы."));
+        read("Запись почти полна проблема эффект границы открытые вопросы", T_OPEN, DUR);
+
+        /* Скетч-деление: один большой результат → три изменения */
+        const res = Kit.aside(S, { parent: s1, x: 96, y: 330, w: 640, h: 210, tail: false,
+          html: '<div class="sc-big"><div class="cap">Результат</div><span class="tag">одно большое дело</span></div>' });
+        const rtag = res.el.querySelector(".tag"); hide(rtag);
+        res.show(t("результат") - 0.3);
+        Kit.popIn(S, rtag, t("одно большое дело"));
+        read("Результат одно большое дело", t("результат") - 0.3, DUR);
+
+        const ARR = '<svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg>';
+        const arr = document.createElement("div");
+        arr.className = "sc-arr"; arr.style.cssText = "left:740px;top:404px";
+        arr.innerHTML = ARR;
+        s1.appendChild(arr);
+        hide(arr);
+        Kit.popIn(S, arr, t("раскладывает"));
+
+        const chs = [0, 1, 2].map((i) => Kit.aside(S, { parent: s1, x: 830, y: 315 + i * 115, w: 994, h: 100, tail: false,
+          html: '<div class="sc-ch"><span class="n">' + (i + 1) + '</span><span class="tx">изменение — <i>свой результат · признак готовности</i></span></div>' }));
+        chs.forEach((c, i) => c.show(t("самостоятельные изменения") + 0.2 + i * 0.25));
+        const subs = chs.map((c) => c.el.querySelector(".tx i"));
+        S.tl.to(subs, { color: Kit.token("--k-accent-soft"), duration: 0.4, stagger: 0.15 }, t("свой результат"));
+        read("изменение свой результат признак готовности", t("самостоятельные изменения"), DUR);
+
+        /* Без дат */
+        const nd = Kit.aside(S, { parent: s1, x: 96, y: 560, w: 640, h: 85, tail: false,
+          html: '<div class="sc-nodate"><span class="x">дд.мм</span><span>без дат — <i>сроки называет анализ</i></span></div>' });
+        nd.el.style.borderStyle = "dashed";
+        nd.show(t("Без дат"));
+        read("без дат сроки называет анализ", t("Без дат"), DUR);
+
+        /* Определение */
+        const def = Kit.aside(S, { parent: s1, x: 96, y: 680, w: 1728, h: 130, tail: false,
+          html: '<div class="sc-def"><div class="cap">План изменений = из чего состоит результат</div>' +
+            '<div class="row"><span class="f">самостоятельное изменение:</span><span class="f">результат</span><span class="f">роль</span><span class="f">зависимость</span><span class="f">признак готовности</span></div></div>' });
+        def.show(t("Определение короткое") - 0.3);
+        read("План изменений из чего состоит результат самостоятельное изменение результат роль зависимость признак готовности", t("Определение короткое"), DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

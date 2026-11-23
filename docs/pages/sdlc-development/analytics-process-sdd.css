@@ -1,0 +1,2 @@
+/* Cards 01–03 already give the rollout order in both deck layouts. */
+#slide-7 .rollout-card:not(:last-child)::after { content: none; }

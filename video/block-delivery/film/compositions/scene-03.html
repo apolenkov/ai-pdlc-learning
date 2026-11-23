@@ -1,0 +1,100 @@
+<template id="scene-03-template">
+  <div data-composition-id="scene-03" data-width="1920" data-height="1080" data-duration="20.9">
+    <style>
+      [data-composition-id="scene-03"] .d3-abs { position: absolute; }
+      [data-composition-id="scene-03"] .d3-node { top: 262px; width: 380px; height: 236px; padding: 22px 28px; }
+      [data-composition-id="scene-03"] .d3-who { font-size: 30px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--k-text-2); }
+      [data-composition-id="scene-03"] .d3-ttl { margin-top: 14px; font-size: 48px; font-weight: 800; line-height: 1.1; letter-spacing: -0.01em; }
+      [data-composition-id="scene-03"] .d3-lk { position: absolute; right: 24px; top: 20px; width: 46px; height: 46px; color: var(--k-text-2); }
+      [data-composition-id="scene-03"] .d3-wait { display: inline-block; margin-top: 18px; padding: 6px 20px; border-radius: 16px; border: 2px solid var(--k-text-2); color: var(--k-text-2); font-size: 32px; font-weight: 600; white-space: nowrap; }
+      [data-composition-id="scene-03"] .d3-ar { top: 363px; width: 54px; height: 34px; color: var(--k-text-2); }
+      [data-composition-id="scene-03"] .d3-sub { top: 520px; display: flex; gap: 12px; }
+      [data-composition-id="scene-03"] .d3-chip { padding: 6px 20px; border-radius: 16px; border: 2px solid var(--k-line); background: var(--k-panel-2); font-size: 32px; font-weight: 600; white-space: nowrap; }
+      [data-composition-id="scene-03"] .d3-mt { left: 1394px; top: 520px; width: 430px; height: 68px; display: flex; align-items: center; gap: 14px; padding: 0 22px; border-radius: 18px; border: 2px solid var(--k-text-2); background: var(--k-panel-2); font-size: 34px; font-weight: 600; color: var(--k-text-2); white-space: nowrap; }
+      [data-composition-id="scene-03"] .d3-mt svg { width: 34px; height: 34px; flex: none; }
+      [data-composition-id="scene-03"] .d3-mt i { position: absolute; left: 14px; right: 14px; top: 50%; height: 5px; margin-top: -2px; border-radius: 3px; background: var(--k-accent); transform-origin: 0 50%; }
+      [data-composition-id="scene-03"] .d3-plate { left: 96px; top: 678px; width: 1728px; height: 132px; padding: 0 40px; display: flex; align-items: center; gap: 28px; border-color: var(--k-accent); background: var(--k-accent-tint); white-space: nowrap; }
+      [data-composition-id="scene-03"] .d3-plate .p { font-size: 46px; font-weight: 800; letter-spacing: -0.01em; }
+      [data-composition-id="scene-03"] .d3-plate .ar { width: 60px; height: 38px; color: var(--k-accent-soft); flex: none; }
+      [data-composition-id="scene-03"] .d3-plate .not { margin-left: auto; padding: 8px 24px; border-radius: 18px; border: 2px solid var(--k-text-2); font-size: 34px; font-weight: 600; color: var(--k-text); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("03"), t = S.t, DUR = 20.9;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const div = (cls, html, parent) => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; parent.appendChild(el); return el; };
+        const LOCK = '<svg class="d3-lk" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="18" width="26" height="18" rx="4"/><path d="M12 18v-5a8 8 0 0 1 16 0v5"/></svg>';
+        const CHECK = '<svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 29l12 12 24-26"/></svg>';
+        const ARR = (cls) => `<svg class="${cls}" viewBox="0 0 54 34" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17h44M34 5l14 12-14 12"/></svg>`;
+        const T0 = 2.0;   // the part title covers the first 2 s: nothing is visible before it
+
+        Kit.header(S, { header: { mode: "parts", total: 7 }, chapter: "Код пишет модель", step: 3, duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* ---- цепочка: прочитать, изменить, проверить, одобрить ---- */
+        const XS = [96, 545, 995, 1444];
+        const defs = [["Модель", "Прочитать", t("читает")], ["Модель", "Изменить код", t("меняет")], ["Модель", "Проверить", t("проверяет")], ["Люди", "Одобрение", t("Статусы")]];
+        const nodes = defs.map(([who, ttl, at], i) => {
+          const n = div("k-card d3-abs d3-node", `<div class="d3-who">${who}</div><div class="d3-ttl">${ttl}</div>`, s1);
+          n.style.left = XS[i] + "px"; hide(n); return n;
+        });
+        const from = [{ x: -80 }, { y: 50, scale: 0.94 }, { scale: 1.06, filter: "blur(14px)" }, { scale: 0.9, y: 30 }];
+        nodes.forEach((n, i) => {
+          const at = Math.max(defs[i][2] - 0.05, T0);
+          S.tl.fromTo(n, { autoAlpha: 0, ...from[i] }, { autoAlpha: 1, x: 0, y: 0, scale: 1, filter: "blur(0px)", duration: 0.7, ease: i === 1 || i === 3 ? "back.out(2)" : "power3.out", immediateRender: false }, at);
+          read(defs[i][0] + " " + defs[i][1], at, DUR);
+          if (i) {
+            const a = div("d3-abs d3-ar", ARR("d3-ar-i"), s1);
+            a.firstChild.style.cssText = "width:54px;height:34px;color:var(--k-text-2)";
+            a.style.left = XS[i] - 69 + 7 + "px"; hide(a);
+            S.tl.fromTo(a, { autoAlpha: 0, x: -20 }, { autoAlpha: 1, x: 0, duration: 0.5, ease: "power3.out", immediateRender: false }, at - 0.25);
+          }
+        });
+        // tests and browser: two chips under the third step
+        const sub = div("d3-abs d3-sub", '<span class="d3-chip a">тесты</span><span class="d3-chip b">браузер</span>', s1); sub.style.left = XS[2] + "px";
+        const sa = sub.querySelector(".a"), sb = sub.querySelector(".b"); hide(sa, sb);
+        Kit.popIn(S, sa, t("тестами"), 0.5);
+        S.tl.fromTo(sb, { autoAlpha: 0, x: -30 }, { autoAlpha: 1, x: 0, duration: 0.6, ease: "power3.out", immediateRender: false }, t("браузере"));
+        read("тесты браузер", t("браузере"), DUR);
+
+        // the mark step waits for people: lock and chip, not green
+        nodes[3].insertAdjacentHTML("beforeend", LOCK + '<span class="d3-wait">ждёт людей</span>');
+        const lk = nodes[3].querySelector(".d3-lk"), wait = nodes[3].querySelector(".d3-wait"); hide(lk, wait);
+        S.tl.fromTo(lk, { autoAlpha: 0, scale: 1.6, rotation: -16 }, { autoAlpha: 1, scale: 1, rotation: 0, duration: 0.5, ease: "back.out(2)", immediateRender: false }, t("подтверждают"));
+        Kit.popIn(S, wait, t("люди"), 0.5);
+        read("Люди Одобрение ждёт людей", t("люди"), DUR);
+
+        /* ---- предложение модели одобрением не считается ---- */
+        const mt = div("d3-abs d3-mt", `${CHECK}галочка модели<i></i>`, s1);
+        const strike = mt.querySelector("i"); hide(mt); gsap.set(strike, { scaleX: 0 });
+        S.tl.fromTo(mt, { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: "power3.out", immediateRender: false }, t("предложение") - 0.05);
+        S.tl.to(strike, { scaleX: 1, duration: 0.45, ease: "power2.out" }, t("не считается"));
+        S.tl.to(mt, { opacity: 0.75, duration: 0.4 }, t("не считается") + 0.3);
+        read("галочка модели", t("предложение"), DUR);
+
+        /* ---- новое решение: к владельцу продукта ---- */
+        S.tl.to(strike, { backgroundColor: Kit.token("--k-text-2"), duration: 0.4 }, t("Если") - 0.2);
+        const pl = div("k-card d3-abs d3-plate", `<span class="p p1">Новое решение</span>${ARR("ar")}<span class="p p2">Владелец продукта</span><span class="not">аналитик не решает за него</span>`, s1);
+        const p1 = pl.querySelector(".p1"), ar = pl.querySelector(".ar"), p2 = pl.querySelector(".p2"), nt = pl.querySelector(".not");
+        hide(pl, p1, ar, p2, nt);
+        S.tl.fromTo(pl, { autoAlpha: 0, y: -30 }, { autoAlpha: 1, y: 0, duration: 0.7, ease: "power3.out", immediateRender: false }, t("Если"));
+        Kit.popIn(S, p1, t("новое"), 0.5);
+        S.tl.fromTo(ar, { autoAlpha: 0, x: -24 }, { autoAlpha: 1, x: 0, duration: 0.5, ease: "power3.out", immediateRender: false }, t("аналитик"));
+        S.tl.fromTo(p2, { autoAlpha: 0, scale: 0.85 }, { autoAlpha: 1, scale: 1, duration: 0.6, ease: "back.out(2)", immediateRender: false }, t("владельцу"));
+        S.tl.fromTo(nt, { autoAlpha: 0, x: 50 }, { autoAlpha: 1, x: 0, duration: 0.7, ease: "power3.out", immediateRender: false }, t("ничего"));
+        read("Новое решение Владелец продукта", t("владельцу"), DUR);
+        read("аналитик не решает за него", t("ничего"), DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

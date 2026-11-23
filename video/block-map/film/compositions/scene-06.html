@@ -1,0 +1,54 @@
+<template id="scene-06-template">
+  <div data-composition-id="scene-06" data-width="1920" data-height="1080" data-duration="12.9">
+    <style>
+      [data-composition-id="scene-06"] .sc-mark { position: absolute; border: 3px solid var(--k-accent); border-radius: 10px; pointer-events: none; }
+      [data-composition-id="scene-06"] .sc-item { height: 100%; display: flex; align-items: center; gap: 28px; font-size: 44px; font-weight: 700; letter-spacing: -0.015em; line-height: 1.15; }
+      [data-composition-id="scene-06"] .sc-ok { flex: none; width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center; color: var(--k-ok); border: 3px solid var(--k-ok); background: var(--k-ok-tint); }
+      [data-composition-id="scene-06"] .sc-ok svg { width: 44px; height: 44px; opacity: 0; }
+      [data-composition-id="scene-06"] .sc-next { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+      [data-composition-id="scene-06"] .sc-next .lab { font-size: 36px; font-weight: 700; color: var(--k-accent-soft); white-space: nowrap; }
+      [data-composition-id="scene-06"] .sc-next .nm { font-size: 58px; font-weight: 800; letter-spacing: -0.02em; white-space: nowrap; }
+      [data-composition-id="scene-06"] .sc-next svg { flex: none; width: 76px; height: 41px; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("06"), t = S.t, DUR = 12.9;
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        // Rings on the page itself, in screenshot pixels: one coral at a time, the previous one fades back.
+        const mark = (scr, r, at, soft) => {
+          const el = document.createElement("div"); el.className = "sc-mark";
+          Object.assign(el.style, { left: r.x - 6 + "px", top: r.y - 4 + "px", width: r.w + 12 + "px", height: r.h + 8 + "px" });
+          if (soft) el.style.borderColor = Kit.token("--k-accent-soft");
+          scr.layer.appendChild(el); gsap.set(el, { autoAlpha: 0 });
+          S.tl.to(el, { autoAlpha: 1, duration: 0.5, ease: "sine.out" }, at);
+          return el;
+        };
+        const dim = (el, at) => S.tl.to(el, { opacity: 0.4, duration: 0.4 }, at);
+
+        Kit.header(S, { header: { mode: "parts", total: 5 }, chapter: "Что дальше", step: null, duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+        [["Подготовка", "где начать"], ["Как выбрать маршрут — 6а, 6б или оба", "как выбрать маршрут"], ["Как вернуться — меню и «К карте PDLC»", "как вернуться"]].forEach(([txt, w], i) => {
+          const at = i === 0 ? 0.3 : t(w) - 0.2;
+          const r = Kit.aside(S, { parent: s1, x: 96, y: 225 + i * 136, w: 1728, h: 112, tail: false,
+            html: '<div class="sc-item"><span class="sc-ok">' + Kit.icons.check + "</span><span>" + txt + "</span></div>" });
+          r.show(at); S.tl.to(r.el.querySelector(".sc-ok svg"), { opacity: 1, duration: 0.3 }, t(w) + 0.4);
+          read(txt, at, DUR);
+        });
+        const T_NEXT = t("Начните");
+        const next = Kit.aside(S, { parent: s1, x: 96, y: 655, w: 1728, h: 160, tail: false,
+          html: '<div class="sc-next"><div><div class="lab">Подготовка</div><div class="nm">Зачем меняем процесс</div></div>' +
+                '<svg viewBox="0 0 56 30" fill="none"><path d="M3 15H49M39 5L50 15L39 25" stroke="' + Kit.token("--k-accent") + '" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>' });
+        next.el.style.borderColor = Kit.token("--k-accent");
+        next.show(T_NEXT);
+        read("Подготовка Зачем меняем процесс", T_NEXT, DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

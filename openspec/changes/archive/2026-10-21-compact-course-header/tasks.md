@@ -1,0 +1,4 @@
+- [x] Reproduce the header regression in the existing browser test.
+- [x] Synchronize approved compact CSS and generated source through export.
+- [x] Verify the generator/export hash chain and keyboard/touch local scrolling.
+- [x] Coordinator review, separate release gates and published readback completed.

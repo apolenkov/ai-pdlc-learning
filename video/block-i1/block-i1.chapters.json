@@ -1,0 +1,62 @@
+[
+  {
+    "n": 0,
+    "title": "Вступление",
+    "step": null,
+    "chapter": "Вступление",
+    "start": 0,
+    "titleStart": 0,
+    "speechStart": 0,
+    "end": 24.8
+  },
+  {
+    "n": 1,
+    "title": "Три вопроса до работы",
+    "step": null,
+    "chapter": "Три вопроса до работы",
+    "start": 24.8,
+    "titleStart": 24.8,
+    "speechStart": 24.8,
+    "end": 53.2
+  },
+  {
+    "n": 2,
+    "title": "Что не так с письмом",
+    "step": null,
+    "chapter": "Что не так с письмом",
+    "start": 53.2,
+    "titleStart": 53.2,
+    "speechStart": 53.2,
+    "end": 84.5
+  },
+  {
+    "n": 3,
+    "title": "Проблема и эффект с числом",
+    "step": null,
+    "chapter": "Проблема и эффект с числом",
+    "start": 84.5,
+    "titleStart": 84.5,
+    "speechStart": 84.5,
+    "end": 137.9
+  },
+  {
+    "n": 4,
+    "title": "Кто пишет и одобряет",
+    "step": null,
+    "chapter": "Кто пишет и одобряет",
+    "start": 137.9,
+    "titleStart": 137.9,
+    "speechStart": 137.9,
+    "end": 173.1
+  },
+  {
+    "n": 5,
+    "title": "Начало готово",
+    "step": null,
+    "chapter": "Начало готово",
+    "start": 173.1,
+    "titleStart": 173.1,
+    "speechStart": 173.1,
+    "end": 193.7
+  }
+]

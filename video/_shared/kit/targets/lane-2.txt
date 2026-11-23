@@ -1,0 +1,7 @@
+# Полоса 2: назначение и действия — video/_shared/kit/targets/PLAN.md.
+# Копии = эталон e82edd4b (вариант A): перевод на порождаемые без изменения вида.
+block-map
+et-film-long
+intent-overview
+landing-overview-long2
+landing-pdlc

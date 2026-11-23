@@ -1,0 +1,32 @@
+<template id="scene-06-template">
+  <div data-composition-id="scene-06" data-width="1920" data-height="1080" data-duration="12.9">
+    <style>
+      [data-composition-id="scene-06"] .ov-h { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 58px; font-weight: 800; }
+      [data-composition-id="scene-06"] .ov-chips { position: absolute; left: 96px; top: 240px; width: 1728px; display: flex; gap: 18px; flex-wrap: wrap; }
+      [data-composition-id="scene-06"] .ov-chip { padding: 16px 28px; border: 3px solid var(--k-line); border-radius: 18px; background: var(--k-panel-2); font-size: 36px; font-weight: 700; }
+      [data-composition-id="scene-06"] .ov-note { position: absolute; left: 96px; top: 560px; width: 1728px; padding: 26px 34px; border: 2px solid var(--k-line); border-radius: 24px; background: var(--k-panel); font-size: 36px; line-height: 1.35; }
+      [data-composition-id="scene-06"] .ov-note b { color: var(--k-accent-soft); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("06"), DUR = 12.9;
+        const h = document.createElement("div"); h.className = "ov-h"; h.textContent = "Найдите свой этап"; S.root.appendChild(h);
+        S.tl.fromTo(h, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out", immediateRender: false }, 0.1);
+        const box = document.createElement("div"); box.className = "ov-chips"; S.root.appendChild(box);
+        const roles = ["Аналитик", "Владелец продукта", "Архитектор", "Разработчик", "QA", "Техлид"];
+        const chips = roles.map((r) => {
+          const c = document.createElement("div"); c.className = "ov-chip"; c.textContent = r;
+          box.appendChild(c); return c;
+        });
+        S.tl.fromTo(chips, { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: "power2.out", stagger: 0.12, immediateRender: false }, Math.min(S.t("роли"), DUR - 4));
+        S.tl.to(chips[0], { borderColor: "#3ccf91", duration: 0.3, immediateRender: false }, Math.min(S.t("Аналитик"), DUR - 3));
+        const note = document.createElement("div"); note.className = "ov-note";
+        note.innerHTML = "Аналитик — <b>с курса анализа</b>. Остальные — свой этап на карте: обзор, карта маршрута и уровень, к которому идти.";
+        S.root.appendChild(note);
+        S.tl.fromTo(note, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out", immediateRender: false }, Math.min(S.t("Остальные"), DUR - 2));
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

@@ -1,0 +1,14 @@
+const T = Team.use(L);
+T.title("Где лежит <span>метод</span>");
+T.plates([["Общий репозиторий решений", t("Общий") - 0.1], ["Репозиторий продукта", t("Репозитории") - 0.1, "info"], ["Предложения возвращаются", t("возвращают") - 0.1, "acc"]]);
+const li = (arr) => "<ul>" + arr.map((x) => '<li style="font-size:42px;color:var(--k-text);padding:12px 0">' + x + "</li>").join("") + "</ul>";
+T.card({ x: 96, y: 250, w: 700, hgt: 360, tone: "ok", kick: "Общий репозиторий решений", html: li(["Шаблоны", "<b>ADR</b> — записи решений", "Инструкции агентам"]) }, t("Общий") - 0.1);
+T.card({ x: 1124, y: 250, w: 700, hgt: 360, tone: "info", kick: "Репозитории продуктов", html: li(["Код", "Спецификации", "Тесты — без дублирования"]) }, t("Репозитории") - 0.1);
+const ar = el("tm-arrow", "→"); ar.style.left = "905px"; ar.style.top = "380px"; ar.style.fontSize = "90px"; ar.style.width = "110px"; ar.style.textAlign = "center"; T.show(ar, t("берут") - 0.1, 960);
+const lb = el("tm-pill", "берут за основу"); lb.style.position = "absolute"; lb.style.left = "818px"; lb.style.top = "320px"; lb.style.fontSize = "30px"; lb.style.whiteSpace = "nowrap"; T.show(lb, t("берут") - 0.1, 960);
+const svg = F.layer(S.root);
+const back = F.path(svg, "M 1474 620 C 1474 730, 1474 730, 1360 730 L 560 730 C 446 730, 446 730, 446 626", F.C.acc, 6);
+F.draw(tl, back, t("возвращают") - 0.1, 1.2, "power1.inOut");
+const ah = F.arrowHead(svg, 446, 624, -90, F.C.acc, 16); tl.to(ah, { opacity: 1, duration: 0.2 }, t("возвращают") + 1.0);
+const pl = el("tm-pill acc", "предложения по улучшению метода"); pl.style.position = "absolute"; pl.style.left = "680px"; pl.style.top = "758px"; pl.style.fontSize = "36px"; pl.style.whiteSpace = "nowrap"; T.show(pl, t("предложения") - 0.1, 960);
+const fin = el("tm-kick", "Шаблоны общие · код у продукта"); fin.style.position = "absolute"; fin.style.left = "650px"; fin.style.top = "650px"; fin.style.fontSize = "34px"; fin.style.color = "var(--k-text)"; fin.style.whiteSpace = "nowrap"; T.show(fin, t("Шаблоны общие") - 0.1, 960);

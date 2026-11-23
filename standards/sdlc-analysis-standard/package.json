@@ -1,0 +1,14 @@
+{
+  "name": "@customdev/sdlc-analysis-standard-reference",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "bootstrap": "npm run doctor",
+    "doctor": "node --experimental-strip-types tools/standard-cli.ts doctor",
+    "validate": "node --experimental-strip-types tools/standard-cli.ts validate",
+    "update:dry-run": "node --experimental-strip-types tools/update-standard.ts --mode dry-run",
+    "update:patch": "node --experimental-strip-types tools/update-standard.ts --mode patch",
+    "test": "node --experimental-strip-types --test checks/*.test.ts",
+    "intent:lint": "node --experimental-strip-types tools/intent-lint.ts"
+  }
+}

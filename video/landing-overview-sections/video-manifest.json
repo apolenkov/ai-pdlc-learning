@@ -1,0 +1,19 @@
+{
+  "file": "landing-overview.mp4",
+  "sha256": "8045d033de61641ee77b54b77aa073f9c9db75d2385ecd4ee52dade27283cb43",
+  "size": 3681673,
+  "url": "https://github.com/apolenkov/ai-pdlc-learning/releases/download/media-v1/8045d033de61-landing-overview.mp4",
+  "version": "8045d033de61",
+  "audio": "voice-only",
+  "master": {
+    "file": "landing-overview.mp4",
+    "sha256": "91d4a9b317d30db7158ee37fb88e7fb794eb80a49bef2a95ee23b26fdb4170c7",
+    "size": 18841011,
+    "version": "91d4a9b317d3",
+    "lost": "утерян до сдачи Mac 25.11.2026: файла нет ни на Диске, ни локально; пин сохранён"
+  },
+  "duration": 92.2,
+  "captions": 22,
+  "chapters": 6,
+  "note": "v5b 23.10 (TASK-671): фон убран — мастер собран только из голоса (без музыкальной подложки и SFX-шины), речь/длительность/субтитры/главы не менялись; 92,2 с, −16,0 LUFS, TP −4,6 dBTP. Правка TASK-643: упразднённый раздел «Команды и поддержка» убран из сцены 5 и кадра страницы (сцена 5 переозвучена, 18,1 с; видео сцен 1–4 и 6 — из принятого мастера v4, сцены 5–6 перерендерены). Локальные рендеры — film/renders/landing-overview-sections-v5b-{720p,1080p}.mp4 (вне Git, sha256 — в MEDIA.sha256); 720p — перекод мастера (CRF 30). Субтитры и главы — landing-overview-sections.{vtt,chapters.vtt,chapters.json}: 22 реплики, 6 глав. Пакеты Registry — за координатором 008."
+}

@@ -1,0 +1,34 @@
+<template id="scene-05-template">
+  <div data-composition-id="scene-05" data-width="1920" data-height="1080" data-duration="11.5">
+    <style>
+      [data-composition-id="scene-05"] .et-h { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 58px; font-weight: 800; }
+      [data-composition-id="scene-05"] .et-cols { position: absolute; left: 96px; top: 250px; width: 1728px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+      [data-composition-id="scene-05"] .et-part { padding: 30px; border: 2px solid var(--k-line); border-radius: 24px; background: var(--k-panel); min-height: 300px; }
+      [data-composition-id="scene-05"] .et-n { font-size: 30px; font-weight: 800; color: var(--k-accent-soft); }
+      [data-composition-id="scene-05"] .et-t { margin-top: 8px; font-size: 36px; font-weight: 800; }
+      [data-composition-id="scene-05"] .et-d { margin-top: 10px; font-size: 29px; color: var(--k-text-2); line-height: 1.35; }
+      [data-composition-id="scene-05"] .et-who { position: absolute; left: 96px; top: 660px; width: 1728px; font-size: 34px; color: var(--k-text-2); }
+      [data-composition-id="scene-05"] .et-who b { color: var(--k-text); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("05"), DUR = 11.5;
+        const h = document.createElement("div"); h.className = "et-h"; h.textContent = "Шаблоны аудита"; S.root.appendChild(h);
+        S.tl.fromTo(h, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out", immediateRender: true }, 0.1);
+        const cols = document.createElement("div"); cols.className = "et-cols"; S.root.appendChild(cols);
+        const parts = [["аудит команды", "1 · Аудит команды", "беседа по семи этапам"], ["разбор", "2 · Разбор", "закрытая страница команды развития"], ["план", "3 · План изменений", "по итогам разбора"]];
+        parts.forEach(([word, t, d]) => {
+          const c = document.createElement("div"); c.className = "et-part";
+          c.innerHTML = '<div class="et-n">страница</div><div class="et-t">' + t + '</div><div class="et-d">' + d + "</div>";
+          cols.appendChild(c);
+          S.tl.fromTo(c, { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out", immediateRender: true }, Math.min(S.t(word), DUR - 2.5));
+        });
+        const who = document.createElement("div"); who.className = "et-who";
+        who.innerHTML = "Беседу ведут <b>команда продукта</b> и <b>команда развития</b>";
+        S.root.appendChild(who);
+        S.tl.fromTo(who, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out", immediateRender: true }, Math.min(S.t("Беседу"), DUR - 1.8));
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

@@ -1,0 +1,82 @@
+<template id="scene-04-template">
+  <div data-composition-id="scene-04" data-width="1920" data-height="1080" data-duration="35.2">
+    <style>
+      [data-composition-id="scene-04"] .sc-role { height: 100%; display: flex; align-items: center; gap: 22px; padding: 0 32px; }
+      [data-composition-id="scene-04"] .sc-role .verb { flex: none; font-size: 40px; font-weight: 800; padding: 8px 26px; border-radius: 14px; background: var(--k-accent-tint); color: var(--k-accent-soft); }
+      [data-composition-id="scene-04"] .sc-role .who { font-size: 38px; font-weight: 700; }
+      [data-composition-id="scene-04"] .sc-mr { padding: 20px 32px; display: flex; flex-direction: column; gap: 12px; }
+      [data-composition-id="scene-04"] .sc-mr .bar { display: flex; align-items: center; gap: 14px; font-size: 30px; font-weight: 700; color: var(--k-text-2); }
+      [data-composition-id="scene-04"] .sc-mr .bar .tag { font-size: 28px; padding: 4px 16px; border-radius: 12px; border: 2px solid var(--k-line); }
+      [data-composition-id="scene-04"] .sc-mr .cmt { border-radius: 14px; background: var(--k-panel-2); padding: 12px 20px; font-size: 31px; }
+      [data-composition-id="scene-04"] .sc-mr .cmt b { display: block; font-size: 29px; color: var(--k-text-2); margin-bottom: 4px; }
+      [data-composition-id="scene-04"] .sc-mr .foot { display: flex; align-items: center; gap: 18px; margin-top: 6px; }
+      [data-composition-id="scene-04"] .sc-mr .btn { font-size: 38px; font-weight: 800; padding: 10px 44px; border-radius: 16px; background: var(--k-ok); color: var(--k-bg); }
+      [data-composition-id="scene-04"] .sc-mr .own { font-size: 30px; font-weight: 700; padding: 8px 22px; border-radius: 14px; background: var(--k-accent-tint); border: 2px solid var(--k-accent); color: var(--k-accent-soft); }
+      [data-composition-id="scene-04"] .sc-agent { display: flex; align-items: center; gap: 16px; padding: 14px 28px; font-size: 32px; font-weight: 600; }
+      [data-composition-id="scene-04"] .sc-agent .k { flex: none; font-size: 30px; font-weight: 800; padding: 6px 18px; border-radius: 12px; background: var(--k-panel-2); border: 2px solid var(--k-line); }
+      [data-composition-id="scene-04"] .sc-order { height: 100%; display: flex; align-items: center; justify-content: center; gap: 16px; font-size: 36px; font-weight: 800; }
+      [data-composition-id="scene-04"] .sc-order .arr { color: var(--k-accent); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("04"), t = S.t, DUR = 35.2;
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+
+        Kit.header(S, { header: { mode: "parts", total: 4 }, chapter: "Кто пишет и одобряет", step: 4, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        /* ---- План 1: кто что делает ---- */
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+        // Порядок совпадает с озвучкой (одобряет звучит во 2-й фразе раньше помощи): смежных дыр нет, ритм 130px единый.
+        const roles = [
+          { verb: "пишет", who: "владелец продукта", at: t("пишет запись") },
+          { verb: "одобряет", who: "владелец продукта", at: t("одобряет") },
+          { verb: "помогает", who: "аналитик", at: t("Аналитик помогает") },
+          { verb: "проверяет", who: "аналитик · измеримость", at: t("проверяет измеримость") },
+        ];
+        roles.forEach((r, i) => {
+          const c = Kit.aside(S, { parent: s1, x: 96, y: 240 + i * 130, w: 1728, h: 110, tail: false,
+            html: '<div class="sc-role"><span class="verb">' + r.verb + '</span><span class="who">' + r.who + "</span></div>" });
+          c.show(Math.max(r.at, 2.1)); // заставка части держится первые 2 с
+          read(r.verb + " " + r.who, Math.max(r.at, 2.1), DUR);
+        });
+
+        /* ---- План 2: учебный макет запроса на слияние ---- */
+        const T_MR = t("Отделите помощь");
+        const s2 = S.stage();
+        const T_S2 = Kit.swap(S, s1, s2, T_MR - 0.2);
+        // Карточка без фикс. высоты: растёт по содержимому, кнопка и чип — в её нижней части.
+        const mr = Kit.aside(S, { parent: s2, x: 96, y: 225, w: 1728, tail: false,
+          html: '<div class="sc-mr"><div class="bar">Запрос на слияние · учебный макет <span class="tag">пример</span></div>' +
+                '<div class="cmt c1"><b>Н. Примерова · аналитик</b>Границы уточнены, измеримость проверена.</div>' +
+                '<div class="cmt c2"><b>П. Примеров · владелец продукта</b>Смысл подтверждаю.</div>' +
+                '<div class="foot"><span class="btn">Одобрить</span><span class="own">владелец продукта</span></div></div>' });
+        const c1 = mr.el.querySelector(".c1"), c2 = mr.el.querySelector(".c2");
+        mr.show(T_S2 + 0.1);
+        [c1, c2].forEach((el) => { el.style.opacity = 0; });
+        S.tl.to(c1, { opacity: 1, duration: 0.4 }, t("черновики") + 0.1);
+        S.tl.to(c2, { opacity: 1, duration: 0.4 }, t("смысл подтверждает") + 0.1);
+        read("Запрос на слияние учебный макет пример", T_S2 + 0.1, DUR);
+        read("Границы уточнены измеримость проверена", t("черновики") + 0.1, DUR, 0);
+        read("Смысл подтверждаю", t("смысл подтверждает") + 0.1, DUR, 0);
+
+        // Строка «Агент» ниже карточки с запасом: без наложения, низ контента выше SAFE_BOTTOM 825.
+        const agent = Kit.aside(S, { parent: s2, x: 96, y: 700, w: 1728, tail: false,
+          html: '<div class="sc-agent"><span class="k">Агент</span><span>решений не принимает</span></div>' });
+        agent.show(t("Агент решений"));
+        read("Агент решений не принимает", t("Агент решений"), DUR);
+
+        const btn = mr.el.querySelector(".btn"), own = mr.el.querySelector(".own");
+        [btn, own].forEach((el) => { el.style.opacity = 0; });
+        S.tl.to([btn, own], { opacity: 1, duration: 0.4 }, t("одобрение одно") + 0.15);
+        read("Одобрить владелец продукта", t("одобрение одно") + 0.15, DUR);
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

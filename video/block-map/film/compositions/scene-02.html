@@ -1,0 +1,49 @@
+<template id="scene-02-template">
+  <div data-composition-id="scene-02" data-width="1920" data-height="1080" data-duration="13.4">
+    <style>
+      [data-composition-id="scene-02"] .sc-mark { position: absolute; box-sizing: border-box; border: 3px solid var(--k-accent); border-radius: 10px; pointer-events: none; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("02"), t = S.t, DUR = 13.4;
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const mark = (scr, r, at, soft) => {
+          const el = document.createElement("div"); el.className = "sc-mark";
+          Object.assign(el.style, { left: r.x - 6 + "px", top: r.y - 4 + "px", width: r.w + 12 + "px", height: r.h + 8 + "px" });
+          if (soft) el.style.borderColor = Kit.token("--k-accent-soft");
+          scr.layer.appendChild(el); gsap.set(el, { autoAlpha: 0 });
+          S.tl.to(el, { autoAlpha: 1, duration: 0.5, ease: "sine.out" }, at);
+          return el;
+        };
+        const dim = (el, at) => S.tl.to(el, { opacity: 0.4, duration: 0.4 }, at);
+        Kit.header(S, { header: { mode: "parts", total: 5 }, chapter: "С чего начать", step: 2, duration: DUR, parts: [{ n: 2, blank: true, at: 0 }] });
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+        const FIRST = { x: 277, y: 1224, w: 449, h: 290 };
+        const MD = { x: 736, y: 1224, w: 449, h: 290 }, ONE = { x: 277, y: 1838, w: 449, h: 312 };
+        const scr = Kit.screen(S, { parent: s1, x: 60, y: 200, w: 1800, h: 790, natural: { w: 1920, h: 3200 },
+          src: "assets/page/map.png", alt: "Карта курса: подготовка",
+          camera: [{ t: 0, cx: 731, cy: 1369, scale: 1.9, dur: 0, protect: [FIRST, MD] }] });
+        scr.show(0, true);
+        mark(scr, FIRST, t("Зачем меняем"));
+        // Two alternatives side by side: both cards are in place before their words.
+        const T_PAIR = t("Уже знаете") - 0.4;
+        S.tl.to(s1, { autoAlpha: 0, duration: 0.3 }, T_PAIR);
+        const s2 = S.stage();
+        S.tl.to(s2, { autoAlpha: 1, duration: 0.3 }, T_PAIR + 0.3);
+        const pair = [MD, ONE].map((card, i) => {
+          const screen = Kit.screen(S, { parent: s2, x: 100 + i * 940, y: 200, w: 780, h: 790,
+            natural: { w: 1920, h: 3200 }, src: "assets/page/map.png", alt: i === 0 ? "Карточка подготовки «Markdown, Git и совместная работа в GitLab с нуля»" : "Карточка шага 1 «Требования в Git»",
+            camera: [{ t: 0, cx: card.x + card.w / 2, cy: card.y + card.h / 2 + 35,
+              scale: 3.8, dur: 0, protect: [{ x: card.x - 6, y: card.y - 4, w: card.w + 12, h: card.h + 8 }] }] });
+          screen.show(0, true); return screen;
+        });
+        const first = mark(pair[0], MD, t("Маркдаун"));
+        dim(first, t("к шагу один") - 0.1);
+        mark(pair[1], ONE, t("к шагу один"));
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

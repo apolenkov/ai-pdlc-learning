@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" fill="none" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Семь этапов PDLC: человек принимает решения, ИИ-агент готовит артефакты в границах">
+  <title>Семь этапов PDLC: человек принимает решения, ИИ-агент готовит артефакты в границах</title>
+  <desc>Скетч-схема семи этапов PDLC от намерения до наблюдения с возвратом сигнала в новое намерение и разделением ролей человека и ИИ-агента.</desc>
+  <rect x="2" y="2" width="956" height="536" rx="22" fill="#f4f1e8" stroke="#cfc8b3" stroke-width="2"/>
+  <path class="s" pathLength="1" stroke="#e6e0cf" stroke-width="1" d="M36 86 H924 M36 484 H924"/>
+  <text x="36" y="42" fill="#56625c" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="13" font-weight="700" letter-spacing="0.04em">ГЛАВНАЯ · МАРШРУТ ПРОДУКТА</text>
+  <text x="36" y="68" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="21" font-weight="800">7 этапов PDLC <tspan fill="#216650">· человек решает, агент готовит</tspan></text>
+  <path class="s" pathLength="1" stroke="#2b6a8f" stroke-width="2.5" d="M866 145 C866 100 92 100 92 145" stroke-dasharray="7 6"/>
+  <path class="s" pathLength="1" stroke="#2b6a8f" stroke-width="2.5" d="M86 134 L92 145 L100 135"/>
+  <rect x="350" y="98" width="260" height="25" rx="12" fill="#fbf9f3" stroke="#2b6a8f" stroke-width="1.8"/>
+  <text x="480" y="115" text-anchor="middle" fill="#2b6a8f" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="12.5" font-weight="700">↩ Наблюдение → новое намерение</text>
+  <path class="s" pathLength="1" stroke="#216650" stroke-width="2.8" d="M130 206 L183 206"/>
+  <path class="s" pathLength="1" stroke="#216650" stroke-width="2.8" d="M174.0 210.3 L183 206 L174.0 201.7"/>
+  <circle cx="92" cy="206" r="33" fill="#fbf9f3" stroke="#2b6a8f" stroke-width="2.8"/>
+  <path class="s" pathLength="1" stroke="#2b6a8f" stroke-width="2.5" d="M92 192 A14 14 0 1 1 91.9 192 Z M97 201 L94 210 L87 211 L90 202 Z"/>
+  
+  <text x="92" y="163" text-anchor="middle" fill="#56625c" font-family='"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace' font-size="13" font-weight="700">01</text>
+  <text x="92" y="260" text-anchor="middle" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="14" font-weight="700">Намерение</text>
+  <text x="92" y="278" text-anchor="middle" fill="#56625c" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="12.5" font-weight="600">и план</text>
+  <rect x="40" y="290" width="104" height="25" rx="9" fill="#fbf9f3" stroke="#2b6a8f" stroke-width="2"/>
+  <text x="92.0" y="306.9" text-anchor="middle" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="12.5" font-weight="600">Владелец</text>
+  <path class="s" pathLength="1" stroke="#216650" stroke-width="2.8" d="M259 206 L312 206"/>
+  <path class="s" pathLength="1" stroke="#216650" stroke-width="2.8" d="M303.0 210.3 L312 206 L303.0 201.7"/>
+  <circle cx="221" cy="206" r="33" fill="#fbf9f3" stroke="#216650" stroke-width="2.8"/>
+  <path class="s" pathLength="1" stroke="#216650" stroke-width="2.5" d="M212 193 H225 L231 199 V219 H212 Z M216 204 H226 M216 211 H224"/>
+  <g fill="none" stroke="#1f2d2a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" transform="translate(237.95 166.95) scale(0.921)" aria-hidden="true"><path d="m7 11 2-2-2-2"/><path d="M11 13h4"/><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/></g>
+  <text x="221" y="163" text-anchor="middle" fill="#56625c" font-family='"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace' font-size="13" font-weight="700">02</text>
+  <text x="221" y="260" text-anchor="middle" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="14" font-weight="700">Анализ</text>
+  <text x="221" y="278" text-anchor="middle" fill="#56625c" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="12.5" font-weight="600">требований</text>
+  <rect x="169" y="290" width="104" height="25" rx="9" fill="#fbf9f3" stroke="#216650" stroke-width="2"/>
+  <text x="221.0" y="306.9" text-anchor="middle" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="12.5" font-weight="600">Владелец</text>
+  <path class="s" pathLength="1" stroke="#216650" stroke-width="2.8" d="M388 206 L441 206"/>
+  <path class="s" pathLength="1" stroke="#216650" stroke-width="2.8" d="M432.0 210.3 L441 206 L432.0 201.7"/>
+  <circle cx="350" cy="206" r="33" fill="#fbf9f3" stroke="#216650" stroke-width="2.8"/>
+  <path class="s" pathLength="1" stroke="#216650" stroke-width="2.5" d="M350 193 L362 200 L350 207 L338 200 Z M338 207 L350 214 L362 207 M338 213 L350 220 L362 213"/>
+  <g fill="none" stroke="#1f2d2a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" transform="translate(366.95 166.95) scale(0.921)" aria-hidden="true"><path d="m7 11 2-2-2-2"/><path d="M11 13h4"/><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/></g>
+  <text x="350" y="163" text-anchor="middle" fill="#56625c" font-family='"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace' font-size="13" font-weight="700">03</text>
+  <text x="350" y="260" text-anchor="middle" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="14" font-weight="700">Архитектура</text>
+  <text x="350" y="278" text-anchor="middle" fill="#56625c" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="12.5" font-weight="600">и дизайн</text>
+  <rect x="298" y="290" width="104" height="25" rx="9" fill="#fbf9f3" stroke="#216650" stroke-width="2"/>
+  <text x="350.0" y="306.9" text-anchor="middle" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="12.5" font-weight="600">Архитектор</text>
+  <path class="s" pathLength="1" stroke="#216650" stroke-width="2.8" d="M517 206 L570 206"/>
+  <path class="s" pathLength="1" stroke="#216650" stroke-width="2.8" d="M561.0 210.3 L570 206 L561.0 201.7"/>
+  <circle cx="479" cy="206" r="33" fill="#fbf9f3" stroke="#216650" stroke-width="2.8"/>
+  <path class="s" pathLength="1" stroke="#216650" stroke-width="2.5" d="M473 199 L466 206 L473 213 M485 199 L492 206 L485 213 M481 196 L477 216"/>
+  <g fill="none" stroke="#1f2d2a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" transform="translate(495.95 166.95) scale(0.921)" aria-hidden="true"><path d="m7 11 2-2-2-2"/><path d="M11 13h4"/><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/></g>
+  <text x="479" y="163" text-anchor="middle" fill="#56625c" font-family='"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace' font-size="13" font-weight="700">04</text>
+  <text x="479" y="260" text-anchor="middle" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="14" font-weight="700">Реализация</text>
+  <text x="479" y="278" text-anchor="middle" fill="#56625c" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="12.5" font-weight="600">код и тесты</text>
+  <rect x="427" y="290" width="104" height="25" rx="9" fill="#fbf9f3" stroke="#216650" stroke-width="2"/>
+  <text x="479.0" y="306.9" text-anchor="middle" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="12.5" font-weight="600">Техлид</text>
+  <path class="s" pathLength="1" stroke="#216650" stroke-width="2.8" d="M646 206 L699 206"/>
+  <path class="s" pathLength="1" stroke="#216650" stroke-width="2.8" d="M690.0 210.3 L699 206 L690.0 201.7"/>
+  <circle cx="608" cy="206" r="33" fill="#fbf9f3" stroke="#216650" stroke-width="2.8"/>
+  <path class="s" pathLength="1" stroke="#216650" stroke-width="2.5" d="M603 193 H613 M605 193 V202 L598 217 H618 L611 202 V193 M601 211 H615"/>
+  <g fill="none" stroke="#1f2d2a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" transform="translate(624.95 166.95) scale(0.921)" aria-hidden="true"><path d="m7 11 2-2-2-2"/><path d="M11 13h4"/><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/></g>
+  <text x="608" y="163" text-anchor="middle" fill="#56625c" font-family='"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace' font-size="13" font-weight="700">05</text>
+  <text x="608" y="260" text-anchor="middle" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="14" font-weight="700">Тестирование</text>
+  <text x="608" y="278" text-anchor="middle" fill="#56625c" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="12.5" font-weight="600">по критериям</text>
+  <rect x="556" y="290" width="104" height="25" rx="9" fill="#fbf9f3" stroke="#216650" stroke-width="2"/>
+  <text x="608.0" y="306.9" text-anchor="middle" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="12.5" font-weight="600">QA-инженер</text>
+  <path class="s" pathLength="1" stroke="#216650" stroke-width="2.8" d="M775 206 L828 206"/>
+  <path class="s" pathLength="1" stroke="#216650" stroke-width="2.8" d="M819.0 210.3 L828 206 L819.0 201.7"/>
+  <circle cx="737" cy="206" r="33" fill="#fbf9f3" stroke="#216650" stroke-width="2.8"/>
+  <path class="s" pathLength="1" stroke="#216650" stroke-width="2.5" d="M731 214 C731 202 739 194 748 194 C748 203 740 211 731 214 Z M728 217 L732 213"/>
+  <g fill="none" stroke="#1f2d2a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" transform="translate(753.95 166.95) scale(0.921)" aria-hidden="true"><path d="m7 11 2-2-2-2"/><path d="M11 13h4"/><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/></g>
+  <text x="737" y="163" text-anchor="middle" fill="#56625c" font-family='"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace' font-size="13" font-weight="700">06</text>
+  <text x="737" y="260" text-anchor="middle" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="14" font-weight="700">Выпуск</text>
+  <text x="737" y="278" text-anchor="middle" fill="#56625c" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="12.5" font-weight="600">и откат</text>
+  <rect x="685" y="290" width="104" height="25" rx="9" fill="#fbf9f3" stroke="#216650" stroke-width="2"/>
+  <text x="737.0" y="306.9" text-anchor="middle" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="12.5" font-weight="600">Техлид</text>
+  
+  <circle cx="866" cy="206" r="33" fill="#fbf9f3" stroke="#2b6a8f" stroke-width="2.8"/>
+  <path class="s" pathLength="1" stroke="#2b6a8f" stroke-width="2.5" d="M853 206 H859 L863 196 L869 216 L873 206 H879"/>
+  
+  <text x="866" y="163" text-anchor="middle" fill="#56625c" font-family='"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace' font-size="13" font-weight="700">07</text>
+  <text x="866" y="260" text-anchor="middle" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="14" font-weight="700">Наблюдение</text>
+  <text x="866" y="278" text-anchor="middle" fill="#56625c" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="12.5" font-weight="600">эффект</text>
+  <rect x="814" y="290" width="104" height="25" rx="9" fill="#fbf9f3" stroke="#2b6a8f" stroke-width="2"/>
+  <text x="866.0" y="306.9" text-anchor="middle" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="12.5" font-weight="600">Владелец</text>
+  <rect x="36" y="336" width="430" height="132" rx="16" fill="#fbf9f3" stroke="#2b6a8f" stroke-width="2"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.4" d="M75.0 353.5 C81.3 353.5 84.9 359.2 83.9 366.5 C82.8 373.8 77.6 378.5 71.9 378.5 C66.2 378.5 62.6 373.3 63.6 366.0 C64.6 359.2 69.8 353.5 75.0 353.5 Z"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3" d="M82.3 359.2 C83.9 352.0 64.6 351.4 62.6 363.4 L62.0 370.2"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3" d="M69.8 382.6 L71.4 377.4 M77.6 383.2 L79.2 378.0"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.4" d="M68.8 382.6 C61.0 385.8 59.4 399.3 61.5 417.0 L63.6 443.0"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.4" d="M78.7 383.7 C84.4 387.8 84.4 402.4 81.3 417.0 L79.2 443.0"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3" d="M71.4 418.0 L70.9 443.0"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.2" d="M61.5 443.0 L86.5 443.0"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.2" d="M76.1 383.7 C83.4 392.0 92.7 395.1 105.2 391.0 M73.0 391.0 C81.3 399.3 91.7 401.4 104.2 397.2"/>
+  <path class="s" pathLength="1" stroke="#2b6a8f" stroke-width="2.8" d="M132 365 A11 11 0 1 1 131.9 365 Z"/>
+  <path class="s" pathLength="1" stroke="#2b6a8f" stroke-width="3.4" d="M127.4 376.0 L131.1 379.7 L137.1 372.5"/>
+  <text x="158" y="368" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="16" font-weight="800">Человек владеет целью и решает</text>
+  <text x="158" y="393" fill="#56625c" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="13.5" font-weight="600">• ставит проблему, границы и приоритет</text>
+  <text x="158" y="416" fill="#56625c" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="13.5" font-weight="600">• проверяет смысл и принимает результат</text>
+  <text x="158" y="442" fill="#2b6a8f" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="13.5" font-weight="700">У каждого этапа один решающий человек</text>
+  <rect x="494" y="336" width="430" height="132" rx="16" fill="#fbf9f3" stroke="#216650" stroke-width="2"/>
+  <g fill="none" stroke="#1f2d2a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" transform="translate(512.5 362.5) scale(1.625)" aria-hidden="true"><path d="m7 11 2-2-2-2"/><path d="M11 13h4"/><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/></g>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3" d="M558 358 L584 358 L600 374 L600 412 L558 412 Z"/>
+  <path class="s" pathLength="1" stroke="#56625c" stroke-width="2.4" d="M584 358 L584 374 L600 374"/>
+  <path class="s" pathLength="1" stroke="#216650" stroke-width="2.5" d="M570 386 L586 386 M570 400 L582 400 M570 414 L576 414"/>
+  <text x="614" y="368" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="16" font-weight="800">ИИ-агент готовит в границах</text>
+  <text x="614" y="393" fill="#56625c" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="13.5" font-weight="600">• черновики спецификаций, ADR и тестов</text>
+  <text x="614" y="416" fill="#56625c" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="13.5" font-weight="600">• автопроверки CI подтверждают форму</text>
+  <text x="614" y="442" fill="#216650" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="13.5" font-weight="700">Агент готовит · решений не принимает</text>
+  <text x="36" y="513" fill="#56625c" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="14" font-weight="600">Сквозной цикл из 7 этапов: от намерения до наблюдения и возврата сигнала</text>
+  <text x="924" y="513" text-anchor="end" fill="#216650" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="14" font-weight="700">Артефакты в Git рядом с кодом</text>
+</svg>

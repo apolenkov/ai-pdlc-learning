@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ru" data-atmos data-section="analysis">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Курс «Намерение и план»: подготовка, четыре шага записи намерения, уровни и словарь ролей.">
+  <title>Намерение и план · AI PDLC Learning</title>
+  <link rel="stylesheet" href="guide.css">
+  <link rel="stylesheet" href="learning-enhancements.css">
+  <link rel="stylesheet" data-site-nav-styles href="../site-nav.css">
+<link rel="stylesheet" data-atmos-styles href="../atmosphere.css"></head>
+<body class="route-page" data-stage="intent" data-course="intent">
+  <a class="skip-link" href="#guide-content">К основному содержанию</a>
+  <div class="shell">
+    <nav class="site-topbar" data-global-nav data-expanded="false" onkeydown="if(event.key==='Escape'&&this.getAttribute('data-expanded')==='true'){this.setAttribute('data-expanded','false');document.documentElement.style.removeProperty('--site-nav-reserve');var more=this.querySelector('.site-nav-more');if(more){more.setAttribute('aria-expanded','false');more.focus()}}" aria-label="Основная навигация PDLC"><div class="site-topbar__identity"><a class="site-home" data-global-home data-home-link data-course-root data-nav-item="home" href="__CUSTOMDEV_ROOT__" aria-current="location">Маршрут курса</a></div><div class="site-page-actions"><a class="site-catalog-return" data-catalog-return href="__CUSTOMDEV_ROOT__"><span aria-hidden="true">←</span><span>К маршруту курса</span></a></div></nav>
+    <header class="hero">
+      <div>
+        <p class="eyebrow">этап 1 PDLC</p>
+        <h1>Намерение и план</h1>
+        <p>Сначала коротко записываем проблему, ожидаемый эффект, что не трогаем и из каких изменений состоит результат. Потом запись проверяют, одобряет её владелец продукта.</p>
+        <p>intent.md — файл записи намерения: один короткий документ на один запрос. Он лежит в Git рядом с кодом: Git — система хранения версий, она помнит, кто и когда менял документ и какую версию приняли.</p>
+        <p>PDLC — жизненный цикл продукта от замысла до наблюдения. Этап намерения — первый: принятая запись намерения с ревизией становится входом этапа «Анализ требований».</p>
+        <a class="hero-start" href="i1-effect.html">Начать · Шаг 1 →</a>
+      </div>
+      <aside class="proof">
+        <span>Проверяемый результат обучения</span>
+        <strong>Принятая запись намерения с номером версии в Git (ревизией), которую можно передать в анализ.</strong>
+      </aside>
+    </header>
+
+    <main id="guide-content" tabindex="-1">
+      <!-- Блок «Как пользоваться картой» с обзорным роликом. Манифест ролика есть (video/intent-overview).
+           Слот #intent-overview-film пуст, пока страница собрана без ролика, и блок скрыт правилом .map-howto--film-gated:has(.map-howto__film:empty);
+           при сборке с PAGES_WITH_VIDEO=1 плеер встраивается в слот, и блок появляется целиком. -->
+      <section class="map-howto map-howto--film-gated" id="how-to-use-map" aria-labelledby="how-to-use-map-title">
+        <div class="map-howto__head">
+          <h2 id="how-to-use-map-title">Как пользоваться картой</h2>
+        </div>
+        <p class="map-howto__legend"><span class="map-howto__key"><i aria-hidden="true"></i>точка — гайд</span><span class="map-howto__key is-passed"><i aria-hidden="true"></i>заливка — пройден</span><span class="map-howto__key is-selfchecked"><i aria-hidden="true"></i>галочка — самопроверка пройдена</span><span class="map-howto__key is-current"><i aria-hidden="true"></i>кольцо — вы смотрите</span><span>Та же линия всегда вверху страницы.</span><button type="button" class="map-howto__reset" data-route-reset hidden>Сбросить прогресс</button></p>
+        <div class="map-howto__film" id="intent-overview-film"></div>
+      </section>
+<section class="comparison" aria-labelledby="before-after-title">
+        <h2 id="before-after-title">Проблема → цель</h2>
+        <div class="comparison-row">
+          <div class="comparison-pair"><div><h3>Сейчас</h3><ul>
+          <li>Запрос приходит письмом с готовым решением: «сделайте кнопку „Очистить“».</li>
+          <li>Эффект не назван числом, границы неполные.</li>
+          <li>Через месяц начинается спор «мы это не просили».</li>
+        </ul></div>
+          <div><h3>Цель</h3><ul>
+          <li>intent.md в Git: проблема словами пользователя.</li>
+          <li>Сейчас 42 обращения в неделю. К марту — не больше 25. Оба числа учебные.</li>
+          <li>Границы и план изменений названы, одобрение одно — владельца продукта.</li>
+        </ul></div></div>
+        </div>
+      </section>
+      <section class="course-surface" aria-labelledby="prep-title">
+        <h2 id="prep-title">Подготовка</h2>
+        <h3>Обязательно</h3>
+        <ul>
+          <li><a href="p1-zachem.html">Зачем меняем процесс</a> — почему документы живут в Git и принимаются запросами на слияние.</li>
+          <li><a href="p2-git.html">Markdown, Git и GitLab</a> — Markdown — формат текста с разметкой, Git хранит версии, GitLab ведёт ветки и запросы на слияние.</li>
+        </ul>
+        <h3>Рекомендуется</h3>
+        <ul>
+          <li><a href="p3-sdd.html">SDD и OpenSpec</a> — SDD (разработка от спецификации) ведёт от проверяемого документа к коду, OpenSpec раскладывает требования отдельными изменениями.</li>
+          <li><a href="p4-metarepository.html">Мета-репозиторий</a> — общая папка продукта: границы продукта, словарь терминов и правила работы.</li>
+        </ul>
+        <p>Карта показывает подготовку по порядку; эти две части можно пропустить и перейти к шагу 1 после «Markdown, Git и GitLab».</p>
+      </section>
+      <nav class="learning-path" aria-label="Маршрут курса">
+        <p class="route-block-title">Маршрут · четыре шага <span>после подготовки, если она нужна</span></p>
+        <ol><li><a href="i1-effect.html"><strong>Шаг 1 · Проблема и эффект</strong></a></li><li><a href="i2-bounds.html"><strong>Шаг 2 · Границы и вопросы</strong></a></li><li><a href="i3-plan.html"><strong>Шаг 3 · План изменений</strong></a></li><li><a href="i4-accept.html"><strong>Шаг 4 · Проверка и одобрение</strong></a></li></ol>
+        <p class="learning-path__note">Один учебный пример на все шаги: кредитный калькулятор. Каждый шаг дописывает свои разделы в один intent.md.</p>
+      </nav>
+      <!-- course-map:start -->
+      <!-- The course map is generated into guides/intent/course-map.html by `scripts/course-map.ts --write`; the build splices it in, so this page stays below the agent-size-guard limit (TASK-718). -->
+<!-- course-map:end -->
+      <section class="course-surface" aria-labelledby="levels-title">
+        <h2 id="levels-title">Как достичь уровня</h2>
+        <p>Курс доводит команду до уровня 3 «В репозитории с одобрением». Признаки всех уровней на <a href="../intent-maturity-map.html">карте зрелости намерения</a>.</p>
+      </section>
+      <section class="course-surface" aria-labelledby="roles-title">
+        <h2 id="roles-title">Словарь ролей</h2>
+        <dl>
+          <dt>Владелец продукта</dt><dd>пишет и одобряет запись намерения (эффект и границы), а в курсе анализа одобряет спецификацию (проверяемые требования).</dd>
+        </dl>
+      </section>
+      <section class="course-surface" aria-labelledby="handoff-title">
+        <h2 id="handoff-title">Передача в анализ</h2>
+        <p id="acceptance-rule">Для принятия нужны комментарии техлида (реализуемость плана) и аналитика (хватает ли записи для анализа) на последней версии и одно одобрение владельца продукта. Одобрение относится к ревизии: после правок смысла его нужно получить заново.</p>
+        <p>Аналитик записывает передачу в комментарии к одобренному MR: кто принял, ссылку на MR, полный хеш коммита (SHA), путь к intent.md и идентификатор выбранной строки плана (change-N). Каждое изменение анализа ссылается на свой пункт плана и эту ревизию; принятый документ не меняют. <a href="i4-accept.html#step-05">Порядок и образец записи передачи</a>.</p>
+        <p><a href="index.html">Курс анализа</a> — самостоятельный учебный пример по тому же обращению калькулятора, не продолжение вашей ветки. В его <a href="p1-zachem.html#step-04">подготовке</a> вы составите отдельный замысел по короткому шаблону; переданный change-N при этом не выполняется.</p>
+        <ul>
+          <li><a href="i1-effect.html">Шаг 1 · Проблема и эффект</a></li>
+          <li><a href="i2-bounds.html">Шаг 2 · Границы и вопросы</a></li>
+          <li><a href="i3-plan.html">Шаг 3 · План изменений</a></li>
+          <li><a href="i4-accept.html">Шаг 4 · Проверка и одобрение</a></li>
+          <li><a href="index.html">Карта курса анализа</a></li>
+        </ul>
+      </section>
+      <section class="route-outcome" aria-labelledby="route-outcome-title">
+        <div>
+          <span class="route-kind">Итоговый зачёт</span>
+          <h2 id="route-outcome-title">Намерение принято и готово к передаче в анализ</h2>
+          <p>Шаги 1–4: проблема и эффект, границы и вопросы, план изменений, проверка и одобрение. Курс ведёт до принятой записи; подтверждение эффекта происходит после выпуска, вне курса.</p>
+        </div>
+        <ol>
+          <li><strong>Запись в Git</strong><span>intent.md по шаблону: разделы заполнены, неизвестное оформлено вопросом с адресатом, источником и сроком.</span></li>
+          <li><strong>Две проверки</strong><span>Линтер структуры видит форму, рецензент — смысл; команда проверки — в <a href="i4-accept.html">шаге 4</a>; комментарии техлида и аналитика закрыты.</span></li>
+          <li><strong>Одобрение и передача</strong><span>Одобрение — по <a href="#acceptance-rule">правилу приёмки</a>; запись передачи называет ревизию и строки плана change-N.</span></li>
+        </ol>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

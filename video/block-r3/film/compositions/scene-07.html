@@ -1,0 +1,210 @@
+<template id="scene-07-template">
+  <div data-composition-id="scene-07" data-width="1920" data-height="1080" data-duration="43.8">
+    <style>
+      /* ---- план A: запрос из ветки этапа в ветку прошлого ---- */
+      [data-composition-id="scene-07"] .br { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
+      [data-composition-id="scene-07"] .br .nm { font-size: 50px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; }
+      [data-composition-id="scene-07"] .br .sb { font-size: 30px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-07"] .mn { position: relative; height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
+      [data-composition-id="scene-07"] .mn .nm { position: relative; align-self: flex-start; font-family: var(--k-font-mono); font-size: 48px; font-weight: 700; color: var(--k-text-2); }
+      [data-composition-id="scene-07"] .mn .sb { font-size: 30px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-07"] .mn .strike { position: absolute; left: -10px; right: -10px; top: 56%; height: 6px; border-radius: 3px; background: var(--k-accent); transform-origin: 0 50%; transform: scaleX(0); }
+      [data-composition-id="scene-07"] .fk { position: absolute; border: 3px dashed var(--k-text-2); border-radius: 30px; opacity: 0; }
+      [data-composition-id="scene-07"] .fk-l { position: absolute; height: 52px; padding: 0 22px; display: flex; align-items: center; border-radius: 16px; background: var(--k-panel-2); border: 2px solid var(--k-text-2); font-size: 34px; font-weight: 800; white-space: nowrap; opacity: 0; }
+      [data-composition-id="scene-07"] .rq { position: absolute; width: 430px; text-align: center; font-size: 38px; font-weight: 800; letter-spacing: -0.01em; opacity: 0; }
+      [data-composition-id="scene-07"] .sc-arrow { position: absolute; }
+      [data-composition-id="scene-07"] .sc-arrow svg { display: block; width: 100%; height: 100%; overflow: visible; }
+      /* ---- план B: полоса запроса, карточки людей ---- */
+      [data-composition-id="scene-07"] .bar { position: relative; height: 100%; display: flex; align-items: center; gap: 22px; font-size: 38px; font-weight: 800; letter-spacing: -0.015em; white-space: nowrap; }
+      [data-composition-id="scene-07"] .bar > svg { flex: none; width: 56px; height: 30px; }
+      [data-composition-id="scene-07"] .tag { position: absolute; left: 560px; top: 10px; height: 52px; padding: 0 22px; display: flex; align-items: center; border-radius: 16px; background: var(--k-panel-2); border: 2px solid var(--k-text-2); font-size: 30px; font-weight: 700; opacity: 0; }
+      [data-composition-id="scene-07"] .rings { position: absolute; right: 0; top: 10px; display: flex; align-items: center; gap: 18px; height: 52px; }
+      [data-composition-id="scene-07"] .rg { position: relative; width: 52px; height: 52px; border-radius: 50%; border: 4px solid var(--k-text-2); background: var(--k-panel-2); opacity: 0; }
+      [data-composition-id="scene-07"] .rg.dash { border-style: dashed; margin-left: 10px; }
+      [data-composition-id="scene-07"] .rg svg { position: absolute; inset: 4px; width: 36px; height: 36px; color: var(--k-ok); opacity: 0; }
+      [data-composition-id="scene-07"] .pc { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+      [data-composition-id="scene-07"] .pc .role { font-size: 48px; white-space: nowrap; font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; }
+      [data-composition-id="scene-07"] .pc .q { font-size: 42px; font-weight: 600; line-height: 1.25; opacity: 0; }
+      [data-composition-id="scene-07"] .pc .q.g { color: var(--k-text-2); }
+      [data-composition-id="scene-07"] .pc .own { margin-top: 10px; align-self: flex-start; display: flex; align-items: center; height: 60px; padding: 0 22px; border-radius: 16px; border: 2px solid var(--k-accent); background: var(--k-accent-tint); color: var(--k-accent-soft); font-size: 34px; font-weight: 700; white-space: nowrap; opacity: 0; }
+      [data-composition-id="scene-07"] .pc .eq { font-size: 36px; font-weight: 700; color: var(--k-text); opacity: 0; }
+      [data-composition-id="scene-07"] .ar { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
+      [data-composition-id="scene-07"] .ar .hd { display: flex; align-items: center; gap: 18px; }
+      [data-composition-id="scene-07"] .ar .role { font-size: 42px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; }
+      [data-composition-id="scene-07"] .ar .bg { height: 48px; padding: 0 18px; display: flex; align-items: center; border-radius: 14px; background: var(--k-panel-2); border: 2px dashed var(--k-text-2); color: var(--k-text-2); font-size: 30px; font-weight: 700; white-space: nowrap; opacity: 0; }
+      [data-composition-id="scene-07"] .ar .dc { margin-left: auto; height: 52px; padding: 0 22px; display: flex; align-items: center; border-radius: 16px; background: var(--k-panel-2); border: 2px solid var(--k-text); font-size: 32px; font-weight: 800; white-space: nowrap; opacity: 0; }
+      [data-composition-id="scene-07"] .ar .chips { display: flex; flex-wrap: wrap; gap: 12px; }
+      [data-composition-id="scene-07"] .ar .chip { height: 56px; padding: 0 20px; display: flex; align-items: center; border-radius: 16px; background: var(--k-panel-2); border: 2px solid var(--k-line); font-size: 32px; font-weight: 700; white-space: nowrap; opacity: 0; }
+      [data-composition-id="scene-07"] .ar .chip.alt { border-style: dashed; border-color: var(--k-text-2); color: var(--k-text-2); }
+      [data-composition-id="scene-07"] .nx { height: 100%; display: flex; align-items: center; justify-content: center; gap: 56px; }
+      [data-composition-id="scene-07"] .nx .it { position: relative; display: flex; align-items: center; gap: 16px; height: 64px; padding: 0 22px; border-radius: 16px; background: var(--k-panel-2); border: 2px solid var(--k-line); font-size: 36px; font-weight: 800; white-space: nowrap; opacity: 0; }
+      [data-composition-id="scene-07"] .nx .it svg { flex: none; width: 40px; height: 40px; color: var(--k-text-2); }
+      [data-composition-id="scene-07"] .nx .strike { position: absolute; left: -8px; right: -8px; top: 50%; height: 3px; margin-top: -1px; border-radius: 2px; background: var(--k-accent); transform-origin: 0 50%; transform: scaleX(0); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("07"), t = S.t, DUR = 43.8;
+        // Считаем только полностью проявленный неподвижный текст: переходы временем чтения не считаются.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.end("заменяют.") < 1.5) throw new Error("Недостаточный хвост сцены");
+        const tok = Kit.token, tl = S.tl, q = (el, c) => el.querySelector(c), qa = (el, c) => [...el.querySelectorAll(c)];
+        const E_OUT = tok("--k-ease-out"), POP = "back.out(2)";
+        const slide = (el, x, at, d = 0.6) => tl.fromTo(el, { autoAlpha: 0, x }, { autoAlpha: 1, x: 0, duration: d, ease: E_OUT, immediateRender: false }, at);
+        const rise = (el, at, d = 0.55, y = 20) => tl.fromTo(el, { autoAlpha: 0, y }, { autoAlpha: 1, y: 0, duration: d, ease: E_OUT, immediateRender: false }, at);
+        const pop = (el, at, d = 0.55) => tl.fromTo(el, { autoAlpha: 0, scale: 0.86 }, { autoAlpha: 1, scale: 1, duration: d, ease: POP, immediateRender: false }, at);
+        const fade = (el, at, d = 0.4) => tl.fromTo(el, { autoAlpha: 0 }, { autoAlpha: 1, duration: d, immediateRender: false }, at);
+        const gray = tok("--k-text-2"), acc = tok("--k-accent"), ok = tok("--k-ok"), ln = tok("--k-line"), p2 = tok("--k-panel-2"), okt = tok("--k-ok-tint"), acct = tok("--k-accent-tint");
+        const CHECK = Kit.icons.check;
+        const ARR = (c, w = 56, h = 30) => '<svg viewBox="0 0 56 30" fill="none" style="width:' + w + 'px;height:' + h + 'px"><path d="M3 15H49M39 5L50 15L39 25" stroke="' + c + '" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+        Kit.header(S, { header: { mode: "parts", total: 8 }, chapter: "Запрос и одобрение", step: 7, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        /* ===== план A: запрос из ветки шага 3 в ветку шага 2, не в main; обе ветки в форке ===== */
+        const sA = S.stage(); gsap.set(sA, { autoAlpha: 1 });
+        const fork = document.createElement("div");
+        fork.className = "fk"; fork.style.cssText += "left:96px;top:290px;width:1300px;height:340px;";
+        sA.appendChild(fork);
+        const forkL = document.createElement("div");
+        forkL.className = "fk-l"; forkL.textContent = "форк"; forkL.style.left = "136px"; forkL.style.top = "264px";
+        sA.appendChild(forkL);
+
+        const r3 = Kit.aside(S, { parent: sA, x: 160, y: 380, w: 360, h: 160, tail: false,
+          html: '<div class="br"><div class="nm">шаг 3</div><div class="sb">ветка</div></div>' });
+        const r2 = Kit.aside(S, { parent: sA, x: 1000, y: 380, w: 360, h: 160, tail: false,
+          html: '<div class="br"><div class="nm">шаг 2</div><div class="sb">ветка</div></div>' });
+        // стрелка запроса: рисуется со слова «запрос» (до 2.0 с — заставка части)
+        const arrow = document.createElement("div");
+        arrow.className = "sc-arrow"; arrow.setAttribute("data-layout-allow-overlap", "");
+        arrow.style.left = "550px"; arrow.style.top = "445px"; arrow.style.width = "430px"; arrow.style.height = "40px";
+        arrow.innerHTML = '<svg viewBox="0 0 430 40" fill="none"><path class="ln" pathLength="1" d="M4 20H400" stroke="' + tok("--k-text") + '" stroke-width="6" stroke-linecap="round" style="stroke-dasharray:1 2;stroke-dashoffset:1"/>' +
+                          '<path class="hd" d="M378 4L402 20L378 36" stroke="' + tok("--k-text") + '" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity="0"/></svg>';
+        sA.appendChild(arrow); gsap.set(arrow, { autoAlpha: 0 });
+        const rq = document.createElement("div");
+        rq.className = "rq"; rq.textContent = "запрос"; rq.style.left = "550px"; rq.style.top = "392px";
+        sA.appendChild(rq);
+        tl.set(arrow, { autoAlpha: 1 }, 2.0);
+        tl.to(q(arrow, ".ln"), { strokeDashoffset: 0, duration: 1.4, ease: "power2.inOut" }, 2.0);
+        tl.to(q(arrow, ".hd"), { opacity: 1, duration: 0.25 }, 3.2);
+        pop(rq, 2.0, 0.5);
+        slide(r3.el, -70, t("ветки") - 0.1, 0.65);
+        slide(r2.el, 70, t("ветку", 2) - 0.05, 0.65);
+        read("запрос", 2.5, 9.45, 0);
+        read("шаг 3 ветка", t("ветки") + 0.55, 9.45, 0);
+        read("шаг 2 ветка", t("ветку", 2) + 0.6, 9.45, 0);
+
+        // общая главная — вне форка, перечёркнута (единственный коралловый штрих плана)
+        const mn = Kit.aside(S, { parent: sA, x: 1500, y: 380, w: 324, h: 160, tail: false,
+          html: '<div class="mn"><div class="nm">main<i class="strike"></i></div><div class="sb">общая главная</div></div>' });
+        pop(mn.el, t("общую") - 0.15, 0.55);
+        tl.to(q(mn.el, ".strike"), { scaleX: 1, duration: 0.45, ease: "power2.out" }, t("главную;"));
+        read("main общая главная", t("общую") + 0.4, 9.45, 0);
+
+        fade(fork, t("в вашем"), 0.6);
+        pop(forkL, t("форке."), 0.5);
+        Kit.stageOut(S, sA, 9.45);
+
+        /* ===== план B: полоса запроса, комментарии и одно одобрение, архитектор, последняя версия ===== */
+        const sB = S.stage();
+        Kit.stageIn(S, sB, 9.95);
+        const bar = Kit.aside(S, { parent: sB, x: 96, y: 215, w: 1728, h: 86, tail: false,
+          html: '<div class="bar"><span>шаг 3</span>' + ARR(gray) + '<span>шаг 2</span><span class="tag t1">последняя версия</span><span class="tag t2">последняя версия</span>' +
+                '<span class="rings"><i class="rg r1">' + CHECK + '</i><i class="rg r2">' + CHECK + '</i><i class="rg r3">' + CHECK + '</i><i class="rg r4 dash">' + CHECK + "</i></span></div>" });
+        bar.el.style.padding = "0 26px";
+        tl.fromTo(bar.el, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.01, immediateRender: false }, 9.95);
+        read("шаг 3 шаг 2", 10.7, DUR, 0);
+        const rg = [1, 2, 3, 4].map((n) => q(bar.el, ".rg.r" + n));
+        // комментарии и одно одобрение: пустые кольца на слова «комментарии», «одно», «одобрение»
+        pop(rg[0], t("комментарии"), 0.5);
+        pop(rg[1], t("одно"), 0.5);
+        pop(rg[2], t("одобрение"), 0.5);
+        const setRing = (i, at) => {
+          tl.fromTo(rg[i], { borderColor: gray, backgroundColor: p2 }, { borderColor: ok, backgroundColor: okt, duration: 0.3, immediateRender: false }, at);
+          tl.fromTo(q(rg[i], "svg"), { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.45, ease: POP, immediateRender: false }, at);
+        };
+        const resetRing = (i, at) => {
+          tl.to(q(rg[i], "svg"), { opacity: 0, duration: 0.25 }, at);
+          tl.to(rg[i], { borderColor: gray, backgroundColor: p2, duration: 0.3 }, at);
+        };
+
+        // карточки людей
+        const CW = 556, CY = 318, CH = 306, CX = [96, 96 + CW + 30, 96 + 2 * (CW + 30)];
+        const person = (i, html) => Kit.aside(S, { parent: sB, x: CX[i], y: CY, w: CW, h: CH, tail: false, html: '<div class="pc">' + html + "</div>" });
+        const mg = person(0, '<div class="role">Владелец продукта</div><div class="q">«это то, что я просил»</div><div class="own">владелец решения</div><div class="eq">одобрение ≠ принятие</div>');
+        const an = person(1, '<div class="role">Аналитик</div><div class="q g">смысл и полнота</div>');
+        const tc = person(2, '<div class="role">Техлид</div><div class="q g">реализуемость</div>');
+        rise(mg.el, t("Владелец продукта —") - 0.2, 0.6, 26);
+        fade(q(mg.el, ".q"), t("это то"), 0.45);
+        setRing(0, t("просил") + 0.55);
+        slide(an.el, 60, t("аналитик") - 0.2, 0.6);
+        fade(q(an.el, ".q"), t("смысл"), 0.45);
+        setRing(1, t("полнота,") + 0.6);
+        pop(tc.el, t("техлид") - 0.2, 0.6);
+        fade(q(tc.el, ".q"), t("реализуемость"), 0.45);
+        setRing(2, S.end("реализуемость.") - 0.1);
+        read("Владелец продукта это то что я просил", t("это то") + 0.45, t("владелец") - 0.1, 0);
+        read("Аналитик смысл и полнота", t("смысл") + 0.45, DUR, 0);
+        read("Техлид реализуемость", t("реализуемость") + 0.45, DUR, 0);
+
+        // владелец продукта = владелец решения: единственный коралловый акцент плана
+        tl.fromTo(mg.el, { borderColor: ln }, { borderColor: acc, duration: 0.5, ease: E_OUT, immediateRender: false }, t("владелец") - 0.1);
+        pop(q(mg.el, ".own"), t("владелец"), 0.55);
+        fade(q(mg.el, ".eq"), t("его одобрение"), 0.45);
+        read("владелец решения", t("владелец") + 0.55, t("Модель") - 0.6, 0);
+        read("одобрение принятие", t("его одобрение") + 0.45, t("Модель") - 0.6, 0);
+
+        // архитектор: по признакам или при споре
+        const arc = Kit.aside(S, { parent: sB, x: 96, y: 646, w: 1728, h: 170, tail: false,
+          html: '<div class="ar"><div class="hd"><span class="role">Архитектор</span><span class="bg">по признакам</span><span class="dc">решает спор</span></div>' +
+                '<div class="chips"><span class="chip c1">данные</span><span class="chip c2">связи с другими системами</span><span class="chip c3">безопасность</span><span class="chip c4">скорость</span><span class="chip alt c5">или при споре</span></div></div>' });
+        rise(arc.el, t("Архитектор") - 0.1, 0.6, 26);
+        pop(q(arc.el, ".bg"), t("по признакам"), 0.5);
+        pop(rg[3], t("по признакам") + 0.1, 0.5);
+        pop(q(arc.el, ".c1"), t("данные,"), 0.5);
+        slide(q(arc.el, ".c2"), 40, t("связи"), 0.55);
+        pop(q(arc.el, ".c3"), t("безопасность,"), 0.5);
+        slide(q(arc.el, ".c4"), 40, t("скорость"), 0.5);
+        fade(q(arc.el, ".c5"), t("при споре"), 0.45);
+        pop(q(arc.el, ".dc"), t("решает"), 0.55);
+        read("Архитектор по признакам", t("по признакам") + 0.5, t("Модель") - 0.6, 0);
+        read("данные", t("данные,") + 0.5, t("Модель") - 0.6, 0);
+        read("связи с другими системами", t("связи") + 0.55, t("Модель") - 0.6, 0);
+        read("безопасность", t("безопасность,") + 0.5, t("Модель") - 0.6, 0);
+        read("скорость", t("скорость") + 0.5, t("Модель") - 0.6, 0);
+        read("или при споре", t("при споре") + 0.45, t("Модель") - 0.6, 0);
+        read("решает спор", t("решает") + 0.55, t("Модель") - 0.6, 0);
+
+        // одобрение и комментарии — на последней версии; после правок — заново
+        const tag1 = q(bar.el, ".tag.t1"), tag2 = q(bar.el, ".tag.t2");
+        pop(tag1, t("на последней") - 0.2, 0.55);   // 2 слова, ≈1,3 с до сброса: read() не применяем
+        tl.to(tag1, { autoAlpha: 0, duration: 0.25 }, t("после правок"));
+        [0, 1, 2].forEach((i) => resetRing(i, t("после правок") + 0.05));
+        pop(tag2, t("получайте") + 0.1, 0.55);
+        setRing(0, t("получайте") + 0.15);
+        setRing(1, t("получайте") + 0.5);
+        setRing(2, t("получайте") + 0.85);
+        read("последняя версия", t("получайте") + 0.65, DUR, 0);
+
+        // модель и проверка формы людей не заменяют: освобождаем место и показываем две перечёркнутые галочки
+        const T_FREE = t("Модель") - 0.65;
+        tl.to(arc.el, { autoAlpha: 0, y: 14, duration: 0.5, ease: tok("--k-ease-in") }, T_FREE);
+        tl.to(mg.el, { borderColor: ln, duration: 0.5 }, T_FREE);
+        tl.to(q(mg.el, ".own"), { borderColor: gray, backgroundColor: p2, color: tok("--k-text"), duration: 0.5 }, T_FREE);
+        const nx = Kit.aside(S, { parent: sB, x: 96, y: 698, w: 1728, h: 120, tail: false,
+          html: '<div class="nx"><span class="it a">' + CHECK + 'модель<i class="strike"></i></span><span class="it b">' + CHECK + 'проверка формы<i class="strike"></i></span></div>' });
+        nx.el.style.padding = "0 30px";
+        tl.fromTo(nx.el, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.01, immediateRender: false }, t("Модель") - 0.1);
+        pop(q(nx.el, ".it.a"), t("Модель"), 0.55);
+        slide(q(nx.el, ".it.b"), 50, t("проверка"), 0.55);
+        tl.to(qa(nx.el, ".strike"), { scaleX: 1, duration: 0.45, ease: "power2.out", stagger: 0.18 }, t("не заменяют"));
+        read("модель", t("Модель") + 0.55, t("не заменяют"), 0);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

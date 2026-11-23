@@ -1,0 +1,134 @@
+[
+  {
+    "n": 0,
+    "title": "Вступление",
+    "step": null,
+    "pageStep": null,
+    "chapter": "Вступление",
+    "start": 0.0,
+    "titleStart": 0.0,
+    "speechStart": 0.0,
+    "end": 82.8
+  },
+  {
+    "n": 1,
+    "title": "Пишем замысел в Markdown",
+    "step": null,
+    "pageStep": 1,
+    "chapter": "На компьютере",
+    "start": 82.8,
+    "titleStart": 82.8,
+    "speechStart": 82.8,
+    "end": 104.1
+  },
+  {
+    "n": 2,
+    "title": "Копии против истории",
+    "step": null,
+    "pageStep": 2,
+    "chapter": "На компьютере",
+    "start": 104.1,
+    "titleStart": 104.1,
+    "speechStart": 104.1,
+    "end": 121.8
+  },
+  {
+    "n": 3,
+    "title": "Включаем Git и сохраняем первую версию",
+    "step": null,
+    "pageStep": 3,
+    "chapter": "На компьютере",
+    "start": 121.8,
+    "titleStart": 121.8,
+    "speechStart": 121.8,
+    "end": 142.4
+  },
+  {
+    "n": 4,
+    "title": "Меняем документ и сравниваем",
+    "step": null,
+    "pageStep": 4,
+    "chapter": "На компьютере",
+    "start": 142.4,
+    "titleStart": 142.4,
+    "speechStart": 142.4,
+    "end": 160.5
+  },
+  {
+    "n": 5,
+    "title": "Черновик не в историю",
+    "step": null,
+    "pageStep": 5,
+    "chapter": "На компьютере",
+    "start": 160.5,
+    "titleStart": 160.5,
+    "speechStart": 160.5,
+    "end": 174.3
+  },
+  {
+    "n": 6,
+    "title": "Ветка для другого варианта",
+    "step": null,
+    "pageStep": 6,
+    "chapter": "На компьютере",
+    "start": 174.3,
+    "titleStart": 174.3,
+    "speechStart": 174.3,
+    "end": 190.6
+  },
+  {
+    "n": 7,
+    "title": "Принимаем вариант",
+    "step": null,
+    "pageStep": 7,
+    "chapter": "На компьютере",
+    "start": 190.6,
+    "titleStart": 190.6,
+    "speechStart": 190.6,
+    "end": 202.3
+  },
+  {
+    "n": 8,
+    "title": "Отправляем в GitLab",
+    "step": null,
+    "pageStep": 8,
+    "chapter": "В GitLab",
+    "start": 202.3,
+    "titleStart": 202.3,
+    "speechStart": 202.3,
+    "end": 236.1
+  },
+  {
+    "n": 9,
+    "title": "Просим проверить: запрос на слияние (MR)",
+    "step": null,
+    "pageStep": 10,
+    "chapter": "В GitLab",
+    "start": 236.1,
+    "titleStart": 236.1,
+    "speechStart": 236.1,
+    "end": 267.5
+  },
+  {
+    "n": 10,
+    "title": "Получаем принятую версию",
+    "step": null,
+    "pageStep": 14,
+    "chapter": "В GitLab",
+    "start": 267.5,
+    "titleStart": 267.5,
+    "speechStart": 267.5,
+    "end": 279.1
+  },
+  {
+    "n": 11,
+    "title": "Итог",
+    "step": null,
+    "pageStep": null,
+    "chapter": "Итог",
+    "start": 279.1,
+    "titleStart": 279.1,
+    "speechStart": 279.1,
+    "end": 301.8
+  }
+]

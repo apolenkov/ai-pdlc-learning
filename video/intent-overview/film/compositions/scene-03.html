@@ -1,0 +1,46 @@
+<template id="scene-03-template">
+  <div data-composition-id="scene-03" data-width="1920" data-height="1080" data-duration="8">
+    <style>
+      [data-composition-id="scene-03"] .h-h { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 58px; font-weight: 800; }
+      [data-composition-id="scene-03"] .h-doc { position: absolute; left: 96px; top: 200px; width: 860px; height: 470px; border: 2px solid var(--k-line); border-radius: 24px; background: var(--k-win); overflow: hidden; }
+      [data-composition-id="scene-03"] .h-docbar { height: 56px; background: var(--k-win-bar); display: flex; align-items: center; gap: 10px; padding: 0 22px; }
+      [data-composition-id="scene-03"] .h-docbar i { width: 12px; height: 12px; border-radius: 50%; background: var(--k-win-dot); display: block; }
+      [data-composition-id="scene-03"] .h-doct { position: absolute; font-family: var(--k-font-mono); font-size: 38px; font-weight: 700; color: var(--k-ok); }
+      [data-composition-id="scene-03"] .h-line { position: absolute; height: 20px; border-radius: 10px; background: var(--k-line); }
+      [data-composition-id="scene-03"] .h-term { position: absolute; left: 1020px; top: 200px; width: 480px; height: 300px; border: 2px solid var(--k-line); border-radius: 24px; background: var(--k-win); overflow: hidden; }
+      [data-composition-id="scene-03"] .h-prompt { position: absolute; font-family: var(--k-font-mono); font-size: 54px; font-weight: 700; color: var(--k-ok); }
+      [data-composition-id="scene-03"] .h-cap { position: absolute; left: 1020px; top: 540px; width: 480px; font-size: 36px; font-weight: 700; color: var(--k-text-2); }
+      [data-composition-id="scene-03"] .h-hist { position: absolute; left: 96px; top: 762px; width: 1728px; }
+      [data-composition-id="scene-03"] .h-histt { font-size: 32px; font-weight: 700; color: var(--k-text-2); }
+      [data-composition-id="scene-03"] .h-hline { position: absolute; left: 0; top: 72px; width: 1728px; height: 4px; border-radius: 2px; background: var(--k-line); }
+      [data-composition-id="scene-03"] .h-dot { position: absolute; width: 24px; height: 24px; border-radius: 50%; border: 3px solid var(--k-ok); background: var(--k-bg); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("03"), DUR = 8;
+        const tt = (w, d) => { try { return S.t(w); } catch (e) { return d; } };
+        const el = (cls, html, x, y, w) => { const e = document.createElement("div"); e.className = cls; e.innerHTML = html; e.style.left = x + "px"; e.style.top = y + "px"; if (w) e.style.width = w + "px"; S.root.appendChild(e); return e; };
+        const inEl = (parent, cls, html, x, y, w) => { const e = document.createElement("div"); e.className = cls; e.innerHTML = html; e.style.left = x + "px"; e.style.top = y + "px"; if (w) e.style.width = w + "px"; parent.appendChild(e); return e; };
+        const show = (e, at) => { (Array.isArray(e) ? e : [e]).forEach((x) => { gsap.set(x, { autoAlpha: 0 }); S.tl.fromTo(x, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.34, ease: "power2.out", immediateRender: false }, at); }); };
+        const head = el("h-h", "Запись намерения — Intent", 96, 64); show(head, 0.08);
+        // Документ записи намерения.
+        const doc = el("h-doc", '<div class="h-docbar"><i></i><i></i><i></i></div>', 96, 200, 860); show(doc, 0.45);
+        const dt = inEl(doc, "h-doct", "Intent", 36, 84); show(dt, tt("Intent", 1.38));
+        S.tl.to(doc, { borderColor: "rgba(60,207,145,0.85)", duration: 0.3 }, tt("Intent", 1.38));
+        [[36, 270, 600], [36, 320, 480], [36, 370, 660], [36, 420, 520]].forEach(([x, y, w], i) => {
+          const l = inEl(doc, "h-line", "", x, y, w); show(l, 0.7 + i * 0.16);
+        });
+        // Справа окно терминала: та же запись читается моделью.
+        const term = el("h-term", '<div class="h-docbar"><i></i><i></i><i></i></div>', 1020, 200, 480); show(term, tt("Его", 4.73));
+        const pr = inEl(term, "h-prompt", "&gt;_", 40, 100); show(pr, tt("одинаково", 4.93));
+        const cap = el("h-cap", "человек и модель", 1020, 540, 480); show(cap, tt("человек", 5.76));
+        // Общая история версий: точки-ревизии без цифр.
+        const hist = el("h-hist", '<div class="h-histt">общая история версий</div><div class="h-hline"></div>', 96, 762, 1728); show(hist, tt("истории", 3.68));
+        for (let i = 0; i < 6; i++) { const d = inEl(hist, "h-dot", "", 40 + i * 300, 60); show(d, tt("истории", 3.68) + 0.1 + i * 0.07); }
+        Kit.sketch(S, { name: "thinking", x: 1510, y: 548, w: 300, at: tt("Его", 4.73), dur: 2.2 });
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

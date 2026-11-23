@@ -1,0 +1,15 @@
+{
+  "files": [
+    {
+      "path": "film/assets/rec/scene-01-calc.nocursor.mp4",
+      "sha256": "a3dc417c61060bfd8c5f591cc061273e627196a7253e7f91130b7fbb7863fa9d",
+      "size": 1145723
+    },
+    {
+      "path": "film/assets/rec/scene-01-calc.retimed.mp4",
+      "sha256": "028a8cba4e5296a224ea7baeb8c1018f3091903700ee4eaf6e2d14574c1bf6ab",
+      "size": 430371
+    }
+  ],
+  "missing": []
+}

@@ -1,0 +1,122 @@
+[
+  {
+    "n": 1,
+    "title": "Маршрут",
+    "step": null,
+    "chapter": "Маршрут",
+    "start": 0,
+    "titleStart": 0,
+    "speechStart": 2,
+    "end": 21.7
+  },
+  {
+    "n": 2,
+    "title": "PDLC: 7 этапов",
+    "step": null,
+    "chapter": "PDLC: 7 этапов",
+    "start": 21.7,
+    "titleStart": 21.7,
+    "speechStart": 21.7,
+    "end": 46.2
+  },
+  {
+    "n": 3,
+    "title": "Проблема → цель",
+    "step": null,
+    "chapter": "Проблема → цель",
+    "start": 46.2,
+    "titleStart": 46.2,
+    "speechStart": 46.2,
+    "end": 70.353
+  },
+  {
+    "n": 4,
+    "title": "Кто решает на этапах",
+    "step": null,
+    "chapter": "Кто решает на этапах",
+    "start": 70.353,
+    "titleStart": 70.353,
+    "speechStart": 70.353,
+    "end": 84.8
+  },
+  {
+    "n": 5,
+    "title": "Анализ и наблюдение на примере",
+    "step": null,
+    "chapter": "Анализ и наблюдение на примере",
+    "start": 84.8,
+    "titleStart": 84.8,
+    "speechStart": 84.8,
+    "end": 108.2
+  },
+  {
+    "n": 6,
+    "title": "Почему репозиторий",
+    "step": null,
+    "chapter": "Почему репозиторий",
+    "start": 108.2,
+    "titleStart": 108.2,
+    "speechStart": 108.2,
+    "end": 135.8
+  },
+  {
+    "n": 7,
+    "title": "Карта этапов на главной",
+    "step": null,
+    "chapter": "Карта этапов на главной",
+    "start": 135.8,
+    "titleStart": 135.8,
+    "speechStart": 135.8,
+    "end": 148.92
+  },
+  {
+    "n": 8,
+    "title": "Курс анализа",
+    "step": null,
+    "chapter": "Курс анализа",
+    "start": 148.92,
+    "titleStart": 148.92,
+    "speechStart": 148.92,
+    "end": 170.1
+  },
+  {
+    "n": 9,
+    "title": "Среда и контуры",
+    "step": null,
+    "chapter": "Среда и контуры",
+    "start": 170.1,
+    "titleStart": 170.1,
+    "speechStart": 170.1,
+    "end": 194.8
+  },
+  {
+    "n": 10,
+    "title": "Команды и поддержка",
+    "step": null,
+    "chapter": "Команды и поддержка",
+    "start": 194.8,
+    "titleStart": 194.8,
+    "speechStart": 194.8,
+    "end": 216.3
+  },
+  {
+    "n": 11,
+    "title": "Команда развития",
+    "step": null,
+    "chapter": "Команда развития",
+    "start": 216.3,
+    "titleStart": 216.3,
+    "speechStart": 216.3,
+    "end": 243.4
+  },
+  {
+    "n": 12,
+    "title": "Справка: куда идти по роли",
+    "step": null,
+    "chapter": "Справка: куда идти по роли",
+    "start": 243.4,
+    "titleStart": 243.4,
+    "speechStart": 243.4,
+    "end": 287
+  }
+]

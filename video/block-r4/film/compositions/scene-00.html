@@ -1,0 +1,115 @@
+<template id="scene-00-template">
+  <div data-composition-id="scene-00" data-width="1920" data-height="1080" data-duration="28.8">
+    <style>
+      [data-composition-id="scene-00"] .lf { position: absolute; left: 96px; width: 820px; }
+      [data-composition-id="scene-00"] .lf > .k-aside, [data-composition-id="scene-00"] .rt > .k-aside { position: relative; left: 0; top: 0; }
+      [data-composition-id="scene-00"] .cl-ttl { display: flex; align-items: center; gap: 16px; font-size: 40px; font-weight: 700; line-height: 1.1; margin-bottom: 14px; }
+      [data-composition-id="scene-00"] .cl-ttl svg { width: 52px; height: 52px; flex-shrink: 0; color: var(--k-accent-soft); }
+      [data-composition-id="scene-00"] .cl-f { display: grid; grid-template-columns: 190px 1fr; align-items: center; column-gap: 16px; margin-bottom: 12px; }
+      [data-composition-id="scene-00"] .cl-l { font-size: 32px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-00"] .cl-v { height: 64px; padding: 0 22px; display: flex; align-items: center; border: 3px solid var(--k-line); border-radius: 14px; background: var(--k-panel-2); font-size: 42px; font-weight: 700; }
+      [data-composition-id="scene-00"] .cl-ok { display: inline-block; padding: 8px 22px; border: 3px solid var(--k-ok); border-radius: 14px; background: var(--k-ok-tint); color: var(--k-ok); font-size: 38px; font-weight: 700; line-height: 1.2; }
+      [data-composition-id="scene-00"] .ex { position: absolute; left: 96px; width: 820px; box-sizing: border-box; padding: 16px 26px; display: flex; align-items: center; gap: 18px; }
+      [data-composition-id="scene-00"] .ex-c { font-size: 30px; font-weight: 600; color: var(--k-text-2); line-height: 1.2; }
+      [data-composition-id="scene-00"] .ex-t { font-size: 44px; font-weight: 700; line-height: 1.15; white-space: nowrap; }
+      [data-composition-id="scene-00"] .stk { position: relative; display: inline-block; }
+      [data-composition-id="scene-00"] .stk-l { position: absolute; left: -6px; right: -6px; top: 52%; height: 6px; border-radius: 3px; background: #ff8a8a; }
+      [data-composition-id="scene-00"] .rt { position: absolute; left: 980px; width: 844px; top: 206px; }
+      [data-composition-id="scene-00"] .bk-cap { font-size: 30px; font-weight: 600; color: var(--k-text-2); line-height: 1.2; margin-bottom: 8px; }
+      [data-composition-id="scene-00"] .bk-r { display: grid; grid-template-columns: 200px 1fr; align-items: center; column-gap: 16px; min-height: 96px; margin-top: 8px; padding: 6px 22px; border: 3px solid var(--k-line); border-radius: 14px; background: var(--k-panel-2); }
+      [data-composition-id="scene-00"] .bk-l { font-size: 34px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-00"] .bk-n { font-size: 56px; font-weight: 800; line-height: 1.1; letter-spacing: -0.01em; }
+      [data-composition-id="scene-00"] .vs { position: absolute; left: 96px; width: 820px; box-sizing: border-box; padding: 16px 28px 18px; }
+      [data-composition-id="scene-00"] .vs.r { left: 980px; }
+      [data-composition-id="scene-00"] .vs-t { font-size: 54px; font-weight: 800; line-height: 1.1; }
+      [data-composition-id="scene-00"] .vs-s { font-size: 32px; font-weight: 600; line-height: 1.25; color: var(--k-text-2); margin-top: 6px; }
+      [data-composition-id="scene-00"] .vs.bad { border-color: #ff8a8a; background: rgba(255, 138, 138, 0.12); }
+      [data-composition-id="scene-00"] .vs.bad .vs-t { color: #ff8a8a; }
+      [data-composition-id="scene-00"] .vs.good { border-color: var(--k-ok); background: var(--k-ok-tint); }
+      [data-composition-id="scene-00"] .vs.good .vs-t { color: var(--k-ok); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("00"), t = S.t, DUR = 28.8;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const div = (cls, html, parent) => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; parent.appendChild(el); return el; };
+        const ic = (inner) => `<svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">${inner}</svg>`;
+        const CALC = ic('<rect x="9" y="5" width="38" height="46" rx="6"/><rect x="16" y="12" width="24" height="9" rx="2"/><path d="M18 31h2M28 31h2M38 31h2M18 41h2M28 41h2M38 41h2"/>');
+        const RED = "#ff8a8a";
+
+        Kit.header(S, { header: { mode: "parts", total: 8 }, chapter: "Зачем это нужно", step: null, mode: "intro", duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const sA = S.stage(); gsap.set(sA, { autoAlpha: 1 });
+        const T0 = t("Банк задал");   // the first phrase names the film to watch before this one
+        const plate = Kit.aside(S, { parent: sA, x: 96, y: 400, w: 1300, tail: false, title: "Перед этим", text: "Как работает команда продукта" });
+        plate.show(0); plate.hide(T0);
+        read("Перед этим Как работает команда продукта", 0, T0, 0.2);
+
+        /* Bank plate: starts centred, slides right when the old calculator appears. */
+        const rt = div("rt", "", sA);
+        const bank = Kit.aside(S, { parent: rt, tail: false, html: '<div class="bk-cap">Источник: система банка</div>' +
+          '<div class="bk-r"><div class="bk-l">минимум</div><div class="bk-n">10 000 ₽</div></div>' +
+          '<div class="bk-r"><div class="bk-l">максимум</div><div class="bk-n">100 000 000 ₽</div></div>' });
+        const rows = Array.from(bank.el.querySelectorAll(".bk-r")), minR = rows[0], maxR = rows[1];
+        hide(minR, maxR);
+        gsap.set(rt, { x: -442 });
+        const T_BANK = t("Банк задал");
+        bank.show(T_BANK + 0.1);
+        Kit.popIn(S, minR, t("не меньше")); Kit.popIn(S, maxR, t("не больше"));
+        read("Источник система банка", T_BANK + 0.1, t("Но в"));
+        read("минимум 10 000 ₽", t("не меньше"), DUR); read("максимум 100 000 000 ₽", t("не больше"), DUR);
+        const T_OLD = t("старых");
+        S.tl.to(rt, { x: 0, duration: 0.8, ease: "power2.inOut" }, T_OLD - 0.6);
+
+        /* Old calculator with the old expectation. */
+        const lf = div("lf", "", sA); lf.style.top = "206px";
+        const calc = Kit.aside(S, { parent: lf, tail: false, html:
+          `<div class="cl-ttl">${CALC}Кредитный калькулятор</div>` +
+          '<div class="cl-f"><div class="cl-l">Сумма</div><div class="cl-v">101 ₽</div></div>' +
+          '<div class="cl-ok">платёж посчитан</div>' });
+        calc.show(T_OLD);
+        read("Кредитный калькулятор Сумма 101 ₽ платёж посчитан", T_OLD, t("спорить"));
+
+        const ex = Kit.aside(S, { parent: sA, x: 96, y: 520, w: 820, tail: false, html:
+          '<div><div class="ex-c">Старое ожидание</div><div class="ex-t"><span class="stk">101 ₽ → успех<i class="stk-l"></i></span></div></div>' });
+        ex.el.classList.add("ex"); ex.el.style.top = "518px";
+        const T_OK = t("считается");
+        ex.show(T_OK - 0.3);
+        read("Старое ожидание 101 ₽ успех", T_OK - 0.3, t("спорить"));
+
+        /* «Ожидания спорят»: the old line is struck out, both plates turn red. */
+        const T_CLASH = t("спорить");
+        const line = ex.el.querySelector(".stk-l"); gsap.set(line, { scaleX: 0, transformOrigin: "left center" });
+        S.tl.to(line, { scaleX: 1, duration: 0.45, ease: "power2.out" }, T_CLASH);
+        S.tl.to(ex.el, { borderColor: RED, backgroundColor: "rgba(255, 138, 138, 0.12)", duration: 0.3 }, T_CLASH);
+        S.tl.to(ex.el.querySelector(".ex-t"), { color: RED, duration: 0.3 }, T_CLASH);
+        S.tl.to(minR, { borderColor: RED, duration: 0.3 }, T_CLASH);
+        S.tl.to(minR.querySelector(".bk-n"), { color: RED, duration: 0.3 }, T_CLASH);
+        S.tl.to(calc.el.querySelector(".cl-ok"), { opacity: 0.45, duration: 0.3 }, T_CLASH);
+        read("Старое ожидание 101 ₽ успех", T_CLASH + 0.45, DUR, 0);
+
+        const clash = Kit.aside(S, { parent: sA, tail: false, html: '<div class="vs-t">101 ₽ &lt; 10 000 ₽</div><div class="vs-s">ожидания спорят друг с другом</div>' });
+        clash.el.className += " vs bad"; clash.el.style.top = "518px"; clash.el.style.left = "980px"; clash.el.style.width = "844px";
+        clash.show(T_CLASH + 0.2); read("101 ₽ меньше 10 000 ₽ ожидания спорят друг с другом", T_CLASH + 0.2, DUR);
+
+        /* Bottom: who notices, and when. */
+        const mk = (cls, title, sub, at, words) => {
+          const p = Kit.aside(S, { parent: sA, tail: false, html: `<div class="vs-t">${title}</div><div class="vs-s">${sub}</div>` });
+          p.el.className += " vs " + cls; p.el.style.top = "664px"; p.el.style.left = cls.includes("r") ? "980px" : "96px"; p.el.style.width = cls.includes("r") ? "844px" : "820px";
+          p.show(at); read(words, at, DUR); return p;
+        };
+        mk("bad", "заметит разработчик", "когда уже пишет код", t("заметит"), "заметит разработчик когда уже пишет код");
+        mk("good r", "до кода", "ожидания согласованы людьми", t("до кода"), "до кода ожидания согласованы людьми");
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

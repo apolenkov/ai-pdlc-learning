@@ -1,0 +1,5 @@
+renders/
+work/
+snapshots/
+.hyperframes/
+*.log

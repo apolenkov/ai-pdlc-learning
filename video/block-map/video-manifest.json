@@ -1,0 +1,16 @@
+{
+  "file": "block-map-720p.mp4",
+  "sha256": "563d14082c1d3348d08465eeb904e49d397a148a7a853193cc9168633f2cb1ed",
+  "size": 3957962,
+  "url": "https://github.com/apolenkov/ai-pdlc-learning/releases/download/media-v1/563d14082c1d-block-map-720p.mp4",
+  "version": "563d14082c1d",
+  "audio": "voice-only",
+  "master": {
+    "file": "block-map-1080p.mp4",
+    "sha256": "b904db3040450bb72b08edfc6ec507ab35f03736881d1a9775d933aa43685b5a",
+    "size": 18595277,
+    "url": "https://github.com/apolenkov/ai-pdlc-learning/releases/download/media-v1/b904db304045-block-map-1080p.mp4"
+  },
+  "duration": 107.5,
+  "note": "TASK-671: звук только из голоса (voice-only.ts --from-render, AAC-LC 192k 48 кГц моно, −16,2 LUFS, true peak −2,3 dBTP); мастер 1080p — тот же звук. Офлайн-версии курса больше нет: в сцене 5 нет фразы и карточки про неё, озвучка обрезана по паузе без новой генерации"
+}

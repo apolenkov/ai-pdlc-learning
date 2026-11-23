@@ -1,0 +1,111 @@
+<template id="scene-08-template">
+  <div data-composition-id="scene-08" data-width="1920" data-height="1080" data-duration="33.8">
+    <style>
+      [data-composition-id="scene-08"] .sc-big { font-size: 56px; font-weight: 700; line-height: 1.15; }
+      [data-composition-id="scene-08"] .sc-sub { font-size: 34px; line-height: 1.25; color: var(--k-text-2); margin-top: 10px; }
+    </style>
+    <!-- записи: производные scene-08-clone.v3.mp4 (scene-08-clone-button, клик Clone на 1,83 с) и scene-08-publish.v3.mp4 (scene-09-push с 9,4 с: Commit уже сделан, клик Publish Branch на 1,84 с);
+         assets/rec/derive-scene-08.sh собирает оба, длительность файлов 6,03 и 4,00 с -->
+    <video id="rec-clone" class="clip" src="assets/rec/scene-08-clone.v3.mp4" muted playsinline data-start="11.97" data-duration="6.03"></video>
+    <video id="rec-publish" class="clip" src="assets/rec/scene-08-publish.v3.mp4" muted playsinline data-start="21.46" data-duration="4"></video>
+    <script>
+      (function () {
+        const S = Kit.scene("08");
+        const t = S.t;
+        const R = Kit.layout;
+        const DUR = 33.8;
+        const rd = (txt, a, b) => { const w = txt.trim().split(/\s+/).length; if (b - a < w / 3 + 1 - 1e-6) throw new Error(`текст «${txt}» на экране ${(b - a).toFixed(1)} с, нужно ${(w / 3 + 1).toFixed(1)} с`); };
+        const HOVER = 1.0;
+        const withHover = (cl) => { const out = [], wp = []; cl.forEach((c) => { wp.push(out.length); out.push({ t: c.t - HOVER, x: c.x, y: c.y }); out.push(c); }); return { out, wp }; };
+        const noPulse = (scr, hv) => { const pu = scr.layer.querySelectorAll(".k-pulse"); hv.wp.forEach((i) => { pu[2 * i].remove(); pu[2 * i + 1].remove(); }); };
+
+        Kit.header(S, { duration: DUR });
+
+        /* границы планов */
+        const T1_OUT = t("Если") - 0.35;              // «Гитлаб» отзвучало
+        const T2 = T1_OUT + 0.5;
+        const T2_OUT = t("Затем") + 0.55;             // 10,95: Fork держится ≥1,33 с
+        const T3 = T2_OUT + 0.5;
+        const T3_OUT = t("Отправка") - 0.2;           // 16,0
+        const T4 = T3_OUT + 0.5;
+        const T4_OUT = t("Коммит") + 0.4;             // Sync Changes держится ≥1,7 с
+        const T5 = T4_OUT + 0.5;
+
+        /* ---- план 1: два места — компьютер и GitLab ---- */
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+        const place = (x, title, text, at, off, tone) => {
+          const a = Kit.aside(S, { parent: s1, x, y: 330, w: 790, tail: false, html: `<div class="sc-big">${title}</div><div class="sc-sub">${text}</div>` });
+          a.show(at); if (off != null) a.hide(off); return a;
+        };
+        place(96, "Ваш компьютер", "части 1–7", t("учебная"), null);
+        place(1034, "GitLab", "проект", t("работе") - 0.2, null);
+        rd("Ваш компьютер части 1–7", t("учебная"), T1_OUT);
+        rd("GitLab проект", t("работе") - 0.2, T1_OUT);
+
+        /* ---- план 2: Fork — форма Fork project (живой GitLab 15.10, форма не отправлялась) ---- */
+        const s2 = S.stage();
+        const scrF = Kit.screen(S, { parent: s2, natural: { w: 2880, h: 1620 }, h: 585, y: 232, alt: "GitLab: форма Fork project",
+          src: "assets/rec/live-fork.png", from: { x: 1500, y: 360 }, clicks: [],
+          // форма целиком: поля, описание и Visibility level без среза по краям (ревью Opus)
+          camera: [{ t: T2 + 0.1, cx: 1752, cy: 616, scale: 1.28, dur: 0.6, protect: [{ x: 648, y: 100, w: 2218, h: 975 }] }] });
+        scrF.show(T2);
+        const cardF0 = Kit.aside(S, { parent: s2, x: R.rightX, y: 330, w: R.rightW, tail: false, text: "Только если принято в команде" });
+        cardF0.show(t("принято") - 0.1); cardF0.hide(t("Форк") - 0.5); rd("Только если принято в команде", t("принято") - 0.1, t("Форк") - 0.5);
+        const cardF = Kit.aside(S, { parent: s2, x: R.rightX, y: 330, w: R.rightW, tail: false, title: "Fork" });
+        cardF.show(t("Форк") - 0.15); rd("Fork", t("Форк") - 0.15, T2_OUT);
+
+        /* ---- план 3: Clone — запись «меню Clone» ---- */
+        const s3 = S.stage();
+        const V_CL = 11.97;
+        const hvC = withHover([{ t: 1.83, x: 1774, y: 284, label: "Clone" }]);
+        const scrC = Kit.screen(S, { parent: s3, natural: { w: 1920, h: 1080 }, h: 585, y: 232, alt: "GitLab: кнопка Clone",
+          video: { el: "#rec-clone", start: V_CL, duration: 6.03, poster: "assets/rec/scene-08-clone.v3.first.png", clicks: hvC.out },
+          from: { x: 1500, y: 330 }, cursorHold: 1.2,
+          camera: [{ t: T3 + 0.1, cx: 960, cy: 640, scale: 1.0, dur: 0.6, protect: [{ x: 170, y: 250, w: 1680, h: 645 }] }] });   // страница и меню Clone целиком
+        noPulse(scrC, hvC);
+        scrC.show(T3);
+        if (Math.abs(V_CL + 1.83 - t("вместе")) > 0.3) throw new Error("клик Clone не совпал со словом «вместе»");
+        const cardC = Kit.aside(S, { parent: s3, x: R.rightX, y: 330, w: R.rightW, tail: false, title: "Clone" });
+        cardC.show(t("Клон") - 0.3); rd("Clone", t("Клон") - 0.3, T3_OUT);
+
+        /* ---- план 4: Push — кнопка Publish Branch в VS Code (первая отправка новой ветки), затем Sync Changes словами ---- */
+        const s4 = S.stage();
+        const V_PB = 21.46;
+        const hvS = withHover([{ t: 1.84, x: 246, y: 174, label: "Publish Branch" }]);
+        const scrS = Kit.screen(S, { parent: s4, natural: { w: 1920, h: 1080 }, h: 585, y: 232, alt: "VS Code: кнопка Publish Branch в Source Control",
+          video: { el: "#rec-publish", start: V_PB, duration: 4, poster: "assets/rec/scene-08-publish.v3.first.png", clicks: hvS.out },
+          from: { x: 250, y: 200 }, cursorHold: 1.2,
+          camera: [{ t: T4 + 0.1, cx: 738, cy: 350, scale: 1.3, dur: 0.6, protect: [{ x: 20, y: 40, w: 1420, h: 620 }] }] });   // колонка Source Control и строки документа без среза
+        noPulse(scrS, hvS);
+        scrS.show(T4);
+        if (Math.abs(V_PB + 1.84 - t("Publish")) > 0.4) throw new Error("клик Publish Branch не совпал со словом «Publish»");
+        const cardP = Kit.aside(S, { parent: s4, x: R.rightX, y: 330, w: R.rightW, tail: false, title: "Push" });
+        cardP.show(t("Пуш.") - 0.1); rd("Push", t("Пуш.") - 0.1, T4_OUT);
+        const cardPB = Kit.aside(S, { parent: s4, x: R.rightX, y: 450, w: R.rightW, tail: false, title: "Publish Branch", text: "первая отправка ветки" });
+        cardPB.show(t("Publish") - 0.15); rd("Publish Branch первая отправка ветки", t("Publish") - 0.15, T4_OUT);
+        const cardSC = Kit.aside(S, { parent: s4, x: R.rightX, y: 640, w: R.rightW, tail: false, title: "Sync Changes" });
+        cardSC.show(t("Sync") - 0.1); rd("Sync Changes", t("Sync") - 0.1, T4_OUT);
+
+        /* ---- план 5: Commit остаётся у вас, Push уходит в GitLab ---- */
+        const s5 = S.stage();
+        Kit.gitGraph(S, { parent: s5, x: 96, y: 260, w: 1000, h: 520, colW: 260,
+          lanes: [{ id: "remote", label: "GitLab", color: "var(--k-git-remote)", y: 90 }, { id: "local", label: "Компьютер", color: "var(--k-git-main)", y: 330 }],
+          commits: [{ id: "c1", lane: "local", col: 1, label: "Commit", at: T5 + 0.1 }],
+          edges: [],
+          arrows: [{ from: { id: "c1" }, to: { lane: "remote", col: 1 }, label: "Push", at: t("Пуш", 2) }] });
+        const cc = Kit.aside(S, { parent: s5, x: R.rightX - 140, y: 430, w: R.rightW + 140, tail: false, title: "Commit", text: "у вас" });
+        cc.show(Math.max(t("записывает") - 0.1, T5 + 0.05)); rd("Commit у вас", Math.max(t("записывает") - 0.1, T5 + 0.05), DUR);
+        const cp = Kit.aside(S, { parent: s5, x: R.rightX - 140, y: 280, w: R.rightW + 140, tail: false, title: "Push", text: "в GitLab" });
+        cp.show(t("отправляет") - 0.1); rd("Push в GitLab", t("отправляет") - 0.1, DUR);
+
+        Kit.stageOut(S, s1, T1_OUT); Kit.stageIn(S, s2, T2);
+        Kit.stageOut(S, s2, T2_OUT); Kit.stageIn(S, s3, T3);
+        Kit.stageOut(S, s3, T3_OUT); Kit.stageIn(S, s4, T4);
+        Kit.stageOut(S, s4, T4_OUT); Kit.stageIn(S, s5, T5);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

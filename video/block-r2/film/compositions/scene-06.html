@@ -1,0 +1,197 @@
+<template id="scene-06-template">
+  <div data-composition-id="scene-06" data-width="1920" data-height="1080" data-duration="48.8">
+    <style>
+      [data-composition-id="scene-06"] .sc-bar { height: 100%; display: flex; align-items: center; gap: 20px; font-size: 36px; font-weight: 800; letter-spacing: -0.01em; white-space: nowrap; }
+      [data-composition-id="scene-06"] .sc-bar .sep { color: var(--k-text-2); font-weight: 500; }
+      [data-composition-id="scene-06"] .sc-bar .tx { color: var(--k-text-2); font-weight: 600; }
+      [data-composition-id="scene-06"] .sc-ap { position: relative; height: 100%; display: flex; align-items: center; justify-content: center; gap: 14px; font-size: 36px; font-weight: 700; white-space: nowrap; }
+      [data-composition-id="scene-06"] .sc-ap .wait { position: absolute; inset: 0; display: grid; place-items: center; font-size: 36px; font-weight: 700; color: var(--k-text-2); opacity: 0; padding-bottom: 8px; }
+      [data-composition-id="scene-06"] .sc-ap .lab { color: var(--k-text-2); font-weight: 600; }
+      [data-composition-id="scene-06"] .cnt { display: inline-grid; font-family: var(--k-font-mono); font-size: 42px; font-weight: 700; }
+      [data-composition-id="scene-06"] .cnt i { grid-area: 1 / 1; font-style: normal; opacity: 0; text-align: center; }
+      [data-composition-id="scene-06"] .cnt i:first-child { opacity: 1; }
+      [data-composition-id="scene-06"] .sc-ap .cw { display: inline-flex; align-items: baseline; gap: 2px; }
+      [data-composition-id="scene-06"] .sc-ap .of { font-family: var(--k-font-mono); font-size: 42px; font-weight: 700; color: var(--k-text-2); }
+      [data-composition-id="scene-06"] .sc-c { position: relative; height: 100%; display: flex; flex-direction: column; }
+      [data-composition-id="scene-06"] .sc-c .empty { position: absolute; inset: 0; display: grid; place-items: center; font-size: 36px; font-weight: 700; color: var(--k-text); }
+      [data-composition-id="scene-06"] .sc-c .nm { font-size: 30px; font-weight: 600; color: var(--k-text-2); line-height: 1.2; opacity: 0; }
+      [data-composition-id="scene-06"] .sc-c .rl { margin-top: 8px; font-size: 46px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; opacity: 0; }
+      [data-composition-id="scene-06"] .sc-c .fc { margin-top: 14px; font-size: 34px; font-weight: 500; line-height: 1.25; opacity: 0; }
+      [data-composition-id="scene-06"] .sc-c .st { position: relative; margin-top: auto; height: 60px; }
+      [data-composition-id="scene-06"] .sc-c .st > * { position: absolute; left: 0; top: 0; height: 56px; display: flex; align-items: center; gap: 12px; padding: 0 18px; border-radius: 16px; font-size: 34px; font-weight: 700; white-space: nowrap; opacity: 0; }
+      [data-composition-id="scene-06"] .sc-c .st .ap { color: var(--k-ok); background: var(--k-ok-tint); }
+      [data-composition-id="scene-06"] .sc-c .st .ap svg { width: 30px; height: 30px; }
+      [data-composition-id="scene-06"] .sc-c .st .rf { color: var(--k-accent-soft); background: var(--k-accent-tint); }
+      [data-composition-id="scene-06"] .sc-c .st .v { font-family: var(--k-font-mono); font-size: 30px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-06"] .sc-c .bd { margin-top: 12px; height: 48px; display: flex; align-items: center; padding: 0 14px; border-radius: 14px; background: var(--k-accent-tint); border: 2px solid var(--k-accent); color: var(--k-accent-soft); font-size: 27px; font-weight: 700; white-space: nowrap; opacity: 0; }
+      [data-composition-id="scene-06"] .sc-c .bdsp { margin-top: 12px; height: 48px; }
+      [data-composition-id="scene-06"] .sc-ver { height: 100%; display: flex; align-items: center; gap: 22px; font-size: 38px; font-weight: 700; white-space: nowrap; }
+      [data-composition-id="scene-06"] .sc-ver .dot { flex: none; width: 22px; height: 22px; border-radius: 50%; background: var(--k-info); }
+      [data-composition-id="scene-06"] .sc-ver .mono { font-family: var(--k-font-mono); font-size: 36px; font-weight: 600; padding: 4px 16px; border-radius: 10px; background: var(--k-panel-2); position: relative; }
+      [data-composition-id="scene-06"] .sc-ver .mono i { position: absolute; left: 8px; right: 8px; top: 52%; height: 4px; border-radius: 2px; background: var(--k-text-2); transform-origin: 0 50%; transform: scaleX(0); }
+      [data-composition-id="scene-06"] .sc-ver .arr { width: 44px; height: 24px; color: var(--k-text-2); }
+      [data-composition-id="scene-06"] .sc-arch { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
+      [data-composition-id="scene-06"] .sc-arch .a { font-size: 42px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; }
+      [data-composition-id="scene-06"] .sc-arch .b { font-size: 32px; font-weight: 500; color: var(--k-text-2); line-height: 1.2; opacity: 0; }
+      [data-composition-id="scene-06"] .sc-row { position: absolute; display: flex; align-items: center; gap: 14px; }
+      [data-composition-id="scene-06"] .sc-chip { position: relative; display: flex; align-items: center; gap: 12px; height: 56px; padding: 0 18px; border-radius: 18px; background: var(--k-panel-2); border: 2px solid var(--k-line); font-size: 30px; font-weight: 700; white-space: nowrap; opacity: 0; }
+      [data-composition-id="scene-06"] .sc-chip.mono { font-family: var(--k-font-mono); font-size: 28px; font-weight: 600; color: var(--k-info); }
+      [data-composition-id="scene-06"] .sc-chip i.ln { position: absolute; left: 12px; right: 12px; top: 50%; height: 2px; border-radius: 1px; background: var(--k-text-2); transform-origin: 0 50%; transform: scaleX(0); }
+      [data-composition-id="scene-06"] .sc-chip.no { margin-left: 6px; background: transparent; border: 2px solid var(--k-text); font-size: 32px; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("06"), t = S.t, DUR = 48.8;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.end("нет.") < 1.5) throw new Error("Недостаточный хвост сцены");
+        const tok = Kit.token, tl = S.tl, q = (el, c) => el.querySelector(c), qa = (el, c) => [...el.querySelectorAll(c)];
+        const POP = "back.out(2)";
+        const pop = (el, at, d = 0.6) => tl.fromTo(el, { autoAlpha: 0, scale: 0.88 }, { autoAlpha: 1, scale: 1, duration: d, ease: POP, immediateRender: false }, at);
+        const rise = (el, at, d = 0.6) => tl.fromTo(el, { autoAlpha: 0, y: 22 }, { autoAlpha: 1, y: 0, duration: d, ease: tok("--k-ease-out"), immediateRender: false }, at);
+        const CHECK = Kit.icons.check;
+
+        Kit.header(S, { header: { mode: "parts", total: 7 }, chapter: "Комментарии и одобрение", step: 6, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* ---- шапка макета и счётчик Approved ---- */
+        const bar = Kit.aside(S, { parent: s1, x: 96, y: 215, w: 1290, h: 76, tail: false,
+          html: '<div class="sc-bar"><span>GitLab</span><span class="sep">·</span><span class="tx">lesson-calculator</span><span class="sep">·</span><span class="tx">Запрос на слияние !7</span></div>' });
+        bar.show(2.0);   // до 2.0 с — заставка части
+        const ap = Kit.aside(S, { parent: s1, x: 1410, y: 215, w: 414, h: 76, tail: false,
+          html: '<div class="sc-ap"><span class="lab">Approved</span><span class="cw"><b class="cnt"><i>0</i><i>1</i></b><span class="of">/1</span></span><span class="wait">обновляем…</span></div>' });
+        ap.show(2.1);
+        const digits = qa(ap.el, ".cnt i");
+        const setCnt = (from, to, at) => { tl.to(digits[from], { opacity: 0, duration: 0.2 }, at); tl.to(digits[to], { opacity: 1, duration: 0.25 }, at + 0.05); };
+        read("Approved", 2.1, DUR);
+
+        /* ---- три карточки проверяющих: пустые слоты, затем заполнение по фразам ---- */
+        const people = [
+          { nm: "Марина Образцова", rl: "Владелец продукта", fc: "«это то, что я просил»",
+            fill: Math.max(t("Владелец"), 2.4), fcAt: t("«это то"), apAt: S.end("одно одобрение.") },
+          { nm: "Лада Примерова", rl: "Аналитик", fc: "смысл и полнота",
+            fill: Math.max(t("Аналитик проверяет"), 2.4), fcAt: t("смысл"), apAt: S.end("полноту") },
+          { nm: "Илья Макетов", rl: "Техлид", fc: "реализуемость и проверяемость",
+            fill: t("техлид —"), fcAt: t("реализуемость"), apAt: S.end("проверяемость") },
+        ];
+        const XS = [96, 680, 1264], CY = 345, CW = 560, CH = 380;
+        const cards = people.map((p, i) => {
+          const c = Kit.aside(S, { parent: s1, x: XS[i], y: CY, w: CW, h: CH, tail: false,
+            html: '<div class="sc-c"><div class="empty">ожидает</div><div class="nm">' + p.nm + '</div><div class="rl">' + p.rl + '</div><div class="fc">' + p.fc + "</div>" +
+                  '<div class="st"><span class="ap a1">' + (i === 0 ? CHECK + 'Approved' : 'Комментарий') + '<span class="v">v1</span></span><span class="rf">обновить</span><span class="ap a2">' + (i === 0 ? CHECK + 'Approved' : 'Комментарий') + '<span class="v">v2</span></span></div>' +
+                  (i === 0 ? '<div class="bd">владелец решения · одобрение</div>' : '<div class="bdsp"></div>') + "</div>" });
+          c.el.style.borderStyle = "dashed";
+          c.show(2.0 + i * 0.15);
+          // слот заполняется: пунктир → сплошная линия, «ожидает» уходит
+          tl.set(c.el, { borderStyle: "solid" }, p.fill);
+          tl.to(q(c.el, ".empty"), { opacity: 0, duration: 0.25 }, p.fill - 0.05);
+          rise(q(c.el, ".nm"), p.fill, 0.5);
+          rise(q(c.el, ".rl"), p.fill + 0.05, 0.6);
+          rise(q(c.el, ".fc"), p.fcAt, 0.6);
+          const apEl = q(c.el, ".a1");
+          pop(apEl, p.apAt, 0.6);
+          if (i === 0) setCnt(0, 1, p.apAt + 0.1);
+          read(p.nm + " " + p.rl, p.fill + 0.6, DUR);
+          read(p.fc, p.fcAt + 0.6, DUR, 0);
+          return c;
+        });
+
+        /* ---- владелец решения: один акцент ---- */
+        const T_OWN = t("владелец");
+        const bd = q(cards[0].el, ".bd");
+        pop(bd, T_OWN, 0.5);
+        // сначала карточка владельца продукта («в нашем примере»), затем бейдж на словах «владелец решения»
+        tl.to(cards[0].el, { borderColor: tok("--k-accent"), duration: 0.5 }, t("примере") - 0.3);
+        tl.to(qa(cards[0].el, ".rl"), { color: tok("--k-accent-soft"), duration: 0.5 }, t("примере") - 0.3);
+        read("владелец решения одобрение", T_OWN + 0.6, DUR, 0);
+
+        /* ---- три разных человека: имена загораются ---- */
+        [t("три"), t("разных"), t("человека")].forEach((at, i) => tl.to(q(cards[i].el, ".nm"), { color: tok("--k-text"), duration: 0.35 }, at));
+
+        /* ---- новый коммит: комментарии и одобрение обновляют на последней версии ---- */
+        const T_COMMIT = t("правки"), T_UPD = t("обновляют"), T_BACK = t("версии"), T_OLD = t("старые"), T_VOUT = t("покрывают") + 0.6;
+        const ver = Kit.aside(S, { parent: s1, x: 96, y: 722, w: 1728, h: 96, tail: false,
+          html: '<div class="sc-ver"><span class="dot"></span><span>Новый коммит</span><span class="mono v1">v1<i></i></span>' +
+                '<svg class="arr" viewBox="0 0 56 30" fill="none"><path d="M3 15H49M39 5L50 15L39 25" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+                '<span class="mono v2" style="opacity:0">v2</span></div>' });
+        ver.show(T_COMMIT);
+        tl.fromTo(q(ver.el, ".v2"), { autoAlpha: 0, scale: 0.8 }, { autoAlpha: 1, scale: 1, duration: 0.5, ease: POP, immediateRender: false }, T_UPD + 0.1);
+        tl.to(q(ver.el, ".v1 i"), { scaleX: 1, duration: 0.35, ease: "power2.out" }, T_OLD);
+        ver.hide(T_VOUT);
+        // строка проверяющих поднимается: внизу освобождается место под архитектора
+        tl.to(cards.map((c) => c.el), { y: -40, duration: 0.7, ease: tok("--k-ease-inout") }, T_VOUT - 0.1);
+        read("Новый коммит v1 v2", T_COMMIT, T_VOUT);
+        cards.forEach((c, i) => {
+          const a = q(c.el, ".a1"), a2 = q(c.el, ".a2"), rf = q(c.el, ".rf");
+          const tU = T_UPD + i * 0.1, tB = T_BACK + i * 0.08 - 0.1;
+          tl.to(a, { opacity: 0, duration: 0.15 }, tU);
+          tl.fromTo(rf, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.2, immediateRender: false }, tU + 0.15);
+          tl.to(rf, { opacity: 0, duration: 0.06 }, tB);
+          tl.fromTo(a2, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.1, immediateRender: false }, tB + 0.06);
+        });
+        // шапка в момент обновления: «обновляем…», затем снова 1/1
+        const apw = [q(ap.el, ".lab"), q(ap.el, ".cw")];
+        tl.to(apw, { opacity: 0, duration: 0.15 }, T_UPD);
+        tl.to(q(ap.el, ".wait"), { opacity: 1, duration: 0.2 }, T_UPD + 0.1);
+        tl.to(q(ap.el, ".wait"), { opacity: 0, duration: 0.1 }, T_BACK + 0.25);   // сначала «обновляем…» уходит, затем возвращается 1/1: без наложения
+        tl.to(apw, { opacity: 1, duration: 0.12 }, T_BACK + 0.38);
+        tl.set(digits[1], { color: tok("--k-ok") }, T_BACK + 0.38);
+
+        /* ---- четвёртый — архитектор, но не всегда ---- */
+        const arch = Kit.aside(S, { parent: s1, x: 96, y: 698, w: 440, h: 122, tail: false,
+          html: '<div class="sc-arch"><div class="a">Архитектор</div><div class="b">не всегда</div></div>' });
+        arch.el.style.borderStyle = "dashed";
+        arch.show(t("Четвёртый") + 0.1);
+        tl.to(q(arch.el, ".b"), { opacity: 1, duration: 0.5 }, t("но не"));
+        read("Архитектор", t("Четвёртый") + 0.7, DUR);
+        read("не всегда", t("но не") + 0.5, DUR);
+
+        /* ---- признаки, спор, design ---- */
+        const mkRow = (top, kids) => {
+          const row = document.createElement("div");
+          row.className = "sc-row"; row.style.left = "580px"; row.style.top = top + "px"; row.style.width = "1244px"; row.style.whiteSpace = "nowrap";
+          row.innerHTML = kids.map((k) => '<span class="sc-chip ' + (k.cls || "") + '" id="' + k.id + '">' + k.html + '<i class="ln"></i></span>').join("");
+          s1.appendChild(row);
+          return row;
+        };
+        const row1 = mkRow(698, [
+          { id: "ch1", html: "данные" }, { id: "ch2", html: "связи с другими системами" },
+          { id: "ch3", html: "безопасность" }, { id: "ch4", html: "скорость" }, { id: "chn", cls: "no", html: "нет" }]);
+        const row2 = mkRow(764, [{ id: "ch5", html: "спор" }, { id: "ch6", cls: "mono", html: "design.md" }]);
+        const chip = (id) => q(s1, "#" + id);
+        const chipAt = [["ch1", t("данные")], ["ch2", t("связи")], ["ch3", t("безопасность")], ["ch4", t("скорость")], ["ch5", t("договорились")], ["ch6", t("design")]];
+        // у каждого признака свой вход: разные виды движения, не пачка
+        const ENTER = {
+          ch1: { x: -60, y: 0, scale: 1, ease: tok("--k-ease-out") },
+          ch2: { x: 0, y: 36, scale: 1, ease: tok("--k-ease-out") },
+          ch3: { x: 0, y: 0, scale: 0.55, ease: POP },
+          ch4: { x: 0, y: -36, scale: 1, ease: "bounce.out" },
+          ch5: { x: 0, y: 0, scale: 1.5, ease: tok("--k-ease-out") },
+          ch6: { x: 60, y: 0, scale: 1, ease: tok("--k-ease-out") },
+        };
+        chipAt.forEach(([id, at]) => {
+          const e = ENTER[id], a = id === "ch5" ? at - 0.2 : at - 0.05;
+          tl.fromTo(chip(id), { autoAlpha: 0, x: e.x, y: e.y, scale: e.scale }, { autoAlpha: 1, x: 0, y: 0, scale: 1, duration: 0.55, ease: e.ease, immediateRender: false }, a);
+          read(chip(id).textContent, a + 0.55, DUR, 0);
+        });
+        // ряд 2 стоит рядом с архитектором: чип «design.md» — запись решения
+        // У сброса формы таких признаков нет: все чипы перечёркнуты, ставится «нет»
+        const T_NONE = t("У сброса");
+        ["ch1", "ch2", "ch3", "ch4", "ch5", "ch6"].forEach((id, i) => {
+          tl.to(q(chip(id), ".ln"), { scaleX: 1, duration: 0.35, ease: "power2.out" }, t("признаков") + i * 0.06);
+          tl.to(chip(id), { color: tok("--k-text-2"), borderColor: tok("--k-line"), duration: 0.4 }, t("признаков") + i * 0.06);
+        });
+        pop(chip("chn"), t("нет."), 0.5);
+        read("нет", t("нет.") + 0.5, DUR, 0);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

@@ -1,0 +1,118 @@
+<template id="scene-06-template">
+  <div data-composition-id="scene-06" data-width="1920" data-height="1080" data-duration="24">
+    <style>
+      [data-composition-id="scene-06"] .r6-abs { position: absolute; }
+      [data-composition-id="scene-06"] .r6-sc { left: 96px; top: 232px; width: 900px; height: 396px; padding: 18px 30px; }
+      [data-composition-id="scene-06"] .r6-hd { font-size: 36px; font-weight: 800; letter-spacing: -0.01em; height: 54px; }
+      [data-composition-id="scene-06"] .r6-row { display: flex; align-items: center; gap: 22px; height: 76px; border-top: 2px solid var(--k-line); font-size: 38px; font-weight: 700; white-space: nowrap; }
+      [data-composition-id="scene-06"] .r6-box { position: relative; width: 46px; height: 46px; border-radius: 12px; border: 3px solid var(--k-text-2); flex: none; }
+      [data-composition-id="scene-06"] .r6-box svg { position: absolute; left: 3px; top: 3px; width: 34px; height: 34px; color: var(--k-text); }
+      [data-composition-id="scene-06"] .r6-nrow { left: 1030px; top: 232px; display: flex; gap: 24px; }
+      [data-composition-id="scene-06"] .r6-no { height: 80px; padding: 0 24px 0 20px; display: flex; align-items: center; gap: 14px; border-radius: 20px; border: 2px solid var(--k-text-2); background: var(--k-panel-2); font-size: 38px; font-weight: 700; white-space: nowrap; }
+      [data-composition-id="scene-06"] .r6-no svg { width: 36px; height: 36px; color: var(--k-text-2); flex: none; }
+      [data-composition-id="scene-06"] .r6-hist { left: 1030px; top: 340px; width: 794px; height: 110px; padding: 0 30px; display: flex; align-items: center; gap: 20px; font-size: 40px; font-weight: 800; white-space: nowrap; border-color: var(--k-accent); background: var(--k-accent-tint); }
+      [data-composition-id="scene-06"] .r6-hist svg { width: 52px; height: 52px; color: var(--k-accent-soft); flex: none; }
+      [data-composition-id="scene-06"] .r6-diff { left: 1030px; top: 232px; width: 794px; height: 262px; padding: 18px 30px; }
+      [data-composition-id="scene-06"] .r6-fn { font-family: var(--k-font-mono); font-size: 34px; font-weight: 700; height: 56px; }
+      [data-composition-id="scene-06"] .r6-ln { display: flex; align-items: center; height: 58px; padding: 0 16px; border-radius: 12px; font-family: var(--k-font-mono); font-size: 30px; font-weight: 500; white-space: nowrap; }
+      [data-composition-id="scene-06"] .r6-ln.del { color: var(--k-text-2); margin-top: 8px; }
+      [data-composition-id="scene-06"] .r6-ln.add { margin-top: 8px; background: var(--k-accent-tint); border-left: 4px solid var(--k-accent); }
+      [data-composition-id="scene-06"] .r6-ln b { width: 40px; font-weight: 700; flex: none; }
+      [data-composition-id="scene-06"] .r6-pill { left: 1030px; top: 528px; height: 80px; padding: 0 30px 0 22px; display: flex; align-items: center; gap: 16px; border-radius: 22px; border: 2px solid var(--k-ok); background: var(--k-ok-tint); color: var(--k-ok); font-size: 38px; font-weight: 700; white-space: nowrap; }
+      [data-composition-id="scene-06"] .r6-pill svg { width: 40px; height: 40px; }
+      [data-composition-id="scene-06"] .r6-btn { left: 96px; top: 676px; width: 470px; height: 88px; border-radius: 22px; border: 2px solid var(--k-text); background: var(--k-panel-2); font-size: 40px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+      [data-composition-id="scene-06"] .r6-btn span { position: absolute; display: flex; align-items: center; gap: 14px; white-space: nowrap; }
+      [data-composition-id="scene-06"] .r6-btn svg { width: 38px; height: 38px; }
+      [data-composition-id="scene-06"] .r6-open { left: 1030px; top: 676px; height: 88px; padding: 0 30px 0 22px; display: flex; align-items: center; gap: 16px; border-radius: 22px; border: 2px solid var(--k-text-2); background: var(--k-panel-2); font-size: 40px; font-weight: 700; white-space: nowrap; }
+      [data-composition-id="scene-06"] .r6-open i { width: 34px; height: 34px; border-radius: 50%; border: 4px solid var(--k-text-2); flex: none; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("06"), t = S.t, DUR = 24;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const div = (cls, html, parent) => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; parent.appendChild(el); return el; };
+        const CHECK = '<svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M10 29l12 12 24-26"/></svg>';
+        const X = '<svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"><path d="M12 12l32 32M44 12L12 44"/></svg>';
+        const LOCK = '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="18" width="26" height="18" rx="4"/><path d="M12 18v-5a8 8 0 0 1 16 0v5"/></svg>';
+        const T0 = 2.0;   // the part title covers the first 2 s: nothing is visible before it
+        const fromIn = (el, from, at, d = 0.7, ease = "power3.out") => S.tl.fromTo(el, { autoAlpha: 0, ...from }, { autoAlpha: 1, x: 0, y: 0, scale: 1, filter: "blur(0px)", duration: d, ease, immediateRender: false }, at);
+
+        Kit.header(S, { header: { mode: "parts", total: 8 }, chapter: "Сохранение версии", step: 6, duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* ---- Source Control: выбираем только нужные правки ---- */
+        const names = [["правила этапа", t("правила")], ["описание", t("описание,")], ["таблица переноса", t("таблицу")], ["папка OpenSpec", t("папку")]];
+        const sc = div("k-card r6-abs r6-sc", '<div class="r6-hd">Source Control</div>' + names.map(([n]) => `<div class="r6-row"><span class="r6-box">${CHECK}</span>${n}</div>`).join(""), s1);
+        const rows = Array.from(sc.querySelectorAll(".r6-row")), ticks = Array.from(sc.querySelectorAll(".r6-box svg"));
+        hide(sc, ...rows, ...ticks);
+        fromIn(sc, { x: -90 }, T0, 0.8);
+        rows.forEach((r, i) => fromIn(r, { x: -30 }, T0 + 0.3 + i * 0.15, 0.5));
+        const tickFrom = [{ scale: 0.3 }, { rotation: -90, scale: 0.4 }, { y: -26 }, { scale: 1.8 }];
+        names.forEach(([n, at], i) => {
+          const box = ticks[i].parentNode;
+          S.tl.fromTo(ticks[i], { autoAlpha: 0, ...tickFrom[i] }, { autoAlpha: 1, x: 0, y: 0, scale: 1, rotation: 0, duration: 0.5, ease: "back.out(2)", immediateRender: false }, at);
+          S.tl.fromTo(ticks[i].querySelector("path"), { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out", immediateRender: false }, at);
+          S.tl.to(box, { borderColor: Kit.token("--k-text"), duration: 0.3 }, at);
+          read(n, T0 + 0.3, DUR);
+        });
+
+        /* ---- код, кеши и ключи не добавляем ---- */
+        const grp = [["код", t("Код,")], ["кеш", t("кеши")], ["ключи", t("ключи")]];
+        const nrow = div("r6-abs r6-nrow", "", s1);
+        const T_OUT = t("Прочитайте") + 0.1;
+        const chips = grp.map(([n, at], i) => {
+          const c = div("r6-no", `${X}${n}`, nrow);
+          hide(c);
+          fromIn(c, [{ x: 60 }, { scale: 0.7 }, { y: 30, filter: "blur(10px)" }][i], at, 0.6, i === 1 ? "back.out(2)" : "power3.out");
+          S.tl.to(c, { autoAlpha: 0, duration: 0.5, ease: "power2.in" }, T_OUT);
+          read(n, at, T_OUT);
+          return c;
+        });
+        const hist = div("k-card r6-abs r6-hist", `${LOCK}останутся в истории`, s1); hide(hist);
+        fromIn(hist, { scale: 1.06, filter: "blur(14px)" }, t("секреты"));
+        S.tl.to(hist, { autoAlpha: 0, duration: 0.5, ease: "power2.in" }, T_OUT);
+        read("останутся в истории", t("секреты"), T_OUT);
+
+        /* ---- прочитайте разницу каждого файла ---- */
+        const df = div("k-card r6-abs r6-diff", '<div class="r6-fn">AGENTS.md</div><div class="r6-ln del"><b>−</b>## Шаг курса: 2</div><div class="r6-ln add"><b>+</b>## Шаг курса: 3</div>', s1);
+        const dd = df.querySelector(".del"), da = df.querySelector(".add");
+        hide(df, dd, da);
+        fromIn(df, { x: 80 }, t("разницу") - 0.05);
+        fromIn(dd, { x: -30 }, t("разницу") + 0.2, 0.5);
+        fromIn(da, { x: 30 }, t("каждого"), 0.6);
+        read("AGENTS.md Шаг курса 2", t("разницу"), DUR); read("Шаг курса 3", t("каждого"), DUR);
+
+        /* ---- строгая проверка: проверка формы пройдена ---- */
+        const pill = div("r6-abs r6-pill", `${CHECK}Проверка формы пройдена`, s1); hide(pill);
+        S.tl.fromTo(pill, { autoAlpha: 0, scale: 0.8 }, { autoAlpha: 1, scale: 1, duration: 0.6, ease: "back.out(2)", immediateRender: false }, t("проверку"));
+        S.tl.fromTo(pill.querySelector("path"), { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.45, ease: "power2.out", immediateRender: false }, t("проверку") + 0.2);
+        read("Проверка формы пройдена", t("проверку"), DUR);
+
+        /* ---- сохраните одну версию ---- */
+        const btn = div("r6-abs r6-btn", `<span class="a">Commit</span><span class="b">${CHECK}Версия сохранена</span>`, s1);
+        const ba = btn.querySelector(".a"), bb = btn.querySelector(".b"); hide(btn, bb);
+        fromIn(btn, { y: 40, scale: 0.94 }, t("сохраните") - 0.05, 0.6, "back.out(2)");
+        const T_PRESS = t("версию");
+        S.tl.to(btn, { scale: 0.93, duration: 0.12, ease: "power2.in" }, T_PRESS);
+        S.tl.to(btn, { scale: 1, duration: 0.3, ease: "back.out(3)" }, T_PRESS + 0.12);
+        S.tl.to(ba, { autoAlpha: 0, duration: 0.25 }, T_PRESS + 0.1);
+        S.tl.fromTo(bb, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power3.out", immediateRender: false }, T_PRESS + 0.25);
+
+        /* ---- двенадцать задач остаются открытыми ---- */
+        const op = div("r6-abs r6-open", '<i></i>12 задач открыто', s1); hide(op);
+        fromIn(op, { x: 50 }, t("двенадцать") - 0.05);
+        read("12 задач открыто", t("двенадцать"), DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

@@ -1,0 +1,290 @@
+{
+  "warning": "ILLUSTRATIVE MOCK TIMING ONLY — not production timing, speech or alignment",
+  "units": "seconds from the start of each isolated index.html",
+  "scene-03": {
+    "file": "scene-03/index.html",
+    "compositionId": "p4-mock-03",
+    "duration": 217.1,
+    "midpoints": [
+      6.7,
+      20.1,
+      32,
+      44.2,
+      56.8,
+      67.9,
+      79.15,
+      91.25,
+      104.35,
+      118.95,
+      133,
+      146.05,
+      159.1,
+      172.3,
+      185.55,
+      199.65,
+      211.9
+    ],
+    "states": [
+      {
+        "id": "setup",
+        "step": 1,
+        "start": 0,
+        "duration": 13.4,
+        "midpoint": 6.7,
+        "words": 33,
+        "stationaryHold": 12
+      },
+      {
+        "id": "empty-project",
+        "step": 2,
+        "start": 13.4,
+        "duration": 13.4,
+        "midpoint": 20.1,
+        "words": 33,
+        "stationaryHold": 12
+      },
+      {
+        "id": "remote",
+        "step": 2,
+        "start": 26.8,
+        "duration": 10.4,
+        "midpoint": 32,
+        "words": 24,
+        "stationaryHold": 9
+      },
+      {
+        "id": "first-push",
+        "step": 2,
+        "start": 37.2,
+        "duration": 13.2,
+        "midpoint": 44.2,
+        "words": 30,
+        "stationaryHold": 11
+      },
+      {
+        "id": "clone",
+        "step": 3,
+        "start": 50.4,
+        "duration": 12.8,
+        "midpoint": 56.8,
+        "words": 31,
+        "stationaryHold": 11.4
+      },
+      {
+        "id": "register",
+        "step": 3,
+        "start": 63.2,
+        "duration": 9.4,
+        "midpoint": 67.9,
+        "words": 21,
+        "stationaryHold": 8
+      },
+      {
+        "id": "mkdir",
+        "step": 4,
+        "start": 72.6,
+        "duration": 13.1,
+        "midpoint": 79.15,
+        "words": 32,
+        "stationaryHold": 11.7
+      },
+      {
+        "id": "config",
+        "step": 4,
+        "start": 85.7,
+        "duration": 11.1,
+        "midpoint": 91.25,
+        "words": 26,
+        "stationaryHold": 9.7
+      },
+      {
+        "id": "init",
+        "step": 4,
+        "start": 96.8,
+        "duration": 15.1,
+        "midpoint": 104.35,
+        "words": 38,
+        "stationaryHold": 13.7
+      },
+      {
+        "id": "new-change",
+        "step": 5,
+        "start": 111.9,
+        "duration": 14.1,
+        "midpoint": 118.95,
+        "words": 35,
+        "stationaryHold": 12.7
+      },
+      {
+        "id": "branch",
+        "step": 5,
+        "start": 126,
+        "duration": 13.2,
+        "midpoint": 133,
+        "words": 30,
+        "stationaryHold": 11
+      },
+      {
+        "id": "stage",
+        "step": 5,
+        "start": 139.2,
+        "duration": 12.9,
+        "midpoint": 146.05,
+        "words": 29,
+        "stationaryHold": 10.7
+      },
+      {
+        "id": "commit",
+        "step": 5,
+        "start": 152.1,
+        "duration": 13.2,
+        "midpoint": 159.1,
+        "words": 30,
+        "stationaryHold": 11
+      },
+      {
+        "id": "push",
+        "step": 5,
+        "start": 165.3,
+        "duration": 13.2,
+        "midpoint": 172.3,
+        "words": 30,
+        "stationaryHold": 11
+      },
+      {
+        "id": "merge-request",
+        "step": 5,
+        "start": 178.5,
+        "duration": 14.1,
+        "midpoint": 185.55,
+        "words": 35,
+        "stationaryHold": 12.7
+      },
+      {
+        "id": "doctor",
+        "step": 6,
+        "start": 192.6,
+        "duration": 14.1,
+        "midpoint": 199.65,
+        "words": 35,
+        "stationaryHold": 12.7
+      },
+      {
+        "id": "pull-warning",
+        "step": 6,
+        "start": 206.7,
+        "duration": 10.4,
+        "midpoint": 211.9,
+        "words": 24,
+        "stationaryHold": 9
+      }
+    ],
+    "edges": [
+      0,
+      0.1,
+      0.3,
+      217.067
+    ]
+  },
+  "scene-05": {
+    "file": "scene-05/index.html",
+    "compositionId": "p4-mock-05",
+    "duration": 105.1,
+    "midpoints": [
+      9.4,
+      22.85,
+      32.3,
+      45.4,
+      60.3,
+      72.9,
+      84,
+      97.4
+    ],
+    "states": [
+      {
+        "id": "contract",
+        "start": 0,
+        "duration": 18.8,
+        "midpoint": 9.4,
+        "words": 49,
+        "stationaryHold": 17.4
+      },
+      {
+        "id": "missing-field",
+        "start": 18.8,
+        "duration": 8.1,
+        "midpoint": 22.85,
+        "words": 17,
+        "stationaryHold": 6.7
+      },
+      {
+        "id": "planning",
+        "start": 26.9,
+        "duration": 10.8,
+        "midpoint": 32.3,
+        "words": 25,
+        "stationaryHold": 9.4
+      },
+      {
+        "id": "code",
+        "start": 37.7,
+        "duration": 15.4,
+        "midpoint": 45.4,
+        "words": 39,
+        "stationaryHold": 14
+      },
+      {
+        "id": "task-status",
+        "start": 53.1,
+        "duration": 14.4,
+        "midpoint": 60.3,
+        "words": 36,
+        "stationaryHold": 13
+      },
+      {
+        "id": "join",
+        "start": 67.5,
+        "duration": 10.8,
+        "midpoint": 72.9,
+        "words": 25,
+        "stationaryHold": 9.4
+      },
+      {
+        "id": "archive",
+        "start": 78.3,
+        "duration": 11.4,
+        "midpoint": 84,
+        "words": 27,
+        "stationaryHold": 10
+      },
+      {
+        "id": "release",
+        "start": 89.7,
+        "duration": 15.4,
+        "midpoint": 97.4,
+        "words": 39,
+        "stationaryHold": 14
+      }
+    ],
+    "edges": [
+      0,
+      0.1,
+      0.3,
+      105.067
+    ]
+  },
+  "title-05": {
+    "file": "title-05/index.html",
+    "compositionId": "p4-title-05-proof",
+    "duration": 2,
+    "times": [
+      0,
+      0.1,
+      0.3,
+      1,
+      1.69,
+      1.97
+    ],
+    "status": "STOP: source has 1.7s static hold; five-word lead needs 2.667s; full eleven-word card needs 4.667s. No visual PASS."
+  }
+}

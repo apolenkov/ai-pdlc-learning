@@ -1,0 +1,66 @@
+<template id="scene-05-template">
+  <div data-composition-id="scene-05" data-width="1920" data-height="1080" data-duration="13.8">
+    <style>
+      [data-composition-id="scene-05"] .sc-ok { display: flex; align-items: center; gap: 20px; margin-top: 12px; font-size: 34px; font-weight: 700; color: var(--k-ok); line-height: 1.2; }
+      [data-composition-id="scene-05"] .sc-ok svg { flex: none; width: 52px; height: 52px; padding: 8px; border-radius: 50%; border: 3px solid var(--k-ok); background: var(--k-ok-tint); }
+      [data-composition-id="scene-05"] .sc-list { margin-top: 14px; }
+    </style>
+    <!-- запись: производная scene-05-ignore.retimed.mp4 (assets/rec/retime-scene-05.py: ход 1x, без вырезов, хвост записи не используется).
+         data-start — число из скрипта; после конца файла держится последний кадр до конца сцены. -->
+    <video id="rec-ignore" class="clip" src="assets/rec/scene-05-ignore.retimed.mp4" muted playsinline data-start="1.70" data-duration="12.1"></video>
+    <script>
+      (function () {
+        const S = Kit.scene("05");
+        const t = S.t;
+        const R = Kit.layout;
+        const DUR = 13.8;
+        const NAT = { w: 1920, h: 1080 };
+        // текст на экране держится не меньше слов/3 + 1 с
+        const rd = (txt, a, b) => { const w = txt.trim().split(/\s+/).length; if (b - a < w / 3 + 1 - 1e-6) throw new Error(`текст «${txt}» на экране ${(b - a).toFixed(1)} с, нужно ${(w / 3 + 1).toFixed(1)} с`); };
+        // курсор задерживается над целью 0,8 с до нажатия: перед каждым кликом путевая точка (её пульсы убираются)
+        const HOVER = 0.8;
+        const withHover = (cl) => { const out = [], wp = []; cl.forEach((c) => { wp.push(out.length); out.push({ t: c.t - HOVER, x: c.x, y: c.y }); out.push(c); }); return { out, wp }; };
+        const noPulse = (scr, hv) => { const pu = scr.layer.querySelectorAll(".k-pulse"); hv.wp.forEach((i) => { pu[2 * i].remove(); pu[2 * i + 1].remove(); }); };
+
+        Kit.header(S, { duration: DUR });
+
+        /* запись: время кликов — производная запись (вывод retime-scene-05.py) */
+        const V0 = 1.70;
+        const hv = withHover([
+          { t: 0.8, x: 307, y: 95, label: "New File" },
+          { t: 4.44, x: 307, y: 95 },
+          { t: 7.92, x: 31, y: 170, label: "Source Control" },
+        ]);
+        const scr = Kit.screen(S, { parent: S.root, natural: NAT, x: 96, y: 186, w: 1180, h: 635,
+          alt: "Кадр VS Code: черновик.txt и .gitignore, вкладка Source Control",
+          video: { el: "#rec-ignore", start: V0, duration: 12.1, poster: "assets/rec/scene-05-ignore.retimed.first.png", clicks: hv.out },
+          from: { x: 300, y: 130 },
+          camera: [{ t: 0, cx: 437, cy: 245, scale: 2.2, dur: 0 }] });
+        noPulse(scr, hv);
+        scr.show(0, true);
+
+        /* правая колонка: файл-черновик → список .gitignore → итог */
+        const RX = R.rightX, RW = R.rightW;
+        // 1. черновик 
+        const t1 = t("пока не для коллег") + 0.1, o1 = t("гитигнор") + 0.6;
+        const draft = Kit.path(S, { parent: S.root, x: RX, y: 330, items: [{ icon: "file", text: "черновик.txt", at: t1 }] });
+        draft.out(o1);
+        // 2. определение: список того, что пропускает Git
+        const t2 = t("список"), o2 = t("остаётся") - 0.1;
+        const a2 = Kit.aside(S, { parent: S.root, x: RX, y: 300, w: RW, tail: false, title: ".gitignore", text: "Git пропускает:",
+          html: '<div class="sc-list"><span class="mono">черновик.txt</span></div>' });
+        a2.show(t2); a2.hide(o2);
+        rd(".gitignore Git пропускает: черновик.txt", t2, o2);
+        // 3. итог: зелёная галочка (въезд справа, другой вид входа)
+        const t3 = t("остаётся") + 0.35;
+        const a3 = Kit.aside(S, { parent: S.root, x: RX, y: 300, w: RW, tail: false, title: "Changes",
+          html: '<div class="sc-ok"><svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 29l12 12 24-26"/></svg><span>Черновика нет</span></div>' });
+        S.tl.fromTo(a3.el, { x: 90, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.7, ease: "power3.out", immediateRender: false }, t3);
+        rd("Changes Черновика нет", t3, DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

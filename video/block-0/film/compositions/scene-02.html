@@ -1,0 +1,127 @@
+<template id="scene-02-template">
+  <div data-composition-id="scene-02" data-width="1920" data-height="1080" data-duration="32.5">
+    <style>
+      [data-composition-id="scene-02"] .k-tile { font-size: 34px; height: 96px; padding: 0 22px; gap: 14px; }
+      [data-composition-id="scene-02"] .k-tile svg { width: 36px; height: 42px; flex-shrink: 0; }
+      [data-composition-id="scene-02"] .sc-req .k-tile { position: relative; width: 240px; }
+      [data-composition-id="scene-02"] .sc-req .k-tile::before { content: ""; position: absolute; left: 50%; top: -28px; width: 3px; height: 26px; margin-left: -1px; background: var(--k-info); }
+      [data-composition-id="scene-02"] .sc-who { display: flex; align-items: center; gap: 22px; }
+      [data-composition-id="scene-02"] .sc-who svg { flex: 0 0 56px; width: 56px; height: 56px; color: var(--k-info); }
+      [data-composition-id="scene-02"] .sc-who-t { min-height: 56px; display: flex; flex-direction: column; justify-content: center; }
+      [data-composition-id="scene-02"] .sc-who .ttl { font-size: 36px; line-height: 1.15; }
+      [data-composition-id="scene-02"] .sc-who .sub { margin-top: 2px; font-size: 30px; }
+      [data-composition-id="scene-02"] .sc-text { font-size: 34px; line-height: 1.25; font-weight: 600; white-space: nowrap; }
+      [data-composition-id="scene-02"] .sc-text + .sc-text { margin-top: 4px; }
+      [data-composition-id="scene-02"] .sc-q, [data-composition-id="scene-02"] .sc-a { display: flex; flex-direction: column; justify-content: center; }
+      [data-composition-id="scene-02"] .sc-q { border-left: 8px solid var(--k-info); }
+      [data-composition-id="scene-02"] .sc-a { border-left: 8px solid var(--k-text-2); }
+      [data-composition-id="scene-02"] .sc-src { font-size: 30px; line-height: 1.25; white-space: nowrap; }
+      [data-composition-id="scene-02"] .sc-src-card { border-color: var(--k-info); }
+      [data-composition-id="scene-02"] .sc-open { background: transparent; border: 3px dashed var(--k-text-2); box-shadow: none; }
+      [data-composition-id="scene-02"] .sc-open .ttl { font-size: 36px; }
+      [data-composition-id="scene-02"] .sc-rule { font-size: 34px; font-weight: 700; line-height: 1.2; white-space: nowrap; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("02"), t = S.t, DUR = 32.5;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.end("не заменяет.") < 1.5) throw new Error("Недостаточный хвост сцены");
+
+        const T_INIT = t("инициатора");
+        const T_AN = t("Аналитик");
+        const T_AN_SUB = t("задаёт");
+        const T_Q1 = t("Что должно") - 0.1;
+        const T_Q2 = t("Что значит") - 0.1;
+        const T_A1 = t("рядом с неверным") - 0.1;
+        const T_A1B = t("прежний платёж") - 0.1;
+        const T_A2 = t("Вернуть исходные") - 0.1;
+        const T_REQ = t("Ответ записываем");
+        const T_SRC = t("указываем");
+        const T_SLOT = t("Если ответа");
+        const T_SLOT_T = t("открытый вопрос");
+        const T_RULE = t("предположение");
+
+        // Theme labels would only repeat the part title in the header, so the label is blank.
+        Kit.header(S, { header: { mode: "parts", total: 9 }, chapter: "Уточняем запрос", step: 2, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+        const person = '<svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><circle cx="28" cy="19" r="9"/><path d="M9 50c1-11 9-17 19-17s18 6 19 17"/></svg>';
+        const who = (x, y, name, sub) => Kit.aside(S, { parent: s1, x, y, w: 824, h: 126, tail: false,
+          html: `<div class="sc-who">${person}<div class="sc-who-t"><div class="ttl">${name}</div><div class="sub">${sub}</div></div></div>` });
+
+        /* Participants: the initiator card is on screen from the first frame as a shell; the name follows the spoken word. */
+        const init = who(96, 205, "Инициатор", "заметил проблему");
+        const analyst = who(1000, 205, "Аналитик", "задаёт уточняющие вопросы");
+        gsap.set(init.el, { autoAlpha: 1 });
+        const initText = init.el.querySelector(".sc-who-t");
+        gsap.set(initText, { autoAlpha: 0 });
+        Kit.popIn(S, initText, T_INIT);
+        const anSub = analyst.el.querySelector(".sub");
+        gsap.set(anSub, { autoAlpha: 0 });
+        analyst.show(T_AN);
+        Kit.popIn(S, anSub, T_AN_SUB);
+        read("Инициатор заметил проблему", T_INIT, DUR);
+        read("Аналитик задаёт уточняющие вопросы", T_AN, DUR);
+
+        /* Questions on the right, under the analyst; answers on the left, under the initiator. */
+        const q1 = Kit.aside(S, { parent: s1, x: 1000, y: 352, w: 824, h: 130, tail: false,
+          html: '<div class="sc-text">Что со старым результатом при ошибке?</div>' });
+        const q2 = Kit.aside(S, { parent: s1, x: 1000, y: 500, w: 824, h: 92, tail: false,
+          html: '<div class="sc-text">Что значит «начать заново»?</div>' });
+        q1.el.classList.add("sc-q"); q2.el.classList.add("sc-q");
+        q1.show(T_Q1); q2.show(T_Q2);
+        read("Что со старым результатом при ошибке?", T_Q1, DUR);
+        read("Что значит «начать заново»?", T_Q2, DUR);
+
+        const a1 = Kit.aside(S, { parent: s1, x: 96, y: 352, w: 824, h: 130, tail: false,
+          html: '<div class="sc-text sc-a1a">Сообщение рядом с неверным полем</div><div class="sc-text sc-a1b">Прежний платёж заменить прочерком «—»</div>' });
+        const a2 = Kit.aside(S, { parent: s1, x: 96, y: 500, w: 824, h: 92, tail: false,
+          html: '<div class="sc-text">Вернуть исходные значения</div>' });
+        a1.el.classList.add("sc-a"); a2.el.classList.add("sc-a");
+        const a1b = a1.el.querySelector(".sc-a1b");
+        gsap.set(a1b, { autoAlpha: 0 });
+        a1.show(T_A1); Kit.popIn(S, a1b, T_A1B); a2.show(T_A2);
+        read("Сообщение рядом с неверным полем", T_A1, DUR);
+        read("Прежний платёж заменить прочерком", T_A1B, DUR);
+        read("Вернуть исходные значения", T_A2, DUR);
+
+        /* The answer is written next to the request and marked with where it came from. */
+        const req = Kit.path(S, { parent: s1, x: 96, y: 614, items: [{ icon: "file", text: "запрос", at: T_REQ }] });
+        req.el.classList.add("sc-req");
+        const src = Kit.aside(S, { parent: s1, x: 368, y: 614, w: 560, h: 96, tail: false,
+          html: '<div class="sc-src">откуда взят: ответ инициатора</div>' });
+        src.el.classList.add("sc-src-card");
+        src.el.style.display = "flex"; src.el.style.alignItems = "center";
+        src.show(T_SRC);
+        read("запрос", T_REQ, DUR);
+        read("откуда взят: ответ инициатора", T_SRC, DUR);
+
+        /* Open question: an empty dashed slot first, then its name and definition. */
+        const slot = Kit.aside(S, { parent: s1, x: 1000, y: 614, w: 824, h: 96, tail: false,
+          html: '<div class="ttl"></div>' });
+        slot.el.classList.add("sc-open");
+        slot.el.style.display = "flex"; slot.el.style.alignItems = "center";
+        const slotTtl = slot.el.querySelector(".ttl");
+        slotTtl.textContent = "Открытый вопрос";
+        gsap.set(slotTtl, { autoAlpha: 0 });
+        slot.show(T_SLOT);
+        Kit.popIn(S, slotTtl, T_SLOT_T);
+        read("Открытый вопрос", T_SLOT_T, DUR);
+
+        const rule = Kit.aside(S, { parent: s1, x: 1000, y: 742, w: 824, h: 84, tail: false,
+          html: '<div class="sc-rule">Предположение не заменяет ответ</div>' });
+        rule.el.style.display = "flex"; rule.el.style.alignItems = "center";
+        rule.show(T_RULE);
+        read("Предположение не заменяет ответ", T_RULE, DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

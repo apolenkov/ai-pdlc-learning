@@ -1,0 +1,39 @@
+<template id="scene-04-template">
+  <div data-composition-id="scene-04" data-width="1920" data-height="1080" data-duration="12.1">
+    <style>
+      [data-composition-id="scene-04"] .sc-mark { position: absolute; box-sizing: border-box; border: 3px solid var(--k-accent); border-radius: 10px; pointer-events: none; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("04"), t = S.t, DUR = 12.1;
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const mark = (scr, r, at, soft) => {
+          const el = document.createElement("div"); el.className = "sc-mark";
+          Object.assign(el.style, { left: r.x - 6 + "px", top: r.y - 4 + "px", width: r.w + 12 + "px", height: r.h + 8 + "px" });
+          if (soft) el.style.borderColor = Kit.token("--k-accent-soft");
+          scr.layer.appendChild(el); gsap.set(el, { autoAlpha: 0 });
+          S.tl.to(el, { autoAlpha: 1, duration: 0.5, ease: "sine.out" }, at);
+          return el;
+        };
+        const dim = (el, at) => S.tl.to(el, { opacity: 0.4, duration: 0.4 }, at);
+
+        Kit.header(S, { header: { mode: "parts", total: 5 }, chapter: "Как вернуться", step: 4, duration: DUR, parts: [{ n: 4, blank: true, at: 0 }] });
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+        const scr = Kit.screen(S, { parent: s1, x: 60, y: 330, w: 1800, h: 232, natural: { w: 1920, h: 1080 },
+          src: "assets/page/s1-git-top.png", alt: "Шаг 1 · Требования в Git: номера в линии маршрута, меню «Карта PDLC» и кнопка «К карте PDLC»",
+          camera: [{ t: 0, cx: 960, cy: 75, scale: 1.35, dur: 0 }] });
+        scr.show(0, true);
+        const NUMBER = { x: 770, y: 89, w: 507, h: 44 }, HOME = { x: 269, y: 26, w: 101, h: 36 }, BACK = { x: 1526, y: 26, w: 125, h: 36 };
+        const a = mark(scr, NUMBER, t("Номер шага"));
+        dim(a, t("Карта пи-ди-эл-си") - 0.1);
+        const b = mark(scr, HOME, t("Карта пи-ди-эл-си") - 0.1);
+        dim(b, t("кнопка") - 0.1);
+        const c = mark(scr, BACK, t("кнопка") - 0.1, true);
+        S.tl.to(c, { borderColor: Kit.token("--k-accent"), duration: 0.3 }, t("«К карте") - 0.1);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

@@ -1,0 +1,67 @@
+{
+  "name": "ai-pdlc-learning",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Course on analysis with AI agents: Git, Markdown, SDD and OpenSpec. Source of the course site.",
+  "license": "UNLICENSED",
+  "homepage": "https://apolenkov.github.io/ai-pdlc-learning/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apolenkov/ai-pdlc-learning.git"
+  },
+  "bugs": "https://github.com/apolenkov/ai-pdlc-learning/issues",
+  "type": "module",
+  "packageManager": "npm@12.2.0",
+  "engines": {
+    "node": ">=26"
+  },
+  "scripts": {
+    "build:site": "node --experimental-strip-types scripts/build-learning-pages.ts",
+    "site-nav:update": "node --experimental-strip-types scripts/update-site-navigation.ts",
+    "preview": "node --experimental-strip-types scripts/preview-pages.ts",
+    "test": "node --experimental-strip-types --test --test-concurrency=1 scripts/*.test.ts standards/sdlc-analysis-standard/checks/*.test.*",
+    "test:coverage": "c8 node --experimental-strip-types --test --test-concurrency=1 scripts/*.test.ts standards/sdlc-analysis-standard/checks/*.test.*",
+    "typecheck": "node node_modules/typescript-7/bin/tsc -p tsconfig.pages.json && node node_modules/typescript-7/bin/tsc -p tsconfig.browser.json",
+    "prepare": "lefthook install",
+    "video:fetch": "node --experimental-strip-types scripts/fetch-guide-video.ts",
+    "video:fetch-sources": "node --experimental-strip-types scripts/fetch-guide-video.ts --sources",
+    "lint": "node --experimental-strip-types node_modules/eslint/bin/eslint.js --flag unstable_native_nodejs_ts_config --max-warnings 0 scripts video/_shared/tools/voice-only.ts video/_shared/tools/voice-only-plan.ts video/_shared/tools/voice-only-p6.ts standards/sdlc-analysis-standard/checks \"docs/pages/sdlc-development/**/*.ts\" \"*.config.ts\"",
+    "format": "prettier --write \"{scripts,standards/sdlc-analysis-standard/checks}/**/*.{ts,js,mjs,cjs}\" video/_shared/tools/voice-only.ts video/_shared/tools/voice-only-plan.ts video/_shared/tools/voice-only-p6.ts \"docs/pages/sdlc-development/**/*.ts\" \"*.config.ts\"",
+    "spec:check": "npx --yes @fission-ai/openspec@1.14.1 validate --all --strict",
+    "boundaries": "depcruise --config .dependency-cruiser.mjs scripts docs/pages standards",
+    "audit:high": "npm audit --audit-level=high",
+    "mutation:credit": "stryker run",
+    "mutation:guard": "stryker run stryker.guard.config.json",
+    "mutation:course-map": "stryker run stryker.course-map.config.json",
+    "format:check": "prettier --check \"{scripts,standards/sdlc-analysis-standard/checks}/**/*.{ts,js,mjs,cjs}\" video/_shared/tools/voice-only.ts video/_shared/tools/voice-only-plan.ts video/_shared/tools/voice-only-p6.ts \"docs/pages/sdlc-development/**/*.ts\" \"*.config.ts\""
+  },
+  "dependencies": {
+    "marked": "^18.1.1",
+    "motion": "14.5.0",
+    "yaml": "^2.9.1"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "21.2.4",
+    "@commitlint/config-conventional": "21.2.4",
+    "@commitlint/types": "21.2.3",
+    "@eslint/js": "10.0.1",
+    "@stryker-mutator/core": "10.0.0",
+    "@types/node": "^26.6.5",
+    "c8": "12.0.0",
+    "dependency-cruiser": "18.7.0",
+    "esbuild": "0.28.2",
+    "eslint": "10.13.0",
+    "globals": "17.13.0",
+    "lefthook": "2.2.2",
+    "prettier": "3.9.10",
+    "puppeteer-core": "25.15.0",
+    "typescript": "npm:@typescript/typescript6@6.0.2",
+    "typescript-7": "npm:typescript@7.0.2",
+    "typescript-eslint": "8.72.0"
+  },
+  "overrides": {
+    "@typescript/typescript6": {
+      "@typescript/old": "npm:typescript@6.0.3"
+    }
+  }
+}

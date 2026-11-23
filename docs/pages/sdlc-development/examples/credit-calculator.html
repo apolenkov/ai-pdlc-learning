@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ru" data-atmos data-section="analysis">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f4f1e8">
+  <meta name="description" content="Исходная версия учебного кредитного калькулятора до изменений из записей намерения 1 и 2.">
+  <title>Кредитный калькулятор · Пример · AI PDLC Learning</title>
+  <link rel="stylesheet" href="../guides/guide.css">
+  <link rel="stylesheet" href="../guides/learning-enhancements.css">
+  <link rel="stylesheet" data-site-nav-styles href="../site-nav.css">
+  <link rel="stylesheet" data-atmos-styles href="../atmosphere.css">
+  <style>
+    html:has(.calculator-page)::before { content: none; }
+    .calculator-page .site-topbar[data-global-nav] { box-shadow: none; }
+    #calculator :is(input, button) { font: inherit; scroll-margin-bottom: 8px; }
+  </style>
+</head>
+<body class="calculator-page">
+  <a class="skip-link" href="#content">К калькулятору</a>
+  <div class="shell">
+<nav class="site-topbar" data-global-nav data-expanded="false" onkeydown="if(event.key==='Escape'&&this.getAttribute('data-expanded')==='true'){this.setAttribute('data-expanded','false');document.documentElement.style.removeProperty('--site-nav-reserve');var more=this.querySelector('.site-nav-more');if(more){more.setAttribute('aria-expanded','false');more.focus()}}" aria-label="Основная навигация PDLC"><div class="site-topbar__identity"><a class="site-home" data-global-home data-home-link data-course-root data-nav-item="home" href="__CUSTOMDEV_ROOT__" aria-current="location">Маршрут курса</a></div><div class="site-page-actions"><a class="site-catalog-return" data-catalog-return href="__CUSTOMDEV_ROOT__"><span aria-hidden="true">←</span><span>К маршруту курса</span></a></div></nav>
+    <header class="hero calculator-hero">
+      <div>
+        <p class="eyebrow">Один пример · два курса</p>
+        <h1>Кредитный калькулятор</h1>
+        <p>Так калькулятор работает до изменений из записей намерения 1 и 2. При ошибке сообщение общее, без названия поля, а прежний результат остаётся на экране. Сумма кредита может быть любой больше нуля. Эти недостатки оставлены специально, попробуйте сами. В курсе вы описываете, как их исправить; этот экран остаётся исходной версией.</p>
+        <p>Файлы курса: <a href="../guides/examples/credit-calculator-intents/intents/clear-calculation-result.html">запись намерения о понятном результате</a> и <a href="../guides/examples/credit-calculator-intents/intent-2-credit-limit.html">вторая запись — лимит суммы</a>.</p>
+      </div>
+    </header>
+
+    <main class="grid" id="content" tabindex="-1">
+      <section class="card card--wide workbench" aria-labelledby="scenario-title">
+        <header class="workbench-head">
+          <div><p class="eyebrow">Проверяемый сценарий</p><h2 id="scenario-title">Рассчитать ежемесячный платёж</h2></div>
+          <p>Проверьте значения, рассчитайте платёж и сравните результат с условиями готовности.</p>
+        </header>
+        <div class="calculator-layout">
+          <form id="calculator" class="calc-form" autocomplete="off" novalidate>
+            <div class="field-grid">
+              <label for="principal">Сумма кредита, ₽<input id="principal" name="principal" type="number" inputmode="decimal" step="any" value="3000000" aria-describedby="principal-hint form-error" required><span id="principal-hint">Любая сумма больше 0 ₽, без верхней границы</span></label>
+              <label for="rate">Ставка, % годовых<input id="rate" name="rate" type="number" inputmode="decimal" min="0" max="100" step="0.1" value="16" aria-describedby="rate-hint form-error" required><span id="rate-hint">От 0 до 100%</span></label>
+              <label for="months">Срок, месяцев<input id="months" name="months" type="number" inputmode="numeric" min="1" step="1" value="240" aria-describedby="months-hint form-error" required><span id="months-hint">Целое число от 1, без верхней границы</span></label>
+            </div>
+            <p class="form-error" id="form-error" role="alert" aria-live="polite"></p>
+            <button type="submit">Рассчитать</button>
+          </form>
+
+          <aside class="proof"><strong>Данные не отправляются</strong><span>Расчёт выполняется в браузере. Введённые значения не сохраняются и не отправляются во внешние системы.</span></aside>
+
+          <section class="result" aria-labelledby="payment-label">
+            <p class="result-kicker">Результат</p>
+            <h2 id="payment-label">Ежемесячный платёж</h2>
+            <output id="payment" for="principal rate months" aria-live="polite" data-state="empty">—</output>
+            <p class="result-context" id="payment-context">Платёж появится после расчёта.</p>
+            <div class="formula-strip" role="group" aria-label="Параметры расчёта">
+              <span><b id="summary-principal">—</b> сумма</span>
+              <span><b id="summary-rate">—</b> ставка</span>
+              <span><b id="summary-months">—</b> срок</span>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="card rule-card">
+        <p class="eyebrow">Правило</p>
+        <h2>Как считается платёж</h2>
+        <p>При положительной ставке используется аннуитетная формула. При нулевой ставке сумма делится на количество месяцев.</p>
+      </section>
+      <section class="card readiness-card">
+        <p class="eyebrow">Проверка исходной версии</p>
+        <h2>Условия готовности</h2>
+        <ul class="check"><li>Любая положительная сумма и целый срок от 1 месяца дают платёж в целых рублях, если число не слишком велико для расчёта.</li><li>При нулевой ставке сумма делится на количество месяцев.</li><li>При ошибке сообщение общее, без названия поля, а прежний результат остаётся. До первого расчёта вместо результата стоит «—».</li></ul>
+      </section>
+    </main>
+  </div>
+  <script src="./credit-calculator.js"></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<template id="scene-06-template">
+  <div data-composition-id="scene-06" data-width="1920" data-height="1080" data-duration="26.7">
+    <style>
+      [data-composition-id="scene-06"] .k-chapter { max-width: 340px; }
+      [data-composition-id="scene-06"] .c1, [data-composition-id="scene-06"] .c2, [data-composition-id="scene-06"] .c3, [data-composition-id="scene-06"] .c4 { height: 100%; display: flex; flex-direction: column; }
+      [data-composition-id="scene-06"] .hd { font-size: 38px; font-weight: 800; letter-spacing: -0.015em; line-height: 1.15; }
+      [data-composition-id="scene-06"] .mono { font-family: var(--k-font-mono); font-size: 30px; font-weight: 600; color: var(--k-code-inline); line-height: 1.3; margin-top: 12px; padding: 6px 8px; white-space: nowrap; }
+      [data-composition-id="scene-06"] .c2 .st { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+      [data-composition-id="scene-06"] .c2 .dv { height: 50px; display: flex; align-items: center; padding: 0 18px; border-radius: 12px; border: 2px solid var(--k-line); background: var(--k-win); font-size: 34px; font-weight: 700; opacity: 0; }
+      [data-composition-id="scene-06"] .tg { align-self: flex-start; margin-top: auto; padding: 4px 16px; border-radius: 12px; background: var(--k-accent-tint); color: var(--k-accent-soft); font-size: 30px; font-weight: 700; white-space: nowrap; opacity: 0; }
+      [data-composition-id="scene-06"] .tg.ok { background: var(--k-ok-tint); color: var(--k-ok); }
+      [data-composition-id="scene-06"] .sb { font-size: 32px; font-weight: 600; color: var(--k-text-2); line-height: 1.25; margin-top: 12px; opacity: 0; }
+      [data-composition-id="scene-06"] .ar { align-self: center; text-align: center; font-size: 44px; font-weight: 300; color: var(--k-text-2); line-height: 1; opacity: 0; }
+      [data-composition-id="scene-06"] .nx { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+      [data-composition-id="scene-06"] .nx .lab { font-size: 30px; font-weight: 700; color: var(--k-accent-soft); opacity: 0; }
+      [data-composition-id="scene-06"] .nx .nm { font-size: 42px; font-weight: 800; letter-spacing: -0.02em; white-space: nowrap; margin-top: 2px; opacity: 0; }
+      [data-composition-id="scene-06"] .nx .df { flex: none; padding: 8px 20px; border-radius: 14px; background: var(--k-accent-tint); border: 2px solid var(--k-accent); color: var(--k-accent-soft); font-size: 30px; font-weight: 800; white-space: nowrap; opacity: 0; }
+      [data-composition-id="scene-06"] .cp { height: 100%; display: flex; align-items: center; gap: 22px; font-size: 36px; font-weight: 800; letter-spacing: -0.01em; white-space: nowrap; }
+      [data-composition-id="scene-06"] .cp .k { flex: none; padding: 4px 18px; border-radius: 12px; font-size: 32px; font-weight: 800; }
+      [data-composition-id="scene-06"] .cp.was .k { background: var(--k-win); border: 2px solid var(--k-line); color: var(--k-text-2); }
+      [data-composition-id="scene-06"] .cp.now .k { background: var(--k-ok-tint); border: 2px solid var(--k-ok); color: var(--k-ok); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("06"), t = S.t, DUR = 26.7;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.5) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»: ${(off - at - reveal).toFixed(2)} < ${needed.toFixed(2)}`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const rev = (el, at, d = 0.45, from = { y: 14 }) => { gsap.set(el, from); S.tl.to(el, { opacity: 1, x: 0, y: 0, duration: d, ease: "power3.out" }, at); };
+        const ACC = Kit.token("--k-accent"), OK = Kit.token("--k-ok");
+
+        /* Итог: все части пройдены */
+        Kit.header(S, { header: { mode: "parts", total: 6 }, chapter: "Дальше — «Практикум разработки»", step: null, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* ---- Линия: принятое изменение → разработчик → главная спецификация → следующий запрос ---- */
+        const Y = 200, H = 330, W = 402, G = 40;
+        const X = (i) => 96 + i * (W + G);
+        const card = (i, html, at, border) => {
+          const a = Kit.aside(S, { parent: s1, x: X(i), y: Y, w: W, h: H, tail: false, html });
+          a.el.style.padding = "22px 14px"; if (border) a.el.style.borderColor = border;
+          a.show(at); return a;
+        };
+        const arrow = (i, at) => {
+          const el = document.createElement("div");
+          el.className = "ar"; el.textContent = "→";
+          el.style.cssText = "position:absolute;left:" + (X(i) + W) + "px;top:" + (Y + H / 2 - 32) + "px;width:" + G + "px;";
+          s1.appendChild(el); rev(el, at, 0.4, { x: -14 });
+        };
+
+        // 1. принятое изменение
+        const T_C1 = 1.3;
+        const c1 = card(0, '<div class="c1"><div class="hd">принятое изменение</div><div class="mono">add-monthly-payment</div></div>', T_C1, OK);
+        read("принятое изменение add-monthly-payment", T_C1, DUR, 0.8);
+
+        // 2. разработчик: код, приёмка, архив
+        const T_C2 = t("разработчику") - 0.1;
+        arrow(0, T_C2 - 0.3);
+        const c2 = card(1, '<div class="c2"><div class="hd">разработчик</div><div class="st"><div class="dv d1">код</div><div class="dv d2">приёмка</div><div class="dv d3">архив</div></div><div class="tg">этап разработки</div></div>', T_C2);
+        const q2 = (s) => c2.el.querySelector(s);
+        const DV = [["код", t("код,")], ["приёмка", t("приёмка")], ["архив", t("архив")]];
+        DV.forEach(([w, at], i) => { rev(q2(".d" + (i + 1)), at, 0.45, { x: -24 }); read(w, at, DUR); });
+        const T_TG = t("на этапе");
+        rev(q2(".tg"), T_TG, 0.45); read("этап разработки", T_TG, DUR);
+        read("разработчик", T_C2, DUR);
+
+        // 3. главная спецификация
+        const T_C3 = t("главная");
+        arrow(1, t("появится") + 0.1);
+        const c3 = card(2, '<div class="c3"><div class="hd">главная спецификация</div><div class="mono">openspec/specs/<br>credit-calculator/<br>spec.md</div><div class="tg ok">с историей</div></div>', T_C3, ACC);
+        const T_HI = t("с историей");
+        rev(c3.el.querySelector(".tg"), T_HI, 0.45);
+        read("главная спецификация openspec specs credit-calculator spec.md", T_C3, DUR); read("с историей", T_HI, DUR);
+
+        /* ---- Дальше: «Практика разработки…» из course-names.json, ключ delivery ---- */
+        const T_NX = t("Дальше");
+        const nx = Kit.aside(S, { parent: s1, x: 96, y: 558, w: 1728, h: 128, tail: false,
+          html: '<div class="nx"><div><div class="lab">Дальше</div><div class="nm">Практика разработки по согласованным требованиям</div></div><div class="df">Отличие только в старте</div></div>' });
+        nx.el.style.borderColor = ACC; nx.el.style.padding = "0 28px";
+        nx.show(T_NX);
+        const nq = (s) => nx.el.querySelector(s);
+        rev(nq(".lab"), T_NX + 0.2); rev(nq(".nm"), t("Практика"), 0.5);
+        const T_DF = t("Этот шаг");
+        rev(nq(".df"), T_DF, 0.45, { x: 30 });
+        read("Дальше Практика разработки по согласованным требованиям", t("Практика"), DUR); read("Отличие только в старте", T_DF, DUR);
+
+        /* ---- Старт: там базу выдал организатор, здесь продукта ещё нет — начинаем с замысла владельца продукта ---- */
+        const T_NOW = t("продукта ещё"), T_WAS = t("от шага пять");
+        const was = Kit.aside(S, { parent: s1, x: 96, y: 716, w: 846, h: 96, tail: false,
+          html: '<div class="cp was"><span class="k">шаг 5</span><span>базу выдал организатор</span></div>' });
+        was.el.style.padding = "0 24px"; was.show(T_WAS);
+        const now = Kit.aside(S, { parent: s1, x: 978, y: 716, w: 846, h: 96, tail: false,
+          html: '<div class="cp now"><span class="k">шаг 6а</span><span>вы создали её сами</span></div>' });
+        now.el.style.padding = "0 24px"; now.el.style.borderColor = OK; now.show(T_NOW);
+        read("шаг 5 базу выдал организатор", T_WAS, DUR); read("шаг 6а вы создали её сами продукта ещё нет — начинаем с замысла владельца продукта", T_NOW, DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

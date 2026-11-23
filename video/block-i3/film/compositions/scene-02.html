@@ -1,0 +1,166 @@
+<template id="scene-02-template">
+  <div data-composition-id="scene-02" data-width="1920" data-height="1080" data-duration="59.4">
+    <style>
+      [data-composition-id="scene-02"] .sc-err { height: 100%; padding: 8px 20px; display: flex; flex-direction: column; gap: 6px; }
+      [data-composition-id="scene-02"] .sc-err .cap { font-size: 27px; font-weight: 800; display: flex; align-items: center; flex-wrap: wrap; gap: 4px 12px; }
+      [data-composition-id="scene-02"] .sc-err .cap .id { font-size: 22px; font-weight: 800; padding: 2px 12px; border-radius: 10px; background: var(--k-accent-tint); color: var(--k-accent-soft); }
+      [data-composition-id="scene-02"] .sc-fld { display: flex; align-items: center; gap: 14px; }
+      [data-composition-id="scene-02"] .sc-fld .lb { font-size: 23px; font-weight: 700; color: var(--k-text-2); width: 86px; flex: none; }
+      [data-composition-id="scene-02"] .sc-fld .in { flex: 1; font-size: 24px; font-weight: 600; padding: 3px 14px; border-radius: 12px; background: var(--k-panel-2); border: 2px solid var(--k-line); }
+      [data-composition-id="scene-02"] .sc-fld .in.bad { border-color: var(--k-accent); }
+      [data-composition-id="scene-02"] .sc-fld .res { flex: 1; font-size: 28px; font-weight: 800; padding: 3px 14px; border-radius: 12px; background: var(--k-panel-2); border: 2px solid var(--k-line); text-align: center; }
+      [data-composition-id="scene-02"] .sc-fld .res .old { color: var(--k-text-2); text-decoration: line-through; }
+      [data-composition-id="scene-02"] .sc-err .msg { margin-left: auto; font-size: 22px; font-weight: 700; padding: 4px 14px; border-radius: 10px; background: var(--k-accent-tint); border: 2px solid var(--k-accent); color: var(--k-accent-soft); white-space: nowrap; }
+      [data-composition-id="scene-02"] .sc-num { height: 100%; padding: 8px 24px; display: flex; flex-direction: column; gap: 5px; }
+      [data-composition-id="scene-02"] .sc-num .cap { font-size: 28px; font-weight: 800; display: flex; gap: 12px; align-items: center; }
+      [data-composition-id="scene-02"] .sc-num .cap .id { font-size: 23px; font-weight: 800; padding: 2px 12px; border-radius: 10px; background: var(--k-accent-tint); color: var(--k-accent-soft); }
+      [data-composition-id="scene-02"] .sc-num .nums { display: flex; gap: 14px; }
+      [data-composition-id="scene-02"] .sc-num .nb { flex: 1; text-align: center; font-size: 28px; font-weight: 800; padding: 4px 4px; border-radius: 14px; background: var(--k-panel-2); border: 2px solid var(--k-line); white-space: nowrap; }
+      [data-composition-id="scene-02"] .sc-num .nb i { display: block; font-style: normal; font-size: 22px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-02"] .sc-num .src { align-self: flex-start; font-size: 23px; font-weight: 700; padding: 3px 13px; border-radius: 10px; border: 2px solid var(--k-line); color: var(--k-text-2); }
+      [data-composition-id="scene-02"] .sc-eq { height: 100%; padding: 12px 24px; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+      [data-composition-id="scene-02"] .sc-eq .cap { font-size: 28px; font-weight: 800; display: flex; gap: 12px; align-items: center; }
+      [data-composition-id="scene-02"] .sc-eq .cap .id { font-size: 23px; font-weight: 800; padding: 2px 12px; border-radius: 10px; background: var(--k-accent-tint); color: var(--k-accent-soft); }
+      [data-composition-id="scene-02"] .sc-eq .big { font-size: 44px; font-weight: 800; text-align: center; padding: 8px 10px; border-radius: 14px; background: var(--k-panel-2); }
+      [data-composition-id="scene-02"] .sc-eq .big b { color: var(--k-accent-soft); }
+      [data-composition-id="scene-02"] .sc-tbl { height: 100%; padding: 16px 26px; display: flex; flex-direction: column; gap: 9px; }
+      [data-composition-id="scene-02"] .sc-tbl .cap { font-size: 30px; font-weight: 800; margin-bottom: 2px; }
+      [data-composition-id="scene-02"] .sc-tr { display: grid; grid-template-columns: 200px 1.25fr 1fr 220px; gap: 14px; align-items: stretch; }
+      [data-composition-id="scene-02"] .sc-th { font-size: 25px; font-weight: 800; color: var(--k-text-2); padding: 0 14px; }
+      [data-composition-id="scene-02"] .sc-tr .c { font-size: 26px; font-weight: 600; line-height: 1.2; padding: 9px 14px; border-radius: 12px; background: var(--k-panel-2); display: flex; align-items: center; }
+      [data-composition-id="scene-02"] .sc-tr .c.id { font-weight: 800; color: var(--k-accent-soft); justify-content: center; border: 2px solid transparent; }
+      [data-composition-id="scene-02"] .sc-tr .c.dep { color: var(--k-text-2); justify-content: center; }
+      [data-composition-id="scene-02"] .sc-ord { height: 100%; display: flex; align-items: center; gap: 16px; padding: 0 26px; }
+      [data-composition-id="scene-02"] .sc-ord .k { flex: none; font-size: 28px; font-weight: 800; color: var(--k-text-2); }
+      [data-composition-id="scene-02"] .sc-ord .st { font-size: 28px; font-weight: 700; padding: 8px 18px; border-radius: 12px; background: var(--k-panel-2); white-space: nowrap; }
+      [data-composition-id="scene-02"] .sc-ord .ar { color: var(--k-accent); font-size: 30px; font-weight: 800; }
+      [data-composition-id="scene-02"] .sc-ord .tag { margin-left: auto; font-size: 24px; font-weight: 700; padding: 5px 16px; border-radius: 11px; background: var(--k-accent-tint); color: var(--k-accent-soft); white-space: nowrap; }
+      [data-composition-id="scene-02"] .sc-srcs { height: 100%; display: flex; align-items: center; gap: 18px; padding: 0 26px; font-size: 28px; font-weight: 700; }
+      [data-composition-id="scene-02"] .sc-srcs .k { flex: none; font-size: 26px; font-weight: 800; padding: 5px 16px; border-radius: 12px; background: var(--k-accent-tint); color: var(--k-accent-soft); }
+      [data-composition-id="scene-02"] .sc-srcs .v { padding: 7px 18px; border-radius: 12px; background: var(--k-panel-2); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("02"), t = S.t, DUR = 59.4;
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+
+        Kit.header(S, { header: { mode: "parts", total: 3 }, chapter: "Три изменения калькулятора", step: 2, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        /* ---- План 1: раздел «План изменений» в редакторе + разбор каждого изменения ---- */
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+        const ed = Kit.editor(S, { parent: s1, x: 96, y: 215, w: 1180, h: 560, crumb: "калькулятор · учебный пример", visible: false,
+          tabs: [{ name: "intent.md", active: true }],
+          lines: [
+            "## План изменений",
+            "change-1 · ошибка ввода:",
+            "старый платёж → «—»; у поля —",
+            "сообщение",
+            "",
+            "change-2 · сброс: 3 000 000 ₽,",
+            "16 %, 240 мес.; сам не запускается",
+            "",
+            "change-3 · срок в годах: 2 года =",
+            "24 мес., тот же срок",
+          ] });
+        ed.show(2.05);   // заставка части держится первые 2 с
+        ed.caretOff(2.1);
+        ed.reveal(0, 0, 2.05);
+        ed.reveal(1, 3, t("Первое") - 0.2); ed.mark(1, t("ошибка ввода"), { tone: "accent" });
+        ed.reveal(5, 6, t("Второе") - 0.2); ed.mark(5, t("сброс формы"), { tone: "accent" });
+        ed.reveal(8, 9, t("Третье") - 0.2); ed.mark(8, t("срок в годах") - 0.3, { tone: "accent" });
+        read("План изменений", 2.05, DUR, 0);
+        read("change-1 ошибка ввода старый платёж у поля сообщение", t("Первое") - 0.2, DUR);
+        read("change-2 сброс 3 000 000 ₽ 16 % 240 мес сам не запускается", t("Второе") - 0.2, DUR);
+        read("change-3 срок в годах 2 года 24 мес тот же срок", t("Третье") - 0.2, DUR);
+
+        /* change-1: ошибка ввода — старый платёж уходит в тире, у поля сообщение */
+        const e1 = Kit.aside(S, { parent: s1, x: 1304, y: 215, w: 520, h: 225, tail: false,
+          html: '<div class="sc-err"><div class="cap"><span class="id">change-1</span>ошибка ввода<span class="msg">сообщение у поля</span></div>' +
+            '<div class="sc-fld"><span class="lb">срок</span><span class="in bad">абв</span></div>' +
+            '<div class="sc-fld"><span class="lb">платёж</span><span class="res"><span class="old">48 590 ₽</span><span class="dash" style="display:none">—</span></span></div></div>' });
+        const msg = e1.el.querySelector(".msg"), oldv = e1.el.querySelector(".old"), dash = e1.el.querySelector(".dash");
+        hide(msg);
+        e1.show(t("Первое"));
+        S.tl.set(oldv, { display: "none" }, t("тире"));
+        S.tl.set(dash, { display: "inline" }, t("тире"));
+        Kit.popIn(S, msg, t("сообщение") - 0.3);
+        read("change-1 ошибка ввода срок абв платёж 48 590 ₽", t("Первое"), t("тире"));
+        read("сообщение у поля", t("сообщение") - 0.3, DUR, 0);
+
+        /* change-2: сброс к исходным значениям из обращения — числа крупно */
+        const e2 = Kit.aside(S, { parent: s1, x: 1304, y: 452, w: 520, h: 202, tail: false,
+          html: '<div class="sc-num"><div class="cap"><span class="id">change-2</span>сброс формы</div>' +
+            '<div class="nums"><span class="nb n1">3 000 000 ₽<i>сумма</i></span><span class="nb n2">16 %<i>ставка</i></span><span class="nb n3">240 мес.<i>срок</i></span></div>' +
+            '<span class="src">исходные значения · обращение</span></div>' });
+        const nbs = [".n1", ".n2", ".n3"].map((c) => e2.el.querySelector(c));
+        const src = e2.el.querySelector(".src");
+        hide(...nbs, src);
+        e2.show(t("Второе"));
+        Kit.popIn(S, src, t("исходным значениям"));
+        Kit.popIn(S, nbs[0], t("три миллиона"));
+        Kit.popIn(S, nbs[1], t("шестнадцать"));
+        Kit.popIn(S, nbs[2], t("двести сорок"));
+        read("change-2 сброс формы", t("Второе"), DUR, 0);
+        read("исходные значения обращение 3 000 000 ₽ сумма 16 % ставка 240 мес срок", t("исходным значениям"), DUR);
+
+        /* change-3: срок в годах = тот же срок в месяцах */
+        const e3 = Kit.aside(S, { parent: s1, x: 1304, y: 664, w: 520, h: 144, tail: false,
+          html: '<div class="sc-eq"><div class="cap"><span class="id">change-3</span>срок в годах</div>' +
+            '<div class="big"><b>2 года</b> = <b>24 мес.</b></div></div>' });
+        e3.show(t("Третье"));
+        S.tl.to(e3.el.querySelector(".big"), { borderColor: Kit.token("--k-accent"), duration: 0.4 }, t("двадцать четыре"));
+        read("change-3 срок в годах 2 года 24 мес", t("Третье"), DUR);
+
+        /* ---- План 2: таблица с идентификаторами, порядком и источниками ---- */
+        const s2 = S.stage();
+        const T_S2 = Kit.swap(S, s1, s2, t("независимы") - 0.35);
+        const tr = (id, ch, res, dep) =>
+          '<div class="sc-tr"><div class="c id">' + id + '</div><div class="c">' + ch + '</div><div class="c">' + res + '</div><div class="c dep">' + dep + "</div></div>";
+        const tbl = Kit.aside(S, { parent: s2, x: 96, y: 215, w: 1728, h: 345, tail: false,
+          html: '<div class="sc-tbl"><div class="cap">План изменений · по смыслу независимы</div>' +
+            '<div class="sc-tr"><div class="sc-th">id</div><div class="sc-th">изменение</div><div class="sc-th">результат для человека</div><div class="sc-th">зависит от</div></div>' +
+            tr("change-1", "ошибка ввода: «—» + сообщение у поля", "расчёт видно как невыполненный", "—") +
+            tr("change-2", "сброс формы: 3 000 000 ₽ · 16 % · 240 мес.", "возврат к исходным значениям", "—") +
+            tr("change-3", "срок в годах: 2 года = 24 мес.", "тот же срок для расчёта", "—") + "</div>" });
+        tbl.show(T_S2 + 0.1);
+        read("План изменений по смыслу независимы id изменение результат для человека зависит от", T_S2 + 0.1, DUR);
+        read("change-1 ошибка ввода сообщение у поля расчёт видно как невыполненный", T_S2 + 0.1, DUR);
+        read("change-2 сброс формы 3 000 000 ₽ 16 % 240 мес возврат к исходным значениям", T_S2 + 0.1, DUR);
+        read("change-3 срок в годах 2 года 24 мес тот же срок для расчёта", T_S2 + 0.1, DUR);
+
+        /* Порядок — решение владельца, условие учебного примера */
+        const ord = Kit.aside(S, { parent: s2, x: 96, y: 580, w: 1728, h: 92, tail: false,
+          html: '<div class="sc-ord"><span class="k">порядок:</span><span class="st">ошибка ввода</span><span class="ar">→</span>' +
+            '<span class="st">сброс</span><span class="ar">→</span><span class="st">срок в годах</span>' +
+            '<span class="tag">решение владельца · условие учебного примера</span></div>' });
+        const otag = ord.el.querySelector(".tag"); hide(otag);
+        ord.show(t("Порядок"));
+        Kit.popIn(S, otag, t("решению владельца"));
+        read("порядок ошибка ввода сброс срок в годах", t("Порядок"), DUR);
+        read("решение владельца условие учебного примера", t("решению владельца"), DUR, 0);
+
+        /* Идентификаторы строк — подсветка колонки id */
+        const idCells = s2.querySelectorAll(".c.id");
+        S.tl.to(idCells, { borderColor: Kit.token("--k-accent"), duration: 0.4, stagger: 0.15 }, t("идентификаторы") + 0.2);
+        [t("change-1"), t("change-2"), t("change-3")].forEach((tt, i) => {
+          S.tl.to(idCells[i], { scale: 1.06, duration: 0.25, yoyo: true, repeat: 1 }, tt);
+        });
+
+        /* Каждая строка опирается на обращение или подтверждённый ответ */
+        const srcs = Kit.aside(S, { parent: s2, x: 96, y: 692, w: 1728, h: 105, tail: false,
+          html: '<div class="sc-srcs"><span class="k">источник каждой строки</span><span class="v">обращение</span><span>или</span><span class="v">подтверждённый ответ</span></div>' });
+        srcs.show(t("опирается на обращение") - 0.3);
+        read("источник каждой строки обращение или подтверждённый ответ", t("опирается на обращение"), DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

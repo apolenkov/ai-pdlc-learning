@@ -1,0 +1,92 @@
+[
+  {
+    "n": 1,
+    "title": "Зачем",
+    "step": null,
+    "chapter": "Зачем",
+    "start": 0,
+    "titleStart": 0,
+    "speechStart": 0,
+    "end": 20.4
+  },
+  {
+    "n": 2,
+    "title": "Три яруса",
+    "step": null,
+    "chapter": "Три яруса",
+    "start": 20.4,
+    "titleStart": 20.4,
+    "speechStart": 20.4,
+    "end": 37.3
+  },
+  {
+    "n": 3,
+    "title": "Семь шагов",
+    "step": null,
+    "chapter": "Семь шагов",
+    "start": 37.3,
+    "titleStart": 37.3,
+    "speechStart": 37.3,
+    "end": 57.9
+  },
+  {
+    "n": 4,
+    "title": "Встреча и аудит",
+    "step": null,
+    "chapter": "Встреча и аудит",
+    "start": 57.9,
+    "titleStart": 57.9,
+    "speechStart": 57.9,
+    "end": 77.3
+  },
+  {
+    "n": 5,
+    "title": "План изменений и обучение",
+    "step": null,
+    "chapter": "План изменений и обучение",
+    "start": 77.3,
+    "titleStart": 77.3,
+    "speechStart": 77.3,
+    "end": 96.5
+  },
+  {
+    "n": 6,
+    "title": "Внедрение первым потоком",
+    "step": null,
+    "chapter": "Внедрение первым потоком",
+    "start": 96.5,
+    "titleStart": 96.5,
+    "speechStart": 96.5,
+    "end": 112
+  },
+  {
+    "n": 7,
+    "title": "Метрики до и после",
+    "step": null,
+    "chapter": "Метрики до и после",
+    "start": 112,
+    "titleStart": 112,
+    "speechStart": 112,
+    "end": 125.4
+  },
+  {
+    "n": 8,
+    "title": "Выход",
+    "step": null,
+    "chapter": "Выход",
+    "start": 125.4,
+    "titleStart": 125.4,
+    "speechStart": 125.4,
+    "end": 141.2
+  },
+  {
+    "n": 9,
+    "title": "Финал",
+    "step": null,
+    "chapter": "Финал",
+    "start": 141.2,
+    "titleStart": 141.2,
+    "speechStart": 141.2,
+    "end": 150.4
+  }
+]

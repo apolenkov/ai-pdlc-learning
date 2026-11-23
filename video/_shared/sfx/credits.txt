@@ -1,0 +1,42 @@
+Звуковые эффекты — источники и лицензии (TASK-588, набор роликов)
+
+Файлы в этом каталоге: swipe.wav, hover.wav, subdrop.wav — из earshot forge (синтез при создании
+библиотеки, см. README.md).
+pop.wav, click.wav, keys.wav — добавлены 18.10 из Openverse (Freesound); поле `attribution`
+приведено дословно, как отдал API.
+
+--- pop.wav (появление) ---
+Источник: Openverse / Freesound
+Запись: "Pop, Low, A (H1).wav", автор InspectorJ
+Страница: https://freesound.org/people/InspectorJ/sounds/411639
+Скачано по url: https://cdn.freesound.org/previews/411/411639_5121236-hq.mp3 (546 мс)
+Лицензия: CC BY 4.0 — https://creativecommons.org/licenses/by/4.0/
+Attribution (дословно):
+"Pop, Low, A (H1).wav" by InspectorJ is licensed under CC BY 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/.
+
+--- click.wav (нажатие) ---
+Источник: Openverse / Freesound
+Запись: "UI Button Click", автор benzix2
+Страница: https://freesound.org/people/benzix2/sounds/467951
+Скачано по url: https://cdn.freesound.org/previews/467/467951_6769414-hq.mp3 (123 мс)
+Лицензия: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+Attribution (дословно):
+"UI Button Click" by benzix2 is marked with CC0 1.0. To view the terms, visit https://creativecommons.org/publicdomain/zero/1.0/.
+
+--- keys.wav (набор) ---
+Источник: Openverse / Freesound
+Запись: "Single clicks Keyboard Sound", автор StrikeWhistler
+Страница: https://freesound.org/people/StrikeWhistler/sounds/580786
+Скачано по url: https://cdn.freesound.org/previews/580/580786_8883972-hq.mp3 (14,117 с)
+Лицензия: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+Attribution (дословно):
+"Single clicks Keyboard Sound" by StrikeWhistler is marked with CC0 1.0. To view the terms, visit https://creativecommons.org/publicdomain/zero/1.0/.
+
+--- Обработка (не генерация) ---
+Все три файла: обрезка окна, выравнивание пиков по конвенции набора (pop −22 dBFS, click и keys
+−24 dBFS) и экспорт в 48 кГц моно PCM s16le. Эти три файла — не синтез, а готовые записи
+Freesound (swipe, hover и subdrop, напротив, синтезированы earshot forge при создании библиотеки). Для keys.wav окно 7,00–9,20 с исходника (5 нажатий, между ними тишина) — в одном
+запросе не нашлось клавиатуры короче 6,17 с.
+
+Атрибуцию CC BY для pop.wav показать на странице курса в разделе «Источники» со ссылкой на исходник и
+пометкой «обрезан, нормализован и сведён» (готовая строка — в credits ролика).

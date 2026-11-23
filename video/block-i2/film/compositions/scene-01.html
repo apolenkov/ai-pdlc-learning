@@ -1,0 +1,104 @@
+<template id="scene-01-template">
+  <div data-composition-id="scene-01" data-width="1920" data-height="1080" data-duration="46.8">
+    <style>
+      [data-composition-id="scene-01"] .sc-grp { height: 100%; padding: 6px 20px; display: flex; flex-direction: column; gap: 3px; }
+      [data-composition-id="scene-01"] .sc-grp .cap { font-size: 28px; font-weight: 800; display: flex; align-items: center; gap: 11px; }
+      [data-composition-id="scene-01"] .sc-grp .cap .n { width: 36px; height: 36px; border-radius: 11px; display: grid; place-items: center; background: var(--k-accent-tint); border: 2px solid var(--k-accent); color: var(--k-accent-soft); font-size: 24px; }
+      [data-composition-id="scene-01"] .sc-it { display: flex; align-items: center; gap: 10px; font-size: 22px; font-weight: 600; line-height: 1.1; }
+      [data-composition-id="scene-01"] .sc-it .src { margin-left: auto; flex: none; font-size: 18px; font-weight: 700; padding: 3px 10px; border-radius: 9px; border: 2px solid var(--k-line); color: var(--k-text-2); white-space: nowrap; }
+      [data-composition-id="scene-01"] .sc-sub { font-size: 20px; font-weight: 500; color: var(--k-text-2); line-height: 1.15; }
+      [data-composition-id="scene-01"] .sc-note { height: 100%; display: flex; align-items: center; padding: 0 24px; position: relative; }
+      [data-composition-id="scene-01"] .sc-note span { position: absolute; left: 24px; right: 24px; font-size: 27px; font-weight: 700; line-height: 1.15; }
+      [data-composition-id="scene-01"] .sc-note .b { color: var(--k-ok); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("01"), t = S.t, DUR = 46.8;
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+
+        Kit.header(S, { header: { mode: "parts", total: 3 }, chapter: "Кто затронут и что не меняем", step: 1, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* ---- слева: раздел «Границы» реального intent.md ---- */
+        const ed = Kit.editor(S, { parent: s1, x: 96, y: 215, w: 1180, h: 450, crumb: "калькулятор · учебный пример", visible: false,
+          tabs: [{ name: "intent.md", active: true }],
+          lines: [
+            "## Границы",
+            "Затронуты: клиенты сайта,",
+            "поддержка, экран калькулятора",
+            "Не меняем: формулу, комиссии,",
+            "соседние продукты банка",
+            "Ограничение: расчёт в браузере,",
+            "данные никуда не отправляем",
+          ] });
+        ed.show(2.05);   // заставка части держится первые 2 с
+        ed.caretOff(2.1);
+        ed.reveal(0, 0, 2.05);
+        const T_A = t("Называем затронутых"), T_N = t("что не меняем"), T_O = t("ограничения:");
+        ed.reveal(1, 2, T_A); ed.mark(1, T_A, { tone: "accent" });
+        ed.reveal(3, 4, T_N); ed.mark(3, T_N, { tone: "accent" });
+        ed.reveal(5, 6, T_O); ed.mark(5, T_O, { tone: "accent" });
+        read("Границы", 2.05, DUR, 0);
+        read("Затронуты клиенты сайта поддержка экран калькулятора", T_A, DUR);
+        read("Не меняем формулу комиссии соседние продукты банка", T_N, DUR);
+        read("Ограничение расчёт в браузере данные никуда не отправляем", T_O, DUR);
+
+        /* Неясная граница → вопрос владельцу; финал — спор закрыт заранее */
+        const note = Kit.aside(S, { parent: s1, x: 96, y: 690, w: 1180, h: 92, tail: false,
+          html: '<div class="sc-note"><span class="a">неясная граница → вопрос владельцу продукта, а не выдуманный ответ</span><span class="b">спор «мы это не просили» закрыт заранее</span></div>' });
+        const na = note.el.querySelector(".a"), nb = note.el.querySelector(".b");
+        hide(nb);
+        const T_UNCLEAR = t("Неясную границу"), T_DONE = t("закрываем заранее");
+        note.show(T_UNCLEAR);
+        S.tl.to(na, { autoAlpha: 0, duration: 0.3 }, T_DONE - 0.2);
+        S.tl.fromTo(nb, { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power3.out", immediateRender: false }, T_DONE - 0.1);
+        S.tl.to(note.el, { borderColor: Kit.token("--k-ok"), duration: 0.5 }, T_DONE);
+        read("неясная граница вопрос владельцу продукта а не выдуманный ответ", T_UNCLEAR, T_DONE);
+        read("спор мы это не просили закрыт заранее", T_DONE, DUR, 0);
+
+        /* ---- справа: три группы с пометками источника ---- */
+        const row = (txt, src) => '<div class="sc-it"><span>' + txt + '</span><span class="src">' + src + "</span></div>";
+        const g1 = Kit.aside(S, { parent: s1, x: 1304, y: 215, w: 520, h: 214, tail: false,
+          html: '<div class="sc-grp"><div class="cap"><span class="n">1</span>Затронуты</div>' +
+            row("клиенты сайта", "обращение") + row("поддержка", "ответ") + row("экран калькулятора", "обращение") +
+            '<div class="sc-sub">включая тех, чья работа меняется</div></div>' });
+        const g1sub = g1.el.querySelector(".sc-sub"); hide(g1sub);
+        g1.show(Math.max(T_A, 2.1));
+        Kit.popIn(S, g1sub, t("чья работа меняется"));
+        read("Затронуты клиенты сайта поддержка экран калькулятора обращение ответ", Math.max(T_A, 2.1), DUR);
+        read("включая тех чья работа меняется", t("чья работа меняется"), DUR, 0);
+
+        const g2 = Kit.aside(S, { parent: s1, x: 1304, y: 441, w: 520, h: 215, tail: false,
+          html: '<div class="sc-grp"><div class="cap"><span class="n">2</span>Не меняем</div>' +
+            row("формулу", "обращение") + row("комиссии", "обращение") + row("соседние продукты банка", "обращение") + "</div>" });
+        g2.show(T_N);
+        read("Не меняем формулу комиссии соседние продукты банка обращение", T_N, DUR);
+
+        const g3 = Kit.aside(S, { parent: s1, x: 1304, y: 664, w: 520, h: 142, tail: false,
+          html: '<div class="sc-grp"><div class="cap"><span class="n">3</span>Ограничение</div>' +
+            row("расчёт в браузере", "ответ") + row("данные не отправляем", "ответ") + "</div>" });
+        g3.show(T_O);
+        read("Ограничение расчёт в браузере данные не отправляем ответ", T_O, DUR);
+
+        /* Каждая граница опирается на источник: пометки загораются */
+        const srcs = s1.querySelectorAll(".src");
+        S.tl.to(srcs, { borderColor: Kit.token("--k-accent"), color: Kit.token("--k-accent-soft"), duration: 0.4, stagger: 0.06 }, t("опирается на обращение"));
+
+        /* «Раздел „Границы" называет…» — вся карточка и раздел в редакторе */
+        const T_SEC = t("Раздел «Границы»");
+        S.tl.to([g1.el, g2.el, g3.el], { borderColor: Kit.token("--k-accent"), duration: 0.5, stagger: 0.1 }, T_SEC);
+        ed.mark(0, T_SEC, { tone: "ok" });
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

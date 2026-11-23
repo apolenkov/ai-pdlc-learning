@@ -1,0 +1,11 @@
+.s1-h { position: absolute; left: 96px; top: 150px; width: 1728px; }
+.s1-h b { display: block; font-size: 128px; line-height: 1.04; font-weight: 800; letter-spacing: -.03em; }
+.s1-h span { display: block; margin-top: 14px; font-size: 62px; line-height: 1.15; font-weight: 700; color: var(--k-text-2); letter-spacing: -.015em; }
+.s1-h em { font-style: normal; color: var(--k-ok); }
+.s1-dot { position: absolute; width: 36px; height: 36px; border-radius: 50%; border: 5px solid var(--k-text); background: var(--k-bg); }
+.s1-dot.end { border-color: var(--k-ok); background: var(--k-ok-tint); }
+.s1-cap { position: absolute; font-size: 30px; font-weight: 700; color: var(--k-text-2); text-align: center; }
+.s1-fig { position: absolute; width: 228px; text-align: center; background: var(--k-bg); border-radius: 28px; padding: 6px 0 10px; }
+.s1-fig .f-person { margin: 0 auto; }
+.s1-fig .f-lab { margin-top: 10px; font-size: 34px; }
+.s1-spark { position: absolute; width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center; background: var(--k-panel); border: 4px solid var(--k-ok); box-shadow: 0 0 40px rgba(60,207,145,.55); }

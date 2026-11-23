@@ -1,0 +1,374 @@
+{
+  "sub": [
+    2.6
+  ],
+  "hover": [
+    [
+      3,
+      "Первый:"
+    ],
+    [
+      3,
+      "Второй:"
+    ],
+    [
+      3,
+      "Третий:"
+    ],
+    [
+      3,
+      "Четвёртый:"
+    ],
+    [
+      3,
+      "Пятый:"
+    ]
+  ],
+  "events": [
+    {
+      "kind": "subdrop",
+      "t": 2.6,
+      "pan": 0
+    },
+    {
+      "kind": "swipe",
+      "t": 9.42,
+      "pan": -0.5
+    },
+    {
+      "kind": "pop",
+      "t": 20.846,
+      "note": "00:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 22.516,
+      "note": "00:popIn"
+    },
+    {
+      "kind": "swipe",
+      "t": 26.223,
+      "note": "00:stageIn"
+    },
+    {
+      "kind": "pop",
+      "t": 31.831,
+      "note": "00:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 34.613,
+      "note": "00:popIn"
+    },
+    {
+      "kind": "swipe",
+      "t": 40.22,
+      "pan": 0.5
+    },
+    {
+      "kind": "pop",
+      "t": 40.96,
+      "note": "0b:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 43.867,
+      "note": "0b:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 47.455,
+      "note": "0b:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 49.866,
+      "note": "0b:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 55.035,
+      "note": "0b:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 56.495,
+      "note": "0b:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 60.007,
+      "note": "0b:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 61.587,
+      "note": "0b:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 62.849,
+      "note": "0b:popIn"
+    },
+    {
+      "kind": "swipe",
+      "t": 66.11999999999999,
+      "pan": -0.5
+    },
+    {
+      "kind": "pop",
+      "t": 69.745,
+      "note": "01:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 71.585,
+      "note": "01:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 73.084,
+      "note": "01:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 74.524,
+      "note": "01:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 77.256,
+      "note": "01:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 79.736,
+      "note": "01:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 81.559,
+      "note": "01:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 82.899,
+      "note": "01:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 84.655,
+      "note": "01:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 88.914,
+      "note": "01:popIn"
+    },
+    {
+      "kind": "swipe",
+      "t": 94.11999999999999,
+      "pan": 0.5
+    },
+    {
+      "kind": "pop",
+      "t": 96.35,
+      "note": "02:stageInSoft"
+    },
+    {
+      "kind": "pop",
+      "t": 97.905,
+      "note": "02:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 99.317,
+      "note": "02:popIn"
+    },
+    {
+      "kind": "swipe",
+      "t": 108.82,
+      "pan": -0.5
+    },
+    {
+      "kind": "pop",
+      "t": 111.1,
+      "note": "03:stageInSoft"
+    },
+    {
+      "kind": "hover",
+      "t": 113.2749,
+      "pan": -0.35,
+      "phraseStart": 113.0749
+    },
+    {
+      "kind": "hover",
+      "t": 120.2603,
+      "pan": 0.35,
+      "phraseStart": 120.0603
+    },
+    {
+      "kind": "pop",
+      "t": 122.304,
+      "note": "03:popIn"
+    },
+    {
+      "kind": "hover",
+      "t": 125.4616,
+      "pan": -0.35,
+      "phraseStart": 125.2616
+    },
+    {
+      "kind": "pop",
+      "t": 129.221,
+      "note": "03:popIn"
+    },
+    {
+      "kind": "hover",
+      "t": 131.68849999999998,
+      "pan": 0.35,
+      "phraseStart": 131.4885
+    },
+    {
+      "kind": "pop",
+      "t": 136.391,
+      "note": "03:popIn"
+    },
+    {
+      "kind": "hover",
+      "t": 137.9423,
+      "pan": -0.35,
+      "phraseStart": 137.7423
+    },
+    {
+      "kind": "swipe",
+      "t": 144.625,
+      "note": "03:stageIn"
+    },
+    {
+      "kind": "pop",
+      "t": 146.34,
+      "note": "03:popIn"
+    },
+    {
+      "kind": "swipe",
+      "t": 150.51999999999998,
+      "pan": 0.5
+    },
+    {
+      "kind": "pop",
+      "t": 156.494,
+      "note": "04:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 157.776,
+      "note": "04:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 162.881,
+      "note": "04:popIn"
+    },
+    {
+      "kind": "swipe",
+      "t": 166.71999999999997,
+      "pan": -0.5
+    },
+    {
+      "kind": "pop",
+      "t": 168.9,
+      "note": "05:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 173.769,
+      "note": "05:popIn"
+    },
+    {
+      "kind": "swipe",
+      "t": 178.074,
+      "note": "05:stageIn"
+    },
+    {
+      "kind": "pop",
+      "t": 188.114,
+      "note": "05:popIn"
+    },
+    {
+      "kind": "swipe",
+      "t": 191.884,
+      "note": "05:stageIn"
+    },
+    {
+      "kind": "swipe",
+      "t": 196.11999999999998,
+      "pan": 0.5
+    },
+    {
+      "kind": "pop",
+      "t": 198.3,
+      "note": "06:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 220.129,
+      "note": "06:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 226.269,
+      "note": "06:popIn"
+    },
+    {
+      "kind": "swipe",
+      "t": 245.41999999999996,
+      "pan": -0.5
+    },
+    {
+      "kind": "pop",
+      "t": 247.6,
+      "note": "07:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 250.194,
+      "note": "07:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 256.668,
+      "note": "07:popIn"
+    },
+    {
+      "kind": "swipe",
+      "t": 261.61999999999995,
+      "pan": 0.5
+    },
+    {
+      "kind": "pop",
+      "t": 264.52,
+      "note": "08:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 268.733,
+      "note": "08:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 270.38,
+      "note": "08:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 275.246,
+      "note": "08:popIn"
+    },
+    {
+      "kind": "subdrop",
+      "t": 282.59999999999997,
+      "pan": 0
+    }
+  ]
+}

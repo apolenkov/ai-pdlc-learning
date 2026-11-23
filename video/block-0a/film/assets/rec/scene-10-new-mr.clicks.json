@@ -1,0 +1,44 @@
+[
+ {
+  "t": 1.02,
+  "x": 1804,
+  "y": 150,
+  "label": "New merge request"
+ },
+ {
+  "t": 4.59,
+  "x": 914,
+  "y": 271,
+  "label": "Source branch"
+ },
+ {
+  "t": 5.66,
+  "x": 902,
+  "y": 428,
+  "label": "limit-rows"
+ },
+ {
+  "t": 6.9,
+  "x": 490,
+  "y": 419,
+  "label": "Compare branches and continue"
+ },
+ {
+  "t": 11.07,
+  "x": 1120,
+  "y": 289,
+  "label": "Title"
+ },
+ {
+  "t": 12.06,
+  "x": 1120,
+  "y": 601,
+  "label": "Description"
+ },
+ {
+  "t": 14.01,
+  "x": 445,
+  "y": 736,
+  "label": "Create merge request"
+ }
+]

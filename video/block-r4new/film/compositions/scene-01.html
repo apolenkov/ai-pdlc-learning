@@ -1,0 +1,108 @@
+<template id="scene-01-template">
+  <div data-composition-id="scene-01" data-width="1920" data-height="1080" data-duration="31.9">
+    <style>
+      [data-composition-id="scene-01"] .io-h { position: absolute; top: 206px; font-size: 40px; font-weight: 800; line-height: 1.1; color: var(--k-accent-soft); }
+      [data-composition-id="scene-01"] .io-t { box-sizing: border-box; padding: 0 28px; display: flex; flex-direction: column; justify-content: center; }
+      [data-composition-id="scene-01"] .io-n { font-size: 44px; font-weight: 800; line-height: 1.15; }
+      [data-composition-id="scene-01"] .io-m { font-family: var(--k-font-mono); font-size: 32px; font-weight: 500; line-height: 1.2; margin-top: 6px; color: var(--k-accent-soft); }
+      [data-composition-id="scene-01"] .io-ar { position: absolute; left: 876px; top: 330px; width: 168px; text-align: center; font-size: 110px; font-weight: 300; line-height: 1; color: var(--k-accent); }
+      [data-composition-id="scene-01"] .sp { box-sizing: border-box; padding: 0 34px; display: flex; flex-direction: column; justify-content: center; border-color: #ff8a8a; background: rgba(255, 138, 138, 0.10); }
+      [data-composition-id="scene-01"] .sp-t { font-size: 54px; font-weight: 800; line-height: 1.1; }
+      [data-composition-id="scene-01"] .sp-r { display: flex; align-items: center; gap: 28px; margin-top: 18px; }
+      [data-composition-id="scene-01"] .sp-p { position: relative; font-family: var(--k-font-mono); font-size: 36px; font-weight: 500; line-height: 1.2; color: var(--k-text-2); }
+      [data-composition-id="scene-01"] .sp-l { position: absolute; left: -8px; right: -8px; top: 54%; height: 3px; border-radius: 3px; background: #ff8a8a; }
+      [data-composition-id="scene-01"] .sp-c { padding: 4px 18px; border: 3px solid #ff8a8a; border-radius: 12px; color: #ff8a8a; font-size: 32px; font-weight: 700; line-height: 1.2; white-space: nowrap; }
+      [data-composition-id="scene-01"] .mk { box-sizing: border-box; padding: 0 34px; display: flex; align-items: center; gap: 28px; border-color: var(--k-ok); background: var(--k-ok-tint); }
+      [data-composition-id="scene-01"] .mk-l { font-size: 34px; font-weight: 700; color: var(--k-ok); min-width: 250px; }
+      [data-composition-id="scene-01"] .mk-t { font-size: 42px; font-weight: 700; line-height: 1.1; }
+      [data-composition-id="scene-01"] .ot { box-sizing: border-box; padding: 0 34px; display: flex; flex-direction: column; justify-content: center; }
+      [data-composition-id="scene-01"] .ot-h { font-size: 40px; font-weight: 800; line-height: 1.1; color: var(--k-accent-soft); }
+      [data-composition-id="scene-01"] .ot-r { display: grid; grid-template-columns: 1040px 1fr; align-items: center; margin-top: 14px; }
+      [data-composition-id="scene-01"] .ot-a { font-size: 40px; font-weight: 600; line-height: 1.15; }
+      [data-composition-id="scene-01"] .ot-b { font-size: 40px; font-weight: 800; line-height: 1.15; color: var(--k-accent-soft); white-space: nowrap; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("01"), t = S.t, DUR = 31.9;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const div = (cls, html, parent) => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; parent.appendChild(el); return el; };
+
+        Kit.header(S, { header: { mode: "parts", total: 6 }, chapter: "Вход и выход", step: 1, duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const T_OUT = 10.8, T_IN = 11.3;   // колонки уходят после «изменение add-monthly-payment», «Главную» звучит с 11,05
+
+        /* ---------- план 1: вход → выход ---------- */
+        const sA = S.stage(); gsap.set(sA, { autoAlpha: 1 });
+
+        const hIn = div("io-h", "Вход", sA); hIn.style.left = "96px"; hide(hIn); Kit.popIn(S, hIn, 0.1);
+        const hOut = div("io-h", "Выход", sA); hOut.style.left = "1044px"; hide(hOut); Kit.popIn(S, hOut, t("Выход"));
+
+        const tile = (x, y, title, mono, at, slide) => {
+          const a = Kit.aside(S, { parent: sA, x, y, w: 780, h: 150, tail: false, html:
+            `<div class="io-n">${title}</div>` + (mono ? `<div class="io-m">${mono}</div>` : "") });
+          a.el.classList.add("io-t");
+          a.show(at);
+          if (slide) S.tl.fromTo(a.el, { x: 70 }, { x: 0, duration: 0.7, ease: "power3.out", immediateRender: false }, at);
+          read(title + " " + (mono || ""), at, T_OUT);
+          return a;
+        };
+        tile(96, 262, "Пустой репозиторий", "README.md", 0.1);   // первые 2 с закрыты заставкой части: плитка стоит уже к её уходу
+        tile(96, 442, "Запрос владельца продукта", "", t("владелец"));
+        tile(96, 622, "Редактор с моделью", "", t("редактор"));
+
+        const arr = div("io-ar", "→", sA); hide(arr); Kit.popIn(S, arr, t("Выход") - 0.3);
+        tile(1044, 262, "Окружение метарепозитория", "", t("окружение"), true);
+        tile(1044, 442, "Принятое изменение", "add-monthly-payment", t("принятое") - 0.4, true);
+
+        Kit.stageOut(S, sA, T_OUT);
+
+        /* ---------- план 2: спецификацию руками не правят; другой шаг ---------- */
+        const sB = S.stage();
+        Kit.stageIn(S, sB, T_IN);
+
+        const sp = Kit.aside(S, { parent: sB, x: 96, y: 230, w: 1728, h: 200, tail: false, html:
+          '<div class="sp-t">Главную спецификацию руками не правят</div>' +
+          '<div class="sp-r"><div class="sp-p">openspec/specs/credit-calculator/spec.md<i class="sp-l"></i></div><div class="sp-c">даже первую</div></div>' });
+        sp.el.classList.add("sp");
+        sp.show(T_IN + 0.1);
+        const line = sp.el.querySelector(".sp-l"); gsap.set(line, { scaleX: 0, transformOrigin: "left center" });
+        S.tl.to(line, { scaleX: 1, duration: 0.45, ease: "power2.out" }, t("не правят"));
+        const chip = sp.el.querySelector(".sp-c"); hide(chip); Kit.popIn(S, chip, t("даже первую"));
+        read("Главную спецификацию руками не правят openspec specs credit-calculator spec.md", T_IN + 0.1, DUR);
+        read("даже первую", t("даже первую"), DUR);
+
+        const mk = Kit.aside(S, { parent: sB, x: 96, y: 462, w: 1728, h: 110, tail: false, html:
+          '<div class="mk-t">создаст OpenSpec после реализации и архива — на этапе разработки</div>' });
+        mk.el.classList.add("mk");
+        mk.show(t("опенспек"));
+        S.tl.fromTo(mk.el, { x: 90 }, { x: 0, duration: 0.7, ease: "power3.out", immediateRender: false }, t("опенспек"));
+        read("создаст OpenSpec после реализации и архива на этапе разработки", t("опенспек"), DUR);
+
+        const ot = Kit.aside(S, { parent: sB, x: 96, y: 590, w: 1728, h: 280, tail: false, html:
+          '<div class="ot-h">Другой шаг?</div>' +
+          '<div class="ot-r"><div class="ot-a">работающий продукт со старыми документами</div><div class="ot-b">→ Шаг 6б<br>действующий продукт</div></div>' +
+          '<div class="ot-r"><div class="ot-a">главная спецификация уже есть</div><div class="ot-b">→ Шаг 5<br>Контекст продукта</div></div>' });
+        ot.el.classList.add("ot");
+        const rows = Array.from(ot.el.querySelectorAll(".ot-r")), cells = rows.map((r) => Array.from(r.children));
+        hide(...cells.flat());
+        ot.show(t("Если вам"));
+        read("Другой шаг?", t("Если вам"), DUR);
+        Kit.popIn(S, cells[0][0], t("работающий")); Kit.popIn(S, cells[0][1], t("выберите"));
+        Kit.popIn(S, cells[1][0], t("если главная")); Kit.popIn(S, cells[1][1], t("шаг пять"));
+        read("работающий продукт со старыми документами", t("работающий"), DUR);
+        read("Шаг 6б действующий продукт", t("выберите"), DUR);
+        read("главная спецификация уже есть", t("если главная"), DUR);
+        read("Шаг 5 Контекст продукта", t("шаг пять"), DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

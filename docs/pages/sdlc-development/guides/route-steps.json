@@ -1,0 +1,166 @@
+[
+  {
+    "id": "0",
+    "code": "П1",
+    "number": "",
+    "group": "prep",
+    "title": "Зачем меняем процесс",
+    "href": "p1-zachem.html",
+    "seconds": 406.9,
+    "branchOf": null
+  },
+  {
+    "id": "0a",
+    "code": "П2",
+    "number": "",
+    "group": "prep",
+    "title": "Markdown, Git, GitLab",
+    "href": "p2-git.html",
+    "seconds": null,
+    "branchOf": null
+  },
+  {
+    "id": "sdd",
+    "code": "П3",
+    "number": "",
+    "group": "prep",
+    "title": "SDD и OpenSpec",
+    "href": "p3-sdd.html",
+    "seconds": 237.5,
+    "branchOf": null
+  },
+  {
+    "id": "metarepo",
+    "code": "П4",
+    "number": "",
+    "group": "prep",
+    "title": "Мета‑репозиторий",
+    "href": "p4-metarepository.html",
+    "seconds": 225,
+    "branchOf": null
+  },
+  {
+    "id": "1",
+    "code": "С1",
+    "number": "1",
+    "group": "practice",
+    "title": "Требования в Git",
+    "href": "s1-git.html",
+    "seconds": 283.5,
+    "branchOf": null
+  },
+  {
+    "id": "2",
+    "code": "С2",
+    "number": "2",
+    "group": "practice",
+    "title": "Проверяем и согласуем",
+    "href": "s2-review.html",
+    "seconds": 284.5,
+    "branchOf": null
+  },
+  {
+    "id": "3",
+    "code": "С3",
+    "number": "3",
+    "group": "practice",
+    "title": "Изменение в OpenSpec",
+    "href": "s3-openspec.html",
+    "seconds": 306.4,
+    "branchOf": null
+  },
+  {
+    "id": "4-team",
+    "code": "С4-команда",
+    "number": "4",
+    "group": "practice",
+    "title": "Команда продукта",
+    "href": "s4-team.html",
+    "seconds": 273.2,
+    "branchOf": null
+  },
+  {
+    "id": "3-star",
+    "code": "С5",
+    "number": "5",
+    "group": "practice",
+    "title": "Контекст продукта",
+    "href": "s4-product.html",
+    "seconds": 304.7,
+    "branchOf": null
+  },
+  {
+    "id": "4-new",
+    "code": "С4а",
+    "number": "6а",
+    "group": "practice",
+    "title": "Начинаем требования для нового продукта",
+    "href": "s4a-new.html",
+    "seconds": 270.3,
+    "branchOf": "6"
+  },
+  {
+    "id": "4-legacy",
+    "code": "С4б",
+    "number": "6б",
+    "group": "practice",
+    "title": "Описываем действующий продукт",
+    "href": "s4b-legacy.html",
+    "seconds": 299.7,
+    "branchOf": "6"
+  },
+  {
+    "id": "delivery",
+    "code": "Д1",
+    "number": "7",
+    "group": "after",
+    "title": "Практикум разработки",
+    "href": "d1-delivery.html",
+    "seconds": 290.3,
+    "branchOf": null
+  },
+  {
+    "id": "i1",
+    "code": "И1",
+    "number": "1",
+    "group": "practice",
+    "title": "Проблема и эффект",
+    "href": "i1-effect.html",
+    "seconds": 193.7,
+    "branchOf": null,
+    "course": "intent"
+  },
+  {
+    "id": "i2",
+    "code": "И2",
+    "number": "2",
+    "group": "practice",
+    "title": "Границы и вопросы",
+    "href": "i2-bounds.html",
+    "seconds": 181,
+    "branchOf": null,
+    "course": "intent"
+  },
+  {
+    "id": "i3",
+    "code": "И3",
+    "number": "3",
+    "group": "practice",
+    "title": "План изменений",
+    "href": "i3-plan.html",
+    "seconds": 200.6,
+    "branchOf": null,
+    "course": "intent"
+  },
+  {
+    "id": "i4",
+    "code": "И4",
+    "number": "4",
+    "group": "practice",
+    "title": "Проверка и одобрение",
+    "href": "i4-accept.html",
+    "seconds": 192.3,
+    "branchOf": null,
+    "course": "intent"
+  }
+]

@@ -1,0 +1,152 @@
+<template id="scene-00-template">
+  <div data-composition-id="scene-00" data-width="1920" data-height="1080" data-duration="30.4">
+    <style>
+      [data-composition-id="scene-00"] .d0-abs { position: absolute; }
+      [data-composition-id="scene-00"] .d0-lab { font-size: 34px; font-weight: 600; color: var(--k-text-2); line-height: 1.2; }
+      [data-composition-id="scene-00"] .d0-req { left: 96px; top: 270px; width: 780px; height: 290px; padding: 26px 32px; }
+      [data-composition-id="scene-00"] .d0-req .big { font-size: 44px; font-weight: 800; line-height: 1.15; letter-spacing: -0.01em; margin-top: 18px; white-space: nowrap; }
+      [data-composition-id="scene-00"] .d0-ok { display: inline-flex; align-items: center; gap: 12px; margin-top: 28px; padding: 8px 22px; border-radius: 18px; border: 2px solid var(--k-ok); background: var(--k-ok-tint); color: var(--k-ok); font-size: 36px; font-weight: 700; }
+      [data-composition-id="scene-00"] .d0-ok svg { width: 34px; height: 34px; }
+      [data-composition-id="scene-00"] .d0-calc { left: 940px; top: 250px; width: 884px; height: 450px; padding: 24px 32px; }
+      [data-composition-id="scene-00"] .d0-field { position: relative; height: 112px; margin: 10px 0 22px; border-radius: 18px; border: 2px solid var(--k-line); background: var(--k-panel-2); display: flex; align-items: center; padding: 0 30px; }
+      [data-composition-id="scene-00"] .d0-val { font-size: 72px; font-weight: 800; letter-spacing: -0.01em; color: var(--k-accent-soft); }
+      [data-composition-id="scene-00"] .d0-res { font-size: 46px; font-weight: 700; padding: 6px 26px; border-radius: 18px; border: 2px solid var(--k-accent); background: var(--k-accent-tint); color: var(--k-accent-soft); }
+      [data-composition-id="scene-00"] .d0-tasks { left: 96px; top: 232px; width: 780px; height: 392px; padding: 22px 28px; }
+      [data-composition-id="scene-00"] .d0-th { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+      [data-composition-id="scene-00"] .d0-model { padding: 4px 18px; border-radius: 16px; border: 2px solid var(--k-text-2); color: var(--k-text-2); font-size: 30px; font-weight: 600; }
+      [data-composition-id="scene-00"] .d0-task { display: flex; align-items: center; gap: 22px; height: 74px; border-top: 2px solid var(--k-line); font-size: 36px; font-weight: 600; }
+      [data-composition-id="scene-00"] .d0-box { position: relative; width: 46px; height: 46px; border-radius: 12px; border: 3px solid var(--k-text-2); flex: none; }
+      [data-composition-id="scene-00"] .d0-box svg { position: absolute; left: 3px; top: 3px; width: 34px; height: 34px; }
+      [data-composition-id="scene-00"] .d0-tests { left: 920px; top: 232px; width: 904px; height: 92px; padding: 0 30px; display: flex; align-items: center; justify-content: space-between; }
+      [data-composition-id="scene-00"] .d0-tests .n, [data-composition-id="scene-00"] .d0-sc .n { font-size: 40px; font-weight: 700; }
+      [data-composition-id="scene-00"] .d0-pill { display: inline-flex; align-items: center; gap: 12px; padding: 6px 22px; border-radius: 18px; border: 2px solid var(--k-ok); background: var(--k-ok-tint); color: var(--k-ok); font-size: 36px; font-weight: 700; }
+      [data-composition-id="scene-00"] .d0-pill svg { width: 32px; height: 32px; }
+      [data-composition-id="scene-00"] .d0-sc { left: 920px; top: 340px; width: 904px; height: 92px; padding: 0 30px; display: flex; align-items: center; gap: 24px; }
+      [data-composition-id="scene-00"] .d0-sc .v { font-size: 44px; font-weight: 800; letter-spacing: -0.01em; }
+      [data-composition-id="scene-00"] .d0-q { position: absolute; right: 22px; top: 14px; width: 62px; height: 62px; border-radius: 50%; background: var(--k-accent); color: var(--k-on-accent); font-size: 44px; font-weight: 800; line-height: 62px; text-align: center; }
+      [data-composition-id="scene-00"] .d0-cols { left: 920px; top: 442px; width: 904px; height: 224px; }
+      [data-composition-id="scene-00"] .d0-bar { position: absolute; width: 230px; border-radius: 18px 18px 0 0; border: 3px solid var(--k-text-2); border-bottom: 0; background: rgba(163, 169, 180, 0.22); transform-origin: 50% 100%; }
+      [data-composition-id="scene-00"] .d0-bar.b2 { border-color: var(--k-text); background: rgba(238, 240, 243, 0.3); }
+      [data-composition-id="scene-00"] .d0-cl { position: absolute; top: 182px; width: 230px; text-align: center; font-size: 36px; font-weight: 700; }
+      [data-composition-id="scene-00"] .d0-ne { position: absolute; left: 389px; top: 40px; width: 126px; height: 126px; }
+      [data-composition-id="scene-00"] .d0-base { position: absolute; left: 70px; right: 70px; top: 176px; height: 3px; background: var(--k-line); }
+      [data-composition-id="scene-00"] .d0-p1 { left: 96px; top: 652px; height: 66px; display: flex; align-items: center; gap: 22px; }
+      [data-composition-id="scene-00"] .d0-chip { padding: 8px 24px; border-radius: 18px; border: 2px solid var(--k-text-2); font-size: 34px; font-weight: 600; white-space: nowrap; }
+      [data-composition-id="scene-00"] .d0-ar { width: 54px; height: 34px; color: var(--k-text-2); }
+      [data-composition-id="scene-00"] .d0-p2 { left: 96px; top: 728px; width: 1728px; height: 80px; display: flex; align-items: center; justify-content: center; border-color: var(--k-accent); background: var(--k-accent-tint); font-size: 48px; font-weight: 800; padding: 0 30px; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("00"), t = S.t, DUR = 30.4;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const div = (cls, html, parent) => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; parent.appendChild(el); return el; };
+        const CHECK = (c) => `<svg viewBox="0 0 56 56" fill="none" stroke="${c || "currentColor"}" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M10 29l12 12 24-26"/></svg>`;
+        const ARROW = '<svg class="d0-ar" viewBox="0 0 54 34" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17h44M34 5l14 12-14 12"/></svg>';
+        const NE = '<svg class="d0-ne" viewBox="0 0 126 126" fill="none" stroke="#eef0f3" stroke-width="9" stroke-linecap="round"><path pathLength="1" d="M26 48h74"/><path pathLength="1" d="M26 80h74"/><path pathLength="1" d="M82 20L44 106"/></svg>';
+        const T_OUT_A = t("Раньше") - 0.05;
+
+        Kit.header(S, { header: { mode: "parts", total: 7 }, chapter: "Проблема → цель", step: null, mode: "intro", duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        /* ---- План A: требования приняты, а калькулятор принимает 9 999 ---- */
+        const sA = S.stage(); gsap.set(sA, { autoAlpha: 1 });
+        const T0 = t("Принятое");   // the first phrase names the film to watch before this one
+        const plate = Kit.aside(S, { parent: sA, x: 96, y: 400, w: 1300, tail: false, title: "Перед этим", text: "Требования в контексте продукта" });
+        plate.show(0); plate.hide(T0 - 0.1);
+        read("Перед этим Требования в контексте продукта", 0, T0 - 0.1, 0.2);
+        const req = div("k-card d0-abs d0-req", '<div class="d0-lab">Требования</div><div class="big">Минимум суммы — 10 000 ₽</div>' + `<span class="d0-ok">${CHECK()}принято</span>`, sA);
+        const okChip = req.querySelector(".d0-ok");
+        hide(req, okChip);
+        S.tl.fromTo(req, { autoAlpha: 0, x: -90 }, { autoAlpha: 1, x: 0, duration: 0.8, ease: "power3.out", immediateRender: false }, T0 + 0.1);
+        Kit.popIn(S, okChip, t("изменение") + 0.1);
+        read("Требования Минимум суммы 10 000 ₽ принято", t("изменение") + 0.1, T_OUT_A);
+
+        const calc = div("k-card d0-abs d0-calc", '<div class="d0-lab">Калькулятор</div><div class="d0-lab" style="margin-top:16px">Сумма</div><div class="d0-field"><span class="d0-val">9 999 ₽</span></div><div class="d0-lab">Результат</div><div class="d0-field"><span class="d0-res">принято</span></div>', sA);
+        const val = calc.querySelector(".d0-val"), res = calc.querySelector(".d0-res");
+        hide(calc, val, res);
+        S.tl.fromTo(calc, { autoAlpha: 0, scale: 1.06, filter: "blur(14px)" }, { autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: 0.7, ease: "power3.out", immediateRender: false }, t("калькулятор") - 0.1);
+        S.tl.fromTo(val, { autoAlpha: 0, y: 30, scale: 0.9 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(2)", immediateRender: false }, t("девять"));
+        Kit.popIn(S, res, t("девятьсот") + 0.1);
+        S.tl.to(calc, { borderColor: Kit.token("--k-accent"), duration: 0.5 }, t("девятьсот") + 0.1);
+        read("9 999 принято", t("девять"), T_OUT_A);
+
+        /* ---- План B: галочки модели, зелёные тесты, граница без проверки, тестов не равно сценариев ---- */
+        const sB = S.stage();
+        const T_B = Kit.swap(S, sA, sB, T_OUT_A);
+        const grp = div("d0-abs", "", sB); grp.style.cssText = "left:0;top:0;width:1920px;height:1080px";
+        const names = ["Минимум суммы", "Максимум суммы", "Сообщение об ошибке", "Очистка результата"];
+        const tasks = div("k-card d0-abs d0-tasks", '<div class="d0-th"><span class="d0-lab">Задачи</span><span class="d0-model">отметила модель</span></div>' + names.map((n) => `<div class="d0-task"><span class="d0-box">${CHECK("#eef0f3")}</span>${n}</div>`).join(""), grp);
+        const model = tasks.querySelector(".d0-model"), ticks = Array.from(tasks.querySelectorAll(".d0-box svg"));
+        hide(tasks, model, ...ticks);
+        S.tl.fromTo(tasks, { autoAlpha: 0, x: -70 }, { autoAlpha: 1, x: 0, duration: 0.7, ease: "power3.out", immediateRender: false }, t("модель") - 0.05);
+        Kit.popIn(S, model, t("сама"));
+        const T_TICK = t("ставила");
+        ticks.forEach((tk, i) => {
+          const at = T_TICK + i * 0.25;
+          S.tl.set(tk, { autoAlpha: 1 }, at);
+          S.tl.fromTo(tk.querySelector("path"), { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.35, ease: "power2.out", immediateRender: false }, at);
+        });
+
+        const tests = div("k-card d0-abs d0-tests", `<span class="n">Тесты</span><span class="d0-pill">${CHECK()}все прошли</span>`, grp);
+        const pill = tests.querySelector(".d0-pill");
+        hide(tests, pill);
+        S.tl.fromTo(tests, { autoAlpha: 0, x: 80 }, { autoAlpha: 1, x: 0, duration: 0.7, ease: "power3.out", immediateRender: false }, t("Тесты") - 0.05);
+        Kit.popIn(S, pill, t("зелёные"));
+        read("Тесты все прошли", t("зелёные"), t("Покажем"));
+
+        const sc = div("k-card d0-abs d0-sc", '<span class="n" style="color:var(--k-text-2)">Сценарий</span><span class="v">100 000 001 ₽</span><span class="d0-q">?</span>', grp);
+        const q = sc.querySelector(".d0-q");
+        hide(sc, q);
+        S.tl.fromTo(sc, { autoAlpha: 0, y: 40, scale: 0.96 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(1.6)", immediateRender: false }, t("границу") - 0.1);
+        S.tl.fromTo(q, { autoAlpha: 0, scale: 0, rotation: -140 }, { autoAlpha: 1, scale: 1, rotation: 0, duration: 0.6, ease: "back.out(2)", immediateRender: false }, t("неизвестно:"));
+        read("Сценарий 100 000 001 ₽", t("границу") - 0.1, t("Покажем"));
+
+        // two columns of different height: tests and scenarios
+        const cols = div("d0-abs d0-cols", "", grp);
+        const base = div("d0-base", "", cols);
+        const b1 = div("d0-bar b1", "", cols), b2 = div("d0-bar b2", "", cols);
+        b1.style.cssText = "left:90px;top:96px;height:80px"; b2.style.cssText = "left:540px;top:26px;height:150px";
+        const l1 = div("d0-cl", "тестов", cols), l2 = div("d0-cl", "сценариев", cols);
+        l1.style.left = "90px"; l2.style.left = "540px"; l2.style.color = "var(--k-text)"; l1.style.color = "var(--k-text-2)";
+        cols.insertAdjacentHTML("beforeend", NE);
+        const ne = cols.querySelector(".d0-ne");
+        hide(cols, base, b1, b2, l1, l2, ne);
+        gsap.set(cols, { autoAlpha: 1 });
+        const T_C1 = t("тестов"), T_NE = t("не равно"), T_C2 = t("сценариев");
+        S.tl.set(base, { autoAlpha: 1 }, T_C1 - 0.1);
+        S.tl.fromTo(b1, { autoAlpha: 0, scaleY: 0 }, { autoAlpha: 1, scaleY: 1, duration: 0.6, ease: "power3.out", immediateRender: false }, T_C1);
+        Kit.popIn(S, l1, T_C1 + 0.1);
+        S.tl.set(ne, { autoAlpha: 1 }, T_NE);
+        ne.querySelectorAll("path").forEach((p, i) => S.tl.fromTo(p, { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out", immediateRender: false }, T_NE + i * 0.12));
+        S.tl.fromTo(b2, { autoAlpha: 0, scaleY: 0 }, { autoAlpha: 1, scaleY: 1, duration: 0.6, ease: "back.out(1.5)", immediateRender: false }, T_C2 - 0.1);
+        Kit.popIn(S, l2, T_C2 + 0.1);
+        read("тестов сценариев", T_C1, t("Покажем,") + 2);
+
+        // "Покажем": everything quiets down, the plan appears
+        const T_SHOW = t("Покажем,");
+        S.tl.to(grp, { opacity: 0.4, duration: 0.6 }, T_SHOW);
+        S.tl.to(q, { autoAlpha: 0, scale: 0.6, duration: 0.4, ease: "power2.in" }, T_SHOW);
+        const p1 = div("d0-abs d0-p1", `<span class="d0-chip c1">Принятое изменение</span>${ARROW}<span class="d0-chip c2">Код</span>`, sB);
+        const c1 = p1.querySelector(".c1"), c2 = p1.querySelector(".c2"), ar = p1.querySelector(".d0-ar");
+        hide(c1, c2, ar);
+        Kit.popIn(S, c1, t("принятое") - 0.05);
+        S.tl.fromTo(ar, { autoAlpha: 0, x: -20 }, { autoAlpha: 1, x: 0, duration: 0.5, ease: "power3.out", immediateRender: false }, t("до кода") - 0.05);
+        S.tl.fromTo(c2, { autoAlpha: 0, scale: 0.8 }, { autoAlpha: 1, scale: 1, duration: 0.6, ease: "back.out(2)", immediateRender: false }, t("кода"));
+        const p2 = div("k-card d0-abs d0-p2", "Каждый сценарий — с проверкой?", sB);
+        hide(p2);
+        const T_P2 = t("каждого") - 0.1;
+        S.tl.fromTo(p2, { autoAlpha: 0, y: 14, scale: 0.97 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.7, ease: "power3.out", immediateRender: false }, T_P2);
+        read("Принятое изменение Код", t("принятое"), DUR);
+        read("Каждый сценарий с проверкой", T_P2, DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

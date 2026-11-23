@@ -1,0 +1,30 @@
+<template id="scene-06-template">
+  <div data-composition-id="scene-06" data-width="1920" data-height="1080" data-duration="5.9">
+    <style>
+      [data-composition-id="scene-06"] .ba-h { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 58px; font-weight: 800; }
+      [data-composition-id="scene-06"] .ba-card { position: absolute; left: 96px; top: 300px; width: 1728px; padding: 44px 48px; border: 2px solid var(--k-ok); border-radius: 28px; background: var(--k-panel); }
+      [data-composition-id="scene-06"] .ba-t { font-size: 52px; font-weight: 800; }
+      [data-composition-id="scene-06"] .ba-t span { color: var(--k-ok); }
+      [data-composition-id="scene-06"] .ba-d { margin-top: 14px; font-size: 34px; color: var(--k-text-2); }
+      [data-composition-id="scene-06"] .ba-btn { position: absolute; left: 96px; top: 660px; padding: 26px 54px; border-radius: 22px; background: var(--k-accent); color: var(--k-on-accent); font-size: 40px; font-weight: 800; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("06"), DUR = 5.9;
+        const h = document.createElement("div"); h.className = "ba-h"; h.textContent = "Подробнее — в гайде"; S.root.appendChild(h);
+        S.tl.fromTo(h, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out", immediateRender: false }, 0.1);
+        const card = document.createElement("div"); card.className = "ba-card";
+        card.innerHTML = '<div class="ba-t">Было → стало <span>на каждом этапе</span></div><div class="ba-d">решения в письмах → решения в Git · человек → человек + агент</div>';
+        S.root.appendChild(card);
+        S.tl.fromTo(card, { autoAlpha: 0, y: 22 }, { autoAlpha: 1, y: 0, duration: 0.45, ease: "power2.out", immediateRender: false }, Math.min(S.t("меняется"), DUR - 2.5));
+        const btn = document.createElement("div"); btn.className = "ba-btn"; btn.textContent = "Гайд «было → стало»";
+        S.root.appendChild(btn);
+        S.tl.fromTo(btn, { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out", immediateRender: false }, Math.min(S.t("в гайде"), DUR - 2));
+        const tt = (w, d) => { try { return S.t(w); } catch (e) { return d; } }, pic = (n, x, y, w, at, dur) => Kit.sketch(S, { name: n, x, y, w, at, dur: dur || 2.4 });
+        pic("team-done", 1300, 640, 420, 2, 3);
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

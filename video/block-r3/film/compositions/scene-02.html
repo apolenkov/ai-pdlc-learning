@@ -1,0 +1,114 @@
+<template id="scene-02-template">
+  <div data-composition-id="scene-02" data-width="1920" data-height="1080" data-duration="24.9">
+    <style>
+      [data-composition-id="scene-02"] .r2-abs { position: absolute; }
+      [data-composition-id="scene-02"] .r2-rules { left: 1304px; top: 232px; width: 520px; height: 360px; padding: 20px 26px; }
+      [data-composition-id="scene-02"] .r2-lab { font-size: 32px; font-weight: 600; color: var(--k-text-2); line-height: 1.2; }
+      [data-composition-id="scene-02"] .r2-ru { display: flex; align-items: center; gap: 16px; height: 62px; margin-top: 8px; border-top: 2px solid var(--k-line); font-size: 30px; font-weight: 700; white-space: nowrap; }
+      [data-composition-id="scene-02"] .r2-ru span { display: flex; width: 34px; flex: none; }
+      [data-composition-id="scene-02"] .r2-ru svg { width: 34px; height: 34px; }
+      [data-composition-id="scene-02"] .r2-ru.no { color: var(--k-text-2); }
+      [data-composition-id="scene-02"] .r2-rd { left: 1304px; top: 232px; width: 520px; height: 200px; padding: 20px 26px; }
+      [data-composition-id="scene-02"] .r2-mono { display: block; margin-top: 14px; padding: 8px 16px; border-radius: 12px; border: 2px solid var(--k-accent); background: var(--k-accent-tint); font-family: var(--k-font-mono); font-size: 30px; font-weight: 500; white-space: nowrap; }
+      [data-composition-id="scene-02"] .r2-cmd { left: 96px; top: 232px; height: 74px; padding: 0 30px; display: flex; align-items: center; font-size: 42px; font-weight: 800; border-color: var(--k-accent); background: var(--k-accent-tint); color: var(--k-accent-soft); white-space: nowrap; }
+      [data-composition-id="scene-02"] .r2-dn { left: 175px; top: 316px; width: 30px; height: 56px; }
+      [data-composition-id="scene-02"] .r2-tree { left: 96px; top: 384px; width: 900px; height: 320px; padding: 22px 30px; }
+      [data-composition-id="scene-02"] .r2-tr { position: relative; display: flex; align-items: center; gap: 18px; height: 92px; font-family: var(--k-font-mono); font-size: 38px; font-weight: 600; white-space: nowrap; }
+      [data-composition-id="scene-02"] .r2-tr.c { margin-left: 62px; border-left: 3px solid var(--k-line); padding-left: 28px; }
+      [data-composition-id="scene-02"] .r2-tr .ic { width: 52px; height: 52px; color: var(--k-text-2); flex: none; }
+      [data-composition-id="scene-02"] .r2-tr .ic svg { width: 100%; height: 100%; display: block; }
+      [data-composition-id="scene-02"] .r2-tr .d { margin-left: auto; font-family: var(--k-font-sans); font-size: 32px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-02"] .r2-inst { left: 1030px; top: 384px; width: 794px; height: 320px; padding: 26px 34px; }
+      [data-composition-id="scene-02"] .r2-ttl { font-size: 46px; font-weight: 800; line-height: 1.15; letter-spacing: -0.01em; }
+      [data-composition-id="scene-02"] .r2-chip { display: inline-block; margin: 20px 14px 0 0; padding: 6px 22px; border-radius: 16px; border: 2px solid var(--k-text-2); font-size: 34px; font-weight: 600; white-space: nowrap; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("02"), t = S.t, DUR = 24.9;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const div = (cls, html, parent) => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; parent.appendChild(el); return el; };
+        const OK = '<svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 29l12 12 24-26"/></svg>';
+        const X = '<svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"><path d="M12 12l32 32M44 12L12 44"/></svg>';
+        const DN = '<svg viewBox="0 0 30 56" fill="none" stroke="#a3a9b4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M15 4v46"/><path pathLength="1" d="M4 38l11 14 11-14"/></svg>';
+        const T0 = 2.0;   // the part title covers the first 2 s: nothing is visible before it
+        const fromIn = (el, from, at, d = 0.7, ease = "power3.out") => S.tl.fromTo(el, { autoAlpha: 0, ...from }, { autoAlpha: 1, x: 0, y: 0, scale: 1, filter: "blur(0px)", duration: d, ease, immediateRender: false }, at);
+
+        Kit.header(S, { header: { mode: "parts", total: 8 }, chapter: "Правила и OpenSpec", step: 2, duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        /* ---- план 1: правила этапа в AGENTS.md, этап в README.md ---- */
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+        const ed = Kit.editor(S, { parent: s1, x: 96, y: 232, w: 1180, h: 440, crumb: "учебная папка", visible: false,
+          tabs: [{ name: "AGENTS.md", active: true }],
+          lines: ["# Правила репозитория", "", "## Шаг курса: 3", "- Разрешены документы планирования", "- Запрещены код, реализация, архив", "", "## Другие разделы"] });
+        ed.show(T0 + 0.05);
+        ed.rows.forEach((r, i) => (r.chars.length ? ed.reveal(i, i, T0 + 0.15) : S.tl.set(r.no, { opacity: 1 }, T0 + 0.15)));   // blank lines have no characters to reveal
+        ed.caretOff(T0);
+        const T_M1 = Math.max(t("раздел"), T0 + 0.4), T_OFF = t("Обновите") + 0.3;
+        ed.mark(2, T_M1, { off: T_OFF });
+        ed.mark(3, t("разрешены"), { off: T_OFF });
+        ed.mark(4, t("запрещены"), { off: T_OFF });
+        read("AGENTS.md Шаг курса 3", T0 + 0.15, DUR);
+
+        const rules = div("k-card r2-abs r2-rules", '<div class="r2-lab">Правила этапа</div>' +
+          `<div class="r2-ru a"><span>${OK}</span>документы планирования</div><div class="r2-ru no b"><span>${X}</span>код</div><div class="r2-ru no c"><span>${X}</span>реализация</div><div class="r2-ru no d"><span>${X}</span>архив</div>`, s1);
+        const ra = rules.querySelector(".a"), rb = rules.querySelector(".b"), rc = rules.querySelector(".c"), rd = rules.querySelector(".d");
+        hide(rules, ra, rb, rc, rd);
+        fromIn(rules, { x: 80 }, T0 + 0.35);
+        fromIn(ra, { x: 40 }, t("разрешены"), 0.6);
+        fromIn(rb, { scale: 0.8 }, t("код,"), 0.5, "back.out(2)");
+        fromIn(rc, { y: 24 }, t("реализация,"), 0.5);
+        fromIn(rd, { x: -40 }, t("архив."), 0.5);
+        const T_RULES_OUT = t("Обновите") - 0.1;
+        S.tl.to(rules, { autoAlpha: 0, duration: 0.5, ease: "power2.in" }, T_RULES_OUT);
+        read("документы планирования код реализация архив", t("разрешены"), T_RULES_OUT);
+
+        const rd2 = div("k-card r2-abs r2-rd", '<div class="r2-lab" style="font-family:var(--k-font-mono);font-size:34px;font-weight:700;color:var(--k-text)">README.md</div><span class="r2-mono">## Шаг курса: 3</span>', s1);
+        hide(rd2);
+        fromIn(rd2, { x: 80 }, t("Обновите") + 0.3);
+        read("README.md Шаг курса 3", t("Обновите") + 0.3, t("Затем") - 0.1 + 0.55);
+
+        /* ---- план 2: одна команда, структура openspec/ ---- */
+        const s2 = S.stage();
+        Kit.swap(S, s1, s2, t("Затем") - 0.1);
+        const cmd = div("k-card r2-abs r2-cmd", "одна команда", s2); hide(cmd);
+        fromIn(cmd, { x: -80 }, t("одна команда"));
+        const dn = div("r2-abs r2-dn", DN, s2); hide(dn);
+        S.tl.set(dn, { autoAlpha: 1 }, t("создаёт"));
+        dn.querySelectorAll("path").forEach((p, i) => S.tl.fromTo(p, { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.5, ease: "power2.out", immediateRender: false }, t("создаёт") + i * 0.3));
+
+        const tree = div("k-card r2-abs r2-tree",
+          `<div class="r2-tr r"><span class="ic">${Kit.icons.folder}</span>openspec/</div>` +
+          `<div class="r2-tr c a"><span class="ic">${Kit.icons.file}</span>config.yaml<span class="d">настройки</span></div>` +
+          `<div class="r2-tr c b"><span class="ic">${Kit.icons.folder}</span>specs/<span class="d">главные спецификации</span></div>`, s2);
+        const tr = tree.querySelector(".r"), ta = tree.querySelector(".a"), tb = tree.querySelector(".b"), da = ta.querySelector(".d"), db = tb.querySelector(".d");
+        hide(tree, tr, ta, tb, da, db);
+        S.tl.fromTo(tree, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4, immediateRender: false }, t("структуру") - 0.1);
+        fromIn(tr, { scale: 0.9, x: -20 }, t("структуру"), 0.6, "back.out(2)");
+        fromIn(ta, { x: 40 }, t("настройки") - 0.3, 0.6);
+        Kit.popIn(S, da, t("настройки"), 0.5);
+        fromIn(tb, { y: 30 }, t("папку") - 0.1, 0.6);
+        Kit.popIn(S, db, t("главных"), 0.5);
+        read("openspec config.yaml настройки", t("настройки"), DUR);
+        read("specs главные спецификации", t("главных"), DUR);
+
+        const inst = div("k-card r2-abs r2-inst", '<div class="r2-ttl">Инструкции для модели</div><span class="r2-chip a">уже в репозитории</span><span class="r2-chip b">команда их не создаёт</span>', s2);
+        const ia = inst.querySelector(".a"), ib = inst.querySelector(".b");
+        hide(inst, ia, ib);
+        fromIn(inst, { scale: 1.06, filter: "blur(14px)" }, t("Инструкции") - 0.05);
+        fromIn(ia, { x: -30 }, t("лежат"), 0.6);
+        Kit.popIn(S, ib, t("команда", 2), 0.5);
+        read("Инструкции для модели уже в репозитории", t("лежат"), DUR);
+        read("команда их не создаёт", t("команда", 2), DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

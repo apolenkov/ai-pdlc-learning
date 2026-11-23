@@ -1,0 +1,14 @@
+schema: sdlc-service-lock/v1
+snapshot_root_policy: temporary-outside-source-tree
+retention: session
+services:
+  - id: calculator-ui
+    repository: example://calculator-ui
+    classification: synthetic-public
+    revision: 0000000000000000000000000000000000000000
+    access: read-only
+  - id: calculator-core
+    repository: example://calculator-core
+    classification: synthetic-public
+    revision: 0000000000000000000000000000000000000000
+    access: read-only

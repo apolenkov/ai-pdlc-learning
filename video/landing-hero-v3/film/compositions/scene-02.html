@@ -1,0 +1,38 @@
+<template id="scene-02-template">
+  <div data-composition-id="scene-02" data-width="1920" data-height="1080" data-duration="9.6">
+    <style>
+      [data-composition-id="scene-02"] .h-h { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 58px; font-weight: 800; }
+      [data-composition-id="scene-02"] .h-rail { position: absolute; left: 140px; top: 496px; width: 1640px; height: 8px; border-radius: 4px; background: var(--k-line); transform-origin: 0 50%; }
+      [data-composition-id="scene-02"] .h-node { position: absolute; top: 468px; width: 64px; height: 64px; margin-left: -32px; border-radius: 50%; border: 4px solid var(--k-line); background: var(--k-bg); }
+      [data-composition-id="scene-02"] .h-term { position: absolute; top: 384px; width: 44px; height: 44px; margin-left: -22px; line-height: 0; }
+      [data-composition-id="scene-02"] .h-label { position: absolute; left: 960px; top: 574px; padding: 16px 36px; border: 2px solid var(--k-accent); border-radius: 22px; background: var(--k-accent-tint); color: var(--k-accent-soft); font-size: 40px; font-weight: 800; white-space: nowrap; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("02"), DUR = 9.6;
+        const tt = (w, d) => { try { return S.t(w); } catch (e) { return d; } };
+        const el = (cls, html, x, y, w) => { const e = document.createElement("div"); e.className = cls; e.innerHTML = html; e.style.left = x + "px"; e.style.top = y + "px"; if (w) e.style.width = w + "px"; S.root.appendChild(e); return e; };
+        const show = (e, at) => { (Array.isArray(e) ? e : [e]).forEach((x) => { gsap.set(x, { autoAlpha: 0 }); S.tl.fromTo(x, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: "power2.out", immediateRender: false }, at); }); };
+        // Заголовок в верхней трети: путь продукта по этапам PDLC (без цифр).
+        const head = el("h-h", "Путь продукта по этапам PDLC", 96, 64); show(head, 0.1);
+        // Абстрактная линия-путь с семью узлами (7 этапов PDLC) без номеров.
+        const rail = el("h-rail", "", 140, 496, 1640);
+        gsap.set(rail, { scaleX: 0 });
+        S.tl.to(rail, { scaleX: 1, duration: 0.85, ease: "power2.out" }, 0.12);
+        const xs = [140, 413, 687, 960, 1233, 1507, 1780];
+        const nodes = xs.map((x, i) => { const n = el("h-node", "", x, 468); show(n, tt("по этапам", 2.76) + i * 0.11); return n; });
+        // Над узлами терминал >_: агент готовит.
+        const terms = xs.map((x, i) => { const t = el("h-term", People.robotIcon(44), x, 384); show(t, tt("что делает агент", 4.43) + i * 0.06); return t; });
+        // Под узлами слово «решает человек»: решение всегда за человеком.
+        const lab = el("h-label", "решает человек", 960, 574);
+        gsap.set(lab, { xPercent: -50, autoAlpha: 0 });
+        S.tl.fromTo(lab, { autoAlpha: 0, y: 16, scale: 0.94 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.4, ease: "power2.out", immediateRender: false }, tt("решает", 6.8));
+        S.tl.fromTo(lab, { boxShadow: "0 0 0 0 rgba(255,122,89,0)" }, { boxShadow: "0 0 42px 4px rgba(255,122,89,0.30)", duration: 0.5, ease: "power2.out" }, tt("решает", 6.8) + 0.1);
+        // Пара «человек + терминал».
+        const sk = Kit.sketch(S, { name: "pair-analyst", x: 1290, y: 636, w: 470, at: 0.4, dur: 2.9 });
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

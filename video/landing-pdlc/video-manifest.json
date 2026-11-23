@@ -1,0 +1,15 @@
+{
+  "file": "landing-pdlc-720p.mp4",
+  "sha256": "87377cca09fef8f0218a65cca80d3c1f741dda682b731b80332d67227ea1c27b",
+  "size": 2266888,
+  "url": "https://github.com/apolenkov/ai-pdlc-learning/releases/download/media-v1/87377cca09fe-landing-pdlc-720p.mp4",
+  "master": {
+    "file": "landing-pdlc-1080p.mp4",
+    "sha256": "cca9bc25552b74e1f35a6811c000b71e47b87139a1da11ea9ff98a1d1ce76167",
+    "size": 4711081,
+    "lost": "утерян до сдачи Mac 25.11.2026: файла нет ни на Диске, ни локально; пин сохранён"
+  },
+  "duration": 81.1,
+  "note": "url — детерминированный адрес будущего пакета Registry (решение Fable 01:24): пакет загружается координатором до выкладки gh-pages; мастер побайтово равен выходу npm run render, 720p — web-версия после audio-loudnorm.sh.",
+  "version": "87377cca09fe"
+}

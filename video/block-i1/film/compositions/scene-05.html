@@ -1,0 +1,59 @@
+<template id="scene-05-template">
+  <div data-composition-id="scene-05" data-width="1920" data-height="1080" data-duration="20.6">
+    <style>
+      [data-composition-id="scene-05"] .sc-item { height: 100%; display: flex; align-items: center; gap: 22px; padding: 0 30px; font-size: 36px; font-weight: 700; }
+      [data-composition-id="scene-05"] .sc-ok { flex: none; width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center; color: var(--k-ok); border: 3px solid var(--k-ok); background: var(--k-ok-tint); }
+      [data-composition-id="scene-05"] .sc-ok svg { width: 36px; height: 36px; opacity: 0; }
+      [data-composition-id="scene-05"] .sc-next { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 0 32px; }
+      [data-composition-id="scene-05"] .sc-next .lab { font-size: 32px; font-weight: 700; color: var(--k-accent-soft); }
+      [data-composition-id="scene-05"] .sc-next .nm { font-size: 52px; font-weight: 800; white-space: nowrap; }
+      [data-composition-id="scene-05"] .sc-next svg { flex: none; width: 76px; height: 41px; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("05"), t = S.t, DUR = 20.6;
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+
+        /* Финал без шага: все части пройдены */
+        Kit.header(S, { header: { mode: "parts", total: 4 }, chapter: "Начало готово", step: null, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* Три раздела записи — словами диктора */
+        const T_SAVE = t("Сохраните три раздела");
+        const items = [
+          { html: "проблема без решения", at: t("Начало записи готово") + 0.2, tick: T_SAVE },
+          { html: "результат", at: t("результат") - 0.1, tick: T_SAVE + 0.2 },
+          { html: "эффект с числом и сроком проверки", at: t("эффект с числом") - 0.1, tick: T_SAVE + 0.4 },
+        ];
+        items.forEach((it, i) => {
+          const row = Kit.aside(S, { parent: s1, x: 96, y: 230 + i * 118, w: 1050, h: 100, tail: false,
+            html: '<div class="sc-item"><span class="sc-ok">' + Kit.icons.check + "</span><span>" + it.html + "</span></div>" });
+          row.show(it.at);
+          S.tl.to(row.el.querySelector(".sc-ok svg"), { opacity: 1, duration: 0.3 }, it.tick);
+          read(it.html, it.at, DUR);
+        });
+
+        /* Скетч-итог справа */
+        Kit.sketch(S, { parent: s1, name: "team-done", x: 1200, y: 220, w: 620, at: 0.4, dur: 2.6 });
+
+        /* Плашка следующего шага */
+        const T_NEXT = t("Дальше");
+        const next = Kit.aside(S, { parent: s1, x: 96, y: 620, w: 1728, h: 180, tail: false,
+          html: '<div class="sc-next"><div><div class="lab">Дальше</div><div class="nm">«Границы и вопросы»</div></div>' +
+                '<svg viewBox="0 0 56 30" fill="none"><path d="M3 15H49M39 5L50 15L39 25" stroke="' + Kit.token("--k-accent") + '" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>' });
+        next.el.style.borderColor = Kit.token("--k-accent");
+        next.show(T_NEXT);
+        read("Дальше Границы и вопросы", T_NEXT, DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

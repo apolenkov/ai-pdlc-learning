@@ -1,0 +1,62 @@
+[
+  {
+    "n": 0,
+    "title": "Вступление",
+    "step": null,
+    "chapter": "Вступление",
+    "start": 0,
+    "titleStart": 0,
+    "speechStart": 0,
+    "end": 42.7
+  },
+  {
+    "n": 1,
+    "title": "Пять понятий",
+    "step": 1,
+    "chapter": "Пять понятий",
+    "start": 42.7,
+    "titleStart": 42.7,
+    "speechStart": 42.7,
+    "end": 70
+  },
+  {
+    "n": 2,
+    "title": "Как устроен",
+    "step": 2,
+    "chapter": "Как устроен",
+    "start": 70,
+    "titleStart": 70,
+    "speechStart": 70,
+    "end": 101.5
+  },
+  {
+    "n": 3,
+    "title": "Store шаг за шагом",
+    "step": 3,
+    "chapter": "Store шаг за шагом",
+    "start": 101.5,
+    "titleStart": 101.5,
+    "speechStart": 101.5,
+    "end": 163.1
+  },
+  {
+    "n": 4,
+    "title": "Версия кода",
+    "step": 4,
+    "chapter": "Версия кода",
+    "start": 163.1,
+    "titleStart": 163.1,
+    "speechStart": 163.1,
+    "end": 184.5
+  },
+  {
+    "n": 5,
+    "title": "Контракт и запросы изменения",
+    "step": 5,
+    "chapter": "Контракт и запросы изменения",
+    "start": 184.5,
+    "titleStart": 184.5,
+    "speechStart": 184.5,
+    "end": 211.1
+  }
+]

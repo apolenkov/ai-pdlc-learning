@@ -1,0 +1,32 @@
+<template id="scene-05-template">
+  <div data-composition-id="scene-05" data-width="1920" data-height="1080" data-duration="15.9">
+    <style>
+      [data-composition-id="scene-05"] .ov-h { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 58px; font-weight: 800; }
+      [data-composition-id="scene-05"] .ov-cols { position: absolute; left: 96px; top: 230px; width: 1728px; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+      [data-composition-id="scene-05"] .ov-card { padding: 30px 34px; border: 2px solid var(--k-line); border-radius: 24px; background: var(--k-panel); min-height: 420px; }
+      [data-composition-id="scene-05"] .ov-k { font-size: 28px; font-weight: 800; color: var(--k-accent-soft); text-transform: uppercase; letter-spacing: 0.04em; }
+      [data-composition-id="scene-05"] .ov-t { margin-top: 10px; font-size: 40px; font-weight: 800; }
+      [data-composition-id="scene-05"] .ov-list { margin-top: 16px; display: grid; gap: 12px; font-size: 30px; line-height: 1.3; color: var(--k-text-2); }
+      [data-composition-id="scene-05"] .ov-list b { color: var(--k-text); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("05"), DUR = 15.9;
+        const h = document.createElement("div"); h.className = "ov-h"; h.textContent = "Курс · команда развития"; S.root.appendChild(h);
+        S.tl.fromTo(h, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out", immediateRender: false }, 0.1);
+        const cols = document.createElement("div"); cols.className = "ov-cols"; S.root.appendChild(cols);
+        const left = document.createElement("div"); left.className = "ov-card";
+        left.innerHTML = '<div class="ov-k">Курс анализа</div><div class="ov-t">По шагам — уже сегодня</div>' +
+          '<div class="ov-list"><div><b>подготовка</b> · 4 части</div><div><b>требования в Git</b> · OpenSpec</div><div><b>проверка</b> · ревью и одобрение</div><div><b>изменение</b> в OpenSpec</div></div>';
+        const right = document.createElement("div"); right.className = "ov-card";
+        right.innerHTML = '<div class="ov-k">Команда развития</div><div class="ov-t">Аудит → изменения → обучение</div>' +
+          '<div class="ov-list"><div><b>аудит</b> этапов продукта</div><div><b>план изменений</b></div><div><b>обучение по ролям</b></div><div><b>метрики</b> до и после</div></div>';
+        cols.appendChild(left); cols.appendChild(right);
+        S.tl.fromTo(left, { autoAlpha: 0, y: 22 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out", immediateRender: false }, Math.min(S.t("подготовка"), DUR - 3));
+        S.tl.fromTo(right, { autoAlpha: 0, y: 22 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out", immediateRender: false }, Math.min(S.t("Команда развития"), DUR - 2));
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

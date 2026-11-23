@@ -1,0 +1,13 @@
+schema: spec-driven
+context: |
+  This directory owns only product-level and cross-service requirements for the synthetic credit calculator.
+  Service-local requirements and technical contracts remain in each service repository.
+rules:
+  proposal:
+    - Link the Jira issue.
+    - State the product boundary and affected service IDs.
+  specs:
+    - Use observable scenarios and acceptance conditions.
+    - Do not copy service-local implementation detail into product specs.
+  design:
+    - Record ownership, security constraints, rollback, and service merge requests.

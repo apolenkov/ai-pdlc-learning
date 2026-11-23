@@ -1,0 +1,33 @@
+// сцена 2 · Карта PDLC · камера Y 611 (без движения), s 1,15; шов: прожектор на #sdlc
+const { R } = PageWin;
+const W = PageWin.begin(L, { cam: { Y: 611, s: 1.15 }, spot: R.sdlc });
+const HDR = [1380, 676];                          // свободное место в шапке карты, справа от подзаголовка
+const NX = [362, 533, 703, 874, 1045, 1216, 1387], NY = 766;
+const c1 = t("карта");
+W.call("Карта PDLC", { to: HDR, side: "center", at: c1 - 0.2, until: t("Семь") - 0.4 });
+// «семь этапов»: волна по узлам слева направо, затем крайние этапы по очереди
+const w0 = t("Семь");
+W.call("7 этапов", { to: HDR, side: "center", at: w0, until: t("намерения") - 0.2 });
+NX.forEach((x, i) => W.ring({ x: x - 26, y: NY - 26, w: 52, h: 52 }, w0 + 0.2 + i * 0.13, t("намерения") + 0.15, "round"));
+const na = t("намерения"), nb = t("наблюдения");
+W.ring({ x: NX[0] - 30, y: NY - 26, w: 60, h: 52 }, na, nb - 0.1, "round");
+W.call("Намерение", { to: HDR, side: "center", arrow: "down", at: na + 0.05, until: nb - 0.15 });
+W.ring({ x: NX[6] - 30, y: NY - 26, w: 60, h: 52 }, nb + 0.1, t("агент готовит") - 0.2, "round");
+W.call("Наблюдение", { to: HDR, side: "center", arrow: "down", at: nb, until: t("агент готовит") - 0.2 });
+// «агент готовит» / «человек решает» — две строки по очереди
+const ag = t("агент готовит"), hu = t("человек решает");
+W.ring({ x: 280, y: 833, w: 1360, h: 34 }, ag, hu - 0.15);
+W.call("Агент готовит", { to: HDR, side: "center", arrow: "down", at: ag + 0.1, until: hu - 0.25 });
+W.ring({ x: 280, y: 868, w: 1190, h: 22 }, hu, t("результат") - 0.2);
+W.call("Человек решает", { to: HDR, side: "center", arrow: "down", at: hu + 0.1, until: t("результат") - 0.3 });
+// «у каждого этапа свой результат»: по кольцу на тег результата 01–07 (Intent…DORA)
+const re = t("результат");
+W.call("Результат", { to: HDR, side: "center", at: re, until: t("намерение,") - 0.15 });
+const RES_T = [t("намерение,"), t("требования,"), t("решение"), t("изменение"), t("тесты,"), t("выпуск"), t("метрики.")];
+RES_T.forEach((tt, i) => W.ring({ x: NX[i] - 36, y: 916, w: 72, h: 22 }, tt - 0.05, (RES_T[i + 1] ?? DUR - 1.6) - 0.1));
+// «курсы уже есть у первых двух» → кольца на чипах «Курс →»; «остальные в работе» → на чипах «Курс в работе»
+const cu = t("Курсы уже"), ot = t("остальные");
+[0, 1].forEach((i) => W.ring({ x: NX[i] - 36, y: 886, w: 72, h: 26 }, cu + 0.25 + i * 0.25, ot - 0.2));
+W.call("Есть курс", { to: HDR, side: "center", at: cu + 0.2, until: ot - 0.4 });
+[2, 3, 4, 5, 6].forEach((i, k) => W.ring({ x: NX[i] - 58, y: 886, w: 116, h: 26 }, ot + 0.15 + k * 0.18, DUR - 1.2));
+W.call("В работе", { to: HDR, side: "center", at: ot, until: DUR - 1.2 });

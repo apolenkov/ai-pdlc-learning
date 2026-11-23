@@ -1,0 +1,253 @@
+:root {
+  color-scheme: light;
+  --paper: var(--customdev-page-bg);
+  --raised: var(--customdev-surface);
+  --ink: var(--customdev-ink);
+  --muted: var(--customdev-muted);
+  --line: var(--customdev-line);
+  --line-strong: var(--customdev-line-strong);
+  --green: var(--customdev-green);
+  --green-soft: var(--customdev-green-soft);
+  --blue: var(--customdev-blue);
+  --blue-soft: var(--customdev-blue-soft);
+  --amber: var(--customdev-amber);
+  --coral: var(--customdev-risk);
+  --graphite: var(--customdev-graphite);
+  --shadow: var(--customdev-shadow-frame);
+  --display: var(--customdev-font-body);
+  --body: var(--customdev-font-body);
+  --utility: var(--customdev-font-mono);
+  --accent: var(--green);
+  --accent-soft: var(--green-soft);
+  font-family: var(--body);
+}
+
+* { box-sizing: border-box; }
+/* Grid/flex children must be allowed to shrink around long commands and
+   generated guide copy instead of establishing a wider document. */
+.shell, .hero, .hero > *, .grid, .grid > *, .card { min-width: 0; }
+/* Commands and links can contain an unbroken token. Ordinary Russian copy
+   keeps normal word boundaries, rather than acquiring arbitrary word breaks. */
+code, a, .step-command, .step-result { overflow-wrap: anywhere; }
+html { scroll-behavior: auto; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.5;
+}
+a { color: var(--accent); text-underline-offset: .18em; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+.shell { width: min(var(--site-shell-max), calc(100% - (2 * var(--site-page-gutter)))); margin: 0 auto; padding: 24px 0 64px; }
+
+
+/* Course head: the fixed menu, the route strip and the crumb already carry the
+   page's top chrome, so the hero frame keeps its 32px side/bottom padding but
+   only 16px on top — the H1 stays within ~200px of the top of a step page
+   (NAV-HIERARCHY, TASK-578). The grid rows start at the top: a tall «наблюдаемый
+   результат» panel must not push the H1 down. */
+.hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 19rem;
+  gap: 48px;
+  align-items: start;
+  margin-bottom: 16px;
+  padding: 16px 32px 32px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--customdev-surface) 96%, transparent);
+}
+/* Kicker over H1: same as the CustomDev catalog kicker (bold green sans), not muted mono; .hero p must not override it. */
+.eyebrow, .hero .eyebrow { margin: 0 0 10px; color: var(--accent); font: 900 13px/1.5 var(--body); letter-spacing: .12em; text-transform: uppercase; }
+.hero h1 { margin: 0; font: 700 clamp(2.7rem, 5.5vw, 5rem)/1.05 var(--display); letter-spacing: -.035em; text-wrap: balance; }
+.hero p { max-width: 760px; margin: 17px 0 0; color: var(--muted); font-size: 1.03rem; }
+.platform-strip { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 16px; }
+.platform-strip span { padding: 6px 9px; border: 1px solid var(--line); border-radius: var(--customdev-radius-sm); background: var(--raised); color: var(--muted); font: 750 13px var(--utility); }
+.platform-strip .platform-strip__primary { border-color: var(--green); background: var(--green-soft); color: var(--green); }
+.proof {
+  display: grid;
+  min-width: 0;
+  gap: 8px;
+  padding: 19px;
+  border-radius: 8px;
+  background: var(--accent-soft);
+}
+.proof strong, .proof span { overflow-wrap: anywhere; }
+.proof strong { font-size: .98rem; }
+/* Длинный «наблюдаемый результат» (data-output ставит renderer/hero.ts) — пояснение, а не акцент: */
+.proof strong[data-output='long'] { color: var(--ink); font-size: .94rem; font-weight: 400; line-height: 1.45; }
+.proof span { color: var(--muted); font: 700 13px var(--utility); text-transform: uppercase; }
+.proof p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.38; }
+.proof-link { display: flex; align-items: center; min-height: 44px; justify-content: space-between; gap: 12px; margin-top: 3px; padding-top: 10px; border-top: 1px solid color-mix(in srgb, var(--customdev-green) 24%, transparent); font-size: 13px; font-weight: 850; text-decoration: none; }
+.proof-link span { color: inherit; font: inherit; text-transform: none; }
+
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.card { padding: 24px; border: 1px solid var(--line); border-radius: 16px; background: color-mix(in srgb, var(--customdev-surface) 96%, transparent); }
+.card h2 { margin: 0 0 14px; font: 700 1.35rem/1.12 var(--display); letter-spacing: -.01em; }
+.card h3 { margin: 18px 0 8px; font-size: .9rem; }
+.card p { margin: 0; color: var(--muted); }
+/* Prose measure: about 70 characters per line on wide desktops. */
+.shell :where(p, li), .hero p { max-width: 70ch; }
+.card ul, .card ol { display: grid; gap: 8px; margin: 0; padding-left: 1.25rem; }
+.card li::marker { color: var(--accent); font-weight: 800; }
+.card--wide { grid-column: 1 / -1; }
+/* A half-width card with no partner in its row (a run of one, or the odd last of "why, prerequisites, terms") takes the full width. */
+#guide-content > :not(.card:not(.card--wide)) + .card:not(.card--wide):not(:has(+ .card:not(.card--wide))),
+#guide-content > #course-why + .card + #course-terms { grid-column: 1 / -1; }
+/* Prerequisites beside the much taller terms card keep their own height instead of stretching into an empty box. */
+#guide-content > #course-prereq:has(+ #course-terms) { align-self: start; }
+.chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 14px; }
+.chip { padding: 5px 9px; border-radius: var(--customdev-radius-sm); background: var(--accent-soft); color: var(--accent); font: 800 13px var(--utility); }
+.route { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.route > div { padding: 16px; border-left: 4px solid var(--accent); background: var(--paper); }
+.route .workaround { border-color: var(--amber); }
+.route strong { display: block; margin-bottom: 6px; }
+.route span { color: var(--muted); font-size: .82rem; }
+.check { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.check li { position: relative; padding-left: 32px; }
+.check li::before { position: absolute; top: 0; left: 0; display: grid; width: 22px; height: 22px; place-items: center; border: 1px solid var(--accent); border-radius: var(--customdev-radius-sm); color: var(--accent); content: ""; font-size: 13px; font-weight: 900; }
+.warning { padding: 15px 17px; border-left: 4px solid var(--coral); background: #faece8; color: #63342b; }
+.machine-install-warning { margin: 14px 0 16px; border-radius: var(--customdev-radius-md); }
+.footer-nav { display: flex; justify-content: space-between; gap: 16px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); }
+.footer-nav a { display: inline-flex; min-height: 44px; align-items: center; font-weight: 800; }
+
+/* Three cumulative base steps with parallel AI additions. */
+.route-page .hero { grid-template-columns: minmax(0, 1fr) 20rem; }
+.route-page .hero h1 { max-width: 850px; }
+.route-board { position: relative; display: grid; gap: 12px; }
+.route-board::before { position: absolute; z-index: 0; top: 36px; bottom: 36px; left: 34px; width: 2px; background: var(--line-strong); content: ""; }
+.route-row { position: relative; z-index: 1; display: grid; grid-template-columns: 68px minmax(0, 1fr) 52px minmax(0, .86fr); gap: 14px; align-items: stretch; }
+.route-marker { display: grid; width: 68px; height: 68px; place-items: center; align-self: center; border: 2px solid var(--green); border-radius: var(--customdev-radius-lg); background: var(--raised); color: var(--green); font: 900 1.15rem var(--utility); box-shadow: 0 0 0 8px var(--paper); }
+.route-card { display: flex; flex-direction: column; min-width: 0; min-height: 210px; padding: 22px; border: 1px solid var(--line); border-radius: var(--customdev-radius-lg); background: color-mix(in srgb, var(--customdev-surface) 96%, transparent); }
+.route-card > .route-open { align-self: stretch; margin-top: auto; }
+.route-card > .route-tools { align-self: flex-start; }
+.route-card > :has(+ .route-open) { margin-bottom: 18px; }
+.route-card--base { border-left: 5px solid var(--green); }
+.route-card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.route-kind { color: var(--muted); font: 800 13px var(--utility); letter-spacing: .07em; text-transform: uppercase; }
+.route-inherits { padding: 4px 7px; border-radius: var(--customdev-radius-sm); background: #efede6; color: var(--muted); font: 700 13px var(--utility); }
+.route-card h2 { margin: 24px 0 8px; overflow-wrap: normal; hyphens: manual; font: 700 1.65rem/1 var(--display); letter-spacing: -.02em; }
+.route-card p { overflow-wrap: anywhere; }
+.route-card p { margin: 0; color: var(--muted); font-size: .91rem; }
+.route-tools { display: flex; flex-wrap: wrap; gap: 6px; align-self: end; margin: 19px 0 0; padding: 0; list-style: none; }
+.route-tools li { padding: 4px 7px; border-radius: var(--customdev-radius-sm); background: var(--green-soft); color: var(--green); font: 750 13px var(--utility); }
+.route-open { display: flex; align-items: center; min-height: 44px; align-self: end; justify-content: space-between; gap: 12px; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); font-size: .86rem; font-weight: 850; text-decoration: none; overflow-wrap: normal; }
+.route-open > span:first-child { min-width: 0; }
+.route-open > span:last-child { flex: none; white-space: nowrap; }
+.route-legend { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 0 0 16px 82px; color: var(--muted); font-size: 13px; }
+.route-legend span { display: inline-flex; align-items: center; gap: 7px; }
+.route-legend i { width: 18px; height: 4px; border-radius: var(--customdev-radius-xs); background: var(--green); }
+.route-legend span:last-child i { background: var(--blue); }
+.team-practice {
+  display: grid;
+  grid-template-columns: minmax(14rem, .7fr) minmax(0, 1.3fr);
+  gap: 24px;
+  align-items: center;
+  margin: 0 0 18px 82px;
+  padding: 18px 22px;
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--green);
+  border-radius: var(--customdev-radius-lg);
+  background: color-mix(in srgb, var(--customdev-surface) 96%, transparent);
+}
+.team-practice h2 { margin: 4px 0 0; font: 700 1.25rem/1.08 var(--display); }
+.team-practice p { margin: 0; color: var(--muted); font-size: .9rem; }
+.specification-bridge {
+  display: grid;
+  grid-template-columns: minmax(15rem, .72fr) minmax(0, 1.28fr);
+  gap: 22px;
+  align-items: center;
+  margin: 0 0 18px 82px;
+  padding: 20px 22px;
+  border: 1px solid color-mix(in srgb, var(--customdev-green) 28%, transparent);
+  border-left: 5px solid var(--blue);
+  border-radius: var(--customdev-radius-lg);
+  background: linear-gradient(135deg, rgba(229, 238, 243, .76), color-mix(in srgb, var(--customdev-surface) 96%, transparent));
+}
+.specification-bridge h2 { margin: 4px 0 8px; font: 700 1.3rem/1.08 var(--display); }
+.specification-bridge p { margin: 0; color: var(--muted); font-size: .87rem; }
+.specification-bridge__steps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; counter-reset: bridge; }
+.specification-bridge__steps li { display: grid; gap: 4px; min-width: 0; padding: 11px 12px 12px; border: 1px solid color-mix(in srgb, var(--customdev-blue) 22%, transparent); border-radius: var(--customdev-radius-md); background: color-mix(in srgb, var(--customdev-surface) 82%, transparent); counter-increment: bridge; }
+.specification-bridge__steps li::before { color: var(--blue); content: "0" counter(bridge); font: 850 13px var(--utility); }
+.specification-bridge__steps strong { font-size: .82rem; overflow-wrap: anywhere; }
+.specification-bridge__steps span { color: var(--muted); font-size: 13px; line-height: 1.34; }
+@media (max-width: 519px) { .specification-bridge__steps { grid-template-columns: minmax(0, 1fr); } }
+.specification-bridge__note { grid-column: 1 / -1; padding-top: 12px; border-top: 1px solid color-mix(in srgb, var(--customdev-blue) 20%, transparent); }
+.specification-bridge__note strong { color: var(--ink); }
+.star-route { margin-top: 18px; border-left-color: var(--amber); }
+.star-route .route-open { color: var(--green); }
+.r4-entries { display: grid; gap: 18px; margin: 18px 0; }
+.r4-entries .star-route { margin-top: 0; margin-bottom: 0; align-items: start; }
+.route-outcome { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 28px; align-items: center; margin: 18px 0 0 82px; padding: 24px; border: 1px solid var(--green); border-radius: var(--customdev-radius-lg); background: var(--green-soft); }
+.route-outcome > * { min-width: 0; }
+.route-outcome h2 { overflow-wrap: normal; hyphens: manual; margin: 5px 0 8px; font: 700 1.55rem/1.06 var(--display); }
+.route-outcome p { margin: 0; color: var(--muted); font-size: .9rem; }
+.route-outcome ol { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; counter-reset: outcome; }
+.route-outcome li { min-width: 0; padding: 12px; border: 1px solid color-mix(in srgb, var(--customdev-green) 22%, transparent); border-radius: var(--customdev-radius-md); background: color-mix(in srgb, var(--customdev-surface) 80%, transparent); counter-increment: outcome; overflow-wrap: normal; word-break: normal; hyphens: manual; }
+#implementation.route-outcome > div { grid-column: 1 / -1; }
+#implementation.route-outcome ol { grid-template-columns: 1fr; }
+.shell #implementation.route-outcome li { max-width: none; }
+.route-outcome li::before { display: block; margin-bottom: 4px; color: var(--green); content: "0" counter(outcome); font: 850 13px var(--utility); }
+.route-outcome strong { font-size: .86rem; overflow-wrap: normal; }
+.route-outcome li span { display: block; color: var(--muted); font-size: 13px; line-height: 1.35; overflow-wrap: normal; }
+
+.calculator { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.calculator label { display: grid; gap: 6px; font-weight: 760; }
+.calculator input { min-height: 44px; padding: 8px 12px; border: 1px solid var(--line); border-radius: var(--customdev-radius-md); background: #fff; font: inherit; }
+.calculator button { min-height: 44px; border: 0; border-radius: var(--customdev-radius-md); background: var(--green); color: #fff; font: 800 1rem inherit; cursor: pointer; }
+.result { display: grid; min-height: 180px; place-items: center; border: 1px solid var(--green); border-radius: var(--customdev-radius-lg); background: var(--green-soft); text-align: center; }
+.result output { color: var(--green); font-size: 2.5rem; font-weight: 850; font-variant-numeric: tabular-nums; }
+
+@media (max-width: 1000px) {
+  .route-row { grid-template-columns: 58px minmax(0, 1fr) 32px minmax(0, .86fr); }
+  .route-marker { width: 58px; height: 58px; border-radius: var(--customdev-radius-lg); }
+  .route-board::before { left: 29px; }
+  .route-legend { margin-left: 72px; }
+  .team-practice { margin-left: 72px; }
+  .specification-bridge { margin-left: 72px; }
+  .route-outcome { grid-template-columns: minmax(0, 1fr); margin-left: 72px; }
+}
+@media (max-width: 760px) {
+  .shell { width: min(100% - 28px, 1180px); padding-top: 14px; }
+  .hero, .route-page .hero, .grid, .route, .calculator { grid-template-columns: 1fr; }
+  .hero { gap: 18px; padding: 24px 18px; }
+  /* Keep balanced natural lines, while the longest Russian guide title still
+     fits at the narrowest supported phone width. */
+  .hero h1 { font-size: clamp(2rem, 9vw, 4rem); overflow-wrap: normal; hyphens: manual; }
+  .platform-strip { align-items: stretch; flex-direction: column; }
+  .platform-strip span { width: 100%; }
+  .card--wide { grid-column: auto; }
+  .route-board { gap: 20px; }
+  .route-board::before { left: 26px; }
+  .route-row { grid-template-columns: 52px minmax(0, 1fr); gap: 10px; }
+  .route-card-head { flex-wrap: wrap; }
+  .route-marker { width: 52px; height: 52px; border-radius: var(--customdev-radius-md); }
+  .route-legend { margin-left: 62px; }
+  .team-practice { grid-template-columns: 1fr; margin-left: 62px; }
+  .specification-bridge { grid-template-columns: 1fr; margin-left: 62px; }
+  .specification-bridge__note { grid-column: auto; }
+  .route-outcome { grid-template-columns: minmax(0, 1fr); margin-left: 62px; }
+  .route-outcome ol { grid-template-columns: 1fr; }
+  .footer-nav { flex-direction: column; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+@media (min-width: 761px) and (max-width: 900px) {
+  /* Three 215–250 px cards: the unbreakable «Мета‑репозиторий» overflows the label column
+     at .86rem and the card heading at 1.25rem, so both shrink instead of crossing the card border. */
+  .route-intro .route-open { font-size: .76rem; }
+}
+@media (max-width: 560px) {
+  .route-outcome h2 { font-size: clamp(1.15rem, 6vw, 1.55rem); }
+  /* The wrapped chip row («Jira») must not touch the «Результат:» line. */
+  .route-tools + p { margin-top: 12px; }
+}
+
+
+@media (max-width: 360px) {
+  /* «Мета‑репозиторий» keeps a non-breaking hyphen, so the shared hero title must shrink to fit 320 px. */
+  body[data-stage="delivery"] .hero h1,
+  body[data-stage="metarepo"] .hero h1 { font-size: 1.75rem; }
+  body[data-stage="delivery"] .check li { overflow-wrap: anywhere; }
+}

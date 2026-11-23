@@ -1,0 +1,92 @@
+<template id="scene-04-template">
+  <div data-composition-id="scene-04" data-width="1920" data-height="1080" data-duration="23.3">
+    <style>
+      [data-composition-id="scene-04"] .sc-acc { height: 100%; padding: 12px 26px; display: flex; flex-direction: column; gap: 7px; }
+      [data-composition-id="scene-04"] .sc-acc .cap { font-size: 28px; font-weight: 800; margin-bottom: 2px; }
+      [data-composition-id="scene-04"] .sc-acc .it { display: flex; align-items: center; gap: 13px; font-size: 27px; font-weight: 700; line-height: 1.1; }
+      [data-composition-id="scene-04"] .sc-acc .ok { flex: none; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; color: var(--k-ok); border: 2px solid var(--k-ok); background: var(--k-ok-tint); opacity: 0; }
+      [data-composition-id="scene-04"] .sc-acc .ok svg { width: 20px; height: 20px; }
+      [data-composition-id="scene-04"] .sc-gd { height: 100%; padding: 12px 26px; display: flex; flex-direction: column; gap: 9px; }
+      [data-composition-id="scene-04"] .sc-gd .cap { font-size: 28px; font-weight: 800; }
+      [data-composition-id="scene-04"] .sc-gd .cap .pin { font-size: 24px; font-weight: 700; padding: 2px 12px; border-radius: 10px; background: var(--k-accent-tint); color: var(--k-accent-soft); }
+      [data-composition-id="scene-04"] .sc-gd .items { display: flex; gap: 14px; }
+      [data-composition-id="scene-04"] .sc-gi { flex: 1; display: flex; align-items: center; gap: 10px; font-size: 24px; font-weight: 600; line-height: 1.15; padding: 8px 14px; border-radius: 12px; background: var(--k-panel-2); }
+      [data-composition-id="scene-04"] .sc-gi .ok { flex: none; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; color: var(--k-ok); border: 2px solid var(--k-ok); background: var(--k-ok-tint); opacity: 0; }
+      [data-composition-id="scene-04"] .sc-gi .ok svg { width: 20px; height: 20px; }
+      [data-composition-id="scene-04"] .sc-miss { height: 100%; display: flex; align-items: center; gap: 16px; padding: 0 26px; font-size: 24px; font-weight: 700; line-height: 1.15; }
+      [data-composition-id="scene-04"] .sc-miss .q { width: 42px; height: 42px; flex: none; border-radius: 50%; display: grid; place-items: center; border: 3px dashed var(--k-text-2); color: var(--k-text-2); font-size: 30px; }
+      [data-composition-id="scene-04"] .sc-miss i { font-style: normal; color: var(--k-text-2); }
+      [data-composition-id="scene-04"] .sc-next { height: 100%; display: flex; align-items: center; gap: 26px; padding: 0 34px; }
+      [data-composition-id="scene-04"] .sc-next .lab { font-size: 34px; font-weight: 800; color: var(--k-text-2); }
+      [data-composition-id="scene-04"] .sc-next .nm { font-size: 50px; font-weight: 800; }
+      [data-composition-id="scene-04"] .sc-next .arr { margin-left: auto; width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center; background: var(--k-accent-tint); color: var(--k-accent-soft); }
+      [data-composition-id="scene-04"] .sc-next .arr svg { width: 40px; height: 40px; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("04"), t = S.t, DUR = 23.3;
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const CHECK = Kit.icons.check;
+
+        Kit.header(S, { header: { mode: "parts", total: 3 }, chapter: "Что вы умеете и что дальше", step: null, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* Запись принята: четыре итоговых факта */
+        const acc = Kit.aside(S, { parent: s1, x: 96, y: 230, w: 1050, h: 254, tail: false,
+          html: '<div class="sc-acc"><div class="cap">Запись принята</div>' +
+            '<div class="it r1"><span class="ok">' + CHECK + '</span>проверки пройдены</div>' +
+            '<div class="it r2"><span class="ok">' + CHECK + '</span>комментарии закрыты</div>' +
+            '<div class="it r3"><span class="ok">' + CHECK + '</span>одно одобрение записано</div>' +
+            '<div class="it r4"><span class="ok">' + CHECK + '</span>передача содержит ревизию</div></div>' });
+        const accRows = [".r1", ".r2", ".r3", ".r4"].map((c) => acc.el.querySelector(c));
+        hide(...accRows);
+        acc.show(2.05);   // заставка части держится первые 2 с
+        accRows.forEach((r, i) => Kit.popIn(S, r, 2.1 + i * 0.18));
+        [2.5, t("комментарии закрыты") + 0.6, t("одобрение") + 0.5, t("ревизию") + 0.4].forEach((tt, i) => {
+          S.tl.to(accRows[i].querySelector(".ok"), { opacity: 1, duration: 0.3 }, tt);
+        });
+        read("Запись принята проверки пройдены комментарии закрыты одно одобрение записано передача содержит ревизию", 2.05, DUR);
+
+        /* Пройти курс — достичь уровня 3 «В репозитории с одобрением» */
+        const gd = Kit.aside(S, { parent: s1, x: 96, y: 490, w: 1050, h: 168, tail: false,
+          html: '<div class="sc-gd"><div class="cap">Пройти курс — <span class="pin">достичь уровня 3 «В репозитории с одобрением»</span></div>' +
+            '<div class="items"><div class="sc-gi g1"><span class="ok">' + CHECK + '</span>эффект измерим или назван способ</div>' +
+            '<div class="sc-gi g2"><span class="ok">' + CHECK + '</span>строки плана на месте</div></div></div>' });
+        const gis = [".g1", ".g2"].map((c) => gd.el.querySelector(c));
+        hide(...gis);
+        gd.show(t("уровня три") - 0.3);
+        Kit.popIn(S, gis[0], t("эффект измерим") - 0.2);
+        S.tl.to(gis[0].querySelector(".ok"), { opacity: 1, duration: 0.3 }, t("способ измерения") + 0.4);
+        Kit.popIn(S, gis[1], t("строки плана") - 0.2);
+        S.tl.to(gis[1].querySelector(".ok"), { opacity: 1, duration: 0.3 }, t("строки плана") + 0.5);
+        read("Пройти курс достичь уровня 3 В репозитории с одобрением эффект измерим или назван способ строки плана на месте", t("уровня три") - 0.3, DUR);
+
+        /* Эффект проверит этап «Наблюдение» */
+        const ms = Kit.aside(S, { parent: s1, x: 96, y: 664, w: 1050, h: 68, tail: false,
+          html: '<div class="sc-miss"><span class="q">i</span><span>эффект проверит этап «Наблюдение» — <i>курс его не гарантирует</i></span></div>' });
+        ms.el.style.borderStyle = "dashed";
+        ms.show(t("Эффект проверит"));
+        read("эффект проверит этап Наблюдение курс его не гарантирует", t("Эффект проверит"), DUR);
+
+        /* Скетч + плашка «Дальше» */
+        Kit.sketch(S, { parent: s1, name: "ch-computer", x: 1200, y: 220, w: 620, at: 2.3, dur: 3.2 });
+        const nx = Kit.aside(S, { parent: s1, x: 96, y: 736, w: 1728, h: 74, tail: false,
+          html: '<div class="sc-next"><span class="lab">Дальше:</span><span class="nm">курс анализа</span>' +
+            '<span class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div>' });
+        nx.el.style.borderColor = Kit.token("--k-accent");
+        nx.show(t("Дальше"));
+        read("Дальше курс анализа", t("Дальше"), DUR, 0);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

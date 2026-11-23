@@ -1,0 +1,52 @@
+[
+  {
+    "n": 0,
+    "title": "Курс",
+    "step": null,
+    "chapter": "Курс",
+    "start": 0,
+    "titleStart": 0,
+    "speechStart": 0,
+    "end": 8.6
+  },
+  {
+    "n": 1,
+    "title": "Шаги",
+    "step": null,
+    "chapter": "Шаги",
+    "start": 8.6,
+    "titleStart": 8.6,
+    "speechStart": 8.6,
+    "end": 15.5
+  },
+  {
+    "n": 2,
+    "title": "Intent",
+    "step": null,
+    "chapter": "Intent",
+    "start": 15.5,
+    "titleStart": 15.5,
+    "speechStart": 15.5,
+    "end": 23.5
+  },
+  {
+    "n": 3,
+    "title": "Одобрение",
+    "step": null,
+    "chapter": "Одобрение",
+    "start": 23.5,
+    "titleStart": 23.5,
+    "speechStart": 23.5,
+    "end": 31.6
+  },
+  {
+    "n": 4,
+    "title": "С чего начать",
+    "step": null,
+    "chapter": "С чего начать",
+    "start": 31.6,
+    "titleStart": 31.6,
+    "speechStart": 31.6,
+    "end": 40.9
+  }
+]

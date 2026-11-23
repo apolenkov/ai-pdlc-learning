@@ -1,0 +1,118 @@
+<template id="scene-05-template">
+  <div data-composition-id="scene-05" data-width="1920" data-height="1080" data-duration="49">
+    <style>
+      [data-composition-id="scene-05"] .lbl { position: absolute; font-size: 38px; font-weight: 800; letter-spacing: -0.015em; line-height: 1.2; opacity: 0; white-space: nowrap; }
+      [data-composition-id="scene-05"] .lbl.acc { color: var(--k-accent-soft); }
+      [data-composition-id="scene-05"] .rule { height: 100%; display: flex; align-items: center; gap: 26px; font-size: 40px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.2; }
+      [data-composition-id="scene-05"] .rule .n { flex: none; width: 60px; height: 60px; border-radius: 16px; display: grid; place-items: center; background: var(--k-accent-tint); border: 2px solid var(--k-accent); color: var(--k-accent-soft); font-size: 34px; font-weight: 800; }
+      [data-composition-id="scene-05"] .col { height: 100%; display: flex; flex-direction: column; gap: 14px; }
+      [data-composition-id="scene-05"] .col .h { font-size: 32px; font-weight: 800; letter-spacing: -0.01em; color: var(--k-accent-soft); padding-bottom: 12px; border-bottom: 2px solid var(--k-line); }
+      [data-composition-id="scene-05"] .col.ok .h { color: var(--k-ok); }
+      [data-composition-id="scene-05"] .col .v { font-size: 32px; font-weight: 500; line-height: 1.25; }
+      [data-composition-id="scene-05"] .col.ok .v { font-weight: 700; }
+      [data-composition-id="scene-05"] .why { height: 100%; display: flex; align-items: center; gap: 22px; font-size: 34px; font-weight: 600; line-height: 1.2; }
+      [data-composition-id="scene-05"] .why b { flex: none; padding: 4px 16px; border-radius: 12px; background: var(--k-accent-tint); color: var(--k-accent-soft); font-size: 32px; font-weight: 800; }
+      [data-composition-id="scene-05"] .rw { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 12px; }
+      [data-composition-id="scene-05"] .rw .m { font-size: 42px; font-weight: 700; letter-spacing: -0.015em; line-height: 1.2; }
+      [data-composition-id="scene-05"] .rw .m .tg { color: var(--k-accent-soft); }
+      [data-composition-id="scene-05"] .rw .m .tg.q { color: var(--k-info); }
+      [data-composition-id="scene-05"] .rw .d { align-self: flex-start; padding: 4px 18px; border-radius: 12px; background: var(--k-accent-tint); border: 2px solid var(--k-accent); color: var(--k-accent-soft); font-size: 34px; font-weight: 700; opacity: 0; }
+      [data-composition-id="scene-05"] .more { height: 100%; display: flex; align-items: center; gap: 22px; font-size: 36px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.2; }
+      [data-composition-id="scene-05"] .more svg { flex: none; width: 52px; height: 52px; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("05"), t = S.t, DUR = 49;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.5) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»: ${(off - at - reveal).toFixed(2)} < ${needed.toFixed(2)}`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const rev = (el, at, d = 0.45) => { gsap.set(el, { y: 14 }); S.tl.to(el, { opacity: 1, y: 0, duration: d, ease: "power3.out" }, at); };
+        const ACC = Kit.token("--k-accent"), OK = Kit.token("--k-ok"), INFO = Kit.token("--k-info");
+
+        Kit.header(S, { header: { mode: "parts", total: 7 }, chapter: "Шесть расхождений", step: 5, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const T_OUT1 = t("Возьмите") + 0.2, T_IN2 = T_OUT1 + 0.5;
+        const T_OUT2 = t("Дефект") - 0.3, T_IN3 = T_OUT2 + 0.5;
+
+        /* ---- Кадр (а): четыре правила, дословно со страницы ---- */
+        const sA = S.stage(); gsap.set(sA, { autoAlpha: 1 });
+        const lA = document.createElement("div"); lA.className = "lbl acc"; lA.style.left = "96px"; lA.style.top = "205px"; lA.textContent = "Четыре правила";
+        sA.appendChild(lA); rev(lA, t("Правила"));
+        const RULES = [
+          { tx: "Сначала зафиксируйте проверенное поведение продукта.", at: t("Сначала") },
+          { tx: "Из документов выбирайте последнее датированное решение, а не просто страницу с более новой датой изменения.", at: t("Из документов") },
+          { tx: "Комментарий — не решение, пока договорённость не попала в текст страницы или в продукт.", at: t("Комментарий") },
+          { tx: "Если источники не позволяют решить, запишите открытый вопрос владельцу продукта.", at: t("Если источники") },
+        ];
+        RULES.forEach((r, i) => {
+          const a = Kit.aside(S, { parent: sA, x: 96, y: 265 + i * 130, w: 1728, h: 114, tail: false,
+            html: '<div class="rule"><span class="n">' + (i + 1) + "</span><span>" + r.tx + "</span></div>" });
+          a.el.style.padding = "0 28px";
+          a.el.style.borderColor = ACC;
+          a.show(r.at);
+          read(r.tx, r.at, T_OUT1);
+        });
+
+        /* ---- Кадр (б): минимальная сумма, таблица одной строки ---- */
+        const sB = S.stage();
+        const lB = document.createElement("div"); lB.className = "lbl"; lB.style.left = "96px"; lB.style.top = "205px"; lB.style.fontSize = "46px"; lB.textContent = "Минимальная сумма";
+        sB.appendChild(lB); rev(lB, T_IN2 + 0.3);
+        const CW = 417, CG = 20, CY = 285, CH = 390;
+        const COLS = [
+          { h: "ТЗ", v: "ФТ-7: минимальная и максимальная сумма не ограничиваются", at: t("задание"), cls: "" },
+          { h: "Confluence", v: "Текст: сумма не ограничена; комментарий 14.03.2023: «договорились: минимум 10 000 ₽» — в текст не внесён", at: t("комментарий обещает"), cls: "" },
+          { h: "Наблюдения", v: "Минимум не проверяется: считаются и 500 ₽, и 5 000 000 000 ₽", at: t("экран считает"), cls: "" },
+          { h: "Пишем", v: "Требование «Сумма без ограничений»; минимум — вход следующего изменения", at: t("Пишем") - 0.1, cls: "ok" },
+        ];
+        COLS.forEach((c, i) => {
+          const a = Kit.aside(S, { parent: sB, x: 96 + i * (CW + CG), y: CY, w: CW, h: CH, tail: false,
+            html: '<div class="col ' + c.cls + '"><div class="h">' + c.h + '</div><div class="v">' + c.v + "</div></div>" });
+          a.el.style.padding = "20px 24px";
+          a.el.style.borderColor = c.cls ? OK : Kit.token("--k-line");
+          a.show(c.at);
+          read(c.h + " " + c.v, c.at, T_OUT2);
+        });
+        const T_WHY = t("но в текст");
+        const why = Kit.aside(S, { parent: sB, x: 96, y: 705, w: 1728, h: 100, tail: false,
+          html: '<div class="why"><b>Правило 3</b><span>комментарий — не решение, пока не попал в текст страницы или в продукт</span></div>' });
+        why.el.style.padding = "0 28px";
+        why.el.style.borderColor = ACC;
+        why.show(T_WHY);
+        read("Правило 3 комментарий — не решение, пока не попал в текст страницы или в продукт", T_WHY, T_OUT2);
+
+        /* ---- Кадр (в): ошибка и назначение, плашка про остальные три ---- */
+        const sC = S.stage();
+        const r1 = Kit.aside(S, { parent: sC, x: 96, y: 215, w: 1728, h: 220, tail: false,
+          html: '<div class="rw"><div class="m"><span class="tg">Ошибка:</span> общее сообщение, прежний результат остаётся</div><div class="d">известный дефект, исправит отдельное изменение</div></div>' });
+        r1.el.style.padding = "0 32px"; r1.el.style.borderColor = ACC;
+        const T_R1 = T_IN3 + 0.1;
+        r1.show(T_R1);
+        const T_D = t("пометкой");
+        rev(r1.el.querySelector(".d"), T_D);
+        read("Ошибка: общее сообщение, прежний результат остаётся", T_R1, DUR);
+        read("известный дефект, исправит отдельное изменение", T_D, DUR);
+        const T_R2 = t("А назначение");
+        const r2 = Kit.aside(S, { parent: sC, x: 96, y: 470, w: 1728, h: 150, tail: false,
+          html: '<div class="rw"><div class="m"><span class="tg q">Назначение калькулятора:</span> открытый вопрос владельцу продукта</div></div>' });
+        r2.el.style.padding = "0 32px"; r2.el.style.borderColor = INFO;
+        r2.show(T_R2);
+        read("Назначение калькулятора: открытый вопрос владельцу продукта", T_R2, DUR);
+        const T_MORE = t("калькулятора") + 0.2;
+        const more = Kit.aside(S, { parent: sC, x: 96, y: 655, w: 1728, h: 130, tail: false,
+          html: '<div class="more"><svg viewBox="0 0 24 24" fill="none" stroke="' + OK + '" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-7"/></svg><span>ещё три расхождения — срок, начальные значения, браузеры — по тем же правилам</span></div>' });
+        more.el.style.padding = "0 32px"; more.el.style.borderColor = OK;
+        more.show(T_MORE);
+        read("ещё три расхождения — срок, начальные значения, браузеры — по тем же правилам", T_MORE, DUR);
+
+        Kit.stageOut(S, sA, T_OUT1); Kit.stageIn(S, sB, T_IN2);
+        Kit.stageOut(S, sB, T_OUT2); Kit.stageIn(S, sC, T_IN3);
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

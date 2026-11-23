@@ -1,0 +1,186 @@
+[
+  {
+    "n": "0m",
+    "duration": 17.3,
+    "chapter": "Вступление",
+    "step": null,
+    "title": "Приветствие",
+    "audio": "assets/vo/scene-0m.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 5
+    },
+    "audioDuration": 15.72
+  },
+  {
+    "n": 0,
+    "duration": 9.5,
+    "chapter": "Вступление",
+    "step": null,
+    "title": "Карта курса",
+    "audio": "assets/vo/scene-0.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 5
+    },
+    "audioDuration": 7.48
+  },
+  {
+    "id": "t1",
+    "kind": "title",
+    "of": 1,
+    "overlay": true,
+    "tail": true,
+    "duration": 2,
+    "chapter": "Что на карте",
+    "step": 1,
+    "title": "Что на карте",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 5
+    }
+  },
+  {
+    "n": 1,
+    "duration": 22.2,
+    "chapter": "Что на карте",
+    "step": 1,
+    "title": "Что на карте",
+    "audio": "assets/vo/scene-1.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 5
+    },
+    "audioDuration": 20.2
+  },
+  {
+    "id": "t2",
+    "kind": "title",
+    "of": 2,
+    "overlay": true,
+    "tail": true,
+    "duration": 2,
+    "chapter": "С чего начать",
+    "step": 2,
+    "title": "С чего начать",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 5
+    }
+  },
+  {
+    "n": 2,
+    "duration": 13.4,
+    "chapter": "С чего начать",
+    "step": 2,
+    "title": "С чего начать",
+    "audio": "assets/vo/scene-2.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 5
+    },
+    "audioDuration": 9.83
+  },
+  {
+    "id": "t3",
+    "kind": "title",
+    "of": 3,
+    "overlay": true,
+    "tail": true,
+    "duration": 2,
+    "chapter": "Как выбрать маршрут",
+    "step": 3,
+    "title": "Как выбрать маршрут",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 5
+    }
+  },
+  {
+    "n": 3,
+    "duration": 14.1,
+    "chapter": "Как выбрать маршрут",
+    "step": 3,
+    "title": "Как выбрать маршрут",
+    "audio": "assets/vo/scene-3.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 5
+    },
+    "audioDuration": 12.09
+  },
+  {
+    "id": "t4",
+    "kind": "title",
+    "of": 4,
+    "overlay": true,
+    "tail": true,
+    "duration": 2,
+    "chapter": "Как вернуться",
+    "step": 4,
+    "title": "Как вернуться",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 5
+    }
+  },
+  {
+    "n": 4,
+    "duration": 12.1,
+    "chapter": "Как вернуться",
+    "step": 4,
+    "title": "Как вернуться",
+    "audio": "assets/vo/scene-4.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 5
+    },
+    "audioDuration": 10.06
+  },
+  {
+    "id": "t5",
+    "kind": "title",
+    "of": 5,
+    "overlay": true,
+    "tail": true,
+    "duration": 2,
+    "chapter": "Свой темп",
+    "step": 5,
+    "title": "Свой темп",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 5
+    }
+  },
+  {
+    "n": 5,
+    "duration": 6,
+    "chapter": "Свой темп",
+    "step": 5,
+    "title": "Свой темп",
+    "audio": "assets/vo/scene-5.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 5
+    },
+    "audioDuration": 4.47
+  },
+  {
+    "n": 6,
+    "duration": 12.9,
+    "chapter": "Что дальше",
+    "step": null,
+    "title": "Что дальше",
+    "audio": "assets/vo/scene-6.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 5
+    },
+    "audioDuration": 7.81
+  }
+]

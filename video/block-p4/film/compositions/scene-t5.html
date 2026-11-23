@@ -1,0 +1,29 @@
+<template id="scene-t5-template">
+  <div data-hf-id="hf-v95p" data-composition-id="scene-t5" data-width="1920" data-height="1080" data-duration="2">
+    <script>
+      (function () {
+        /* ГЕНЕРИРУЕТСЯ: node tools/build-titles.mjs. Руками не править. */
+        window.ALIGN = window.ALIGN || {};
+        window.ALIGN["t5"] = { characters: [], character_start_times_seconds: [], character_end_times_seconds: [] };
+        const S = Kit.scene("t5");
+        const DURATION = 2;
+        const center = (k) => { k.el.style.left = "96px"; k.el.style.width = "1728px"; k.el.style.textAlign = "center"; return k; };
+        /* заставка: без шапки и рейла (шапка повторяла бы титул), только крупный титул */
+        const s1 = S.stage();
+        /* заставка лежит поверх начала сцены: сплошной фон скрывает то, что под ней */
+        const cover = document.createElement("div"); cover.style.cssText = "position:absolute;inset:0;background:var(--k-bg)"; s1.prepend(cover);
+        gsap.set(s1, { autoAlpha: 1 });
+        center(Kit.kinetic(S, { parent: s1, x: 0, y: 290, size: 120, color: "var(--k-accent)", text: "Часть 5", at: 0, stagger: 0, dur: 0.01 }));
+        center(Kit.kinetic(S, { parent: s1, x: 0, y: 530, size: 72, text: "Контракт и запросы изменения", at: 0, stagger: 0, dur: 0.01 }));
+        center(Kit.kinetic(S, { parent: s1, x: 0, y: 670, size: 48, color: "var(--k-text-2)", text: "Планирование · код и статусы · архив", at: 0, stagger: 0, dur: 0.01 }));
+        /* STATIC: карточка видна с первого кадра - снимаем стартовый yPercent 118 и autoAlpha 0 у кинетики, иначе на кадре 0 tween с at: 0 ещё не отрисован. */
+        S.tl.killTweensOf(s1.querySelectorAll(".k-wi"));
+        S.tl.killTweensOf(s1.querySelectorAll(".k-kin"));
+        gsap.set(s1.querySelectorAll(".k-wi"), { yPercent: 0 });
+        gsap.set(s1.querySelectorAll(".k-kin"), { autoAlpha: 1 });
+        S.tl.to(s1, { autoAlpha: 0, duration: 0.3, ease: "power2.in" }, DURATION - 0.3);
+        S.finish(DURATION);
+      })();
+    </script>
+  </div>
+</template>

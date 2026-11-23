@@ -1,0 +1,89 @@
+<template id="scene-00-template">
+  <div data-composition-id="scene-00" data-width="1920" data-height="1080" data-duration="27.3">
+    <style>
+      [data-composition-id="scene-00"] .r0-abs { position: absolute; }
+      [data-composition-id="scene-00"] .r0-file { left: 96px; top: 232px; width: 1200px; height: 560px; padding: 18px 30px; }
+      [data-composition-id="scene-00"] .r0-hd { display: flex; align-items: center; gap: 16px; height: 62px; font-family: var(--k-font-mono); font-size: 34px; font-weight: 700; white-space: nowrap; }
+      [data-composition-id="scene-00"] .r0-hd svg { width: 44px; height: 44px; color: var(--k-text-2); flex: none; }
+      [data-composition-id="scene-00"] .r0-row { position: relative; display: flex; align-items: center; gap: 22px; height: 48px; border-top: 2px solid var(--k-line); font-size: 32px; font-weight: 600; color: var(--k-text-2); white-space: nowrap; }
+      [data-composition-id="scene-00"] .r0-row .no { width: 34px; font-family: var(--k-font-mono); font-size: 28px; font-weight: 500; }
+      [data-composition-id="scene-00"] .r0-row.new { color: var(--k-accent-soft); font-weight: 800; background: var(--k-accent-tint); border-top-color: var(--k-accent); border-radius: 0 0 14px 14px; }
+      [data-composition-id="scene-00"] .r0-tag { position: absolute; right: 0; top: 3px; display: inline-flex; align-items: center; gap: 12px; padding: 0 8px 0 18px; height: 40px; border-radius: 14px; border: 2px dashed var(--k-text); background: var(--k-panel-2); color: var(--k-text); font-size: 30px; font-weight: 700; }
+      [data-composition-id="scene-00"] .r0-tag .q { width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--k-text-2); color: var(--k-text-2); font-size: 22px; line-height: 26px; text-align: center; }
+      [data-composition-id="scene-00"] .r0-ar { left: 872px; top: 470px; width: 110px; height: 70px; color: var(--k-text-2); }
+      [data-composition-id="scene-00"] .r0-box { left: 1010px; width: 814px; height: 150px; padding: 0 40px; display: flex; align-items: center; border-style: dashed; border-color: var(--k-text-2); background: transparent; box-shadow: none; font-size: 46px; font-weight: 800; letter-spacing: -0.01em; }
+      [data-composition-id="scene-00"] .r0-box .lit { position: absolute; left: -2px; top: -2px; right: -2px; bottom: -2px; border-radius: 24px; border: 2px solid var(--k-text-2); background: rgba(238, 240, 243, 0.08); }
+      [data-composition-id="scene-00"] .r0-box span { position: relative; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("00"), t = S.t, DUR = 27.3;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const div = (cls, html, parent) => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; parent.appendChild(el); return el; };
+        const ARROW = '<svg viewBox="0 0 110 70" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 35h92M70 8l30 27-30 27"/></svg>';
+
+        Kit.header(S, { header: { mode: "parts", total: 8 }, chapter: "Проблема → цель", step: null, mode: "intro", duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+        const T0 = t("В учебной");   // the first phrase names the film to watch before this one
+        const plate = Kit.aside(S, { parent: s1, x: 96, y: 400, w: 1300, tail: false, title: "Перед этим", text: "Проверяем и согласуем требования" });
+        plate.show(0.2); plate.hide(T0 - 0.1);
+        read("Перед этим Проверяем и согласуем требования", 0.2, T0 - 0.1, 0.2);
+
+        /* ---- один файл: девять строк ---- */
+        const card = div("k-card r0-abs r0-file", `<div class="r0-hd">${Kit.icons.file}specification.md</div>`, s1);
+        const rows = [];
+        for (let i = 1; i <= 9; i++) {
+          const r = div("r0-row" + (i === 9 ? " new" : ""), `<span class="no">${i}</span><span>${i === 9 ? "срок в годах" : "сценарий " + i}</span>`, card);
+          rows.push(r);
+        }
+        hide(card, ...rows);
+        S.tl.fromTo(card, { autoAlpha: 0, x: -90 }, { autoAlpha: 1, x: 0, duration: 0.8, ease: "power3.out", immediateRender: false }, T0 + 0.1);
+        const T_ROWS = t("результат:");
+        rows.slice(0, 8).forEach((r, i) => S.tl.fromTo(r, { autoAlpha: 0, x: -30 }, { autoAlpha: 1, x: 0, duration: 0.5, ease: "power3.out", immediateRender: false }, T_ROWS + i * 0.25));
+        read("specification.md сценарий", T_ROWS, DUR);
+
+        /* ---- добавьте срок в годах: девятая строка, единственный коралловый акцент ---- */
+        const T_NEW = t("срок");
+        S.tl.fromTo(rows[8], { autoAlpha: 0, x: 90, scale: 0.97 }, { autoAlpha: 1, x: 0, scale: 1, duration: 0.7, ease: "back.out(1.8)", immediateRender: false }, T_NEW);
+        read("срок в годах", T_NEW, DUR);
+
+        /* ---- не отличить: три метки с вопросом, вперемешку ---- */
+        const T_OFF = t("Покажем,") + 0.4;
+        const tags = [[1, "принято", t("принятое")], [8, "новое", t("нового")], [4, "осталось", t("что ещё")]].map(([ri, txt, at], k) => {
+          const g = div("r0-tag", `${txt}<span class="q">?</span>`, rows[ri]);
+          hide(g);
+          const from = [{ x: 60 }, { scale: 0.7 }, { y: 30, filter: "blur(10px)" }][k];
+          S.tl.fromTo(g, { autoAlpha: 0, ...from }, { autoAlpha: 1, x: 0, y: 0, scale: 1, filter: "blur(0px)", duration: 0.6, ease: k === 1 ? "back.out(2)" : "power3.out", immediateRender: false }, at);
+          S.tl.to(g, { autoAlpha: 0, duration: 0.4, ease: "power2.in" }, T_OFF);
+          read(txt, at, T_OFF);
+          return g;
+        });
+
+        /* ---- Покажем: список сжимается влево, справа три контура ---- */
+        S.tl.to(card, { width: 760, duration: 0.8, ease: "power3.inOut" }, T_OFF + 0.1);
+        const ar = div("r0-abs r0-ar", ARROW, s1); hide(ar);
+        S.tl.fromTo(ar, { autoAlpha: 0, x: -30 }, { autoAlpha: 1, x: 0, duration: 0.6, ease: "power3.out", immediateRender: false }, t("разложить"));
+        const defs = [["предложение", t("предложение,"), 232, { x: 90 }], ["разница требований", t("разница"), 410, { scale: 0.9, y: 30 }], ["план задач", t("план"), 588, { scale: 1.06, filter: "blur(14px)" }]];
+        const boxes = defs.map(([txt, at, top, from], i) => {
+          const b = div("k-card r0-abs r0-box", `<div class="lit"></div><span>${txt}</span>`, s1);
+          b.style.top = top + "px"; hide(b);
+          const lit = b.querySelector(".lit"); gsap.set(lit, { opacity: 0 });
+          S.tl.fromTo(b, { autoAlpha: 0, ...from }, { autoAlpha: 1, x: 0, y: 0, scale: 1, filter: "blur(0px)", duration: 0.7, ease: i === 1 ? "back.out(2)" : "power3.out", immediateRender: false }, at);
+          S.tl.to(lit, { opacity: 1, duration: 0.6, ease: "power2.out" }, t("потерять") - 0.1 + i * 0.15);
+          read(txt, at, DUR);
+          return b;
+        });
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

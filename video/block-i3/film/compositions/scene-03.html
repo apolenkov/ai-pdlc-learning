@@ -1,0 +1,108 @@
+<template id="scene-03-template">
+  <div data-composition-id="scene-03" data-width="1920" data-height="1080" data-duration="40.3">
+    <style>
+      [data-composition-id="scene-03"] .sc-def { height: 100%; display: flex; align-items: center; gap: 16px; padding: 0 26px; font-size: 25px; font-weight: 700; }
+      [data-composition-id="scene-03"] .sc-def .k { flex: none; font-size: 23px; font-weight: 800; padding: 5px 16px; border-radius: 12px; background: var(--k-accent-tint); color: var(--k-accent-soft); white-space: nowrap; }
+      [data-composition-id="scene-03"] .sc-def i { font-style: normal; color: var(--k-text-2); font-weight: 500; }
+      [data-composition-id="scene-03"] .sc-risk { height: 100%; padding: 5px 20px; display: flex; flex-direction: column; gap: 4px; }
+      [data-composition-id="scene-03"] .sc-risk .cap { font-size: 25px; font-weight: 800; line-height: 1.15; display: flex; gap: 10px; align-items: baseline; }
+      [data-composition-id="scene-03"] .sc-risk .cap .n { flex: none; font-size: 21px; font-weight: 800; padding: 1px 11px; border-radius: 9px; background: var(--k-accent-tint); color: var(--k-accent-soft); }
+      [data-composition-id="scene-03"] .sc-risk .how { font-size: 23px; font-weight: 600; line-height: 1.2; }
+      [data-composition-id="scene-03"] .sc-risk .how b { color: var(--k-accent-soft); font-weight: 800; }
+      [data-composition-id="scene-03"] .sc-risk .link { align-self: flex-start; font-size: 19px; font-weight: 700; padding: 3px 12px; border-radius: 9px; border: 2px solid var(--k-line); color: var(--k-text-2); white-space: nowrap; }
+      [data-composition-id="scene-03"] .sc-risk .nums { display: flex; align-items: baseline; gap: 12px; }
+      [data-composition-id="scene-03"] .sc-risk .nums .b { flex: none; font-size: 36px; font-weight: 800; }
+      [data-composition-id="scene-03"] .sc-risk .nums .cap2 { font-size: 21px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-03"] .sc-risk .chips { display: flex; gap: 10px; }
+      [data-composition-id="scene-03"] .sc-risk .un { font-size: 18px; font-weight: 700; padding: 3px 11px; border-radius: 9px; border: 2px solid var(--k-line); color: var(--k-text-2); white-space: nowrap; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("03"), t = S.t, DUR = 40.3;
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+
+        Kit.header(S, { header: { mode: "parts", total: 3 }, chapter: "Риски с запасным ходом", step: 3, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        const def = Kit.aside(S, { parent: s1, x: 96, y: 215, w: 1180, h: 82, tail: false,
+          html: '<div class="sc-def"><span class="k">риск</span><span>событие, которое мешает эффекту <i>+ запасной ход: что делаем, если сбывается</i></span></div>' });
+        def.show(2.05);   // заставка части держится первые 2 с
+        read("риск событие которое мешает эффекту запасной ход что делаем если сбывается", 2.05, DUR);
+
+        /* ---- слева: раздел «Риски» реального intent.md ---- */
+        const ed = Kit.editor(S, { parent: s1, x: 96, y: 315, w: 1180, h: 470, crumb: "калькулятор · учебный пример", visible: false,
+          tabs: [{ name: "intent.md", active: true }],
+          lines: [
+            "## Риски",
+            "текст сообщения непонятен →",
+            "уточнить с поддержкой",
+            "срок в годах понимают иначе →",
+            "подтверждает владелец продукта",
+            "эффект к марту не подтверждается →",
+            "способ измерения: 42 → 25/нед.",
+          ] });
+        ed.show(2.1);
+        ed.caretOff(2.2);
+        ed.reveal(0, 0, 2.1);
+        ed.reveal(1, 2, t("Первый риск") - 0.2); ed.mark(1, t("непонятен"), { tone: "accent" });
+        ed.reveal(3, 4, t("Второй") - 0.2); ed.mark(3, t("иначе") - 0.3, { tone: "accent" });
+        ed.reveal(5, 6, t("Третий") - 0.2); ed.mark(5, t("не подтверждается"), { tone: "accent" });
+        read("Риски", 2.1, DUR, 0);
+        read("текст сообщения непонятен уточнить с поддержкой", t("Первый риск") - 0.2, DUR);
+        read("срок в годах понимают иначе подтверждает владелец продукта", t("Второй") - 0.2, DUR);
+        read("эффект к марту не подтверждается способ измерения 42 25 нед", t("Третий") - 0.2, DUR);
+
+        /* ---- справа: три карточки «риск → запасной ход (+ связь)» ---- */
+        const risk = (n, cap, how, link, extra) =>
+          '<div class="sc-risk"><div class="cap"><span class="n">' + n + '</span>' + cap + '</div>' +
+          '<div class="how"><b>→</b> ' + how + '</div>' + (extra || "") +
+          '<span class="link">' + link + "</span></div>";
+        const r1 = Kit.aside(S, { parent: s1, x: 1304, y: 215, w: 520, h: 150, tail: false,
+          html: risk("1", "текст сообщения непонятен", "уточняем с поддержкой", "связь: открытые вопросы") });
+        const r1l = r1.el.querySelector(".link"); hide(r1l);
+        r1.show(t("Первый риск"));
+        Kit.popIn(S, r1l, t("открытых вопросах") - 0.3);
+        read("текст сообщения непонятен уточняем с поддержкой", t("Первый риск"), DUR);
+        read("связь открытые вопросы", t("открытых вопросах") - 0.3, DUR, 0);
+
+        const r2 = Kit.aside(S, { parent: s1, x: 1304, y: 375, w: 520, h: 185, tail: false,
+          html: risk("2", "срок в годах ≠ месяцы", "решение подтверждает владелец продукта", "связь: шапка · владелец") });
+        const r2l = r2.el.querySelector(".link"); hide(r2l);
+        r2.show(t("Второй"));
+        Kit.popIn(S, r2l, t("подтверждает владелец") + 0.6);
+        read("срок в годах месяцы решение подтверждает владелец продукта", t("Второй"), DUR);
+        read("связь шапка владелец", t("подтверждает владелец"), DUR, 0);
+
+        const r3 = Kit.aside(S, { parent: s1, x: 1304, y: 570, w: 520, h: 240, tail: false,
+          html: '<div class="sc-risk"><div class="cap"><span class="n">3</span>эффект к марту не подтверждается</div>' +
+            '<div class="how"><b>→</b> способ измерения из признаков успеха</div>' +
+            '<div class="nums"><span class="b">42 → 25</span><span class="cap2">обращений в неделю</span></div>' +
+            '<div class="chips"><span class="un">учебные значения</span><span class="link">связь: признаки успеха</span></div></div>' });
+        const r3n = r3.el.querySelector(".nums"), r3u = r3.el.querySelector(".un"), r3l = r3.el.querySelector(".link");
+        hide(r3n, r3u, r3l);
+        r3.show(t("Третий"));
+        Kit.popIn(S, r3n, t("42 обращения") - 0.3);
+        Kit.popIn(S, r3u, t("учебные значения"));
+        Kit.popIn(S, r3l, t("связь") - 0.2);
+        read("эффект к марту не подтверждается способ измерения из признаков успеха", t("Третий"), DUR);
+        read("42 25 обращений в неделю учебные значения", t("42 обращения") - 0.3, DUR);
+        read("связь признаки успеха", t("связь") - 0.2, DUR, 0);
+
+        /* Финал: у каждого риска — запасной ход и связь */
+        const T_FIN = t("запасной ход");
+        S.tl.to([r1.el, r2.el, r3.el], { borderColor: Kit.token("--k-accent"), duration: 0.5, stagger: 0.1 }, T_FIN);
+        S.tl.to(s1.querySelectorAll(".link"), { borderColor: Kit.token("--k-accent"), color: Kit.token("--k-accent-soft"), duration: 0.4, stagger: 0.08 }, t("связь") - 0.2);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

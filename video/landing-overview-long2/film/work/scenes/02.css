@@ -1,0 +1,5 @@
+.s2-pd { position: absolute; left: 96px; width: 1728px; top: 170px; text-align: center; font-size: 54px; font-weight: 800; letter-spacing: -.01em; }
+.s2-pd em { font-style: normal; color: var(--k-ok); }
+.s2-pd span { color: var(--k-text-2); font-weight: 700; }
+.s2-note { position: absolute; left: 360px; width: 1200px; text-align: center; top: 770px; font-size: 38px; font-weight: 800; color: var(--k-accent-soft); }
+.s2-sdlc { position: absolute; text-align: center; font-size: 34px; font-weight: 800; color: var(--k-info); }

@@ -1,0 +1,71 @@
+/* Calculator: compact input sheet with a result receipt. */
+.calculator-page .shell{width:min(var(--site-shell-max),calc(100% - (2 * var(--site-page-gutter))));padding-bottom:48px}
+.calculator-page .calculator-hero{grid-template-columns:minmax(0,1fr) 18rem;gap:32px;align-items:center}
+.calculator-page .calculator-hero h1{max-width:none;font-size:clamp(2.8rem,4.7vw,3.8rem);line-height:1.05}
+.calculator-page .calculator-hero p{max-width:680px;margin-top:12px}
+.calculator-page .workbench .proof{padding:16px 18px;background:rgba(225,238,231,.72)}
+.calculator-page .workbench .proof::before{display:block;width:28px;height:3px;margin-bottom:2px;border-radius:999px;background:var(--green);content:""}
+.calculator-page .workbench .proof span{font:600 13px/1.36 var(--body);letter-spacing:0;text-transform:none}
+.calculator-page .workbench{padding:0;overflow:hidden}
+.calculator-page .workbench-head{display:flex;align-items:end;justify-content:space-between;gap:28px;padding:19px 24px;border-bottom:1px solid var(--line)}
+.calculator-page .workbench-head h2{margin:0;font-size:1.45rem}
+.calculator-page .workbench-head>p{max-width:390px;font-size:.84rem;text-align:right}
+.calculator-page .calculator-layout .proof{grid-column:1/-1;align-self:start}
+.calculator-page .calculator-layout{display:grid;grid-template-columns:minmax(0,.92fr) minmax(22rem,1.08fr);gap:16px;padding:16px;background:#f7f4ec}
+.calculator-page .calc-form{display:flex;min-width:0;flex-direction:column;justify-content:center;padding:22px;border:1px solid var(--line);border-radius:var(--customdev-radius-md);background:var(--raised)}
+.calculator-page .field-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 12px}
+.calculator-page .field-grid label:first-child{grid-column:1/-1}
+.calculator-page .calc-form label{display:grid;align-content:start;gap:6px;font-size:.9rem;font-weight:800}
+.calculator-page .calc-form label span{color:var(--muted);font-size:13px;font-weight:600}
+.calculator-page .calc-form input{width:100%;min-height:48px;padding:9px 12px;border:1px solid var(--line-strong);border-radius:var(--customdev-radius-sm);background:#fff;color:var(--ink);font:700 1rem inherit;font-variant-numeric:tabular-nums}
+.calculator-page .calc-form input:hover{border-color:var(--green)}
+.calculator-page .calc-form input[aria-invalid="true"]{border-color:var(--coral);background:#fff8f6}
+.calculator-page .calc-form button{width:100%;min-height:46px;margin-top:12px;padding:10px 18px;border:0;border-radius:var(--customdev-radius-sm);background:var(--green);color:#fff;font:800 .94rem inherit;cursor:pointer;transition:background-color .16s ease,transform .16s ease}
+.calculator-page .calc-form button:hover{background:#174b3c;transform:translateY(-1px)}
+.calculator-page .calc-form .form-error{min-height:1.5em;margin:10px 0 0;color:var(--coral);font-size:13px;overflow-wrap:anywhere}
+.calculator-page .result{display:flex;min-width:0;min-height:310px;flex-direction:column;justify-content:center;padding:28px;border:1px solid color-mix(in srgb, var(--customdev-green) 50%, transparent);border-radius:var(--customdev-radius-md);background:linear-gradient(150deg,#edf6f1 0%,#dcece4 100%);text-align:left;box-shadow:inset 5px 0 0 var(--green)}
+.calculator-page main .eyebrow,.calculator-page .result-kicker{margin:0 0 4px;color:var(--muted);font:inherit;letter-spacing:normal;text-transform:none}
+.calculator-page .result h2{margin:0;color:var(--ink);font-size:.92rem;font-weight:750}
+.calculator-page .result output{display:block;margin:8px 0 5px;color:var(--green);font-size:clamp(2.8rem,5vw,4rem);font-weight:880;letter-spacing:-.055em;line-height:1.02;font-variant-numeric:tabular-nums;white-space:nowrap}
+.calculator-page .result output[data-state="empty"]{font-size:1rem;color:var(--muted)}
+.calculator-page .result output[data-state="empty"]+.result-context{margin-top:4px;color:var(--muted);font-size:18px}
+.calculator-page .result output[data-state="empty"]~.formula-strip{display:none}
+.calculator-page .result-context{max-width:34rem;font-size:13px}
+.calculator-page .formula-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:20px}
+.calculator-page .formula-strip span{display:grid;gap:2px;min-width:0;padding:9px 10px;border:1px solid color-mix(in srgb, var(--customdev-green) 22%, transparent);border-radius:8px;background:color-mix(255,255,255,.58);color:var(--muted);font-size:13px}
+.calculator-page .formula-strip b{overflow-wrap:anywhere;color:var(--ink);font-size:13px;font-variant-numeric:tabular-nums}
+.calculator-page .rule-card,.calculator-page .readiness-card{padding:24px}
+.calculator-page .rule-card h2,.calculator-page .readiness-card h2{margin-bottom:7px}
+.calculator-page .rule-card p:last-child,.calculator-page .readiness-card li{font-size:.84rem}
+.calculator-page .readiness-card .check{gap:7px;padding-inline-start:0}
+/* Условия готовности — список с точками, а не пустые квадраты-флажки, которые хочется отметить; текст по краю заголовка. */
+.calculator-page .readiness-card .check li{padding-left:16px}
+.calculator-page .readiness-card .check li::before{top:.62em;width:6px;height:6px;border:0;border-radius:50%;background:var(--green);content:""}
+/* 1440×900 first screen (TASK-904 hubs-55): on wide screens the workbench keeps its own head, so the hero frame and the form sheet take a tighter vertical rhythm and the «Рассчитать» button stays fully visible without scrolling. */
+@media(min-width:901px){.calculator-page .hero{padding:8px 32px 24px;margin-bottom:8px}.calculator-page .workbench-head{padding:12px 24px}.calculator-page .calc-form{padding:18px}.calculator-page .field-grid{gap:10px 12px}}
+@media(min-width:901px){.calculator-page .calculator-layout .result{grid-area:1 / 2}}
+@media(max-width:900px){.calculator-page .shell{width:min(100% - 28px,1180px)}.calculator-page .calculator-hero{grid-template-columns:1fr}.calculator-page .calculator-layout{grid-template-columns:1fr}.calculator-page .workbench-head{align-items:start;flex-direction:column}.calculator-page .workbench-head>p{text-align:left}}
+@media(max-width:560px){.calculator-page .field-grid,.calculator-page .formula-strip{grid-template-columns:1fr}.calculator-page .field-grid label:first-child{grid-column:auto}.calculator-page .result output{font-size:clamp(2.35rem,13vw,3.3rem)}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.calculator-page .calc-form button{transition:none}}
+.example-toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:8px}
+.copy-example{min-height:44px;padding:6px 12px;border:1px solid var(--green);border-radius:8px;background:var(--raised);color:var(--green);font:inherit;font-size:.85rem;font-weight:700;cursor:pointer}
+.copy-example:hover{background:var(--green-soft)}
+.copy-example:focus-visible,.step-example pre:focus-visible{outline:3px solid var(--green);outline-offset:3px}
+.copy-status{display:block;min-height:1.4em;font-size:.85rem;color:var(--ink)}
+.step-example pre{white-space:pre-wrap;overflow-wrap:anywhere;max-width:100%}
+
+
+.route-before{display:grid;gap:6px;margin:10px 0 0;padding-left:1.25rem;color:var(--ink)}
+.route-before li{padding-left:2px}
+
+.step-trouble>summary,.step-screenshots>summary,.step-platforms>summary,.beginner-extra>summary,.step-model>summary{display:flex;min-height:44px;align-items:center}
+.beginner-extra--secondary>summary::before{content:"";position:absolute;inset-inline-start:3px;top:0;bottom:0;margin-block:auto;width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:8px solid currentColor}
+.beginner-extra--secondary[open]>summary::before{transform:rotate(90deg)}
+.beginner-extra--secondary>summary:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.beginner-extra--secondary>summary{padding-inline-start:30px}
+.beginner-extra--secondary>summary::before{inset-inline-start:12px}
+.step-level .beginner-extra__body{padding-bottom:4px}
+.step-level .beginner-extra__body>p{color:var(--ink);font-size:1rem}
+
+
+body.calculator-page:has(.site-topbar) :is(#content,#content [id]){scroll-margin-top:calc(var(--site-nav-reserve) + 16px)}

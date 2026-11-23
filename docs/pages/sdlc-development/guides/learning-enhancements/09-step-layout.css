@@ -1,0 +1,205 @@
+/* Step layout (TASK-904, W5): one reading column per step, compact command blocks. */
+/* Every text block of a step keeps one measure, so the frames line up at one right edge.
+   Course figures, screenshots and blocks with a table keep the full width of the step. */
+.step-list{--step-measure:50rem}
+.step-copy>*:not(.course-figure):not(.step-reference):not(.lesson-video):not(:has(table,.legacy-repo-tree)){max-width:var(--step-measure)}
+.step-copy>*:not(.course-figure):not(.step-reference) :where(p,li){max-width:none}
+
+/* The example after the action list lines up with the command plates inside its numbered items. */
+.step-instructions{--action-list-indent:1.35rem;--action-text-indent:3px}
+.step-instructions :is(.terminal-copy,.step-example){max-inline-size:47rem}
+.step-actions:has(>li>.terminal-copy)~.step-example{margin-inline-start:calc(var(--action-list-indent) + var(--action-text-indent));padding:0;border:0;background:none}
+
+/* Terminal commands: one grey code plate with the copy button in its top right corner.
+   The label stays for screen readers and the button name; the plate itself shows the command. */
+.terminal-copy{display:block;position:relative;margin:8px 0;padding:0;border:0;background:none}
+.terminal-copy>.example-toolbar{margin:0}
+.terminal-copy>.example-toolbar>strong{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.terminal-copy .copy-example{position:absolute;top:4px;right:4px;z-index:1;min-height:36px;padding:4px 10px;font-size:.8rem}
+.terminal-copy pre{min-height:44px;padding:11px 9.5rem 11px 12px}
+
+/* A titled example keeps its title and button on one row: a long title wraps, the button stays right. */
+.step-example>.example-toolbar{flex-wrap:nowrap}
+/* A long example title wraps beside the copy button instead of being cut off (lint:ui content-clipping). */
+.step-example>.example-toolbar>:first-child{min-width:0;overflow-wrap:anywhere}
+.step-example>.example-toolbar>.copy-example{flex:none}
+/* Narrow phones: beside the copy button the heading had ~100px and split words; it takes its own line instead. */
+@media(max-width:480px){.step-example>.example-toolbar{flex-wrap:wrap;gap:8px}.step-example>.example-toolbar>:first-child{flex:1 1 100%;overflow-wrap:break-word}}
+
+/* Copy feedback is on the button; the status line is read by screen readers only, unless copying failed. */
+.copy-status:not([data-copy-state="error"]){position:absolute;width:1px;height:1px;min-height:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.copy-status[data-copy-state="error"]{margin-top:6px;color:var(--customdev-risk)}
+.copy-example[data-copied]{background:var(--green-soft)}
+
+@media(max-width:760px){
+  .terminal-copy pre{padding-right:12px;padding-top:48px}
+}
+
+/* Step heading and number read as the start of a step, not as one more line of text. */
+.step-list .step-copy>h3{margin:4px 0 8px;font:700 1.375rem/1.25 var(--display);letter-spacing:-.01em}
+.step-list .step-number{width:36px;height:36px;font:800 15px var(--body)}
+
+/* Disclosures of a step are one quiet stack of the same kind: a line on top, no fill, one summary style,
+   and the same look open and closed. Help comes first; the way on is the last line of the step. */
+.step-list :is(.step-copy,.step-tail)>details:not(.example-details),
+.step-list :is(.step-copy,.step-tail)>details:not(.example-details)[open]{margin:8px 0 0;padding:0;border:0;border-top:1px solid var(--line);border-radius:0;background:none}
+.step-list :is(.step-copy,.step-tail)>details:not(.example-details)>summary{position:relative;display:flex;align-items:center;min-height:44px;padding:10px 0 10px 22px;border:0;color:var(--green);font-size:.9rem;font-weight:800;cursor:pointer}
+.step-list :is(.step-copy,.step-tail)>details:not(.example-details)>summary::before{content:"";display:block;position:absolute;inset-inline-start:4px;top:0;bottom:0;width:0;height:0;margin:auto 0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:8px solid currentColor;transform:none}
+.step-list :is(.step-copy,.step-tail)>details:not(.example-details)[open]>summary::before{transform:rotate(90deg)}
+.step-list :is(.step-copy,.step-tail)>details:not(.example-details)>div{padding:0 0 12px 22px;color:var(--ink);font-size:.94rem}
+.step-list :is(.step-copy,.step-tail)>details:not(.example-details)>div :where(p,li){max-width:78ch;color:var(--ink)!important;font-size:.94rem!important}
+.step-list :is(.step-copy,.step-tail)>details:not(.example-details)>div p{margin:0 0 10px!important}
+.step-list :is(.step-copy,.step-tail)>details:not(.example-details)>div>:last-child{margin-bottom:0!important}
+/* The model prompt is a plain code plate inside the disclosure, not a third nested card. */
+.step-list .step-model .step-example{margin-top:8px;padding:0;border:0;background:none}
+.step-list .step-copy>.step-reference{margin-top:16px}
+.step-list .step-copy>.step-screenshots .step-screenshot-grid{padding:0 0 12px 22px}
+.step-nav{display:flex;flex-wrap:wrap;gap:4px 24px;align-items:center;margin:16px 0 0!important;padding-top:4px}
+.step-nav>a{display:inline-flex;min-height:44px;align-items:center;margin:0!important;font-weight:800}
+
+/* Hero of a step page: the result is the point of the lesson, so it reads at body size in the main colour. */
+body[data-stage]:not(.route-page) .proof>span{color:var(--green);font:800 .9rem/1.4 var(--body);letter-spacing:0;text-transform:none}
+
+/* Before the first step (step pages only): fewer, denser blocks, so step 01 starts on the second screen. */
+/* Words before practice: a plain list «term — meaning», no frame per word; two columns on a wide screen. */
+#course-terms .beginner-glossary{display:block;columns:2 26rem;column-gap:40px;margin:12px 0 0}
+#course-terms .beginner-glossary>div{display:block;break-inside:avoid;margin:0 0 6px;padding:0;border:0;border-radius:0;background:none}
+#course-terms .beginner-glossary dt{display:inline;color:var(--ink);font-weight:800}
+#course-terms .beginner-glossary dt::after{content:" — ";color:var(--muted);font-weight:400}
+#course-terms .beginner-glossary dd{display:inline;margin:0;color:var(--ink)}
+#course-terms .beginner-glossary+p{margin-top:12px}
+/* Preparation is one card. Its reference material and film open independently of the steps. */
+.lesson-intro{grid-column:1/-1;display:grid;gap:16px;min-width:0}
+.lesson-intro>.card--prep{min-width:0;container-type:inline-size;align-self:start}
+.card--prep>.git-process{margin:0;padding-inline:0;border:0;background:none}
+@container(max-width:900px){
+  .lesson-goal .lesson-video__layout{grid-template-columns:minmax(0,1fr)}
+  .lesson-goal .lesson-video__chapters{max-height:280px}
+}
+.card--prep>:is(.prep-fold,.lesson-goal){margin:0;padding:0;border:0;border-radius:0;background:transparent}
+.card--prep>:is(.prep-fold,.lesson-goal)>summary,.level-choice summary{min-height:44px;padding-block:10px;color:var(--green);font-weight:700;cursor:pointer}
+.card--prep>p{color:var(--ink)}
+.card--prep>p+details{margin-top:8px}
+.card--prep details[open]>:last-child{margin-bottom:12px}
+.card--prep .workspace-map{padding:0;border:0;background:none}
+.lesson-goal__film{display:none}
+.lesson-goal:has(>.lesson-video:not([hidden])) .lesson-goal__film{display:inline}
+.lesson-intro>.step-toc{grid-column:auto;min-width:0;align-self:start}
+/* The contents beside the intro card is a compact list (28 px rows, 24 px targets), so the steps start near the card's end (L-stepsA-04). */
+.lesson-intro>.step-toc ol{gap:0}
+.lesson-intro>.step-toc a{padding:2px 0}
+@media(min-width:900px){
+  .lesson-intro:has(>.step-toc){grid-template-columns:minmax(0,1fr) minmax(16rem,32%)}
+  .lesson-intro>.step-toc{position:sticky;top:calc(var(--site-nav-reserve,154px) + 12px)}
+}
+.level-choice{grid-column:1/-1}
+.level-choice h2{font-size:1rem;margin:0 0 4px}
+.level-choice__options{display:flex;flex-wrap:wrap;align-items:start;gap:4px 24px}
+.level-choice__options details{min-width:0;max-width:70ch}
+.level-choice__options p{margin:0 0 8px}
+/* Lesson video: «Видео к уроку» is the heading; the film label under it is a small caption, not a second, larger heading. */
+body[data-stage]:not(.route-page) .lesson-goal>.lesson-video .lesson-video__intro{color:var(--muted);font-size:.875rem;font-weight:500;line-height:1.4}
+
+/* Page end: «К учебному маршруту» on its own line, then back on the left and forward on the right. */
+@media(min-width:761px){
+  body[data-stage]:not(.route-page) .footer-nav{flex-wrap:wrap;row-gap:4px}
+  body[data-stage]:not(.route-page) .footer-nav>a:first-child:not(#prev-stage){flex-basis:100%}
+  body[data-stage]:not(.route-page) .footer-nav>#next-stage{margin-left:auto}
+}
+/* «Роли и ограничения» is a reference disclosure, not one more big card. */
+#guide-content>details.beginner-extra.card{padding:0}
+#guide-content>details.beginner-extra.card>summary{padding:12px 16px;font-size:1rem}
+
+/* A GitLab form mockup: one frame (the window), one «Учебный пример» label (in the caption), the width of a real form. */
+.step-list .step-mockup{max-width:40rem;border:0;border-radius:0;background:none}
+.step-list .step-mockup__frame{padding:0;background:none}
+.step-list .step-mockup figcaption{padding:8px 0 0}
+
+/* Variant B of a step reads like variant A: same list size and indents, a gap under the lead paragraph. */
+.step-list .mode-b ol{display:grid;gap:7px;margin:10px 0 0;padding-left:1.35rem}
+.step-list .mode-b li{padding-left:3px;font-size:.9rem}
+
+/* A figure with «Назад / Далее»: the buttons look like the other step buttons and sit above the panels. */
+.step-copy .course-figure.is-enhanced[data-figure-stepper]>.stepper{grid-area:1/1;margin:0 0 12px}
+.step-copy .course-figure.is-enhanced[data-figure-stepper]>.course-figure__panel{grid-area:2/1}
+.step-copy .course-figure[data-figure-stepper]>p{margin:10px 0 0}
+.step-copy .course-figure[data-figure-stepper]>figcaption{margin-top:10px}
+.step-copy .course-figure .stepper button{min-height:44px;padding:7px 14px;border:1px solid var(--green);border-radius:var(--customdev-radius-sm);background:var(--raised);color:var(--green);font-size:.9rem;font-weight:800}
+.step-copy .course-figure .stepper button:disabled{border-color:var(--line);color:var(--muted)}
+
+/* Paragraphs of «Зачем» after the first one: ordinary step text, plaques with air around them. */
+.step-why-more{margin:0 0 12px}
+.step-why-more>div{margin:10px 0 0;color:var(--ink);font-size:.94rem;line-height:1.6}
+.step-why-more .factory-claims{margin:16px 0}
+
+.course-figure--history .course-figure__viewport>svg{width:var(--diagram-width);min-width:var(--diagram-width)}
+
+/* The Git map: arrows sit in a real gap between the stage cards instead of on their borders. */
+@media(min-width:761px){
+  .git-process__fold>.git-process-map{column-gap:24px;padding-inline-start:0}
+  .git-process-map li:not(:nth-child(4)):not(:last-child)::after{left:calc(100% + 1px);right:auto;width:24px;text-align:center;transform:translateY(-50%)}
+}
+
+/* Role picker: one row of role buttons, no frame around them, the chosen role keeps only its left stripe. */
+.step-copy .course-figure[data-figure-pick]{padding:0;border:0;background:none;box-shadow:none}
+.step-copy .course-figure[data-figure-pick] .lane{border-width:0 0 0 4px;border-radius:0}
+/* The Git map stands before the steps, so it folds into one line of the eight stages; the cards, diagram and notes open on demand. */
+.git-process:has(>.git-process__fold){padding-block:12px}
+.git-process__fold>summary{display:block;padding:4px 0 4px 22px;position:relative;list-style:none;cursor:pointer}
+.git-process__fold>summary::-webkit-details-marker{display:none}
+.git-process__fold>summary::before{content:"";position:absolute;left:4px;top:11px;border:5px solid transparent;border-left:7px solid var(--green);transition:transform .15s}
+.git-process__fold[open]>summary::before{transform:rotate(90deg);transform-origin:3px 5px}
+.git-process__fold>summary h2{display:inline;margin:0}
+.git-process-strip{display:block;margin-top:6px;color:var(--ink);font-size:.94rem;font-weight:600}
+.git-process-strip>span:not([aria-hidden]){white-space:nowrap}
+.git-process-strip>[aria-hidden]{color:var(--green);font-weight:800}
+.git-process__more{display:inline-block;margin-top:4px;color:var(--green);font-size:.9rem;font-weight:800}
+.git-process__fold[open]>summary{margin-bottom:12px}
+.git-process__fold[open] .git-process__more{display:none}
+.git-process__fold>.gitlab-workflow{margin-top:14px}
+
+body[data-stage]:not(.route-page) .proof>strong{font-size:1rem;color:var(--ink)}
+.step-copy .course-figure.is-enhanced[data-figure-stepper]>p{grid-row:3}
+.step-copy .course-figure.is-enhanced[data-figure-stepper]>p+figcaption{grid-row:4}
+
+.step-additional>div>section{margin:12px 0;padding:0;border:0;background:none}
+.step-additional>div>section>h4{margin:0 0 4px;color:var(--ink);font:700 1rem/1.4 var(--body)}
+
+@media(min-width:1300px){
+  body[data-stage] .hero{grid-template-columns:minmax(0,1fr) 24rem}
+  [data-stage="0"] #step-05 .course-figure.is-enhanced[data-figure-stepper]>.course-figure__panel{grid-area:1/1}
+  [data-stage="0"] #step-05 .course-figure__panel>.course-figure__stages{margin-inline-end:20rem}
+  [data-stage="0"] #step-05 .course-figure.is-enhanced[data-figure-stepper]>.stepper{align-self:start;justify-self:end;z-index:1;margin:16px 0 0}
+}
+
+.prep-fold[open]>summary>.terms-count{display:none}
+.mode-switch{grid-column:1/-1}
+.step-copy>.step-mockup{width:min(100%,40rem)}
+#guide-content.mode-enhanced[data-mode="b"] .step-instructions--mode-a+.step-mockup{display:none}
+
+.step-list .step-tail>details.step-trouble[open]>div{border-inline-start:3px solid var(--amber);background:var(--customdev-amber-soft)}
+.step-list .step-tail>details.step-trouble:not(.example-details)>div,
+.step-list .step-tail>details.step-trouble:not(.example-details)>div p{font-size:15px!important;max-width:78ch}
+.step-additional>div>section.step-model{padding:12px;border-inline-start:3px solid var(--blue);background:var(--blue-soft)}
+.step-additional .step-model__body{padding:0}
+
+.step-reference__image>a.shot-crop{overflow:hidden}
+.step-reference__image>a.shot-crop>img{position:absolute;left:var(--image-left);top:var(--image-top);width:var(--image-width);max-width:none;height:auto}
+
+@media(min-width:761px){
+  html.has-course-route body[data-stage]:not(.route-page) .site-crumbs{padding-top:32px}
+}
+.step-link--download::after{content:none}
+/* A resource link already carries its own ↗ (markGuideResourceLinks): the step link adds no second one. */
+.step-link:has(.guide-newtab)::after{content:none}
+@media(min-width:1300px){
+  [data-stage="1"] #step-01 .step-links{flex-wrap:nowrap;gap:6px}
+  [data-stage="1"] #step-01 .step-links>.step-link{padding-inline:7px}
+  [data-stage="0a"] .course-figure--history{width:min(100%,calc(var(--diagram-width) + 42px))}
+  [data-stage="0a"] .course-figure--wide svg .course-figure__title{font-size:17px}
+  [data-stage="0a"] .course-figure--wide svg .course-figure__small{font-size:14px}
+  [data-stage="0a"] .course-figure--wide .course-figure__viewport>svg[viewBox^="0 0 1200 "]{width:1200px}
+  [data-stage="0a"] .gitlab-workflow .course-figure__viewport>svg{min-width:0;width:min(100%,800px)}
+}
+/* Table cells: a link breaks between words, never inside a word («Требова|ния»). */
+td a,th a{overflow-wrap:break-word}

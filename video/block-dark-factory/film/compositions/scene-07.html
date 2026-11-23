@@ -1,0 +1,89 @@
+<template id="scene-07-template">
+  <div data-composition-id="scene-07" data-width="1920" data-height="1080" data-duration="30.1">
+    <style>
+      [data-composition-id="scene-07"] .do { position: absolute; left: 96px; width: 800px; height: 76px; display: flex; align-items: center; gap: 18px; padding: 0 24px; border-radius: 18px; border: 2px solid var(--k-line); background: var(--k-panel); font-size: 36px; font-weight: 700; }
+      [data-composition-id="scene-07"] .do svg { width: 40px; height: 40px; flex: none; }
+      [data-composition-id="scene-07"] .rv-h { display: flex; align-items: center; gap: 18px; font-size: 42px; font-weight: 800; }
+      [data-composition-id="scene-07"] .rv-h svg { width: 56px; height: 56px; flex: none; }
+      [data-composition-id="scene-07"] .rv { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; padding: 10px 20px; border-radius: 14px; background: var(--k-panel-2); font-size: 36px; font-weight: 600; }
+      [data-composition-id="scene-07"] .rv span.ok { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; border: 3px solid var(--k-ok); background: var(--k-ok-tint); }
+      [data-composition-id="scene-07"] .rv span.ok svg { width: 28px; height: 28px; opacity: 0; }
+      [data-composition-id="scene-07"] .trk { position: absolute; left: 96px; top: 330px; width: 1304px; height: 8px; border-radius: 4px; background: var(--k-line); }
+      [data-composition-id="scene-07"] .mark { position: absolute; top: 310px; width: 48px; height: 48px; margin-left: -24px; border-radius: 50%; background: var(--k-accent); box-shadow: 0 0 0 10px var(--k-glow); }
+      [data-composition-id="scene-07"] .tl { position: absolute; top: 396px; font-size: 36px; font-weight: 700; white-space: nowrap; }
+      [data-composition-id="scene-07"] .tl span { color: var(--k-accent-soft); }
+      [data-composition-id="scene-07"] .sc-next { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+      [data-composition-id="scene-07"] .sc-next .lab { font-size: 36px; font-weight: 700; color: var(--k-accent-soft); white-space: nowrap; }
+      [data-composition-id="scene-07"] .sc-next .nm { font-size: 58px; font-weight: 800; letter-spacing: -0.02em; white-space: nowrap; }
+      [data-composition-id="scene-07"] .sc-next svg { flex: none; width: 76px; height: 41px; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("07"), t = S.t, DUR = 30.1;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»: ${(off - at - reveal).toFixed(1)} с, нужно ${needed.toFixed(1)}`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const div = (cls, html, parent) => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; parent.appendChild(el); return el; };
+        const C = (n) => Kit.token("--k-" + n);
+        const ic = (inner, col) => '<svg viewBox="0 0 56 56" fill="none" stroke="' + C(col) + '" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">' + inner + "</svg>";
+        const PERSON = '<circle cx="28" cy="16" r="9"/><path d="M10 50c0-12 8-20 18-20s18 8 18 20"/>';
+
+        Kit.header(S, { duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        // люди остаются: что они делают и что проверяют
+        const sA = S.stage(); gsap.set(sA, { autoAlpha: 1 });
+        const OUT_A = t("Сейчас") - 0.1;
+        Kit.kinetic(S, { parent: sA, x: 96, y: 228, size: 84, text: "Люди остаются", at: 0.2, stagger: 0.08 });
+        read("Люди остаются", 0.2, OUT_A);
+        [["Выясняют потребность", "выясняют", '<circle cx="24" cy="24" r="14"/><path d="M34 34l14 14"/>'], ["Проектируют", "проектируют", '<rect x="8" y="8" width="40" height="40" rx="4"/><path d="M8 22h40M22 22v26"/>'], ["Разбирают ошибки", "разбирают", '<path d="M28 8l22 38H6z"/><path d="M28 22v11M28 39v1"/>'], ["Пишут код, когда нужно", "при", '<path d="M20 16L8 28l12 12M36 16l12 12-12 12"/>']].forEach(([txt, w, icon], i) => {
+          const d = div("do", ic(icon, "accent") + "<span>" + txt + "</span>", sA); d.style.top = 368 + i * 94 + "px";
+          hide(d); Kit.popIn(S, d, t(w)); read(txt, t(w), OUT_A);
+        });
+        const rv = Kit.aside(S, { parent: sA, x: 980, y: 240, w: 844, tail: false, html: '<div class="rv-h">' + ic(PERSON, "ok") + "Проверяет человек</div>" });
+        rv.show(t("Код")); read("Проверяет человек", t("Код"), OUT_A);
+        [["Код", t("Код")], ["Архитектура", t("архитектуру")], ["Спецификации", t("спецификации")]].forEach(([txt, at]) => {
+          const r = div("rv", "<b>" + txt + '</b><span class="ok">' + Kit.icons.check + "</span>", rv.el); hide(r); Kit.popIn(S, r, at); read(txt, at, OUT_A);
+          S.tl.to(r.querySelector("svg"), { opacity: 1, duration: 0.3 }, t("проверяет") + 0.2);
+        });
+        const ctl = Kit.kinetic(S, { parent: sA, x: 980, y: 640, size: 64, color: "var(--k-accent-soft)", text: "Контроль обязателен", at: t("каким"), stagger: 0.08 });
+        read("Контроль обязателен", t("каким"), OUT_A);
+
+        // шаг назад сейчас, заметный шаг вперёд затем (шкала без делений: сроков и цифр нет)
+        const sB = S.stage();
+        const T_B = t("Сейчас") + 0.4;
+        const trk = div("trk", "", sB);
+        const X0 = 96, STEP = 1304 / 11;
+        const mark = div("mark", "", sB); mark.style.left = X0 + 2 * STEP + "px";
+        S.tl.to(mark, { x: -STEP, duration: 0.6, ease: "power2.inOut" }, t("назад"));
+        S.tl.to(mark, { x: 9 * STEP, duration: 1.6, ease: "power3.inOut" }, t("заметный"));
+        S.tl.to(trk, { backgroundColor: C("accent-soft"), duration: 0.6 }, t("заметный") + 0.6);
+        const l1 = div("tl", "<span>Сейчас:</span> может быть, шаг назад", sB); l1.style.left = X0 + "px";
+        hide(l1); Kit.popIn(S, l1, T_B); read(l1.textContent, T_B, DUR);
+        const l2 = div("tl", "<span>Затем:</span> заметный шаг вперёд", sB); l2.style.right = 1920 - (X0 + 1304) + "px"; l2.style.top = "456px";
+        hide(l2); Kit.popIn(S, l2, t("затем")); read(l2.textContent, t("затем"), DUR);
+        // ракета уходит вверх
+        const rk = Kit.sketch(S, { parent: sB, name: "rocket", x: 1428, y: 313, w: 384, at: T_B, dur: 0.8 });
+        const flame = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        flame.setAttribute("d", "M306 350 Q320 398 334 350"); flame.setAttribute("stroke", C("accent")); flame.setAttribute("stroke-width", "7"); flame.setAttribute("fill", "none"); flame.setAttribute("stroke-linecap", "round"); flame.setAttribute("opacity", "0");
+        rk.svg.appendChild(flame);
+        S.tl.to(flame, { opacity: 1, duration: 0.2 }, t("вперёд") - 0.4);
+        S.tl.to(flame, { scaleY: 0.55, svgOrigin: "320 350", duration: 0.14, yoyo: true, repeat: 13, ease: "sine.inOut" }, t("вперёд") - 0.3);
+        S.tl.to(rk.el, { y: -240, autoAlpha: 0, duration: 1.6, ease: "power2.in" }, t("вперёд"));
+
+        const next = Kit.aside(S, { parent: sB, x: 96, y: 620, w: 1728, h: 160, tail: false,
+          html: '<div class="sc-next"><div><div class="lab">Шаг 1</div><div class="nm">Требования в Git</div></div>' +
+                '<svg viewBox="0 0 56 30" fill="none"><path d="M3 15H49M39 5L50 15L39 25" stroke="' + C("accent") + '" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>' });
+        next.el.style.borderColor = C("accent");
+        next.show(t("Дальше")); read("Шаг 1 Требования в Git", t("Дальше"), DUR);
+        Kit.stageOut(S, sA, OUT_A); Kit.stageIn(S, sB, T_B);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

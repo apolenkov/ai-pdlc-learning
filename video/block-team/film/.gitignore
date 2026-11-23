@@ -1,0 +1,5 @@
+work/
+snapshots/
+renders/
+*.mp4
+assets/rec/*.png

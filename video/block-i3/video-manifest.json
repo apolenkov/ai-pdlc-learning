@@ -1,0 +1,16 @@
+{
+  "file": "block-i3-720p.mp4",
+  "sha256": "256ed41e4ca02dc633c5d0c66ea4b9f69d55e7e78c887067cb2bf7783d380826",
+  "size": 5037611,
+  "url": "https://github.com/apolenkov/ai-pdlc-learning/releases/download/media-v1/256ed41e4ca0-block-i3-720p.mp4",
+  "version": "256ed41e4ca0",
+  "audio": "voice-only",
+  "master": {
+    "file": "block-i3-1080p.mp4",
+    "sha256": "cc9e8ba36c91f5674dfe4889c0d3064ff4bf684d9e529835fc7224316628778c",
+    "size": 12400663,
+    "lost": "утерян до сдачи Mac 25.11.2026: файла нет ни на Диске, ни локально; пин сохранён"
+  },
+  "duration": 200.6,
+  "note": "TASK-671: звук только из голоса (озвучка без музыки и SFX), видео побайтно прежнее, AAC-LC 48 кГц моно, около −16 LUFS; мастер 1080p — прежний микс (вне этапа)"
+}

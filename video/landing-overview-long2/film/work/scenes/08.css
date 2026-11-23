@@ -1,0 +1,11 @@
+.t8-g { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+.t8-card { position: absolute; top: 200px; width: 840px; height: 500px; padding: 30px 34px; border: 3px solid var(--k-line); border-radius: 28px; background: var(--k-panel); }
+.t8-card .top { display: flex; align-items: center; gap: 20px; margin-bottom: 14px; }
+.t8-card .ico { width: 72px; height: 72px; flex: none; border-radius: 20px; display: grid; place-items: center; background: var(--k-panel-2); border: 2px solid var(--k-line); }
+.t8-card .lab { font-size: 28px; font-weight: 600; line-height: 1.2; color: var(--k-accent-soft); }
+.t8-card h3 { font-size: 50px; font-weight: 800; letter-spacing: -.02em; line-height: 1.12; margin-bottom: 14px; }
+.t8-card p { font-size: 32px; line-height: 1.3; color: var(--k-text-2); }
+.t8-tags { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 30px; }
+.t8-tags .lg-tag { font-size: 32px; padding: 8px 22px; }
+.t8-card.on { border-color: var(--k-ok); background: var(--k-ok-tint); }
+.t8-card.on .ico { border-color: var(--k-ok); }

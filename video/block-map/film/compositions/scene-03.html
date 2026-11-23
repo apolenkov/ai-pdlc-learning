@@ -1,0 +1,46 @@
+<template id="scene-03-template">
+  <div data-composition-id="scene-03" data-width="1920" data-height="1080" data-duration="14.1">
+    <style>
+      [data-composition-id="scene-03"] .sc-mark { position: absolute; box-sizing: border-box; border: 3px solid var(--k-accent); border-radius: 10px; pointer-events: none; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("03"), t = S.t, DUR = 14.1;
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const mark = (scr, r, at, soft) => {
+          const el = document.createElement("div"); el.className = "sc-mark";
+          Object.assign(el.style, { left: r.x - 6 + "px", top: r.y - 4 + "px", width: r.w + 12 + "px", height: r.h + 8 + "px" });
+          if (soft) el.style.borderColor = Kit.token("--k-accent-soft");
+          scr.layer.appendChild(el); gsap.set(el, { autoAlpha: 0 });
+          S.tl.to(el, { autoAlpha: 1, duration: 0.5, ease: "sine.out" }, at);
+          return el;
+        };
+        const dim = (el, at) => S.tl.to(el, { opacity: 0.4, duration: 0.4 }, at);
+        Kit.header(S, { header: { mode: "parts", total: 5 }, chapter: "Как выбрать маршрут", step: 3, duration: DUR, parts: [{ n: 3, blank: true, at: 0 }] });
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+        const ROW5 = { x: 271, y: 2154, w: 920, h: 278 }, BR = { x: 271, y: 2432, w: 1378, h: 284 };
+        const scr = Kit.screen(S, { parent: s1, x: 60, y: 200, w: 1800, h: 790, natural: { w: 1920, h: 3200 },
+          src: "assets/page/map.png", alt: "Карта курса: шаг 5 и ветви 6а и 6б",
+          camera: [
+            { t: 0, cx: 731, cy: 2293, scale: 1.9, dur: 0, protect: [ROW5] },
+            { t: t("ветвится"), cx: 960, cy: 2574, scale: 1.36, dur: Math.max(0.1, t("шесть-а") - t("ветвится")), ease: "sine.inOut", protect: [BR] },
+          ] });
+        scr.show(0, true);
+        const FIVE = { x: 736, y: 2160, w: 449, h: 266 }, BRANCH_A = { x: 302, y: 2489, w: 665, h: 222 }, BRANCH_B = { x: 978, y: 2489, w: 665, h: 222 };
+        const NOTE = { x: 302, y: 2438, w: 635, h: 43 }, BEFORE = { x: 365, y: 2575, w: 588, h: 39 };
+        const a = mark(scr, FIVE, t("После шага пять"));
+        S.tl.to(a, { autoAlpha: 0, duration: 0.4 }, t("ветвится") - 0.4);
+        const b = mark(scr, BRANCH_A, t("шесть-а") - 0.1);
+        dim(b, t("шесть-бэ") - 0.1);
+        const c = mark(scr, BRANCH_B, t("шесть-бэ") - 0.1);
+        dim(c, t("можно пройти оба") - 0.1);
+        const d = mark(scr, NOTE, t("можно пройти оба") - 0.1);
+        dim(d, t("Перед этим") - 0.1);
+        mark(scr, BEFORE, t("Перед этим") - 0.1);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

@@ -1,0 +1,71 @@
+<template id="scene-00-template">
+  <div data-composition-id="scene-00" data-width="1920" data-height="1080" data-duration="31.7">
+    <style>
+      [data-composition-id="scene-00"] .sc-file { position: absolute; display: flex; align-items: center; gap: 18px; height: 92px; padding: 0 32px 0 24px; border-radius: 22px; background: var(--k-panel); border: 2px solid var(--k-line); box-shadow: var(--k-shadow-card); font-size: 34px; font-weight: 600; white-space: nowrap; transform-origin: 0 50%; }
+      [data-composition-id="scene-00"] .sc-file svg { flex: none; }
+      [data-composition-id="scene-00"] .sc-tag { position: absolute; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("00");
+        const t = S.t;
+        const DUR = 31.7;
+        // текст на экране держится не меньше слов/3 + 1 с
+        const rd = (txt, a, b) => { const w = txt.trim().split(/\s+/).length; if (b - a < w / 3 + 1 - 1e-6) throw new Error(`текст «${txt}» на экране ${(b - a).toFixed(1)} с, нужно ${(w / 3 + 1).toFixed(1)} с`); };
+        const mk = (cls, html, parent, css) => { const e = document.createElement("div"); e.className = cls; e.innerHTML = html; if (css) e.style.cssText += css; parent.appendChild(e); gsap.set(e, { autoAlpha: 0 }); return e; };
+        Kit.header(S, { step: null, mode: "intro", total: 10, duration: DUR });
+
+        /* ---- кадр 1: вопросы (слева), скетч двух столов (справа) ---- */
+        const T_B = t("Сначала") + 0.1;                  // «проблема» входит
+        const T_A2_OUT = t("Сначала") - 0.1;
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+        Kit.sketch(S, { name: "was-copies", x: 1060, y: 250, w: 760, at: t("Вдвоём") + 0.2, dur: 3.2 });
+        const k1 = Kit.kinetic(S, { parent: s1, x: 96, y: 230, size: 84, text: "Один документ", at: t("Вдвоём") + 0.1, stagger: 0.12 });
+        const k2 = Kit.kinetic(S, { parent: s1, x: 96, y: 335, size: 56, text: "у каждого своя версия", color: "var(--k-text-2)", at: t("каждого"), stagger: 0.1 });
+        rd("у каждого своя версия", t("каждого"), T_A2_OUT);
+        k1.out(T_A2_OUT); k2.out(T_A2_OUT);
+        // плашка маршрута: звучит первой фразой, уходит перед крючком
+        const before = Kit.aside(S, { parent: s1, x: 96, y: 400, w: 1300, tail: false, title: "Перед этим", text: "Зачем меняем процесс и как устроен анализ" });
+        before.show(0.2); before.hide(t("Вдвоём") - 0.2);
+        rd("Перед этим Зачем меняем процесс и как устроен анализ", 0.2, t("Вдвоём") - 0.2);
+        // вопрос номер один — крупно; вопрос номер два — под ним
+        const q1 = Kit.kinetic(S, { parent: s1, x: 96, y: 440, size: 100, text: "Какая последняя?", at: t("Какая"), stagger: 0.12 });
+        const q2 = Kit.kinetic(S, { parent: s1, x: 96, y: 575, size: 56, text: "Что в ней изменилось и почему?", color: "var(--k-text-2)", at: t("Что"), stagger: 0.08 });
+        rd("Что в ней изменилось и почему?", t("Что"), T_A2_OUT);
+        // обещание
+        const promise = Kit.aside(S, { parent: s1, x: 96, y: 676, w: 900, tail: false, title: "Как хранить документы", text: "ответ виден сразу" });
+        promise.show(t("Покажем")); promise.hide(T_A2_OUT);
+        rd("Как хранить документы ответ виден сразу", t("Покажем"), T_A2_OUT);
+        q1.out(T_A2_OUT); q2.out(T_A2_OUT);
+
+        /* ---- кадр 2: проблема — три копии файла ---- */
+        const s2 = S.stage();
+        const tag = mk("sc-tag k-pill mac", "проблема", s2, "left:96px;top:222px;");
+        Kit.popIn(S, tag, t("проблема"));
+        const doc = `<svg width="30" height="38" viewBox="0 0 30 38" fill="none" stroke="#a3a9b4" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2 L19 2 L27 10 L27 36 L3 36 Z M19 2 L19 10 L27 10"/></svg>`;
+        const names = [["финал.docx", t("финал", 1), 96, 300, -1.2], ["финал два.docx", t("финал", 2), 132, 404, 1.1], ["финал после правок.docx", t("финал", 3), 100, 508, -0.8]];
+        const tiles = names.map(([n, at, x, y, rot]) => { const e = mk("sc-file", `${doc}<span>${n}</span>`, s2, `left:${x}px;top:${y}px;`); gsap.set(e, { rotation: rot }); return e; });
+        // три разных входа: слева, с поворотом и пружиной, сверху с размытием
+        S.tl.fromTo(tiles[0], { autoAlpha: 0, x: -140 }, { autoAlpha: 1, x: 0, duration: 0.5, ease: "power3.out", immediateRender: false }, names[0][1]);
+        S.tl.fromTo(tiles[1], { autoAlpha: 0, scale: 0.7, rotation: -9 }, { autoAlpha: 1, scale: 1, rotation: names[1][4], duration: 0.55, ease: "back.out(1.6)", immediateRender: false }, names[1][1]);
+        S.tl.fromTo(tiles[2], { autoAlpha: 0, y: -80, filter: "blur(10px)" }, { autoAlpha: 1, y: 0, filter: "blur(0px)", duration: 0.55, ease: "power2.out", immediateRender: false }, names[2][1]);
+        // неясно, кто что менял
+        const ghost = mk("sc-tag k-tile ghost", "что менял другой?", s2, "left:96px;top:664px;");
+        Kit.popIn(S, ghost, t("Что", 2)); Kit.popOut(S, ghost, t("прежний") - 0.1);
+        rd("что менял другой?", t("Что", 2), t("прежний") - 0.1);
+        // прежний текст пропадал: первая копия гаснет и зачёркивается
+        S.tl.set(tiles[0], { textDecoration: "line-through" }, t("прежний"));
+        S.tl.to(tiles[0], { autoAlpha: 0.22, duration: 0.7, ease: "power2.inOut" }, t("прежний"));
+        // итог
+        const sum = Kit.aside(S, { parent: s2, x: 96, y: 664, w: 900, tail: false, title: "Правки вручную", text: "часть терялась" });
+        sum.show(t("Правки"));
+        rd("Правки вручную часть терялась", t("Правки"), DUR);
+
+        Kit.stageOut(S, s1, T_A2_OUT);
+        Kit.stageIn(S, s2, T_B);
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

@@ -1,0 +1,258 @@
+{
+  "sub": [
+    2.6
+  ],
+  "hover": [],
+  "events": [
+    {
+      "kind": "subdrop",
+      "t": 2.6,
+      "pan": 0
+    },
+    {
+      "kind": "swipe",
+      "t": 10.02,
+      "pan": -0.5
+    },
+    {
+      "kind": "swipe",
+      "t": 14.439,
+      "note": "00:stageIn"
+    },
+    {
+      "kind": "pop",
+      "t": 17.515,
+      "note": "00:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 20.382,
+      "note": "00:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 22.102,
+      "note": "00:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 23.352,
+      "note": "00:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 24.792,
+      "note": "00:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 26.152,
+      "note": "00:popIn"
+    },
+    {
+      "kind": "swipe",
+      "t": 31.22,
+      "pan": 0.5
+    },
+    {
+      "kind": "pop",
+      "t": 35.683,
+      "note": "0b:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 38.142,
+      "note": "0b:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 41.011,
+      "note": "0b:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 43.249,
+      "note": "0b:popIn"
+    },
+    {
+      "kind": "swipe",
+      "t": 48.82,
+      "pan": -0.5
+    },
+    {
+      "kind": "pop",
+      "t": 54.362,
+      "note": "01:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 59.826,
+      "note": "01:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 61.608,
+      "note": "01:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 66.195,
+      "note": "01:popIn"
+    },
+    {
+      "kind": "swipe",
+      "t": 73.41999999999999,
+      "pan": 0.5
+    },
+    {
+      "kind": "pop",
+      "t": 75.051,
+      "note": "02:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 79.132,
+      "note": "02:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 82.301,
+      "note": "02:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 86.923,
+      "note": "02:popIn"
+    },
+    {
+      "kind": "swipe",
+      "t": 99.71999999999998,
+      "pan": -0.5
+    },
+    {
+      "kind": "pop",
+      "t": 102,
+      "note": "03:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 105.257,
+      "note": "03:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 108.893,
+      "note": "03:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 112.136,
+      "note": "03:popIn"
+    },
+    {
+      "kind": "swipe",
+      "t": 121.32,
+      "pan": 0.5
+    },
+    {
+      "kind": "pop",
+      "t": 122.63,
+      "note": "04:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 126.827,
+      "note": "04:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 129.667,
+      "note": "04:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 131.187,
+      "note": "04:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 137.139,
+      "note": "04:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 140.144,
+      "note": "04:popIn"
+    },
+    {
+      "kind": "swipe",
+      "t": 144.72,
+      "pan": -0.5
+    },
+    {
+      "kind": "pop",
+      "t": 146.951,
+      "note": "05:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 148.351,
+      "note": "05:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 149.994,
+      "note": "05:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 151.952,
+      "note": "05:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 153.184,
+      "note": "05:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 158.662,
+      "note": "05:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 161.088,
+      "note": "05:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 170.128,
+      "note": "05:popIn"
+    },
+    {
+      "kind": "swipe",
+      "t": 173.82,
+      "pan": 0.5
+    },
+    {
+      "kind": "pop",
+      "t": 177.868,
+      "note": "06:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 179.625,
+      "note": "06:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 181.931,
+      "note": "06:popIn"
+    },
+    {
+      "kind": "subdrop",
+      "t": 189,
+      "pan": 0
+    }
+  ]
+}

@@ -1,0 +1,199 @@
+<template id="scene-03-template">
+  <div data-composition-id="scene-03" data-width="1920" data-height="1080" data-duration="41.7">
+    <style>
+      [data-composition-id="scene-03"] .r3-it { position: absolute; left: 1264px; width: 560px; height: 108px; padding: 14px 20px; display: flex; align-items: center; gap: 16px; border-radius: 24px; border: 2px solid var(--k-line); background-color: var(--k-panel); }
+      [data-composition-id="scene-03"] .r3-num { position: relative; flex: none; width: 52px; height: 52px; border-radius: 50%; border: 3px solid var(--k-text-2); font-size: 30px; font-weight: 800; line-height: 46px; text-align: center; color: var(--k-text); }
+      [data-composition-id="scene-03"] .r3-num .ck { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--k-on-accent); opacity: 0; }
+      [data-composition-id="scene-03"] .r3-num .ck svg { width: 28px; height: 28px; }
+      [data-composition-id="scene-03"] .r3-tx { min-width: 0; }
+      [data-composition-id="scene-03"] .r3-q { font-size: 32px; font-weight: 700; line-height: 1.2; color: var(--k-text-2); white-space: nowrap; }
+      [data-composition-id="scene-03"] .r3-sub { height: 0; overflow: hidden; font-size: 28px; font-weight: 600; line-height: 36px; color: var(--k-ok); opacity: 0; white-space: nowrap; }
+      [data-composition-id="scene-03"] .r3-gap { position: absolute; left: 84px; right: 24px; bottom: -2px; height: 0; border-top: 3px dashed var(--k-accent); }
+      [data-composition-id="scene-03"] .r3-gap span { position: absolute; right: 0; top: -40px; padding: 2px 16px; border-radius: 14px; background: var(--k-panel); border: 2px solid var(--k-accent); color: var(--k-accent-soft); font-family: var(--k-font-sans); font-size: 28px; font-weight: 700; line-height: 1.2; }
+      [data-composition-id="scene-03"] .r3-ref { position: absolute; left: 96px; top: 756px; width: 1128px; height: 60px; padding: 0 22px; display: flex; align-items: center; gap: 14px; border-radius: 20px; }
+      [data-composition-id="scene-03"] .r3-ref svg { width: 34px; height: 34px; color: var(--k-text-2); flex: none; }
+      [data-composition-id="scene-03"] .r3-ref .nm { font-family: var(--k-font-mono); font-size: 28px; color: var(--k-text-2); }
+      [data-composition-id="scene-03"] .r3-ref .lb { font-size: 30px; font-weight: 700; }
+      [data-composition-id="scene-03"] .r3-say { position: absolute; right: 22px; top: 50%; margin-top: -21px; font-size: 32px; font-weight: 800; color: var(--k-text-2); white-space: nowrap; line-height: 1.2; }
+      [data-composition-id="scene-03"] .r3-tab { position: absolute; left: 96px; top: 215px; width: 1128px; padding: 18px 22px 22px; }
+      [data-composition-id="scene-03"] .r3-th { display: flex; align-items: baseline; justify-content: space-between; padding: 0 12px 10px; border-bottom: 2px solid var(--k-line); }
+      [data-composition-id="scene-03"] .r3-th .a { font-size: 34px; font-weight: 700; color: var(--k-text-2); }
+      [data-composition-id="scene-03"] .r3-th .b { font-family: var(--k-font-mono); font-size: 28px; color: var(--k-text-2); }
+      [data-composition-id="scene-03"] .r3-tr { display: flex; align-items: center; gap: 22px; height: 46px; margin-top: 2px; padding: 0 12px; border-left: 6px solid rgba(0, 0, 0, 0); border-radius: 12px; background-color: rgba(0, 0, 0, 0); font-size: 34px; font-weight: 600; color: var(--k-text-2); white-space: nowrap; }
+      [data-composition-id="scene-03"] .r3-tr .n { width: 36px; font-size: 28px; font-weight: 700; text-align: right; color: var(--k-text-2); }
+      [data-composition-id="scene-03"] .r3-tr.new { color: var(--k-text); font-weight: 700; border-left-color: var(--k-ok); background-color: var(--k-ok-tint); }
+      [data-composition-id="scene-03"] .r3-cnt { position: absolute; left: 96px; top: 728px; width: 1128px; height: 72px; display: flex; align-items: center; gap: 22px; }
+      [data-composition-id="scene-03"] .r3-cnt > div { display: flex; align-items: center; height: 72px; padding: 0 30px; border-radius: 22px; border: 2px solid var(--k-line); background: var(--k-panel); font-size: 52px; font-weight: 800; white-space: nowrap; }
+      [data-composition-id="scene-03"] .r3-cnt .plus { border-color: var(--k-ok); background: var(--k-ok-tint); color: var(--k-ok); }
+      [data-composition-id="scene-03"] .r3-cnt .old { color: var(--k-text-2); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("03"), t = S.t, DUR = 41.7;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const div = (cls, html, parent) => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; parent.appendChild(el); return el; };
+        const tok = Kit.token;
+        const ACC = tok("--k-accent"), ACCS = tok("--k-accent-soft"), TINT = tok("--k-accent-tint"), OK = tok("--k-ok"), OKT = tok("--k-ok-tint"), LINE = tok("--k-line"), PANEL = tok("--k-panel"), TEXT = tok("--k-text"), ONACC = tok("--k-on-accent"), ADD = tok("--k-diff-add-bg");
+        const FS = parseFloat(tok("--k-fs-code")), CLEAR = "rgba(0, 0, 0, 0)";
+        const CHECK = '<svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 29l12 12 24-26"/></svg>';
+
+        Kit.header(S, { header: { mode: "parts", total: 7 }, chapter: "Пять вопросов", step: 3, duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        /* ---------- левая часть: редактор с реальными строками черновика ---------- */
+        const sMain = S.stage(); gsap.set(sMain, { autoAlpha: 1 });
+        const P_OLD = "Перед сбросом калькулятор спрашивает подтверждение. ";
+        const P_REST = "Действие «Сбросить» возвращает сумму 3 000 000 ₽, ставку 15% и срок 240 месяцев, удаляет ошибки и сразу считает платёж.";
+        const ed = Kit.editor(S, { parent: sMain, x: 96, y: 215, w: 1128, h: 540, crumb: "credit-calculator", visible: false,
+          tabs: [{ name: "specification.md", active: true }],
+          lines: [
+            "### ПРАВИЛА",
+            "…",
+            P_OLD + P_REST,
+            "…",
+            "| Успешный расчёт → ошибочный ввод | … ошибка у поля суммы … |",
+            "| Сброс после расчёта | … |",
+            { t: "| Сброс после ошибки | Ошибка, затем «Сбросить» | … |", add: true },
+          ] });
+        ["9", "", "15", "", "27", "28", "29"].forEach((n, i) => { ed.rows[i].no.textContent = n; });   // real line numbers of draft.md: the window shows an excerpt
+        // glyphs outside the mono font (₽, →) fall back to another font and inflate their line: pin them to the line height
+        ed.rows.forEach((r) => r.chars.forEach((c) => { if (c.textContent.codePointAt(0) > 0x206f) { c.style.display = "inline-block"; c.style.lineHeight = "1"; } }));
+        ed.show(2.1);   // the part title card covers the first 2 s: no text before it ends
+        ed.rows.forEach((r, i) => { if (!r.add) ed.reveal(i, i, 2.3 + i * 0.07); });
+
+        // char-level helpers: highlight a word, strike it, shrink it away and grow the new one in its place
+        const spans = (row, str) => { const r = ed.rows[row], a = r.raw.indexOf(str); if (a < 0) throw new Error("нет «" + str + "» в строке " + row); return { r, a, chars: r.chars.slice(a, a + str.length) }; };
+        const warm = (row, str, at) => { const s = spans(row, str); S.tl.to(s.chars, { backgroundColor: TINT, color: ACCS, duration: 0.4 }, at); return s; };
+        const shrink = (chars, at, st = 0.012) => S.tl.to(chars, { fontSize: 0, lineHeight: 0, opacity: 0, duration: 0.3, stagger: st, ease: "power2.in" }, at);
+        const fix = (row, str, now, at, grow) => {
+          const s = warm(row, str, at - 0.4);
+          S.tl.set(s.chars, { textDecoration: "line-through" }, at);
+          const nw = [...now].map((ch) => { const e = document.createElement("span"); e.className = "k-c"; e.textContent = ch; return e; });
+          s.chars[s.chars.length - 1].after(...nw);
+          gsap.set(nw, { fontSize: 0, lineHeight: 0, opacity: 0, color: OK, backgroundColor: ADD });
+          shrink(s.chars, grow);
+          S.tl.to(nw, { fontSize: FS, lineHeight: "42px", opacity: 1, duration: 0.35, stagger: 0.025, ease: "power3.out" }, grow + 0.1);
+        };
+
+        /* ---------- рядом замысел и подсказка «что там сказано» ---------- */
+        const ref = Kit.aside(S, { parent: sMain, x: 96, y: 762, w: 1128, h: 56, tail: false,
+          html: `${Kit.icons.file}<span class="lb">Замысел</span><span class="nm">clear-calculation-result.md</span><span class="r3-say s1">в замысле: 16%</span><span class="r3-say s2">замысел обещает: «—»</span>` });
+        ref.el.classList.add("r3-ref");
+        const say1 = ref.el.querySelector(".s1"), say2 = ref.el.querySelector(".s2"); hide(say1, say2);
+        ref.show(2.3);
+        const T_SAY1 = t("замысле") - 0.05, T_SAY1_OFF = t("Четвёртый:") + 1.9, T_SAY2 = t("обещает");
+        Kit.popIn(S, say1, T_SAY1, 0.5); Kit.popOut(S, say1, T_SAY1_OFF);
+        Kit.popIn(S, say2, T_SAY2, 0.5);
+
+        /* ---------- справа: пять вопросов ---------- */
+        const sList = S.stage(); gsap.set(sList, { autoAlpha: 1 });
+        const Q = [
+          ["Нет ли лишнего?", "подтверждение удалено"],
+          ["Ничего ли не пропущено?", "сценарий добавлен"],
+          ["Совпадают ли числа?", "15% → 16%"],
+          ["Нет ли противоречий?", "«—» вместо платежа"],
+          ["Цело ли принятое?", "срок, а не сумма"],
+        ];
+        const items = Q.map(([q, sub], i) => {
+          const el = div("r3-it", `<span class="r3-num"><span class="n">${i + 1}</span><span class="ck">${CHECK}</span></span><div class="r3-tx"><div class="r3-q">${q}</div><div class="r3-sub">${sub}</div></div>`, sList);
+          el.style.top = 215 + i * 120 + "px"; hide(el);
+          return { el, num: el.querySelector(".r3-num"), n: el.querySelector(".n"), ck: el.querySelector(".ck"), q: el.querySelector(".r3-q"), sub: el.querySelector(".r3-sub") };
+        });
+        const T_LIST = t("пять вопросов") - 0.1;
+        items.forEach((it, i) => Kit.popIn(S, it.el, T_LIST + i * 0.1));
+        const focus = (i, at) => {
+          const it = items[i];
+          S.tl.to(it.el, { borderColor: ACC, backgroundColor: TINT, scale: 1.03, duration: 0.45, ease: "power3.out" }, at);
+          S.tl.to(it.num, { backgroundColor: ACC, borderColor: ACC, color: ONACC, duration: 0.4 }, at);
+          S.tl.to(it.q, { color: TEXT, duration: 0.4 }, at);
+        };
+        const done = (i, at) => {
+          const it = items[i];
+          S.tl.to(it.el, { borderColor: OK, backgroundColor: OKT, scale: 1, duration: 0.5 }, at);
+          S.tl.to(it.num, { backgroundColor: OK, borderColor: OK, duration: 0.4 }, at);
+          S.tl.to(it.n, { opacity: 0, duration: 0.2 }, at);
+          S.tl.to(it.ck, { opacity: 1, duration: 0.3 }, at + 0.1);
+          S.tl.to(it.sub, { height: 36, opacity: 1, duration: 0.5 }, at + 0.15);
+        };
+
+        /* ---------- 1. нет ли лишнего: подтверждение — удалить ---------- */
+        focus(0, t("Первый:"));
+        const q1 = warm(2, P_OLD, t("Черновик спрашивает"));
+        const T_DEL = t("удалите") - 0.1;
+        S.tl.set(q1.chars, { textDecoration: "line-through" }, T_DEL);
+        shrink(q1.chars, T_DEL + 0.4, 0.008);
+        done(0, T_DEL + 0.7);
+
+        /* ---------- 2. ничего ли не пропущено: сценария сброса после ошибки нет ---------- */
+        focus(1, t("Второй:"));
+        const gap = div("r3-gap", "<span data-layout-allow-overlap>нет строки</span>", ed.rows[5].row);
+        gap.setAttribute("data-layout-allow-overlap", ""); hide(gap);
+        const T_GAP = t("Нет сценария"), T_ADD = t("добавьте") - 0.1;
+        Kit.popIn(S, gap, T_GAP, 0.5);
+        S.tl.to(gap, { autoAlpha: 0, duration: 0.3 }, T_ADD);
+        ed.addLine(6, T_ADD, { dur: 0.6 });
+        ed.rows[6].plus.style.left = "0px";   // two-digit line number: keep the "+" clear of it
+        done(1, T_ADD + 0.9);
+
+        /* ---------- 3. совпадают ли числа: 15% → 16% ---------- */
+        focus(2, t("Третий:"));
+        const T15 = t("пятнадцать процентов"), T16 = t("шестнадцать");
+        warm(2, "15%", T15 - 0.05);
+        fix(2, "15%", "16%", T16, T16 + 0.45);
+        done(2, t("исправьте") + 0.35);
+
+        /* ---------- 4. нет ли противоречий: сразу считает платёж → тире ---------- */
+        focus(3, t("Четвёртый:"));
+        warm(2, "сразу считает платёж", t("сразу") - 0.05);
+        fix(2, "сразу считает платёж", "показывает «—» вместо результата", t("прочерк."), t("прочерк.") + 0.3);
+        done(3, t("прочерк.") + 0.55);
+
+        /* ---------- 5. цело ли принятое: ошибка срока перенесена к полю суммы ---------- */
+        focus(4, t("Пятый:"));
+        const rowHl = document.createElement("div"); rowHl.className = "k-hl"; ed.rows[4].row.appendChild(rowHl); gsap.set(rowHl, { opacity: 0 });
+        S.tl.to(rowHl, { opacity: 1, duration: 0.4 }, t("Ошибку срока"));
+        warm(4, "суммы", t("полю суммы") - 0.05);
+        fix(4, "суммы", "срока", t("суммы") + 0.3, t("суммы") + 0.55);
+        S.tl.to(rowHl, { opacity: 0, duration: 0.5 }, t("срока.") + 0.3);
+        done(4, t("срока.") - 0.1);
+
+        /* ---------- итог: восемь сценариев = пять прежних + три про сброс ---------- */
+        const sFin = S.stage();
+        const T_SW = t("Теперь") - 0.3;
+        const T_IN = Kit.swap(S, sMain, sFin, T_SW);
+        const NAMES = ["Обычная ставка", "Нулевая ставка", "Недопустимая сумма", "Недопустимый срок", "Успешный расчёт → ошибочный ввод", "Сброс после расчёта", "Сброс после ошибки", "Повторный сброс"];
+        const tab = Kit.aside(S, { parent: sFin, tail: false, html: '<div class="r3-th"><span class="a">Сценарии</span><span class="b">specification.md</span></div>' });
+        tab.el.classList.add("r3-tab"); tab.el.style.left = "96px"; tab.el.style.top = "215px"; tab.el.style.width = "1128px";
+        const trs = NAMES.map((nm, i) => { const r = div("r3-tr" + (i >= 5 ? " new" : ""), `<span class="n">${i + 1}</span><span>${nm}</span>`, tab.el); hide(r); return r; });
+        tab.show(T_IN);
+        const T_OLD = t("пять прежних") - 0.15, T_NEW = t("три про сброс") - 0.1;
+        trs.slice(0, 5).forEach((r, i) => S.tl.fromTo(r, { autoAlpha: 0, x: -30 }, { autoAlpha: 1, x: 0, duration: 0.5, ease: "power3.out", immediateRender: false }, T_IN + 0.3 + i * 0.12));
+        const T_8 = t("восемь") - 0.1;   // the three new rows light up on «восемь»
+        trs.slice(5).forEach((r, i) => Kit.popIn(S, r, T_8 + i * 0.2, 0.5));
+        [38.7, 39.8].forEach((at) => S.tl.fromTo(trs.slice(5), { boxShadow: "0 0 0 0px " + OK }, { boxShadow: "0 0 0 5px " + OK, duration: 0.45, yoyo: true, repeat: 1, ease: "power1.inOut", stagger: 0.12, immediateRender: false }, at));
+        const cnt = div("r3-cnt", '<div class="tot">8</div><div class="old">= 5</div><div class="plus">+ 3</div>', sFin);
+        const [c8, c5, c3] = Array.from(cnt.children); hide(c8, c5, c3);
+        Kit.popIn(S, c8, T_8);
+        Kit.popIn(S, c5, T_OLD);
+        Kit.popIn(S, c3, T_NEW, 0.5);
+        read("Сценарии specification.md", T_IN, DUR);
+        read("8", T_8, DUR);
+        read("= 5", T_OLD, DUR);
+        read("+ 3", T_NEW, DUR);
+        read("Сброс после ошибки", T_8, DUR);
+
+        read("Замысел clear-calculation-result.md", 2.3, T_SW);
+        read("в замысле 16%", T_SAY1, T_SAY1_OFF);
+        read("замысел обещает «—»", T_SAY2, T_SW);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

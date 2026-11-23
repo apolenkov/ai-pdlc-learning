@@ -1,0 +1,194 @@
+[
+  {
+    "n": "0m",
+    "duration": 10.3,
+    "chapter": "Зачем это нужно",
+    "step": null,
+    "title": "Карта маршрута",
+    "audio": "assets/vo/scene-0m.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 5
+    },
+    "audioDuration": 8.72
+  },
+  {
+    "n": 0,
+    "duration": 31,
+    "chapter": "Зачем это нужно",
+    "step": null,
+    "title": "Зачем это нужно",
+    "audio": "assets/vo/scene-0.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 5
+    },
+    "audioDuration": 28.95
+  },
+  {
+    "n": "0b",
+    "duration": 25.8,
+    "chapter": "Как меняется процесс",
+    "step": null,
+    "title": "Как меняется процесс",
+    "audio": "assets/vo/scene-0b.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 5
+    },
+    "audioDuration": 23.93
+  },
+  {
+    "id": "t1",
+    "kind": "title",
+    "of": 1,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Спецификация до кода",
+    "step": 1,
+    "title": "Спецификация до кода",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 5
+    }
+  },
+  {
+    "n": 1,
+    "duration": 39.4,
+    "chapter": "Спецификация до кода",
+    "step": 1,
+    "title": "Спецификация до кода",
+    "audio": "assets/vo/scene-1.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 5
+    },
+    "audioDuration": 37.32
+  },
+  {
+    "id": "t2",
+    "kind": "title",
+    "of": 2,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Где лежат требования",
+    "step": 2,
+    "title": "Где лежат требования",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 5
+    }
+  },
+  {
+    "n": 2,
+    "duration": 32.3,
+    "chapter": "Где лежат требования",
+    "step": 2,
+    "title": "Где лежат требования",
+    "audio": "assets/vo/scene-2.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 5
+    },
+    "audioDuration": 30.48
+  },
+  {
+    "id": "t3",
+    "kind": "title",
+    "of": 3,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Стандарт анализа",
+    "step": 3,
+    "title": "Стандарт анализа",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 5
+    }
+  },
+  {
+    "n": 3,
+    "duration": 21.6,
+    "chapter": "Стандарт анализа",
+    "step": 3,
+    "title": "Стандарт анализа",
+    "audio": "assets/vo/scene-3.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 5
+    },
+    "audioDuration": 19.54
+  },
+  {
+    "id": "t4",
+    "kind": "title",
+    "of": 4,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Три уровня",
+    "step": 4,
+    "title": "Три уровня",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 5
+    }
+  },
+  {
+    "n": 4,
+    "duration": 31.1,
+    "chapter": "Три уровня",
+    "step": 4,
+    "title": "Три уровня",
+    "audio": "assets/vo/scene-4.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 5
+    },
+    "audioDuration": 29.01
+  },
+  {
+    "id": "t5",
+    "kind": "title",
+    "of": 5,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Куда мы идём",
+    "step": 5,
+    "title": "Куда мы идём",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 5
+    }
+  },
+  {
+    "n": 5,
+    "duration": 27.3,
+    "chapter": "Куда мы идём",
+    "step": 5,
+    "title": "Куда мы идём",
+    "audio": "assets/vo/scene-5.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 5
+    },
+    "audioDuration": 25.21
+  },
+  {
+    "n": 6,
+    "duration": 18.7,
+    "chapter": "Что дальше",
+    "step": null,
+    "title": "Что дальше",
+    "audio": "assets/vo/scene-6.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 5
+    },
+    "audioDuration": 15.61
+  }
+]

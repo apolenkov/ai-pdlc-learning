@@ -1,0 +1,106 @@
+/* Shared course diagrams: trusted, open illustrations ahead of the actions. */
+.course-figure {
+  margin: 20px 0;
+  padding: 20px;
+  border: 1px solid var(--customdev-line);
+  border-radius: var(--customdev-radius-md);
+  background: var(--customdev-paper-1);
+  color: var(--customdev-ink);
+  font: 1rem/1.5 var(--customdev-font-body);
+  overflow-wrap: anywhere;
+}
+.course-figure svg { display: block; width: 100%; height: auto; margin: 0; }
+.course-figure svg text { fill: var(--customdev-ink); font: 16px var(--customdev-font-body); }
+.course-figure .card-sch { fill: var(--customdev-paper-1); stroke: var(--customdev-line); stroke-width: 2; }
+.course-figure .arrow { fill: none; stroke: var(--customdev-muted); stroke-width: 2; }
+.course-figure figcaption { margin-top: 16px; color: var(--customdev-muted); font-size: .875rem; }
+.course-figure .lane { margin-top: 12px; padding: 14px 16px; border: 1px solid var(--customdev-line); border-left-width: 4px; border-radius: var(--customdev-radius-md); }
+.course-figure .lane p { margin: 6px 0 0; }
+.course-figure .lane--was { border-left-color: var(--customdev-amber); background: var(--customdev-amber-soft); }
+.course-figure .lane--now { border-left-color: var(--customdev-green); background: var(--customdev-green-soft); }
+.course-figure .pick, .course-figure .stepper { display: none; gap: 12px; align-items: center; flex-wrap: wrap; }
+.course-figure.is-enhanced .pick, .course-figure.is-enhanced .stepper { display: flex; }
+.course-figure.is-enhanced [data-pane][hidden] { display: none !important; }
+.course-figure button, .course-figure [role="button"] { min-height: 44px; padding: 8px 16px; border: 2px solid var(--customdev-line); border-radius: var(--customdev-radius-md); background: var(--customdev-paper-1); color: var(--customdev-ink); font: inherit; cursor: pointer; }
+.course-figure [aria-pressed="true"] { border-color: var(--customdev-green); background: var(--customdev-green-soft); font-weight: 700; }
+.course-figure button:disabled { color: var(--customdev-muted); cursor: default; }
+.course-figure :focus-visible { outline: 3px solid var(--customdev-blue); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .course-figure, .course-figure * { animation: none !important; transition: none !important; }
+}
+
+/* Full-column diagrams retain readable text in a scrollable viewport on narrow screens. */
+.course-figure__viewport { max-width: 100%; overflow-x: auto; }
+.course-figure--wide .course-figure__viewport > svg { min-width: 1040px; max-width: none; }
+.course-figure--wide svg text { font-size: 13px; font-weight: 400; }
+.course-figure--process .course-figure__title { font-weight: 700; }
+.course-figure--wide svg .course-figure__title { font-size: 16px; font-weight: 700; }
+.course-figure--wide svg .course-figure__small { fill: var(--customdev-muted); font-size: 13px; }
+.course-figure--wide svg .course-figure__quiet { font-size: 13px; font-style: italic; }
+.course-figure--wide svg .course-figure__arrow-label { fill: var(--green); font-weight: 700; }
+.card .course-application{margin:16px 0 0;color:var(--ink)}
+/* The 44px inline-flex link must not sit inside a wrapped text line: it stretches that line, so it gets its own row on every stage. */
+.step-next-use .step-next{display:flex;width:fit-content;margin-top:4px}
+.course-figure--wide svg .course-figure__file { font-family: var(--customdev-font-mono,ui-monospace,SFMono-Regular,Menlo,Consolas,monospace); }
+.course-figure--wide svg .course-figure__pill { fill: var(--customdev-green); }
+.course-figure--wide svg .course-figure__metric { font-size: 42px; font-weight: 700; }
+.course-figure--wide .course-figure__overview svg .course-figure__small,
+.course-figure--wide .course-figure__overview svg .course-figure__number { font-size: 14px; }
+.course-figure--process .course-figure__band, .course-figure--process .course-figure__number { font-weight: 700; }
+.course-figure--wide h4 { margin: 0 0 12px; font-size: 1rem; }
+.course-figure__role rect { fill: var(--customdev-paper-1); stroke: var(--customdev-line); stroke-width: 1.5; }
+.course-figure__role:hover rect { stroke: var(--customdev-green); stroke-width: 3; }
+.course-figure__role[aria-pressed="true"] rect { fill: var(--customdev-green-soft); stroke: var(--customdev-green); stroke-width: 3; }
+.course-figure__role:focus-visible { outline: none; }
+.course-figure__role:focus-visible rect { stroke: var(--customdev-blue); stroke-width: 4; }
+.course-figure__wire { fill: none; stroke: var(--customdev-green); stroke-width: 3; }
+.course-figure__git rect { fill: var(--customdev-green-soft); stroke: var(--customdev-green); stroke-width: 2; }
+.course-figure__model rect { fill: var(--customdev-blue-soft); stroke: var(--customdev-blue); stroke-width: 2; }
+.course-figure__tracker rect { fill: var(--customdev-paper-1); stroke: var(--customdev-muted); stroke-dasharray: 4 4; }
+.course-figure__table { width: 100%; margin: 24px 0; border-collapse: collapse; font-size: .9375rem; }
+.course-figure__table caption { margin-bottom: 12px; text-align: left; font-weight: 700; }
+.course-figure__table th, .course-figure__table td { padding: 12px; border: 1px solid var(--customdev-line); overflow-wrap: normal; text-align: left; vertical-align: top; }
+@media (min-width: 720px) { .course-figure__table tbody th[scope="row"] { white-space: nowrap; } }
+/* P11-768: at 720-1040 the table used to squeeze its columns instead of scrolling, and words broke
+   without a hyphen. The row header wraps as well, and a table wider than the figure scrolls inside
+   it: the same pattern the phone layout already uses. */
+@media (min-width: 720px) and (max-width: 1040px) {
+  .course-figure__table { display: block; max-width: 100%; overflow-x: auto; }
+  .course-figure__table tbody th[scope="row"] { white-space: normal; }
+  .course-figure__table th, .course-figure__table td { padding-inline: 6px; }
+}
+@media (max-width: 719px) { .course-figure__table { display: block; max-width: 100%; overflow-x: auto; } .course-figure__table th, .course-figure__table td { min-width: 8.5rem; } .course-figure__table caption { display: block; position: sticky; left: 0; width: calc(100vw - 10.5rem); } }
+/* A scrolling table clips: keyboard focus stops a link 8px short of its edge, so the 3px ring and 3px offset stay whole. */
+.course-figure__table a { scroll-margin-inline: 8px; }
+@media (max-width: 719px) { .step-trouble table { display: block; max-width: 100%; overflow-x: auto; } .step-trouble table caption { display: block; position: sticky; left: 0; width: 15rem; text-align: left; } .step-trouble table th, .step-trouble table td { min-width: 8.5rem; } }
+.course-figure__table thead { background: var(--customdev-green-soft); }
+.course-figure--process .course-figure__rule { max-width: none; margin-top: 16px; padding: 16px; border-left: 4px solid var(--customdev-green); background: var(--customdev-green-soft); color: var(--customdev-ink); font-size: 1.125rem; font-weight: 700; }
+.course-figure__intent-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; align-items: start; }
+.course-figure__intent-layout > * { min-width: 0; }
+.course-figure__intent { min-width: 0; padding: 20px; border: 1px solid var(--customdev-line); border-radius: var(--customdev-radius-md); }
+.course-figure__intent h5 { margin: 20px 0 8px; font-size: .9375rem; }
+.course-figure--process .course-figure__intent p + p { margin-top: 8px; }
+.course-figure__panel { padding: 16px 0; }
+.course-figure.is-enhanced[data-figure-stepper] { display: grid; grid-template-columns: minmax(0, 1fr); }
+.course-figure.is-enhanced[data-figure-stepper] > .course-figure__panel { grid-area: 1 / 1; align-self: start; min-width: 0; }
+/* Hidden panels still size the shared row; visibility removes their focus targets. */
+.course-figure.is-enhanced[data-figure-stepper] > .course-figure__panel[hidden] { display: block !important; visibility: hidden; pointer-events: none; }
+.course-figure.is-enhanced[data-figure-stepper] > .stepper { grid-area: 2 / 1; }
+.course-figure.is-enhanced[data-figure-stepper] > figcaption { grid-area: 3 / 1; }
+.course-figure .course-figure__stages { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 12px; margin: 0 0 24px; padding: 0 !important; list-style: none; }
+.course-figure__stages:has(> :last-child:nth-child(4)) { grid-template-columns: repeat(4,minmax(0,1fr)); }
+.course-figure__stages:has(> :last-child:nth-child(2)) { grid-template-columns: repeat(2,minmax(0,1fr)); }
+.course-figure__stages li { position: relative; display: grid; justify-items: center; align-content: start; gap: 8px; text-align: center; color: var(--customdev-muted); font-size: .875rem; }
+.course-figure__stages li:not(:last-child)::after { content: ""; position: absolute; top: 18px; left: calc(50% + 24px); width: calc(100% - 36px); height: 2px; background: var(--customdev-line); }
+.course-figure__dot { display: grid; width: 38px; height: 38px; place-items: center; border: 1px solid var(--customdev-muted); border-radius: 50%; background: var(--customdev-paper-1); color: var(--customdev-ink); font-weight: 700; }
+.course-figure__stages [aria-current="step"] { color: var(--customdev-green); font-weight: 700; }
+@media (max-width: 519px) { .course-figure .course-figure__stages { grid-template-columns: minmax(0, 1fr) !important; gap: 8px; } .course-figure__stages li { grid-template-columns: 38px minmax(0, 1fr); justify-items: start; align-items: center; text-align: left; overflow-wrap: normal; } .course-figure__stages li:not(:last-child)::after { display: none; } }
+.course-figure__stages [aria-current="step"] .course-figure__dot { border-color: var(--customdev-green); background: var(--customdev-green); color: #fff; }
+@media(max-width:760px) {
+  .course-figure .course-figure__stages { gap: 8px; }
+  .course-figure__stages li { font-size: .8125rem; overflow-wrap: anywhere; }
+}
+.course-figure__model-note { margin-top: 16px; padding: 16px; border: 1px solid var(--customdev-blue); border-radius: var(--customdev-radius-md); background: var(--customdev-blue-soft); }
+.shell .course-figure__model-note :where(p, li) { max-width: none; }
+.course-figure button:hover:not(:disabled) { border-color: var(--customdev-green); background: var(--customdev-green-soft); }
+

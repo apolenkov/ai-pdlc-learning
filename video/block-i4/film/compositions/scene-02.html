@@ -1,0 +1,131 @@
+<template id="scene-02-template">
+  <div data-composition-id="scene-02" data-width="1920" data-height="1080" data-duration="45.3">
+    <style>
+      [data-composition-id="scene-02"] .k-ed-code { font-size: 27px; padding: 10px 0; }
+      [data-composition-id="scene-02"] .k-ln { min-height: 36px; line-height: 36px; }
+      [data-composition-id="scene-02"] .sc-verd { height: 100%; padding: 10px 22px; display: flex; flex-direction: column; gap: 8px; }
+      [data-composition-id="scene-02"] .sc-verd .line { position: relative; flex: none; height: 30px; }
+      [data-composition-id="scene-02"] .sc-verd .line span { position: absolute; left: 0; right: 0; font-size: 25px; font-weight: 700; white-space: nowrap; }
+      [data-composition-id="scene-02"] .sc-verd .line .b { color: var(--k-accent-soft); }
+      [data-composition-id="scene-02"] .sc-verd .line .c { color: var(--k-text-2); }
+      [data-composition-id="scene-02"] .sc-verd .errs { display: flex; gap: 10px; }
+      [data-composition-id="scene-02"] .sc-verd .errs .e { flex: 1; font-size: 20px; font-weight: 700; line-height: 1.15; padding: 5px 10px; border-radius: 11px; background: var(--k-accent-tint); border: 2px solid var(--k-accent); color: var(--k-accent-soft); display: flex; align-items: center; gap: 7px; white-space: normal; }
+      [data-composition-id="scene-02"] .sc-verd .errs .e .n { flex: none; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; border: 2px solid var(--k-accent); font-size: 16px; }
+      [data-composition-id="scene-02"] .sc-good { height: 100%; padding: 10px 22px; display: flex; flex-direction: column; gap: 8px; }
+      [data-composition-id="scene-02"] .sc-good .cap { font-size: 25px; font-weight: 800; }
+      [data-composition-id="scene-02"] .sc-good .items { display: flex; gap: 12px; }
+      [data-composition-id="scene-02"] .sc-good .g { flex: 1; display: flex; align-items: center; gap: 10px; font-size: 22px; font-weight: 700; line-height: 1.15; padding: 6px 12px; border-radius: 12px; background: var(--k-ok-tint); border: 2px solid var(--k-ok); }
+      [data-composition-id="scene-02"] .sc-good .g .ok { flex: none; width: 27px; height: 27px; border-radius: 50%; display: grid; place-items: center; color: var(--k-ok); border: 2px solid var(--k-ok); }
+      [data-composition-id="scene-02"] .sc-good .g .ok svg { width: 16px; height: 16px; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("02"), t = S.t, DUR = 45.3;
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const CHECK = Kit.icons.check;
+
+        Kit.header(S, { header: { mode: "parts", total: 3 }, chapter: "Полный, но слабый", step: 2, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* ---- слева: слабый, но полный документ (учебный пример) ---- */
+        const edW = Kit.editor(S, { parent: s1, x: 96, y: 215, w: 860, h: 440, crumb: "слабый · учебный пример", visible: false,
+          tabs: [{ name: "intent-weak.md", active: true }],
+          lines: [
+            "## Проблема",
+            "Нужна кнопка «Очистить»",
+            "рядом с результатом",
+            "## Признаки успеха",
+            "Метрика: удобство кнопки",
+            "До: — · Цель: «нравится»",
+            "## Границы",
+            "остальное уточним в работе",
+          ] });
+        edW.show(2.05);   // заставка части держится первые 2 с
+        edW.caretOff(2.1);
+        edW.reveal(0, 7, 2.05);
+        read("Проблема Нужна кнопка Очистить рядом с результатом Признаки успеха Метрика удобство кнопки До Цель нравится Границы остальное уточним в работе", 2.05, DUR);
+
+        /* Три смысловые ошибки — подсветка строк */
+        edW.mark(1, t("готовое решение"), { tone: "accent" });
+        edW.mark(2, t("готовое решение") + 0.1, { tone: "accent" });
+        edW.mark(4, t("удобство кнопки"), { tone: "accent" });
+        edW.mark(5, t("без измеримого"), { tone: "accent" });
+        edW.mark(7, t("без конкретики"), { tone: "accent" });
+
+        /* ---- справа: сильный пример — приглушён до момента сравнения ---- */
+        const edS = Kit.editor(S, { parent: s1, x: 964, y: 215, w: 860, h: 440, crumb: "сильный · учебный пример", visible: false,
+          tabs: [{ name: "intent-strong.md", active: true }],
+          lines: [
+            "## Проблема",
+            "старый платёж остаётся,",
+            "клиент думает — посчитал заново",
+            "## Признаки успеха",
+            "До: 42/нед · Цель: 25 к марту",
+            "## Границы",
+            "не меняем формулу и продукты",
+          ] });
+        edS.show(2.2);
+        edS.caretOff(2.3);
+        edS.reveal(0, 6, 2.2);
+        S.tl.set(edS.el, { opacity: 0.38 }, 2.8);
+        const T_STRONG = t("Сравните с сильным") - 0.3;
+        S.tl.to(edS.el, { opacity: 1, duration: 0.5 }, T_STRONG);
+        S.tl.to(edW.el, { opacity: 0.55, duration: 0.5 }, T_STRONG);
+        S.tl.to(edW.el, { opacity: 1, duration: 0.5 }, t("перечитайте проблему вслух") - 0.4);
+        edS.mark(1, t("проблема без решения"), { tone: "ok" });
+        edS.mark(2, t("проблема без решения") + 0.1, { tone: "ok" });
+        edS.mark(4, t("числом и сроком"), { tone: "ok" });
+        edS.mark(6, t("числом и сроком") + 0.5, { tone: "ok" });
+        read("Проблема старый платёж остаётся клиент думает посчитал заново Признаки успеха До 42 нед Цель 25 к марту Границы не меняем формулу и продукты", T_STRONG, DUR);
+
+        /* ---- вердикт под слабым: линтер пропускает → рецензент возвращает → перечитайте вслух ---- */
+        const vd = Kit.aside(S, { parent: s1, x: 96, y: 664, w: 860, h: 138, tail: false,
+          html: '<div class="sc-verd"><div class="line"><span class="a">структура чиста — линтер пропускает</span>' +
+            '<span class="b">рецензент возвращает владельцу</span>' +
+            '<span class="c">сомневаетесь — перечитайте проблему вслух</span></div>' +
+            '<div class="errs"><span class="e e1"><span class="n">1</span>решение в проблеме</span>' +
+            '<span class="e e2"><span class="n">2</span>неизмеримый эффект</span>' +
+            '<span class="e e3"><span class="n">3</span>размытые границы</span></div></div>' });
+        const la = vd.el.querySelector(".a"), lb = vd.el.querySelector(".b"), lc = vd.el.querySelector(".c");
+        const errs = [".e1", ".e2", ".e3"].map((c) => vd.el.querySelector(c));
+        hide(lb, lc, ...errs);
+        vd.show(t("автоматическая проверка"));
+        Kit.popIn(S, errs[0], t("Три смысловые ошибки") + 0.4);
+        Kit.popIn(S, errs[1], t("неизмеримый эффект"));
+        Kit.popIn(S, errs[2], t("размытые границы"));
+        const T_BACK = t("Рецензент возвращает"), T_ALOUD = t("кажется приемлемым") - 0.2;
+        S.tl.to(la, { autoAlpha: 0, duration: 0.3 }, T_BACK - 0.2);
+        S.tl.fromTo(lb, { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.4, immediateRender: false }, T_BACK);
+        S.tl.to(vd.el, { borderColor: Kit.token("--k-accent"), duration: 0.4 }, T_BACK);
+        S.tl.to(lb, { autoAlpha: 0, duration: 0.3 }, T_ALOUD);
+        S.tl.fromTo(lc, { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.4, immediateRender: false }, T_ALOUD + 0.2);
+        read("структура чиста линтер пропускает", t("автоматическая проверка"), T_BACK);
+        read("рецензент возвращает владельцу", T_BACK, T_ALOUD);
+        read("решение в проблеме неизмеримый эффект размытые границы", t("Три смысловые ошибки"), DUR);
+        read("сомневаетесь перечитайте проблему вслух", T_ALOUD, DUR, 0);
+
+        /* ---- вердикт под сильным ---- */
+        const gd = Kit.aside(S, { parent: s1, x: 964, y: 664, w: 860, h: 138, tail: false,
+          html: '<div class="sc-good"><div class="cap">сильный пример</div>' +
+            '<div class="items"><span class="g g1"><span class="ok">' + CHECK + '</span>проблема без решения</span>' +
+            '<span class="g g2"><span class="ok">' + CHECK + '</span>эффект: число и срок</span></div></div>' });
+        const gs = [".g1", ".g2"].map((c) => gd.el.querySelector(c));
+        hide(...gs);
+        gd.show(T_STRONG);
+        Kit.popIn(S, gs[0], t("проблема без решения"));
+        Kit.popIn(S, gs[1], t("числом и сроком"));
+        read("сильный пример проблема без решения эффект число и срок", T_STRONG, DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

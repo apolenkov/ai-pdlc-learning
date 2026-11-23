@@ -1,0 +1,16 @@
+{
+  "file": "landing-team-long-720p.mp4",
+  "sha256": "a06f3f170829c660318dcb806cf6d977b216f170c3adae02b00af0d68326d5b0",
+  "size": 14714220,
+  "url": "https://github.com/apolenkov/ai-pdlc-learning/releases/download/media-v1/a06f3f170829-landing-team-long-720p.mp4",
+  "version": "a06f3f170829",
+  "audio": "voice-only",
+  "master": {
+    "file": "landing-team-long-1080p.mp4",
+    "sha256": "a66af8c8629499d0ffd753793fb8c38b1f8844325da4bae12950538bd23f9d7e",
+    "size": 40465424,
+    "lost": "утерян до сдачи Mac 25.11.2026: файла нет ни на Диске, ни локально; пин сохранён"
+  },
+  "duration": 522.6,
+  "note": "Registry (проект 6656), версия = первые 12 знаков sha256; readback MATCH. TASK-671: звук только из голоса (озвучка без музыки и SFX), видео побайтно прежнее, AAC-LC 48 кГц моно, около −16 LUFS; мастер 1080p — прежний микс (вне этапа)"
+}

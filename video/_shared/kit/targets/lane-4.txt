@@ -1,0 +1,7 @@
+# Полоса 4 (первая): пять роликов варианта B — короткие подписи шапки из a1d1bb96.
+# Конфиг ролика — targets/<ролик>.json { variant, bodySha256 }; вариант — kit/variants/B.json.
+block-r1
+block-r2
+block-0
+block-delivery
+block-team

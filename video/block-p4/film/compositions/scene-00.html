@@ -1,0 +1,79 @@
+<template id="scene-00-template">
+  <div data-hf-id="hf-ia0t" data-composition-id="scene-00" data-width="1920" data-height="1080" data-duration="18.2">
+    <style>
+      [data-composition-id="scene-00"] .pr-title { position: absolute; left: 96px; width: 1728px; top: 206px; font-size: 54px; font-weight: 700; color: var(--k-accent); }
+      [data-composition-id="scene-00"] .pr-sub { position: absolute; left: 96px; width: 1728px; font-size: 40px; font-weight: 700; color: var(--k-accent-soft); }
+      [data-composition-id="scene-00"] .pr-row { position: absolute; left: 96px; width: 1728px; display: grid; align-items: stretch; gap: 24px; }
+      [data-composition-id="scene-00"] .pr-col { display: grid; gap: 14px; justify-items: stretch; align-content: start; }
+      [data-composition-id="scene-00"] .pr-col > .k-aside, [data-composition-id="scene-00"] .pr-row > .k-aside { position: relative; }
+      [data-composition-id="scene-00"] .pr-t { font-size: 44px; font-weight: 700; line-height: 1.15; }
+      [data-composition-id="scene-00"] .pr-t span { color: var(--k-accent-soft); }
+      [data-composition-id="scene-00"] .pr-c { font-size: 30px; line-height: 1.25; color: var(--k-text-2); margin-top: 8px; }
+      [data-composition-id="scene-00"] .pr-arr { align-self: center; text-align: center; font-size: 56px; font-weight: 300; color: var(--k-text-2); line-height: 1; }
+      [data-composition-id="scene-00"] .pr-chips { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+      [data-composition-id="scene-00"] .pr-chip { padding: 8px 16px; border: 2px solid var(--k-line); border-radius: 14px; background: var(--k-panel-2); font-size: 30px; font-weight: 600; line-height: 1.2; white-space: nowrap; }
+      [data-composition-id="scene-00"] .pr-ok { border-color: var(--k-ok); background: var(--k-ok-tint); }
+      [data-composition-id="scene-00"] .pr-tag { position: absolute; left: 96px; top: 222px; }
+      [data-composition-id="scene-00"] .pr-tree { font-family: var(--k-mono, ui-monospace, Menlo, monospace); font-size: 40px; line-height: 1.5; }
+      [data-composition-id="scene-00"] .pr-tree div { white-space: pre; }
+      [data-composition-id="scene-00"] .pr-tree .d { color: var(--k-text-2); }
+      [data-composition-id="scene-00"] .sc-item { height: 100%; display: flex; align-items: center; gap: 28px; font-size: 44px; font-weight: 700; letter-spacing: -0.015em; line-height: 1.15; }
+      [data-composition-id="scene-00"] .sc-ok { flex: none; width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center; color: var(--k-ok); border: 3px solid var(--k-ok); background: var(--k-ok-tint); }
+      [data-composition-id="scene-00"] .sc-ok svg { width: 44px; height: 44px; opacity: 0; }
+      [data-composition-id="scene-00"] .sc-next { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+      [data-composition-id="scene-00"] .sc-next .lab { font-size: 36px; font-weight: 700; color: var(--k-accent-soft); white-space: nowrap; }
+      [data-composition-id="scene-00"] .sc-next .nm { font-size: 58px; font-weight: 800; letter-spacing: -0.02em; white-space: nowrap; }
+      [data-composition-id="scene-00"] .sc-next svg { flex: none; width: 76px; height: 41px; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("00"), t = S.t, DUR = 18.2;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»: ${(off - at - reveal).toFixed(1)} с, нужно ${needed.toFixed(1)}`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const div = (cls, html, parent) => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; parent.appendChild(el); return el; };
+        const col = (p) => div("pr-col", "", p);
+        const row = (p, top, cols) => { const r = div("pr-row", "", p); r.style.top = top + "px"; r.style.gridTemplateColumns = cols; return r; };
+        const tile = (p, at, ttl, sub, off, cls) => {
+          const a = Kit.aside(S, { parent: p, tail: false, html: '<div class="pr-t">' + ttl + "</div>" + (sub ? '<div class="pr-c">' + sub + "</div>" : "") });
+          if (cls) a.el.classList.add(cls);
+          a.show(at); read(ttl.replace(/<[^>]+>/g, "") + " " + (sub || ""), at, off);
+          return a;
+        };
+        const arrow = (p, at, ch = "→") => { const a = div("pr-arr", ch, p); hide(a); Kit.popIn(S, a, at); return a; };
+        const line = (cls, text, p, at, off) => { const e = div(cls, text, p); hide(e); Kit.popIn(S, e, at); read(text, at, off); return e; };
+
+        Kit.header(S, { header: { mode: "parts", total: 5 }, chapter: "Зачем это нужно", step: null, mode: "intro", duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+
+        const T_HOOK = t("Аналитик");
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+        const plate = Kit.aside(S, { parent: s1, x: 96, y: 400, w: 1500, tail: false, title: "Перед этим", text: "Что такое SDD и OpenSpec" });
+        plate.show(0.2); plate.hide(T_HOOK - 0.2);
+        read("Перед этим Что такое SDD и OpenSpec", 0.2, T_HOOK - 0.2);
+        const OUT_P = T_HOOK - 0.2;
+        const s2 = S.stage();
+        line("pr-title", "Агент получил задачу и не знает", s2, T_HOOK + 0.1, DUR);
+        const q = row(s2, 290, "1fr 1fr 1fr");
+        tile(q, t("продукт"), "Какой продукт?", "", DUR);
+        tile(q, t("требования"), "Где требования?", "", DUR);
+        tile(q, t("версию кода"), "Какая версия кода?", "", DUR);
+        line("pr-sub", "Контекст разбросан", s2, t("Контекст"), DUR).style.top = "470px";
+        const src = row(s2, 540, "1fr 1fr 1fr");
+        tile(src, t("чатам"), "Чаты", "", DUR);
+        tile(src, t("заметкам"), "Заметки", "", DUR);
+        tile(src, t("репозиториям"), "Репозитории", "", DUR);
+        const late = Kit.aside(S, { parent: s2, x: 96, y: 700, w: 1728, tail: false, html: '<div class="pr-t">Агент угадывает — ошибка на приёмке</div>' });
+        late.show(t("Агент угадывает")); read("Агент угадывает — ошибка на приёмке", t("Агент угадывает"), DUR);
+        Kit.stageOut(S, s1, OUT_P); Kit.stageIn(S, s2, T_HOOK - 0.1);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

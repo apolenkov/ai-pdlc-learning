@@ -1,0 +1,250 @@
+[
+  {
+    "n": "0m",
+    "duration": 8.8,
+    "chapter": "Проблема → цель",
+    "step": null,
+    "title": "Карта маршрута",
+    "audio": "assets/vo/scene-0m.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 7
+    },
+    "audioDuration": 7.2
+  },
+  {
+    "n": 0,
+    "duration": 30.4,
+    "chapter": "Проблема → цель",
+    "step": null,
+    "title": "Проблема → цель",
+    "audio": "assets/vo/scene-0.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 7
+    },
+    "audioDuration": 28.74
+  },
+  {
+    "n": "0b",
+    "duration": 31.3,
+    "chapter": "Как меняется работа",
+    "step": null,
+    "title": "Как меняется работа",
+    "audio": "assets/vo/scene-0b.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 7
+    },
+    "audioDuration": 29.79
+  },
+  {
+    "id": "t1",
+    "kind": "title",
+    "of": 1,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Вход и выход",
+    "step": 1,
+    "title": "Вход и выход",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 7
+    }
+  },
+  {
+    "n": 1,
+    "duration": 21.7,
+    "chapter": "Вход и выход",
+    "step": 1,
+    "title": "Вход и выход",
+    "audio": "assets/vo/scene-1.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 7
+    },
+    "audioDuration": 19.66
+  },
+  {
+    "id": "t2",
+    "kind": "title",
+    "of": 2,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Подготовка",
+    "step": 2,
+    "title": "Подготовка",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 7
+    }
+  },
+  {
+    "n": 2,
+    "duration": 30.8,
+    "chapter": "Подготовка",
+    "step": 2,
+    "title": "Подготовка",
+    "audio": "assets/vo/scene-2.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 7
+    },
+    "audioDuration": 28.73
+  },
+  {
+    "id": "t3",
+    "kind": "title",
+    "of": 3,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Код пишет модель",
+    "step": 3,
+    "title": "Код пишет модель",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 7
+    }
+  },
+  {
+    "n": 3,
+    "duration": 20.9,
+    "chapter": "Код пишет модель",
+    "step": 3,
+    "title": "Код пишет модель",
+    "audio": "assets/vo/scene-3.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 7
+    },
+    "audioDuration": 18.86
+  },
+  {
+    "id": "t4",
+    "kind": "title",
+    "of": 4,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Код проверяет другая модель",
+    "step": 4,
+    "title": "Код проверяет другая модель",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 7
+    }
+  },
+  {
+    "n": 4,
+    "duration": 24.5,
+    "chapter": "Код проверяет другая модель",
+    "step": 4,
+    "title": "Код проверяет другая модель",
+    "audio": "assets/vo/scene-4.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 7
+    },
+    "audioDuration": 22.39
+  },
+  {
+    "id": "t5",
+    "kind": "title",
+    "of": 5,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Проверяют люди",
+    "step": 5,
+    "title": "Проверяют люди",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 7
+    }
+  },
+  {
+    "n": 5,
+    "duration": 39.6,
+    "chapter": "Проверяют люди",
+    "step": 5,
+    "title": "Проверяют люди",
+    "audio": "assets/vo/scene-5.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 7
+    },
+    "audioDuration": 37.82
+  },
+  {
+    "id": "t6",
+    "kind": "title",
+    "of": 6,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Сохранение и слияние",
+    "step": 6,
+    "title": "Сохранение и слияние",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 7
+    }
+  },
+  {
+    "n": 6,
+    "duration": 33.9,
+    "chapter": "Сохранение и слияние",
+    "step": 6,
+    "title": "Сохранение и слияние",
+    "audio": "assets/vo/scene-6.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 7
+    },
+    "audioDuration": 31.72
+  },
+  {
+    "id": "t7",
+    "kind": "title",
+    "of": 7,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Архив",
+    "step": 7,
+    "title": "Архив",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 7
+    }
+  },
+  {
+    "n": 7,
+    "duration": 24.9,
+    "chapter": "Архив",
+    "step": 7,
+    "title": "Архив",
+    "audio": "assets/vo/scene-7.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 7
+    },
+    "audioDuration": 22.79
+  },
+  {
+    "n": 8,
+    "duration": 23.5,
+    "chapter": "Что дальше",
+    "step": null,
+    "title": "Что дальше",
+    "audio": "assets/vo/scene-8.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 7
+    },
+    "audioDuration": 20.44
+  }
+]

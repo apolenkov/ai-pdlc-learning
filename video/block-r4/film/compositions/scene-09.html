@@ -1,0 +1,91 @@
+<template id="scene-09-template">
+  <div data-composition-id="scene-09" data-width="1920" data-height="1080" data-duration="24.6">
+    <style>
+      [data-composition-id="scene-09"] .sc-item { height: 100%; display: flex; align-items: center; gap: 26px; font-size: 42px; font-weight: 700; letter-spacing: -0.015em; line-height: 1.15; }
+      [data-composition-id="scene-09"] .sc-ok { flex: none; width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center; color: var(--k-ok); border: 3px solid var(--k-ok); background: var(--k-ok-tint); }
+      [data-composition-id="scene-09"] .sc-ok svg { width: 38px; height: 38px; opacity: 0; }
+      [data-composition-id="scene-09"] .out { height: 100%; display: flex; flex-direction: column; gap: 8px; }
+      [data-composition-id="scene-09"] .out .lab { font-size: 36px; font-weight: 700; color: var(--k-accent-soft); }
+      [data-composition-id="scene-09"] .out .big { font-size: 60px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; color: var(--k-ok); opacity: 0; }
+      [data-composition-id="scene-09"] .out .cd { font-family: var(--k-font-mono); font-size: 32px; font-weight: 600; color: var(--k-code-inline); opacity: 0; }
+      [data-composition-id="scene-09"] .out .by { margin-top: auto; font-size: 36px; font-weight: 700; line-height: 1.2; opacity: 0; }
+      [data-composition-id="scene-09"] .draft { height: 100%; display: flex; align-items: center; gap: 20px; font-size: 40px; font-weight: 700; letter-spacing: -0.01em; white-space: nowrap; }
+      [data-composition-id="scene-09"] .draft .k { padding: 4px 18px; border-radius: 12px; background: var(--k-accent-tint); color: var(--k-accent-soft); font-size: 32px; }
+      [data-composition-id="scene-09"] .sc-next { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+      [data-composition-id="scene-09"] .sc-next .lab { font-size: 32px; font-weight: 700; color: var(--k-accent-soft); }
+      [data-composition-id="scene-09"] .sc-next .nm { font-size: 54px; font-weight: 800; letter-spacing: -0.02em; white-space: nowrap; margin: 2px 0 4px; opacity: 0; }
+      [data-composition-id="scene-09"] .sc-next .sb { font-size: 32px; font-weight: 500; color: var(--k-text-2); opacity: 0; }
+      [data-composition-id="scene-09"] .sc-next svg { flex: none; width: 76px; height: 41px; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("09"), t = S.t, DUR = 24.6;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.5) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»: ${(off - at - reveal).toFixed(2)} < ${needed.toFixed(2)}`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const rev = (el, at, d = 0.45) => { gsap.set(el, { y: 14 }); S.tl.to(el, { opacity: 1, y: 0, duration: d, ease: "power3.out" }, at); };
+
+        /* Итог без шага: все части пройдены */
+        Kit.header(S, { header: { mode: "parts", total: 8 }, chapter: "Что дальше", step: null, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+        const OK = Kit.token("--k-ok"), ACC = Kit.token("--k-accent");
+
+        /* Что вы умеете: галочки на фразах диктора */
+        const items = [
+          { html: "Форк", at: t("форк"), tick: S.end("форк") },
+          { html: "Подготовленное окружение", at: t("подготовленное"), tick: S.end("окружение") },
+          { html: "Вопросы модели", at: t("вопросы модели"), tick: S.end("вопросы модели") },
+          { html: "Независимая проверка", at: t("независимая"), tick: S.end("проверка") },
+          { html: "Одобрение", at: t("одобрение людей"), tick: S.end("людей") },
+        ];
+        items.forEach((it, i) => {
+          const row = Kit.aside(S, { parent: s1, x: 96, y: 215 + i * 78, w: 860, h: 68, tail: false,
+            html: '<div class="sc-item"><span class="sc-ok">' + Kit.icons.check + "</span><span>" + it.html + "</span></div>" });
+          row.el.style.padding = "0 22px";
+          row.show(it.at - 0.1);
+          S.tl.to(row.el.querySelector(".sc-ok svg"), { opacity: 1, duration: 0.3 }, Math.max(it.tick - 0.1, it.at + 0.3));
+          read(it.html, it.at, DUR);
+        });
+
+        /* Выход анализа */
+        const T_OUT = t("Выход");
+        const out = Kit.aside(S, { parent: s1, x: 990, y: 215, w: 834, h: 262, tail: false,
+          html: '<div class="out"><div class="lab">Выход анализа</div><div class="big">принятое изменение</div><div class="cd">limit-credit-amount</div><div class="by">его подтверждает слитый запрос</div></div>' });
+        out.el.style.borderColor = OK;
+        out.show(T_OUT);
+        const oq = (s) => out.el.querySelector(s);
+        rev(oq(".big"), t("принятое")); rev(oq(".cd"), t("принятое") + 0.5); rev(oq(".by"), t("его подтверждает"));
+        read("принятое изменение", t("принятое"), DUR); read("limit-credit-amount", t("принятое") + 0.5, DUR);
+        read("его подтверждает слитый запрос", t("его подтверждает"), DUR);
+
+        /* Код пока не менялся */
+        const T_CODE = t("Код пока");
+        const draft = Kit.aside(S, { parent: s1, x: 990, y: 492, w: 834, h: 96, tail: false,
+          html: '<div class="draft"><span class="k">Код</span><span>пока не менялся</span></div>' });
+        draft.show(T_CODE);
+        read("Код пока не менялся", T_CODE, DUR);
+
+        /* Мост к ветвям шага 6: 6а и 6б (course-names.json, branches), как в карте курса */
+        const T_NEXT = S.end("не менялся") + 0.1;
+        const next = Kit.aside(S, { parent: s1, x: 96, y: 614, w: 1728, h: 200, tail: false,
+          html: '<div class="sc-next"><div><div class="lab">После шага 5</div><div class="nm">Ветви 6а и 6б</div>' +
+                '<div class="sb">новый и действующий продукт; можно пройти обе</div></div>' +
+                '<svg viewBox="0 0 56 30" fill="none"><path d="M3 15H49M39 5L50 15L39 25" stroke="' + Kit.token("--k-accent") + '" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>' });
+        next.el.style.borderColor = ACC;
+        next.show(T_NEXT);
+        const nq = (s) => next.el.querySelector(s);
+        rev(nq(".nm"), t("ветви") - 0.1); rev(nq(".sb"), t("новый и"));
+        read("Ветви 6а и 6б", t("ветви") - 0.1, DUR);
+        read("новый и действующий продукт; можно пройти обе", t("новый и"), DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

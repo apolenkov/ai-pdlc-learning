@@ -1,0 +1,57 @@
+<template id="scene-05-template">
+  <div data-composition-id="scene-05" data-width="1920" data-height="1080" data-duration="9.3">
+    <style>
+      [data-composition-id="scene-05"] .h-h { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 58px; font-weight: 800; }
+      [data-composition-id="scene-05"] .h-card { position: absolute; top: 220px; width: 500px; height: 240px; padding: 30px 34px; border: 2px solid var(--k-line); border-radius: 26px; background: var(--k-panel); }
+      [data-composition-id="scene-05"] .h-ct { font-size: 40px; font-weight: 800; }
+      [data-composition-id="scene-05"] .h-pill { position: absolute; padding: 12px 24px; border: 2px solid var(--k-line); border-radius: 18px; background: var(--k-panel-2); font-size: 32px; font-weight: 800; }
+      [data-composition-id="scene-05"] .h-cap { position: absolute; left: 96px; top: 566px; font-size: 38px; font-weight: 700; color: var(--k-text-2); }
+      [data-composition-id="scene-05"] .h-cursor { position: absolute; left: 1700px; top: 930px; width: 46px; height: 46px; z-index: 50; }
+      [data-composition-id="scene-05"] .h-ripple { position: absolute; left: 956px; top: 340px; width: 40px; height: 40px; margin: -20px 0 0 -20px; border-radius: 50%; border: 3px solid var(--k-accent); z-index: 40; opacity: 0; }
+      [data-composition-id="scene-05"] .h-page { position: absolute; left: 1920px; top: 110px; width: 680px; height: 860px; border-radius: 28px; background: #f4f1e8; box-shadow: 0 40px 120px rgba(0, 0, 0, 0.55); overflow: hidden; z-index: 35; }
+      [data-composition-id="scene-05"] .h-page .p-top { height: 76px; background: #ece6da; display: flex; align-items: center; gap: 12px; padding: 0 34px; }
+      [data-composition-id="scene-05"] .h-page .p-top i { width: 14px; height: 14px; border-radius: 50%; background: #cbc3b3; display: block; }
+      [data-composition-id="scene-05"] .h-page .p-ttl { position: absolute; left: 44px; top: 130px; width: 592px; font-size: 44px; font-weight: 800; color: #1f2d2a; }
+      [data-composition-id="scene-05"] .h-page .p-line { position: absolute; left: 44px; height: 20px; border-radius: 10px; background: #d9d2c4; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("05"), DUR = 9.3;
+        const tt = (w, d) => { try { return S.t(w); } catch (e) { return d; } };
+        const el = (cls, html, x, y, w) => { const e = document.createElement("div"); e.className = cls; e.innerHTML = html; e.style.left = x + "px"; e.style.top = y + "px"; if (w) e.style.width = w + "px"; S.root.appendChild(e); return e; };
+        const show = (e, at) => { (Array.isArray(e) ? e : [e]).forEach((x) => { gsap.set(x, { autoAlpha: 0 }); S.tl.fromTo(x, { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.38, ease: "power2.out", immediateRender: false }, at); }); };
+        const head = el("h-h", "С чего начать", 96, 64); show(head, 0.08);
+        // Вариант первый: подготовка.
+        const a = el("h-card", '<div class="h-ct">подготовка</div>', 96, 220, 500); show(a, 0.2);
+        const p1 = el("h-pill", "Markdown", 130, 330); show(p1, tt("Markdown", 1.53));
+        const p2 = el("h-pill", "Git", 372, 330); show(p2, tt("гит", 2.07));
+        // Вариант второй: сразу к шагу.
+        const b = el("h-card", '<div class="h-ct">сразу к шагам</div>', 656, 220, 500); show(b, tt("сразу", 3.26));
+        const p3 = el("h-pill", "Проблема и эффект", 690, 330); show(p3, tt("Проблема и эффект", 4.19));
+        // Курсор выбирает второй вариант и нажимает.
+        const cursor = el("h-cursor", '<svg width="46" height="46" viewBox="0 0 24 24" fill="var(--k-text)" stroke="var(--k-bg)" stroke-width="1.4" stroke-linejoin="round"><path d="M5 3l14 8-6.4 1.6L9.5 20z"/></svg>', 1700, 930);
+        gsap.set(cursor, { autoAlpha: 0 });
+        S.tl.to(cursor, { autoAlpha: 1, duration: 0.2 }, tt("сразу", 3.26) + 0.2);
+        S.tl.to(cursor, { left: 886, top: 330, duration: 0.6, ease: "power2.inOut" }, tt("сразу", 3.26) + 0.25);
+        S.tl.to(b, { borderColor: "rgba(255,122,89,0.95)", duration: 0.25, ease: "power2.out" }, tt("Проблема и эффект", 4.19) - 0.3);
+        const clickT = tt("Проблема и эффект", 4.19);
+        S.tl.to(b, { scale: 0.99, duration: 0.1, ease: "power2.in" }, clickT);
+        const ripple = el("h-ripple", "", 906, 340);
+        gsap.set(ripple, { scale: 0.25, autoAlpha: 0 });
+        S.tl.fromTo(ripple, { scale: 0.25, autoAlpha: 0.9 }, { scale: 4.2, autoAlpha: 0, duration: 0.55, ease: "power2.out", immediateRender: false }, clickT);
+        // Открывается страница шага: заголовок и скелет разделов без деталей.
+        const page = el("h-page", '<div class="p-top"><i></i><i></i><i></i></div><div class="p-ttl">Проблема и эффект</div><div class="p-line" style="top:240px;width:560px"></div><div class="p-line" style="top:290px;width:500px"></div><div class="p-line" style="top:340px;width:540px"></div><div class="p-line" style="top:390px;width:460px"></div>', 1920, 110, 680);
+        page.setAttribute("data-layout-allow-overlap", "");
+        gsap.set(page, { x: 0 });
+        S.tl.to(page, { x: -740, duration: 0.5, ease: "power3.out" }, clickT + 0.22);
+        S.tl.to(cursor, { autoAlpha: 0, duration: 0.3 }, clickT + 0.35);
+        S.tl.to([a, b], { filter: "brightness(0.55) saturate(0.75)", duration: 0.4, ease: "power2.out" }, clickT + 0.3);
+        // Каждый шаг — это гайд.
+        const cap = el("h-cap", "у каждого шага есть гайд", 96, 566); show(cap, tt("гайд", 6.59));
+        Kit.sketch(S, { name: "pair-start", x: 96, y: 700, w: 380, at: tt("каждого", 5.52), dur: 2.4 });
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

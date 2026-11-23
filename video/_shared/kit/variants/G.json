@@ -1,0 +1,23 @@
+{
+ "variant": "G",
+ "description": "подписи шапки B плюс склонение «часть/части/частей» в шапке",
+ "bodySha256": "90fc25ad1ab8268d94b7cbb5ceb71c730cb64303912d79ed93923817eb1eb258",
+ "hunks": [
+  {
+   "start": 147,
+   "remove": [],
+   "add": [
+    "    const partWord = total % 10 === 1 && total % 100 !== 11 ? \"часть\" : [2, 3, 4].includes(total % 10) && ![12, 13, 14].includes(total % 100) ? \"части\" : \"частей\";"
+   ]
+  },
+  {
+   "start": 148,
+   "remove": [
+    "      ? (m === \"intro\" ? `<b>${total} частей</b>` : m === \"done\" ? `<b>Готово: ${total} из ${total}</b>` : `<b>Часть ${n} из ${total}</b>`)"
+   ],
+   "add": [
+    "      ? (m === \"intro\" ? `<b>${total} ${partWord}</b>` : m === \"done\" ? `<b>Готово</b>` : `<b>Часть ${n}</b>`)"
+   ]
+  }
+ ]
+}

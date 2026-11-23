@@ -1,0 +1,41 @@
+Звук ролика hero v3.5b — музыка и эффекты: источники, лицензии, изменения (TASK-588)
+
+Ролик: `landing-hero-v3.5b.mp4` (34,2 с после правки 19.10: все четыре блока озвучены заново без ускорения, в сцене 2 семь узлов; звук — микс v3.5: голос,
+18 эффектов по движениям, музыкальная подложка под голосом). Голос и эффекты — стемы
+микса v3.3 (`video/_shared/tools/sfx-mix.ts`, план событий — `sfx.json` этого каталога, события привязаны к словам озвучки); финальное сведение
+подложки — `video/_shared/tools/mix-v35.ts --tp -4.5` (дак 4–6 дБ по словам, loudnorm I −16 LUFS, TP −4,5 dBTP в принятом hero).
+
+--- Музыка (подложка под весь ролик) ---
+Смесь двух треков Matio888 (Freesound), лицензия CC BY 4.0. Изменения: обрезаны, сведены
+кроссфейдом 5 с, нормализованы (подложка −35 LUFS), приглушены под голосом.
+Исходные файлы в Git не хранятся (правило и пути — `video/_shared/music/credits.txt`).
+
+"Relaxing Ambient" by Matio888 is licensed under CC BY 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/.
+Источник: https://freesound.org/people/Matio888/sounds/796050
+
+"Serene and Peaceful Ambience" by Matio888 is licensed under CC BY 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/.
+Источник: https://freesound.org/people/Matio888/sounds/796135
+
+--- Эффекты: происхождение ---
+`swipe.wav`, `subdrop.wav` (и `hover.wav` в других роликах) — из библиотеки проекта, `earshot forge` v2
+(`~/work/earshot`): СИНТЕЗ, выполненный при создании библиотеки; внешней лицензии нет.
+`pop.wav`, `click.wav` (и `keys.wav`) — не синтез, а записи Freesound (Openverse), обрезаны и
+нормализованы. `keys.wav` в ролике не использован: набора текста в кадре нет.
+
+pop.wav (появление элемента или заголовка) — CC BY 4.0. Изменения: обрезан, нормализован и сведён с роликом.
+"Pop, Low, A (H1).wav" by InspectorJ is licensed under CC BY 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/.
+Источник: https://freesound.org/people/InspectorJ/sounds/411639
+
+click.wav (нажатие) — CC0 1.0 (изменения: обрезан, нормализован):
+"UI Button Click" by benzix2 is marked with CC0 1.0. To view the terms, visit https://creativecommons.org/publicdomain/zero/1.0/.
+Источник: https://freesound.org/people/benzix2/sounds/467951
+
+Полные списки с обработкой — `video/_shared/sfx/credits.txt`.
+
+--- Строка для раздела «Источники» на странице курса (CC BY требует указать автора, источник и изменения) ---
+Звук: «Pop, Low, A (H1).wav» — InspectorJ, Freesound (https://freesound.org/people/InspectorJ/sounds/411639), CC BY 4.0
+(https://creativecommons.org/licenses/by/4.0/), обрезан, нормализован и сведён;
+«UI Button Click» — benzix2, Freesound (https://freesound.org/people/benzix2/sounds/467951), CC0 1.0.
+Музыка: «Relaxing Ambient» (https://freesound.org/people/Matio888/sounds/796050) и «Serene and Peaceful Ambience»
+(https://freesound.org/people/Matio888/sounds/796135) — Matio888, Freesound, CC BY 4.0
+(https://creativecommons.org/licenses/by/4.0/), обрезаны, сведены кроссфейдом, нормализованы и сведены с роликом.

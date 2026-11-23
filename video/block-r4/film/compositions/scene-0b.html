@@ -1,0 +1,95 @@
+<template id="scene-0b-template">
+  <div data-composition-id="scene-0b" data-width="1920" data-height="1080" data-duration="21.5">
+    <style>
+      [data-composition-id="scene-0b"] .pr-row { position: absolute; left: 96px; width: 1728px; display: grid; align-items: stretch; }
+      [data-composition-id="scene-0b"] .pr-top { top: 206px; grid-template-columns: 1fr 64px 1fr; }
+      [data-composition-id="scene-0b"] .pr-flow { top: 416px; grid-template-columns: 1fr 64px 1fr 64px 1fr; }
+      [data-composition-id="scene-0b"] .pr-row > .k-aside { position: relative; left: 0; top: 0; }
+      [data-composition-id="scene-0b"] .pr-t { font-size: 50px; font-weight: 700; line-height: 1.1; }
+      [data-composition-id="scene-0b"] .pr-c { font-size: 32px; line-height: 1.25; color: var(--k-text-2); margin-top: 10px; min-height: 40px; }
+      [data-composition-id="scene-0b"] .pr-arr { align-self: center; text-align: center; font-size: 56px; font-weight: 300; color: var(--k-text-2); line-height: 1; }
+      [data-composition-id="scene-0b"] .pr-s { font-size: 44px; font-weight: 700; line-height: 1.1; }
+      [data-composition-id="scene-0b"] .pr-s b { color: var(--k-accent-soft); font-weight: 700; }
+      [data-composition-id="scene-0b"] .pr-pl { position: absolute; left: 96px; width: 1728px; height: 88px; padding: 0 34px; display: flex; align-items: center; gap: 28px; box-sizing: border-box; }
+      [data-composition-id="scene-0b"] .pr-pl .lab { font-size: 34px; font-weight: 700; color: var(--k-accent-soft); min-width: 250px; }
+      [data-composition-id="scene-0b"] .pr-pl .txt { font-size: 46px; font-weight: 700; line-height: 1.1; }
+      [data-composition-id="scene-0b"] .pr-ok { border-color: var(--k-ok); background: var(--k-ok-tint); }
+      [data-composition-id="scene-0b"] .pr-ok .lab { color: var(--k-ok); }
+      [data-composition-id="scene-0b"] .pr-no .lab { color: var(--k-text-2); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("0b"), t = S.t, DUR = 21.5;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const div = (cls, html, parent) => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; parent.appendChild(el); return el; };
+        const INFO = Kit.token("--k-info"), LINE = Kit.token("--k-line");
+
+        Kit.header(S, { header: { mode: "parts", total: 8 }, chapter: "Как меняется процесс", step: null, mode: "intro", duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const sA = S.stage(); gsap.set(sA, { autoAlpha: 1 });
+
+        /* Row 1: «учебная папка» → «метарепозиторий продукта». Both tiles are on screen from the first frame; the narrator fills the captions. */
+        const top = div("pr-row pr-top", "", sA);
+        const mkTile = (parent, html) => { const tile = Kit.aside(S, { parent, tail: false, html }); gsap.set(tile.el, { autoAlpha: 1 }); return tile; };
+        const a = mkTile(top, '<div class="pr-t">Учебная папка</div><div class="pr-c">то, что вы правили раньше</div>');
+        const arr1 = div("pr-arr", "→", top);
+        const b = mkTile(top, '<div class="pr-t">Метарепозиторий продукта</div><div class="pr-c">общая папка в Git: запросы, требования, правила для модели</div>');
+        const subA = a.el.querySelector(".pr-c"), subB = b.el.querySelector(".pr-c");
+        hide(subA, subB, arr1, b.el);
+        const T_A = t("учебную"), T_B = t("метарепозитории");
+        Kit.popIn(S, subA, T_A);
+        Kit.popIn(S, arr1, T_B - 0.4); Kit.popIn(S, b.el, T_B - 0.3);
+        const T_B2 = t("это общая");
+        Kit.popIn(S, subB, T_B2);
+        read("Учебная папка то, что вы правили раньше", T_A, DUR);
+        read("Метарепозиторий продукта", T_B - 0.3, DUR);
+        read(subB.textContent, T_B2, DUR);
+
+        const hl = (tile, on, off) => {
+          S.tl.to(tile.el, { borderColor: INFO, duration: 0.3 }, on);
+          S.tl.to(tile.el, { borderColor: LINE, duration: 0.3 }, off);
+        };
+        hl(a, t("Раньше"), t("Теперь") - 0.1);
+        hl(b, t("Теперь"), t("Модель готовит") - 0.1);
+
+        /* Row 2: model → check → people. Each tile appears on its own words. */
+        const flow = div("pr-row pr-flow", "", sA);
+        const steps = [
+          ["Модель", "черновик", t("Модель готовит"), t("независимая") - 0.1],
+          ["Независимая проверка", "пробелы", t("независимая"), t("а решают") - 0.1],
+          ["Люди", "решают", t("а решают"), t("Кода здесь") - 0.1],
+        ];
+        const tiles = steps.map(([title, sub, at], i) => {
+          const tile = mkTile(flow, `<div class="pr-t">${title}</div><div class="pr-c">${sub}</div>`);
+          hide(tile.el);
+          Kit.popIn(S, tile.el, at);
+          read(title + " " + sub, at, DUR);
+          if (i < 2) { const ar = div("pr-arr", "→", flow); hide(ar); Kit.popIn(S, ar, steps[i + 1][2] - 0.3); }
+          return tile;
+        });
+        steps.forEach(([, , at, off], i) => hl(tiles[i], at, off));
+
+        /* Plates: no code, and what comes out. */
+        const plate = (cls, top, lab, html, at, words) => {
+          const p = Kit.aside(S, { parent: sA, x: 96, y: top, w: 1728, tail: false, html: `<div class="lab">${lab}</div><div class="txt">${html}</div>` });
+          p.el.className += " pr-pl " + cls;
+          p.el.style.left = "96px"; p.el.style.top = top + "px"; p.el.style.width = "1728px";
+          p.show(at);
+          read(words, at, DUR);
+          return p;
+        };
+        plate("pr-no", 634, "Здесь", "кода нет", t("Кода здесь"), "Здесь кода нет");
+        plate("pr-ok", 732, "На выходе", "принятое изменение лимита суммы", t("На выходе"), "На выходе принятое изменение лимита суммы");
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

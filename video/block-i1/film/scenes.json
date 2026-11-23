@@ -1,0 +1,140 @@
+[
+  {
+    "n": 0,
+    "duration": 24.8,
+    "chapter": "Письмо → запись намерения",
+    "step": null,
+    "title": "Письмо → запись намерения",
+    "audio": "assets/vo/scene-0.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 4
+    },
+    "audioDuration": 23.22
+  },
+  {
+    "id": "t1",
+    "kind": "title",
+    "of": 1,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Три вопроса до работы",
+    "step": 1,
+    "title": "Три вопроса до работы",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 4
+    }
+  },
+  {
+    "n": 1,
+    "duration": 28.4,
+    "chapter": "Три вопроса до работы",
+    "step": 1,
+    "title": "Три вопроса до работы",
+    "audio": "assets/vo/scene-1.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 4
+    },
+    "audioDuration": 26.34
+  },
+  {
+    "id": "t2",
+    "kind": "title",
+    "of": 2,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Что не так с письмом",
+    "step": 2,
+    "title": "Что не так с письмом",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 4
+    }
+  },
+  {
+    "n": 2,
+    "duration": 31.3,
+    "chapter": "Что не так с письмом",
+    "step": 2,
+    "title": "Что не так с письмом",
+    "audio": "assets/vo/scene-2.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 4
+    },
+    "audioDuration": 29.26
+  },
+  {
+    "id": "t3",
+    "kind": "title",
+    "of": 3,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Проблема и эффект с числом",
+    "step": 3,
+    "title": "Проблема и эффект с числом",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 4
+    }
+  },
+  {
+    "n": 3,
+    "duration": 53.4,
+    "chapter": "Проблема и эффект с числом",
+    "step": 3,
+    "title": "Проблема и эффект с числом",
+    "audio": "assets/vo/scene-3.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 4
+    },
+    "audioDuration": 51.36
+  },
+  {
+    "id": "t4",
+    "kind": "title",
+    "of": 4,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Кто пишет и одобряет",
+    "step": 4,
+    "title": "Кто пишет и одобряет",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 4
+    }
+  },
+  {
+    "n": 4,
+    "duration": 35.2,
+    "chapter": "Кто пишет и одобряет",
+    "step": 4,
+    "title": "Кто пишет и одобряет",
+    "audio": "assets/vo/scene-4.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 4
+    },
+    "audioDuration": 33.15
+  },
+  {
+    "n": 5,
+    "duration": 20.6,
+    "chapter": "Начало готово",
+    "step": null,
+    "title": "Начало готово",
+    "audio": "assets/vo/scene-5.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 4
+    },
+    "audioDuration": 17.46
+  }
+]

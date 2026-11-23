@@ -1,0 +1,8 @@
+{
+  "name": "landing-overview-long2",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "npx --yes hyperframes@0.8.172 check"
+  }
+}

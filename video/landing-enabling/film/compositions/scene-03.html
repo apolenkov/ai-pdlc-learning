@@ -1,0 +1,42 @@
+<template id="scene-03-template">
+  <div data-composition-id="scene-03" data-width="1920" data-height="1080" data-duration="12.2">
+    <style>
+      [data-composition-id="scene-03"] .et-h { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 58px; font-weight: 800; }
+      [data-composition-id="scene-03"] .et-col { position: absolute; top: 250px; width: 520px; padding: 30px 32px; border: 2px solid var(--k-line); border-radius: 24px; background: var(--k-panel); min-height: 300px; }
+      [data-composition-id="scene-03"] .et-k { font-size: 28px; font-weight: 800; color: var(--k-accent-soft); text-transform: uppercase; letter-spacing: 0.04em; }
+      [data-composition-id="scene-03"] .et-t { margin-top: 8px; font-size: 38px; font-weight: 800; }
+      [data-composition-id="scene-03"] .et-d { margin-top: 10px; font-size: 29px; line-height: 1.35; color: var(--k-text-2); }
+      [data-composition-id="scene-03"] .et-arr { position: absolute; top: 380px; font-size: 54px; color: var(--k-text-2); }
+      [data-composition-id="scene-03"] .et-back { position: absolute; left: 96px; top: 640px; width: 1728px; font-size: 34px; color: var(--k-text-2); }
+      [data-composition-id="scene-03"] .et-back b { color: var(--k-ok); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("03"), DUR = 12.2;
+        const h = document.createElement("div"); h.className = "et-h"; h.textContent = "Три яруса"; S.root.appendChild(h);
+        S.tl.fromTo(h, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out", immediateRender: true }, 0.1);
+        const cols = [
+          ["Команда задаёт", "Команда", "задаёт метод", 96],
+          ["Наставник", "Наставник", "работает внутри продукта", 700],
+          ["сама", "Продуктовая команда", "проходит этапы сама", 1304],
+        ];
+        cols.forEach(([word, t, d, x]) => {
+          const c = document.createElement("div"); c.className = "et-col"; c.style.left = x + "px";
+          c.innerHTML = '<div class="et-k">ярус</div><div class="et-t">' + t + '</div><div class="et-d">' + d + "</div>";
+          S.root.appendChild(c);
+          S.tl.fromTo(c, { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out", immediateRender: true }, Math.min(S.t(word), DUR - 2));
+        });
+        [[610, "Наставник"], [1214, "сама"]].forEach(([x, word]) => {
+          const a = document.createElement("div"); a.className = "et-arr"; a.style.left = x + "px"; a.textContent = "↓";
+          S.root.appendChild(a);
+          S.tl.fromTo(a, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3, immediateRender: true }, Math.min(S.t(word), DUR - 2));
+        });
+        const back = document.createElement("div"); back.className = "et-back";
+        back.innerHTML = "Продукт возвращает опыт <b>обратно в метод</b> — кольцо ответственности";
+        S.root.appendChild(back);
+        S.tl.fromTo(back, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out", immediateRender: true }, Math.min(S.t("возвращает опыт"), DUR - 1.8));
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

@@ -1,0 +1,94 @@
+<template id="scene-00-template">
+  <div data-composition-id="scene-00" data-width="1920" data-height="1080" data-duration="26">
+    <style>
+      [data-composition-id="scene-00"] .sk { position: absolute; left: 96px; top: 192px; width: 760px; height: 330px; }
+      [data-composition-id="scene-00"] .sk svg { position: absolute; left: 0; top: 0; width: 760px; height: 330px; overflow: visible; }
+      [data-composition-id="scene-00"] .sk .ln { fill: none; stroke: var(--k-text-2); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1 2; stroke-dashoffset: 1; }
+      [data-composition-id="scene-00"] .sk .tab { position: absolute; left: 58px; top: 20px; font-size: 30px; font-weight: 700; color: var(--k-text-2); white-space: nowrap; line-height: 1.2; }
+      [data-composition-id="scene-00"] .sk .fl { position: absolute; left: 70px; top: 150px; box-sizing: border-box; height: 100px; padding: 0 30px; display: flex; align-items: center; gap: 18px; border: 3px solid var(--k-line); border-radius: 16px; background: var(--k-panel-2); font-family: var(--k-font-mono); font-size: 40px; font-weight: 500; }
+      [data-composition-id="scene-00"] .sk .fl svg { position: static; width: 44px; height: 44px; color: var(--k-accent-soft); flex-shrink: 0; }
+      [data-composition-id="scene-00"] .rq { box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; }
+      [data-composition-id="scene-00"] .rq-c { font-size: 32px; font-weight: 600; color: var(--k-text-2); line-height: 1.2; }
+      [data-composition-id="scene-00"] .rq-t { font-size: 56px; font-weight: 800; line-height: 1.12; margin-top: 12px; }
+      [data-composition-id="scene-00"] .gs { box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; }
+      [data-composition-id="scene-00"] .gs-t { position: relative; display: inline-block; align-self: flex-start; font-size: 58px; font-weight: 800; line-height: 1.1; }
+      [data-composition-id="scene-00"] .gs-l { position: absolute; left: -8px; right: -8px; top: 60%; height: 4px; border-radius: 3px; background: #ff8a8a; }
+      [data-composition-id="scene-00"] .gs-s { font-size: 34px; font-weight: 700; line-height: 1.2; margin-top: 10px; color: #ff8a8a; }
+      [data-composition-id="scene-00"] .fn { box-sizing: border-box; display: flex; align-items: center; justify-content: center; }
+      [data-composition-id="scene-00"] .fn-t { font-size: 48px; font-weight: 800; line-height: 1.1; white-space: nowrap; }
+      [data-composition-id="scene-00"] .fn.good { border-color: var(--k-ok); background: var(--k-ok-tint); }
+      [data-composition-id="scene-00"] .fn.good .fn-t { color: var(--k-ok); }
+      [data-composition-id="scene-00"] .fn.bad { border-color: #ff8a8a; background: rgba(255, 138, 138, 0.12); }
+      [data-composition-id="scene-00"] .fn.bad .fn-t { color: #ff8a8a; }
+      [data-composition-id="scene-00"] .fn-x { position: absolute; left: 896px; top: 694px; width: 128px; height: 96px; display: grid; place-items: center; font-size: 72px; font-weight: 300; color: var(--k-text-2); line-height: 1; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("00"), t = S.t, DUR = 26;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const div = (cls, html, parent) => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; parent.appendChild(el); return el; };
+        const FILE = '<svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8h22l12 12v28a2 2 0 0 1-2 2H12a2 2 0 0 1-2-2V10a2 2 0 0 1 2-2z"/><path d="M33 8v13h13M18 32h20M18 40h14"/></svg>';
+
+        Kit.header(S, { header: { mode: "parts", total: 6 }, chapter: "Проблема → цель", step: null, mode: "intro", duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const sA = S.stage(); gsap.set(sA, { autoAlpha: 1 });
+        const T0 = t("Продукта");   // the first phrase names the film to watch before this one
+        const plate = Kit.aside(S, { parent: sA, x: 96, y: 400, w: 1300, tail: false, title: "Перед этим", text: "Требования в контексте продукта" });
+        plate.show(0); plate.hide(T0 - 0.1);
+        read("Перед этим Требования в контексте продукта", 0, T0 - 0.1, 0.2);
+
+        /* Left: a line sketch of an empty folder that is drawn stroke by stroke (no product yet), then the one file. */
+        const sk = div("sk", '<svg viewBox="0 0 760 330"><path class="ln" pathLength="1" d="M30 38 Q30 12 56 12 H400 L436 66 H704 Q730 68 730 94 V280 Q730 306 704 306 H56 Q30 306 30 280 Z"/></svg>' +
+          '<div class="tab">Пустой репозиторий</div>' + `<div class="fl">${FILE}README.md</div>`, sA);
+        const strokes = Array.from(sk.querySelectorAll(".ln")), tab = sk.querySelector(".tab"), fl = sk.querySelector(".fl");
+        hide(tab, fl);
+        S.tl.to(strokes[0], { strokeDashoffset: 0, duration: 1.5, ease: "none" }, T0 + 0.15);
+        const T_EMPTY = t("пустой");
+        Kit.popIn(S, tab, T_EMPTY);
+        const T_FILE = t("одним");
+        Kit.popIn(S, fl, T_FILE);
+        read("Пустой репозиторий", T_EMPTY, DUR);
+        read("README.md", T_FILE, DUR);
+
+        /* Right: the manager's request slides in from the right while it is spoken. */
+        const T_REQ = t("просьба");
+        const rq = Kit.aside(S, { parent: sA, x: 980, y: 192, w: 844, h: 330, tail: false, html:
+          '<div class="rq-c">Запрос владельца продукта</div><div class="rq-t">Нужен калькулятор ежемесячного платежа</div>' });
+        rq.el.classList.add("rq");
+        rq.show(T_REQ);
+        S.tl.fromTo(rq.el, { x: 90 }, { x: 0, duration: 0.7, ease: "power3.out", immediateRender: false }, T_REQ);
+        read("Запрос владельца продукта Нужен калькулятор ежемесячного платежа", T_REQ, DUR);
+
+        /* Middle: what the model would invent. Each tile on its own word, then all three are struck out. */
+        const G = [["проценты", t("проценты")], ["сроки", t("сроки")], ["округление", t("округление")]];
+        const T_NOT = t("а не");
+        G.forEach(([word, at], i) => {
+          const g = Kit.aside(S, { parent: sA, x: 96 + i * 588, y: 540, w: 552, h: 140, tail: false, html:
+            `<div class="gs-t">${word}<i class="gs-l"></i></div><div class="gs-s">придумает модель</div>` });
+          g.el.classList.add("gs");
+          g.show(at);
+          const line = g.el.querySelector(".gs-l"); gsap.set(line, { scaleX: 0, transformOrigin: "left center" });
+          S.tl.to(line, { scaleX: 1, duration: 0.4, ease: "power2.out" }, T_NOT + i * 0.12);
+          read(word + " придумает модель", at, DUR);
+        });
+
+        /* Bottom: two sources of a requirement. */
+        const fnA = Kit.aside(S, { parent: sA, x: 96, y: 694, w: 800, h: 96, tail: false, html: '<div class="fn-t">слова владельца продукта</div>' });
+        fnA.el.className += " fn good"; fnA.show(t("слова"));
+        const x = div("fn-x", "↔", sA); hide(x); Kit.popIn(S, x, T_NOT);
+        const fnB = Kit.aside(S, { parent: sA, x: 1024, y: 694, w: 800, h: 96, tail: false, html: '<div class="fn-t">догадка модели</div>' });
+        fnB.el.className += " fn bad"; fnB.show(t("догадку"));
+        read("слова владельца продукта", t("слова"), DUR); read("догадка модели", t("догадку"), DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

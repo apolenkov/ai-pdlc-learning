@@ -1,0 +1,214 @@
+<template id="scene-05-template">
+  <div data-composition-id="scene-05" data-width="1920" data-height="1080" data-duration="39.6">
+    <style>
+      [data-composition-id="scene-05"] .st-row { height: 100%; display: flex; align-items: center; gap: 30px; }
+      [data-composition-id="scene-05"] .st-c { display: flex; align-items: center; gap: 14px; height: 52px; padding: 0 24px; border-radius: 16px; background: var(--k-panel-2); border: 2px solid var(--k-line); font-size: 34px; font-weight: 700; white-space: nowrap; opacity: 0; }
+      [data-composition-id="scene-05"] .st-c i { width: 24px; height: 24px; border-radius: 50%; border: 3px solid var(--k-text-2); }
+      [data-composition-id="scene-05"] .st-row svg { flex: none; width: 54px; height: 54px; color: var(--k-accent); opacity: 0; }
+      [data-composition-id="scene-05"] .rl-lab { font-size: 28px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-05"] .rl-chips { margin-top: 12px; display: flex; gap: 16px; }
+      [data-composition-id="scene-05"] .rl-chip { height: 56px; padding: 0 22px; display: flex; align-items: center; border-radius: 16px; background: var(--k-panel-2); border: 2px solid var(--k-line); font-size: 32px; font-weight: 700; white-space: nowrap; opacity: 0; }
+      [data-composition-id="scene-05"] .calc { margin-top: 12px; }
+      [data-composition-id="scene-05"] .cr { display: flex; align-items: center; gap: 18px; height: 52px; margin-bottom: 8px; opacity: 0; }
+      [data-composition-id="scene-05"] .cr .l { flex: none; width: 170px; font-size: 30px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-05"] .cr .f { flex: 1; height: 52px; padding: 0 18px; display: grid; align-items: center; border-radius: 12px; background: var(--k-panel-2); border: 2px solid var(--k-line); font-family: var(--k-font-mono); font-size: 30px; font-weight: 500; }
+      [data-composition-id="scene-05"] .cr .f span { grid-area: 1 / 1; opacity: 0; white-space: nowrap; }
+      [data-composition-id="scene-05"] .cr .f .rk { font-family: var(--k-font-sans); font-weight: 700; }
+      [data-composition-id="scene-05"] .cr .f .rd { font-family: var(--k-font-sans); font-weight: 700; color: var(--k-text-2); }
+      [data-composition-id="scene-05"] .cr .f .re { font-family: var(--k-font-sans); font-weight: 700; color: var(--k-accent-soft); }
+      [data-composition-id="scene-05"] .tb-h { display: flex; align-items: center; height: 56px; font-size: 28px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-05"] .tb-h span { opacity: 0; }
+      [data-composition-id="scene-05"] .tb-h .g1 { opacity: 1; }
+      [data-composition-id="scene-05"] .rw { position: relative; height: 0; overflow: hidden; opacity: 0; border: 2px solid transparent; border-radius: 14px; }
+      [data-composition-id="scene-05"] .rw .in { height: 76px; display: flex; align-items: center; padding-left: 8px; border-bottom: 1px solid var(--k-line); }
+      [data-composition-id="scene-05"] .k1, [data-composition-id="scene-05"] .g1 { flex: none; width: 250px; }
+      [data-composition-id="scene-05"] .k2, [data-composition-id="scene-05"] .g2 { flex: none; width: 200px; }
+      [data-composition-id="scene-05"] .k3, [data-composition-id="scene-05"] .g3 { flex: none; width: 170px; }
+      [data-composition-id="scene-05"] .k4, [data-composition-id="scene-05"] .g4 { flex: none; width: 160px; }
+      [data-composition-id="scene-05"] .k1 { font-family: var(--k-font-mono); font-size: 30px; font-weight: 600; white-space: nowrap; }
+      [data-composition-id="scene-05"] .k1.tx { font-family: var(--k-font-sans); font-size: 30px; font-weight: 600; }
+      [data-composition-id="scene-05"] .k2 span { font-size: 30px; font-weight: 700; white-space: nowrap; opacity: 0; }
+      [data-composition-id="scene-05"] .k2 .er, [data-composition-id="scene-05"] .k2 .dash { color: var(--k-accent-soft); }
+      [data-composition-id="scene-05"] .k2 .dash { font-size: 28px; }
+      [data-composition-id="scene-05"] .k3 span { display: inline-flex; align-items: center; height: 48px; padding: 0 16px; border-radius: 12px; background: var(--k-panel-2); border: 2px solid var(--k-line); font-size: 28px; font-weight: 700; white-space: nowrap; opacity: 0; }
+      [data-composition-id="scene-05"] .k4 { position: relative; height: 52px; }
+      [data-composition-id="scene-05"] .k4 .m { position: absolute; left: 20px; top: 4px; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; opacity: 0; }
+      [data-composition-id="scene-05"] .k4 .m svg { width: 26px; height: 26px; }
+      [data-composition-id="scene-05"] .k4 .okm { color: var(--k-ok); border: 3px solid var(--k-ok); background: var(--k-ok-tint); }
+      [data-composition-id="scene-05"] .k4 .nom { color: var(--k-accent); border: 3px solid var(--k-accent); background: var(--k-accent-tint); }
+      [data-composition-id="scene-05"] .tk-row { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+      [data-composition-id="scene-05"] .tk-row .l { font-size: 28px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-05"] .tk-row .v { font-size: 40px; font-weight: 800; letter-spacing: -0.01em; line-height: 1.15; }
+      [data-composition-id="scene-05"] .tk-st { flex: none; height: 56px; padding: 0 24px; display: flex; align-items: center; border-radius: 16px; border: 2px solid var(--k-accent); background: var(--k-accent-tint); color: var(--k-accent-soft); font-size: 34px; font-weight: 700; white-space: nowrap; opacity: 0; }
+      [data-composition-id="scene-05"] .mg-row { height: 100%; display: flex; align-items: center; gap: 22px; font-size: 40px; font-weight: 800; letter-spacing: -0.01em; }
+      [data-composition-id="scene-05"] .mg-row svg { flex: none; width: 48px; height: 48px; color: var(--k-text-2); }
+      [data-composition-id="scene-05"] .mg-w { margin-left: auto; height: 52px; padding: 0 18px; display: flex; align-items: center; border-radius: 14px; background: var(--k-panel-2); border: 2px solid var(--k-line); font-size: 30px; font-weight: 700; color: var(--k-text-2); white-space: nowrap; opacity: 0; }
+      [data-composition-id="scene-05"] .sc-arrow { position: absolute; }
+      [data-composition-id="scene-05"] .sc-arrow svg { display: block; width: 100%; height: 100%; overflow: visible; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("05"), t = S.t, DUR = 39.6;
+        // Считаем только полностью проявленный неподвижный текст: переходы временем чтения не считаются.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.end("людей.") < 1.5) throw new Error("Недостаточный хвост сцены");
+        const tok = Kit.token, tl = S.tl, q = (el, c) => el.querySelector(c), qa = (el, c) => [...el.querySelectorAll(c)];
+        const E_OUT = tok("--k-ease-out"), POP = "back.out(2)";
+        const rise = (el, at, d = 0.55, y = 18) => tl.fromTo(el, { autoAlpha: 0, y }, { autoAlpha: 1, y: 0, duration: d, ease: E_OUT, immediateRender: false }, at);
+        const slide = (el, x, at, d = 0.6) => tl.fromTo(el, { autoAlpha: 0, x }, { autoAlpha: 1, x: 0, duration: d, ease: E_OUT, immediateRender: false }, at);
+        const pop = (el, at, d = 0.55) => tl.fromTo(el, { autoAlpha: 0, scale: 0.86 }, { autoAlpha: 1, scale: 1, duration: d, ease: POP, immediateRender: false }, at);
+        const fadeIn = (el, at, d = 0.3) => tl.fromTo(el, { autoAlpha: 0 }, { autoAlpha: 1, duration: d, immediateRender: false }, at);
+        const fadeOut = (el, at, d = 0.25) => tl.to(el, { autoAlpha: 0, duration: d }, at);
+        const NEQ = '<svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"><path d="M10 21H46M10 35H46M38 8L18 48"/></svg>';
+        const LOCK = '<svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><rect x="11" y="25" width="34" height="25" rx="5"/><path d="M18 25v-7a10 10 0 0 1 20 0v7"/></svg>';
+        const CHECK = Kit.icons.check, CROSS = Kit.icons.check.replace("M10 29l12 12 24-26", "M12 12l32 32M44 12L12 44");
+
+        Kit.header(S, { header: { mode: "parts", total: 7 }, chapter: "Проверяют люди", step: 5, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* ---- 1. зелёные тесты не равны приёмке (до 2.0 с — заставка части) ---- */
+        const strip = Kit.aside(S, { parent: s1, x: 96, y: 225, w: 1728, h: 84, tail: false,
+          html: '<div class="st-row"><span class="st-c a"><i></i>тесты зелёные</span>' + NEQ + '<span class="st-c b">приёмка</span></div>' });
+        strip.el.style.padding = "16px 26px";
+        rise(strip.el, 2.0, 0.45);
+        const sa = q(strip.el, ".st-c.a"), sb = q(strip.el, ".st-c.b"), sn = q(strip.el, "svg");
+        slide(sa, -40, 2.1, 0.55);
+        pop(sn, 2.45, 0.5);
+        slide(sb, 40, 2.7, 0.55);
+        read("тесты зелёные приёмка", 2.7, DUR);
+
+        /* ---- 2. разработчик ---- */
+        const dev = Kit.aside(S, { parent: s1, x: 96, y: 340, w: 840, h: 150, tail: false,
+          html: '<div class="rl-lab">Разработчик</div><div class="rl-chips"><span class="rl-chip d1">разница</span><span class="rl-chip d2">проверка кода</span></div>' });
+        slide(dev.el, -60, t("Разработчик") - 0.05, 0.6);
+        pop(q(dev.el, ".d1"), t("разницу"), 0.5);
+        pop(q(dev.el, ".d2"), t("проверку"), 0.5);
+        read("Разработчик разница проверка кода", t("проверку") + 0.5, t("Сценарий не") - 0.3);
+
+        /* ---- 3. аналитик и мини-калькулятор ---- */
+        const SUMS = ["10 000 ₽", "100 000 000 ₽", "9 999 ₽", "100 000 001 ₽", "10 000 ₽", "9 999 ₽"];
+        const ana = Kit.aside(S, { parent: s1, x: 96, y: 510, w: 840, h: 205, tail: false,
+          html: '<div class="rl-lab">Аналитик · браузер</div><div class="calc">' +
+                '<div class="cr r1"><span class="l">Сумма</span><span class="f sum">' + SUMS.map((s) => "<span>" + s + "</span>").join("") + '</span></div>' +
+                '<div class="cr r4"><span class="l">Результат</span><span class="f res"><span class="rk a">принято</span><span class="re b">ошибка</span><span class="rk c">принято</span><span class="rd d">—</span></span></div></div>' });
+        slide(ana.el, -60, t("Аналитик") - 0.05, 0.6);
+        [".r1", ".r4"].forEach((c, i) => rise(q(ana.el, c), t("калькулятор") + i * 0.2, 0.5, 14));
+        read("Аналитик браузер Сумма Результат", t("калькулятор") + 0.6 + 0.6, t("Сценарий не") - 0.3);
+        const sumSp = qa(ana.el, ".sum > span");
+        const swapAt = [t("десять тысяч"), t("сто миллионов принимаются"), t("девять тысяч"), t("сто миллионов один"), t("успешного"), t("очищает")];
+        swapAt.forEach((at, i) => {
+          if (i) tl.to(sumSp[i - 1], { opacity: 0, duration: 0.2 }, at - 0.05);
+          tl.fromTo(sumSp[i], { opacity: 0 }, { opacity: 1, duration: 0.3, immediateRender: false }, at);
+        });
+        const rs = qa(ana.el, ".res > span");           // принято, ошибка, принято, —
+        const resShow = (i, at) => tl.fromTo(rs[i], { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.35, ease: POP, immediateRender: false }, at);
+        const resHide = (i, at) => tl.to(rs[i], { opacity: 0, duration: 0.2 }, at);
+        resShow(0, t("принимаются")); resHide(0, t("девять тысяч") - 0.05);
+        resShow(1, t("нет,")); resHide(1, t("успешного") - 0.05);
+        resShow(2, t("расчёта")); resHide(2, t("результат") - 0.05);
+        resShow(3, t("прочерк"));
+        // старое значение результата и суммы убирается явно: призраков нет
+
+        /* ---- 4. таблица: строка на слове диктора ---- */
+        const TB_AT = t("десять тысяч") - 0.1;
+        const row = (cls, c1, c2, c3) => '<div class="rw ' + cls + '"><div class="in"><div class="k1' + (cls.startsWith("r5") ? " tx" : "") + '">' + c1 + '</div><div class="k2">' + c2 + '</div><div class="k3"><span>' + c3 + '</span></div><div class="k4"><i class="m okm">' + CHECK + '</i><i class="m nom">' + CROSS + '</i></div></div></div>';
+        const tb = Kit.aside(S, { parent: s1, x: 964, y: 330, w: 500, h: 480, tail: false,
+          html: '<div class="tb-h"><span class="g1">сценарий</span><span class="g2"></span><span class="g3">проверка</span><span class="g4">подтвердил</span></div>' +
+                row("r1", "10 000 ₽", '<span class="ok">принято</span>', "тест") +
+                row("r2", "100 000 000 ₽", '<span class="ok">принято</span>', "тест") +
+                row("r3", "9 999 ₽", '<span class="er">ошибка</span>', "тест") +
+                row("r4", "100 000 001 ₽", '<span class="er">ошибка</span>', "тест") +
+                row("r5 bad", "после ошибки", '<span class="dash">результат —</span>', "вручную") });
+        tb.el.style.height = "auto";
+        tb.el.style.padding = "12px 26px 18px";
+        rise(tb.el, TB_AT, 0.5, 20);
+        const rws = qa(tb.el, ".rw");
+        const rowAt = [t("десять тысяч"), t("сто миллионов принимаются"), t("девять тысяч"), t("сто миллионов один"), t("а ошибка")];
+        rws.forEach((r, i) => {
+          tl.to(r, { height: 80, autoAlpha: 1, duration: 0.5, ease: E_OUT }, rowAt[i]);
+          const a = q(r, ".k1");
+          tl.fromTo(a, { x: -26 }, { x: 0, duration: 0.5, ease: E_OUT, immediateRender: false }, rowAt[i]);
+        });
+        // исходы: принято / ошибка — на «принимаются» и «нет»
+        const out = (i, sel, at) => pop(q(rws[i], ".k2 " + sel), at, 0.5);
+        out(0, ".ok", t("принимаются")); out(1, ".ok", t("принимаются") + 0.2);
+        out(2, ".er", t("нет,")); out(3, ".er", t("нет,") + 0.2);
+        out(4, ".dash", t("прочерк"));
+        read("10 000 ₽ принято", t("принимаются") + 0.5, DUR);
+        read("100 000 000 ₽ принято", t("принимаются") + 0.7, DUR);
+        read("9 999 ₽ ошибка", t("нет,") + 0.5, DUR);
+        read("100 000 001 ₽ ошибка", t("нет,") + 0.7, DUR);
+        read("после ошибки результат —", t("прочерк") + 0.5, DUR);
+
+        /* ---- 5. «Вместе»: таблица расширяется, столбец «проверка» заполняется ---- */
+        const T_TOG = t("Вместе");
+        tl.to(tb.el, { width: 860, duration: 0.6, ease: "power2.inOut" }, T_TOG);
+        [dev.el, ana.el].forEach((el) => {
+          tl.to(el, { borderColor: tok("--k-accent"), duration: 0.4 }, T_TOG);
+          tl.to(el, { borderColor: tok("--k-line"), duration: 0.5 }, t("проверкой") + 0.7);
+        });
+        pop(q(tb.el, ".g3"), t("сопоставляют"), 0.5);
+        [t("тестом"), t("тестом") + 0.17, t("тестом") + 0.34, t("тестом") + 0.51].forEach((at, i) => pop(q(rws[i], ".k3 span"), at, 0.45));
+        pop(q(rws[4], ".k3 span"), t("ручной"), 0.45);
+        read("тест тест тест тест вручную", t("проверкой") + 0.5, DUR, 0);
+
+        /* ---- 6. решение по тестированию принимает инженер качества (правило ролей 590) ---- */
+        pop(q(tb.el, ".g4"), t("Решение"), 0.5);
+        rws.forEach((r, i) => pop(q(r, ".okm"), t("принимает") + i * 0.28, 0.45));
+        read("подтвердил", t("Решение") + 0.5, DUR, 0);
+        const qc = Kit.aside(S, { parent: s1, x: 96, y: 735, w: 840, h: 150, tail: false,
+          html: '<div class="rl-lab">Инженер качества</div><div class="rl-chips"><span class="rl-chip q1">решение по тестированию</span></div>' });
+        slide(qc.el, -60, t("инженер") - 0.05, 0.6);
+        tl.to(qc.el, { borderColor: tok("--k-accent"), duration: 0.4 }, t("инженер"));
+        pop(q(qc.el, ".q1"), t("качества"), 0.5);
+        qc.hide(t("Слияние") - 0.8);
+        read("Инженер качества решение по тестированию", t("качества") + 0.5, t("Слияние") - 0.8);
+
+        /* ---- 7. не подтверждён: задача открыта, возвращается в исходную ---- */
+        const T_LEFT = t("задача остаётся") - 0.6;
+        dev.hide(T_LEFT); ana.hide(T_LEFT);
+        const T_NO = t("подтверждён");
+        tl.to(rws[4], { borderColor: tok("--k-accent"), duration: 0.4 }, T_NO);
+        tl.to(q(rws[4], ".okm"), { opacity: 0, scale: 0.6, duration: 0.25 }, T_NO - 0.05);
+        pop(q(rws[4], ".nom"), T_NO, 0.5);
+
+        const task = Kit.aside(S, { parent: s1, x: 96, y: 340, w: 840, h: 140, tail: false,
+          html: '<div class="tk-row"><div><div class="l">Задача</div><div class="v">отметка не ставится</div></div><span class="tk-st">открыта</span></div>' });
+        slide(task.el, -60, t("задача остаётся") - 0.15, 0.6);
+        pop(q(task.el, ".tk-st"), t("открытой"), 0.5);
+        read("Задача отметка не ставится", t("задача остаётся") + 0.45, DUR);
+        read("открыта", t("открытой") + 0.5, DUR, 0);
+
+        const orig = Kit.aside(S, { parent: s1, x: 96, y: 575, w: 840, h: 120, tail: false,
+          html: '<div class="tk-row"><div><div class="l">Вернуть в</div><div class="v">исходную задачу</div></div></div>' });
+        const arr = document.createElement("div");
+        arr.className = "sc-arrow"; arr.setAttribute("data-layout-allow-overlap", "");
+        arr.style.left = "476px"; arr.style.top = "488px"; arr.style.width = "40px"; arr.style.height = "78px";
+        arr.innerHTML = '<svg viewBox="0 0 40 78" fill="none"><path class="ln" pathLength="1" d="M20 4V60" stroke="' + tok("--k-accent") + '" stroke-width="5" stroke-linecap="round" style="stroke-dasharray:1 2;stroke-dashoffset:1"/>' +
+                        '<path class="hd" d="M6 48L20 64L34 48" stroke="' + tok("--k-accent") + '" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0"/></svg>';
+        s1.appendChild(arr);
+        gsap.set(arr, { autoAlpha: 0 });
+        const T_RET = t("возвращается");
+        tl.set(arr, { autoAlpha: 1 }, T_RET);
+        tl.to(q(arr, ".ln"), { strokeDashoffset: 0, duration: 0.6, ease: "power2.out" }, T_RET);
+        tl.to(q(arr, ".hd"), { opacity: 1, duration: 0.2 }, T_RET + 0.55);
+        rise(orig.el, t("исходную") - 0.1, 0.55, 22);
+        read("Вернуть в исходную задачу", t("исходную") + 0.5, DUR);
+
+        /* ---- 8. слияние ждёт людей ---- */
+        const mg = Kit.aside(S, { parent: s1, x: 96, y: 718, w: 840, h: 100, tail: false,
+          html: '<div class="mg-row">' + LOCK + '<span>слияние</span><span class="mg-w">ждёт людей</span></div>' });
+        pop(mg.el, t("Слияние"), 0.6);
+        fadeIn(q(mg.el, ".mg-w"), t("людей."), 0.4);
+        read("слияние ждёт людей", t("людей.") + 0.4, DUR, 0);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

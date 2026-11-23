@@ -1,0 +1,36 @@
+<template id="scene-03-template">
+  <div data-composition-id="scene-03" data-width="1920" data-height="1080" data-duration="8.3">
+    <style>
+      [data-composition-id="scene-03"] .h-card { position: absolute; top: 238px; width: 500px; height: 372px; padding: 42px 40px; border: 2px solid var(--k-line); border-radius: 28px; background: var(--k-panel); }
+      [data-composition-id="scene-03"] .h-ic { height: 112px; display: flex; align-items: center; }
+      [data-composition-id="scene-03"] .h-ic svg { display: block; }
+      [data-composition-id="scene-03"] .h-t { margin-top: 32px; font-size: 50px; font-weight: 800; line-height: 1.16; letter-spacing: -0.01em; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("03"), DUR = 8.3;
+        const tt = (w, d) => { try { return S.t(w); } catch (e) { return d; } };
+        const el = (cls, html, x, y, w) => { const e = document.createElement("div"); e.className = cls; e.innerHTML = html; e.style.left = x + "px"; e.style.top = y + "px"; if (w) e.style.width = w + "px"; S.root.appendChild(e); return e; };
+        const show = (e, at) => { (Array.isArray(e) ? e : [e]).forEach((x) => { gsap.set(x, { autoAlpha: 0 }); S.tl.fromTo(x, { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.38, ease: "power2.out", immediateRender: false }, at); }); };
+        const ROUTE = '<svg width="108" height="108" viewBox="0 0 108 108" fill="none" stroke="var(--k-ok)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 88 C 32 88 30 22 54 22 S 76 88 96 88" stroke-dasharray="2 13"/><circle cx="12" cy="88" r="8"/><circle cx="54" cy="22" r="8"/><circle cx="96" cy="88" r="8"/></svg>';
+        const PLAY = '<svg width="108" height="108" viewBox="0 0 108 108" fill="none" stroke="var(--k-ok)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="24" width="88" height="60" rx="14"/><path d="M44 43l24 11-24 11z" fill="var(--k-ok)" stroke="none"/></svg>';
+        const CHECK = '<svg width="108" height="108" viewBox="0 0 108 108" fill="none" stroke="var(--k-ok)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><circle cx="54" cy="54" r="42"/><path d="M34 56l14 14 27-31"/></svg>';
+        // Три карточки-значка: учебный маршрут · ролик · проверяемый результат.
+        const defs = [
+          { x: 96, ic: ROUTE, t: "учебный маршрут", key: "учебные маршруты", at: 1.0 },
+          { x: 682, ic: PLAY, t: "ролик", key: "ролики", at: 2.0 },
+          { x: 1268, ic: CHECK, t: "проверяемый результат", key: "результат", at: 3.67 }
+        ];
+        const cards = defs.map((d) => { const c = el("h-card", '<div class="h-ic">' + d.ic + '</div><div class="h-t">' + d.t + "</div>", d.x, 238, 500); show(c, tt(d.key, d.at)); return c; });
+        // «который можно проверить»: третья карточка подтверждается рамкой и свечением.
+        const at3 = tt("проверить", 4.89);
+        S.tl.to(cards[2], { borderColor: "rgba(60,207,145,0.9)", boxShadow: "0 0 46px 3px rgba(60,207,145,0.22)", duration: 0.4, ease: "power2.out" }, at3);
+        S.tl.fromTo(cards[2].querySelector("svg"), { scale: 0.94 }, { scale: 1.06, duration: 0.22, ease: "power2.out" }, at3);
+        S.tl.to(cards[2].querySelector("svg"), { scale: 1, duration: 0.3, ease: "power2.inOut" }, at3 + 0.22);
+        const sk = Kit.sketch(S, { name: "team-done", x: 730, y: 700, w: 460, at: 0.3, dur: 2.6 });
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

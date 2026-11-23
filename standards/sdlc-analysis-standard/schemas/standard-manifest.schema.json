@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://customdev.local/schemas/sdlc-analysis-standard-manifest.schema.json",
+  "title": "SDLC analysis standard manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "name", "version", "status", "managedPaths", "protectedProductPaths", "updatePolicy"],
+  "properties": {
+    "schemaVersion": { "const": "sdlc-analysis-standard/v1" },
+    "name": { "const": "sdlc-analysis-standard" },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[0-9A-Za-z.-]+)?$" },
+    "status": { "enum": ["draft", "released"] },
+    "managedPaths": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 },
+    "protectedProductPaths": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 },
+    "updatePolicy": { "const": "explicit-mr-pr" }
+  }
+}

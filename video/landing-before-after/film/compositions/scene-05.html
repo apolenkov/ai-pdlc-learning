@@ -1,0 +1,78 @@
+<template id="scene-05-template">
+  <div data-composition-id="scene-05" data-width="1920" data-height="1080" data-duration="11.1">
+    <style>
+      [data-composition-id="scene-05"] .ov-h { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 58px; font-weight: 800; }
+      [data-composition-id="scene-05"] .ov-h span { color: var(--k-accent-soft); }
+      [data-composition-id="scene-05"] .trace { position: absolute; left: 96px; top: 210px; width: 1728px; height: 380px; }
+      [data-composition-id="scene-05"] .trace-node { position: absolute; width: 340px; padding: 22px 26px; border-radius: 22px; background: var(--k-panel); border: 2px solid var(--k-line); text-align: center; }
+      [data-composition-id="scene-05"] .trace-node .ic { font-size: 34px; margin-bottom: 8px; }
+      [data-composition-id="scene-05"] .trace-node .t { font-size: 30px; font-weight: 800; color: var(--k-text); }
+      [data-composition-id="scene-05"] .trace-node .d { font-size: 24px; font-weight: 600; color: var(--k-text-2); margin-top: 4px; }
+      [data-composition-id="scene-05"] .trace-node.center { left: 694px; top: 60px; border-color: var(--k-accent); background: var(--k-accent-tint); }
+      [data-composition-id="scene-05"] .trace-line { position: absolute; height: 0; border-top: 4px solid var(--k-line); transform-origin: 0 50%; }
+      [data-composition-id="scene-05"] .trace-line.hl { border-color: var(--k-ok); }
+      [data-composition-id="scene-05"] .history { position: absolute; left: 96px; top: 620px; width: 1728px; }
+      [data-composition-id="scene-05"] .history-title { font-size: 26px; font-weight: 700; color: var(--k-text-2); margin-bottom: 12px; }
+      [data-composition-id="scene-05"] .commit-row { display: flex; gap: 18px; }
+      [data-composition-id="scene-05"] .commit { flex: 1; padding: 14px 22px; border-radius: 16px; background: var(--k-panel-2); border: 1px solid var(--k-line); font-size: 24px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-05"] .commit b { color: var(--k-text); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("05"), DUR = 11.1;
+        const h = document.createElement("div"); h.className = "ov-h";
+        h.innerHTML = 'История не теряется <span>· один файл везде</span>'; S.root.appendChild(h);
+        S.tl.fromTo(h, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out", immediateRender: false }, 0.1);
+
+        const trace = document.createElement("div"); trace.className = "trace"; S.root.appendChild(trace);
+        const center = document.createElement("div"); center.className = "trace-node center";
+        center.innerHTML = '<div class="ic">📄</div><div class="t">spec.md</div><div class="d">спецификация</div>';
+        trace.appendChild(center);
+        S.tl.fromTo(center, { autoAlpha: 0, scale: 0.9 }, { autoAlpha: 1, scale: 1, duration: 0.5, ease: "back.out(2)", immediateRender: false }, 0.3);
+
+        const nodeEls = [];
+        const nodes = [
+          ["mr", 24, 0, "🌿", "MR", "запрос на слияние", "запросе"],
+          ["test", 24, 190, "🧪", "tests", "проверки", "тестах"],
+          ["adr", 1364, 60, "🏛", "ADR", "решение", "решении"],
+        ];
+        nodes.forEach(([cls, left, top, ic, t, d, word]) => {
+          const n = document.createElement("div"); n.className = "trace-node " + cls;
+          n.style.left = left + "px"; n.style.top = top + "px";
+          n.innerHTML = '<div class="ic">' + ic + '</div><div class="t">' + t + '</div><div class="d">' + d + "</div>";
+          trace.appendChild(n); nodeEls.push(n);
+          S.tl.fromTo(n, { autoAlpha: 0, x: cls === "adr" ? 30 : -30 }, { autoAlpha: 1, x: 0, duration: 0.4, ease: "power2.out", immediateRender: false }, Math.min(S.t(word), DUR - 3.5));
+        });
+
+        // связи spec.md ↔ MR / tests / ADR (узлы 340×~168, центр 694+170 = 864 по X)
+        const lines = [
+          { from: { x: 364, y: 84 }, to: { x: 694, y: 144 } },
+          { from: { x: 364, y: 274 }, to: { x: 694, y: 170 } },
+          { from: { x: 1034, y: 144 }, to: { x: 1364, y: 144 } },
+        ];
+        lines.forEach((ln, i) => {
+          const el = document.createElement("div"); el.className = "trace-line";
+          const dx = ln.to.x - ln.from.x, dy = ln.to.y - ln.from.y;
+          const len = Math.sqrt(dx * dx + dy * dy);
+          const ang = (Math.atan2(dy, dx) * 180) / Math.PI;
+          el.style.left = ln.from.x + "px"; el.style.top = ln.from.y + "px"; el.style.width = len + "px";
+          el.style.transform = "rotate(" + ang + "deg)"; el.setAttribute("data-layout-allow-overflow", "");
+          trace.appendChild(el);
+          const at = Math.min(S.t(nodes[i][6]), DUR - 3.5) + 0.4;
+          S.tl.fromTo(el, { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.out", immediateRender: false }, at);
+          S.tl.to(el, { className: "trace-line hl", duration: 0.01 }, at + 0.45);
+        });
+
+        const history = document.createElement("div"); history.className = "history"; S.root.appendChild(history);
+        history.innerHTML = '<div class="history-title">История изменений — что решили и когда</div><div class="commit-row"><div class="commit"><b>a1b2c3d</b> · intent.md</div><div class="commit"><b>e4f5g6h</b> · spec.md</div><div class="commit"><b>i7j8k9l</b> · ADR + tests</div></div>';
+        S.tl.fromTo(history, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out", immediateRender: false }, Math.min(S.t("истории"), DUR - 2));
+
+        const tt = (w, d) => { try { return S.t(w); } catch (e) { return d; } }, pic = (n, x, y, w, at, dur) => Kit.sketch(S, { name: n, x, y, w, at, dur: dur || 2.4 });
+        pic("pair-owner", 1480, 700, 340, 5, 3);
+        People.focus(S, [center].concat(nodeEls), [tt("файл", 0.6)].concat(nodes.map(([c, l, t, i, tl, d, w]) => tt(w, 3))), DUR - 1.2);
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

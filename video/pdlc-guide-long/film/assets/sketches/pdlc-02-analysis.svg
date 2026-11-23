@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" fill="none" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Этап 02 · Анализ требований: проблемы и цель (подтверждает владелец продукта)">
+  <title>Этап 02 · Анализ требований: проблемы и цель (подтверждает владелец продукта)</title>
+  <desc>Скетч этапа 02 (Анализ требований): агент готовит черновик сценариев и ищет противоречия, аналитик выверяет бизнес-смысл, владелец продукта подтверждает спецификацию в Git.</desc>
+  <rect x="2" y="2" width="956" height="536" rx="22" fill="#f4f1e8" stroke="#cfc8b3" stroke-width="0.8"/>
+  <path class="s" pathLength="1" stroke="#e6e0cf" stroke-width="1" d="M36 86 H924 M36 484 H924"/>
+  <text x="36" y="42" fill="#56625c" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="13" font-weight="700" letter-spacing="0.04em">ГАЙД PDLC · ЭТАП 02</text>
+  <text x="36" y="68" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="21" font-weight="800">02 · Анализ требований <tspan fill="#216650">· подтверждает владелец продукта</tspan></text>
+  <rect x="36" y="100" width="390" height="368" rx="18" fill="#fbf9f3" stroke="#cfc8b3" stroke-width="2"/>
+  <rect x="56" y="116" width="98" height="26" rx="11" fill="#f2e3cf" stroke="#965b0d" stroke-width="2"/>
+  <text x="105.0" y="133.2" text-anchor="middle" fill="#965b0d" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="10.5" font-weight="800">ПРОБЛЕМЫ</text>
+  <text x="174" y="134" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="13.5" font-weight="700">Ручной текст, сценарии неполны</text>
+  <path class="s" pathLength="1" stroke="#66716b" stroke-width="2.6" d="M69.8 224.9 C65.4 240.6 65.4 260.7 68.7 286.5 L127.0 286.5"/>
+  <path class="s" pathLength="1" stroke="#66716b" stroke-width="2.6" d="M99.0 286.5 L99.0 317.8 M85.5 318.4 L112.4 318.4"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.4" d="M93.4 180.1 C99.0 180.1 102.9 186.2 102.3 193.5 C101.8 200.8 96.7 207.0 91.1 207.0 C85.5 207.0 81.6 200.8 82.2 193.5 C82.7 186.2 87.8 180.1 93.4 180.1 Z"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.2" d="M101.2 186.8 C102.3 179.0 81.6 177.8 80.5 191.3 L80.5 199.1"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.2" d="M85.5 212.6 L86.1 205.3 M94.5 213.1 L95.6 206.4"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.4" d="M85.0 212.6 C75.4 214.8 72.1 227.1 72.1 241.7 C71.5 255.1 72.1 266.3 73.2 275.3"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.4" d="M95.6 213.1 C103.4 215.9 104.0 224.9 102.9 231.6 M99.0 252.9 C97.8 259.6 96.7 268.6 95.6 275.3"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.2" d="M87.8 222.6 C91.1 236.1 100.1 249.5 115.8 252.9 L133.7 254.0 A7 7 0 0 0 134.2 246.2 L116.9 244.5 C105.7 242.2 100.1 232.7 97.8 220.4"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.4" d="M73.2 275.3 C71.0 279.8 72.1 284.8 74.9 287.6 L131.4 288.7 L132.6 316.7"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.4" d="M95.6 274.2 L137.0 273.0 C143.8 273.0 147.1 277.5 147.1 283.1 L148.2 316.7"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.2" d="M132.6 316.7 L132.6 321.2 L156.1 321.2 C157.8 319.0 153.8 317.3 148.2 316.7"/>
+  <path class="s" pathLength="1" stroke="#56625c" stroke-width="2.6" d="M110.2 260.7 L198.6 260.7 L198.6 264.1 L110.2 264.1 Z"/>
+  <path class="s" pathLength="1" stroke="#56625c" stroke-width="2.6" d="M189.7 264.1 L189.7 321.2 M194.2 264.1 L194.2 321.2"/>
+  <path class="s" pathLength="1" stroke="#56625c" stroke-width="2.6" d="M119.1 260.7 L166.2 260.7 L167.3 257.9 L120.2 257.9 Z"/>
+  <path class="s" pathLength="1" stroke="#56625c" stroke-width="2.6" d="M165.6 257.9 L174.0 220.4 L177.4 221.5 L169.0 259.0"/>
+  <path class="s" pathLength="1" stroke="#56625c" stroke-width="3" d="M248 168 L288 168 L304 184 L304 240 L248 240 Z"/>
+  <path class="s" pathLength="1" stroke="#56625c" stroke-width="2.4" d="M288 168 L288 184 L304 184"/>
+  <path class="s" pathLength="1" stroke="#66716b" stroke-width="2.5" d="M260 196 L290 196 M260 210 L286 210 M260 224 L280 224"/>
+  <path class="s" pathLength="1" stroke="#56625c" stroke-width="3" d="M322 168 L362 168 L378 184 L378 240 L322 240 Z"/>
+  <path class="s" pathLength="1" stroke="#56625c" stroke-width="2.4" d="M362 168 L362 184 L378 184"/>
+  <path class="s" pathLength="1" stroke="#965b0d" stroke-width="2.5" d="M334 196 L364 196 M334 210 L360 210 M334 224 L354 224"/>
+  <path class="s" pathLength="1" stroke="#965b0d" stroke-width="3" d="M334 258 L368 258 M342 250 L360 268 M360 250 L342 268"/>
+  <text x="314" y="302" text-anchor="middle" fill="#965b0d" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="13" font-weight="700">пробелы видны на тестах</text>
+  <rect x="56" y="338" width="350" height="30" rx="11" fill="#e6e0cf" stroke="#cfc8b3" stroke-width="2"/>
+  <text x="231.0" y="357.7" text-anchor="middle" fill="#56625c" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="13.5" font-weight="600">Требования пишут текстом вручную</text>
+  <rect x="56" y="376" width="350" height="30" rx="11" fill="#e6e0cf" stroke="#cfc8b3" stroke-width="2"/>
+  <text x="231.0" y="395.7" text-anchor="middle" fill="#56625c" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="13.5" font-weight="600">Сценарии и критерии приёмки неполные</text>
+  <rect x="56" y="414" width="350" height="30" rx="11" fill="#e6e0cf" stroke="#965b0d" stroke-width="2"/>
+  <text x="231.0" y="433.7" text-anchor="middle" fill="#965b0d" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="13.5" font-weight="600">Противоречия находят на тестировании</text>
+  <path class="s" pathLength="1" stroke="#216650" stroke-width="4" d="M434 278 L478 278"/>
+  <path class="s" pathLength="1" stroke="#216650" stroke-width="4" d="M469.0 282.3 L478 278 L469.0 273.7"/>
+  <rect x="486" y="100" width="438" height="368" rx="18" fill="#fbf9f3" stroke="#216650" stroke-width="2.4"/>
+  <rect x="506" y="116" width="62" height="26" rx="11" fill="#dcebe1" stroke="#216650" stroke-width="2"/>
+  <text x="537.0" y="133.2" text-anchor="middle" fill="#216650" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="10.5" font-weight="800">ЦЕЛЬ</text>
+  <text x="588" y="134" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="13.5" font-weight="700">Проверяемая спецификация в Git</text>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.4" d="M541.2 179.1 C548.7 179.1 553.0 185.9 551.8 194.6 C550.5 203.3 544.3 208.9 537.5 208.9 C530.7 208.9 526.4 202.7 527.6 194.0 C528.8 185.9 535.0 179.1 541.2 179.1 Z"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3" d="M549.9 185.9 C551.8 177.3 528.8 176.6 526.4 190.9 L525.7 199.0"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3" d="M535.0 213.8 L536.9 207.6 M544.3 214.5 L546.2 208.3"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.4" d="M533.8 213.8 C524.5 217.6 522.6 233.7 525.1 254.8 L527.6 285.8"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.4" d="M545.6 215.1 C552.4 220.0 552.4 237.4 548.7 254.8 L546.2 285.8"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3" d="M536.9 256.0 L536.3 285.8"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.2" d="M525.1 285.8 L554.9 285.8"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.2" d="M542.5 215.1 C551.2 225.0 562.3 228.7 577.2 223.8 M538.8 223.8 C548.7 233.7 561.1 236.2 576.0 231.2"/>
+  <g fill="none" stroke="#1f2d2a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" transform="translate(598.4 152.4) scale(1.3)" aria-hidden="true"><path d="m7 11 2-2-2-2"/><path d="M11 13h4"/><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/></g>
+  <rect x="642" y="156" width="180" height="134" rx="12" fill="#e6e0cf" stroke="#216650" stroke-width="2.4"/>
+  <text x="658" y="178" fill="#1f2d2a" font-family='"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace' font-size="13" font-weight="700">Spec · сценарии</text>
+  <path class="s" pathLength="1" stroke="#56625c" stroke-width="2.6" d="M658 196 H798 M658 216 H784 M658 236 H802"/>
+  <rect x="667" y="250" width="130" height="26" rx="8" fill="#dcebe1" stroke="#216650" stroke-width="1.8"/>
+  <text x="732" y="267" text-anchor="middle" fill="#216650" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="12" font-weight="700">✓ пробел закрыт</text>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.4" d="M874.8 179.1 C867.3 179.1 863.0 185.9 864.2 194.6 C865.5 203.3 871.7 208.9 878.5 208.9 C885.3 208.9 889.6 202.7 888.4 194.0 C887.2 185.9 881.0 179.1 874.8 179.1 Z"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3" d="M866.1 185.9 C864.2 177.3 887.2 176.6 889.6 190.9 L890.3 199.0"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3" d="M881.0 213.8 L879.1 207.6 M871.7 214.5 L869.8 208.3"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.4" d="M882.2 213.8 C891.5 217.6 893.4 233.7 890.9 254.8 L888.4 285.8"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.4" d="M870.4 215.1 C863.6 220.0 863.6 237.4 867.3 254.8 L869.8 285.8"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3" d="M879.1 256.0 L879.7 285.8"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.2" d="M890.9 285.8 L861.1 285.8"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.2" d="M873.5 215.1 C864.8 226.2 853.7 233.7 842.5 234.9 M877.2 223.8 C867.3 233.7 856.2 239.9 845.0 241.1"/>
+  <rect x="506" y="338" width="398" height="30" rx="11" fill="#dcebe1" stroke="#216650" stroke-width="2"/>
+  <text x="705.0" y="357.7" text-anchor="middle" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="13.5" font-weight="600">  Черновик сценариев и критериев приёмки</text><g fill="none" stroke="#1f2d2a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" transform="translate(549.38 345.28) scale(0.53437)" aria-hidden="true"><path d="m7 11 2-2-2-2"/><path d="M11 13h4"/><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/></g>
+  <rect x="506" y="376" width="398" height="30" rx="11" fill="#dcebe1" stroke="#216650" stroke-width="2"/>
+  <text x="705.0" y="395.7" text-anchor="middle" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="13.5" font-weight="600">  Поиск пробелов и противоречий до разработки</text><g fill="none" stroke="#1f2d2a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" transform="translate(533.07 383.28) scale(0.53437)" aria-hidden="true"><path d="m7 11 2-2-2-2"/><path d="M11 13h4"/><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/></g>
+  <rect x="506" y="414" width="398" height="30" rx="11" fill="#dde9f0" stroke="#2b6a8f" stroke-width="2"/>
+  <text x="705.0" y="433.7" text-anchor="middle" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="13.5" font-weight="700">Аналитик доводит смысл, владелец подтверждает</text>
+  <text x="36" y="513" fill="#56625c" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="14" font-weight="600">Вход: принятый Intent и пункт плана изменений</text>
+  <text x="924" y="513" text-anchor="end" fill="#216650" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="14" font-weight="700">Выход: Spec в Git (сценарии, критерии, ревью в MR)</text>
+</svg>

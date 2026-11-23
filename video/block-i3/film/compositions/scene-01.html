@@ -1,0 +1,120 @@
+<template id="scene-01-template">
+  <div data-composition-id="scene-01" data-width="1920" data-height="1080" data-duration="45.5">
+    <style>
+      [data-composition-id="scene-01"] .sc-def { height: 100%; display: flex; align-items: center; gap: 16px; padding: 0 28px; font-size: 32px; font-weight: 700; }
+      [data-composition-id="scene-01"] .sc-def .k { flex: none; font-size: 27px; font-weight: 800; padding: 5px 16px; border-radius: 12px; background: var(--k-accent-tint); color: var(--k-accent-soft); white-space: nowrap; }
+      [data-composition-id="scene-01"] .sc-tpl { height: 100%; padding: 14px 26px; display: flex; flex-direction: column; gap: 12px; }
+      [data-composition-id="scene-01"] .sc-tpl .cap { font-size: 30px; font-weight: 800; }
+      [data-composition-id="scene-01"] .sc-tpl .cap .pin { font-size: 25px; font-weight: 700; color: var(--k-text-2); }
+      [data-composition-id="scene-01"] .sc-tpl .cells { display: flex; gap: 14px; flex: 1; }
+      [data-composition-id="scene-01"] .sc-fd { flex: 1; border-radius: 14px; background: var(--k-panel-2); border-top: 5px solid var(--k-accent); padding: 10px 14px; display: flex; flex-direction: column; gap: 4px; }
+      [data-composition-id="scene-01"] .sc-fd .n { font-size: 22px; font-weight: 800; color: var(--k-accent-soft); }
+      [data-composition-id="scene-01"] .sc-fd .tx { font-size: 25px; font-weight: 700; line-height: 1.2; }
+      [data-composition-id="scene-01"] .sc-note { height: 100%; display: flex; align-items: center; gap: 14px; padding: 0 24px; font-size: 27px; font-weight: 700; line-height: 1.2; }
+      [data-composition-id="scene-01"] .sc-note .ic { flex: none; min-width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; border: 3px dashed var(--k-accent); color: var(--k-accent-soft); font-size: 20px; font-weight: 800; padding: 0 8px; }
+      [data-composition-id="scene-01"] .sc-note i { font-style: normal; color: var(--k-text-2); font-weight: 500; }
+      [data-composition-id="scene-01"] .sc-roles { height: 100%; display: flex; align-items: center; gap: 16px; padding: 0 26px; }
+      [data-composition-id="scene-01"] .sc-rl { flex: 1; display: flex; align-items: center; gap: 12px; padding: 8px 16px; border-radius: 14px; background: var(--k-panel-2); font-size: 27px; font-weight: 600; line-height: 1.15; }
+      [data-composition-id="scene-01"] .sc-rl .v { font-size: 23px; font-weight: 800; padding: 3px 12px; border-radius: 10px; background: var(--k-accent-tint); color: var(--k-accent-soft); white-space: nowrap; }
+      [data-composition-id="scene-01"] .sc-flow { height: 100%; display: flex; align-items: center; gap: 30px; padding: 0 40px; }
+      [data-composition-id="scene-01"] .sc-flow .a { font-size: 34px; font-weight: 800; padding: 16px 26px; border-radius: 16px; background: var(--k-panel-2); border: 2px solid var(--k-line); white-space: nowrap; }
+      [data-composition-id="scene-01"] .sc-flow .a i { display: block; font-style: normal; font-size: 24px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-01"] .sc-flow .ar { color: var(--k-accent); flex: none; }
+      [data-composition-id="scene-01"] .sc-flow .b { font-size: 34px; font-weight: 800; padding: 16px 26px; border-radius: 16px; border: 3px solid var(--k-accent); background: var(--k-accent-tint); white-space: nowrap; }
+      [data-composition-id="scene-01"] .sc-flow .b i { display: block; font-style: normal; font-size: 24px; font-weight: 600; color: var(--k-text); }
+      [data-composition-id="scene-01"] .sc-flow .refs { display: flex; flex-direction: column; gap: 10px; }
+      [data-composition-id="scene-01"] .sc-flow .refs span { font-size: 26px; font-weight: 700; padding: 7px 18px; border-radius: 12px; background: var(--k-panel-2); border-left: 5px solid var(--k-accent); white-space: nowrap; }
+      [data-composition-id="scene-01"] .sc-hint { height: 100%; display: flex; align-items: center; gap: 18px; padding: 0 28px; font-size: 29px; font-weight: 700; }
+      [data-composition-id="scene-01"] .sc-hint .k { flex: none; font-size: 26px; font-weight: 800; padding: 5px 16px; border-radius: 12px; background: var(--k-accent-tint); color: var(--k-accent-soft); white-space: nowrap; }
+      [data-composition-id="scene-01"] .sc-hint i { font-style: normal; color: var(--k-text-2); font-weight: 500; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("01"), t = S.t, DUR = 45.5;
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const ARR = '<svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg>';
+
+        Kit.header(S, { header: { mode: "parts", total: 3 }, chapter: "Что такое план изменений", step: 1, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        /* ---- План 1: определение + строка из пяти полей + кто пишет ---- */
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+        const def = Kit.aside(S, { parent: s1, x: 96, y: 215, w: 1728, h: 90, tail: false,
+          html: '<div class="sc-def"><span class="k">определение</span><span>план изменений — <b>перечень самостоятельных изменений</b>, из которых состоит результат</span></div>' });
+        def.show(2.05);   // заставка части держится первые 2 с
+        read("определение план изменений перечень самостоятельных изменений из которых состоит результат", 2.05, DUR);
+
+        const tpl = Kit.aside(S, { parent: s1, x: 96, y: 320, w: 1728, h: 205, tail: false,
+          html: '<div class="sc-tpl"><div class="cap">Строка плана = изменение <span class="pin">· пять полей</span></div>' +
+            '<div class="cells">' +
+            '<div class="sc-fd f1"><span class="n">1</span><span class="tx">что меняется</span></div>' +
+            '<div class="sc-fd f2"><span class="n">2</span><span class="tx">какой результат видит человек</span></div>' +
+            '<div class="sc-fd f3"><span class="n">3</span><span class="tx">кто делает</span></div>' +
+            '<div class="sc-fd f4"><span class="n">4</span><span class="tx">от чего зависит</span></div>' +
+            '<div class="sc-fd f5"><span class="n">5</span><span class="tx">когда считаем готовым</span></div>' +
+            '</div></div>' });
+        const fds = [".f1", ".f2", ".f3", ".f4", ".f5"].map((c) => tpl.el.querySelector(c));
+        hide(...fds);
+        tpl.show(t("пять полей") - 0.3);
+        [t("что меняется"), t("какой результат"), t("кто делает"), t("от чего зависит"), t("считаем готовым")]
+          .forEach((tt, i) => Kit.popIn(S, fds[i], tt));
+        read("Строка плана изменение пять полей", t("пять полей") - 0.3, DUR);
+        read("что меняется какой результат видит человек кто делает от чего зависит когда считаем готовым", t("что меняется"), DUR);
+
+        const nd = Kit.aside(S, { parent: s1, x: 96, y: 545, w: 845, h: 105, tail: false,
+          html: '<div class="sc-note"><span class="ic">дд.мм</span><span>календарных обещаний нет — <i>сроки называет этап анализа</i></span></div>' });
+        nd.el.style.borderStyle = "dashed";
+        nd.show(t("Календарных обещаний"));
+        read("календарных обещаний нет сроки называет этап анализа", t("Календарных обещаний"), DUR);
+
+        const pr = Kit.aside(S, { parent: s1, x: 979, y: 545, w: 845, h: 105, tail: false,
+          html: '<div class="sc-note"><span class="ic">ч</span><span>продуктовые изменения — <i>для человека, не технические задачи</i></span></div>' });
+        pr.show(t("продуктовые"));
+        read("продуктовые изменения для человека не технические задачи", t("продуктовые"), DUR);
+
+        const roles = Kit.aside(S, { parent: s1, x: 96, y: 670, w: 1728, h: 95, tail: false,
+          html: '<div class="sc-roles">' +
+            '<div class="sc-rl r1"><span class="v">пишет</span>владелец продукта</div>' +
+            '<div class="sc-rl r2"><span class="v">помогает</span>аналитик</div>' +
+            '<div class="sc-rl r3"><span class="v">комментирует</span>техлид</div></div>' });
+        const rls = [".r1", ".r2", ".r3"].map((c) => roles.el.querySelector(c));
+        hide(...rls);
+        roles.show(t("Пишет владелец") - 0.3);
+        Kit.popIn(S, rls[0], t("Пишет владелец"));
+        Kit.popIn(S, rls[1], t("аналитик"));
+        Kit.popIn(S, rls[2], t("техлид"));
+        read("пишет владелец продукта помогает аналитик комментирует техлид", t("Пишет владелец"), DUR);
+
+        /* ---- План 2: строка плана → отдельное изменение анализа ---- */
+        const s2 = S.stage();
+        const T_S2 = Kit.swap(S, s1, s2, t("Каждая строка") - 0.3);
+        const fl = Kit.aside(S, { parent: s2, x: 96, y: 240, w: 1728, h: 270, tail: false,
+          html: '<div class="sc-flow"><div class="a">строка плана<i>одно изменение</i></div><span class="ar">' + ARR + '</span>' +
+            '<div class="b">отдельное изменение анализа<i>анализ возьмёт её как своё</i></div>' +
+            '<div class="refs"><span class="rf1">ссылка на пункт плана</span><span class="rf2">ревизия принятой записи</span></div></div>' });
+        const rfs = [".rf1", ".rf2"].map((c) => fl.el.querySelector(c));
+        hide(...rfs);
+        fl.show(T_S2 + 0.1);
+        Kit.popIn(S, rfs[0], t("пункт") - 0.3);
+        Kit.popIn(S, rfs[1], t("ревизию") - 0.3);
+        read("строка плана одно изменение отдельное изменение анализа анализ возьмёт её как своё", T_S2 + 0.1, DUR);
+        read("ссылка на пункт плана ревизия принятой записи", t("пункт") - 0.3, DUR);
+
+        const hint = Kit.aside(S, { parent: s2, x: 96, y: 545, w: 1728, h: 130, tail: false,
+          html: '<div class="sc-hint"><span class="k">тяга записать дату</span><span>→ вернуть дату владельцу: <i>план хранит состав и порядок</i></span></div>' });
+        hint.el.style.borderStyle = "dashed";
+        hint.show(t("Тяга записать дату") - 0.2);
+        S.tl.to(hint.el, { borderColor: Kit.token("--k-accent"), duration: 0.5 }, t("состав и порядок") - 0.5);
+        read("тяга записать дату вернуть дату владельцу план хранит состав и порядок", t("Тяга записать дату"), DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

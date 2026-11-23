@@ -1,0 +1,149 @@
+<template id="scene-02-template">
+  <div data-composition-id="scene-02" data-width="1920" data-height="1080" data-duration="43.6">
+    <style>
+      [data-composition-id="scene-02"] .k-ln { min-height: 40px; line-height: 40px; }
+      [data-composition-id="scene-02"] .sc-def { height: 100%; padding: 14px 24px; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+      [data-composition-id="scene-02"] .sc-def .cap { font-size: 30px; font-weight: 800; }
+      [data-composition-id="scene-02"] .sc-def .tx { font-size: 28px; font-weight: 600; line-height: 1.25; color: var(--k-text-2); }
+      [data-composition-id="scene-02"] .sc-def .tx b { color: var(--k-text); }
+      [data-composition-id="scene-02"] .sc-chips { height: 100%; padding: 14px 24px; display: flex; flex-direction: column; gap: 10px; }
+      [data-composition-id="scene-02"] .sc-chips .cap { font-size: 28px; font-weight: 800; color: var(--k-text-2); }
+      [data-composition-id="scene-02"] .sc-chips .row { display: flex; gap: 12px; flex-wrap: wrap; }
+      [data-composition-id="scene-02"] .sc-chip { font-size: 27px; font-weight: 700; padding: 6px 16px; border-radius: 14px; background: var(--k-accent-tint); border: 2px solid var(--k-accent); color: var(--k-accent-soft); white-space: nowrap; }
+      [data-composition-id="scene-02"] .sc-chip.b { background: var(--k-panel-2); border-color: var(--k-line); color: var(--k-text); }
+      [data-composition-id="scene-02"] .sc-tbl { height: 100%; padding: 16px 26px; display: flex; flex-direction: column; gap: 8px; }
+      [data-composition-id="scene-02"] .sc-tbl .cap { font-size: 30px; font-weight: 800; margin-bottom: 4px; }
+      [data-composition-id="scene-02"] .sc-tr { display: grid; grid-template-columns: 640px 1fr 300px 280px; gap: 14px; align-items: center; }
+      [data-composition-id="scene-02"] .sc-th { font-size: 25px; font-weight: 800; color: var(--k-text-2); padding: 0 16px; }
+      [data-composition-id="scene-02"] .sc-tr .c { font-size: 27px; font-weight: 600; line-height: 1.15; padding: 9px 16px; border-radius: 12px; background: var(--k-panel-2); min-height: 52px; display: flex; align-items: center; }
+      [data-composition-id="scene-02"] .sc-tr.head .c { background: transparent; min-height: 0; }
+      [data-composition-id="scene-02"] .sc-tr.empty .c { background: transparent; border: 2px dashed var(--k-text-2); color: var(--k-text-2); }
+      [data-composition-id="scene-02"] .sc-tr .warn { font-size: 24px; font-weight: 800; color: var(--k-accent-soft); margin-left: 10px; white-space: nowrap; }
+      [data-composition-id="scene-02"] .sc-notes { height: 100%; display: flex; align-items: center; gap: 14px; padding: 0 26px; }
+      [data-composition-id="scene-02"] .sc-notes .nt { flex: 1; font-size: 27px; font-weight: 600; line-height: 1.2; padding: 10px 16px; border-radius: 14px; background: var(--k-panel-2); border-left: 6px solid var(--k-accent); }
+      [data-composition-id="scene-02"] .sc-check { height: 100%; display: flex; align-items: center; gap: 18px; padding: 0 30px; font-size: 32px; font-weight: 700; }
+      [data-composition-id="scene-02"] .sc-check .k { flex: none; font-size: 28px; font-weight: 800; padding: 6px 18px; border-radius: 12px; background: var(--k-accent-tint); color: var(--k-accent-soft); }
+      [data-composition-id="scene-02"] .sc-check .sep { color: var(--k-text-2); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("02"), t = S.t, DUR = 43.6;
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+
+        Kit.header(S, { header: { mode: "parts", total: 3 }, chapter: "Открытые вопросы с адресатом и источником", step: 2, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        /* ---- План 1: раздел «Открытые вопросы» реального intent.md ---- */
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+        const ed = Kit.editor(S, { parent: s1, x: 96, y: 215, w: 1180, h: 596, crumb: "калькулятор · учебный пример", visible: false,
+          tabs: [{ name: "intent.md", active: true }],
+          lines: [
+            "## Открытые вопросы",
+            "",
+            "Срок в годах: отдельное поле",
+            "или тот же срок в месяцах?",
+            "Адресат: владелец продукта.",
+            "Источник: обращение. Срок: до конца недели.",
+            "",
+            "Текст сообщения у неверного поля:",
+            "что клиенты понимают лучше?",
+            "Адресат: поддержка.",
+            "Источник: обращение. Срок: до конца недели.",
+          ] });
+        ed.show(2.05);   // заставка части держится первые 2 с
+        ed.caretOff(2.1);
+        ed.reveal(0, 0, 2.05); // строка 2 пустая: reveal только заголовка (пустых целей нет)
+        ed.reveal(2, 5, t("адресата") - 0.4);
+        ed.mark(4, t("адресата"), { tone: "accent" });
+        ed.mark(5, t("источник"), { tone: "accent" });
+        ed.reveal(7, 10, t("Адресаты учебных") - 0.3);
+        ed.mark(9, t("срок ответа"), { tone: "accent" });
+        read("Открытые вопросы Срок в годах отдельное поле или тот же срок в месяцах Адресат владелец продукта Источник обращение Срок до конца недели", 2.05, DUR);
+        read("Текст сообщения у неверного поля что клиенты понимают лучше Адресат поддержка Источник обращение Срок до конца недели", t("Адресаты учебных") - 0.3, DUR);
+
+        /* Определение + три поля вопроса + адресаты примера */
+        const def = Kit.aside(S, { parent: s1, x: 1304, y: 215, w: 520, h: 135, tail: false,
+          html: '<div class="sc-def"><div class="cap">Открытый вопрос</div>' +
+            '<div class="tx">пока <b>неизвестно</b> и <b>влияет</b> на решение</div></div>' });
+        def.show(2.1);
+        read("Открытый вопрос пока неизвестно и влияет на решение", 2.1, DUR);
+
+        const fld = Kit.aside(S, { parent: s1, x: 1304, y: 365, w: 520, h: 272, tail: false,
+          html: '<div class="sc-chips"><div class="cap">у каждого вопроса</div>' +
+            '<div class="row"><span class="sc-chip f1">адресат — кто знает ответ</span></div>' +
+            '<div class="row"><span class="sc-chip f2">источник — откуда взят</span><span class="sc-chip f3">срок ответа</span></div></div>' });
+        const fc = [".f1", ".f2", ".f3"].map((c) => fld.el.querySelector(c));
+        hide(...fc);
+        fld.show(t("адресата") - 0.6);
+        Kit.popIn(S, fc[0], t("адресата"));
+        Kit.popIn(S, fc[1], t("источник"));
+        Kit.popIn(S, fc[2], t("срок ответа"));
+        read("у каждого вопроса адресат кто знает ответ источник откуда взят срок ответа", t("адресата") - 0.6, DUR);
+
+        const who = Kit.aside(S, { parent: s1, x: 1304, y: 645, w: 520, h: 155, tail: false,
+          html: '<div class="sc-chips"><div class="cap">адресаты учебных вопросов</div>' +
+            '<div class="row"><span class="sc-chip b w1">владелец продукта</span></div>' +
+            '<div class="row"><span class="sc-chip b w2">поддержка</span><span class="sc-chip b w3">инициатор</span></div></div>' });
+        const wc = [".w1", ".w2", ".w3"].map((c) => who.el.querySelector(c));
+        hide(...wc);
+        who.show(t("Адресаты учебных"));
+        Kit.popIn(S, wc[0], t("владелец продукта"));
+        Kit.popIn(S, wc[1], t("поддержка"));
+        Kit.popIn(S, wc[2], t("инициатор"));
+        read("адресаты учебных вопросов владелец продукта поддержка инициатор", t("Адресаты учебных"), DUR);
+
+        /* ---- План 2: таблица «вопрос → адресат → источник → срок» ---- */
+        const T_SWAP = t("Вопрос без адресата") - 0.2;
+        const s2 = S.stage();
+        const T_S2 = Kit.swap(S, s1, s2, T_SWAP);
+        const tr = (q, a, src, due, cls) =>
+          '<div class="sc-tr ' + (cls || "") + '"><div class="c">' + q + '</div><div class="c">' + a + '</div><div class="c">' + src + '</div><div class="c">' + due + "</div></div>";
+        const tbl = Kit.aside(S, { parent: s2, x: 96, y: 215, w: 1728, h: 330, tail: false,
+          html: '<div class="sc-tbl"><div class="cap">Открытые вопросы</div>' +
+            '<div class="sc-tr head"><div class="sc-th">вопрос</div><div class="sc-th">адресат</div><div class="sc-th">источник</div><div class="sc-th">срок ответа</div></div>' +
+            tr("Срок в годах: отдельное поле или тот же?", "владелец продукта", "обращение", "до конца недели") +
+            tr("Какой текст сообщения клиенты понимают лучше?", "поддержка", "обращение", "до конца недели") +
+            tr("Подсвечивать ли поле после ошибки?", '<span class="miss">—</span><span class="warn">никто не закроет</span>', "обращение", "—", "empty") + "</div>" });
+        const miss = tbl.el.querySelector(".miss"), warn = tbl.el.querySelector(".warn"), emptyRow = tbl.el.querySelector(".empty");
+        hide(warn);
+        tbl.show(T_S2 + 0.1);
+        S.tl.to(emptyRow.querySelector(".miss").parentElement, { borderColor: Kit.token("--k-accent"), color: Kit.token("--k-accent-soft"), duration: 0.4 }, t("Вопрос без адресата"));
+        Kit.popIn(S, warn, t("никто не закроет"));
+        read("Открытые вопросы вопрос адресат источник срок ответа Срок в годах отдельное поле или тот же владелец продукта обращение до конца недели", T_S2 + 0.1, DUR);
+        read("Какой текст сообщения клиенты понимают лучше поддержка обращение до конца недели", T_S2 + 0.1, DUR);
+        read("Подсвечивать ли поле после ошибки обращение", T_S2 + 0.1, DUR);
+        read("никто не закроет", t("никто не закроет"), DUR, 0);
+
+        /* Три правила, если неизвестное остаётся */
+        const notes = Kit.aside(S, { parent: s2, x: 96, y: 565, w: 1728, h: 105, tail: false,
+          html: '<div class="sc-notes"><div class="nt n1">предположение ≠ решение: неизвестное остаётся вопросом</div>' +
+            '<div class="nt n2">нет ответа → пишем, что блокирует закрытие</div>' +
+            '<div class="nt n3">критичный пробел → условие одобрения или возврат владельцу</div></div>' });
+        const nts = [".n1", ".n2", ".n3"].map((c) => notes.el.querySelector(c));
+        hide(...nts);
+        notes.show(t("Предположение решением") - 0.3);
+        Kit.popIn(S, nts[0], t("Предположение решением"));
+        Kit.popIn(S, nts[1], t("Ответ получить"));
+        Kit.popIn(S, nts[2], t("Критичный пробел"));
+        read("предположение решение неизвестное остаётся вопросом", t("Предположение решением"), DUR);
+        read("нет ответа пишем что блокирует закрытие", t("Ответ получить"), DUR);
+        read("критичный пробел условие одобрения или возврат владельцу", t("Критичный пробел"), DUR);
+
+        /* Проверьте себя */
+        const chk = Kit.aside(S, { parent: s2, x: 96, y: 690, w: 1728, h: 105, tail: false,
+          html: '<div class="sc-check"><span class="k">Проверьте себя</span><span>у каждого вопроса есть адресат <span class="sep">·</span> источник <span class="sep">·</span> срок?</span></div>' });
+        chk.el.style.borderColor = Kit.token("--k-accent");
+        chk.show(t("Проверьте себя"));
+        read("Проверьте себя у каждого вопроса есть адресат источник срок", t("Проверьте себя"), DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

@@ -1,0 +1,43 @@
+<template id="scene-poster-template">
+  <div data-composition-id="scene-poster" data-width="1920" data-height="1080" data-duration="2.6">
+    <style>
+      [data-composition-id="scene-poster"] .p-card { position: absolute; inset: 0; background: #f4f1e8; overflow: hidden; }
+      [data-composition-id="scene-poster"] .p-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(31, 45, 42, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(31, 45, 42, 0.05) 1px, transparent 1px); background-size: 64px 64px; }
+      [data-composition-id="scene-poster"] .p-frame { position: absolute; left: 64px; top: 64px; width: 1792px; height: 952px; border: 2px solid #d6d0c4; border-radius: 36px; background: rgba(255, 253, 248, 0.72); }
+      [data-composition-id="scene-poster"] .p-kicker { position: absolute; left: 128px; top: 150px; width: 840px; font-size: 34px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #216650; }
+      [data-composition-id="scene-poster"] .p-rule { position: absolute; left: 128px; top: 214px; width: 120px; height: 6px; border-radius: 3px; background: #965b0d; }
+      [data-composition-id="scene-poster"] .p-title { position: absolute; left: 128px; top: 290px; width: 860px; font-size: 92px; font-weight: 800; line-height: 1.08; letter-spacing: -0.02em; color: #1f2d2a; text-wrap: balance; }
+      [data-composition-id="scene-poster"] .p-lead { position: absolute; left: 128px; width: 820px; font-size: 40px; line-height: 1.3; color: #5f6863; }
+      [data-composition-id="scene-poster"] .p-brand { position: absolute; left: 128px; top: 900px; display: flex; align-items: center; gap: 14px; font-size: 32px; font-weight: 700; color: #5f6863; }
+      [data-composition-id="scene-poster"] .p-brand i { display: block; width: 18px; height: 18px; border-radius: 50%; background: #216650; }
+      [data-composition-id="scene-poster"] .p-sketch { position: absolute; left: 1000px; top: 270px; width: 780px; }
+      [data-composition-id="scene-poster"] .p-sketch svg { display: block; width: 100%; height: auto; overflow: visible; }
+      [data-composition-id="scene-poster"] .p-sketch [stroke="#eef0f3"] { stroke: #1f2d2a; }
+      [data-composition-id="scene-poster"] .p-sketch [stroke="#a3a9b4"], [data-composition-id="scene-poster"] .p-sketch [stroke="#8e96a3"] { stroke: #8a938d; }
+      [data-composition-id="scene-poster"] .p-sketch [stroke="#3ccf91"] { stroke: #216650; }
+      [data-composition-id="scene-poster"] .p-sketch [stroke="#ff7a59"] { stroke: #965b0d; }
+      [data-composition-id="scene-poster"] .p-sketch [stroke="#7cc4ff"] { stroke: #3f6f88; }
+    </style>
+    <script>
+      (function () {
+        window.ALIGN = window.ALIGN || {};
+        window.ALIGN.poster = { characters: [], character_start_times_seconds: [], character_end_times_seconds: [] };
+        const S = Kit.scene("poster");
+        const el = (cls, text) => { const d = document.createElement("div"); d.className = cls; if (text != null) d.textContent = text; S.root.appendChild(d); return d; };
+        const card = el("p-card");
+        card.appendChild(Object.assign(document.createElement("div"), { className: "p-grid" }));
+        card.appendChild(Object.assign(document.createElement("div"), { className: "p-frame" }));
+        const parts = [card];
+        el("p-kicker", "Курс анализа · Подготовка"); el("p-rule");
+        el("p-title", "Зачем меняем процесс и как устроен анализ");
+        
+        const brand = el("p-brand"); brand.innerHTML = "<i></i>Custom Dev";
+        const sk = el("p-sketch"); sk.innerHTML = (window.SKETCHES || {})["intro-idea"] || ""; if (!sk.innerHTML) throw new Error("scene-poster: нет скетча intro-idea");
+        /* статичная карточка с первого кадра; затем плавное растворение в тёмную сцену */
+        const all = [...S.root.children];
+        S.tl.to(all, { autoAlpha: 0, duration: 0.70, ease: "power2.inOut" }, 1.9);
+        S.finish(2.6);
+      })();
+    </script>
+  </div>
+</template>

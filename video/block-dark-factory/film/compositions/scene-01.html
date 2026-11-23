@@ -1,0 +1,82 @@
+<template id="scene-01-template">
+  <div data-composition-id="scene-01" data-width="1920" data-height="1080" data-duration="22.9">
+    <style>
+      [data-composition-id="scene-01"] .lb { font-size: 30px; font-weight: 700; color: var(--k-accent-soft); }
+      [data-composition-id="scene-01"] .tx { font-size: 40px; font-weight: 700; line-height: 1.15; margin-top: 6px; }
+      [data-composition-id="scene-01"] .dim { position: absolute; left: 96px; top: 270px; width: 700px; height: 525px; background: radial-gradient(ellipse at 50% 70%, rgba(15, 17, 21, 0.35), rgba(15, 17, 21, 0.78)); border-radius: 24px; }
+      [data-composition-id="scene-01"] .row { position: absolute; left: 96px; width: 1728px; top: 350px; display: grid; grid-template-columns: 1fr 64px 1fr; gap: 24px; align-items: stretch; }
+      [data-composition-id="scene-01"] .row > .k-aside { position: relative; }
+      [data-composition-id="scene-01"] .who { display: flex; align-items: center; gap: 26px; }
+      [data-composition-id="scene-01"] .who svg { width: 96px; height: 96px; flex: none; }
+      [data-composition-id="scene-01"] .who b { font-size: 60px; font-weight: 800; letter-spacing: -0.02em; }
+      [data-composition-id="scene-01"] .role { font-size: 44px; font-weight: 700; margin-top: 26px; }
+      [data-composition-id="scene-01"] .role.ok { color: var(--k-ok); }
+      [data-composition-id="scene-01"] .def { font-size: 32px; line-height: 1.3; color: var(--k-text-2); margin-top: 18px; }
+      [data-composition-id="scene-01"] .arr { align-self: center; text-align: center; font-size: 64px; font-weight: 300; color: var(--k-text-2); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("01"), t = S.t, DUR = 22.9;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»: ${(off - at - reveal).toFixed(1)} с, нужно ${needed.toFixed(1)}`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const div = (cls, html, parent) => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; parent.appendChild(el); return el; };
+        const NS = "http://www.w3.org/2000/svg";
+        const add = (svg, tag, attrs) => { const e = document.createElementNS(NS, tag); Object.entries(attrs).forEach(([k, v]) => e.setAttribute(k, v)); svg.appendChild(e); return e; };
+        const C = (n) => Kit.token("--k-" + n);
+
+        Kit.header(S, { duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        // цех: под лампой светло, потом свет гаснет, а станки работают
+        const sA = S.stage(); gsap.set(sA, { autoAlpha: 1 });
+        const fab = Kit.sketch(S, { parent: sA, name: "factory", x: 96, y: 270, w: 700, at: 0.1, dur: 2.4 });
+        const cone = add(fab.svg, "path", { d: "M306 250 L334 250 L440 392 L200 392 Z", fill: C("accent-soft"), opacity: 0 });
+        fab.svg.insertBefore(cone, fab.svg.firstChild);
+        S.tl.to(cone, { opacity: 0.16, duration: 0.6 }, 2.2);
+        const dim = div("dim", "", sA); hide(dim);
+        S.tl.to(cone, { opacity: 0, duration: 0.8, ease: "power2.in" }, t("Свет"));
+        S.tl.to(dim, { autoAlpha: 1, duration: 0.9, ease: "power2.inOut" }, t("Свет"));
+        // огоньки станков остаются видны в темноте: слой поверх затемнения
+        const leds = document.createElementNS(NS, "svg");
+        leds.setAttribute("viewBox", "0 0 640 480");
+        leds.setAttribute("style", "position:absolute;left:96px;top:270px;width:700px;height:525px;overflow:visible");
+        sA.appendChild(leds);
+        [198, 388, 548].forEach((x, i) => {
+          const g = add(leds, "circle", { cx: x, cy: 306, r: 7, fill: C("accent"), opacity: 0 });
+          S.tl.to(g, { opacity: 1, duration: 0.3 }, t("Свет") + 0.6 + i * 0.1);
+          S.tl.to(g, { opacity: 0.45, duration: 0.5, yoyo: true, repeat: 3, ease: "sine.inOut" }, t("Свет") + 1.0 + i * 0.15);
+        });
+
+        const def = Kit.aside(S, { parent: sA, x: 860, y: 270, w: 964, tail: false, html: '<div class="lb">Фабрика</div><div class="tx">Основную работу делают автоматы</div>' });
+        def.show(0.3); read("Фабрика Основную работу делают автоматы", 0.3, t("разработке") - 0.3);
+        const ppl = Kit.aside(S, { parent: sA, x: 860, y: 460, w: 964, tail: false, html: '<div class="lb">Люди</div><div class="tx">Задают цели и контролируют результат</div>' });
+        ppl.show(t("а люди")); read("Люди Задают цели и контролируют результат", t("а люди"), t("разработке") - 0.3);
+        const dark = Kit.aside(S, { parent: sA, x: 860, y: 650, w: 964, tail: false, html: '<div class="tx">Свет не нужен</div>' });
+        dark.show(t("Свет")); read("Свет не нужен", t("Свет"), t("разработке") - 0.3);
+
+        // в разработке: агенты и люди
+        const sB = S.stage();
+        const row = div("row", "", sB);
+        const robot = '<svg viewBox="0 0 96 96" fill="none" stroke="' + C("accent") + '" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 86h40M28 86V74h20v12M38 74l18-30M56 44L28 26M28 26l-8 10M28 26l-12-2"/><circle cx="56" cy="44" r="6"/></svg>';
+        const person = '<svg viewBox="0 0 96 96" fill="none" stroke="' + C("ok") + '" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><circle cx="48" cy="28" r="14"/><path d="M20 86c0-18 12-30 28-30s28 12 28 30"/></svg>';
+        const ag = Kit.aside(S, { parent: row, tail: false, html: '<div class="who">' + robot + "<b>Агенты</b></div>" });
+        const ag1 = div("role", "Делают рутину", ag.el), ag2 = div("def", "Агент — модель, которая сама выполняет цепочку действий", ag.el);
+        const arr = div("arr", "→", row);
+        const hu = Kit.aside(S, { parent: row, tail: false, html: '<div class="who">' + person + "<b>Люди</b></div>" });
+        const hu1 = div("role ok", "Решают и проверяют", hu.el);
+        hide(ag1, ag2, arr, hu1);
+        ag.show(t("разработке") + 0.6); hu.show(t("разработке") + 0.75);
+        Kit.popIn(S, ag1, t("рутину")); Kit.popIn(S, ag2, t("модели")); Kit.popIn(S, arr, t("а люди", 2)); Kit.popIn(S, hu1, t("решают"));
+        read("Делают рутину", t("рутину"), DUR); read(ag2.textContent, t("модели"), DUR); read("Решают и проверяют", t("решают"), DUR);
+        Kit.stageOut(S, sA, t("разработке") - 0.3); Kit.stageIn(S, sB, t("разработке") + 0.25);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

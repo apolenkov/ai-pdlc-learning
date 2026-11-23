@@ -1,0 +1,97 @@
+<template id="scene-01-template">
+  <div data-composition-id="scene-01" data-width="1920" data-height="1080" data-duration="42">
+    <style>
+      [data-composition-id="scene-01"] .sc-tile { height: 100%; padding: 16px 26px; display: flex; flex-direction: column; gap: 10px; }
+      [data-composition-id="scene-01"] .sc-tile .cap { font-size: 36px; font-weight: 800; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; row-gap: 6px; }
+      [data-composition-id="scene-01"] .sc-tile .cap .ic { width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; background: var(--k-accent-tint); border: 2px solid var(--k-accent); color: var(--k-accent-soft); }
+      [data-composition-id="scene-01"] .sc-tile .cap .ic svg { width: 26px; height: 26px; }
+      [data-composition-id="scene-01"] .sc-tile .cap .tag { margin-left: auto; font-size: 22px; font-weight: 700; padding: 3px 12px; border-radius: 11px; background: var(--k-panel-2); border: 2px solid var(--k-line); color: var(--k-text); white-space: nowrap; }
+      [data-composition-id="scene-01"] .sc-li { display: flex; align-items: center; gap: 12px; font-size: 27px; font-weight: 600; line-height: 1.15; padding: 7px 14px; border-radius: 12px; background: var(--k-panel-2); }
+      [data-composition-id="scene-01"] .sc-li .d { flex: none; width: 14px; height: 14px; border-radius: 4px; background: var(--k-accent); }
+      [data-composition-id="scene-01"] .sc-note { height: 100%; display: flex; align-items: center; gap: 14px; padding: 0 24px; font-size: 27px; font-weight: 700; line-height: 1.2; }
+      [data-composition-id="scene-01"] .sc-note .ic { flex: none; width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; border: 3px solid var(--k-accent); color: var(--k-accent-soft); font-size: 23px; font-weight: 800; }
+      [data-composition-id="scene-01"] .sc-note i { font-style: normal; color: var(--k-text-2); font-weight: 500; }
+      [data-composition-id="scene-01"] .sc-who { height: 100%; display: flex; align-items: center; gap: 24px; padding: 0 30px; }
+      [data-composition-id="scene-01"] .sc-who .cell { flex: 1; display: flex; align-items: center; gap: 14px; font-size: 29px; font-weight: 700; padding: 12px 20px; border-radius: 14px; background: var(--k-panel-2); }
+      [data-composition-id="scene-01"] .sc-who .cell .k { font-size: 25px; font-weight: 800; padding: 4px 14px; border-radius: 10px; background: var(--k-accent-tint); color: var(--k-accent-soft); white-space: nowrap; }
+      [data-composition-id="scene-01"] .sc-who .lab { flex: none; font-size: 28px; font-weight: 800; color: var(--k-text-2); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("01"), t = S.t, DUR = 42;
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const ICON_GEAR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="3.4"/><path d="M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3M5.5 5.5l2.1 2.1M16.4 16.4l2.1 2.1M18.5 5.5l-2.1 2.1M7.6 16.4l-2.1 2.1"/></svg>';
+        const ICON_EYE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></svg>';
+
+        Kit.header(S, { header: { mode: "parts", total: 3 }, chapter: "Две проверки: структура и смысл", step: 1, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+        const li = (txt, cls) => '<div class="sc-li ' + cls + '"><span class="d"></span>' + txt + "</div>";
+
+        /* Плитка «Структура» — проверяет линтер */
+        const t1 = Kit.aside(S, { parent: s1, x: 96, y: 215, w: 848, h: 322, tail: false,
+          html: '<div class="sc-tile"><div class="cap"><span class="ic">' + ICON_GEAR + '</span>Структура<span class="tag tg1">линтер · автоматическая проверка формы</span></div>' +
+            li("все разделы есть", "a1") + li("поля измерения заполнены", "a2") + li("идентификаторы строк плана на месте", "a3") + "</div>" });
+        const a = [".a1", ".a2", ".a3"].map((c) => t1.el.querySelector(c));
+        const tg1 = t1.el.querySelector(".tg1");
+        hide(...a, tg1);
+        t1.show(2.05);   // заставка части держится первые 2 с
+        Kit.popIn(S, a[0], t("все разделы"));
+        Kit.popIn(S, a[1], t("поля измерения"));
+        Kit.popIn(S, a[2], t("идентификаторы"));
+        Kit.popIn(S, tg1, t("линтер"));
+        read("Структура все разделы есть поля измерения заполнены идентификаторы строк плана на месте", 2.05, DUR);
+        read("линтер автоматическая проверка формы", t("линтер"), DUR, 0);
+
+        /* Плитка «Смысл» — проверяет рецензент */
+        const t2 = Kit.aside(S, { parent: s1, x: 976, y: 215, w: 848, h: 322, tail: false,
+          html: '<div class="sc-tile"><div class="cap"><span class="ic">' + ICON_EYE + '</span>Смысл<span class="tag tg2">рецензент · человек, который читает документ</span></div>' +
+            li("проблема описана без решения", "b1") + li("границы и эффект проверяемы", "b2") + li("эффект — число или способ измерения", "b3") + "</div>" });
+        const b = [".b1", ".b2", ".b3"].map((c) => t2.el.querySelector(c));
+        const tg2 = t2.el.querySelector(".tg2");
+        hide(...b, tg2);
+        t2.show(t("Вторая проверка") - 0.3);
+        Kit.popIn(S, b[0], t("без решения"));
+        Kit.popIn(S, b[1], t("проверяемы"));
+        Kit.popIn(S, b[2], t("числом или способом"));
+        Kit.popIn(S, tg2, t("рецензент"));
+        read("Смысл проблема описана без решения границы и эффект проверяемы эффект число или способ измерения", t("Вторая проверка") - 0.3, DUR);
+        read("рецензент человек который читает документ", t("рецензент"), DUR, 0);
+
+        /* Нет значения «до» — способ измерения + ответственный + срок */
+        const n0 = Kit.aside(S, { parent: s1, x: 976, y: 560, w: 848, h: 92, tail: false,
+          html: '<div class="sc-note"><span class="ic">≈</span><span>нет значения «до» → <i>способ измерения + ответственный + срок</i></span></div>' });
+        n0.show(t("Нет значения"));
+        read("нет значения до способ измерения ответственный срок", t("Нет значения"), DUR);
+
+        /* Линтер смысла не видит */
+        const nl = Kit.aside(S, { parent: s1, x: 96, y: 560, w: 848, h: 92, tail: false,
+          html: '<div class="sc-note"><span class="ic">!</span><span>линтер смысла не видит — <i>полный, но слабый возвращает рецензент</i></span></div>' });
+        nl.el.style.borderStyle = "dashed";
+        nl.show(t("Линтер смысла не видит"));
+        read("линтер смысла не видит полный но слабый возвращает рецензент", t("Линтер смысла не видит"), DUR);
+
+        /* Кто правит что */
+        const who = Kit.aside(S, { parent: s1, x: 96, y: 672, w: 1728, h: 105, tail: false,
+          html: '<div class="sc-who"><span class="lab">кто правит:</span>' +
+            '<div class="cell w1"><span class="k">структуру</span>автор</div>' +
+            '<div class="cell w2"><span class="k">смысл</span>владелец продукта <i style="font-style:normal;color:var(--k-text-2);font-weight:500">(возврат)</i></div></div>' });
+        const wc = [".w1", ".w2"].map((c) => who.el.querySelector(c));
+        hide(...wc);
+        who.show(t("Структуру правит автор") - 0.3);
+        Kit.popIn(S, wc[0], t("Структуру правит автор"));
+        Kit.popIn(S, wc[1], t("владельцу продукта"));
+        read("кто правит структуру автор смысл владелец продукта возврат", t("Структуру правит автор"), DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

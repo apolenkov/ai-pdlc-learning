@@ -1,0 +1,274 @@
+/* Light-theme motion is enabled by course-motion.ts. */
+
+[data-motion="pre"] { opacity: 0; transform: translateY(8px); }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-motion] { opacity: 1 !important; transform: none !important; }
+}
+@media print {
+  [data-motion] { opacity: 1 !important; transform: none !important; }
+}
+
+/* Route strip: one opaque shell while the menu follows scroll direction. */
+html:has(body[data-stage]), html:has(#course-map) {
+  --route-compact-height: 54px;
+  --route-top: 84px;
+}
+/* The map keeps the site reserve: its strip appears later, at the start of the route. */
+html:has(body[data-stage]) { --site-nav-reserve: 154px; }
+.course-route {
+  --route-ink: var(--customdev-ink); --route-muted: var(--customdev-muted);
+  --route-green: var(--customdev-green); --route-soft: var(--customdev-green-soft);
+  --route-line: var(--customdev-line); --route-node: 36px;
+  --route-passed: color-mix(in srgb, var(--route-soft) 48%, var(--customdev-surface));
+  position: fixed; z-index: 1000; top: calc(var(--route-top) + var(--customdev-space-2)); left: 50%; transform: translateX(-50%);
+  box-sizing: border-box; display: flex; align-items: center; gap: var(--customdev-space-4);
+  width: min(var(--site-shell-max), calc(100vw - 2 * var(--site-page-gutter)));
+  min-height: var(--route-compact-height); padding: 0 var(--customdev-space-3);
+  border: 1px solid var(--site-nav-line); border-radius: var(--customdev-radius-lg);
+  background: var(--site-nav-bg); color: var(--route-ink); box-shadow: var(--customdev-shadow-frame);
+  backdrop-filter: none;
+  font: 500 13px/1.2 var(--customdev-font-body);
+}
+.course-route[hidden] { display: none; }
+.course-route *, .course-route *::before, .course-route *::after { box-sizing: border-box; }
+.course-route ol { margin: 0; padding: 0; list-style: none; }
+.course-route__gears { flex: none; overflow: visible; }
+.course-route__gear { transform-box: fill-box; transform-origin: center; }
+.course-route__gear polygon { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linejoin: round; }
+.course-route__gear circle { fill: var(--site-nav-bg); stroke: currentColor; stroke-width: 1.5; }
+.course-route__groups { display: flex; flex: 1 1 auto; align-items: center; gap: var(--customdev-space-6); min-width: 0; }
+.course-route__group { display: flex; align-items: center; gap: var(--customdev-space-2); }
+.course-route__word { display: flex; align-items: center; gap: var(--customdev-space-2); min-height: 44px; padding: 0 var(--customdev-space-1); border-radius: var(--customdev-radius-sm); font: 600 14px/1.2 var(--customdev-font-body); color: var(--route-green); white-space: nowrap; text-decoration: none; }
+.course-route__word:hover { text-decoration: underline; text-underline-offset: .18em; }
+.course-route__edge { display: grid; place-items: center; flex: none; width: 32px; height: 32px; border-radius: var(--customdev-radius-sm); color: var(--route-green); text-decoration: none; }
+.course-route__edge svg { width: 18px; height: 18px; }
+.course-route__edge:hover { background: var(--route-soft); }
+.course-route__edge[aria-disabled] { color: var(--route-muted); opacity: .5; }
+.course-route__edge[aria-disabled]:hover { background: none; }
+.course-route__group--practice .course-route__word { color: var(--customdev-blue); }
+/* Text-only amber: 5.3:1 on amber tints; the fill token stays for icons and fills. */
+.course-route__group--after .course-route__word { color: var(--customdev-amber-text); }
+.course-route__steps { display: flex; align-items: center; }
+.course-route__step { position: relative; display: flex; justify-content: center; }
+.course-route__step + .course-route__step::before {
+  content: ""; position: absolute; top: 50%; right: 50%; width: 100%; height: 0;
+  border-top: 2px solid var(--route-line); transform-origin: left center;
+}
+.course-route__step.is-passed + .course-route__step::before,
+.course-route__step.is-traversed + .course-route__step::before { border-color: color-mix(in srgb, var(--route-green) 60%, transparent); }
+.course-route__dot { position: relative; z-index: 1; display: grid; place-items: center; min-height: 44px; padding: 0 var(--customdev-space-1); border-radius: var(--customdev-radius-sm); color: var(--route-muted); text-decoration: none; }
+.course-route__number, .course-route__prep {
+  display: inline-flex; align-items: center; justify-content: center; flex: none; min-width: var(--route-node); height: var(--route-node);
+  border: 2px solid var(--customdev-line-control); border-radius: 999px; background: var(--customdev-surface);
+  font: 600 15px/1 var(--customdev-font-body); white-space: nowrap; font-variant-numeric: lining-nums tabular-nums;
+  transition: background-color .3s ease, border-color .3s ease;
+}
+.course-route__number:has(.course-route__suffix) { padding: 0 var(--customdev-space-2); }
+.course-route__suffix { font-weight: 400; color: var(--route-green); }
+.is-ahead:not(.is-viewing) .course-route__suffix { color: var(--route-muted); }
+.course-route__prep svg { width: 22px; height: 22px; }
+.course-route [data-selfchecked] { position: relative; }
+.course-route [data-selfchecked]::after {
+  content: "✓"; position: absolute; right: -3px; bottom: -2px;
+  display: grid; place-items: center; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--route-green); color: var(--customdev-surface); font: 800 12px/1 var(--customdev-font-body);
+}
+.is-passed > .course-route__dot > :first-child { border-color: color-mix(in srgb, var(--route-green) 60%, transparent); background: var(--route-passed); }
+.is-passed > .course-route__dot { color: var(--route-green); }
+.is-current > .course-route__dot > :first-child, .is-viewing > .course-route__dot > :first-child {
+  border-color: var(--route-green); background: var(--route-soft);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--route-green) 22%, transparent);
+  animation: course-route-breathe 2s ease-in-out infinite;
+}
+.is-current > .course-route__dot, .is-viewing > .course-route__dot { color: var(--route-green); }
+/* The current ring survives hover. */
+.course-route__step:not(.is-current, .is-viewing) > .course-route__dot:hover > :first-child { border-color: color-mix(in srgb, var(--route-green) 60%, transparent); }
+.course-route a:focus-visible { outline: 2px solid var(--route-green); outline-offset: 2px; }
+.course-route__dot::after {
+  content: attr(data-title); position: absolute; top: calc(100% + var(--customdev-space-2)); left: 50%; transform: translateX(-50%);
+  padding: var(--customdev-space-2); border-radius: var(--customdev-radius-sm); background: var(--route-ink); color: var(--customdev-surface);
+  font-size: 13px; font-weight: 600; white-space: nowrap; pointer-events: none; opacity: 0; visibility: hidden;
+}
+.course-route__dot:hover::after, .course-route__dot:focus-visible::after { opacity: 1; visibility: visible; }
+.course-route__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.course-route__status { display: grid; justify-items: end; gap: 2px; flex: none; min-width: 0; margin: 0; text-align: right; }
+.course-route__status strong { font-weight: 600; color: var(--route-ink); }
+.course-route__status a { color: var(--route-green); text-decoration: none; }
+.course-route__status a:hover { text-decoration: underline; text-underline-offset: .18em; }
+.course-route__status > span { font-size: 13px; color: var(--route-muted); white-space: nowrap; }
+.course-route__compact { display: none; }
+/* Load relay (0.4 s per node, once) + 2 s / 2 px breathing ring on the current node + fill flash on step transition. */
+.course-route.is-live .course-route__step > .course-route__dot > :first-child {
+  animation: course-route-relay .4s cubic-bezier(.22, 1, .36, 1) calc(var(--i, 0) * .4s) both;
+}
+.course-route.is-live .course-route__step.is-passed > .course-route__dot > :first-child {
+  animation:
+    course-route-relay .4s cubic-bezier(.22, 1, .36, 1) calc(var(--i, 0) * .4s) both,
+    course-route-fill .6s ease-out calc(var(--i, 0) * .4s) both;
+}
+.course-route.is-live :is(.is-current, .is-viewing) > .course-route__dot > :first-child {
+  animation:
+    course-route-relay .4s cubic-bezier(.22, 1, .36, 1) calc(var(--i, 0) * .4s) both,
+    course-route-breathe 2s ease-in-out calc(var(--i, 0) * .4s + .4s) infinite;
+}
+.course-route.is-live .course-route__step + .course-route__step::before {
+  animation: course-route-line .4s ease-out calc(var(--i, 0) * .4s) both;
+}
+/* The step just left flashes and settles back. The plain rule below is out-specified by the relay
+   rules above, so a live strip needs its own: the flash must not wait for the relay delay either. */
+.course-route.is-live .course-route__step.is-new > .course-route__dot > :first-child {
+  animation:
+    course-route-relay .4s cubic-bezier(.22, 1, .36, 1) calc(var(--i, 0) * .4s) both,
+    course-route-fill .6s ease-out;
+}
+.course-route__step.is-new > .course-route__dot > :first-child { animation: course-route-fill .6s ease-out; }
+@keyframes course-route-relay {
+  0% { opacity: 1; transform: scale(.82); }
+  55% { opacity: 1; transform: scale(1); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes course-route-line {
+  from { opacity: .2; transform: scaleX(0); }
+  to { opacity: 1; transform: scaleX(1); }
+}
+@keyframes course-route-breathe {
+  0%, 100% { box-shadow: 0 0 0 2px color-mix(in srgb, var(--route-green) 20%, transparent); }
+  50% { box-shadow: 0 0 0 4px color-mix(in srgb, var(--route-green) 36%, transparent); }
+}
+@keyframes course-route-fill {
+  from { background-color: var(--customdev-surface); }
+  to { background-color: var(--route-passed); }
+}
+html.has-course-route { scroll-padding-top: calc(var(--route-sticky-height, var(--route-compact-height)) + var(--customdev-space-2) + var(--customdev-space-4)); }
+html.has-course-route:has([data-global-nav]):not(:has(.course-route[hidden]))::before { height: calc(var(--route-top) + var(--customdev-space-2) + var(--route-height)); background: var(--site-nav-veil); }
+/* Map above the route start: the default veil serves the shown menu only; a hidden menu leaves nothing to veil. */
+html.has-course-route:has(.course-route[hidden]):has([data-global-nav].is-route-menu-hidden)::before { display: none; }
+html.has-course-route body:has([data-global-nav]) :is([id], #guide-content, #main-content, #content) { scroll-margin-top: 0; }
+.course-route-sentinel { position: absolute; top: var(--route-origin-top); width: 1px; height: 1px; pointer-events: none; }
+/* Map: the sentinel sits before #course-introduction-title, lifted by the pinned strip's own height so the strip appears as the title reaches it. */
+.course-route-sentinel--map { position: relative; top: auto; margin-bottom: -1px; transform: translateY(calc(-1 * (var(--route-origin-top, 0px) + var(--customdev-space-2) + var(--route-compact-height)))); }
+html.has-course-route [data-global-nav] { z-index: 1002; border-radius: var(--customdev-radius-lg); transition: transform .18s ease-out; }
+html.has-course-route [data-global-nav].is-route-menu-hidden:not(:focus-within) { transform: translate(-50%, calc(-100% - var(--customdev-space-4))); pointer-events: none; }
+.course-route__icon { display: inline-flex; flex: none; width: 22px; height: 22px; color: var(--customdev-green); }
+.course-route__icon--prep { width: 34px; height: 22px; }
+.course-route__icon--practice { color: var(--customdev-blue); }
+.course-route__icon--after { color: var(--customdev-amber-text); }
+.course-route__icon svg { display: block; width: 100%; height: 100%; }
+.course-map__group h3 .course-route__icon { vertical-align: middle; margin-right: var(--customdev-space-2); }
+.course-route__range { display: none; }
+.course-route.is-stuck { transition: top .18s ease-out; }
+@media (max-width: 1279px) {
+  .course-route__status { display: none; }
+}
+@media (min-width: 1280px) {
+  .course-route { flex-wrap: nowrap; gap: 8px; }
+  .course-route__groups { gap: 12px; }
+  .course-route__group, .course-route__word { gap: 4px; }
+  .course-route__word { padding-inline: 0; }
+  .course-route__dot { padding-inline: 2px; }
+  .course-route > .course-route__groups { flex: 0 0 max-content; }
+  .course-route__status { flex: 1 1 0; max-width: none; }
+  .course-route__status strong, .course-route__status > span { max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
+}
+@media (min-width: 1280px) and (max-width: 1439px) {
+  .course-route { --route-node: 32px; }
+  .course-route__groups { gap: 8px; }
+  .course-route__word { flex-direction: column; justify-content: center; gap: 0; }
+}
+@media (max-width: 1199px) {
+  .course-route { --route-node: 32px; }
+  .course-route__number { font-size: 14px; }
+  .course-route__prep svg { width: 20px; height: 20px; }
+}
+@media (min-width: 761px) and (max-width: 1079px) {
+  .course-route__group-name { display: none; }
+}
+@media (min-width: 761px) and (max-width: 807px) {
+  .course-route { --route-node: 28px; }
+  .course-route__groups { gap: var(--customdev-space-3); }
+  .course-route__prep svg { width: 18px; height: 18px; }
+}
+@media (max-width: 760px) {
+  .course-route { --route-node: 28px; }
+  .course-route__prep svg { width: 18px; height: 18px; }
+  .course-route__current > :first-child { color: var(--route-green); border-color: var(--route-green); background: var(--route-soft); box-shadow: 0 0 0 2px color-mix(in srgb, var(--route-green) 22%, transparent); animation: course-route-breathe 2s ease-in-out infinite; }
+  .course-route { flex-direction: column; justify-content: center; gap: 0; }
+  .course-route__groups, .course-route__status strong, .course-route__edge { display: none; }
+  .course-route__status { display: block; max-width: 100%; text-align: center; }
+  .course-route__status > span { white-space: normal; }
+  .course-route__compact { order: -1; display: flex; align-items: center; gap: 0; width: 100%; min-width: 0; }
+  .course-route__current { display: flex; align-items: center; gap: var(--customdev-space-2); flex: 1; min-width: 0; min-height: 44px; color: var(--route-ink); text-decoration: none; font-size: 13px; font-weight: 600; }
+  .course-route__current > span:last-child { overflow-wrap: anywhere; }
+  .course-route__arrow { display: grid; place-items: center; flex: 0 0 44px; height: 44px; color: var(--route-green); border-radius: var(--customdev-radius-sm); }
+  .course-route__arrow svg { width: 18px; height: 18px; }
+  .course-route__arrow[aria-disabled] { color: var(--route-muted); opacity: .5; }
+  .course-route__arrow:hover { background: var(--route-soft); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .course-route__number, .course-route__prep, html.has-course-route [data-global-nav], .course-route.is-stuck { transition: none; }
+  /* !important: the live state rules (.is-passed/.is-current/.is-viewing/.is-new) out-specify this
+     reset, and without it the relay, the infinite breathing ring and the flashes all keep playing. */
+  .course-route.is-live .course-route__step > .course-route__dot > :first-child,
+  .course-route.is-live .course-route__step + .course-route__step::before,
+  .is-current > .course-route__dot > :first-child,
+  .is-viewing > .course-route__dot > :first-child,
+  .course-route__current > :first-child,
+  .course-route__step.is-new > .course-route__dot > :first-child { animation: none !important; opacity: 1; transform: none; }
+}
+@media print { .course-route, html.has-course-route:has([data-global-nav])::before { display: none; } }
+
+/* Final self-check (route-strip/selfcheck.ts). */
+.check li.is-checkable { cursor: pointer; }
+.check li.is-checkable::before { content: none; }
+.check__toggle {
+  position: absolute; top: 0; left: 0; display: grid; place-items: center; width: 22px; height: 22px; padding: 0;
+  border: 1.5px solid var(--customdev-green); border-radius: var(--customdev-radius-sm); background: #fff;
+  color: #fff; font: 800 13px/1 var(--customdev-font-body, Inter, sans-serif); cursor: pointer;
+  transition: background-color .2s ease, transform .2s ease;
+}
+.check__toggle::after { content: "✓"; opacity: 0; }
+.check__toggle[aria-checked="true"] { background: var(--customdev-green); }
+.check__toggle[aria-checked="true"]::after { opacity: 1; }
+.check__toggle:hover { background: var(--customdev-green-soft); }
+.check__toggle[aria-checked="true"]:hover { background: #1a5541; }
+.check__toggle:focus-visible { outline: 2px solid var(--customdev-green); outline-offset: 2px; }
+.card .check__toast, .check__toast {
+  display: flex; align-items: center; gap: 8px; width: fit-content; margin: 14px 0 0; padding: 8px 12px;
+  border-radius: var(--customdev-radius-md); background: var(--customdev-green-soft); color: var(--customdev-green); font-weight: 700;
+}
+/* Empty note collapses but stays in the tree: a role="status" region removed by display:none may not announce. */
+.card .check__toast:empty, .check__toast:empty { margin: 0; padding: 0; background: none; }
+.check__toast:empty::before { content: none; }
+.check__toast::before { content: "✓"; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--customdev-green); color: #fff; font-size: 13px; }
+/* The success click: squares tick in a wave, the note settles in. One shot, under 600 ms. */
+.is-celebrating .check__toggle[aria-checked="true"] { animation: check-tick .42s cubic-bezier(.3, 1.6, .5, 1) both; }
+.is-celebrating .check li:nth-child(2) .check__toggle { animation-delay: .04s; }
+.is-celebrating .check li:nth-child(3) .check__toggle { animation-delay: .08s; }
+.is-celebrating .check li:nth-child(4) .check__toggle { animation-delay: .12s; }
+.is-celebrating .check li:nth-child(n+5) .check__toggle { animation-delay: .16s; }
+.is-celebrating .check__toast { animation: check-note .4s ease-out .12s both; }
+@keyframes check-tick { 0% { transform: scale(1); } 45% { transform: scale(1.28); } 100% { transform: scale(1); } }
+@keyframes check-note { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+/* Reading time (TASK-557): a quiet note under the self-check, counted only in this browser. */
+.card .reading-time, .reading-time { margin: 14px 0 0; color: var(--muted, #5b6560); font-size: .9rem; }
+.reading-time:empty { display: none; }
+
+/* Д1: the route passed card. */
+.route-finale { display: grid; gap: 12px; border-color: var(--customdev-green); background: linear-gradient(180deg, var(--customdev-green-soft), #fff 70%); }
+.route-finale h2 { margin: 0; }
+.route-finale.is-celebrating { animation: finale-click .55s cubic-bezier(.3, 1.4, .5, 1) both; }
+.route-finale.is-celebrating .route-finale__codes > li.is-marked { animation: check-tick .42s cubic-bezier(.3, 1.6, .5, 1) .1s both; }
+@keyframes finale-click { 0% { transform: scale(.985); box-shadow: 0 0 0 0 var(--customdev-green-soft); } 50% { transform: scale(1.01); box-shadow: 0 0 0 8px var(--customdev-green-soft); } 100% { transform: none; box-shadow: none; } }
+.route-finale__lead, .route-finale__hint { margin: 0; color: var(--customdev-muted); }
+.route-finale ol.route-finale__codes { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.route-finale ol.route-finale__codes > li { width: auto; min-height: 0; margin: 0; padding: 4px 9px; border: 1px solid var(--customdev-line); border-radius: 999px; background: #fff; font-size: 13px; font-weight: 700; color: var(--customdev-muted); }
+.route-finale ol.route-finale__codes > li.is-marked { border-color: var(--customdev-green); background: var(--customdev-green); color: #fff; }
+.route-finale__all { margin: 0; font-weight: 800; color: var(--customdev-green); }
+.route-finale__map { justify-self: start; font-weight: 700; color: var(--customdev-green); }
+
+@media (prefers-reduced-motion: reduce) {
+  .check__toggle { transition: none; }
+  .is-celebrating .check__toggle[aria-checked="true"], .is-celebrating .check__toast,
+  .route-finale.is-celebrating, .route-finale.is-celebrating .route-finale__codes > li.is-marked { animation: none; }
+}

@@ -1,0 +1,20 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true
+  },
+  "include": [
+    "assets/protected-shells/scripts/**/*.ts",
+    "docs/pages/sdlc-development/course-motion.ts",
+    "docs/pages/sdlc-development/examples/credit-calculator.ts",
+    "docs/pages/sdlc-development/guides/**/*.ts"
+  ]
+}

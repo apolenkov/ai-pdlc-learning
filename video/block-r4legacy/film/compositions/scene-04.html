@@ -1,0 +1,85 @@
+<template id="scene-04-template">
+  <div data-composition-id="scene-04" data-width="1920" data-height="1080" data-duration="26.5">
+    <style>
+      [data-composition-id="scene-04"] .pm { box-sizing: border-box; padding: 20px 26px; display: flex; flex-direction: column; gap: 10px; }
+      [data-composition-id="scene-04"] .pm-h { font-size: 40px; font-weight: 800; line-height: 1.1; }
+      [data-composition-id="scene-04"] .pm-c { font-size: 30px; font-weight: 600; line-height: 1.2; color: var(--k-text-2); }
+      [data-composition-id="scene-04"] .pm-c code, [data-composition-id="scene-04"] .pm-q code { white-space: nowrap; font-family: var(--k-font-mono); font-size: 30px; font-weight: 500; color: var(--k-accent-soft); }
+      [data-composition-id="scene-04"] .pm-q { padding: 6px 0 6px 18px; border-left: 5px solid var(--k-accent); font-size: 30px; font-weight: 600; line-height: 1.25; }
+      [data-composition-id="scene-04"] .fr { display: grid; grid-template-columns: 460px 1fr; align-items: center; column-gap: 20px; height: 48px; padding: 0 14px; border: 3px solid var(--k-line); border-radius: 12px; background: var(--k-panel-2); }
+      [data-composition-id="scene-04"] .fr-n { font-family: var(--k-font-mono); font-size: 30px; font-weight: 500; line-height: 1.1; color: var(--k-accent-soft); white-space: nowrap; }
+      [data-composition-id="scene-04"] .fr-d { font-size: 25px; font-weight: 600; line-height: 1.1; white-space: nowrap; }
+      [data-composition-id="scene-04"] .tb { display: grid; grid-template-columns: 214px 262px 212px 164px; margin-top: 4px; }
+      [data-composition-id="scene-04"] .tb > div { box-sizing: border-box; padding: 8px 10px; border: 3px solid var(--k-line); margin: 0 -3px -3px 0; font-size: 30px; font-weight: 500; line-height: 1.2; }
+      [data-composition-id="scene-04"] .tb > .th { font-weight: 800; color: var(--k-text-2); background: var(--k-panel-2); }
+      [data-composition-id="scene-04"] .tb > .q { font-size: 44px; font-weight: 800; color: var(--k-accent-soft); text-align: center; }
+      [data-composition-id="scene-04"] .rd { box-sizing: border-box; display: flex; align-items: center; justify-content: center; gap: 22px; padding: 0 28px; font-size: 38px; font-weight: 800; line-height: 1.15; color: #ff8a8a; border-color: #ff8a8a; background: rgba(255, 138, 138, 0.12); white-space: nowrap; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("04"), t = S.t, DUR = 26.5;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const INFO = Kit.token("--k-info"), LINE = Kit.token("--k-line");
+
+        Kit.header(S, { header: { mode: "parts", total: 7 }, chapter: "Черновик модели", step: 4, duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* Block 1: «Панель модели» with the request; the clauses appear as the narrator says them. */
+        const pm = Kit.aside(S, { parent: s1, x: 96, y: 206, w: 780, h: 520, tail: false, html:
+          '<div class="pm-h">Панель модели</div><div class="pm-c">Запрос</div>' +
+          '<div class="pm-q">Создай изменение <code>baseline-current-state</code></div>' +
+          '<div class="pm-q">используй только документы и наблюдения</div>' +
+          '<div class="pm-q">опиши только текущее состояние, включая известные дефекты</div>' +
+          '<div class="pm-q">на каждое требование — источник</div>' +
+          '<div class="pm-q">расхождения не решай</div>' });
+        pm.el.classList.add("pm");
+        const q = Array.from(pm.el.querySelectorAll(".pm-q")); hide(q[2], q[3], q[4]);
+        const T_C = Math.max(t("Она описывает"), 7.4), T_D = t("на каждое"), T_E = t("Расхождения");
+        pm.show(2.1);
+        Kit.popIn(S, q[2], T_C); Kit.popIn(S, q[3], T_D); Kit.popIn(S, q[4], T_E);
+        read("Панель модели Запрос Создай изменение baseline-current-state используй только документы и наблюдения", 2.1, T_C);
+        read(q[2].textContent, T_C, DUR); read(q[3].textContent, T_D, DUR); read(q[4].textContent, T_E, DUR);
+
+        /* Block 2: the result — three files, then the discrepancy table inside proposal.md. */
+        const rs = Kit.aside(S, { parent: s1, x: 916, y: 206, w: 908, h: 520, tail: false, html:
+          '<div class="pm-h">Результат</div>' +
+          '<div class="fr"><div class="fr-n">proposal.md</div><div class="fr-d">предложение</div></div>' +
+          '<div class="fr"><div class="fr-n">tasks.md</div><div class="fr-d">задачи</div></div>' +
+          '<div class="fr"><div class="fr-n">specs/&lt;компонент&gt;/spec.md</div><div class="fr-d">новые требования (ADDED)</div></div>' +
+          '<div class="pm-c" style="margin-top:6px"><code>proposal.md</code> · таблица расхождений</div>' +
+          '<div class="tb"><div class="th">ТЗ</div><div class="th">Confluence</div><div class="th">наблюдения</div><div class="th">решение</div>' +
+          '<div>ФТ-7: без ограничений</div><div>комментарий: минимум 10&nbsp;000&nbsp;₽</div><div>считается и 500&nbsp;₽</div><div class="q">?</div></div>' });
+        rs.el.classList.add("pm");
+        const fr = Array.from(rs.el.querySelectorAll(".fr")), cap = rs.el.querySelectorAll(".pm-c")[0], tb = rs.el.querySelector(".tb");
+        hide(fr[1], fr[2], cap, tb);
+        const T_P = t("предложение"), T_T = t("задачи"), T_S = t("добавленные"), T_TB = t("Расхождения");
+        rs.show(T_P - 0.1);
+        Kit.popIn(S, fr[1], T_T); Kit.popIn(S, fr[2], T_S);
+        Kit.popIn(S, cap, T_TB); Kit.popIn(S, tb, T_TB + 0.15);
+        read("Результат proposal.md предложение", T_P - 0.1, DUR); read("tasks.md задачи", T_T, DUR);
+        read("specs компонент spec.md новые требования ADDED", T_S, DUR);
+        read("proposal.md таблица расхождений ТЗ Confluence наблюдения решение ФТ-7 без ограничений комментарий минимум 10 000 ₽ считается и 500 ₽", T_TB, DUR);
+
+        /* «варианты и вопрос — человеку»: the empty «?» cell is the human's. */
+        const cells = tb.querySelectorAll("div"), qc = cells[cells.length - 1];
+        S.tl.fromTo(qc, { borderColor: LINE }, { borderColor: INFO, duration: 0.3, immediateRender: false }, t("человеку") - 0.5);
+
+        /* Block 3: the red plate. */
+        const rd = Kit.aside(S, { parent: s1, x: 96, y: 728, w: 1728, h: 88, tail: false, html: "модель сама решила расхождение или исправила дефект → вернуть к исходникам" });
+        rd.el.classList.add("rd");
+        rd.show(t("Если модель"));
+        read("модель сама решила расхождение или исправила дефект вернуть к исходникам", t("Если модель"), DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

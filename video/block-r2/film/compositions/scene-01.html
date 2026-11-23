@@ -1,0 +1,121 @@
+<template id="scene-01-template">
+  <div data-composition-id="scene-01" data-width="1920" data-height="1080" data-duration="28">
+    <style>
+      [data-composition-id="scene-01"] .r1-lab { font-size: 34px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-01"] .r1-mono { font-family: var(--k-font-mono); font-size: 36px; font-weight: 700; white-space: nowrap; }
+      [data-composition-id="scene-01"] .r1-node { display: inline-block; padding: 8px 22px; border-radius: 16px; border: 2px solid var(--k-text-2); background: var(--k-panel-2); margin: 14px 0 12px; }
+      [data-composition-id="scene-01"] .r1-chips { display: flex; gap: 14px; }
+      [data-composition-id="scene-01"] .r1-chip { padding: 6px 18px; border-radius: 14px; border: 2px solid var(--k-line); font-size: 30px; font-weight: 600; color: var(--k-text-2); white-space: nowrap; }
+      [data-composition-id="scene-01"] .r1-zrow { display: flex; align-items: center; gap: 16px; margin-top: 18px; }
+      [data-composition-id="scene-01"] .r1-zrow svg { width: 40px; height: 40px; color: var(--k-text-2); flex: none; }
+      [data-composition-id="scene-01"] .r1-zrow .r1-mono { font-size: 30px; font-weight: 600; }
+      [data-composition-id="scene-01"] .r1-src { position: absolute; right: 26px; top: 22px; padding: 4px 16px; border-radius: 14px; border: 2px solid var(--k-text-2); color: var(--k-text-2); font-size: 30px; font-weight: 700; }
+      [data-composition-id="scene-01"] .r1-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+      [data-composition-id="scene-01"] .r1-btn { padding: 8px 28px; border-radius: 16px; background: var(--k-accent); color: var(--k-on-accent); font-size: 38px; font-weight: 800; }
+      [data-composition-id="scene-01"] .r1-row { display: flex; align-items: baseline; justify-content: space-between; height: 60px; padding: 0 16px; border-bottom: 2px solid var(--k-line); }
+      [data-composition-id="scene-01"] .r1-row:last-of-type { border-bottom: 0; }
+      [data-composition-id="scene-01"] .r1-row .v { font-size: 44px; font-weight: 800; letter-spacing: -0.01em; }
+      [data-composition-id="scene-01"] .r1-row.res { height: 72px; }
+      [data-composition-id="scene-01"] .r1-row.res .v { color: var(--k-text); font-size: 64px; line-height: 1; }
+      [data-composition-id="scene-01"] .r1-calc { display: flex; align-items: center; gap: 26px; margin-top: 16px; padding: 0 16px; }
+      [data-composition-id="scene-01"] .r1-cbtn { position: relative; padding: 6px 24px; border-radius: 14px; border: 2px solid var(--k-text-2); color: var(--k-text-2); font-size: 36px; font-weight: 700; }
+      [data-composition-id="scene-01"] .r1-cbtn i { position: absolute; left: -6px; right: -6px; top: 50%; height: 4px; margin-top: -2px; background: var(--k-text-2); border-radius: 2px; transform-origin: 0 50%; }
+      [data-composition-id="scene-01"] .r1-cap { font-size: 32px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-01"] .r1-arr { position: absolute; font-size: 64px; font-weight: 300; line-height: 1; color: var(--k-text-2); text-align: center; }
+      [data-composition-id="scene-01"] .r1-new { display: flex; align-items: center; padding: 0 28px; border-color: var(--k-accent); background: var(--k-accent-tint); }
+      [data-composition-id="scene-01"] .r1-main { display: flex; align-items: center; padding: 0 28px; border-style: dashed; color: var(--k-text-2); }
+      [data-composition-id="scene-01"] .r1-main i { position: absolute; left: 14px; right: 14px; top: 50%; height: 4px; margin-top: -2px; background: var(--k-text-2); border-radius: 2px; transform-origin: 0 50%; }
+      [data-composition-id="scene-01"] .r1-keep { display: flex; align-items: center; font-size: 34px; font-weight: 600; padding: 0 24px; border-color: var(--k-line); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("01"), t = S.t, DUR = 28;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        
+        Kit.header(S, { header: { mode: "parts", total: 7 }, chapter: "Вход", step: 1, duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* ---- слева: ветка первого гайда ---- */
+        const L = Kit.aside(S, { parent: s1, x: 96, y: 230, w: 760, h: 250, tail: false,
+          html: '<div class="r1-lab">Шаг 1</div><div class="r1-node"><span class="r1-mono">stage-1-error-result</span></div><div class="r1-chips"><span class="r1-chip c1">правило ошибки</span><span class="r1-chip c2">5 сценариев</span></div>' });
+        const lNode = L.el.querySelector(".r1-node"), c1 = L.el.querySelector(".c1"), c2 = L.el.querySelector(".c2");
+        hide(lNode, c1, c2);
+        S.tl.fromTo(L.el, { autoAlpha: 0, x: -110 }, { autoAlpha: 1, x: 0, duration: 0.8, ease: "power3.out", immediateRender: false }, 0.15);
+        Kit.popIn(S, lNode, t("ваша ветка"));
+        Kit.popIn(S, c1, t("правилом"));
+        Kit.popIn(S, c2, t("пятью"));
+        read("Шаг 1 stage-1-error-result правило ошибки 5 сценариев", t("пятью"), DUR);
+
+        /* ---- замысел: источник нового ожидания ---- */
+        const T_Z = t("Новое ожидание"), T_ZOUT = t("Создайте") - 0.35;
+        const Z = Kit.aside(S, { parent: s1, x: 96, y: 540, w: 760, h: 190, tail: false,
+          html: `<div class="r1-lab">Замысел</div><span class="r1-src">источник</span><div class="r1-zrow">${Kit.icons.file}<span class="r1-mono">clear-calculation-result.md</span></div>` });
+        const src = Z.el.querySelector(".r1-src"); hide(src);
+        Z.show(T_Z);
+        Kit.popIn(S, src, t("того же"));
+        read("Замысел clear-calculation-result.md источник", t("того же"), T_ZOUT);
+
+        /* ---- справа: ожидаемое поведение «Сбросить» ---- */
+        const rows = [["Сумма", "3 000 000 ₽", t("три миллиона")], ["Ставка", "16%", t("шестнадцать")], ["Срок", "240 мес.", t("двести сорок")], ["Ошибки", "нет", t("ошибки и показывает")]];
+        const R = Kit.aside(S, { parent: s1, x: 1000, y: 230, w: 824, tail: false,
+          html: '<div class="r1-head"><span class="r1-lab">Ожидаем</span><span class="r1-btn">Сбросить</span></div>' +
+            rows.map(([k, v]) => `<div class="r1-row"><span class="r1-lab">${k}</span><span class="v">${v}</span></div>`).join("") +
+            '<div class="r1-row res"><span class="r1-lab">Результат</span><span class="v">—</span></div>' +
+            '<div class="r1-calc"><span class="r1-cbtn">Рассчитать<i></i></span><span class="r1-cap">расчёт не запускается</span></div>' });
+        const vals = Array.from(R.el.querySelectorAll(".r1-row .v"));
+        const cbtn = R.el.querySelector(".r1-cbtn"), strike = cbtn.querySelector("i"), cap = R.el.querySelector(".r1-cap");
+        hide(...vals, cbtn, cap); gsap.set(strike, { scaleX: 0 });
+        const T_R = t("«Сбросить»");
+        S.tl.fromTo(R.el, { autoAlpha: 0, scale: 1.06, filter: "blur(14px)" }, { autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: 0.6, ease: "power3.out", immediateRender: false }, T_R - 0.6);   // fully in before «Сбросить» is said
+        rows.forEach(([, , at], i) => Kit.popIn(S, vals[i], at));
+        Kit.popIn(S, vals[4], t("прочерк"));
+        Kit.popIn(S, cbtn, t("Расчёт") + 0.05);
+        S.tl.to(strike, { scaleX: 1, duration: 0.45, ease: "power2.out" }, t("не запускается"));
+        S.tl.to(cbtn, { opacity: 0.8, duration: 0.4 }, t("не запускается") + 0.2);
+        Kit.popIn(S, cap, t("запускается") - 0.05);
+        read("Ожидаем Сбросить Сумма 3 000 000 ₽", T_R, DUR);
+        read("Результат — Рассчитать расчёт не запускается", t("запускается") - 0.05, DUR);
+
+        // arrow: the expectation comes from the intent
+        const arr = document.createElement("div"); arr.className = "r1-arr"; arr.textContent = "→";
+        arr.style.left = "866px"; arr.style.top = "605px"; arr.style.width = "124px"; s1.appendChild(arr); hide(arr);
+        S.tl.fromTo(arr, { autoAlpha: 0, x: -30 }, { autoAlpha: 1, x: 0, duration: 0.5, ease: "power3.out", immediateRender: false }, T_R - 0.5);
+        Kit.popOut(S, arr, T_ZOUT); Z.hide(T_ZOUT);
+
+        /* ---- от своей ветки — новая, не от main ---- */
+        S.tl.to(R.el, { opacity: 0.65, duration: 0.5 }, T_ZOUT + 0.1);
+        const T_FROM = t("от своей"), T_NEW = t("новую");
+        S.tl.to(lNode, { scale: 1.06, duration: 0.25, ease: "power2.out" }, T_FROM);
+        S.tl.to(lNode, { scale: 1, duration: 0.35, ease: "power2.inOut" }, T_FROM + 0.25);
+                const down = document.createElement("div"); down.className = "r1-arr"; down.textContent = "↓";
+        down.style.left = "136px"; down.style.top = "486px"; down.style.width = "64px"; s1.appendChild(down); hide(down);
+        S.tl.fromTo(down, { autoAlpha: 0, y: -26 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out", immediateRender: false }, T_NEW - 0.15);
+        const N = Kit.aside(S, { parent: s1, x: 96, y: 560, w: 520, h: 92, tail: false, html: '<span class="r1-mono">stage-2-reset</span>' });
+        N.el.classList.add("r1-new");
+        S.tl.fromTo(N.el, { autoAlpha: 0, y: -40, scale: 0.9 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(2)", immediateRender: false }, T_NEW);
+        const M = Kit.aside(S, { parent: s1, x: 656, y: 560, w: 200, h: 92, tail: false, html: '<span class="r1-mono" data-layout-allow-occlusion>main</span><i></i>' });
+        M.el.classList.add("r1-main");
+        const mStrike = M.el.querySelector("i"); gsap.set(mStrike, { scaleX: 0 });
+        M.show(t("не от"));
+        S.tl.to(mStrike, { scaleX: 1, duration: 0.4, ease: "power2.out" }, t("main:"));
+        S.tl.to(M.el, { opacity: 0.5, duration: 0.4 }, t("main:") + 0.2);
+        const K = Kit.aside(S, { parent: s1, x: 96, y: 690, w: 760, h: 76, tail: false, html: '5 прежних сценариев — с вами' });
+        K.el.classList.add("r1-keep");
+        S.tl.fromTo(K.el, { autoAlpha: 0, x: -50 }, { autoAlpha: 1, x: 0, duration: 0.7, ease: "power3.out", immediateRender: false }, t("пять прежних"));
+        S.tl.to(c2, { borderColor: Kit.token("--k-text-2"), color: Kit.token("--k-text"), duration: 0.4 }, t("пять прежних"));
+        read("5 прежних сценариев с вами", t("пять прежних"), DUR);
+        read("stage-2-reset main", T_NEW, DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

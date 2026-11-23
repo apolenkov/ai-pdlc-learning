@@ -1,0 +1,59 @@
+{
+  "events": [
+    {
+      "kind": "swipe",
+      "t": 17.12,
+      "pan": -0.5
+    },
+    {
+      "kind": "swipe",
+      "t": 26.62,
+      "pan": 0.5
+    },
+    {
+      "kind": "swipe",
+      "t": 48.82,
+      "pan": -0.5
+    },
+    {
+      "kind": "swipe",
+      "t": 62.22,
+      "pan": 0.5
+    },
+    {
+      "kind": "swipe",
+      "t": 76.32,
+      "pan": -0.5
+    },
+    {
+      "kind": "swipe",
+      "t": 88.41999999999999,
+      "pan": 0.5
+    },
+    {
+      "kind": "swipe",
+      "t": 94.42,
+      "pan": -0.5
+    },
+    {
+      "kind": "pop",
+      "t": 96.387,
+      "note": "06:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 97.837,
+      "note": "06:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 99.194,
+      "note": "06:popIn"
+    },
+    {
+      "kind": "subdrop",
+      "t": 105.2,
+      "pan": 0
+    }
+  ]
+}

@@ -1,0 +1,117 @@
+<template id="scene-06-template">
+  <div data-composition-id="scene-06" data-width="1920" data-height="1080" data-duration="34.3">
+    <style>
+      .s6-g { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+      .s6-ag { position: absolute; width: 228px; text-align: center; font-size: 28px; line-height: 1.25; color: var(--k-text-2); }
+      .s6-ag svg { display: inline-block; vertical-align: -9px; margin-right: 6px; }
+      .s6-rl { position: absolute; width: 228px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 31px; letter-spacing: -.02em; font-weight: 800; color: var(--k-accent-soft); }
+      .s6-cta { position: absolute; width: 214px; margin-left: 7px; text-align: center; padding: 6px 0; border: 2px solid var(--k-line); border-radius: 16px; font-size: 28px; font-weight: 700; color: var(--k-text-2); background: var(--k-panel); }
+      .s6-cta.on { border-color: var(--k-ok); color: var(--k-ok); background: var(--k-ok-tint); }
+      .s6-gl { position: absolute; top: 168px; font-size: 34px; font-weight: 800; letter-spacing: -.01em; }
+      .s6-gl small { font-size: 28px; font-weight: 600; color: var(--k-text-2); margin-left: 10px; }
+      .s6-sn { position: absolute; width: 76px; height: 76px; border-radius: 50%; display: grid; place-items: center; border: 4px solid var(--k-line); background: var(--k-panel-2); color: var(--k-text-2); font-size: 32px; font-weight: 800; }
+      .s6-sn.on { border-color: var(--k-ok); color: var(--k-ok); background: var(--k-ok-tint); }
+      .s6-cap { position: absolute; left: 96px; width: 1728px; top: 346px; font-size: 44px; font-weight: 800; letter-spacing: -.01em; }
+      .s6-cap em { font-style: normal; color: var(--k-ok); }
+      .s6-meta { position: absolute; left: 96px; top: 450px; width: 620px; padding: 26px 30px; border: 3px solid var(--k-ok); border-radius: 26px; background: var(--k-ok-tint); }
+      .s6-meta b { display: flex; align-items: center; gap: 16px; font-size: 40px; font-weight: 800; line-height: 1.15; }
+      .s6-meta span { display: block; margin-top: 10px; font-size: 30px; color: var(--k-text-2); line-height: 1.3; }
+      .s6-lk { position: absolute; left: 960px; width: 860px; padding: 14px 28px; border: 2px solid var(--k-line); border-radius: 18px; background: var(--k-panel); font-size: 34px; font-weight: 700; display: flex; align-items: center; gap: 16px; }
+      .s6-step { position: absolute; left: 96px; top: 450px; width: 820px; padding: 24px 32px; border: 3px solid var(--k-ok); border-radius: 26px; background: var(--k-panel); }
+      .s6-step h3 { font-size: 38px; font-weight: 800; margin-bottom: 14px; }
+      .s6-sr { display: flex; align-items: center; gap: 18px; padding: 10px 0; font-size: 36px; font-weight: 700; }
+      .s6-who { position: absolute; left: 96px; top: 748px; display: flex; align-items: center; gap: 14px; font-size: 34px; font-weight: 700; }
+    </style>
+    <script>
+      (function () {
+        const L = Long.begin("06"), { S, tl, el, show, hide, at, t, DUR } = L;
+        const g1 = el("s6-g"), g2 = el("s6-g");
+        gsap.set(g2, { autoAlpha: 0 });
+        const h1 = L.head("Карта этапов на <span>главной</span>");
+        const h2 = L.head("Курс <span>анализа</span>", t("Подготовка") - 0.1);
+        tl.to(h1, { autoAlpha: 0, duration: 0.35 }, t("Подготовка") - 0.6);
+        // --- часть 1: карта ---
+        const names = ["Намерение и план", "Анализ требований", "Архитектура и дизайн", "Реализация", "Тестирование", "Выпуск", "Наблюдение"];
+        const agents = ["Собирает сигналы и план", "Сценарии", "Варианты и ADR", "Код, Tests, доки", "Тест-модель и автотесты", "Сборка и диагностика", "Обращение ↔ логи ↔ код"];
+        const verbs = ["Решает", "Подтверждает", "Утверждает", "Принимает", "Проверяет", "Допускает", "Наблюдает"];
+        const RT = 200;
+        const rb = L.ribbon({ top: RT, names, cls: "ok", reveal: (i) => 0.5 + i * 0.15 });
+        g1.appendChild(rb.rail);
+        const vAt = t("что делает человек"), aAt = t("что готовит агент");
+        const rows = names.map((_, i) => {
+          const x = rb.cx(i) - 114;
+          const r = el("s6-rl", "<span>" + verbs[i] + "</span>", g1); F.setPos(r, x, RT + 308); show(r, vAt + i * 0.13, 8);
+          const a = el("s6-ag", People.robotIcon(26) + agents[i], g1); F.setPos(a, x, RT + 190); show(a, aAt + i * 0.13, 8);
+          const c = el("s6-cta" + (i === 1 ? "" : ""), i === 1 ? "Курс в работе" : "Курс в работе", g1); F.setPos(c, x, RT + 372); gsap.set(c, { autoAlpha: 0 });
+          return { r, a, c };
+        });
+        // курсы: этапы 01 и 02 открываются, остальные — в работе (главная: 01 и 02 кликабельны, у 03–07 «Курс в работе»)
+        const cl = [0, 1].map((i) => { const c = el("s6-cta on", "Курс →", g1); F.setPos(c, rb.cx(i) - 114, RT + 372); gsap.set(c, { autoAlpha: 0 }); return c; });
+        const oAt = t("открывают");
+        cl.forEach((c, i) => {
+          tl.fromTo(c, { autoAlpha: 0, scale: 0.9 }, { autoAlpha: 1, scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, oAt + i * 0.2);
+          tl.to(rb.nodes[i], { borderColor: F.C.ok, color: F.C.ok, boxShadow: "0 0 0 8px rgba(60,207,145,.16)", duration: 0.3 }, oAt + i * 0.2);
+        });
+        // «Курс в работе» — у остальных этапов
+        const sAt = t("остальные");
+        rows.slice(2).forEach((o) => tl.fromTo(o.c, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3, immediateRender: false }, sAt));
+        // анализ: курс есть сегодня
+        tl.to(rb.nodes[0], { boxShadow: "0 0 0 0 rgba(0,0,0,0)", duration: 0.3 }, t("Сегодня"));
+        tl.to(rb.nodes[1], { boxShadow: "0 0 0 12px rgba(60,207,145,.26)", duration: 0.3 }, t("Сегодня") + 0.2);
+        // --- часть 2: полоса курса ---
+        const swAt = t("Подготовка") - 0.55;
+        tl.to(g1, { autoAlpha: 0, duration: 0.45, ease: "power2.in" }, swAt);
+        tl.set(g2, { autoAlpha: 1 }, swAt + 0.45);
+        const sv = F.layer(g2);
+        const ICON = ["bulb", "branch", "doc", "sitemap"];
+        const nodes = [], px = [150, 300, 450, 600], qx = [800, 917, 1033, 1150, 1267, 1383, 1500], dx = 1740, NY = 238;
+        const mk = (cx, txt, i) => { const d = el("s6-sn", txt, g2); F.setPos(d, cx - 38, NY); nodes.push(d); return d; };
+        px.forEach((x, i) => mk(x, F.icon(ICON[i], 38, F.C.t2), i));
+        qx.forEach((x, i) => mk(x, i < 5 ? String(i + 1) : i === 5 ? "6а" : "6б", i));
+        mk(dx, "7");
+        const gl = [["Подготовка", 96, ""], ["Практика", 770, "<small>кредитный калькулятор</small>"], ["Разработка", 1624, ""]].map(([tx2, x, sm]) => { const d = el("s6-gl", tx2 + sm, g2); d.style.left = x + "px"; return d; });
+        const cxs = [...px, ...qx, dx];
+        const segs = [];
+        cxs.forEach((x, i) => { if (i < cxs.length - 1) segs.push(F.path(sv, `M ${x + 42} ${NY + 38} L ${cxs[i + 1] - 42} ${NY + 38}`, F.C.line, 5)); });
+        // показ: эстафета слева направо
+        const stripAt = t("Подготовка") - 0.3;
+        nodes.forEach((d, i) => { gsap.set(d, { autoAlpha: 0 }); tl.fromTo(d, { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.3, immediateRender: false }, stripAt + i * 0.07); });
+        segs.forEach((p, i) => { gsap.set(p, { strokeDashoffset: 0, autoAlpha: 0 }); tl.fromTo(p, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.2, immediateRender: false }, stripAt + i * 0.07 + 0.1); });
+        gl.forEach((d, i) => show(d, stripAt + [0, 0.4, 0.8][i], 8));
+        const lit = (i, at) => tl.to(nodes[i], { borderColor: F.C.ok, color: F.C.ok, backgroundColor: "rgba(60,207,145,.14)", duration: 0.3 }, at);
+        const caps = [["Зачем меняем процесс", t("Подготовка"), 0], ["Markdown и Git", t("маркдаун"), 1], ["SDD и OpenSpec", t("эс-ди-ди"), 2], ["Мета-репозиторий", t("мета-репозиторий"), 3]];
+        caps.forEach(([txt, at0, ni], i) => {
+          const d = el("s6-cap", "Подготовка · <em>" + txt + "</em>", g2); show(d, at0, 8); lit(ni, at0);
+          tl.to(d, { autoAlpha: 0, duration: 0.25 }, (i < 3 ? caps[i + 1][1] : t("Затем")) - 0.05);
+        });
+        // мета-репозиторий: схема
+        const mAt = t("мета-репозиторий");
+        const meta = el("s6-meta", "<b>" + F.icon("sitemap", 44, F.C.ok) + "Мета-репозиторий<br>продукта</b><span>точка входа с нужным контекстом</span>", g2); show(meta, mAt + 0.3, 12);
+        const mlines = [];
+        const lks = [["link", "ссылки на репозитории продукта", 450], ["commit", "версии", 546], ["doc", "спецификации", 642]];
+        lks.forEach(([ic, txt, y], i) => {
+          const d = el("s6-lk", F.icon(ic, 38, F.C.ok) + txt, g2); d.style.top = y + "px"; show(d, mAt + 1.0 + i * 0.4, 10);
+          const p = F.path(sv, `M 716 ${y > 540 ? 560 : 520} C 840 ${y > 540 ? 560 : 520}, 860 ${y + 33}, 960 ${y + 33}`, F.C.ok, 4); F.draw(tl, p, mAt + 0.9 + i * 0.4, 0.5); mlines.push(p);
+        });
+        const who = el("s6-who", F.person(60, F.C.accS, 5) + "<span style='color:var(--k-text-2)'>+</span>" + People.robotIcon(48) + "<span>начать задачу с нужным контекстом</span>", g2); show(who, t("помогает"), 8);
+        const metaOut = t("Затем") - 0.35;
+        tl.to([meta, who, ...mlines, ...g2.querySelectorAll(".s6-lk")], { autoAlpha: 0, duration: 0.35 }, metaOut);
+        // практика и разработка
+        const pr = t("практика") - 0.1;
+        const cap2 = el("s6-cap", "Практика · <em>кредитный калькулятор</em>", g2); show(cap2, pr + 0.1, 8);
+        qx.forEach((_, i) => lit(4 + i, t("практика") + 0.1 + i * 0.28));
+        const dv = t("разработка");
+        tl.to(cap2, { autoAlpha: 0, duration: 0.25 }, dv - 0.05);
+        const cap3 = el("s6-cap", "Разработка · <em>практикум</em>", g2); show(cap3, dv, 8); lit(11, dv);
+        // в каждом шаге: ролик, образец, результат
+        const stAt = t("В каждом");
+        tl.to(cap3, { autoAlpha: 0, duration: 0.25 }, stAt - 0.1);
+        const st = el("s6-step", "<h3>В каждом шаге</h3>", g2); show(st, stAt, 14);
+        [["play", "ролик", t("ролик,")], ["doc", "учебный образец", t("учебный")], ["box", "проверяемый результат", t("проверяемый")]].forEach(([ic, tx2, at0]) => {
+          const r = el("s6-sr", F.icon(ic, 44, F.C.ok) + "<span>" + tx2 + "</span>", st); gsap.set(r, { autoAlpha: 0 }); show(r, at0, 8);
+        });
+        L.fin();
+      })();
+    </script>
+  </div>
+</template>

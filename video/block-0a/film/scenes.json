@@ -1,0 +1,334 @@
+[
+  {
+    "n": "0m",
+    "duration": 10.3,
+    "chapter": "Что мы сделаем",
+    "step": null,
+    "title": "Карта маршрута",
+    "audio": "assets/vo/scene-0m.mp3",
+    "header": {
+      "total": 10,
+      "split": 7
+    },
+    "audioDuration": 8.72
+  },
+  {
+    "n": 0,
+    "duration": 31.7,
+    "chapter": "Что мы сделаем",
+    "step": null,
+    "title": "Проблема",
+    "audio": "assets/vo/scene-0.mp3",
+    "header": {
+      "total": 10,
+      "split": 7
+    },
+    "audioDuration": 30.13
+  },
+  {
+    "n": "0b",
+    "duration": 40.8,
+    "chapter": "Что мы сделаем",
+    "step": null,
+    "title": "Как меняется работа",
+    "audio": "assets/vo/scene-0b.mp3",
+    "header": {
+      "total": 10,
+      "split": 7
+    },
+    "audioDuration": 39.21
+  },
+  {
+    "id": "t1",
+    "kind": "title",
+    "of": 1,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "На компьютере",
+    "step": 1,
+    "title": "Пишем замысел в Markdown",
+    "audio": null,
+    "header": {
+      "total": 10,
+      "split": 7
+    }
+  },
+  {
+    "n": 1,
+    "duration": 21.3,
+    "chapter": "На компьютере",
+    "step": 1,
+    "title": "Пишем замысел в Markdown",
+    "audio": "assets/vo/scene-1.mp3",
+    "header": {
+      "total": 10,
+      "split": 7
+    },
+    "audioDuration": 19.29
+  },
+  {
+    "id": "t2",
+    "kind": "title",
+    "of": 2,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "На компьютере",
+    "step": 2,
+    "title": "Копии против истории",
+    "audio": null,
+    "header": {
+      "total": 10,
+      "split": 7
+    }
+  },
+  {
+    "n": 2,
+    "duration": 17.7,
+    "chapter": "На компьютере",
+    "step": 2,
+    "title": "Копии против истории",
+    "audio": "assets/vo/scene-2.mp3",
+    "header": {
+      "total": 10,
+      "split": 7
+    },
+    "audioDuration": 15.65
+  },
+  {
+    "id": "t3",
+    "kind": "title",
+    "of": 3,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "На компьютере",
+    "step": 3,
+    "title": "Включаем Git и сохраняем первую версию",
+    "audio": null,
+    "header": {
+      "total": 10,
+      "split": 7
+    }
+  },
+  {
+    "n": 3,
+    "duration": 20.6,
+    "chapter": "На компьютере",
+    "step": 3,
+    "title": "Включаем Git и сохраняем первую версию",
+    "audio": "assets/vo/scene-3.mp3",
+    "header": {
+      "total": 10,
+      "split": 7
+    },
+    "audioDuration": 18.59
+  },
+  {
+    "id": "t4",
+    "kind": "title",
+    "of": 4,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "На компьютере",
+    "step": 4,
+    "title": "Меняем документ и сравниваем",
+    "audio": null,
+    "header": {
+      "total": 10,
+      "split": 7
+    }
+  },
+  {
+    "n": 4,
+    "duration": 18.1,
+    "chapter": "На компьютере",
+    "step": 4,
+    "title": "Меняем документ и сравниваем",
+    "audio": "assets/vo/scene-4.mp3",
+    "header": {
+      "total": 10,
+      "split": 7
+    },
+    "audioDuration": 16.43
+  },
+  {
+    "id": "t5",
+    "kind": "title",
+    "of": 5,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "На компьютере",
+    "step": 5,
+    "title": "Черновик не в историю",
+    "audio": null,
+    "header": {
+      "total": 10,
+      "split": 7
+    }
+  },
+  {
+    "n": 5,
+    "duration": 13.8,
+    "chapter": "На компьютере",
+    "step": 5,
+    "title": "Черновик не в историю",
+    "audio": "assets/vo/scene-5.mp3",
+    "header": {
+      "total": 10,
+      "split": 7
+    },
+    "audioDuration": 11.77
+  },
+  {
+    "id": "t6",
+    "kind": "title",
+    "of": 6,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "На компьютере",
+    "step": 6,
+    "title": "Ветка для другого варианта",
+    "audio": null,
+    "header": {
+      "total": 10,
+      "split": 7
+    }
+  },
+  {
+    "n": 6,
+    "duration": 16.3,
+    "chapter": "На компьютере",
+    "step": 6,
+    "title": "Ветка для другого варианта",
+    "audio": "assets/vo/scene-6.mp3",
+    "header": {
+      "total": 10,
+      "split": 7
+    },
+    "audioDuration": 14.21
+  },
+  {
+    "id": "t7",
+    "kind": "title",
+    "of": 7,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "На компьютере",
+    "step": 7,
+    "title": "Принимаем вариант",
+    "audio": null,
+    "header": {
+      "total": 10,
+      "split": 7
+    }
+  },
+  {
+    "n": 7,
+    "duration": 11.7,
+    "chapter": "На компьютере",
+    "step": 7,
+    "title": "Принимаем вариант",
+    "audio": "assets/vo/scene-7.mp3",
+    "header": {
+      "total": 10,
+      "split": 7
+    },
+    "audioDuration": 9.61
+  },
+  {
+    "id": "t8",
+    "kind": "title",
+    "of": 8,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "В GitLab",
+    "step": 8,
+    "title": "Отправляем в GitLab",
+    "audio": null,
+    "header": {
+      "total": 10,
+      "split": 7
+    }
+  },
+  {
+    "n": 8,
+    "duration": 33.8,
+    "chapter": "В GitLab",
+    "step": 8,
+    "title": "Отправляем в GitLab",
+    "audio": "assets/vo/scene-8.mp3",
+    "header": {
+      "total": 10,
+      "split": 7
+    },
+    "audioDuration": 31.71
+  },
+  {
+    "id": "t9",
+    "kind": "title",
+    "of": 9,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "В GitLab",
+    "step": 9,
+    "title": "Просим проверить: запрос на слияние (MR)",
+    "audio": null,
+    "header": {
+      "total": 10,
+      "split": 7
+    }
+  },
+  {
+    "n": 9,
+    "duration": 31.4,
+    "chapter": "В GitLab",
+    "step": 9,
+    "title": "Просим проверить: запрос на слияние (MR)",
+    "audio": "assets/vo/scene-9.mp3",
+    "header": {
+      "total": 10,
+      "split": 7
+    },
+    "audioDuration": 29.9
+  },
+  {
+    "id": "t10",
+    "kind": "title",
+    "of": 10,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "В GitLab",
+    "step": 10,
+    "title": "Получаем принятую версию",
+    "audio": null,
+    "header": {
+      "total": 10,
+      "split": 7
+    }
+  },
+  {
+    "n": 10,
+    "duration": 11.6,
+    "chapter": "В GitLab",
+    "step": 10,
+    "title": "Получаем принятую версию",
+    "audio": "assets/vo/scene-10.mp3",
+    "header": {
+      "total": 10,
+      "split": 7
+    },
+    "audioDuration": 9.54
+  },
+  {
+    "n": 11,
+    "duration": 22.7,
+    "chapter": "Итог",
+    "step": null,
+    "title": "Что вы умеете и что дальше",
+    "audio": "assets/vo/scene-11.mp3",
+    "header": {
+      "total": 10,
+      "split": 7
+    },
+    "audioDuration": 19.63
+  }
+]

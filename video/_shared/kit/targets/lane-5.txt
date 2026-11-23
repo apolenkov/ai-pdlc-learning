@@ -1,0 +1,7 @@
+# Полоса 5: пять роликов — B (block-sdd, block-r4legacy), E (block-p4, block-r4), C (block-i4).
+# Конфиг ролика — targets/<ролик>.json { variant, bodySha256 }; варианты — kit/variants/<X>.json.
+block-sdd
+block-r4legacy
+block-p4
+block-r4
+block-i4

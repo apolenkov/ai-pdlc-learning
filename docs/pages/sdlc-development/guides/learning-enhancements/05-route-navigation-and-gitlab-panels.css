@@ -1,0 +1,113 @@
+/* Optional step disclosures render as one quiet row of closed siblings after the result. */
+.step-copy>details{margin-top:12px}
+.step-copy>details>summary:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.step-copy>.beginner-extra:not(.beginner-extra--secondary){border:1px solid var(--line);border-radius:var(--customdev-radius-md);background:var(--raised)}
+.step-copy>.beginner-extra:not(.beginner-extra--secondary)>summary{padding:11px 13px;font-size:.84rem}
+.step-copy>.beginner-extra:not(.beginner-extra--secondary)>.beginner-extra__body{padding:2px 14px 14px}
+
+/* Model help belongs to its step and remains closed until the learner asks for it. */
+.step-model{border:1px solid var(--line);border-left:3px solid var(--blue);border-radius:var(--customdev-radius-md);background:var(--blue-soft);color:var(--ink)}
+.step-model>summary{padding:11px 13px;color:var(--blue);font-size:.84rem;font-weight:850;cursor:pointer}
+.step-model[open]>summary{border-bottom:1px solid var(--line)}
+.step-model__icon{flex:none;margin-right:7px}
+.step-model__body{min-width:0;padding:2px 14px 14px;font-size:.9rem;overflow-wrap:anywhere}
+.step-model__body h4{margin:16px 0 8px;color:var(--ink);font-size:.9rem}
+.step-model__body p{max-width:78ch;margin:10px 0;color:var(--ink)}
+.step-model__body ul{display:grid;gap:7px;margin:0;padding-left:1.35rem}
+.step-model__body li{max-width:78ch;color:var(--ink)}
+.step-model .example-toolbar h4{margin:0}
+
+/* Four-course-block labels plus the visually secondary optional С3 branch on
+   the guide index. */
+.shell .route-block-title{min-width:0;max-width:100%;overflow-wrap:anywhere}
+.step-result code,.step-why code{white-space:nowrap}
+@media (max-width:640px){.step-result code,.step-why code{white-space:normal}}
+.route-block-title{margin:12px 0 0;padding-left:82px;color:var(--muted);font:800 13px/1.3 var(--utility);letter-spacing:.08em;text-transform:uppercase}
+.route-board .route-block-title{padding-top:12px;padding-bottom:12px;padding-right:16px;border:1px solid var(--line);border-radius:12px;background:var(--raised)}
+.route-block-title span{display:inline-block;max-width:100%;white-space:normal;margin-left:0;padding:3px 9px;border:1px solid var(--green);border-radius:999px;background:var(--green-soft);color:var(--green);font-weight:800;letter-spacing:.04em}
+.route-row--solo .route-card{grid-column:2/-1}
+.route-board .star-route{position:relative;z-index:1}
+@media(max-width:1000px){.route-block-title{padding-left:72px}}
+@media(max-width:760px){.route-block-title{padding-left:62px}}
+
+/* Optional-stage banner after the hero summary and muted optional footer link. */
+.git-process{grid-column:1/-1;margin:0 0 20px;padding:18px 20px;border:1px solid var(--line);border-left:4px solid var(--green);border-radius:12px;background:var(--raised)}
+.git-process h2{margin:0 0 12px;font:700 1.25rem/1.2 var(--display)}
+.git-process-map{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:0;padding:0;list-style:none;counter-reset:git-step}
+.git-process-map li{min-width:0;padding:10px;border:1px solid var(--line);border-radius:8px;counter-increment:git-step;scroll-margin-top:var(--site-nav-reserve,112px)}
+.git-process-map li::before{content:counter(git-step,decimal-leading-zero);display:block;color:var(--green);font:800 13px var(--utility)}
+.git-process-map strong,.git-process-map span{display:block}
+.git-process-map span{margin-top:4px;color:var(--muted);font-size:13px}
+.git-process p{margin:12px 0 0;font-size:.83rem}
+.gitlab-workflow__zone rect{fill:var(--raised);stroke:var(--line);stroke-width:1.5}
+.gitlab-workflow__node rect{fill:var(--paper);stroke:var(--line);stroke-width:1.5}
+.gitlab-workflow__labels{fill:var(--ink)}
+.gitlab-workflow__paths,.gitlab-workflow marker{color:var(--green)}
+.gitlab-workflow .course-figure__viewport svg{min-width:1000px}
+.git-process-map li{position:relative}
+.git-process-map li:not(:nth-child(4)):not(:last-child)::after{content:"→";position:absolute;right:-8px;top:50%;z-index:1;background:var(--raised);color:var(--green);font:700 1rem var(--body)}
+@media(max-width:760px){.git-process-map{grid-template-columns:1fr}}
+
+/* Route position, step table of contents, disclosure markers, terminal copy blocks (desktop). */
+.step-toc{grid-column:1/-1;padding:18px 24px;border:1px solid var(--line);border-radius:16px;background:color-mix(in srgb, var(--customdev-surface) 96%, transparent)}
+.step-toc h2{margin:0 0 12px;font:700 1.15rem/1.2 var(--display)}
+.footer-nav__prev{display:inline-flex;min-height:44px;align-items:center;font-weight:800}
+.step-toc ol{margin:0;padding-left:1.6rem;display:grid;grid-template-columns:minmax(0,1fr);gap:4px}
+.step-toc a{display:block;padding:6px 0;color:var(--ink)}
+.step-toc a:hover{color:var(--green)}
+.step-list>li{scroll-margin-top:calc(var(--site-nav-reserve,112px) + 16px)}
+.step-toc a:focus-visible,.footer-nav a:focus-visible,summary:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+/* Every collapsed block shows the same triangle marker: closed points right, open points down. */
+.step-trouble>summary::before,.step-screenshots>summary::before,.step-platforms>summary::before,.beginner-extra:not(.beginner-extra--secondary)>summary::before,.step-model>summary::before{content:"";flex:none;width:0;height:0;margin-right:10px;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:8px solid currentColor}
+.step-trouble[open]>summary::before,.step-screenshots[open]>summary::before,.step-platforms[open]>summary::before,.beginner-extra[open]:not(.beginner-extra--secondary)>summary::before,.step-model[open]>summary::before{transform:rotate(90deg)}
+.terminal-copy{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:0 6px;max-width:100%;min-width:0;margin:12px 0}
+.terminal-copy pre{grid-area:1/1;min-width:0;max-width:100%;margin:0;padding:11px;overflow:auto;border-radius:8px;background:#ece8de;white-space:pre-wrap;overflow-wrap:anywhere}
+.terminal-copy pre code{padding:0;background:transparent;color:var(--ink);font-size:.9rem;line-height:1.6}
+.terminal-copy pre:focus-visible{outline:3px solid var(--green);outline-offset:3px}
+.terminal-copy .example-toolbar{grid-area:1/2;margin:0;gap:0}
+
+.terminal-copy .copy-status{grid-column:1/-1}
+
+/* Первый снимок шага открыт и крупный; остальные лежат в раскрываемом блоке. Только десктоп: на телефоне остаётся прежняя раскладка. */
+@media(min-width:761px){
+  .step-list>li{max-width:none}
+  .step-reference--lead{width:min(100%,1200px,var(--shot-w,100%))}
+  .step-reference--lead .step-reference__image>a{cursor:zoom-in}
+  .step-reference--lead img{width:100%;height:auto}
+  .step-reference figcaption{font-size:.85rem}
+}
+.step-next{display:inline-flex;min-height:44px;align-items:center;margin-top:12px;font-weight:800}
+.step-next+.step-next{margin-left:20px}
+.shot-dialog{max-width:96vw;max-height:94vh;padding:0;overflow:auto;border:1px solid var(--line-strong);border-radius:12px;background:#fff}
+.shot-dialog::backdrop{background:rgba(20,24,28,.7)}
+.shot-dialog img{display:block;max-width:none}
+.shot-dialog__close{position:sticky;top:8px;left:8px;z-index:1;min-height:44px;margin:8px;padding:0 16px;border:0;border-radius:var(--customdev-radius-sm);background:var(--ink);color:#fff;font:800 .9rem var(--utility);cursor:pointer}
+
+/* Static teaching panels use GitLab field names and keep every branch readable. */
+.mockup-gitlab{padding:16px;font:400 .9rem/1.5 var(--body)}
+.mockup-gitlab__path{margin:0 0 12px;font-weight:750}
+.mockup-gitlab__fields{display:grid;gap:12px;margin:0 0 16px}
+.mockup-gitlab__fields--branches{grid-template-columns:repeat(2,minmax(0,1fr))}
+.mockup-gitlab__field{min-width:0}
+.mockup-gitlab__field dt{margin-bottom:4px;font-weight:750}
+.mockup-gitlab__field dd{margin:0;padding:10px 12px;border:1px solid var(--line-strong);border-radius:var(--customdev-radius-xs);background:var(--paper);overflow-wrap:anywhere}
+.mockup-gitlab__cue{margin:0 0 12px}
+.mockup-gitlab__button{display:inline-block;padding:8px 14px;border-radius:var(--customdev-radius-xs);background:var(--green);color:#fff;font-weight:750}
+.mockup-gitlab__reviewers{display:grid;gap:0;list-style:none;margin:0;padding:0;border:1px solid var(--line);border-radius:var(--customdev-radius-xs)}
+.mockup-gitlab__reviewer{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding:12px;overflow-wrap:anywhere}
+.mockup-gitlab__reviewer+.mockup-gitlab__reviewer{border-top:1px solid var(--line)}
+.mockup-gitlab__note{grid-column:1/-1;color:var(--muted)}
+.mockup-gitlab__approved{display:inline-block;margin:12px 0 0;padding:5px 12px;border:1px solid var(--green);border-radius:var(--customdev-radius-xs);background:var(--green-soft);color:var(--green);font-weight:750}
+.step-mockup:has(.mockup-gitlab) .step-mockup__fiction{font:750 .875rem/1.5 var(--body);letter-spacing:normal;text-transform:none}
+.step-mockup:has(.mockup-gitlab) .mockup-state{font:750 .875rem/1.5 var(--body)}
+@media(max-width:620px){
+  .mockup-gitlab__fields--branches{grid-template-columns:minmax(0,1fr)}
+  .mockup-gitlab__reviewer{grid-template-columns:minmax(0,1fr)}
+  .mockup-gitlab__reviewer .mockup-state{justify-self:start;align-self:start}
+}
+
+.step-mockup:has(.mockup-gitlab) .mockup-window__bar,.mockup-gitlab .mockup-gitlab__reviewer{max-width:none}
+/* guide.css `.card p{margin:0}` outranks the single-class rule above: restore the gap under the reviewers. */
+.mockup-gitlab .mockup-gitlab__approved{margin:12px 0 0;color:var(--green)}
+
+

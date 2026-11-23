@@ -1,0 +1,9 @@
+{
+  "name": "landing-before-after",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "npx --yes hyperframes@0.8.166 check",
+    "synth": "node tools/synth-alignment.mjs"
+  }
+}

@@ -1,0 +1,176 @@
+<template id="scene-04-template">
+  <div data-composition-id="scene-04" data-width="1920" data-height="1080" data-duration="42.6">
+    <style>
+      [data-composition-id="scene-04"] .sc-strike { position: absolute; left: 84px; top: 20px; height: 3px; border-radius: 2px; background: var(--k-accent); transform-origin: 0 50%; transform: scaleX(0); }
+      [data-composition-id="scene-04"] .sc-tag { height: 100%; display: flex; align-items: center; gap: 22px; font-size: 36px; font-weight: 700; line-height: 1.2; white-space: nowrap; }
+      [data-composition-id="scene-04"] .sc-tag .k { flex: none; padding: 4px 18px; border-radius: 12px; font-size: 32px; }
+      [data-composition-id="scene-04"] .sc-tag.bad .k { background: var(--k-accent-tint); color: var(--k-accent-soft); }
+      [data-composition-id="scene-04"] .sc-tag.good .k { background: var(--k-ok-tint); color: var(--k-ok); }
+      [data-composition-id="scene-04"] .sc-title { height: 100%; display: flex; align-items: center; gap: 22px; font-size: 38px; font-weight: 700; letter-spacing: -0.01em; white-space: nowrap; }
+      [data-composition-id="scene-04"] .sc-title .mono { font-family: var(--k-font-mono); font-size: 32px; font-weight: 600; color: var(--k-accent-soft); }
+      [data-composition-id="scene-04"] .gw { height: 100%; display: flex; flex-direction: column; gap: 14px; }
+      [data-composition-id="scene-04"] .gw .lab { font-size: 40px; font-weight: 800; letter-spacing: -0.01em; }
+      [data-composition-id="scene-04"] .gw.d .lab { color: var(--k-info); }
+      [data-composition-id="scene-04"] .gw.w .lab { color: var(--k-accent-soft); }
+      [data-composition-id="scene-04"] .gw.t .lab { color: var(--k-ok); }
+      [data-composition-id="scene-04"] .gw .row { display: flex; justify-content: space-between; align-items: baseline; font-size: 34px; font-weight: 600; opacity: 0; }
+      [data-composition-id="scene-04"] .gw .row span:first-child { color: var(--k-text-2); font-weight: 500; }
+      [data-composition-id="scene-04"] .gw .note { font-size: 32px; font-weight: 600; line-height: 1.25; opacity: 0; }
+      [data-composition-id="scene-04"] .gw .big { margin-top: auto; padding-top: 12px; border-top: 2px solid var(--k-line); opacity: 0; }
+      [data-composition-id="scene-04"] .gw .big small { display: block; font-size: 30px; font-weight: 500; color: var(--k-text-2); }
+      [data-composition-id="scene-04"] .gw .big b { display: block; font-family: var(--k-font-mono); font-size: 70px; font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; }
+      [data-composition-id="scene-04"] .gw.d .big b { color: var(--k-ok); }
+      [data-composition-id="scene-04"] .gw.w .big b { color: var(--k-accent-soft); font-size: 58px; }
+      [data-composition-id="scene-04"] .gw.t .big b { color: var(--k-accent-soft); }
+      [data-composition-id="scene-04"] .tb-head { display: flex; justify-content: space-between; align-items: center; height: 62px; }
+      [data-composition-id="scene-04"] .tb-head .mono { font-family: var(--k-font-mono); font-size: 34px; font-weight: 700; color: var(--k-code-head); }
+      [data-composition-id="scene-04"] .cnt { display: flex; align-items: center; gap: 16px; font-size: 34px; font-weight: 700; }
+      [data-composition-id="scene-04"] .cnt .num { position: relative; width: 64px; height: 56px; border-radius: 14px; border: 3px solid var(--k-line); }
+      [data-composition-id="scene-04"] .cnt .num i { position: absolute; inset: 0; display: grid; place-items: center; font-style: normal; font-family: var(--k-font-mono); font-size: 38px; font-weight: 700; }
+      [data-composition-id="scene-04"] .cnt .num i.n5 { color: var(--k-ok); opacity: 0; }
+      [data-composition-id="scene-04"] table { width: 100%; border-collapse: separate; border-spacing: 0; table-layout: fixed; margin-top: 6px; }
+      [data-composition-id="scene-04"] th { text-align: left; font-size: 28px; font-weight: 600; color: var(--k-text-2); padding: 8px 14px; border-bottom: 2px solid var(--k-line); }
+      [data-composition-id="scene-04"] td { font-size: 28px; font-weight: 500; line-height: 1.25; padding: 9px 14px; border-bottom: 1px solid var(--k-line); vertical-align: top; }
+      [data-composition-id="scene-04"] td:first-child { font-weight: 700; }
+      [data-composition-id="scene-04"] tr.r { opacity: 0; }
+      [data-composition-id="scene-04"] tr.new td { background: var(--k-ok-tint); border-bottom-color: var(--k-ok); }
+      [data-composition-id="scene-04"] tr.new td:first-child { border-left: 4px solid var(--k-ok); color: var(--k-ok); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("04"), t = S.t, DUR = 42.6;
+        // reveal() on a blank row hands GSAP an empty target (warning), so blank rows get only their number
+        const showRows = (e, from, to, at) => { for (let i = from; i <= to; i++) { const r = e.rows[i]; if (r.chars.length) e.reveal(i, i, at); else S.tl.set(r.no, { opacity: 1 }, at); } };
+        if (DUR - S.end("не нужен") < 1.5) throw new Error("Недостаточный хвост сцены");
+
+        Kit.header(S, { header: { mode: "parts", total: 7 }, chapter: "Правило и сценарий", step: 4, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        /* ---- План 1: проблема -> цель, правило в specification.md ---- */
+        const T_OUT1 = t("сценарий в форме") - 0.1;
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+        const ed = Kit.editor(S, { parent: s1, x: 96, y: 205, w: 1728, crumb: "credit-calculator", visible: false,
+          tabs: [{ name: "specification.md", active: true }],
+          lines: [
+            "## Требования и сценарии",
+            "",
+            "### ПРАВИЛА",
+            "",
+            "…",
+            "Показывать понятную ошибку.",
+            { t: "При ошибочном вводе предыдущий результат очищается до «—», а сообщение указывает ошибочное поле.", add: true },
+          ] });
+        ["5", "6", "7", "8", "", "12", "13"].forEach((n, i) => { ed.rows[i].no.textContent = n; });
+        ed.show(2.1); // the part title overlay covers the first 2 s
+        showRows(ed, 0, 5, 2.2);
+        ed.caretOff(2.2);
+        const strike = document.createElement("div");
+        strike.className = "sc-strike";
+        strike.style.width = ed.rows[5].chars.length * 18 + "px";
+        strike.setAttribute("data-layout-allow-occlusion", ""); ed.rows[5].chars.forEach((c) => c.setAttribute("data-layout-allow-occlusion", ""));
+        ed.rows[5].row.appendChild(strike);
+        ed.mark(5, t("Проверить"), { tone: "accent", off: t("Цель") });
+        const T_NEW = t("Цель");
+        S.tl.to(strike, { scaleX: 1, duration: 0.4, ease: "power2.out" }, T_NEW);
+        S.tl.to(ed.rows[5].chars, { opacity: 0.45, duration: 0.4 }, T_NEW);
+        ed.addLine(6, T_NEW + 0.3, { dur: S.end("ошибочное поле") - T_NEW - 0.7 });
+        ed.rows[6].plus.style.cssText += ";left:0;font-size:20px"; // двузначный номер строки не должен заходить под «+»
+
+        const bad = Kit.aside(S, { parent: s1, x: 96, y: 702, w: 846, h: 112, tail: false,
+          html: '<div class="sc-tag bad"><span class="k">Проблема</span><span>проверить нельзя</span></div>' });
+        const good = Kit.aside(S, { parent: s1, x: 978, y: 702, w: 846, h: 112, tail: false,
+          html: '<div class="sc-tag good"><span class="k">Цель</span><span>правило проверяемо</span></div>' });
+        good.el.style.borderColor = Kit.token("--k-ok");
+        bad.show(t("Проверить")); good.show(S.end("поле.") - 0.6);
+
+        /* ---- План 2: сценарий Дано / Когда / Тогда ---- */
+        const T_IN2 = T_OUT1 + 0.5;
+        const s2 = S.stage();
+        const head2 = Kit.aside(S, { parent: s2, x: 96, y: 215, w: 1728, h: 96, tail: false,
+          html: '<div class="sc-title"><span class="mono">сценарий</span><span>Успешный расчёт → ошибочный ввод</span></div>' });
+        head2.show(T_IN2 + 0.1);
+        const W = 560, GAP = 24, Y2 = 335, H2 = 470;
+        const mkCard = (cls, x, label, body) => {
+          const c = Kit.aside(S, { parent: s2, x, y: Y2, w: W, h: H2, tail: false, html: '<div class="gw ' + cls + '"><div class="lab">' + label + "</div>" + body + "</div>" });
+          return c;
+        };
+        const cD = mkCard("d", 96, "Дано",
+          '<div class="row"><span>Сумма</span><span>120 000 ₽</span></div><div class="row"><span>Ставка</span><span>0%</span></div><div class="row"><span>Срок</span><span>12 месяцев</span></div>' +
+          '<div class="big"><small>показан результат</small><b>10 000 ₽</b></div>');
+        const cW = mkCard("w", 96 + W + GAP, "Когда",
+          '<div class="note">Срок заменили на полтора месяца</div><div class="big"><small>срок</small><b>1,5 месяца</b></div>');
+        const cT = mkCard("t", 96 + 2 * (W + GAP), "Тогда",
+          '<div class="note">У поля срока — сообщение об ошибке</div><div class="big"><small>вместо результата</small><b>—</b></div>');
+        cD.show(t("дано, когда")); cW.show(t("дано, когда") + 0.6); cT.show(t("дано, когда") + 1.2);
+        cD.el.style.borderColor = Kit.token("--k-info");
+        cW.el.style.borderColor = Kit.token("--k-accent");
+        cT.el.style.borderColor = Kit.token("--k-ok");
+        const fade = (el, at) => S.tl.to(el, { opacity: 1, duration: 0.4 }, at);
+        const dRows = cD.el.querySelectorAll(".row");
+        fade(dRows[0], t("сто")); fade(dRows[1], t("ноль")); fade(dRows[2], t("двенадцать"));
+        fade(cD.el.querySelector(".big"), t("результат десять"));
+        fade(cW.el.querySelector(".note"), t("Когда:") + 0.4); fade(cW.el.querySelector(".big"), t("полтора"));
+        fade(cT.el.querySelector(".note"), t("у поля срока")); fade(cT.el.querySelector(".big"), t("вместо результата"));
+
+        /* ---- План 3: таблица сценариев, 4 -> 5 ---- */
+        const T_OUT2 = t("Тогда:") + 4.1;
+        const T_IN3 = t("Четыре") + 0.1;
+        const s3 = S.stage();
+        const rows = [
+          ["Обычная ставка", "3 000 000 ₽; 16%; 240 месяцев", "Ежемесячный платёж 41 738 ₽"],
+          ["Нулевая ставка", "120 000 ₽; 0%; 12 месяцев", "Ежемесячный платёж 10 000 ₽"],
+          ["Недопустимая сумма", "0 ₽; 16%; 240 месяцев", "Ошибка суммы, результат «—», новый расчёт не выполняется"],
+          ["Недопустимый срок", "120 000 ₽; 0%; 1,5 месяца", "Ошибка у поля срока: нужен положительный целый срок в месяцах; результат «—»"],
+          ["Успешный расчёт → ошибочный ввод", "Сначала 120 000 ₽; 0%; 12 месяцев, затем срок 1,5 месяца", "Сначала 10 000 ₽, затем ошибка у поля срока и «—» вместо результата"],
+        ];
+        const tr = rows.map((r, i) => '<tr class="r' + (i === 4 ? " new" : "") + '"><td>' + r.join("</td><td>") + "</td></tr>").join("");
+        const tbl = Kit.aside(S, { parent: s3, x: 96, y: 215, w: 1728, tail: false,
+          html: '<div class="tb-head"><span class="mono">### СЦЕНАРИИ</span><span class="cnt"><span>Сценариев</span><span class="num"><i class="n4">4</i><i class="n5">5</i></span></span></div>' +
+                '<table><colgroup><col style="width:340px"><col style="width:600px"><col></colgroup><thead><tr><th>Сценарий</th><th>Вход</th><th>Ожидаемый результат</th></tr></thead><tbody>' + tr + "</tbody></table>" });
+        tbl.show(T_IN3 + 0.1);
+        const trs = tbl.el.querySelectorAll("tr.r");
+        for (let i = 0; i < 4; i++) S.tl.to(trs[i], { opacity: 1, duration: 0.35 }, T_IN3 + 0.4 + i * 0.25);
+        const T5 = t("остаются") + 0.2;
+        S.tl.to(trs[4], { opacity: 1, duration: 0.5 }, T5);
+        S.tl.to(tbl.el.querySelector(".n4"), { opacity: 0, duration: 0.3 }, t("становится пять") + 0.3);
+        S.tl.to(tbl.el.querySelector(".n5"), { opacity: 1, duration: 0.3 }, t("становится пять") + 0.3);
+
+        /* ---- План 4: открытый вопрос закрыт и удалён ---- */
+        const T_OUT3 = t("Решённый") - 0.55;
+        const T_IN4 = T_OUT3 + 0.5;
+        const s4 = S.stage();
+        const oq = Kit.editor(S, { parent: s4, x: 96, y: 215, w: 1728, crumb: "credit-calculator", visible: true,
+          tabs: [{ name: "specification.md", active: true }],
+          lines: [
+            "## Открытые вопросы",
+            "",
+            "Сбрасывать ли результат предыдущего расчёта после ошибки?",
+            { t: "В этом упражнении открытых вопросов нет.", add: true },
+          ] });
+        ["31", "32", "33", "33"].forEach((n, i) => { oq.rows[i].no.textContent = n; });
+        showRows(oq, 0, 2, T_IN4 + 0.2); oq.caretOff(T_IN4);
+        const T_DEL = t("удалите");
+        oq.mark(2, t("Решённый вопрос"), { tone: "accent" });
+        const strike2 = document.createElement("div");
+        strike2.className = "sc-strike";
+        strike2.style.width = oq.rows[2].chars.length * 18 + "px";
+        strike2.setAttribute("data-layout-allow-occlusion", ""); oq.rows[2].chars.forEach((c) => c.setAttribute("data-layout-allow-occlusion", ""));
+        oq.rows[2].row.appendChild(strike2);
+        S.tl.to(strike2, { scaleX: 1, duration: 0.4, ease: "power2.out" }, T_DEL);
+        S.tl.to(oq.rows[2].chars, { opacity: 0.45, duration: 0.4 }, T_DEL);
+        oq.addLine(3, T_DEL + 0.4, { dur: 1.0 });
+        oq.rows[3].plus.style.cssText += ";left:0;font-size:20px";
+        const cap = Kit.aside(S, { parent: s4, x: 96, y: 590, w: 1728, h: 120, tail: false,
+          html: '<div class="sc-title" style="font-size:40px"><span>Решённый вопрос удаляем — ответ уже записан в правило</span></div>' });
+        cap.el.style.borderColor = Kit.token("--k-ok");
+        cap.show(t("ответ уже"));
+
+        Kit.stageOut(S, s1, T_OUT1); Kit.stageIn(S, s2, T_IN2);
+        Kit.stageOut(S, s2, T_OUT2); Kit.stageIn(S, s3, T_IN3);
+        Kit.stageOut(S, s3, T_OUT3); Kit.stageIn(S, s4, T_IN4);
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

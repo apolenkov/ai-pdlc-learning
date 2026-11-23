@@ -1,0 +1,196 @@
+[
+  {
+    "n": "0m",
+    "duration": 10.2,
+    "chapter": "Зачем это нужно",
+    "step": null,
+    "title": "Карта маршрута",
+    "audio": "assets/vo/scene-0m.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 5
+    },
+    "audioDuration": 8.68
+  },
+  {
+    "n": 0,
+    "duration": 18.2,
+    "chapter": "Зачем это нужно",
+    "step": null,
+    "title": "Зачем это нужно",
+    "audio": "assets/vo/scene-0.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 5
+    },
+    "audioDuration": 16.55
+  },
+  {
+    "n": "0b",
+    "duration": 14.2,
+    "chapter": "Как меняется процесс",
+    "step": null,
+    "title": "Как меняется процесс",
+    "audio": "assets/vo/scene-0b.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 5
+    },
+    "audioDuration": 12.66
+  },
+  {
+    "id": "t1",
+    "kind": "title",
+    "of": 1,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Пять понятий",
+    "step": 1,
+    "title": "Пять понятий",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 5
+    }
+  },
+  {
+    "n": 1,
+    "duration": 27.3,
+    "chapter": "Пять понятий",
+    "step": 1,
+    "title": "Пять понятий",
+    "audio": "assets/vo/scene-1.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 5
+    },
+    "audioDuration": 25.21
+  },
+  {
+    "id": "t2",
+    "kind": "title",
+    "of": 2,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Как устроен",
+    "step": 2,
+    "title": "Как устроен",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 5
+    },
+    "tail": true
+  },
+  {
+    "n": 2,
+    "duration": 31.5,
+    "chapter": "Как устроен",
+    "step": 2,
+    "title": "Как устроен",
+    "audio": "assets/vo/scene-2.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 5
+    },
+    "audioDuration": 29.49
+  },
+  {
+    "id": "t3",
+    "kind": "title",
+    "of": 3,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Store шаг за шагом",
+    "step": 3,
+    "title": "Store шаг за шагом",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 5
+    }
+  },
+  {
+    "n": 3,
+    "duration": 61.6,
+    "chapter": "Store шаг за шагом",
+    "step": 3,
+    "title": "Store шаг за шагом",
+    "audio": "assets/vo/scene-3.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 5
+    },
+    "audioDuration": 59.31
+  },
+  {
+    "id": "t4",
+    "kind": "title",
+    "of": 4,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Версия кода",
+    "step": 4,
+    "title": "Версия кода",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 5
+    },
+    "tail": true
+  },
+  {
+    "n": 4,
+    "duration": 21.4,
+    "chapter": "Версия кода",
+    "step": 4,
+    "title": "Версия кода",
+    "audio": "assets/vo/scene-4.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 5
+    },
+    "audioDuration": 19.32
+  },
+  {
+    "id": "t5",
+    "kind": "title",
+    "of": 5,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Контракт и запросы изменения",
+    "step": 5,
+    "title": "Контракт и запросы изменения",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 5
+    }
+  },
+  {
+    "n": 5,
+    "duration": 26.6,
+    "chapter": "Контракт и запросы изменения",
+    "step": 5,
+    "title": "Контракт и запросы изменения",
+    "audio": "assets/vo/scene-5.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 5
+    },
+    "audioDuration": 24.77
+  },
+  {
+    "n": 6,
+    "duration": 13.9,
+    "chapter": "Что дальше",
+    "step": null,
+    "title": "Что дальше",
+    "audio": "assets/vo/scene-6.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 5
+    },
+    "audioDuration": 10.8
+  }
+]

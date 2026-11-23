@@ -1,0 +1,93 @@
+<template id="scene-02-template">
+  <div data-composition-id="scene-02" data-width="1920" data-height="1080" data-duration="23.4">
+    <style>
+      [data-composition-id="scene-02"] .src { display: flex; align-items: center; gap: 22px; height: 100%; }
+      [data-composition-id="scene-02"] .src svg { width: 52px; height: 52px; flex: none; }
+      [data-composition-id="scene-02"] .src b { display: block; font-size: 36px; font-weight: 700; line-height: 1.15; }
+      [data-composition-id="scene-02"] .src i { display: block; font-style: normal; font-size: 28px; font-weight: 500; color: var(--k-text-2); line-height: 1.2; margin-top: 2px; }
+      [data-composition-id="scene-02"] .ctx-h { display: flex; align-items: center; gap: 22px; }
+      [data-composition-id="scene-02"] .ctx-h svg { width: 84px; height: 84px; flex: none; }
+      [data-composition-id="scene-02"] .ctx-h b { display: block; font-size: 52px; font-weight: 800; letter-spacing: -0.02em; }
+      [data-composition-id="scene-02"] .ctx-h i { display: block; font-style: normal; font-size: 30px; color: var(--k-text-2); margin-top: 2px; }
+      [data-composition-id="scene-02"] .ctx-r { margin-top: 14px; padding: 10px 20px; border-radius: 14px; background: var(--k-panel-2); font-size: 36px; font-weight: 600; }
+      [data-composition-id="scene-02"] .ctx-p { display: inline-block; margin-top: 20px; padding: 8px 22px; border: 2px solid var(--k-ok); border-radius: 26px; background: var(--k-ok-tint); color: var(--k-ok); font-size: 30px; font-weight: 700; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("02"), t = S.t, DUR = 23.4;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»: ${(off - at - reveal).toFixed(1)} с, нужно ${needed.toFixed(1)}`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const div = (cls, html, parent) => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; parent.appendChild(el); return el; };
+        const NS = "http://www.w3.org/2000/svg";
+        const add = (svg, tag, attrs) => { const e = document.createElementNS(NS, tag); Object.entries(attrs).forEach(([k, v]) => e.setAttribute(k, v)); svg.appendChild(e); return e; };
+        const C = (n) => Kit.token("--k-" + n);
+        const ic = (inner, col) => '<svg viewBox="0 0 56 56" fill="none" stroke="' + C(col) + '" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">' + inner + "</svg>";
+
+        Kit.header(S, { duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+        // линии от источников к контексту рисуются, когда всё «собирается»
+        const svg = document.createElementNS(NS, "svg");
+        svg.setAttribute("style", "position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible");
+        s1.appendChild(svg);
+
+        // пять входов: где возникает работа
+        const X = 96, W = 700, H = 104, GAP = 14, Y0 = 228;
+        const srcs = [
+          ["Отзывы пользователей", "", "отзывы", ic('<path d="M8 12h40v24H24l-10 9v-9H8z"/>', "info")],
+          ["Замыслы владельца продукта", "", "замыслы", ic('<path d="M28 8a14 14 0 0 1 8 25v5H20v-5a14 14 0 0 1 8-25zM21 46h14"/>', "accent")],
+          ["Ошибки и логи", "Sentry — сервис сбора ошибок", "ошибки", ic('<path d="M28 8l22 38H6z"/><path d="M28 22v11M28 39v1"/>', "accent")],
+          ["Производительность", "где медленно, не хватает индексов", "производительность", ic('<path d="M8 40a20 20 0 0 1 40 0"/><path d="M28 40l10-14"/>', "info")],
+          ["Метрики", "", "метрики", ic('<path d="M10 46V10M10 46h38M18 38V28M28 38V18M38 38V24"/>', "ok")],
+        ];
+        const tiles = srcs.map(([ttl, sub, w, icon], i) => {
+          const y = Y0 + i * (H + GAP);
+          const a = Kit.aside(S, { parent: s1, x: X, y, w: W, h: H, tail: false, html: '<div class="src">' + icon + "<div><b>" + ttl + "</b>" + (sub ? "<i>" + sub + "</i>" : "") + "</div></div>" });
+          a.el.style.padding = "0 24px";
+          a.show(t(w)); read(ttl + " " + sub, t(w), DUR);
+          return { a, y: y + H / 2 };
+        });
+
+        // общий контекст: папка продукта в Git
+        const folder = '<svg viewBox="0 0 56 56"><path d="M5 14a4 4 0 0 1 4-4h12l5 6h21a4 4 0 0 1 4 4v24a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4z" fill="' + C("accent") + '"/></svg>';
+        const CX = 1180, CY = 260;
+        const ctx = Kit.aside(S, { parent: s1, x: CX, y: CY, w: 644, tail: false, html: '<div class="ctx-h">' + folder + "<div><b>Контекст</b><i>папка продукта в Git</i></div></div>" });
+        ctx.el.style.borderColor = C("accent");
+        ctx.show(0.3); read("Контекст папка продукта в Git", 0.3, DUR);
+        const same = div("ctx-p", "Тот же, что у людей", ctx.el); hide(same); Kit.popIn(S, same, t("тот же")); read("Тот же, что у людей", t("тот же"), DUR);
+        [["Замыслы", t("замыслы", 2)], ["Спецификации", t("спецификации")], ["Устройство системы", t("устройство")]].forEach(([txt, at]) => {
+          const r = div("ctx-r", txt, ctx.el); hide(r); Kit.popIn(S, r, at); read(txt, at, DUR);
+        });
+
+        const TX = CX - 8, TY = CY + 70;
+        tiles.forEach(({ y }, i) => {
+          const at = t("собирается") - 0.4 + i * 0.12;
+          const p = add(svg, "path", { d: `M${X + W + 8} ${y} C${X + W + 180} ${y} ${TX - 200} ${TY} ${TX} ${TY}`, fill: "none", stroke: C("line"), "stroke-width": 4, "stroke-dasharray": "1", "stroke-dashoffset": "1", pathLength: "1" });
+          S.tl.to(p, { attr: { "stroke-dashoffset": 0 }, duration: 0.6, ease: "power2.out" }, at);
+          // точки-сигналы бегут по линии к контексту
+          for (let k = 0; k < 2; k += 1) {
+            const dot = add(svg, "circle", { cx: X + W + 8, cy: y, r: 8, fill: C("accent"), opacity: 0 });
+            const t0 = at + 0.5 + k * 0.9;
+            S.tl.set(dot, { opacity: 1 }, t0);
+            const steps = 12;
+            for (let s = 1; s <= steps; s += 1) {
+              const u = s / steps, v = 1 - u;
+              const px = v * v * v * (X + W + 8) + 3 * v * v * u * (X + W + 180) + 3 * v * u * u * (TX - 200) + u * u * u * TX;
+              const py = v * v * v * y + 3 * v * v * u * y + 3 * v * u * u * TY + u * u * u * TY;
+              S.tl.to(dot, { attr: { cx: px, cy: py }, duration: 0.9 / steps, ease: "none" }, t0 + ((s - 1) * 0.9) / steps);
+            }
+            S.tl.set(dot, { opacity: 0 }, t0 + 0.9);
+          }
+        });
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

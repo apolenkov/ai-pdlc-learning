@@ -1,0 +1,96 @@
+<template id="scene-03-template">
+  <div data-composition-id="scene-03" data-width="1920" data-height="1080" data-duration="18.4">
+    <style>
+      [data-composition-id="scene-03"] .rl { position: absolute; left: 96px; top: 206px; width: 1728px; height: 92px; display: grid; grid-template-columns: 1fr 56px 1fr 56px 1fr 56px 1fr; align-items: stretch; }
+      [data-composition-id="scene-03"] .rl > .k-aside { position: relative; left: 0; top: 0; box-sizing: border-box; padding: 0 20px; display: flex; align-items: center; gap: 16px; }
+      [data-composition-id="scene-03"] .rl-n { flex: 0 0 auto; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: var(--k-accent-tint); color: var(--k-accent-soft); font-size: 32px; font-weight: 800; }
+      [data-composition-id="scene-03"] .rl-t { font-size: 38px; font-weight: 700; line-height: 1.1; white-space: nowrap; }
+      [data-composition-id="scene-03"] .rl-a { align-self: center; text-align: center; font-size: 52px; font-weight: 300; color: var(--k-text-2); line-height: 1; }
+      [data-composition-id="scene-03"] .rp { position: absolute; top: 346px; }
+      [data-composition-id="scene-03"] .rp > .k-aside { position: relative; left: 0; top: 0; }
+      [data-composition-id="scene-03"] .rp-h { display: flex; align-items: center; gap: 14px; font-size: 42px; font-weight: 800; line-height: 1.1; margin-bottom: 12px; }
+      [data-composition-id="scene-03"] .rp-h svg { width: 48px; height: 48px; color: var(--k-accent-soft); flex-shrink: 0; }
+      [data-composition-id="scene-03"] .ck { display: flex; align-items: center; gap: 16px; height: 84px; margin-top: 14px; padding: 0 20px; box-sizing: border-box; border: 3px solid var(--k-ok); border-radius: 14px; background: var(--k-ok-tint); font-size: 34px; font-weight: 700; line-height: 1.1; white-space: nowrap; }
+      [data-composition-id="scene-03"] .ck svg { width: 44px; height: 44px; color: var(--k-ok); flex-shrink: 0; }
+      [data-composition-id="scene-03"] .bc-cap { font-size: 32px; font-weight: 600; color: var(--k-text-2); line-height: 1.2; margin-bottom: 10px; }
+      [data-composition-id="scene-03"] .bc-m { font-family: var(--k-font-mono); font-size: 32px; font-weight: 500; line-height: 1.2; padding: 18px 16px; border-radius: 12px; white-space: nowrap; }
+      [data-composition-id="scene-03"] .bc-new { background: var(--k-accent-tint); color: var(--k-accent-soft); border: 3px solid var(--k-accent); }
+      [data-composition-id="scene-03"] .bc-base { background: var(--k-panel-2); border: 3px solid var(--k-line); }
+      [data-composition-id="scene-03"] .bc-from { display: flex; align-items: center; gap: 14px; font-size: 38px; font-weight: 700; margin: 24px 0; }
+      [data-composition-id="scene-03"] .bc-from svg { width: 34px; height: 40px; color: var(--k-text-2); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("03"), t = S.t, DUR = 18.4;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const div = (cls, html, parent) => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; parent.appendChild(el); return el; };
+        const INFO = Kit.token("--k-info"), LINE = Kit.token("--k-line"), ACC = Kit.token("--k-accent");
+        const DOC = '<svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h22l10 10v36H13z"/><path d="M35 5v10h10M21 28h16M21 38h16"/></svg>';
+        const CHECK = '<svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="22" cy="22" r="18"/><path d="M13 23l6 6 12-13"/></svg>';
+        const UP = '<svg viewBox="0 0 34 40" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 36V6M7 16L17 6l10 10"/></svg>';
+
+        Kit.header(S, { header: { mode: "parts", total: 8 }, chapter: "Подготовка и своя ветка", step: 3, duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* Rail in the order of the narration: one skill → whole card → report → branch. */
+        const rail = div("rl", "", s1);
+        const R = [
+          ["один навык", t("один навык"), t("Вставьте") - 0.1],
+          ["карточка целиком", t("карточку"), t("дождитесь") - 0.1],
+          ["отчёт", t("дождитесь"), t("Тогда создайте") - 0.1],
+          ["ветка", t("Тогда создайте"), DUR],
+        ];
+        const pills = R.map(([txt, at], i) => {
+          const p = Kit.aside(S, { parent: rail, tail: false, html: `<div class="rl-n">${i + 1}</div><div class="rl-t">${txt}</div>` });
+          hide(p.el); Kit.popIn(S, p.el, at);
+          read(txt, at, DUR);
+          if (i < 3) { const ar = div("rl-a", "→", rail); hide(ar); Kit.popIn(S, ar, R[i + 1][1] - 0.3); }
+          return p;
+        });
+        R.forEach(([, at, off], i) => {
+          S.tl.to(pills[i].el, { borderColor: i === 3 ? ACC : INFO, duration: 0.3 }, at);
+          if (i < 3) S.tl.to(pills[i].el, { borderColor: LINE, duration: 0.3 }, off);
+        });
+
+        /* Stage (a): the preparation report with three ticks. It starts centred and slides left for the branch. */
+        const wrap = div("rp", "", s1); wrap.style.left = "96px"; wrap.style.width = "820px";
+        const rep = Kit.aside(S, { parent: wrap, tail: false, html:
+          `<div class="rp-h">${DOC}Отчёт подготовки</div>` +
+          ["хранилище проверено", "две подготовки успешны", "номера версий совпали с карточкой"].map((x) => `<div class="ck">${CHECK}<span>${x}</span></div>`).join("") });
+        const cks = Array.from(rep.el.querySelectorAll(".ck")); hide(...cks);
+        gsap.set(wrap, { x: 454 });
+        const T_REP = t("хранилище") - 0.3;
+        rep.show(T_REP);
+        const CT = [t("хранилище"), t("обе подготовки"), t("номера")];
+        cks.forEach((c, i) => { Kit.popIn(S, c, CT[i]); read(c.textContent, CT[i], DUR); });
+
+        /* Stage (b): the branch from the base. */
+        const T_BR = t("Тогда создайте");
+        S.tl.to(wrap, { x: 0, duration: 0.8, ease: "power2.inOut" }, T_BR - 0.5);
+        const bw = div("rp", "", s1); bw.style.left = "980px"; bw.style.width = "844px";
+        const br = Kit.aside(S, { parent: bw, tail: false, html:
+          '<div class="bc-cap">Ветка для требований</div>' +
+          '<div class="bc-m bc-new">course/&lt;LOGIN&gt;/stage-4-amount-limits</div>' +
+          `<div class="bc-from">${UP}<span>от выданной базы</span></div>` +
+          '<div class="bc-m bc-base">IMPORT_BASE_BRANCH</div>' });
+        const bFrom = br.el.querySelector(".bc-from"), bBase = br.el.querySelector(".bc-base");
+        hide(bFrom, bBase);
+        br.show(t("создайте"));
+        const T_BASE = t("от выданной");
+        Kit.popIn(S, bFrom, T_BASE); Kit.popIn(S, bBase, T_BASE + 0.15);
+        read("Ветка для требований course LOGIN stage-4 amount limits", t("создайте"), DUR);
+        read("от выданной базы IMPORT_BASE_BRANCH", T_BASE, DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

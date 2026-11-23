@@ -1,0 +1,32 @@
+<template id="scene-06-template">
+  <div data-composition-id="scene-06" data-width="1920" data-height="1080" data-duration="11.1">
+    <style>
+      [data-composition-id="scene-06"] .h-h { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 58px; font-weight: 800; }
+      [data-composition-id="scene-06"] .h-card { position: absolute; padding: 28px 34px; border: 2px solid var(--k-line); border-radius: 26px; background: var(--k-panel); }
+      [data-composition-id="scene-06"] .h-card b { color: var(--k-text); }
+      [data-composition-id="scene-06"] .h-t { font-size: 48px; font-weight: 800; }
+      [data-composition-id="scene-06"] .h-d { margin-top: 14px; font-size: 36px; line-height: 1.35; color: var(--k-text-2); }
+      [data-composition-id="scene-06"] .h-chip { position: absolute; padding: 18px 32px; border: 2px solid var(--k-line); border-radius: 22px; background: var(--k-panel-2); font-size: 42px; font-weight: 700; }
+      [data-composition-id="scene-06"] .h-line { position: absolute; font-size: 44px; font-weight: 800; }
+      [data-composition-id="scene-06"] .h-line span { color: var(--k-ok); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("06"), DUR = 11.1;
+        const tt = (w, d) => { try { return S.t(w); } catch (e) { return d; } };
+        const pic = (n, x, y, w, at, dur) => Kit.sketch(S, { name: n, x, y, w, at, dur: dur || 2.4 });
+        const el = (cls, html, x, y, w) => { const e = document.createElement("div"); e.className = cls; e.innerHTML = html; e.style.left = x + "px"; e.style.top = y + "px"; if (w) e.style.width = w + "px"; S.root.appendChild(e); return e; };
+        const show = (e, at) => { (Array.isArray(e) ? e : [e]).forEach((x) => { gsap.set(x, { autoAlpha: 0 }); S.tl.fromTo(x, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: "power2.out", immediateRender: false }, at); }); };
+        const head = (txt, at) => { const h = el("h-h", txt, 96, 64); show(h, at == null ? 0.1 : at); return h; };
+        head("С чего начать");
+        const items = [["Карта этапов", "и гайд «как было — как стало»"], ["Аналитик", "→ курс"], ["Команда", "→ аудит своего продукта"]];
+        const cs = items.map(([t, d], i) => { const c = el("h-card", '<div class="h-t">' + t + '</div><div class="h-d">' + d + "</div>", 96 + i * 590, 200, 560); c.style.minHeight = "300px"; c.style.padding = "36px 34px"; show(c, tt(["Начните", "Аналитик", "с аудита"][i], 1 + i * 2)); return c; });
+        const sp = el("h-chip", "Справка: роли · глоссарий · ресурсы", 96, 760); show(sp, tt("Роли", 9));
+        pic("team-done", 1330, 640, 400, 2, 3);
+        People.focus(S, cs.concat([sp]), [tt("Начните", 1), tt("Аналитик", 5), tt("с аудита", 7), tt("Роли", 9.5)], DUR - 1.0);
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

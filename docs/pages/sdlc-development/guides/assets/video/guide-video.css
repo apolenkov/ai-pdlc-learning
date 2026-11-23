@@ -1,0 +1,54 @@
+/* Player block of the block-0a lesson video; tokens come from guides/guide.css. */
+.lesson-video__layout { display: grid; grid-template-columns: minmax(0, 2fr) minmax(240px, 1fr); gap: 24px; align-items: start; }
+.lesson-video__stage { min-width: 0; }
+.lesson-video video { display: block; width: 100%; aspect-ratio: 16 / 9; border-radius: 12px; background: var(--graphite); }
+.lesson-video__chapters { max-height: 420px; overflow-y: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--raised); }
+/* Fade the list bottom while more chapters are below; inactive without scroll-timeline support or overflow. */
+@property --chapters-fade { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@keyframes chapters-fade { from, 92% { --chapters-fade: 48px; } to { --chapters-fade: 0px; } }
+.lesson-video__chapters { mask-image: linear-gradient(to bottom, #000 calc(100% - var(--chapters-fade)), rgb(0 0 0 / .2)); animation: chapters-fade linear both; animation-timeline: scroll(self); }
+/* The chapter list is a scroll box, so its buttons keep the focus ring inside the row: an outside ring is cut by overflow and dimmed by the fade mask. While the keyboard is inside the list the fade steps aside. */
+.lesson-video__chapters:focus-within { mask-image: none; }
+.lesson-video__chapters button:focus-visible { outline: 3px solid var(--blue); outline-offset: -3px; }
+.lesson-video__chapters ol { margin: 0; padding: 0; list-style: none; display: block; }
+.lesson-video__chapters li { margin: 0; max-width: none; }
+.lesson-video__chapters button { display: flex; gap: 12px; width: 100%; min-height: 44px; padding: 10px 14px; border: 0; border-bottom: 1px solid var(--line); background: transparent; color: var(--ink); font: inherit; text-align: left; cursor: pointer; }
+/* The row corners follow the rounded scroll box (12px minus its 1px border), so the inner ring keeps its shape at the first and the last row. */
+.lesson-video__chapters li:first-child button { border-top-left-radius: 11px; border-top-right-radius: 11px; }
+.lesson-video__chapters li:last-child button { border-bottom: 0; border-bottom-left-radius: 11px; border-bottom-right-radius: 11px; }
+.lesson-video__chapters button:hover { background: var(--green-soft); }
+.lesson-video__chapters button[aria-current="true"] { background: var(--green-soft); box-shadow: inset 4px 0 0 var(--green); font-weight: 700; }
+.lesson-video__time { flex: none; min-width: 3ch; color: var(--muted); font-family: var(--utility); font-variant-numeric: tabular-nums; }
+.lesson-video__step { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
+.lesson-video__step button { min-height: 44px; padding: 8px 16px; border: 1px solid var(--green); border-radius: 10px; background: var(--raised); color: var(--green); font: 700 .9rem/1.2 var(--body); cursor: pointer; }
+.lesson-video__step button:hover { background: var(--green-soft); }
+@media (max-width: 900px) { .lesson-video__layout { grid-template-columns: minmax(0, 1fr); } .lesson-video__chapters { max-height: 280px; } }
+.lesson-video--step { margin: 12px 0 16px; }
+.lesson-video--step :is(h3, h4, h5, h6) { margin: 0 0 12px; font-size: 1.05rem; }
+.lesson-video__frame { position: relative; container-type: inline-size; }
+.lesson-video__intro, .lesson-video__corner, .lesson-video__ending { position: absolute; margin: 0; pointer-events: none; color: var(--ink); background: var(--raised); border-radius: 6px; font-family: var(--body); }
+.lesson-video__intro { inset: 8px 12px auto; padding: 8px 12px; font-size: clamp(14px, 3.2cqi, 24px); font-weight: 750; line-height: 1.2; }
+.lesson-video__corner { top: 10%; left: 8px; width: fit-content; max-width: calc(100% - 16px); padding: 2px 6px; background: color-mix(in srgb, var(--raised) 88%, transparent); font-size: 12px; line-height: 1.2; }
+.lesson-video__ending { inset: 8px 12px auto; box-sizing: border-box; max-height: calc(60% - 8px); overflow-y: auto; padding: 8px 12px; font-size: clamp(12px, 2.4cqi, 20px); font-weight: 700; line-height: 1.3; }
+.lesson-video__ending a { pointer-events: auto; color: var(--green); text-decoration: underline; text-underline-offset: .15em; }
+.lesson-video__ending a:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+
+/* The frame stacks the video and the ending card in one column. */
+.lesson-video__frame { display: grid; gap: 8px; }
+.lesson-video__frame video { grid-row: 1; }
+.lesson-video__corner { display: none; }
+.lesson-video__ending { grid-row: 2; }
+@media (max-width: 719px) {
+  .lesson-video__ending { top: 8px; bottom: auto; padding: 4px 6px; }
+}
+
+.lesson-video__disclosure > summary { cursor: pointer; font-weight: 700; }
+.lesson-video__disclosure[open] > summary { margin-bottom: .75rem; }
+.lesson-goal > .lesson-video { margin-top: 20px; padding: 0; border: 0; background: none; }
+/* Film attribution (CC BY): the folded label is smaller and paler; the opened attribution keeps the previous ink and size. Owner's word 19.10 23:14. No disclosure marker, as on the home page. */
+.lesson-video__credit { margin: 8px 0 0; color: var(--customdev-credit-ink-open); font-size: .6875rem; font-weight: 400; line-height: 1.4; }
+.lesson-video__credit summary { list-style: none; cursor: pointer; font-weight: 400; color: var(--customdev-credit-ink); font-size: .625rem; }
+.lesson-video__credit summary::-webkit-details-marker { display: none; }
+.lesson-video__credit summary::marker { content: ""; }
+.lesson-video__credit summary:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+.lesson-video__credit a { color: inherit; text-decoration: underline; }

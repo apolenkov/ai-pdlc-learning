@@ -1,0 +1,15 @@
+.s5-sub { position: absolute; left: 96px; top: 150px; width: 1728px; text-align: center; font-size: 36px; font-weight: 700; color: var(--k-text-2); }
+.s5-tag { position: absolute; width: 228px; text-align: center; }
+.s5-tag span { display: inline-block; padding: 4px 16px; border-radius: 14px; font-size: 28px; font-weight: 800; letter-spacing: .04em; line-height: 1.2; }
+.s5-tag .th { background: rgba(124,196,255,.14); color: var(--k-info); border: 2px solid var(--k-info); }
+.s5-tag .pr { background: var(--k-ok-tint); color: var(--k-ok); border: 2px solid var(--k-ok); }
+.s5-tag .bo { background: var(--k-accent-tint); color: var(--k-accent-soft); border: 2px solid var(--k-accent); }
+.s5-card { position: absolute; left: 96px; top: 690px; width: 1728px; height: 300px; padding: 26px 40px; }
+.s5-card h3 { font-size: 42px; font-weight: 800; margin-bottom: 16px; }
+.s5-flow { display: flex; align-items: center; gap: 22px; font-size: 38px; font-weight: 800; }
+.s5-flow i { flex: 1 1 0; padding: 18px 20px; border-radius: 20px; border: 2px solid var(--k-line); background: var(--k-panel-2); font-style: normal; text-align: center; line-height: 1.2; }
+.s5-flow i.n { border-color: var(--k-ok); color: var(--k-ok); }
+.s5-flow b { color: var(--k-text-2); font-size: 44px; }
+.s5-mm { display: flex; gap: 60px; align-items: flex-end; height: 196px; }
+.s5-col { flex: 1 1 0; text-align: center; font-size: 36px; font-weight: 800; }
+.s5-col div { margin: 0 auto 10px; width: 120px; border-radius: 10px 10px 4px 4px; }

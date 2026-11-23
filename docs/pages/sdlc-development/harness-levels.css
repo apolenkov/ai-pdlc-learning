@@ -1,0 +1,61 @@
+/* Ступени harness и Dark Factory: поверх help-reference.css, только то, чего в нём нет. */
+.reference-panel > header { border: 0; background: transparent; padding-bottom: 0; }
+.harness-lead { margin: 0; padding: 16px 20px; color: var(--reference-ink); font-size: .92rem; }
+.harness-quote { margin: 0; padding: 14px 18px; border-left: 4px solid var(--reference-green); border-radius: 0 var(--customdev-radius-sm) var(--customdev-radius-sm) 0; background: var(--customdev-green-soft); color: var(--reference-ink); font-size: .9rem; line-height: 1.55; }
+.harness-quote footer { margin-top: 6px; color: var(--reference-muted); font-size: .76rem; }
+.harness-quotes { display: grid; gap: 12px; padding: 16px; }
+.harness-quotes .harness-quote { border-radius: var(--customdev-radius-sm); }
+
+.harness-stages { display: grid; gap: 10px; margin: 0; padding: 16px; list-style: none; }
+.harness-stages > li { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.6fr) minmax(0, 1.6fr); gap: 0; overflow: hidden; border: 1px solid var(--reference-line); border-radius: var(--customdev-radius-sm); background: var(--customdev-white); }
+.harness-stages > li > * { min-width: 0; padding: 12px 14px; overflow-wrap: anywhere; font-size: .84rem; }
+.harness-stages > li > :not(:last-child) { border-right: 1px solid var(--reference-line); }
+.harness-stages h3 { margin: 0; color: var(--reference-blue); font-size: .95rem; letter-spacing: -.015em; }
+.harness-stages small { display: block; margin-top: 4px; color: var(--reference-muted); font-size: .76rem; }
+.harness-stages b { display: block; margin-bottom: 3px; color: var(--reference-green); font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; }
+.harness-stages p { margin: 0; color: var(--reference-ink); }
+
+.harness-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; padding: 16px; margin: 0; list-style: none; counter-reset: step; }
+.harness-steps > li { position: relative; min-width: 0; overflow-wrap: anywhere; padding: 16px 18px; border: 1px solid var(--reference-line); border-radius: var(--customdev-radius-sm); background: var(--customdev-white); }
+.harness-steps > li::before { display: block; margin-bottom: 6px; color: var(--reference-green); font-size: .72rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; counter-increment: step; content: "Ступень " counter(step); }
+.harness-steps h3 { margin: 0; color: var(--reference-blue); font-size: 1rem; letter-spacing: -.015em; }
+.harness-steps p { margin: 8px 0 0; color: var(--reference-ink); font-size: .84rem; }
+.harness-steps p.harness-human { padding-top: 8px; border-top: 1px solid var(--reference-line); }
+.harness-steps p.harness-human b { color: var(--reference-green); }
+
+.harness-prose { display: grid; gap: 12px; padding: 16px; }
+.harness-prose p { margin: 0; color: var(--reference-ink); font-size: .9rem; line-height: 1.55; }
+.harness-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; align-items: start; padding: 16px; }
+.harness-pair > div { min-width: 0; overflow-wrap: anywhere; padding: 16px 18px; border: 1px solid var(--reference-line); border-radius: var(--customdev-radius-sm); }
+.harness-pair h3 { margin: 0; color: var(--reference-blue); font-size: 1rem; }
+.harness-pair p { margin: 6px 0 0; color: var(--reference-ink); font-size: .86rem; }
+.harness-pair ul { display: grid; gap: 6px; margin: 8px 0 0; padding-left: 18px; color: var(--reference-ink); font-size: .86rem; }
+.harness-pair ul + p { margin-top: 12px; }
+
+.harness-figure { margin: 0; padding: 16px; }
+/* Схема в натуральную величину (подписи около 13 px): рамка прокручивается, а не сжимает картинку до 6 px. */
+.harness-figure-scroll { overflow: auto; max-height: min(75vh, 1660px); border: 1px solid var(--reference-line); border-radius: var(--customdev-radius-sm); background: var(--customdev-white); overscroll-behavior-x: contain; }
+.harness-figure-scroll:focus-visible { outline: 3px solid var(--reference-green); outline-offset: 2px; }
+.harness-figure img { display: block; width: 3094px; max-width: none; height: auto; }
+.harness-figure figcaption { margin-bottom: 10px; color: var(--reference-muted); font-size: .8rem; }
+
+.harness-compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr)); gap: 10px; margin: 0; padding: 16px; list-style: none; }
+.harness-compare > li { padding: 12px 16px; border: 1px solid var(--reference-line); border-radius: var(--customdev-radius-sm); color: var(--reference-ink); font-size: .88rem; overflow-wrap: anywhere; }
+/* Абзацы и пункты разделов — строкой до 72 знаков, а не во всю карточку (было до 170). */
+.harness-compare p { margin: 0; }
+.harness-prose p, .harness-compare p, .reference-panel > header p { max-width: 72ch; }
+/* Бенчмарк: три короткие фразы — список без рамок. */
+#benchmark .reference-rule-list { display: grid; gap: 8px; padding: 16px 16px 16px 38px; list-style: disc; }
+#benchmark .reference-rule-list > li { max-width: 72ch; padding: 0; border: 0; border-radius: 0; }
+#benchmark .reference-rule-list > li::marker { color: var(--reference-green); }
+
+.harness-compare a, .harness-prose a, .harness-quote a, .harness-stages a, .harness-figure figcaption a { color: var(--reference-blue); font-weight: 700; text-underline-offset: 3px; }
+
+@media (max-width: 899px) {
+  .harness-steps, .harness-pair { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 719px) {
+  .harness-stages > li { grid-template-columns: minmax(0, 1fr); }
+  .harness-stages > li > :not(:last-child) { border-right: 0; border-bottom: 1px solid var(--reference-line); }
+  .harness-steps, .harness-pair, .harness-prose, .harness-quotes, .harness-stages, .harness-compare, .harness-figure { padding: 12px; }
+}

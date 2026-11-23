@@ -1,0 +1,7 @@
+renders/
+.hopa/
+.hf/
+node_modules/
+.hyperframes/
+work/audio/
+snapshots/

@@ -1,0 +1,278 @@
+[
+  {
+    "n": "0m",
+    "duration": 9.6,
+    "chapter": "Зачем это нужно",
+    "step": null,
+    "title": "Карта маршрута",
+    "audio": "assets/vo/scene-0m.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 8
+    },
+    "audioDuration": 8.08
+  },
+  {
+    "n": 0,
+    "duration": 28.8,
+    "chapter": "Зачем это нужно",
+    "step": null,
+    "title": "Зачем это нужно",
+    "audio": "assets/vo/scene-0.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 8
+    },
+    "audioDuration": 27.28
+  },
+  {
+    "n": "0b",
+    "duration": 21.5,
+    "chapter": "Как меняется процесс",
+    "step": null,
+    "title": "Как меняется процесс",
+    "audio": "assets/vo/scene-0b.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 8
+    },
+    "audioDuration": 19.92
+  },
+  {
+    "id": "t1",
+    "kind": "title",
+    "of": 1,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Карта метарепозитория",
+    "step": 1,
+    "title": "Карта метарепозитория",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 8
+    }
+  },
+  {
+    "n": 1,
+    "duration": 22.1,
+    "chapter": "Карта метарепозитория",
+    "step": 1,
+    "title": "Карта метарепозитория",
+    "audio": "assets/vo/scene-1.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 8
+    },
+    "audioDuration": 20
+  },
+  {
+    "id": "t2",
+    "kind": "title",
+    "of": 2,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Форк и выданная ветка",
+    "step": 2,
+    "title": "Форк и выданная ветка",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 8
+    }
+  },
+  {
+    "n": 2,
+    "duration": 20.2,
+    "chapter": "Форк и выданная ветка",
+    "step": 2,
+    "title": "Форк и выданная ветка",
+    "audio": "assets/vo/scene-2.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 8
+    },
+    "audioDuration": 18.12
+  },
+  {
+    "id": "t3",
+    "kind": "title",
+    "of": 3,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Подготовка и своя ветка",
+    "step": 3,
+    "title": "Подготовка и своя ветка",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 8
+    }
+  },
+  {
+    "n": 3,
+    "duration": 18.4,
+    "chapter": "Подготовка и своя ветка",
+    "step": 3,
+    "title": "Подготовка и своя ветка",
+    "audio": "assets/vo/scene-3.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 8
+    },
+    "audioDuration": 16.31
+  },
+  {
+    "id": "t4",
+    "kind": "title",
+    "of": 4,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Задача в Jira",
+    "step": 4,
+    "title": "Задача в Jira",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 8
+    }
+  },
+  {
+    "n": 4,
+    "duration": 11.5,
+    "chapter": "Задача в Jira",
+    "step": 4,
+    "title": "Задача в Jira",
+    "audio": "assets/vo/scene-4.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 8
+    },
+    "audioDuration": 9.41
+  },
+  {
+    "id": "t5",
+    "kind": "title",
+    "of": 5,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Вопросы модели",
+    "step": 5,
+    "title": "Вопросы модели",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 8
+    }
+  },
+  {
+    "n": 5,
+    "duration": 35.9,
+    "chapter": "Вопросы модели",
+    "step": 5,
+    "title": "Вопросы модели",
+    "audio": "assets/vo/scene-5.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 8
+    },
+    "audioDuration": 33.86
+  },
+  {
+    "id": "t6",
+    "kind": "title",
+    "of": 6,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Изменение",
+    "step": 6,
+    "title": "Изменение",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 8
+    }
+  },
+  {
+    "n": 6,
+    "duration": 19.5,
+    "chapter": "Изменение",
+    "step": 6,
+    "title": "Изменение",
+    "audio": "assets/vo/scene-6.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 8
+    },
+    "audioDuration": 17.47
+  },
+  {
+    "id": "t7",
+    "kind": "title",
+    "of": 7,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Проверка и одобрение",
+    "step": 7,
+    "title": "Проверка и одобрение",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 8
+    }
+  },
+  {
+    "n": 7,
+    "duration": 60.4,
+    "chapter": "Проверка и одобрение",
+    "step": 7,
+    "title": "Проверка и одобрение",
+    "audio": "assets/vo/scene-7.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 8
+    },
+    "audioDuration": 58.32
+  },
+  {
+    "id": "t8",
+    "kind": "title",
+    "of": 8,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Сохранить и передать",
+    "step": 8,
+    "title": "Сохранить и передать",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 8
+    }
+  },
+  {
+    "n": 8,
+    "duration": 32.2,
+    "chapter": "Сохранить и передать",
+    "step": 8,
+    "title": "Сохранить и передать",
+    "audio": "assets/vo/scene-8.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 8
+    },
+    "audioDuration": 30.15
+  },
+  {
+    "n": 9,
+    "duration": 24.6,
+    "chapter": "Что дальше",
+    "step": null,
+    "title": "Что дальше",
+    "audio": "assets/vo/scene-9.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 8
+    },
+    "audioDuration": 21.5
+  }
+]

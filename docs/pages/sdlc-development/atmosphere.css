@@ -1,0 +1,44 @@
+:root {
+  /* Shared color tokens from TASK-589. */
+  --atmos-teams-tint: rgb(118 84 116 / .08);
+  --atmos-mask-ink: #000;
+  --atmos-topo-line: rgb(23 43 38 / .17);
+}
+/* Shared section background: the same contour texture as the catalog, tinted by
+   section. Opt-in per page via <html data-atmos data-section="...">.
+   No animation. Gradient/none-image layers only, so strict-CSP pages (img-src
+   'none') use the inline `data-atmos="inline"` variant; others use the shared
+   SVG file. */
+html[data-atmos] {
+  background: var(--customdev-page-bg, var(--color-paper, #f4f1e8));
+}
+html[data-atmos] body { background: transparent !important; }
+
+html[data-section="analysis"]    { --atmos-tint: color-mix(in srgb, var(--customdev-green) 9%, transparent); }
+html[data-section="teams"]       { --atmos-tint: var(--atmos-teams-tint); }
+html[data-section="help"]        { --atmos-tint: color-mix(in srgb, var(--customdev-blue) 8%, transparent); }
+
+/* Contour layer from the shared SVG file (relative to this stylesheet). */
+html[data-atmos] body::before {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: url("atmosphere-contours.svg") center / cover no-repeat;
+  -webkit-mask-image: radial-gradient(120% 100% at 50% 38%, transparent 18%, var(--atmos-mask-ink) 72%);
+          mask-image: radial-gradient(120% 100% at 50% 38%, transparent 18%, var(--atmos-mask-ink) 72%);
+}
+
+/* Section tint. */
+html[data-atmos] body::after {
+  content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none;
+  /* The tint starts under the menu veil and ramps in below it: no band of another shade under the menu. */
+  background: linear-gradient(180deg, transparent calc(var(--site-nav-reserve, 112px) - 12px), var(--atmos-tint) calc(var(--site-nav-reserve, 112px) + 160px), transparent 55%);
+}
+
+/* Inline-SVG variant for pages that forbid image loads (CSP img-src 'none'). */
+html[data-atmos="inline"] body::before { background: none; }
+html[data-atmos] .atmos-topo {
+  position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;
+  -webkit-mask-image: radial-gradient(120% 100% at 50% 38%, transparent 18%, var(--atmos-mask-ink) 72%);
+          mask-image: radial-gradient(120% 100% at 50% 38%, transparent 18%, var(--atmos-mask-ink) 72%);
+}
+html[data-atmos] .atmos-topo .line  { fill: none; stroke: var(--atmos-topo-line); stroke-width: 1.2; }
+html[data-atmos] .atmos-topo .index { fill: none; stroke: color-mix(in srgb, var(--customdev-green) 32%, transparent); stroke-width: 1.6; }

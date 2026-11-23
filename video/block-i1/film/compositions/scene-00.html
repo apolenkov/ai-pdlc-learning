@@ -1,0 +1,105 @@
+<template id="scene-00-template">
+  <div data-composition-id="scene-00" data-width="1920" data-height="1080" data-duration="24.8">
+    <style>
+      [data-composition-id="scene-00"] .sc-card { height: 100%; padding: 16px 26px; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+      [data-composition-id="scene-00"] .sc-cap { font-size: 32px; font-weight: 800; }
+      [data-composition-id="scene-00"] .sc-quote { font-size: 32px; font-weight: 600; line-height: 1.3; padding: 10px 16px; border-radius: 14px; background: var(--k-panel-2); border-left: 6px solid var(--k-accent); }
+      [data-composition-id="scene-00"] .sc-tag { align-self: flex-start; font-size: 28px; font-weight: 700; padding: 4px 16px; border-radius: 12px; border: 2px solid var(--k-line); color: var(--k-text-2); }
+      [data-composition-id="scene-00"] .sc-miss { display: flex; align-items: center; gap: 12px; font-size: 30px; font-weight: 700; padding: 8px 16px; border-radius: 14px; border: 3px dashed var(--k-text-2); color: var(--k-text-2); }
+      [data-composition-id="scene-00"] .sc-head { display: flex; align-items: center; gap: 16px; }
+      [data-composition-id="scene-00"] .sc-chip { font-size: 28px; font-weight: 700; padding: 6px 18px; border-radius: 14px; background: var(--k-accent-tint); border: 2px solid var(--k-accent); color: var(--k-accent-soft); white-space: nowrap; }
+      [data-composition-id="scene-00"] .sc-cols { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+      [data-composition-id="scene-00"] .sc-col { border-radius: 14px; background: var(--k-panel-2); padding: 10px 16px; font-size: 30px; font-weight: 600; line-height: 1.25; border-top: 6px solid var(--k-ok); }
+      [data-composition-id="scene-00"] .sc-col b { display: block; font-size: 28px; color: var(--k-text-2); font-weight: 700; margin-bottom: 4px; }
+
+      [data-composition-id="scene-00"] .poster-cover { position:absolute; inset:0; display:grid; place-items:center; background:#F4F1E8; background-image:linear-gradient(#e9e3d7 1px,transparent 1px),linear-gradient(90deg,#e9e3d7 1px,transparent 1px); background-size:64px 64px; }
+      [data-composition-id="scene-00"] .poster-card { position:relative; width:1792px; height:952px; overflow:hidden; box-sizing:border-box; border:2px solid #dedbcf; border-radius:36px; background:#FCFAF7; }
+      [data-composition-id="scene-00"] .poster-copy { position:absolute; left:64px; top:82px; z-index:1; width:1020px; color:#1D3028; }
+      [data-composition-id="scene-00"] .poster-kicker { color:#1C624B; font-size:34px; font-weight:800; letter-spacing:.025em; text-transform:uppercase; }
+      [data-composition-id="scene-00"] .poster-rule { width:120px; height:7px; margin-top:23px; border-radius:4px; background:#9A6500; }
+      [data-composition-id="scene-00"] .poster-heading { margin-top:94px; font-size:102px; font-weight:800; line-height:1.03; letter-spacing:-.025em; }
+      [data-composition-id="scene-00"] .poster-sub { margin-top:27px; color:#1C624B; font-size:52px; font-weight:700; line-height:1.18; }
+      [data-composition-id="scene-00"] .poster-prev { position:absolute; left:64px; bottom:230px; z-index:1; max-width:1020px; color:#1D3028; font-size:34px; font-weight:600; }
+      [data-composition-id="scene-00"] .poster-prev b { color:#1C624B; }
+      [data-composition-id="scene-00"] .poster-art { position:absolute; right:65px; top:240px; width:700px; }
+      [data-composition-id="scene-00"] .poster-art svg { width:100%; height:auto; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("00"), t = S.t, DUR = 24.8;
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+
+        Kit.header(S, { header: { mode: "parts", total: 4 }, chapter: "Письмо → запись намерения", step: null, mode: "intro", duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        /* Открывающий титул первые 2 с поверх первой фразы; под ним ничего не привязано */
+        const sT = S.stage(); sT.style.zIndex = "55"; gsap.set(sT, { autoAlpha: 1 });
+        S.root.querySelectorAll(".k-header, .k-header *, .k-part, .k-part *").forEach((el) => el.setAttribute("data-layout-allow-occlusion", ""));
+        const cover = document.createElement("div");
+        cover.className = "poster-cover";
+        cover.innerHTML = '<div class="poster-card"><div class="poster-copy"><div class="poster-kicker">Шаг 1</div><div class="poster-rule"></div><div class="poster-heading">Намерение и план</div><div class="poster-sub">Проблема и эффект</div></div><div class="poster-art"></div></div>';
+        const art = cover.querySelector(".poster-art");
+        art.innerHTML = window.SKETCHES["ch-computer"];
+        art.querySelectorAll("path").forEach((path) => {
+          const colors = { "#eef0f3": "#1D3028", "#8e96a3": "#84938A", "#a3a9b4": "#84938A", "#ff7a59": "#9A6500", "#3ccf91": "#1C624B" };
+          path.setAttribute("stroke", colors[path.getAttribute("stroke")] || "#1D3028");
+          path.style.strokeDasharray = "none";
+          path.style.strokeDashoffset = "0";
+        });
+        sT.appendChild(cover);
+        S.tl.to(sT, { autoAlpha: 0, duration: 0.4, ease: "none" }, 2.0 - 0.4);
+        /* Титул поверх первой фразы — как заставки частей: время чтения не проверяем */
+
+        const s1 = S.stage();
+        S.tl.set(s1, { autoAlpha: 1 }, 2.0);
+
+        /* Письмо: стилизация вместо почты, выдумка подписана */
+        const letter = Kit.aside(S, { parent: s1, x: 96, y: 225, w: 760, h: 370, tail: false,
+          html: '<div class="sc-card"><div class="sc-cap">Письмо</div>' +
+                '<div class="sc-quote">«сделайте кнопку „Очистить“»</div>' +
+                '<span class="sc-tag">пример · вымышлено</span>' +
+                '<div class="sc-miss m1">эффект — ?</div><div class="sc-miss m2">границы — ?</div></div>' });
+        letter.show(2.05); // титул держится первые 2 с
+        const miss = letter.el.querySelectorAll(".sc-miss");
+        hide(...miss);
+        const T_MISS = t("Эффект не назван");
+        Kit.popIn(S, miss[0], T_MISS);
+        Kit.popIn(S, miss[1], t("границы не названы"));
+        read("Письмо сделайте кнопку Очистить пример вымышлено", 2.05, DUR);
+        read("эффект границы", T_MISS, DUR);
+
+        /* Спор через месяц */
+        const dispute = Kit.aside(S, { parent: s1, x: 920, y: 225, w: 904, h: 200, tail: false,
+          html: '<div class="sc-card"><div class="sc-cap">Через месяц</div>' +
+                '<div class="sc-quote">«мы это не просили»</div></div>' });
+        dispute.show(t("Через месяц начинается спор"));
+        read("Через месяц мы это не просили", t("Через месяц начинается спор"), DUR);
+
+        /* Запись намерения рядом с кодом */
+        const rec = Kit.aside(S, { parent: s1, x: 96, y: 610, w: 1728, h: 200, tail: false,
+          html: '<div class="sc-card"><div class="sc-head"><span class="sc-cap">Запись намерения</span>' +
+                '<span class="sc-chip">в общей истории версий · рядом с кодом</span></div>' +
+                '<div class="sc-cols"><div class="sc-col"><b>проблема</b>словами пользователя</div>' +
+                '<div class="sc-col"><b>эффект</b>с числом и сроком проверки</div>' +
+                '<div class="sc-col"><b>границы</b>что не трогаем</div></div></div>' });
+        const cols = rec.el.querySelectorAll(".sc-col"), chip = rec.el.querySelector(".sc-chip");
+        hide(...cols, chip);
+        rec.show(t("К концу ролика"));
+        Kit.popIn(S, cols[0], t("проблема словами пользователя"));
+        Kit.popIn(S, cols[1], t("эффект с числом"));
+        Kit.popIn(S, cols[2], t("сроком проверки, границы"));
+        Kit.popIn(S, chip, t("общей истории версий"));
+        read("Запись намерения проблема словами пользователя эффект с числом и сроком проверки границы", t("К концу ролика"), DUR);
+        read("в общей истории версий рядом с кодом", t("общей истории версий"), DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

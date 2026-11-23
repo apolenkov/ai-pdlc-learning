@@ -1,0 +1,109 @@
+<template id="scene-01-template">
+  <div data-composition-id="scene-01" data-width="1920" data-height="1080" data-duration="21.3">
+    <style>
+      [data-composition-id="scene-01"] .sc-sym { font-family: var(--k-font-mono); font-size: 72px; font-weight: 700; line-height: 1; width: 64px; text-align: center; color: var(--k-accent); }
+      [data-composition-id="scene-01"] .sc-res { display: flex; align-items: center; gap: 16px; margin-top: 14px; font-size: 44px; font-weight: 700; letter-spacing: -0.02em; color: var(--k-accent-soft); }
+      [data-composition-id="scene-01"] .sc-md { font-family: var(--k-font-mono); font-size: 72px; font-weight: 700; line-height: 1; color: var(--k-accent); }
+      [data-composition-id="scene-01"] .sc-hl { position: absolute; background: var(--k-accent-tint); border-left: 5px solid var(--k-accent); opacity: 0; pointer-events: none; }
+    </style>
+    <!-- записи: производные scene-01-*.v3.retimed.mp4 (assets/rec/retime-scene-01.py печатает data-start и длительность; kit сверяет числа с video.start/duration) -->
+    <video id="rec-create" class="clip" src="assets/rec/scene-01-create.v3.retimed.mp4" muted playsinline data-start="4.79" data-duration="8"></video>
+    <video id="rec-preview" class="clip" src="assets/rec/scene-01-preview.v3.retimed.mp4" muted playsinline data-start="11.42" data-duration="9.9"></video>
+    <script>
+      (function () {
+        const S = Kit.scene("01");
+        const t = S.t;
+        const R = Kit.layout;                          // правая колонка: R.rightX, R.rightW
+        const NAT = { w: 1920, h: 1080 };
+        const DUR = 21.3;
+        // текст на экране держится не меньше слов/3 + 1 с
+        const rd = (txt, a, b) => { const w = txt.trim().split(/\s+/).length; if (b - a < w / 3 + 1 - 1e-6) throw new Error(`текст «${txt}» на экране ${(b - a).toFixed(1)} с, нужно ${(w / 3 + 1).toFixed(1)} с`); };
+        // курсор стоит над целью 1 с до клика: перед каждым кликом путевая точка (её пульсы убираются)
+        const HOVER = 1.0;
+        const withHover = (cl) => { const out = [], wp = []; cl.forEach((c) => { wp.push(out.length); out.push({ t: c.t - HOVER, x: c.x, y: c.y }); out.push(c); }); return { out, wp }; };
+        const noPulse = (scr, hv) => { const pu = scr.layer.querySelectorAll(".k-pulse"); hv.wp.forEach((i) => { pu[2 * i].remove(); pu[2 * i + 1].remove(); }); };
+        // подсветка строки поверх записи (координаты записи, едет вместе с камерой)
+        const hl = (scr, box, at, off) => {
+          const d = document.createElement("div"); d.className = "sc-hl";
+          d.style.cssText += `left:${box.x}px;top:${box.y}px;width:${box.w}px;height:${box.h}px;`;
+          scr.layer.appendChild(d);
+          S.tl.to(d, { opacity: 1, duration: 0.4, ease: "power2.out" }, at);
+          S.tl.to(d, { opacity: 0, duration: 0.3, ease: "power2.in" }, off);
+        };
+        // положение подписей-областей при камере (cx, zoom): запись → «пиксели записи при масштабе 1» для scr.areas
+        const camX = (cx, z) => { const left = Math.min(NAT.w - NAT.w / z, Math.max(0, cx - NAT.w / (2 * z))); return (x) => Math.max(0, Math.min(NAT.w, (x - left) * z)); };
+
+        /* ---- план 1: замысел (под заставкой первые 2 с ничего не привязано) ---- */
+        const T_A_OUT = t("Создайте") + 0.1;           // «зачем» отзвучало, начинается «Создайте»
+        const T_B = T_A_OUT + 0.5;                     // запись входит
+        const T_B_OUT = S.end("дефиса") + 0.15;
+        const T_C = T_B_OUT + 0.5;
+        Kit.header(S, { duration: DUR });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+        Kit.kinetic(S, { parent: s1, x: 96, y: 290, size: 150, text: "Замысел", at: t("Замысел"), stagger: 0.1 });
+        const pa = Kit.path(S, { parent: s1, x: 96, y: 560, sep: "и", items: [
+          { icon: "file", text: "что нужно", at: t("что нужно") },
+          { icon: "file", text: "зачем", at: t("зачем") },
+        ] });
+        // скетч «идея + документ» рисуется на «Замысел»; гаснет вместе с планом
+        Kit.sketch(S, { parent: s1, name: "intro-idea", x: 1180, y: 330, w: 640, at: t("Замысел") + 0.2, dur: 2.6 });
+
+        /* ---- план 2: запись «создать файл», затем подсказки # и - справа ---- */
+        const s2 = S.stage();
+        const T_NEW = t("файл") + 0.66;                // клик New File (якорь retime-scene-01.py: 1,66 -> 6,45)
+        const V0 = 4.79;                                // data-start записи create
+        const hv = withHover([{ t: 1.66, x: 307, y: 95, label: "New File" }]);
+        const scrB = Kit.screen(S, { parent: s2, natural: NAT, h: 566, alt: "VS Code: создание файла intent.md",
+          video: { el: "#rec-create", start: V0, duration: 8, poster: "assets/rec/scene-01-create.v3.retimed.first.png", clicks: hv.out },
+          from: { x: 307, y: 95 }, cursorHold: 1.2,
+          camera: [
+            { t: T_B - 1.0, cx: 440, cy: 245, scale: 2.2, dur: 0.5 },                              // до появления окна: кнопка New File крупно
+            { t: S.end("эм-ди") + 0.3, cx: 980, cy: 300, scale: 1.7, dur: 1.1 } ] });             // редактор: строка 1 и пункты 7-8
+        noPulse(scrB, hv);
+        scrB.layer.setAttribute("data-layout-allow-overflow", "");
+        scrB.show(T_B);
+        if (Math.abs(T_NEW - (V0 + 1.66)) > 0.05) throw new Error("клик New File не совпал с якорем retime-scene-01.py");
+        // подсветка строк на записи: заголовок (строка 1) и пункты (строки 7-8)
+        hl(scrB, { x: 512, y: 79, w: 460, h: 29 }, t("начинается"), t("пункты") + 0.1);
+        hl(scrB, { x: 512, y: 252, w: 480, h: 58 }, t("пункты"), T_B_OUT);
+        // правая колонка: по одной карточке, прежняя гаснет до появления новой
+        const card = (o, y, at, off, txt) => { const a = Kit.aside(S, Object.assign({ parent: s2, x: R.rightX, y, w: R.rightW, tail: false }, o)); a.show(at); if (off != null) a.hide(off); rd(txt, at, off != null ? off : T_B_OUT); return a; };
+        card({ title: ".md", text: "Markdown" }, 300, t("эм-ди"), t("решётки") - 0.35, ".md Markdown");
+        const arrow = `<svg width="40" height="40" viewBox="0 0 40 40"><path d="M6 20h26M22 10l10 10-10 10" fill="none" stroke="#a3a9b4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+        card({ html: `<div class="k-keys"><div class="sc-sym">#</div></div><div class="sc-res">${arrow}<span>заголовок</span></div>` }, 280, t("решётки"), null, "# заголовок");
+        card({ html: `<div class="k-keys"><div class="sc-sym">-</div></div><div class="sc-res">${arrow}<span>пункт списка</span></div>` }, 530, t("пункты") - 0.3, null, "- пункт списка");
+
+        /* ---- план 3: предпросмотр (общий план по центру, камера по панелям) ---- */
+        const s3 = S.stage();
+        const V1 = 11.42;
+        // Кадры записи (1920×1080): редактор и предпросмотр — x 420..1900, y 40..600; общий план показывает их целиком без боковой панели.
+        // Наезды: строки 1–8 исходника и заголовок, «Проблема», текст предпросмотра — целиком, без срезанных строк (ревью Opus).
+        const FULL = { cx: 1160, cy: 320, scale: 1.297, protect: [{ x: 425, y: 45, w: 1470, h: 545 }] };
+        const SRC = { x: 425, y: 75, w: 735, h: 260 }, VIEW = { x: 1178, y: 75, w: 735, h: 260 };
+        const scrC = Kit.screen(S, { parent: s3, natural: NAT, layout: "wide", h: 600, alt: "VS Code: файл intent.md и предпросмотр рядом",
+          video: { el: "#rec-preview", start: V1, duration: 9.9, poster: "assets/rec/scene-01-preview.v3.retimed.first.png", clicks: [] },
+          camera: [
+            { t: T_C - 1.0, ...FULL, dur: 0.5 },                                                   // до появления: редактор целиком, предпросмотр откроется на «предпросмотр»
+            { t: t("слева") - 0.3, cx: 792, cy: 206, scale: 2.6, dur: 0.6, protect: [SRC] },                        // слева: панель исходника
+            { t: t("справа") - 0.35, cx: 1545, cy: 206, scale: 2.6, dur: 0.6, protect: [VIEW] },                     // справа: панель предпросмотра
+            { t: t("Один файл") - 0.2, ...FULL, dur: 1.1 } ] });              // обе панели рядом
+        scrC.show(T_C);
+        scrC.layer.setAttribute("data-layout-allow-overflow", "");
+        const L = camX(790, 2.55), Rr = camX(1545, 2.55), B = camX(FULL.cx, FULL.scale);
+        scrC.areas([
+          { text: "исходный текст", x0: L(424), x1: L(1165), tone: "accent", at: t("исходный"), off: t("справа") - 0.05 },
+          { text: "так прочитает человек", x0: Rr(1170), x1: Rr(1920), tone: "ok", at: t("справа"), align: "right", off: t("Один файл") - 0.25 },
+          { text: "исходник", x0: B(424), x1: B(1165), tone: "accent", at: t("Один файл") + 0.1 },
+          { text: "вид читателя", x0: B(1170), x1: B(1920), tone: "ok", at: t("два вида"), align: "right" } ]);
+
+        /* переходы между планами: уходит старый, затем входит новый (blur + scale) */
+        Kit.stageOut(S, s1, T_A_OUT); Kit.stageIn(S, s2, T_B);
+        Kit.stageOut(S, s2, T_B_OUT); Kit.stageIn(S, s3, T_C);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

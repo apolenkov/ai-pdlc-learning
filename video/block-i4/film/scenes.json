@@ -1,0 +1,127 @@
+[
+  {
+    "n": 0,
+    "duration": 25.6,
+    "chapter": "Полный — ещё не принятый",
+    "step": null,
+    "title": "Полный — ещё не принятый",
+    "audio": "assets/vo/scene-0.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 3
+    },
+    "audioDuration": 24
+  },
+  {
+    "id": "t1",
+    "kind": "title",
+    "of": 1,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Две проверки: структура и смысл",
+    "step": 1,
+    "title": "Две проверки: структура и смысл",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 3
+    }
+  },
+  {
+    "n": 1,
+    "duration": 42,
+    "chapter": "Две проверки: структура и смысл",
+    "step": 1,
+    "title": "Две проверки: структура и смысл",
+    "audio": "assets/vo/scene-1.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 3
+    },
+    "audioDuration": 39.98
+  },
+  {
+    "id": "t2",
+    "kind": "title",
+    "of": 2,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Полный, но слабый",
+    "step": 2,
+    "title": "Полный, но слабый",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 3
+    }
+  },
+  {
+    "n": 2,
+    "duration": 45.3,
+    "chapter": "Полный, но слабый",
+    "step": 2,
+    "title": "Полный, но слабый",
+    "audio": "assets/vo/scene-2.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 3
+    },
+    "audioDuration": 43.29
+  },
+  {
+    "id": "t3",
+    "kind": "title",
+    "of": 3,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Комментарии, одобрение и передача",
+    "step": 3,
+    "title": "Комментарии, одобрение и передача",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 3
+    }
+  },
+  {
+    "n": 3,
+    "duration": 56.1,
+    "chapter": "Комментарии, одобрение и передача",
+    "step": 3,
+    "title": "Комментарии, одобрение и передача",
+    "audio": "assets/vo/scene-3.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 3
+    },
+    "audioDuration": 54.56
+  },
+  {
+    "id": "t4",
+    "kind": "title",
+    "of": 4,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Что вы умеете и что дальше",
+    "step": 4,
+    "title": "Что вы умеете и что дальше",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 3
+    }
+  },
+  {
+    "n": 4,
+    "duration": 23.3,
+    "chapter": "Что вы умеете и что дальше",
+    "step": null,
+    "title": "Что вы умеете и что дальше",
+    "audio": "assets/vo/scene-4.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 3
+    },
+    "audioDuration": 21.64
+  }
+]

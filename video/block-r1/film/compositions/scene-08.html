@@ -1,0 +1,61 @@
+<template id="scene-08-template">
+  <div data-composition-id="scene-08" data-width="1920" data-height="1080" data-duration="19">
+    <style>
+      [data-composition-id="scene-08"] .sc-item { height: 100%; display: flex; align-items: center; gap: 28px; font-size: 42px; font-weight: 700; letter-spacing: -0.015em; line-height: 1.15; }
+      [data-composition-id="scene-08"] .sc-ok { flex: none; width: 68px; height: 68px; border-radius: 50%; display: grid; place-items: center; color: var(--k-ok); border: 3px solid var(--k-ok); background: var(--k-ok-tint); }
+      [data-composition-id="scene-08"] .sc-ok svg { width: 42px; height: 42px; opacity: 0; }
+      [data-composition-id="scene-08"] .draft { height: 100%; display: flex; align-items: center; gap: 20px; font-size: 38px; font-weight: 700; letter-spacing: -0.01em; white-space: nowrap; }
+      [data-composition-id="scene-08"] .draft .k { padding: 4px 18px; border-radius: 12px; background: var(--k-accent-tint); color: var(--k-accent-soft); font-size: 32px; }
+      [data-composition-id="scene-08"] .sc-next { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+      [data-composition-id="scene-08"] .sc-next .lab { font-size: 36px; font-weight: 700; color: var(--k-accent-soft); }
+      [data-composition-id="scene-08"] .sc-next .nm { font-size: 58px; font-weight: 800; letter-spacing: -0.02em; white-space: nowrap; margin: 4px 0 6px; }
+      [data-composition-id="scene-08"] .sc-next .sb { font-size: 32px; font-weight: 500; color: var(--k-text-2); }
+      [data-composition-id="scene-08"] .sc-next svg { flex: none; width: 76px; height: 41px; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("08"), t = S.t, DUR = 19;
+        if (DUR - S.end("согласуем") < 1.5) throw new Error("Недостаточный хвост сцены");
+
+        /* Итог без шага: все части пройдены */
+        Kit.header(S, { header: { mode: "parts", total: 7 }, chapter: "Что дальше", step: null, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* Что вы умеете: галочки на фразах диктора */
+        const items = [
+          { html: "Превратили замысел в правило и сценарий", at: 0.2, tick: S.end("сценарий") - 0.3 },
+          { html: "Сверили файл с образцом", at: t("сверили") - 0.2, tick: S.end("образцом") - 0.2 },
+          { html: "Отправили ветку", at: t("отправили") - 0.2, tick: S.end("ветку") - 0.2 },
+        ];
+        items.forEach((it, i) => {
+          const row = Kit.aside(S, { parent: s1, x: 96, y: 215 + i * 116, w: 1120, h: 98, tail: false,
+            html: '<div class="sc-item"><span class="sc-ok">' + Kit.icons.check + "</span><span>" + it.html + "</span></div>" });
+          row.show(it.at);
+          S.tl.to(row.el.querySelector(".sc-ok svg"), { opacity: 1, duration: 0.3 }, it.tick);
+        });
+
+        /* Скетч справа */
+        Kit.sketch(S, { parent: s1, name: "intro-idea", x: 1260, y: 205, w: 560, at: 0.5, dur: 2.6 });
+
+        /* Пока это черновик */
+        const draft = Kit.aside(S, { parent: s1, x: 96, y: 548, w: 1120, h: 70, tail: false,
+          html: '<div class="draft"><span class="k">Черновик</span><span>Пока это ваш черновик: принятия нет</span></div>' });
+        draft.show(t("Пока"));
+
+        /* Мост к следующему гайду */
+        const T_NEXT = t("Запрос");
+        const next = Kit.aside(S, { parent: s1, x: 96, y: 634, w: 1728, h: 184, tail: false,
+          html: '<div class="sc-next"><div><div class="lab">Дальше</div><div class="nm">Проверяем и согласуем требования</div>' +
+                '<div class="sb">запрос на слияние (MR) · ревью · одобрение</div></div>' +
+                '<svg viewBox="0 0 56 30" fill="none"><path d="M3 15H49M39 5L50 15L39 25" stroke="' + Kit.token("--k-accent") + '" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>' });
+        next.el.style.borderColor = Kit.token("--k-accent");
+        next.show(T_NEXT);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

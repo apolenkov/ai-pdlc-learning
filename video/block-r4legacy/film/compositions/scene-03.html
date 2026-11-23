@@ -1,0 +1,90 @@
+<template id="scene-03-template">
+  <div data-composition-id="scene-03" data-width="1920" data-height="1080" data-duration="19.1">
+    <style>
+      [data-composition-id="scene-03"] .cc { box-sizing: border-box; padding: 24px 26px; display: flex; flex-direction: column; gap: 14px; }
+      [data-composition-id="scene-03"] .cc-d { font-size: 42px; font-weight: 800; line-height: 1.15; }
+      [data-composition-id="scene-03"] .cc-n { align-self: flex-start; margin-top: auto; padding: 6px 18px; border: 3px solid var(--k-accent); border-radius: 12px; background: var(--k-accent-tint); font-family: var(--k-font-mono); font-size: 34px; font-weight: 500; line-height: 1.2; color: var(--k-accent-soft); white-space: nowrap; }
+      [data-composition-id="scene-03"] .tr-card { box-sizing: border-box; padding: 22px 24px; }
+      [data-composition-id="scene-03"] .tr { display: flex; align-items: center; justify-content: space-between; height: 46px; padding: 0 12px; border-radius: 10px; }
+      [data-composition-id="scene-03"] .tn { font-family: var(--k-font-mono); font-size: 32px; font-weight: 500; line-height: 46px; white-space: pre; }
+      [data-composition-id="scene-03"] .tn b { font-weight: 700; color: var(--k-accent-soft); }
+      [data-composition-id="scene-03"] .tg { padding: 2px 16px; border: 3px solid var(--k-info); border-radius: 12px; font-size: 30px; font-weight: 700; line-height: 1.2; color: var(--k-info); white-space: nowrap; }
+      [data-composition-id="scene-03"] .tg i { font-family: var(--k-font-mono); font-style: normal; font-weight: 500; }
+      [data-composition-id="scene-03"] .pl { box-sizing: border-box; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 44px; font-weight: 800; line-height: 1.1; border-color: var(--k-ok); background: var(--k-ok-tint); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("03"), t = S.t, DUR = 19.1;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const INFO = Kit.token("--k-info"), LINE = Kit.token("--k-line");
+        const INFO_BG = "rgba(124, 196, 255, 0.16)", NO_BG = "rgba(124, 196, 255, 0)";
+
+        Kit.header(S, { header: { mode: "parts", total: 7 }, chapter: "Три компонента", step: 3, duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* Cards: the description comes first (the narrator names the parts), the component name when he lists them. */
+        const C = [
+          { x: 96, d: "расчёт платежа", n: "payment-calculation", at: t("У расчёта"), nAt: t("расчёт платежа") },
+          { x: 96 + 588, d: "допустимые значения и ошибки", n: "input-validation", at: t("проверки ввода"), nAt: t("проверка ввода") },
+          { x: 96 + 1176, d: "поля, результат и работа страницы", n: "calculator-screen", at: t("и экрана"), nAt: t("экран калькулятора") },
+        ];
+        const cards = C.map((c) => {
+          const a = Kit.aside(S, { parent: s1, x: c.x, y: 206, w: 552, h: 230, tail: false, html: `<div class="cc-d">${c.d}</div><div class="cc-n">${c.n}</div>` });
+          a.el.classList.add("cc");
+          const nm = a.el.querySelector(".cc-n"); hide(nm);
+          a.show(c.at); Kit.popIn(S, nm, c.nAt);
+          read(c.d, c.at, DUR); read(c.n, c.nAt, DUR);
+          return a.el;
+        });
+
+        /* Tree: the three spec files of the change, as on the page (step 3). */
+        const T = [
+          { n: "<b>openspec/changes/baseline-current-state/specs/</b>", at: t("Поэтому") },
+          { n: "├── payment-calculation/spec.md", at: C[0].nAt, i: 0 },
+          { n: "├── input-validation/spec.md", at: C[1].nAt, i: 1 },
+          { n: "└── calculator-screen/spec.md", at: C[2].nAt, i: 2 },
+        ];
+        const tree = Kit.aside(S, { parent: s1, x: 96, y: 470, w: 1728, h: 230, tail: false, html: "" });
+        tree.el.classList.add("tr-card");
+        const rows = [];
+        T.forEach((r, k) => {
+          const row = document.createElement("div"); row.className = "tr";
+          row.innerHTML = `<div class="tn">${r.n}</div>`;
+          tree.el.appendChild(row);
+          if (k) { hide(row); Kit.popIn(S, row, r.at); }
+          read(r.n.replace(/<[^>]*>/g, "").replace(/[├└│─]/g, " "), r.at, DUR);
+          rows.push(row);
+        });
+        tree.show(T[0].at);
+        const tag = document.createElement("div"); tag.className = "tg"; tag.innerHTML = "те же имена — в будущем <i>openspec/specs/</i>";
+        rows[0].appendChild(tag); hide(tag);
+        Kit.popIn(S, tag, t("Имена одинаковы"));
+        read("те же имена в будущем openspec specs", t("Имена одинаковы"), DUR);
+
+        /* Each card and its tree line light up together while the narrator names the component. */
+        C.forEach((c, i) => {
+          const off = i < 2 ? C[i + 1].nAt - 0.1 : t("Имена одинаковы") - 0.1;
+          S.tl.fromTo(cards[i], { borderColor: LINE }, { borderColor: INFO, duration: 0.3, immediateRender: false }, c.nAt);
+          S.tl.fromTo(cards[i], { borderColor: INFO }, { borderColor: LINE, duration: 0.3, immediateRender: false }, off);
+          S.tl.fromTo(rows[i + 1], { backgroundColor: NO_BG }, { backgroundColor: INFO_BG, duration: 0.3, immediateRender: false }, c.nAt);
+          S.tl.fromTo(rows[i + 1], { backgroundColor: INFO_BG }, { backgroundColor: NO_BG, duration: 0.3, immediateRender: false }, off);
+        });
+
+        const pl = Kit.aside(S, { parent: s1, x: 96, y: 730, w: 1728, h: 92, tail: false, html: "каждое требование — в одном компоненте и с источником" });
+        pl.el.classList.add("pl");
+        pl.show(t("Каждое"));
+        read("каждое требование в одном компоненте и с источником", t("Каждое"), DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

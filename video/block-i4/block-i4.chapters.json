@@ -1,0 +1,52 @@
+[
+  {
+    "n": 0,
+    "title": "Вступление",
+    "step": null,
+    "chapter": "Вступление",
+    "start": 0,
+    "titleStart": 0,
+    "speechStart": 0,
+    "end": 25.6
+  },
+  {
+    "n": 1,
+    "title": "Две проверки: структура и смысл",
+    "step": null,
+    "chapter": "Две проверки: структура и смысл",
+    "start": 25.6,
+    "titleStart": 25.6,
+    "speechStart": 25.6,
+    "end": 67.6
+  },
+  {
+    "n": 2,
+    "title": "Полный, но слабый",
+    "step": null,
+    "chapter": "Полный, но слабый",
+    "start": 67.6,
+    "titleStart": 67.6,
+    "speechStart": 67.6,
+    "end": 112.9
+  },
+  {
+    "n": 3,
+    "title": "Комментарии, одобрение и передача",
+    "step": null,
+    "chapter": "Комментарии, одобрение и передача",
+    "start": 112.9,
+    "titleStart": 112.9,
+    "speechStart": 112.9,
+    "end": 169
+  },
+  {
+    "n": 4,
+    "title": "Что вы умеете и что дальше",
+    "step": null,
+    "chapter": "Что вы умеете и что дальше",
+    "start": 169,
+    "titleStart": 169,
+    "speechStart": 169,
+    "end": 192.3
+  }
+]

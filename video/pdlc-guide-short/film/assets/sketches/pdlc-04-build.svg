@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" fill="none" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Этап 04 · Реализация: проблемы и цель (техлид принимает MR)">
+  <title>Этап 04 · Реализация: проблемы и цель (техлид принимает MR)</title>
+  <desc>Скетч этапа 04 (Реализация): разработчик задаёт план и границы, агент пишет код, тесты и документацию в отдельной ветке, техлид принимает MR.</desc>
+  <rect x="2" y="2" width="956" height="536" rx="22" fill="#f4f1e8" stroke="#cfc8b3" stroke-width="0.8"/>
+  <path class="s" pathLength="1" stroke="#e6e0cf" stroke-width="1" d="M36 86 H924 M36 484 H924"/>
+  <text x="36" y="42" fill="#56625c" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="13" font-weight="700" letter-spacing="0.04em">ГАЙД PDLC · ЭТАП 04</text>
+  <text x="36" y="68" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="21" font-weight="800">04 · Реализация <tspan fill="#216650">· принимает техлид</tspan></text>
+  <rect x="36" y="100" width="390" height="368" rx="18" fill="#fbf9f3" stroke="#cfc8b3" stroke-width="2"/>
+  <rect x="56" y="116" width="98" height="26" rx="11" fill="#f2e3cf" stroke="#965b0d" stroke-width="2"/>
+  <text x="105.0" y="133.2" text-anchor="middle" fill="#965b0d" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="10.5" font-weight="800">ПРОБЛЕМЫ</text>
+  <text x="174" y="134" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="13.5" font-weight="700">Нет независимой проверки</text>
+  <path class="s" pathLength="1" stroke="#66716b" stroke-width="2.6" d="M69.8 224.9 C65.4 240.6 65.4 260.7 68.7 286.5 L127.0 286.5"/>
+  <path class="s" pathLength="1" stroke="#66716b" stroke-width="2.6" d="M99.0 286.5 L99.0 317.8 M85.5 318.4 L112.4 318.4"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.4" d="M93.4 180.1 C99.0 180.1 102.9 186.2 102.3 193.5 C101.8 200.8 96.7 207.0 91.1 207.0 C85.5 207.0 81.6 200.8 82.2 193.5 C82.7 186.2 87.8 180.1 93.4 180.1 Z"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.2" d="M101.2 186.8 C102.3 179.0 81.6 177.8 80.5 191.3 L80.5 199.1"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.2" d="M85.5 212.6 L86.1 205.3 M94.5 213.1 L95.6 206.4"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.4" d="M85.0 212.6 C75.4 214.8 72.1 227.1 72.1 241.7 C71.5 255.1 72.1 266.3 73.2 275.3"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.4" d="M95.6 213.1 C103.4 215.9 104.0 224.9 102.9 231.6 M99.0 252.9 C97.8 259.6 96.7 268.6 95.6 275.3"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.2" d="M87.8 222.6 C91.1 236.1 100.1 249.5 115.8 252.9 L133.7 254.0 A7 7 0 0 0 134.2 246.2 L116.9 244.5 C105.7 242.2 100.1 232.7 97.8 220.4"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.4" d="M73.2 275.3 C71.0 279.8 72.1 284.8 74.9 287.6 L131.4 288.7 L132.6 316.7"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.4" d="M95.6 274.2 L137.0 273.0 C143.8 273.0 147.1 277.5 147.1 283.1 L148.2 316.7"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.2" d="M132.6 316.7 L132.6 321.2 L156.1 321.2 C157.8 319.0 153.8 317.3 148.2 316.7"/>
+  <path class="s" pathLength="1" stroke="#56625c" stroke-width="2.6" d="M110.2 260.7 L198.6 260.7 L198.6 264.1 L110.2 264.1 Z"/>
+  <path class="s" pathLength="1" stroke="#56625c" stroke-width="2.6" d="M189.7 264.1 L189.7 321.2 M194.2 264.1 L194.2 321.2"/>
+  <path class="s" pathLength="1" stroke="#56625c" stroke-width="2.6" d="M119.1 260.7 L166.2 260.7 L167.3 257.9 L120.2 257.9 Z"/>
+  <path class="s" pathLength="1" stroke="#56625c" stroke-width="2.6" d="M165.6 257.9 L174.0 220.4 L177.4 221.5 L169.0 259.0"/>
+  <rect x="210" y="168" width="207" height="106" rx="12" fill="#e6e0cf" stroke="#965b0d" stroke-width="2"/>
+  <text x="313.5" y="196" text-anchor="middle" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="14" font-weight="700">Один исполнитель</text>
+  <text x="313.5" y="220" text-anchor="middle" fill="#56625c" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="13" font-weight="600">сам пишет код</text>
+  <text x="313.5" y="240" text-anchor="middle" fill="#965b0d" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="13" font-weight="600">без второго взгляда</text>
+  <text x="313.5" y="260" text-anchor="middle" fill="#56625c" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="11.5" font-weight="600">тесты и документация — потом</text>
+  <rect x="56" y="338" width="350" height="30" rx="11" fill="#e6e0cf" stroke="#cfc8b3" stroke-width="2"/>
+  <text x="231.0" y="357.7" text-anchor="middle" fill="#56625c" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="13.5" font-weight="600">Код, тесты и документацию пишет один человек</text>
+  <rect x="56" y="376" width="350" height="30" rx="11" fill="#e6e0cf" stroke="#cfc8b3" stroke-width="2"/>
+  <text x="231.0" y="395.7" text-anchor="middle" fill="#56625c" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="13.5" font-weight="600">Связка «требование — проверка» в голове</text>
+  <rect x="56" y="414" width="350" height="30" rx="11" fill="#e6e0cf" stroke="#965b0d" stroke-width="2"/>
+  <text x="231.0" y="433.7" text-anchor="middle" fill="#965b0d" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="13.5" font-weight="600">Изменение никто не проверяет независимо</text>
+  <path class="s" pathLength="1" stroke="#216650" stroke-width="4" d="M434 278 L478 278"/>
+  <path class="s" pathLength="1" stroke="#216650" stroke-width="4" d="M469.0 282.3 L478 278 L469.0 273.7"/>
+  <rect x="486" y="100" width="438" height="368" rx="18" fill="#fbf9f3" stroke="#216650" stroke-width="2.4"/>
+  <rect x="506" y="116" width="62" height="26" rx="11" fill="#dcebe1" stroke="#216650" stroke-width="2"/>
+  <text x="537.0" y="133.2" text-anchor="middle" fill="#216650" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="10.5" font-weight="800">ЦЕЛЬ</text>
+  <text x="588" y="134" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="13.5" font-weight="700">Агент в ветке по плану, ревью в MR</text>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.4" d="M535.2 180.1 C542.1 180.1 546.2 186.5 545.0 194.6 C543.9 202.7 538.1 207.9 531.7 207.9 C525.3 207.9 521.2 202.1 522.4 194.0 C523.6 186.5 529.4 180.1 535.2 180.1 Z"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3" d="M543.3 186.5 C545.0 178.3 523.6 177.8 521.2 191.1 L520.7 198.6"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3" d="M529.4 212.6 L531.1 206.8 M538.1 213.1 L539.8 207.3"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.4" d="M528.2 212.6 C519.5 216.0 517.8 231.1 520.1 250.8 L522.4 279.8"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.4" d="M539.2 213.7 C545.6 218.4 545.6 234.6 542.1 250.8 L539.8 279.8"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3" d="M531.1 252.0 L530.5 279.8"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.2" d="M520.1 279.8 L547.9 279.8"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.2" d="M536.3 213.7 C544.4 223.0 554.9 226.5 568.8 221.8 M532.8 221.8 C542.1 231.1 553.7 233.4 567.6 228.8"/>
+  <path class="s" pathLength="1" stroke="#2b6a8f" stroke-width="3" d="M600 184 H782 M628 184 C644 184 648 232 668 232 H744 C762 232 766 184 782 184"/>
+  <circle cx="628" cy="184" r="6" fill="#2b6a8f"/><circle cx="706" cy="232" r="7" fill="#216650"/><circle cx="782" cy="184" r="6" fill="#2b6a8f"/>
+  <g fill="none" stroke="#1f2d2a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" transform="translate(691.7 189.7) scale(1.192)" aria-hidden="true"><path d="m7 11 2-2-2-2"/><path d="M11 13h4"/><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/></g>
+  <rect x="580" y="252" width="250" height="42" rx="11" fill="#e6e0cf" stroke="#216650" stroke-width="2"/>
+  <text x="705.0" y="277.6" text-anchor="middle" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="13" font-weight="700">MR: код + тесты + документация</text>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.4" d="M876.8 180.1 C869.9 180.1 865.8 186.5 867.0 194.6 C868.1 202.7 873.9 207.9 880.3 207.9 C886.7 207.9 890.8 202.1 889.6 194.0 C888.4 186.5 882.6 180.1 876.8 180.1 Z"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3" d="M868.7 186.5 C867.0 178.3 888.4 177.8 890.8 191.1 L891.3 198.6"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3" d="M882.6 212.6 L880.9 206.8 M873.9 213.1 L872.2 207.3"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.4" d="M883.8 212.6 C892.5 216.0 894.2 231.1 891.9 250.8 L889.6 279.8"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.4" d="M872.8 213.7 C866.4 218.4 866.4 234.6 869.9 250.8 L872.2 279.8"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3" d="M880.9 252.0 L881.5 279.8"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.2" d="M891.9 279.8 L864.1 279.8"/>
+  <path class="s" pathLength="1" stroke="#1f2d2a" stroke-width="3.2" d="M875.7 213.7 C867.6 224.2 857.1 231.1 846.7 232.3 M879.2 221.8 C869.9 231.1 859.4 236.9 849.0 238.1"/>
+  <path class="s" pathLength="1" stroke="#216650" stroke-width="2.8" d="M814 193 A13 13 0 1 1 813.9 193 Z"/>
+  <path class="s" pathLength="1" stroke="#216650" stroke-width="3.4" d="M808.5 206.0 L813.0 210.4 L820.0 201.8"/>
+  <rect x="506" y="338" width="398" height="30" rx="11" fill="#dcebe1" stroke="#216650" stroke-width="2"/>
+  <text x="705.0" y="357.7" text-anchor="middle" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="13.5" font-weight="600">  Реализация в изолированной ветке по tasks.md</text><g fill="none" stroke="#1f2d2a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" transform="translate(533.49 345.28) scale(0.53437)" aria-hidden="true"><path d="m7 11 2-2-2-2"/><path d="M11 13h4"/><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/></g>
+  <rect x="506" y="376" width="398" height="30" rx="11" fill="#dcebe1" stroke="#216650" stroke-width="2"/>
+  <text x="705.0" y="395.7" text-anchor="middle" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="13.5" font-weight="600">  Тесты и документация готовятся сразу с кодом</text><g fill="none" stroke="#1f2d2a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" transform="translate(534.16 383.28) scale(0.53437)" aria-hidden="true"><path d="m7 11 2-2-2-2"/><path d="M11 13h4"/><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/></g>
+  <rect x="506" y="414" width="398" height="30" rx="11" fill="#dde9f0" stroke="#2b6a8f" stroke-width="2"/>
+  <text x="705.0" y="433.7" text-anchor="middle" fill="#1f2d2a" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="13.5" font-weight="700">Разработчик ставит задачу, принимает техлид</text>
+  <text x="36" y="513" fill="#56625c" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="14" font-weight="600">Вход: спецификация, ADR и план задач (tasks.md)</text>
+  <text x="924" y="513" text-anchor="end" fill="#216650" font-family='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' font-size="14" font-weight="700">Выход: проверенный MR: код, тесты и документация</text>
+</svg>

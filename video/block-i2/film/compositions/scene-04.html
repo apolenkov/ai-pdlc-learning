@@ -1,0 +1,91 @@
+<template id="scene-04-template">
+  <div data-composition-id="scene-04" data-width="1920" data-height="1080" data-duration="21.7">
+    <style>
+      [data-composition-id="scene-04"] .sc-row { height: 100%; display: flex; align-items: center; gap: 18px; padding: 0 26px; }
+      [data-composition-id="scene-04"] .sc-row .ok { flex: none; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; color: var(--k-ok); border: 3px solid var(--k-ok); background: var(--k-ok-tint); opacity: 0; }
+      [data-composition-id="scene-04"] .sc-row .ok svg { width: 28px; height: 28px; }
+      [data-composition-id="scene-04"] .sc-row .tx { font-size: 33px; font-weight: 700; }
+      [data-composition-id="scene-04"] .sc-row .tx i { font-style: normal; color: var(--k-text-2); font-weight: 500; }
+      [data-composition-id="scene-04"] .sc-gd { height: 100%; padding: 12px 26px; display: flex; flex-direction: column; gap: 10px; }
+      [data-composition-id="scene-04"] .sc-gd .cap { font-size: 28px; font-weight: 800; display: flex; gap: 12px; align-items: center; }
+      [data-composition-id="scene-04"] .sc-gd .cap .pin { font-size: 24px; font-weight: 700; padding: 2px 12px; border-radius: 10px; background: var(--k-accent-tint); color: var(--k-accent-soft); }
+      [data-composition-id="scene-04"] .sc-gd .items { display: flex; gap: 14px; }
+      [data-composition-id="scene-04"] .sc-gd .sc-gi.g3 { flex: 1.5; }
+      [data-composition-id="scene-04"] .sc-gi { flex: 1; display: flex; align-items: center; gap: 10px; font-size: 24px; font-weight: 600; line-height: 1.15; padding: 8px 14px; border-radius: 12px; background: var(--k-panel-2); }
+      [data-composition-id="scene-04"] .sc-gi .ok { flex: none; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; color: var(--k-ok); border: 2px solid var(--k-ok); background: var(--k-ok-tint); opacity: 0; }
+      [data-composition-id="scene-04"] .sc-gi .ok svg { width: 20px; height: 20px; }
+      [data-composition-id="scene-04"] .sc-miss { height: 100%; display: flex; align-items: center; gap: 16px; padding: 0 26px; font-size: 29px; font-weight: 700; }
+      [data-composition-id="scene-04"] .sc-miss .q { width: 42px; height: 42px; flex: none; border-radius: 50%; display: grid; place-items: center; border: 3px dashed var(--k-text-2); color: var(--k-text-2); font-size: 30px; }
+      [data-composition-id="scene-04"] .sc-miss i { font-style: normal; color: var(--k-text-2); }
+      [data-composition-id="scene-04"] .sc-next { height: 100%; display: flex; align-items: center; gap: 26px; padding: 0 34px; }
+      [data-composition-id="scene-04"] .sc-next .lab { font-size: 34px; font-weight: 800; color: var(--k-text-2); }
+      [data-composition-id="scene-04"] .sc-next .nm { font-size: 52px; font-weight: 800; }
+      [data-composition-id="scene-04"] .sc-next .arr { margin-left: auto; width: 74px; height: 74px; border-radius: 50%; display: grid; place-items: center; background: var(--k-accent-tint); color: var(--k-accent-soft); }
+      [data-composition-id="scene-04"] .sc-next .arr svg { width: 40px; height: 40px; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("04"), t = S.t, DUR = 21.7;
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const CHECK = Kit.icons.check;
+
+        Kit.header(S, { header: { mode: "parts", total: 3 }, chapter: "Документ шагов 1–2 готов", step: null, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+        const rows = [
+          { html: "раздел «Границы» <i>заполнен</i>", at: 2.05, tick: t("заполнены") },
+          { html: "раздел «Открытые вопросы» <i>заполнен</i>", at: 2.2, tick: t("заполнены") + 0.25 },
+          { html: "шапка <i>заполнена</i>", at: t("шапка заполнена") - 0.3, tick: t("шапка заполнена") + 0.7 },
+        ];
+        rows.forEach((r, i) => {
+          const a = Kit.aside(S, { parent: s1, x: 96, y: 230 + i * 82, w: 1050, h: 72, tail: false,
+            html: '<div class="sc-row"><span class="ok">' + CHECK + '</span><span class="tx">' + r.html + "</span></div>" });
+          const ok = a.el.querySelector(".ok");
+          a.show(r.at);
+          S.tl.to(ok, { opacity: 1, duration: 0.35, ease: "power2.out" }, r.tick);
+          read("раздел Границы Открытые вопросы шапка заполнен заполнена", r.at, DUR);
+        });
+
+        /* Список гайда */
+        const gd = Kit.aside(S, { parent: s1, x: 96, y: 470, w: 1050, h: 182, tail: false,
+          html: '<div class="sc-gd"><div class="cap">Проверьте документ <span class="pin">по списку гайда</span></div>' +
+            '<div class="items"><div class="sc-gi g1"><span class="ok">' + CHECK + '</span>затронутые названы</div>' +
+            '<div class="sc-gi g2"><span class="ok">' + CHECK + '</span>исключения записаны</div>' +
+            '<div class="sc-gi g3"><span class="ok">' + CHECK + '</span>у каждого вопроса — адресат</div></div></div>' });
+        const gis = [".g1", ".g2", ".g3"].map((c) => gd.el.querySelector(c));
+        hide(...gis);
+        gd.show(t("списку гайда"));
+        [t("затронутые"), t("исключения"), t("есть адресат")].forEach((tt, i) => {
+          Kit.popIn(S, gis[i], tt - 0.2);
+          S.tl.to(gis[i].querySelector(".ok"), { opacity: 1, duration: 0.3 }, tt + 0.5);
+        });
+        read("Проверьте документ по списку гайда затронутые названы исключения записаны у каждого вопроса адресат", t("списку гайда"), DUR);
+
+        /* Чего пока нет */
+        const ms = Kit.aside(S, { parent: s1, x: 96, y: 660, w: 1050, h: 64, tail: false,
+          html: '<div class="sc-miss"><span class="q">?</span><span>результат <i>пока не разложен на части</i> — покажет план</span></div>' });
+        ms.el.style.borderStyle = "dashed";
+        ms.show(t("не разложен"));
+        read("результат пока не разложен на части покажет план", t("не разложен"), DUR);
+
+        /* Скетч «начало готово» и плашка «Дальше» — как в финале i1 */
+        Kit.sketch(S, { parent: s1, name: "team-done", x: 1200, y: 220, w: 620, at: 2.3, dur: 3.2 });
+        const nx = Kit.aside(S, { parent: s1, x: 96, y: 734, w: 1728, h: 80, tail: false,
+          html: '<div class="sc-next"><span class="lab">Дальше:</span><span class="nm">«План изменений»</span>' +
+            '<span class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div>' });
+        nx.el.style.borderColor = Kit.token("--k-accent");
+        nx.show(t("Дальше"));
+        read("Дальше План изменений", t("Дальше"), DUR, 0);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

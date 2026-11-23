@@ -1,0 +1,16 @@
+{
+  "file": "block-r4-720p.mp4",
+  "sha256": "0329238662fadbf33f13cf3404fd61407a0f809590980fcc8cf893cec36ff0d7",
+  "size": 7871604,
+  "url": "https://github.com/apolenkov/ai-pdlc-learning/releases/download/media-v1/0329238662fa-block-r4-720p.mp4",
+  "version": "0329238662fa",
+  "audio": "voice-only",
+  "master": {
+    "file": "block-r4-1080p.mp4",
+    "sha256": "dc4e247bf7e98b2a0493b690db5d29508f93fb631748589dc324abde36ea5574",
+    "size": 20326315,
+    "lost": "утерян до сдачи Mac 25.11.2026: файла нет ни на Диске, ни локально; пин сохранён"
+  },
+  "duration": 304.7,
+  "note": "TASK-671: звук только из голоса (озвучка без музыки и SFX), видео побайтно прежнее, AAC-LC 48 кГц моно, около −16 LUFS; мастер 1080p — прежний микс (вне этапа)"
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "./schemas/standard-manifest.schema.json",
+  "schemaVersion": "sdlc-analysis-standard/v1",
+  "name": "sdlc-analysis-standard",
+  "version": "0.1.0-draft",
+  "status": "draft",
+  "managedPaths": [
+    "templates/",
+    "schemas/",
+    "checks/",
+    "PLATFORMS.md",
+    "README.md"
+  ],
+  "protectedProductPaths": [
+    "CONTEXT.md",
+    "product.yaml",
+    "openspec/",
+    "services.lock.yaml"
+  ],
+  "updatePolicy": "explicit-mr-pr"
+}

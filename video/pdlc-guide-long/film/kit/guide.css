@@ -1,0 +1,22 @@
+/* «Подробно» · гайд PDLC (R11-G-long): карточка скетча со своей шапкой, подсветка областей, плашки, полоса этапов. Текст плашек ≥ 28 px. */
+.g-card { position: absolute; left: 216px; top: 36px; width: 1488px; }
+.g-head { position: relative; margin: 0 3px; width: 1482px; height: 96px; box-sizing: border-box; background: #f4f1e8; border: 1.5px solid #cfc8b3; border-bottom: 0; border-radius: 34px 34px 0 0; padding: 12px 34px 0; }
+.g-kick { font-size: 22px; font-weight: 700; letter-spacing: .05em; color: #56625c; line-height: 1.2; }
+.g-title { margin-top: 2px; font-size: 44px; font-weight: 800; letter-spacing: -.01em; color: #1f2d2a; line-height: 1.1; }
+.g-title .g-num { color: #216650; margin-right: 18px; }
+.g-of { position: absolute; right: 34px; top: 34px; font-size: 30px; font-weight: 700; color: #56625c; }
+.g-clip { position: relative; width: 1488px; height: 698px; overflow: hidden; }
+.g-veil { position: absolute; left: 0; top: 0; width: 1488px; height: 698px; pointer-events: none; }
+.g-plates { position: absolute; left: 216px; top: 868px; width: 1488px; display: flex; flex-wrap: wrap; justify-content: center; gap: 14px 20px; }
+.g-plate { padding: 12px 28px; border-radius: 22px; border: 2px solid var(--k-line); background: var(--k-panel); font-size: 34px; font-weight: 700; line-height: 1.2; color: var(--k-text); }
+.g-plate em { font-style: normal; font-weight: 800; color: var(--k-ok); }
+.g-plate.role { border-color: var(--k-ok); }
+.g-plate.acc { border-color: var(--k-accent); }
+.g-plate.acc em { color: var(--k-accent-soft); }
+.g-plate code { font-family: var(--k-font-mono); font-size: 32px; font-weight: 700; color: var(--k-info); }
+.g-plate.small { font-size: 32px; padding: 10px 24px; }
+.g-prog { position: absolute; left: 216px; top: 1048px; width: 1488px; height: 8px; display: flex; gap: 8px; }
+.g-prog i { flex: 1; border-radius: 4px; background: var(--k-line); }
+.g-prog i.on { background: var(--k-ok); }
+.g-prog i.cur { background: var(--k-accent); }
+.g-plates [data-layout-allow-overlap] { }

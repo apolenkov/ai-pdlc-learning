@@ -1,0 +1,9 @@
+.pd-h { position: absolute; left: 96px; top: 52px; width: 1100px; font-size: 62px; font-weight: 800; letter-spacing: -.02em; line-height: 1.1; white-space: nowrap; }
+.pd-h b { font-weight: 800; color: var(--k-ok); margin-right: 22px; }
+.pd-h span { color: var(--k-ok); }
+.pd-tags { position: absolute; right: 96px; top: 56px; display: flex; gap: 20px; justify-content: flex-end; }
+.pd-tag { padding: 8px 28px; border-radius: 18px; font-size: 38px; font-weight: 800; background: var(--k-ok-tint); color: var(--k-ok); border: 2px solid var(--k-ok); white-space: nowrap; }
+.pd-tag.acc { background: var(--k-accent-tint); color: var(--k-accent-soft); border-color: var(--k-accent); }
+.pd-card { position: absolute; background: #f4f1e8; border-radius: 40px; overflow: hidden; box-shadow: 0 24px 80px rgba(0,0,0,.45); }
+.pd-card svg { display: block; width: 100%; height: auto; }
+.pd-card .s { stroke-dasharray: 1 2; stroke-dashoffset: 1; }

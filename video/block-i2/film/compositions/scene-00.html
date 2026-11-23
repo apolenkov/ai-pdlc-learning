@@ -1,0 +1,124 @@
+<template id="scene-00-template">
+  <div data-composition-id="scene-00" data-width="1920" data-height="1080" data-duration="27.2">
+    <style>
+      [data-composition-id="scene-00"] .sc-plate { display: inline-block; margin-top: 46px; font-size: 36px; font-weight: 600; padding: 10px 30px; border-radius: 18px; border: 2px solid var(--k-line); color: var(--k-text-2); }
+      [data-composition-id="scene-00"] .sc-plate b { color: var(--k-text); font-weight: 700; }
+      [data-composition-id="scene-00"] .sc-doc { height: 100%; padding: 14px 24px; display: flex; flex-direction: column; gap: 7px; }
+      [data-composition-id="scene-00"] .sc-doc .cap { font-size: 30px; font-weight: 800; display: flex; align-items: center; gap: 14px; }
+      [data-composition-id="scene-00"] .sc-doc .tag { font-size: 24px; font-weight: 700; padding: 3px 14px; border-radius: 12px; border: 2px solid var(--k-line); color: var(--k-text-2); }
+      [data-composition-id="scene-00"] .sc-row { display: flex; align-items: center; gap: 14px; padding: 5px 16px; border-radius: 13px; background: var(--k-panel-2); font-size: 29px; font-weight: 600; }
+      [data-composition-id="scene-00"] .sc-row .ok { flex: none; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; color: var(--k-ok); border: 3px solid var(--k-ok); background: var(--k-ok-tint); }
+      [data-composition-id="scene-00"] .sc-row .ok svg { width: 24px; height: 24px; }
+      [data-composition-id="scene-00"] .sc-row.gap { border: 3px dashed var(--k-text-2); background: transparent; color: var(--k-text-2); }
+      [data-composition-id="scene-00"] .sc-row.gap .q { flex: none; width: 38px; height: 38px; display: grid; place-items: center; font-size: 32px; font-weight: 800; }
+      [data-composition-id="scene-00"] .sc-row .first { margin-left: auto; font-size: 24px; font-weight: 800; padding: 3px 13px; border-radius: 11px; background: var(--k-accent-tint); border: 2px solid var(--k-accent); color: var(--k-accent-soft); white-space: nowrap; }
+      [data-composition-id="scene-00"] .sc-next-tag { align-self: flex-start; margin-top: 3px; font-size: 26px; font-weight: 700; padding: 4px 16px; border-radius: 13px; background: var(--k-accent-tint); border: 2px solid var(--k-accent); color: var(--k-accent-soft); }
+      [data-composition-id="scene-00"] .sc-zone { height: 100%; padding: 8px 20px; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
+      [data-composition-id="scene-00"] .sc-zone .cap { font-size: 32px; font-weight: 800; }
+      [data-composition-id="scene-00"] .sc-zone .row { display: flex; gap: 14px; }
+      [data-composition-id="scene-00"] .sc-zone .cell { flex: 1; border-radius: 14px; background: var(--k-panel-2); border-top: 6px solid var(--k-accent); padding: 6px 12px; font-size: 27px; font-weight: 600; line-height: 1.2; }
+
+      [data-composition-id="scene-00"] .poster-cover { position:absolute; inset:0; display:grid; place-items:center; background:#F4F1E8; background-image:linear-gradient(#e9e3d7 1px,transparent 1px),linear-gradient(90deg,#e9e3d7 1px,transparent 1px); background-size:64px 64px; }
+      [data-composition-id="scene-00"] .poster-card { position:relative; width:1792px; height:952px; overflow:hidden; box-sizing:border-box; border:2px solid #dedbcf; border-radius:36px; background:#FCFAF7; }
+      [data-composition-id="scene-00"] .poster-copy { position:absolute; left:64px; top:82px; z-index:1; width:1020px; color:#1D3028; }
+      [data-composition-id="scene-00"] .poster-kicker { color:#1C624B; font-size:34px; font-weight:800; letter-spacing:.025em; text-transform:uppercase; }
+      [data-composition-id="scene-00"] .poster-rule { width:120px; height:7px; margin-top:23px; border-radius:4px; background:#9A6500; }
+      [data-composition-id="scene-00"] .poster-heading { margin-top:94px; font-size:102px; font-weight:800; line-height:1.03; letter-spacing:-.025em; }
+      [data-composition-id="scene-00"] .poster-sub { margin-top:27px; color:#1C624B; font-size:52px; font-weight:700; line-height:1.18; }
+      [data-composition-id="scene-00"] .poster-prev { position:absolute; left:64px; bottom:380px; z-index:1; max-width:1020px; color:#1D3028; font-size:34px; font-weight:600; }
+      [data-composition-id="scene-00"] .poster-prev b { color:#1C624B; }
+      [data-composition-id="scene-00"] .poster-art { position:absolute; right:65px; top:240px; width:700px; }
+      [data-composition-id="scene-00"] .poster-art svg { width:100%; height:auto; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("00"), t = S.t, DUR = 27.2;
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const CHECK = Kit.icons.check;
+
+        Kit.header(S, { header: { mode: "parts", total: 3 }, chapter: "Спорная зона", step: null, mode: "intro", duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        /* Открывающий титул + плашка «Перед этим»: держатся под первую фразу (≤5 с до крючка) */
+        const sT = S.stage(); sT.style.zIndex = "55"; gsap.set(sT, { autoAlpha: 1 });
+        S.root.querySelectorAll(".k-header, .k-header *, .k-part, .k-part *").forEach((el) => el.setAttribute("data-layout-allow-occlusion", ""));
+        const cover = document.createElement("div");
+        cover.className = "poster-cover";
+        cover.innerHTML = '<div class="poster-card"><div class="poster-copy"><div class="poster-kicker">Шаг 2</div><div class="poster-rule"></div><div class="poster-heading">Намерение и план</div><div class="poster-sub">Границы и вопросы</div></div><div class="poster-prev"><b>Перед этим</b> посмотрите «Проблема и эффект»</div><div class="poster-art"></div></div>';
+        const art = cover.querySelector(".poster-art");
+        art.innerHTML = window.SKETCHES["ch-computer"];
+        art.querySelectorAll("path").forEach((path) => {
+          const colors = { "#eef0f3": "#1D3028", "#8e96a3": "#84938A", "#a3a9b4": "#84938A", "#ff7a59": "#9A6500", "#3ccf91": "#1C624B" };
+          path.setAttribute("stroke", colors[path.getAttribute("stroke")] || "#1D3028");
+          path.style.strokeDasharray = "none";
+          path.style.strokeDashoffset = "0";
+        });
+        sT.appendChild(cover);
+        const T_OPEN = t("Начало записи готово");
+        S.tl.to(sT, { autoAlpha: 0, duration: 0.4, ease: "none" }, T_OPEN - 0.4);
+
+        const s1 = S.stage();
+        S.tl.set(s1, { autoAlpha: 1 }, T_OPEN - 0.05);
+
+        /* Запись с белым пятном: начало готово, границы и вопросы — пропуски */
+        const doc = Kit.aside(S, { parent: s1, x: 96, y: 225, w: 790, h: 400, tail: false,
+          html: '<div class="sc-doc"><div class="cap">Запись намерения <span class="tag">черновик</span></div>' +
+            '<div class="sc-row f1"><span class="ok">' + CHECK + '</span>проблема</div>' +
+            '<div class="sc-row f2"><span class="ok">' + CHECK + '</span>результат</div>' +
+            '<div class="sc-row f3"><span class="ok">' + CHECK + '</span>признаки успеха</div>' +
+            '<div class="sc-row gap g1"><span class="q">?</span>границы<span class="first">сначала здесь</span></div>' +
+            '<div class="sc-row gap g2"><span class="q">?</span>открытые вопросы</div>' +
+            '<span class="sc-next-tag">затем — план изменений</span></div>' });
+        const rows = ["f1", "f2", "f3", "g1", "g2"].map((c) => doc.el.querySelector("." + c));
+        const ntag = doc.el.querySelector(".sc-next-tag"), first = doc.el.querySelector(".first");
+        hide(...rows, ntag, first);
+        doc.show(T_OPEN);
+        Kit.popIn(S, rows[0], t("проблема,"));
+        Kit.popIn(S, rows[1], t("результат,"));
+        Kit.popIn(S, rows[2], t("признаки успеха"));
+        const T_GAP = t("спорная зона");
+        Kit.popIn(S, rows[3], T_GAP);
+        Kit.popIn(S, rows[4], T_GAP + 0.35);
+        read("Запись намерения черновик проблема результат признаки успеха", T_OPEN, DUR);
+        read("границы открытые вопросы", T_GAP, DUR);
+
+        /* Скетч: вопросы у документа между людьми */
+        Kit.sketch(S, { parent: s1, name: "ch-gitlab", x: 1120, y: 235, w: 640, at: T_OPEN + 0.2, dur: 3.0 });
+
+        /* Что закрывает ролик */
+        const zone = Kit.aside(S, { parent: s1, x: 96, y: 640, w: 1728, h: 165, tail: false,
+          html: '<div class="sc-zone"><div class="cap">Этот ролик закрывает зону</div>' +
+            '<div class="row"><div class="cell c1">назовём затронутых людей и системы</div>' +
+            '<div class="cell c2">запишем исключения и ограничения</div>' +
+            '<div class="cell c3">оформим открытые вопросы</div></div></div>' });
+        const cells = ["c1", "c2", "c3"].map((c) => zone.el.querySelector("." + c));
+        hide(...cells);
+        zone.show(t("Этот ролик"));
+        Kit.popIn(S, cells[0], t("затронутых"));
+        Kit.popIn(S, cells[1], t("исключения"));
+        Kit.popIn(S, cells[2], t("открытые вопросы"));
+        read("Этот ролик закрывает зону", t("Этот ролик"), DUR);
+        read("назовём затронутых людей и системы", t("затронутых"), DUR);
+        read("запишем исключения и ограничения", t("исключения"), DUR);
+        read("оформим открытые вопросы", t("открытые вопросы"), DUR);
+
+        Kit.popIn(S, ntag, t("Полный документ"));
+        read("затем план изменений", t("Полный документ"), DUR, 0);
+
+        /* Финал: «Начинаем с границ» — пропуск границ загорается */
+        const T_GO = t("Начинаем с границ");
+        S.tl.to(rows[3], { borderColor: Kit.token("--k-accent"), color: Kit.token("--k-text"), duration: 0.4 }, T_GO);
+        Kit.popIn(S, first, T_GO + 0.15);
+        read("сначала здесь", T_GO + 0.15, DUR, 0);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

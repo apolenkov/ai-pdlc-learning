@@ -1,0 +1,85 @@
+const g1 = el("s8-g"), g2 = el("s8-g"), g3 = el("s8-g");
+gsap.set([g2, g3], { autoAlpha: 0 });
+const h1 = L.head("Куда идти <span>по роли</span>");
+const names = ["Намерение и план", "Анализ требований", "Архитектура и дизайн", "Реализация", "Тестирование", "Выпуск", "Наблюдение"];
+const RT = 560;
+const rb = L.ribbon({ top: RT, names, cls: "ok", reveal: (i) => 0.4 + i * 0.1 });
+g1.appendChild(rb.rail);
+const sv = F.layer(g1);
+// роли: [подпись, ключ в озвучке, этапы, цвет]
+const roles = [
+  ["аналитик", t("Аналитик"), [1], F.C.accS, t("курса анализа") + 0.3],
+  ["владелец<br>продукта", t("Владелец продукта"), [0, 6, 1], F.C.ok, t("подтверждает") + 0.4],
+  ["архитектор", t("Архитектор"), [2], F.C.info, t("Архитектор") + 1.3],
+  ["технический<br>лидер", t("технический лидер"), [5], F.C.info, t("технический лидер") + 1.3],
+  ["разработчик", t("Разработчик"), [3], F.C.accS, t("реализацию") + 0.3],
+  ["инженер<br>качества", t("инженер качества"), [4], F.C.ok, t("тестирование") + 0.3],
+  ["эксплуатация", t("эксплуатация"), [5, 6], F.C.info, t("выпуск", 2) + 0.4],
+];
+const FX = (i) => 190 + 250 * i, FY = 150;
+const prev = [];
+roles.forEach(([lab, at0, tg, col, tEnd], i) => {
+  const f = el("s8-f", F.person(120, "#a3a9b4", 5) + "<div class='f-lab' style='color:" + F.C.text + "'>" + lab + "</div>" + (i === 0 ? "<div class='f-tag now'>курс анализа</div>" : ""), g1);
+  F.setPos(f, FX(i) - 120, FY); show(f, at0 - 0.15, 10);
+  if (i === 0) { const tg1 = f.querySelector(".f-tag"); gsap.set(tg1, { autoAlpha: 0 }); tl.fromTo(tg1, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3, immediateRender: false }, t("курса анализа")); }
+  tl.to(f.querySelector("svg"), { stroke: col, duration: 0.3 }, at0);
+  const arrows = tg.map((j, k) => {
+    const x0 = FX(i) + (k - (tg.length - 1) / 2) * 24, y0 = FY + 215 + (lab === "аналитик" ? 7 : ["архитектор", "разработчик", "эксплуатация"].includes(lab) ? -40 : 0), x1 = rb.cx(j), y1 = RT - 8;
+    const p = F.path(sv, `M ${x0} ${y0} C ${x0} ${y0 + 110}, ${x1} ${y1 - 110}, ${x1} ${y1 - 16}`, col, 5);
+    const ah = F.arrowHead(sv, x1, y1, 90, col, 14);
+    const when = lab.startsWith("владелец") ? [t("намерении"), t("наблюдении"), t("анализе")][k] - 0.3 : at0 + 0.35 + k * 0.4;
+    F.draw(tl, p, when, 0.6); tl.to(ah, { opacity: 1, duration: 0.15 }, when + 0.55);
+    tl.to(rb.nodes[j], { borderColor: col, color: col, duration: 0.3 }, when + 0.55);
+    return [p, ah];
+  });
+  prev.push(...arrows.flat());
+  tl.to(arrows.flat(), { opacity: 0.3, duration: 0.5 }, tEnd + 0.6);
+});
+// руководитель — отдельно, к странице команды развития
+const bAt = t("Руководителю");
+const boss = el("s8-boss", F.person(90, F.C.accS, 5) + "<span>руководитель</span>", g1); show(boss, bAt - 0.1, 10);
+const plate = el("s8-plate", F.icon("users", 44, F.C.accS) + "<span>Команда развития</span>", g1); show(plate, t("страница"), 10);
+const ba = F.path(sv, "M 1440 785 L 1412 785", F.C.acc, 5); F.draw(tl, ba, bAt + 0.8, 0.4); const bah = F.arrowHead(sv, 1404, 785, 180, F.C.acc, 14); tl.to(bah, { opacity: 1, duration: 0.15 }, bAt + 1.1);
+// справка: четыре карточки раздела главной #help (названия и подписи — со страницы)
+const hAt = t("А общее");
+tl.to(g1, { autoAlpha: 0, duration: 0.45, ease: "power2.in" }, hAt - 0.3);
+tl.to(h1, { autoAlpha: 0, duration: 0.35 }, hAt - 0.3);
+tl.set(g3, { autoAlpha: 1 }, hAt + 0.15);
+const h3 = L.head("Справка <span>· общее для всех ролей</span>", hAt + 0.2);
+const hc = [
+  ["branch", "Самостоятельный гайд · для всех ролей", "Markdown, Git и совместная работа в GitLab с нуля", 96, 200, t("гайд «Маркдаун")],
+  ["users", "Ответственность", "Роли и зоны ответственности", 984, 200, t("роли и зоны")],
+  ["doc", "Термины", "Глоссарий", 96, 410, t("глоссарий")],
+  ["folder", "Доступы и источники", "Ресурсы", 984, 410, t("ресурсы")],
+].map(([ic, lab, ttl, x, y, w]) => {
+  const c = el("s8-hc", "<div class='ico'>" + F.icon(ic, 36, F.C.t2) + "</div><div><small>" + lab + "</small><b>" + ttl + "</b></div>", g3);
+  F.setPos(c, x, y); show(c, w - 0.15, 14);
+  tl.to(c, { borderColor: F.C.ok, backgroundColor: "rgba(60,207,145,.10)", duration: 0.3 }, w);
+  return c;
+});
+// финал: три кнопки
+const fAt = t("Начните");
+tl.to(g3, { autoAlpha: 0, duration: 0.45, ease: "power2.in" }, fAt - 0.1);
+tl.to(h3, { autoAlpha: 0, duration: 0.35 }, fAt - 0.1);
+tl.set(g2, { autoAlpha: 1 }, fAt + 0.35);
+const h2 = L.head("Начните <span>отсюда</span>", fAt + 0.4);
+const btn = (x, ic, a, b, when, col) => { const d = el("s8-btn", F.icon(ic, 64, col) + "<div>" + a + "<small>" + b + "</small></div>", g2); d.style.left = x + "px"; show(d, when, 16); return d; };
+const X0 = 96;
+const b1 = btn(X0, "flag", "Карта этапов", "на главной", fAt + 0.3, F.C.ok);
+const b2 = btn(X0 + 584, "play", "Курс анализа", "для аналитика", fAt + 0.7, F.C.accS);
+const b3 = btn(X0 + 1168, "search", "Аудит продукта", "для команды", fAt + 1.1, F.C.info);
+const gd = el("s8-guide", "Гайд «Проблемы и цель»", g2); show(gd, t("гайда"), 10);
+const lightB = (b, col, at) => tl.to(b, { borderColor: col, backgroundColor: col === F.C.ok ? "rgba(60,207,145,.14)" : "rgba(124,196,255,.14)", boxShadow: "0 0 0 6px rgba(60,207,145,.14)", duration: 0.3 }, at);
+lightB(b1, F.C.ok, t("карты этапов"));
+tl.to(b1, { boxShadow: "0 0 0 0 rgba(0,0,0,0)", duration: 0.3 }, t("а команде"));
+tl.to(b1, { borderColor: F.C.line, backgroundColor: "#171a21", duration: 0.3 }, t("а команде"));
+lightB(b3, F.C.info, t("аудита"));
+// тихий click по первой кнопке
+const clk = DUR - 1.5;
+const cur = el("s8-cur", '<svg width="56" height="56" viewBox="0 0 24 24"><path d="m3 3 7.07 16.97 2.51-7.39 7.39-2.51L3 3z" fill="#eef0f3" stroke="#0f1115" stroke-width="1.4" stroke-linejoin="round"/></svg>', g2); cur.setAttribute("data-layout-allow-overlap", "");
+gsap.set(cur, { x: 1500, y: 800, autoAlpha: 0 });
+tl.set(cur, { autoAlpha: 1 }, clk - 1.6);
+tl.to(cur, { x: X0 + 280, y: 510, duration: 1.3, ease: "power2.inOut" }, clk - 1.5);
+const ring = el("s8-ring", "", g2); F.setPos(ring, X0 + 235, 463); gsap.set(ring, { autoAlpha: 0 }); ring.setAttribute("data-layout-allow-overlap", "");
+tl.fromTo(ring, { autoAlpha: 1, scale: 0.4 }, { autoAlpha: 0, scale: 1.5, duration: 0.6, ease: "power2.out", immediateRender: false }, clk);
+lightB(b1, F.C.ok, clk);

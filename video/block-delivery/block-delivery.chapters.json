@@ -1,0 +1,82 @@
+[
+  {
+    "n": 0,
+    "title": "Вступление",
+    "step": null,
+    "chapter": "Вступление",
+    "start": 0,
+    "titleStart": 0,
+    "speechStart": 0,
+    "end": 70.5
+  },
+  {
+    "n": 1,
+    "title": "Вход и выход",
+    "step": 1,
+    "chapter": "Вход и выход",
+    "start": 70.5,
+    "titleStart": 70.5,
+    "speechStart": 70.5,
+    "end": 92.2
+  },
+  {
+    "n": 2,
+    "title": "Подготовка",
+    "step": 2,
+    "chapter": "Подготовка",
+    "start": 92.2,
+    "titleStart": 92.2,
+    "speechStart": 92.2,
+    "end": 123
+  },
+  {
+    "n": 3,
+    "title": "Код пишет модель",
+    "step": 3,
+    "chapter": "Код пишет модель",
+    "start": 123,
+    "titleStart": 123,
+    "speechStart": 123,
+    "end": 143.9
+  },
+  {
+    "n": 4,
+    "title": "Код проверяет другая модель",
+    "step": 4,
+    "chapter": "Код проверяет другая модель",
+    "start": 143.9,
+    "titleStart": 143.9,
+    "speechStart": 143.9,
+    "end": 168.4
+  },
+  {
+    "n": 5,
+    "title": "Проверяют люди",
+    "step": 5,
+    "chapter": "Проверяют люди",
+    "start": 168.4,
+    "titleStart": 168.4,
+    "speechStart": 168.4,
+    "end": 208
+  },
+  {
+    "n": 6,
+    "title": "Сохранение и слияние",
+    "step": 6,
+    "chapter": "Сохранение и слияние",
+    "start": 208,
+    "titleStart": 208,
+    "speechStart": 208,
+    "end": 241.9
+  },
+  {
+    "n": 7,
+    "title": "Архив",
+    "step": 7,
+    "chapter": "Архив",
+    "start": 241.9,
+    "titleStart": 241.9,
+    "speechStart": 241.9,
+    "end": 266.8
+  }
+]

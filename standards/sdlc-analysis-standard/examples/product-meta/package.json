@@ -1,0 +1,11 @@
+{
+  "name": "credit-calculator-product-meta-example",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "doctor": "node --experimental-strip-types tools/product-cli.ts doctor",
+    "bootstrap": "node --experimental-strip-types tools/product-cli.ts bootstrap",
+    "validate": "node --experimental-strip-types tools/product-cli.ts validate",
+    "start": "node --experimental-strip-types tools/product-cli.ts start"
+  }
+}

@@ -1,0 +1,103 @@
+<template id="scene-02-template">
+  <div data-composition-id="scene-02" data-width="1920" data-height="1080" data-duration="22.8">
+    <style>
+      [data-composition-id="scene-02"] .tr-card { box-sizing: border-box; padding: 22px 24px; }
+      [data-composition-id="scene-02"] .tr { display: flex; align-items: center; gap: 22px; height: 46px; padding: 0 12px; border-radius: 10px; }
+      [data-composition-id="scene-02"] .tn { flex: 0 0 auto; width: 560px; font-family: var(--k-font-mono); font-size: 32px; font-weight: 500; line-height: 46px; white-space: pre; }
+      [data-composition-id="scene-02"] .tn b { font-weight: 700; color: var(--k-accent-soft); }
+      [data-composition-id="scene-02"] .tc { font-size: 30px; font-weight: 600; line-height: 1.2; color: var(--k-text-2); white-space: nowrap; }
+      [data-composition-id="scene-02"] .tc.hi { color: var(--k-info); }
+      [data-composition-id="scene-02"] .rc { box-sizing: border-box; padding: 18px 26px; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+      [data-composition-id="scene-02"] .rc-t { font-size: 40px; font-weight: 800; line-height: 1.1; }
+      [data-composition-id="scene-02"] .rc-cap { font-size: 30px; font-weight: 600; line-height: 1.2; color: var(--k-text-2); }
+      [data-composition-id="scene-02"] .rc-m { font-family: var(--k-font-mono); font-size: 30px; font-weight: 500; line-height: 1.2; padding: 12px 16px; border: 3px solid var(--k-accent); border-radius: 12px; background: var(--k-accent-tint); color: var(--k-accent-soft); white-space: nowrap; }
+      [data-composition-id="scene-02"] .rc-chip { align-self: flex-start; padding: 4px 18px; border: 3px solid var(--k-info); border-radius: 12px; font-size: 32px; font-weight: 700; line-height: 1.2; color: var(--k-info); }
+      [data-composition-id="scene-02"] .cv { box-sizing: border-box; padding: 18px 26px; display: flex; flex-direction: column; gap: 10px; }
+      [data-composition-id="scene-02"] .cv-r { box-sizing: border-box; height: 64px; padding: 0 20px; display: flex; align-items: center; gap: 12px; border: 3px solid var(--k-line); border-radius: 14px; background: var(--k-panel-2); font-size: 34px; font-weight: 700; line-height: 1.1; white-space: nowrap; }
+      [data-composition-id="scene-02"] .cv-r .m { font-family: var(--k-font-mono); font-size: 30px; font-weight: 500; color: var(--k-accent-soft); }
+      [data-composition-id="scene-02"] .cv-r .ar { color: var(--k-text-2); font-weight: 400; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("02"), t = S.t, DUR = 22.8;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const INFO_BG = "rgba(124, 196, 255, 0.16)", NO_BG = "rgba(124, 196, 255, 0)";
+        const INFO = Kit.token("--k-info"), LINE = Kit.token("--k-line");
+
+        Kit.header(S, { header: { mode: "parts", total: 7 }, chapter: "Копия базы и источники", step: 2, duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* Left: the base tree from step 3 of the page (only the folders the narrator names). */
+        const T = [
+          { n: "<b>credit-calculator/</b>", at: 0.2 },
+          { n: "├── AGENTS.md", at: t("пустую") },
+          { n: "├── README.md", at: t("пустую") + 0.15 },
+          { n: "├── docs/legacy/", at: t("исходные документы"), key: "doc", c: "только читать, источник", cAt: t("Документы") },
+          { n: "│   ├── tz-2021.docx", at: t("исходные документы") + 0.2, key: "tz" },
+          { n: "│   └── confluence-page.html", at: t("исходные документы") + 0.4, key: "cf" },
+          { n: "├── intents/", at: t("требований"), c: "пусто", cAt: t("изменений") },
+          { n: "└── openspec/", at: t("требований") + 0.15 },
+          { n: "    ├── specs/", at: t("требований") + 0.3, c: "пусто", cAt: t("изменений") + 0.15 },
+          { n: "    └── changes/", at: t("требований") + 0.45, c: "пусто", cAt: t("изменений") + 0.3 },
+        ];
+        const tree = Kit.aside(S, { parent: s1, x: 96, y: 206, w: 1060, h: 530, tail: false, html: "" });
+        tree.el.classList.add("tr-card");
+        const rows = {};
+        T.forEach((r, i) => {
+          const row = document.createElement("div"); row.className = "tr";
+          row.innerHTML = `<div class="tn">${r.n}</div>` + (r.c ? `<div class="tc">${r.c}</div>` : "");
+          tree.el.appendChild(row);
+          if (i) { hide(row); Kit.popIn(S, row, r.at); }
+          if (r.key) rows[r.key] = row;
+          const cm = row.querySelector(".tc");
+          if (cm && r.cAt) { hide(cm); Kit.popIn(S, cm, r.cAt); read(r.c, r.cAt, DUR); }
+          read(row.textContent.replace(/[├└│─]/g, " "), r.at, DUR);
+        });
+        tree.show(0.1);
+        // fromTo keeps every highlight self-contained: tweens on one property may not depend on render order.
+        const rowHl = (row, on, off) => {
+          S.tl.fromTo(row, { backgroundColor: NO_BG }, { backgroundColor: INFO_BG, duration: 0.3, immediateRender: false }, on);
+          if (off) S.tl.fromTo(row, { backgroundColor: INFO_BG }, { backgroundColor: NO_BG, duration: 0.3, immediateRender: false }, off);
+        };
+        rowHl(rows.doc, t("Документы"), t("Задание сохраните") - 0.1);
+        rowHl(rows.tz, t("Задание сохраните"), t("страницу") - 0.1);
+        rowHl(rows.cf, t("страницу"), t("и дайте") - 0.1);
+        rowHl(rows.tz, t("и дайте")); rowHl(rows.cf, t("и дайте"));
+
+        /* Right: copy → branch → how the sources reach the model. */
+        const cp = Kit.aside(S, { parent: s1, x: 1196, y: 206, w: 628, h: 150, tail: false, html:
+          '<div class="rc-t">Ваша копия базы</div><div class="rc-chip" style="opacity:0">открыта в VS Code</div>' });
+        cp.el.classList.add("rc");
+        const chip = cp.el.querySelector(".rc-chip"); hide(chip);
+        cp.show(t("свою копию")); Kit.popIn(S, chip, t("VS Code"));
+        read("Ваша копия базы", t("свою копию"), DUR); read("открыта в VS Code", t("VS Code"), DUR);
+
+        const br = Kit.aside(S, { parent: s1, x: 1196, y: 372, w: 628, h: 150, tail: false, html:
+          '<div class="rc-cap">Личная ветка</div><div class="rc-m">course/&lt;LOGIN&gt;/stage-4-legacy</div>' });
+        br.el.classList.add("rc");
+        br.show(t("личную"));
+        read("Личная ветка course LOGIN stage-4-legacy", t("личную"), DUR);
+
+        const cv = Kit.aside(S, { parent: s1, x: 1196, y: 538, w: 628, h: 248, tail: false, html:
+          '<div class="cv-r"><span>ТЗ</span><span class="ar">→</span><span>обычный текст</span></div>' +
+          '<div class="cv-r"><span>страница</span><span class="ar">→</span><span>экспорт текста</span></div>' +
+          '<div class="cv-r"><span>+</span><span class="m">observed-2026.md</span><span class="ar">→</span><span>модели</span></div>' });
+        cv.el.classList.add("cv");
+        const cvr = Array.from(cv.el.querySelectorAll(".cv-r")); hide(cvr[1], cvr[2]);
+        cv.show(t("Задание сохраните"));
+        Kit.popIn(S, cvr[1], t("страницу")); Kit.popIn(S, cvr[2], t("и дайте"));
+        read("ТЗ обычный текст", t("Задание сохраните"), DUR); read("страница экспорт текста", t("страницу"), DUR); read("observed-2026.md модели", t("и дайте"), DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

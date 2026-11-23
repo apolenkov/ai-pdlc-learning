@@ -1,0 +1,80 @@
+<template id="scene-03-template">
+  <div data-composition-id="scene-03" data-width="1920" data-height="1080" data-duration="33.4">
+    <style>
+      .s3-node { position: absolute; width: 104px; height: 104px; border-radius: 50%; display: grid; place-items: center; background: var(--k-panel-2); border: 5px solid var(--k-line); }
+      .s3-lab { position: absolute; font-size: 32px; font-weight: 800; line-height: 1.15; white-space: nowrap; }
+      .s3-core { position: absolute; width: 150px; height: 150px; border-radius: 50%; display: grid; place-items: center; text-align: center; font-size: 34px; font-weight: 800; line-height: 1.1; border: 4px solid var(--k-line); background: var(--k-panel); color: var(--k-text-2); }
+      .s3-card { position: absolute; left: 1180px; top: 250px; width: 644px; min-height: 560px; padding: 34px 38px; }
+      .s3-card .no { display: inline-block; margin-bottom: 14px; }
+      .s3-card h3 { font-size: 52px; font-weight: 800; line-height: 1.1; margin-bottom: 14px; letter-spacing: -.02em; }
+      .s3-card p { font-size: 34px; line-height: 1.3; color: var(--k-text-2); }
+      .s3-out { margin-top: 28px; padding: 20px 24px; border: 3px solid var(--k-ok); border-radius: 22px; background: var(--k-ok-tint); font-size: 36px; font-weight: 800; line-height: 1.25; }
+      .s3-out small { display: block; margin-bottom: 6px; font-size: 28px; font-weight: 800; letter-spacing: .06em; color: var(--k-ok); }
+      .s3-chips { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+      .s3-chip { padding: 8px 20px; border-radius: 16px; border: 2px solid var(--k-ok); background: var(--k-panel-2); font-size: 32px; font-weight: 700; }
+      .s3-coach { position: absolute; width: 90px; text-align: center; }
+    </style>
+    <script>
+      (function () {
+        const L = Long.begin("03"), { S, tl, el, show, hide, at, t, DUR } = L;
+        L.head("Шесть задач · <span>по кругу</span>", 0.1);
+        const svg = F.layer(S.root);
+        const CX = 600, CY = 566, R = 220;
+        const ang = (i) => (-90 + 60 * i) * Math.PI / 180, P = (i, r) => [CX + (r || R) * Math.cos(ang(i)), CY + (r || R) * Math.sin(ang(i))];
+        const tasks = [
+          ["Мониторинг", "chart", "метрики продукта против его исходного уровня", "Бэклог метода", t("Мониторинг")],
+          ["Исследование", "search", "поиск решений под конкретные проблемы", "Кандидаты и результаты сравнений", t("Исследование")],
+          ["Метод", "sitemap", "версии, шаблоны и автопроверки", "Версии метода, шаблоны, автопроверки, откат", t("Метод")],
+          ["Аудит готовности", "box", "готов ли продукт к внедрению", "Паспорт продукта", t("Аудит")],
+          ["Обучение", "bulb", "наставник учится на реальной задаче", "Наставник сам проводит изменение и помогает коллеге", t("Обучение")],
+          ["Сопровождение", "users", "коуч с дублёром рядом, пока команда не начнёт работать сама", "Команда работает сама, коуч уходит", t("Сопровождение")],
+        ];
+        // дуги кольца между центрами узлов (по часовой)
+        const arcs = tasks.map((_, i) => { const a = P(i), b = P((i + 1) % 6); return F.path(svg, `M ${a[0]} ${a[1]} A ${R} ${R} 0 0 1 ${b[0]} ${b[1]}`, "#a3a9b4", 5); });
+        const nodes = tasks.map(([name, ic], i) => {
+          const [x, y] = P(i);
+          const n = el("s3-node", F.icon(ic, 52, F.C.t2, 2)); F.setPos(n, x - 52, y - 52);
+          const lb = el("s3-lab", name);
+          if (i === 0) { lb.style.left = x - 150 + "px"; lb.style.width = "300px"; lb.style.textAlign = "center"; lb.style.top = y - 52 - 46 + "px"; }
+          else if (i === 3) { lb.style.left = x - 150 + "px"; lb.style.width = "300px"; lb.style.textAlign = "center"; lb.style.top = y + 52 + 12 + "px"; }
+          else if (i < 3) { lb.style.left = x + 52 + 16 + "px"; lb.style.top = y - 20 + "px"; }
+          else { lb.style.left = x - 52 - 16 - 300 + "px"; lb.style.width = "300px"; lb.style.textAlign = "right"; lb.style.top = y - 20 + "px"; }
+          const at0 = t("шесть") + i * 0.14;
+          gsap.set(n, { autoAlpha: 0 }); tl.fromTo(n, { autoAlpha: 0, scale: 0.8 }, { autoAlpha: 1, scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, at0);
+          show(lb, at0 + 0.1, 6);
+          return n;
+        });
+        const core = el("s3-core", "продукт"); F.setPos(core, CX - 75, CY - 75); show(core, t("по кругу") - 0.4, 8);
+        arcs.forEach((a, i) => F.draw(tl, a, t("по кругу") + i * 0.2, 0.5, "power1.inOut"));
+        // выход одной задачи становится входом следующей: точка идёт по кольцу
+        const dot = el("s3-dot", ""); dot.style.cssText = "position:absolute;width:30px;height:30px;border-radius:50%;background:#3ccf91;box-shadow:0 0 24px rgba(60,207,145,.8)"; dot.setAttribute("data-layout-allow-overlap", "");
+        const d0 = P(0); gsap.set(dot, { x: d0[0] - 15, y: d0[1] - 15, autoAlpha: 0 });
+        const lapAt = t("выход"), N = 12, step = 1.6 / N;
+        tl.set(dot, { autoAlpha: 1 }, lapAt);
+        for (let k = 1; k <= N; k++) { const a = (-90 + 30 * k) * Math.PI / 180; tl.to(dot, { x: CX + R * Math.cos(a) - 15, y: CY + R * Math.sin(a) - 15, duration: step, ease: "none" }, lapAt + (k - 1) * step); }
+        tl.to(dot, { autoAlpha: 0, duration: 0.3 }, lapAt + 1.7);
+        // пока идёт обход кольца — подпись справа
+        const intro = el("lg-card acc s3-card", '<span class="lg-tag acc no">кольцо</span><h3>Выход одной задачи — вход следующей</h3><p>у кольца нет начала и конца: метод, продукт и обучение питают друг друга</p>'); intro.style.minHeight = "0";
+        show(intro, lapAt - 0.1, 14); hide(intro, t("Мониторинг") - 0.5);
+        // карточки задач справа: название, суть, выход
+        const starts = tasks.map((x) => x[4]);
+        const cards = tasks.map(([name, , desc, out], i) => {
+          let extra = "";
+          if (i === 3) extra = '<div class="s3-chips">' + ["CI", "тесты", "владелец", "наставник"].map((c) => '<span class="s3-chip">' + c + "</span>").join("") + "</div>";
+          const c = el("lg-card ok s3-card", '<span class="lg-tag no">' + (i + 1) + "</span><h3>" + name + "</h3><p>" + desc + "</p>" + extra + '<div class="s3-out"><small>ВЫХОД</small>' + out + "</div>");
+          show(c, starts[i] - 0.1, 14);
+          if (i < 5) hide(c, starts[i + 1] - 0.4);
+          return c;
+        });
+        [["CI", t("си-ай")], ["тесты", t("тесты")], ["владелец", t("владелец")], ["наставник", t("наставник")]].forEach(([_, w], k) => { const ch = cards[3].querySelectorAll(".s3-chip")[k]; gsap.set(ch, { autoAlpha: 0 }); tl.fromTo(ch, { autoAlpha: 0, scale: 0.85 }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, w - 0.05); });
+        L.focus(nodes, starts, t("Тогда") - 0.2, { color: "ok" });
+        // коуч рядом с продуктом, а потом уходит
+        const coach = el("s3-coach", F.person(90, F.C.accS, 5)); F.setPos(coach, CX + 102, CY - 52);
+        show(coach, t("коуч") - 0.1, 8);
+        tl.to(coach, { x: 120, autoAlpha: 0, duration: 1.1, ease: "power2.in" }, t("уходит") - 0.3);
+        tl.to(core, { borderColor: F.C.ok, color: F.C.ok, duration: 0.5 }, t("уходит") + 0.2);
+        L.fin();
+      })();
+    </script>
+  </div>
+</template>

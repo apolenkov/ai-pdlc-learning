@@ -1,0 +1,73 @@
+<template id="scene-02-template">
+  <div data-composition-id="scene-02" data-width="1920" data-height="1080" data-duration="17.7">
+    <style>
+      [data-composition-id="scene-02"] .sc-tag { position: absolute; }
+      [data-composition-id="scene-02"] .sc-neq { position: absolute; left: 912px; width: 96px; top: 470px; text-align: center; font-size: 80px; font-weight: 700; line-height: 1; color: var(--k-accent-soft); }
+      [data-composition-id="scene-02"] .sc-ghost { position: absolute; left: 1008px; top: 700px; }
+      [data-composition-id="scene-02"] .sc-line { position: absolute; left: 128px; top: 478px; width: 5px; height: 288px; border-radius: 3px; background: var(--k-ok); transform-origin: 50% 0; }
+      [data-composition-id="scene-02"] .sc-row { position: absolute; left: 180px; width: 1644px; height: 96px; display: flex; align-items: center; padding: 0 30px; border-radius: 24px; background: var(--k-panel); border: 2px solid var(--k-line); box-shadow: var(--k-shadow-card); font-size: 34px; font-weight: 600; }
+      [data-composition-id="scene-02"] .sc-row .a { width: 360px; }
+      [data-composition-id="scene-02"] .sc-row .w { width: 440px; color: var(--k-text-2); font-weight: 500; }
+      [data-composition-id="scene-02"] .sc-dot { position: absolute; left: 117px; width: 28px; height: 28px; border-radius: 50%; background: var(--k-ok); border: 5px solid var(--k-bg); box-sizing: content-box; }
+      [data-composition-id="scene-02"] .sc-h { position: absolute; top: 416px; height: 44px; font-size: 30px; font-weight: 700; color: var(--k-accent-soft); white-space: nowrap; }
+      [data-composition-id="scene-02"] .sc-band { position: absolute; top: 408px; height: 412px; border-radius: 22px; background: var(--k-accent-tint); border: 2px solid var(--k-accent); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("02");
+        const t = S.t;
+        const DUR = 17.7;
+        const mk = (cls, html, parent, css) => { const e = document.createElement("div"); e.className = cls; e.innerHTML = html; if (css) e.style.cssText += css; parent.appendChild(e); gsap.set(e, { autoAlpha: 0 }); return e; };
+        Kit.header(S, { duration: DUR });
+
+        const T_OUT2 = S.end("копий", 2) + 0.02;          // «не набор копий» отзвучало: «проблема» уходит
+        const T_IN3 = T_OUT2 + 0.5;
+
+        /* ---- проблема: две копии файла рядом (под заставкой первые 2 с ничего не привязано) ---- */
+        const s2 = S.stage(); gsap.set(s2, { autoAlpha: 1 });
+        const L1 = ["# Выгрузка в CSV", "", "## Границы", "- Меняется выгрузка в продукте A.", "- Продукт C не затронут."];
+        const L2 = ["# Выгрузка в CSV", "", "## Границы", "- Меняется выгрузка в продуктах A, B.", "- Продукт C не затронут."];
+        const ed1 = Kit.editor(S, { parent: s2, x: 96, y: 300, w: 816, h: 390, crumb: "учебная папка", tabs: [{ name: "intent-1.md", active: true }], lines: L1 });
+        const ed2 = Kit.editor(S, { parent: s2, x: 1008, y: 300, w: 816, h: 390, crumb: "учебная папка", tabs: [{ name: "intent-2.md", active: true }], lines: L2 });
+        ed1.show(t("Две")); ed1.reveal(0, 4, t("Две") + 0.2);
+        ed2.show(t("копии")); ed2.reveal(0, 4, t("копии") + 0.2);
+        const tagOld = mk("sc-tag k-pill mac", "проблема", s2, "left:96px;top:222px;");
+        Kit.popIn(S, tagOld, t("старый") + 0.5);
+        const neq = mk("sc-neq", "≠", s2);                       // между копиями: чем-то они различаются
+        Kit.popIn(S, neq, t("копий"));
+        ed2.mark(3, t("быстро"), { off: t("а причину") + 0.1 }); // единственная подсветка: где отличие
+        const ghost = mk("sc-ghost k-tile ghost", "почему?", s2);   // причина нигде не записана: пустая подпись
+        Kit.popIn(S, ghost, t("причину"));
+
+        /* ---- цель: один файл и его история ---- */
+        const s3 = S.stage();
+        const tagNew = mk("sc-tag k-pill", "цель", s3, "left:96px;top:222px;");
+        Kit.popIn(S, tagNew, T_IN3 + 0.2);
+        Kit.path(S, { parent: s3, x: 96, y: 290, items: [{ icon: "file", text: "intent.md", at: t("одного файла") }] });
+        const line = mk("sc-line", "", s3);
+        S.tl.fromTo(line, { autoAlpha: 1, scaleY: 0 }, { scaleY: 1, duration: 1.4, ease: "power2.inOut", immediateRender: false }, t("одного файла") + 0.1);
+        const VERS = [["Иван", "10 окт, 10:20", "Первая версия intent"], ["Мария", "10 окт, 14:05", "Добавили правило в границы"], ["Иван", "11 окт, 09:40", "Уточнили задачу"]];
+        const rowTop = [466, 586, 706];                           // ряды 96 + 24 зазор; линия 478..766
+        VERS.forEach((v, i) => {
+          const at = t("одного файла") + 0.25 + i * 0.3;
+          const dot = mk("sc-dot", "", s3, `top:${rowTop[i] + 34}px;`);
+          const row = mk("sc-row", `<span class="a">${v[0]}</span><span class="w">${v[1]}</span><span>${v[2]}</span>`, s3, `top:${rowTop[i]}px;`);
+          Kit.popIn(S, dot, at, 0.45); Kit.popIn(S, row, at);
+        });
+        // колонки по словам: полоса-подсветка и заголовок над ней, прежняя гаснет до следующей
+        const COLS = [{ name: "Автор", at: t("автор"), x: 194, w: 360 }, { name: "Время", at: t("время"), x: 554, w: 440 }, { name: "Причина", at: t("причина"), x: 994, w: 830 }];
+        COLS.forEach((c, i) => {
+          const band = mk("sc-band", "", s3, `left:${c.x}px;width:${c.w}px;`);
+          const head = mk("sc-h", c.name, s3, `left:${c.x + 16}px;`);
+          Kit.popIn(S, head, c.at);
+          S.tl.fromTo(band, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5, ease: "power2.out", immediateRender: false }, c.at);
+          if (i < COLS.length - 1) S.tl.to(band, { autoAlpha: 0, duration: 0.4, ease: "power2.in" }, COLS[i + 1].at - 0.05);
+        });
+
+        Kit.stageOut(S, s2, T_OUT2); Kit.stageIn(S, s3, T_IN3);
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

@@ -1,0 +1,8 @@
+# Полоса 6 (после полосы 4): D — block-r3, block-r4new; F — block-dark-factory; G — block-i1.
+# Конфиг ролика — targets/<ролик>.json { variant, bodySha256 }; варианты — kit/variants/<X>.json.
+# block-0a (H) — ручная копия: свой split шапки, старый словарь и тест-фикстуры; вариант не выражается,
+# в список не входит, film/kit/kit.js остаётся как опубликован (targets/INVENTORY.md, KIT.md).
+block-r3
+block-r4new
+block-dark-factory
+block-i1

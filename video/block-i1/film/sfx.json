@@ -1,0 +1,194 @@
+{
+  "events": [
+    {
+      "kind": "pop",
+      "t": 3.004,
+      "note": "00:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 5.616,
+      "note": "00:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 8.824,
+      "note": "00:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 12.535,
+      "note": "00:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 14.444,
+      "note": "00:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 18.499,
+      "note": "00:popIn"
+    },
+    {
+      "kind": "swipe",
+      "t": 24.62,
+      "pan": -0.5
+    },
+    {
+      "kind": "pop",
+      "t": 26.9,
+      "note": "01:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 28.68,
+      "note": "01:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 31.515,
+      "note": "01:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 32.795,
+      "note": "01:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 38.612,
+      "note": "01:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 40.007,
+      "note": "01:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 45.522,
+      "note": "01:popIn"
+    },
+    {
+      "kind": "swipe",
+      "t": 53.02,
+      "pan": 0.5
+    },
+    {
+      "kind": "pop",
+      "t": 55.3,
+      "note": "02:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 57.388,
+      "note": "02:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 59.963,
+      "note": "02:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 75.897,
+      "note": "02:popIn"
+    },
+    {
+      "kind": "swipe",
+      "t": 84.32,
+      "pan": -0.5
+    },
+    {
+      "kind": "pop",
+      "t": 86.55,
+      "note": "03:stageInSoft"
+    },
+    {
+      "kind": "pop",
+      "t": 92.617,
+      "note": "03:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 101.907,
+      "note": "03:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 108.081,
+      "note": "03:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 110.161,
+      "note": "03:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 116.367,
+      "note": "03:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 123.571,
+      "note": "03:popIn"
+    },
+    {
+      "kind": "swipe",
+      "t": 128.142,
+      "note": "03:stageIn"
+    },
+    {
+      "kind": "swipe",
+      "t": 137.72,
+      "pan": 0.5
+    },
+    {
+      "kind": "pop",
+      "t": 140,
+      "note": "04:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 145.216,
+      "note": "04:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 148.832,
+      "note": "04:popIn"
+    },
+    {
+      "kind": "swipe",
+      "t": 150.575,
+      "note": "04:stageIn"
+    },
+    {
+      "kind": "pop",
+      "t": 158.279,
+      "note": "04:popIn"
+    },
+    {
+      "kind": "swipe",
+      "t": 172.92000000000002,
+      "pan": -0.5
+    },
+    {
+      "kind": "pop",
+      "t": 175.929,
+      "note": "05:popIn"
+    },
+    {
+      "kind": "pop",
+      "t": 188.288,
+      "note": "05:popIn"
+    },
+    {
+      "kind": "subdrop",
+      "t": 191.4,
+      "pan": 0
+    }
+  ]
+}

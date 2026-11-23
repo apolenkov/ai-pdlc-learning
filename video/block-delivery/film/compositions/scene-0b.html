@@ -1,0 +1,103 @@
+<template id="scene-0b-template">
+  <div data-composition-id="scene-0b" data-width="1920" data-height="1080" data-duration="31.3">
+    <style>
+      [data-composition-id="scene-0b"] .db-abs { position: absolute; }
+      [data-composition-id="scene-0b"] .db-plq { left: 96px; top: 232px; width: 1728px; height: 84px; padding: 0 34px; display: flex; align-items: center; gap: 22px; white-space: nowrap; }
+      [data-composition-id="scene-0b"] .db-pt { font-size: 38px; font-weight: 800; }
+      [data-composition-id="scene-0b"] .db-ps { font-size: 34px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-0b"] .db-mk { width: 46px; height: 46px; border-radius: 50%; border: 3px solid var(--k-ok); color: var(--k-ok); display: flex; align-items: center; justify-content: center; flex: none; }
+      [data-composition-id="scene-0b"] .db-mk svg { width: 26px; height: 26px; }
+      [data-composition-id="scene-0b"] .db-sep { width: 1px; }
+      [data-composition-id="scene-0b"] .db-ar { width: 54px; height: 34px; color: var(--k-text-2); margin: 0 18px; flex: none; }
+      [data-composition-id="scene-0b"] .db-dot { width: 46px; height: 46px; color: var(--k-text); flex: none; }
+      [data-composition-id="scene-0b"] .db-card { top: 336px; height: 314px; padding: 22px 26px; }
+      [data-composition-id="scene-0b"] .db-who { font-size: 46px; font-weight: 800; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 14px; }
+      [data-composition-id="scene-0b"] .db-chips { display: flex; flex-wrap: wrap; gap: 12px; }
+      [data-composition-id="scene-0b"] .db-chip { padding: 6px 20px; border-radius: 16px; border: 2px solid var(--k-line); background: var(--k-panel-2); font-size: 32px; font-weight: 600; line-height: 1.25; white-space: nowrap; }
+      [data-composition-id="scene-0b"] .db-chip.no { display: inline-flex; align-items: center; gap: 12px; border-color: var(--k-accent); background: var(--k-accent-tint); color: var(--k-accent-soft); }
+      [data-composition-id="scene-0b"] .db-chip.no svg { width: 32px; height: 32px; flex: none; }
+      [data-composition-id="scene-0b"] .db-nest { white-space: nowrap; margin-top: 12px; padding: 8px 18px; border-radius: 16px; border: 2px solid var(--k-text-2); }
+      [data-composition-id="scene-0b"] .db-nest b { font-size: 32px; font-weight: 700; line-height: 1.2; }
+      [data-composition-id="scene-0b"] .db-nest span { font-size: 30px; font-weight: 500; color: var(--k-text-2); line-height: 1.25; }
+      [data-composition-id="scene-0b"] .db-out-l { left: 96px; top: 656px; font-size: 32px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--k-text-2); }
+      [data-composition-id="scene-0b"] .db-out { top: 698px; width: 846px; height: 112px; padding: 14px 28px; display: flex; align-items: center; gap: 24px; }
+      [data-composition-id="scene-0b"] .db-ic { width: 56px; height: 56px; color: var(--k-text-2); flex: none; }
+      [data-composition-id="scene-0b"] .db-ic svg { width: 100%; height: 100%; display: block; }
+      [data-composition-id="scene-0b"] .db-ot { font-size: 40px; font-weight: 800; line-height: 1.15; }
+      [data-composition-id="scene-0b"] .db-os { font-size: 32px; font-weight: 500; color: var(--k-text-2); line-height: 1.25; margin-top: 4px; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("0b"), t = S.t, DUR = 31.3;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const div = (cls, html, parent) => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; parent.appendChild(el); return el; };
+        const CHECK = '<svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 29l12 12 24-26"/></svg>';
+        const NOCHECK = '<svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 29l12 12 24-26"/><path d="M6 50L50 6"/></svg>';
+        const PERSON = '<svg class="db-dot" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><circle cx="20" cy="13" r="7"/><path d="M6 37c0-9 6-14 14-14s14 5 14 14"/></svg>';
+        const ARROW = '<svg class="db-ar" viewBox="0 0 54 34" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17h44M34 5l14 12-14 12"/></svg>';
+
+        Kit.header(S, { header: { mode: "parts", total: 7 }, chapter: "Как меняется работа", step: null, mode: "intro", duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* ---- плашка: анализ закончен, дальше разработка и двое ---- */
+        const plq = div("k-card db-abs db-plq", `<span class="db-pt">Анализ</span><span class="db-mk">${CHECK}</span><span class="db-mk">${CHECK}</span><span class="db-ps">комментарии и одобрение получены</span>${ARROW}<span class="db-pt">Разработка</span>${PERSON}${PERSON}`, s1);
+        const mks = Array.from(plq.querySelectorAll(".db-mk")), ps = plq.querySelector(".db-ps"), ar = plq.querySelector(".db-ar");
+        const pt2 = plq.querySelectorAll(".db-pt")[1], dots = Array.from(plq.querySelectorAll(".db-dot"));
+        hide(plq, ...mks, ps, ar, pt2, ...dots);
+        S.tl.fromTo(plq, { autoAlpha: 0, y: -40 }, { autoAlpha: 1, y: 0, duration: 0.7, ease: "power3.out", immediateRender: false }, 0.1);
+        mks.forEach((m, i) => Kit.popIn(S, m, t("комментарии") + i * 0.35, 0.45));
+        Kit.popIn(S, ps, t("одобрение"));
+        S.tl.fromTo(ar, { autoAlpha: 0, x: -24 }, { autoAlpha: 1, x: 0, duration: 0.5, ease: "power3.out", immediateRender: false }, t("разработка,") - 0.2);
+        S.tl.fromTo(pt2, { autoAlpha: 0, x: 40 }, { autoAlpha: 1, x: 0, duration: 0.7, ease: "power3.out", immediateRender: false }, t("разработка,") - 0.1);
+        dots.forEach((d, i) => S.tl.fromTo(d, { autoAlpha: 0, scale: 0 }, { autoAlpha: 1, scale: 1, duration: 0.5, ease: "back.out(2)", immediateRender: false }, t("двое") + i * 0.15));
+        read("Анализ комментарии и одобрение получены Разработка", t("комментарии"), DUR);
+
+        /* ---- три карточки ролей по очереди ---- */
+        const mkCard = (x, w, who, chips) => {
+          const c = div("k-card db-abs db-card", `<div class="db-who">${who}</div>${chips}`, s1);
+          c.style.left = x + "px"; c.style.width = w + "px"; hide(c); return c;
+        };
+        const c1 = mkCard(96, 520, "Разработчик", '<div class="db-chips"><span class="db-chip a">код</span><span class="db-chip b">проверки</span><span class="db-chip c">архив</span></div>');
+        const c2 = mkCard(640, 520, "Аналитик", '<div class="db-chips"><span class="db-chip a">смысл сценариев</span><span class="db-chip b">сверка спецификации</span></div>');
+        const c3 = mkCard(1184, 640, "Модель", `<div class="db-chips"><span class="db-chip a">пишет код</span></div><div class="db-nest"><b>другая модель</b><span> · только чтение</span></div><div class="db-chips" style="margin-top:12px"><span class="db-chip no">${NOCHECK}одобрения не ставит</span></div>`);
+        const sub = (c, sel) => c.querySelector(sel);
+        const subs = [[c1, ".a", t("код,")], [c1, ".b", t("проверки")], [c1, ".c", t("архив.")], [c2, ".a", t("вопросы")], [c2, ".b", t("сверяет")], [c3, ".a", t("пишет")], [c3, ".db-nest", t("другая")], [c3, ".no", t("Модель одобрений")]];
+        subs.forEach(([c, sel, at]) => { const el = sub(c, sel); hide(el); Kit.popIn(S, el, at, 0.5); });
+        const T1 = t("Разработчик"), T2 = t("Аналитик"), T3 = t("Код пишет");
+        S.tl.fromTo(c1, { autoAlpha: 0, x: -80 }, { autoAlpha: 1, x: 0, duration: 0.7, ease: "power3.out", immediateRender: false }, T1 - 0.05);
+        S.tl.fromTo(c2, { autoAlpha: 0, y: 50, scale: 0.94 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(2)", immediateRender: false }, T2 - 0.05);
+        S.tl.fromTo(c3, { autoAlpha: 0, scale: 1.06, filter: "blur(14px)" }, { autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: 0.7, ease: "power3.out", immediateRender: false }, T3 - 0.05);
+        // the card that speaks wears a lighter outline; the previous one goes back to the quiet line
+        const LINE = Kit.token("--k-line"), TXT = Kit.token("--k-text-2");
+        [[c1, T1, T2], [c2, T2, T3], [c3, T3, t("На выходе")]].forEach(([c, a, b]) => {
+          S.tl.to(c, { borderColor: TXT, duration: 0.4 }, a + 0.3);
+          S.tl.to(c, { borderColor: LINE, duration: 0.5 }, b);
+        });
+        read("Разработчик код проверки архив", t("архив."), DUR);
+        read("Аналитик смысл сценариев сверка спецификации", t("сверяет"), DUR);
+        read("Модель пишет код другая модель только чтение одобрения не ставит", t("Модель одобрений"), DUR);
+
+        /* ---- на выходе ---- */
+        const lab = div("db-abs db-out-l", "На выходе", s1); hide(lab);
+        S.tl.fromTo(lab, { autoAlpha: 0, x: -30 }, { autoAlpha: 1, x: 0, duration: 0.6, ease: "power3.out", immediateRender: false }, t("На выходе") - 0.05);
+        const o1 = div("k-card db-abs db-out", `<span class="db-ic">${Kit.icons.merge}</span><div><div class="db-ot">код + отметки задач</div><div class="db-os">main ваших форков</div></div>`, s1);
+        const o2 = div("k-card db-abs db-out", `<span class="db-ic">${Kit.icons.file}</span><div><div class="db-ot">главная спецификация</div><div class="db-os">обновлена архивом</div></div>`, s1);
+        o1.style.left = "96px"; o2.style.left = "978px"; hide(o1, o2);
+        S.tl.fromTo(o1, { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.7, ease: "power3.out", immediateRender: false }, t("код и") - 0.05);
+        Kit.popIn(S, o2, t("главная") - 0.05);
+        read("код отметки задач main ваших форков", t("код и"), DUR);
+        read("главная спецификация обновлена архивом", t("главная"), DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

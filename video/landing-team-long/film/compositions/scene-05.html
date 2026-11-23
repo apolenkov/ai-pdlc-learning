@@ -1,0 +1,32 @@
+<template id="scene-05-template">
+  <div data-composition-id="scene-05" data-width="1920" data-height="1080" data-duration="40">
+    <script>
+      (function () {
+        const L = Long.begin("05"), { S, tl, el, show, hide, at, t, DUR } = L;
+        const T = Team.use(L);
+        T.title("Шесть задач <span>по кругу</span>");
+        const P = T.panel("team-six-tasks-ring", { x: 210, y: 240, w: 1500, at: 0.4 });
+        const RC = { 1: [336, 10, 288, 52], 2: [656, 58, 268, 52], 3: [656, 178, 268, 52], 4: [336, 240, 288, 52], 5: [36, 178, 268, 52], 6: [36, 58, 268, 52], 7: [344, 128, 272, 104] };
+        const ST = [t("Мониторинг"), t("Исследование"), t("Метод:"), t("Аудит готовности"), t("Обучение:"), t("Сопровождение:"), t("В центре")];
+        const OUT = [
+          "<b>Выход:</b> бэклог метода — метрики против исходного уровня",
+          "<b>Выход:</b> кандидаты и результаты сравнений по радару",
+          "<b>Выход:</b> версии метода, шаблоны, автопроверки, откат",
+          "<b>Выход:</b> паспорт продукта — CI, тесты, владелец, наставник, права агента",
+          "<b>Выход:</b> наставник сам проводит изменение и помогает коллеге",
+          "<b>Выход:</b> команда работает сама, коуч уходит",
+          "<b>В центре:</b> продукт и его поток — решения остаются за командой продукта",
+        ];
+        ST.forEach((s, i) => {
+          const next = i < 6 ? ST[i + 1] - 0.5 : DUR - 1.0;
+          P.hl(RC[i + 1], s - 0.1, next, i === 6 ? "" : "ok");
+          const c = el("tm-card " + (i === 6 ? "acc" : "ok"), '<p style="font-size:36px;color:var(--k-text)">' + OUT[i] + "</p>");
+          c.style.left = "210px"; c.style.top = "790px"; c.style.width = "1500px"; c.style.height = "100px"; c.style.padding = "16px 32px"; c.style.display = "flex"; c.style.alignItems = "center";
+          T.fadeIn(c, s - 0.1, 8); T.fadeOut(c, next); T.cue("pop", s - 0.1, 960);
+        });
+        T.plates([["Выход одной задачи — вход следующей", 0.4], ["Паспорт продукта", ST[3] - 0.1, "info"], ["Коуч уходит", ST[5] - 0.1, "acc"], ["Решения за командой продукта", ST[6] - 0.1]]);
+        L.fin();
+      })();
+    </script>
+  </div>
+</template>

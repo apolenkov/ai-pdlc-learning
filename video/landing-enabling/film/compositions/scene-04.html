@@ -1,0 +1,61 @@
+<template id="scene-04-template">
+  <div data-composition-id="scene-04" data-width="1920" data-height="1080" data-duration="19.8">
+    <style>
+      /* Копия диаграммы страницы enabling-team.html (раздел «План изменений»): цвета, начала и длины полос — из её разметки. */
+      [data-composition-id="scene-04"] .et-h { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 58px; font-weight: 800; }
+      [data-composition-id="scene-04"] .gantt-card { position: absolute; left: 96px; top: 200px; width: 1728px; height: 700px; box-sizing: border-box; padding: 24px 32px; border: 2px solid #d6d0c4; border-radius: 24px; background: #fffdf8; color: #1f2d2a; }
+      [data-composition-id="scene-04"] .gantt-legend { display: flex; align-items: center; gap: 0 44px; height: 56px; margin: 0 0 20px; padding: 0 0 20px; border-bottom: 2px solid #d6d0c4; font-size: 28px; font-weight: 650; color: #626862; }
+      [data-composition-id="scene-04"] .gantt-legend > span { display: inline-flex; align-items: center; }
+      [data-composition-id="scene-04"] .gantt-swatch { display: inline-block; width: 52px; height: 22px; margin-right: 14px; border-radius: 6px; }
+      [data-composition-id="scene-04"] .gantt-swatch--theory { background: #3f6f88; }
+      [data-composition-id="scene-04"] .gantt-swatch--practice { background: #216650; }
+      [data-composition-id="scene-04"] .gantt-swatch--mixed { background: linear-gradient(90deg, #3f6f88 50%, #216650 50%); }
+      [data-composition-id="scene-04"] .gantt-legend .gantt-note { font-weight: 400; font-size: 26px; }
+      [data-composition-id="scene-04"] .gantt-chart { display: grid; gap: 8px; margin: 0; padding: 0; }
+      [data-composition-id="scene-04"] .gantt-row { display: grid; grid-template-columns: 620px minmax(0, 1fr); align-items: center; column-gap: 28px; height: 76px; padding: 0 8px; }
+      [data-composition-id="scene-04"] .gantt-row-label { font-size: 34px; font-weight: 650; line-height: 1.2; color: #1f2d2a; }
+      [data-composition-id="scene-04"] .gantt-track { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: center; height: 76px; padding-inline: 4px; border-radius: 8px; }
+      [data-composition-id="scene-04"] .gantt-row.even .gantt-track { background: rgba(238, 243, 239, 0.75); }
+      [data-composition-id="scene-04"] .gantt-bar { display: block; height: 34px; border-radius: 8px; transform-origin: left center; }
+      [data-composition-id="scene-04"] .gantt-bar--theory { background: #3f6f88; }
+      [data-composition-id="scene-04"] .gantt-bar--practice { background: #216650; }
+      [data-composition-id="scene-04"] .gantt-bar--mixed { background: linear-gradient(90deg, #3f6f88 50%, #216650 50%); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("04"), DUR = 19.8;
+        const h = document.createElement("div"); h.className = "et-h";
+        h.textContent = "Roadmap · шаг за шагом"; S.root.appendChild(h);
+        S.tl.fromTo(h, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out", immediateRender: true }, 0.1);
+        // слово озвучки, подпись, вид полосы, grid-column «начало / конец» — как на странице enabling-team.html
+        const rows = [
+          ["Установочная", "1. Установочная встреча", "theory", 1, 3],
+          ["Подготовка", "2. Подготовка по гайдам", "theory", 2, 5],
+          ["Аудит", "3. Аудит: беседа с командой", "practice", 3, 6],
+          ["План изменений", "4. План изменений", "practice", 5, 7],
+          ["Обучение", "5. Обучение и метарепозиторий", "mixed", 6, 9],
+          ["Внедрение", "6. Внедрение первым потоком", "practice", 8, 12],
+          ["Метрики", "7. Метрики и повторный аудит", "practice", 11, 13],
+        ];
+        const card = document.createElement("div"); card.className = "gantt-card"; S.root.appendChild(card);
+        const legend = document.createElement("p"); legend.className = "gantt-legend";
+        legend.innerHTML = '<span><i class="gantt-swatch gantt-swatch--theory"></i>ТЕОРИЯ</span><span><i class="gantt-swatch gantt-swatch--practice"></i>ПРАКТИКА</span><span><i class="gantt-swatch gantt-swatch--mixed"></i>ТЕОРИЯ + ПРАКТИКА</span><span class="gantt-note">порядок шагов, длина — доля работы</span>';
+        card.appendChild(legend);
+        const note = legend.querySelector(".gantt-note");
+        const chart = document.createElement("div"); chart.className = "gantt-chart"; card.appendChild(chart);
+        const first = Math.min(S.t(rows[0][0]), DUR - 2);
+        S.tl.fromTo(card, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: "power2.out", immediateRender: true }, Math.max(first - 0.1, 0.2));
+        S.tl.fromTo(note, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4, ease: "power2.out", immediateRender: true }, Math.min(S.t("Длина"), DUR - 2));
+        rows.forEach(([word, name, kind, a, b], i) => {
+          const r = document.createElement("div"); r.className = "gantt-row" + (i % 2 ? " even" : "");
+          r.innerHTML = '<div class="gantt-row-label">' + name + '</div><div class="gantt-track"><span class="gantt-bar gantt-bar--' + kind + '" style="grid-column: ' + a + " / " + b + ';"></span></div>';
+          chart.appendChild(r);
+          const at = Math.min(S.t(word), DUR - 2);
+          S.tl.fromTo(r, { autoAlpha: 0, x: -24 }, { autoAlpha: 1, x: 0, duration: 0.35, ease: "power2.out", immediateRender: true }, at);
+          S.tl.fromTo(r.querySelector(".gantt-bar"), { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.inOut", immediateRender: true }, at + 0.15);
+        });
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

@@ -1,0 +1,187 @@
+/* Brand green, same as the course strip: metarepo is an analysis page (DESIGN.md). */
+:root { color-scheme: light; --meta-accent: var(--customdev-green); --meta-soft: var(--customdev-green-soft); --meta-line: #aecdc0; }
+* { box-sizing: border-box; }
+body { margin: 0; color: var(--customdev-ink); font: 400 1rem/1.65 var(--customdev-font-body); }
+a { color: var(--meta-accent); text-underline-offset: .2em; }
+a:hover { text-decoration-thickness: 2px; }
+a:focus-visible, button:focus-visible, summary:focus-visible, pre:focus-visible { outline: 3px solid var(--customdev-blue); outline-offset: 4px; border-radius: var(--customdev-radius-xs); }
+/* Article sits on the same 1408 surface as the guides; prose keeps its own measure (p: 78ch). */
+.page-shell { width: min(var(--site-shell-max), calc(100% - 2 * var(--site-page-gutter))); margin-inline: auto; padding-top: calc(var(--site-nav-reserve) - 8px); }
+@media (max-width: 1023px) { .page-shell { width: 100%; } .meta-shell { margin-inline: 16px; } }
+/* Same head budget as the guide hero (TASK-578): the title keeps the 1408 card,
+   but its top air is trimmed so the H1 stays within ~200px of the page top. */
+.meta-shell { margin: 0 0 64px; padding: 16px 40px 40px; border: 1px solid var(--customdev-line); border-radius: 12px; background: var(--customdev-surface); }
+.meta-shell :where(div, article, nav, li, p, dt, dd) { min-width: 0; }
+.meta-title { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.meta-tools { display: flex; flex: none; gap: 6px; padding-top: 12px; }
+.meta-tools a, .meta-tools button { display: grid; place-items: center; width: 32px; height: 32px; padding: 0; border: 1px solid var(--customdev-line); border-radius: 8px; background: transparent; color: var(--meta-accent); cursor: pointer; text-decoration: none; }
+.meta-tools a:hover, .meta-tools button:hover { border-color: var(--meta-accent); background: var(--meta-soft); }
+.meta-footer, .meta-route { display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: center; }
+.meta-footer .meta-route { flex: 1; }
+.meta-footer a, .meta-route a { display: inline-flex; align-items: center; min-height: 44px; }
+/* Chrome links stay clean; underlines appear on hover. Prose links keep theirs (1.4.1). */
+.meta-tools a, .meta-route a, .meta-footer > a, .meta-toc a { text-decoration: none; }
+.meta-tools a:hover, .meta-route a:hover, .meta-footer > a:hover, .meta-toc a:hover { text-decoration: underline; }
+.meta-toc { margin-block: 28px 40px; padding: 20px 24px; border: 1px solid var(--meta-line); border-radius: 12px; background: var(--customdev-surface); }
+.meta-toc p { margin: 0 0 12px; font-weight: 700; }
+.meta-toc ol { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 36px; margin: 0; padding-left: 1.4em; }
+.meta-toc a { display: inline-block; vertical-align: top; padding-block: 4px; overflow-wrap: anywhere; }
+.meta-content { margin-top: 8px; overflow-wrap: anywhere; }
+.meta-content h1, .meta-content h2, .meta-content h3 { text-wrap: balance; line-height: 1.2; }
+.meta-content h1, .meta-content h2 { overflow-wrap: normal; hyphens: manual; }
+.meta-content h1 { max-width: 24ch; margin: 0 0 24px; font-size: clamp(2rem, 4.5vw, 3.5rem); letter-spacing: -.025em; }
+.meta-content h2 { margin: 48px 0 20px; padding-top: 22px; border-top: 1px solid var(--customdev-line); font-size: clamp(1.55rem, 2.5vw, 2rem); }
+.meta-content h3 { margin: 28px 0 12px; font-size: 1.2rem; }
+.meta-content p { max-width: 78ch; margin: 12px 0; text-wrap: pretty; }
+.meta-content li + li { margin-top: 8px; }
+.meta-content .meta-toc li { margin-top: 0; }
+.meta-content ul, .meta-content ol { padding-left: 1.4em; }
+.meta-content blockquote { margin: 24px 0; padding: 8px 20px; border-left: 4px solid var(--meta-accent); background: var(--meta-soft); }
+.meta-content input { font: inherit; }
+.meta-content code { font: .92em/1.6 ui-monospace, SFMono-Regular, Consolas, monospace; }
+.meta-content :not(pre) > code { padding: .08em .2em; border-radius: var(--customdev-radius-xs); background: var(--meta-soft); overflow-wrap: anywhere; }
+.meta-content pre { max-width: 100%; padding: 20px; overflow-x: auto; border: 1px solid var(--customdev-line); border-radius: var(--customdev-radius-md); background: var(--customdev-surface); tab-size: 2; }
+.meta-content pre code { display: block; }
+.meta-content table { width: 100%; margin-block: 24px; table-layout: fixed; border-collapse: collapse; text-align: left; }
+.meta-content th, .meta-content td { padding: 12px 14px; border-bottom: 1px solid var(--customdev-line); vertical-align: top; }
+.meta-content th { background: var(--meta-soft); }
+/* Example pages (TASK-904): short sections read as one document, lists keep the prose measure; the metarepository page keeps its chapters. */
+.meta-content--example h1 { font-size: clamp(1.75rem, 3.2vw, 2.5rem); }
+.meta-content--example h2 { margin: 28px 0 6px; font-size: 1.35rem; padding-top: 0; border-top: 0; }
+.meta-content--example ul, .meta-content--example ol { max-width: 78ch; }
+.meta-content--example .meta-title { flex-wrap: wrap; }
+.meta-tools .meta-download { display: inline-flex; gap: 6px; width: auto; padding: 0 12px; font-weight: 600; }
+.meta-diagram { margin: 28px 0; padding: 24px; border: 1px solid var(--meta-line); border-radius: 16px; background: var(--customdev-surface); }
+.meta-hub, .meta-root { position: relative; padding: 18px 22px; border-left: 4px solid var(--meta-accent); border-radius: 0 var(--customdev-radius-md) var(--customdev-radius-md) 0; background: var(--meta-soft); }
+.meta-root::after { content: ""; position: absolute; bottom: -18px; left: 50%; width: 1px; height: 18px; background: var(--meta-accent); }
+.meta-hub h3, .meta-products h3, .meta-root h3, .meta-branch h3 { margin-top: 0; }
+.meta-products, .meta-branches { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-top: 36px; }
+.meta-branches::before { content: ""; position: absolute; left: calc(25% - 6px); right: calc(25% - 6px); top: -18px; height: 1px; background: var(--meta-accent); }
+.meta-products > article, .meta-products > div, .meta-branch { position: relative; padding: 18px; border: 1px solid var(--customdev-blue); border-radius: var(--customdev-radius-md); background: var(--customdev-blue-soft); }
+.meta-branch::before { content: "↓"; position: absolute; left: 50%; top: -22px; transform: translateX(-50%); color: var(--meta-accent); font-size: 22px; line-height: 24px; }
+.meta-link { padding-block: 12px; color: var(--meta-accent); font-size: .94rem; }
+.meta-link::before { content: "↓ ↑"; display: block; margin-bottom: 6px; font-size: 1.65rem; line-height: 1.2; }
+.meta-repo { padding-top: 12px; border-top: 1px solid var(--customdev-line); }
+.meta-diagram:focus-visible { outline: 3px solid var(--meta-accent); outline-offset: 3px; }
+.meta-diagram > img { display: block; margin-inline: auto; }
+.meta-diagram figcaption { margin-top: 18px; color: var(--customdev-muted); font-size: .94rem; }
+.meta-content details { margin-block: 20px; border-block: 1px solid var(--customdev-line); }
+.meta-content summary { min-height: 44px; padding: 10px 4px; font-weight: 650; cursor: pointer; }
+.meta-content summary:hover { color: var(--meta-accent); background: var(--meta-soft); }
+.meta-footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--customdev-line); }
+@media (max-width: 700px) {
+  .meta-toc ol, .meta-products, .meta-branches { grid-template-columns: 1fr; }
+  .meta-root::after, .meta-branches::before { display: none; }
+  .meta-branch::before { content: "Из общего контекста ↓"; position: static; display: block; margin-bottom: 14px; transform: none; font-size: .9rem; line-height: 1.5; }
+  .meta-table, .meta-table tbody { display: block; width: 100%; }
+  .meta-table thead { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .meta-table tr { display: block; margin-bottom: 16px; border: 1px solid var(--customdev-line); border-radius: var(--customdev-radius-md); background: var(--customdev-surface); }
+  .meta-table td { display: block; padding: 12px 16px; }
+  .meta-table td:last-child { border-bottom: 0; }
+  .meta-table td::before { content: attr(data-label); display: block; margin-bottom: 4px; font-weight: 700; }
+}
+@media (max-width: 480px) {
+  /* The non-breaking «Мета‑репозиторий» stays whole next to the 70 px page tools down to 320 px. */
+  .meta-content h1 { font-size: clamp(1.25rem, 6.6vw, 1.6rem); }
+}
+@media (max-width: 600px) {
+  :root { --site-nav-reserve: max(164px, 11rem); }
+  .meta-shell { padding: 16px 18px 28px; }
+  .meta-toc, .meta-diagram { padding: 18px 16px; }
+  .meta-content h2 { margin-top: 36px; }
+  .meta-content pre { padding: 14px; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .meta-content th, .meta-content td { padding: 10px 6px; }
+}
+@media print {
+  @page { size: A4; margin: 16mm; }
+  html, body { background: white !important; font-size: 10pt; }
+  html::before, html::after, body::before, body::after, [data-global-nav], .skip-link, .meta-tools, .meta-footer, .meta-route { display: none !important; }
+  .meta-shell { margin: 0; padding: 0; border: 0; background: none; }
+  .meta-content { margin-top: 0; }
+  .meta-toc { margin: 0 0 24pt; padding: 12pt; break-inside: avoid; }
+  .meta-content h1 { font-size: 23pt; max-width: none; }
+  .meta-content h2 { margin-top: 24pt; padding-top: 12pt; font-size: 17pt; }
+  .meta-content h3 { font-size: 12pt; }
+  .meta-content h1, .meta-content h2, .meta-content h3 { break-after: avoid; }
+  .meta-content p { orphans: 3; widows: 3; }
+  .meta-content pre { white-space: pre-wrap; overflow-wrap: anywhere; overflow: visible; padding: 12pt; break-inside: avoid; }
+  .meta-diagram, .meta-branch, .meta-content tr, .meta-content blockquote { break-inside: avoid; }
+  .meta-diagram { padding: 14pt; }
+  .meta-products { gap: 14pt; }
+  .meta-content th, .meta-content td { padding: 8pt; }
+  a { color: inherit; }
+}
+
+/* Example images (e.g. the export button mock) never push the page wider than the screen. */
+img { max-width: 100%; height: auto; }
+
+@media (max-width: 719px) {
+  .meta-diagram:has(> img) { overflow-x: auto; }
+  .meta-diagram > img { min-width: 725px; }
+  .meta-diagram:has(> img)::before { content: "Схема шире экрана — прокрутите её вправо"; display: block; position: sticky; left: 0; margin-bottom: 12px; color: var(--customdev-muted); font-size: .875rem; }
+}
+
+.meta-content .check { list-style: none; padding-left: 0; }
+.meta-content .check li { position: relative; padding-left: 36px; }
+/* The film player mounts here; without the film the slot stays out of the layout. */
+.meta-content > .lesson-goal:empty { display: none; }
+/* The film player (assets/video/guide-video.css) reads the guide tokens of guide.css; this page does not load it. */
+.meta-content {
+  --raised: var(--customdev-surface);
+  --ink: var(--customdev-ink);
+  --muted: var(--customdev-muted);
+  --line: var(--customdev-line);
+  --green: var(--customdev-green);
+  --green-soft: var(--customdev-green-soft);
+  --graphite: #17231f;
+  --body: var(--customdev-font-body);
+  --utility: var(--customdev-font-mono);
+}
+
+.meta-content .meta-token { white-space: nowrap; }
+
+/* Example tables size columns to their content; the metarepository guide keeps its established table layout. */
+.meta-content:not(#metarepository-guide) table { table-layout: auto; }
+@media (min-width: 1100px) { .meta-content:not(#metarepository-guide) th, .meta-content:not(#metarepository-guide) td { overflow-wrap: break-word; } }
+@media screen {
+  .intent-plan-table-scroll { overflow-x: auto; margin-block: 24px; }
+  .intent-plan-table-scroll > table { margin-block: 0; }
+  .intent-plan-table-scroll:focus-visible { outline: 3px solid var(--meta-accent); outline-offset: 3px; }
+}
+@media screen and (width < 1100px) {
+  .intent-plan-table-scroll { overflow-wrap: normal; }
+  .meta-content .intent-plan-table-scroll code { overflow-wrap: normal; }
+}
+/* Example checklists show their boxes without list dots, and a source block under the diagram adds no second line. */
+.meta-content:not(#metarepository-guide) ul:has(> li > label > input[type="checkbox"]) { padding-left: 0; list-style: none; }
+.meta-content:not(#metarepository-guide) li > label > input[type="checkbox"] {
+  appearance: none; display: inline-grid; place-content: center; width: 1em; height: 1em;
+  margin: 0 8px 0 0; border: 2px solid var(--customdev-green); border-radius: var(--customdev-radius-xs);
+  background: var(--customdev-surface); opacity: 1; vertical-align: -2px;
+}
+.meta-content:not(#metarepository-guide) li > label > input:checked { background: var(--customdev-green); }
+.meta-content:not(#metarepository-guide) li > label > input:checked::before {
+  content: ""; width: .25em; height: .5em; border: solid var(--customdev-surface);
+  border-width: 0 2px 2px 0; transform: translateY(-1px) rotate(45deg);
+}
+@media (forced-colors: active) {
+  .meta-content:not(#metarepository-guide) li > label > input[type="checkbox"] { appearance: auto; }
+}
+.meta-diagram + details { border-top: 0; }
+/* The table of contents reads down each column, and each number sits on the line of its link. */
+.meta-toc ol { display: block; columns: 2; column-gap: 36px; }
+.meta-toc li { break-inside: avoid; padding-block: 4px; }
+.meta-toc a { padding-block: 0; vertical-align: baseline; }
+@media (max-width: 700px) { .meta-toc ol { columns: 1; } }
+/* Example pages (not the metarepository guide): the title takes the line it needs, and lists, quotes and headings keep the prose measure; tables, code and diagrams keep the full width. */
+.meta-content:not(#metarepository-guide) .meta-title>h1 { max-width: none; font-size: clamp(1.75rem, 3.2vw, 2.5rem); }
+.meta-content:not(#metarepository-guide) > :not(.meta-title, table, .intent-plan-table-scroll, pre, figure, details) { max-width: 78ch; }
+
+@media (min-width: 1100px) {
+  .meta-content:not(#metarepository-guide) > .intent-summary-sections { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0 32px; max-width: none; }
+  .intent-summary-sections :is(p, ul) { margin-block: 6px; }
+}
+.meta-content--example>.meta-note{width:fit-content;padding:4px 10px;border-left:3px solid var(--meta-accent);background:var(--meta-soft)}
+@media(min-width:761px){#metarepository-guide .terminal-copy pre{padding-inline-end:9.5rem}}
+@media(max-width:760px){#metarepository-guide .terminal-copy pre{padding-top:48px}}
+@media print{body[data-stage="metarepo"] :is(.copy-example,.hero-start){display:none}}

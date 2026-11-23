@@ -1,0 +1,99 @@
+<template id="scene-01-template">
+  <div data-composition-id="scene-01" data-width="1920" data-height="1080" data-duration="26.6">
+    <style>
+      [data-composition-id="scene-01"] .r1-abs { position: absolute; }
+      [data-composition-id="scene-01"] .r1-a { top: 232px; height: 130px; padding: 0 30px; display: flex; align-items: center; font-size: 44px; font-weight: 800; letter-spacing: -0.01em; white-space: nowrap; }
+      [data-composition-id="scene-01"] .r1-new { border-style: dashed; border-color: var(--k-text-2); background: transparent; box-shadow: none; color: var(--k-text-2); }
+      [data-composition-id="scene-01"] .r1-jira { left: 96px; top: 410px; width: 800px; height: 206px; padding: 18px 30px; }
+      [data-composition-id="scene-01"] .r1-ttl { font-size: 44px; font-weight: 800; line-height: 1.15; letter-spacing: -0.01em; }
+      [data-composition-id="scene-01"] .r1-sub { margin-top: 6px; font-size: 32px; font-weight: 500; color: var(--k-text-2); }
+      [data-composition-id="scene-01"] .r1-chip { display: inline-block; margin-top: 10px; padding: 6px 20px; border-radius: 16px; border: 2px solid var(--k-text-2); font-size: 32px; font-weight: 600; white-space: nowrap; }
+      [data-composition-id="scene-01"] .r1-vs { left: 928px; top: 410px; width: 896px; height: 206px; padding: 18px 30px; }
+      [data-composition-id="scene-01"] .r1-st { display: flex; align-items: center; gap: 40px; margin-top: 14px; }
+      [data-composition-id="scene-01"] .r1-it { display: flex; align-items: center; gap: 12px; font-size: 36px; font-weight: 700; white-space: nowrap; }
+      [data-composition-id="scene-01"] .r1-it .ic { width: 44px; height: 44px; color: var(--k-text-2); flex: none; }
+      [data-composition-id="scene-01"] .r1-it .ic svg { width: 100%; height: 100%; display: block; }
+      [data-composition-id="scene-01"] .r1-it .tk { width: 40px; height: 40px; color: var(--k-ok); flex: none; }
+      [data-composition-id="scene-01"] .r1-arr { left: 1361px; top: 620px; width: 30px; height: 54px; }
+      [data-composition-id="scene-01"] .r1-own { left: 928px; top: 661px; width: 896px; height: 152px; padding: 18px 30px; border-color: var(--k-accent); background: var(--k-accent-tint); }
+      [data-composition-id="scene-01"] .r1-smp { left: 96px; top: 716px; height: 84px; padding: 0 26px 0 20px; display: flex; align-items: center; gap: 16px; font-size: 38px; font-weight: 700; white-space: nowrap; border-radius: 20px; border: 2px solid var(--k-text-2); background: var(--k-panel-2); }
+      [data-composition-id="scene-01"] .r1-smp svg { width: 46px; height: 46px; color: var(--k-text-2); flex: none; }
+      [data-composition-id="scene-01"] .r1-strike { position: absolute; left: -8px; right: -8px; top: 50%; height: 7px; margin-top: -2px; border-radius: 4px; background: var(--k-text); transform-origin: 0 50%; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("01"), t = S.t, DUR = 26.6;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const div = (cls, html, parent) => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; parent.appendChild(el); return el; };
+        const CHECK = '<svg class="tk" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M10 29l12 12 24-26"/></svg>';
+        const ARR = '<svg viewBox="0 0 30 54" fill="none" stroke="#a3a9b4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M15 4v44"/><path pathLength="1" d="M4 36l11 14 11-14"/></svg>';
+        const T0 = 2.0;   // the part title covers the first 2 s: nothing is visible before it
+        // the strike is an overlay on purpose: it is drawn over the word it cancels
+        const strike = (host, at) => { host.style.position = "relative"; host.style.display = "inline-block"; host.setAttribute("data-layout-allow-occlusion", ""); const s = div("r1-strike", "", host); s.setAttribute("data-layout-allow-occlusion", ""); gsap.set(s, { scaleX: 0 }); S.tl.to(s, { scaleX: 1, duration: 0.45, ease: "power2.out" }, at); };
+
+        Kit.header(S, { header: { mode: "parts", total: 8 }, chapter: "Вход и ветка", step: 1, duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* ---- два входа: замысел и принятый результат ---- */
+        const c1 = div("k-card r1-abs r1-a", "Замысел", s1); c1.style.left = "96px"; c1.style.width = "540px";
+        const c2 = div("k-card r1-abs r1-a", "Результат шага 2", s1); c2.style.left = "668px"; c2.style.width = "640px";
+        hide(c1, c2);
+        S.tl.fromTo(c1, { autoAlpha: 0, x: -80 }, { autoAlpha: 1, x: 0, duration: 0.7, ease: "power3.out", immediateRender: false }, T0);
+        S.tl.fromTo(c2, { autoAlpha: 0, y: 40, scale: 0.94 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(2)", immediateRender: false }, t("принятый") - 0.05);
+        read("Замысел", T0, DUR); read("Результат шага 2", t("принятый"), DUR);
+
+        /* ---- новый замысел не создавайте ---- */
+        const c3 = div("k-card r1-abs r1-a r1-new", "<span>новый замысел</span>", s1); c3.style.left = "1340px"; c3.style.width = "484px"; hide(c3);
+        S.tl.fromTo(c3, { autoAlpha: 0, scale: 1.06, filter: "blur(14px)" }, { autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: 0.7, ease: "power3.out", immediateRender: false }, t("Новый"));
+        strike(c3.querySelector("span"), t("не создавайте"));
+        read("новый замысел", t("Новый"), DUR);
+
+        /* ---- Jira: ссылка на изменение ---- */
+        const jr = div("k-card r1-abs r1-jira", '<div class="r1-ttl">Jira</div><div class="r1-sub">ваша задача</div><span class="r1-chip">ссылка на изменение</span>', s1);
+        const jchip = jr.querySelector(".r1-chip"); hide(jr, jchip);
+        S.tl.fromTo(jr, { autoAlpha: 0, x: -80 }, { autoAlpha: 1, x: 0, duration: 0.7, ease: "power3.out", immediateRender: false }, t("джире") - 0.1);
+        Kit.popIn(S, jchip, t("ссылка"), 0.5);
+        read("Jira ваша задача", t("джире"), DUR); read("ссылка на изменение", t("ссылка"), DUR);
+
+        /* ---- VS Code: ветка принята, изменений нет ---- */
+        const vs = div("k-card r1-abs r1-vs", `<div class="r1-sub" style="margin:0">VS Code</div><div class="r1-st"><div class="r1-it a"><span class="ic">${Kit.icons.branch}</span>ветка принята${CHECK}</div><div class="r1-it b"><span class="ic">${Kit.icons.file}</span>изменений нет${CHECK}</div></div>`, s1);
+        const ia = vs.querySelector(".a"), ib = vs.querySelector(".b"), ta = ia.querySelector(".tk"), tb = ib.querySelector(".tk");
+        hide(vs, ia, ib, ta, tb);
+        S.tl.fromTo(vs, { autoAlpha: 0, scale: 1.06, filter: "blur(14px)" }, { autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: 0.7, ease: "power3.out", immediateRender: false }, t("убедитесь") - 0.1);
+        S.tl.fromTo(ia, { autoAlpha: 0, x: -30 }, { autoAlpha: 1, x: 0, duration: 0.6, ease: "power3.out", immediateRender: false }, t("принятой"));
+        S.tl.fromTo(ib, { autoAlpha: 0, x: 30 }, { autoAlpha: 1, x: 0, duration: 0.6, ease: "power3.out", immediateRender: false }, t("список"));
+        [[ta, t("ветке") + 0.3, { scale: 0.3 }], [tb, t("пуст,"), { rotation: -90, scale: 0.4 }]].forEach(([tk, at, from]) => {
+          S.tl.fromTo(tk, { autoAlpha: 0, ...from }, { autoAlpha: 1, scale: 1, rotation: 0, duration: 0.5, ease: "back.out(2)", immediateRender: false }, at);
+          S.tl.fromTo(tk.querySelector("path"), { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out", immediateRender: false }, at);
+        });
+        read("VS Code ветка принята", t("принятой"), DUR); read("изменений нет", t("список"), DUR);
+
+        /* ---- своя ветка наследует принятое ---- */
+        const ar = div("r1-abs r1-arr", ARR, s1); hide(ar);
+        S.tl.set(ar, { autoAlpha: 1 }, t("создайте от"));
+        ar.querySelectorAll("path").forEach((p, i) => S.tl.fromTo(p, { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.5, ease: "power2.out", immediateRender: false }, t("создайте от") + i * 0.35));
+        const own = div("k-card r1-abs r1-own", '<div class="r1-ttl">своя ветка</div><span class="r1-chip">наследует принятое</span>', s1);
+        const ochip = own.querySelector(".r1-chip"); hide(own, ochip);
+        S.tl.fromTo(own, { autoAlpha: 0, y: 50, scale: 0.94 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(2)", immediateRender: false }, t("свою", 2) - 0.05);
+        S.tl.fromTo(ochip, { autoAlpha: 0, x: -30 }, { autoAlpha: 1, x: 0, duration: 0.6, ease: "power3.out", immediateRender: false }, t("унаследует"));
+        read("своя ветка", t("свою", 2), DUR); read("наследует принятое", t("унаследует"), DUR);
+
+        /* ---- образец клонировать не нужно ---- */
+        const sm = div("r1-abs r1-smp", `${Kit.icons.folder}<span>учебный образец</span>`, s1); hide(sm);
+        S.tl.fromTo(sm, { autoAlpha: 0, y: 40, scale: 0.94 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(2)", immediateRender: false }, t("Учебный") - 0.05);
+        strike(sm.querySelector("span"), t("не нужно"));
+        read("учебный образец", t("Учебный"), DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

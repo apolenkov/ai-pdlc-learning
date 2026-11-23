@@ -1,0 +1,62 @@
+[
+  {
+    "n": 0,
+    "title": "Вступление",
+    "step": null,
+    "chapter": "Вступление",
+    "start": 0,
+    "titleStart": 0,
+    "speechStart": 0,
+    "end": 69
+  },
+  {
+    "n": 1,
+    "title": "Зачем нам такая картина",
+    "step": 1,
+    "chapter": "Зачем нам такая картина",
+    "start": 69,
+    "titleStart": 69,
+    "speechStart": 69,
+    "end": 91.7
+  },
+  {
+    "n": 2,
+    "title": "День команды по ролям",
+    "step": 2,
+    "chapter": "День команды по ролям",
+    "start": 91.7,
+    "titleStart": 91.7,
+    "speechStart": 91.7,
+    "end": 129.5
+  },
+  {
+    "n": 3,
+    "title": "Один репозиторий или несколько",
+    "step": 3,
+    "chapter": "Один репозиторий или несколько",
+    "start": 129.5,
+    "titleStart": 129.5,
+    "speechStart": 129.5,
+    "end": 164.9
+  },
+  {
+    "n": 4,
+    "title": "Как настроить GitLab",
+    "step": 4,
+    "chapter": "Как настроить GitLab",
+    "start": 164.9,
+    "titleStart": 164.9,
+    "speechStart": 164.9,
+    "end": 210.4
+  },
+  {
+    "n": 5,
+    "title": "Три этапа, четыре запроса",
+    "step": 5,
+    "chapter": "Три этапа, четыре запроса",
+    "start": 210.4,
+    "titleStart": 210.4,
+    "speechStart": 210.4,
+    "end": 247.4
+  }
+]

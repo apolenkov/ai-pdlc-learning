@@ -1,0 +1,144 @@
+<template id="scene-04-template">
+  <div data-composition-id="scene-04" data-width="1920" data-height="1080" data-duration="28.6">
+    <style>
+      [data-composition-id="scene-04"] .sc-top .ttl { font-size: 36px; line-height: 1.15; }
+      [data-composition-id="scene-04"] .sc-top .sub { margin-top: 2px; font-size: 30px; }
+      [data-composition-id="scene-04"] .sc-arrow { position: absolute; left: 916px; top: 218px; width: 88px; text-align: center; font-size: 60px; font-weight: 300; line-height: 1; color: var(--k-text-2); }
+      [data-composition-id="scene-04"] .sc-cap { position: absolute; left: 96px; top: 324px; display: flex; align-items: center; gap: 18px; height: 52px; padding: 0 22px; border: 2px solid var(--k-line); border-radius: 16px; background: var(--k-panel); font-size: 32px; font-weight: 600; white-space: nowrap; }
+      [data-composition-id="scene-04"] .sc-sq { display: flex; gap: 8px; }
+      [data-composition-id="scene-04"] .sc-sq i { display: block; width: 24px; height: 24px; border-radius: 6px; background: var(--k-info); }
+      [data-composition-id="scene-04"] .sc-sq i + i + i, [data-composition-id="scene-04"] .sc-sq i + i + i + i { background: transparent; border: 2px dashed var(--k-text-2); }
+      [data-composition-id="scene-04"] .sc-row { display: flex; align-items: center; gap: 24px; height: 100%; }
+      [data-composition-id="scene-04"] .sc-row-t { align-items: flex-start; }
+      [data-composition-id="scene-04"] .sc-row-t .sc-badge { margin-top: 10px; }
+      [data-composition-id="scene-04"] .sc-row-t .sc-cond { margin-top: 16px; }
+      [data-composition-id="scene-04"] .sc-row-t .sc-rarrow { margin-top: 6px; line-height: 1.2; }
+      [data-composition-id="scene-04"] .sc-row-t .sc-note { margin-top: 20px; }
+      [data-composition-id="scene-04"] .sc-badge { flex: 0 0 56px; width: 56px; height: 56px; border: 3px solid var(--k-info); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: 700; }
+      [data-composition-id="scene-04"] .sc-cond { flex: 0 0 290px; font-size: 36px; font-weight: 700; line-height: 1.2; }
+      [data-composition-id="scene-04"] .sc-fw { position: relative; flex: 0 0 170px; height: 76px; }
+      [data-composition-id="scene-04"] .sc-f { width: 170px; }
+      [data-composition-id="scene-04"] .sc-box { display: flex; align-items: center; justify-content: center; height: 76px; border: 3px solid var(--k-line); border-radius: 14px; background: var(--k-panel-2); font-size: 40px; font-weight: 700; }
+      [data-composition-id="scene-04"] .sc-ok { border-color: var(--k-ok); }
+      [data-composition-id="scene-04"] .sc-bad { border-color: var(--k-accent); }
+      [data-composition-id="scene-04"] .sc-msg { position: absolute; left: 0; top: 86px; padding: 4px 16px; border: 2px solid var(--k-accent-soft); border-radius: 12px; color: var(--k-accent-soft); font-size: 28px; font-weight: 600; white-space: nowrap; }
+      [data-composition-id="scene-04"] .sc-rarrow { flex: 0 0 56px; text-align: center; font-size: 56px; font-weight: 300; color: var(--k-text-2); }
+      [data-composition-id="scene-04"] .sc-res { flex: 0 0 260px; }
+      [data-composition-id="scene-04"] .sc-note { font-size: 32px; font-weight: 500; color: var(--k-text-2); white-space: nowrap; }
+      [data-composition-id="scene-04"] .sc-wish { display: flex; align-items: center; border-color: var(--k-accent); font-size: 38px; font-weight: 700; white-space: nowrap; }
+      [data-composition-id="scene-04"] .sc-enough .ttl { font-size: 34px; }
+      [data-composition-id="scene-04"] .sc-enough .sub { margin-top: 4px; font-size: 28px; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("04"), t = S.t, DUR = 28.6;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.end("решат коллеги") < 1.5) throw new Error("Недостаточный хвост сцены");
+
+        const T_SUB1 = t("ожидаемое");
+        const T_REQ = t("требования");
+        const T_SC = t("Конкретные");
+        const T_SC_SUB = t("«что");
+        const T_SC_T = t("сценариями");
+        const T_CAP = t("два из четырёх") - 0.2;
+        const T_R1 = t("Если срок верный") - 0.1;
+        const T_R1RES = t("калькулятор показывает") - 0.1;
+        const T_R1NOTE = t("рассчитанный платёж");
+        const T_R2 = t("Если неверный") - 0.1;
+        const T_MSG = t("сообщение у") - 0.1;
+        const T_R2RES = t("вместо суммы") - 0.1;
+        const T_WISH = t("Просто");
+        const T_ENOUGH = t("Хватит");
+        const T_COLL = t("решат");
+
+        // Theme labels would only repeat the part title in the header, so the label is blank.
+        Kit.header(S, { header: { mode: "parts", total: 9 }, chapter: "Описываем поведение", step: 4, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* Requirements, then scenarios: the shells are on screen first, the names follow the spoken words. */
+        const top = (x, name, sub) => Kit.aside(S, { parent: s1, x, y: 195, w: 820, h: 116, tail: false,
+          html: `<div class="ttl">${name}</div><div class="sub">${sub}</div>` });
+        const reqs = top(96, "Требования", "ожидаемое поведение");
+        const scs = top(1004, "Сценарии", "«что вводим — что получаем»");
+        reqs.el.classList.add("sc-top"); scs.el.classList.add("sc-top");
+        gsap.set(reqs.el, { autoAlpha: 1 });
+        const rTtl = reqs.el.querySelector(".ttl"), rSub = reqs.el.querySelector(".sub"), sTtl = scs.el.querySelector(".ttl"), sSub = scs.el.querySelector(".sub");
+        gsap.set([rTtl, rSub, sTtl, sSub], { autoAlpha: 0 });
+        Kit.popIn(S, rSub, T_SUB1);
+        Kit.popIn(S, rTtl, T_REQ);
+        scs.show(T_SC);
+        Kit.popIn(S, sSub, T_SC_SUB);
+        Kit.popIn(S, sTtl, T_SC_T);
+        const arrow = document.createElement("div");
+        arrow.className = "sc-arrow"; arrow.textContent = "→"; s1.appendChild(arrow);
+        gsap.set(arrow, { autoAlpha: 0 });
+        Kit.popIn(S, arrow, T_SC);
+        read("ожидаемое поведение", T_SUB1, DUR);
+        read("Требования", T_REQ, DUR);
+        read("«что вводим — что получаем»", T_SC_SUB, DUR);
+        read("Сценарии", T_SC_T, DUR);
+
+        /* One caption for both scenario cards: two of four. */
+        const cap = document.createElement("div");
+        cap.className = "sc-cap";
+        cap.innerHTML = '<span class="sc-sq"><i></i><i></i><i></i><i></i></span><span>два из четырёх</span>';
+        s1.appendChild(cap);
+        gsap.set(cap, { autoAlpha: 0 });
+        Kit.popIn(S, cap, T_CAP);
+        read("два из четырёх", T_CAP, DUR);
+
+        /* Scenarios as schematic calculator cards (not a recording): field, arrow, result. */
+        const row = (y, h, cls, html) => Kit.aside(S, { parent: s1, x: 96, y, w: 1728, h, tail: false, html: `<div class="sc-row ${cls}">${html}</div>` });
+        const r1 = row(390, 124, "",
+          '<div class="sc-badge">1</div><div class="sc-cond">срок верный</div>' +
+          '<div class="sc-fw"><div class="sc-box sc-ok sc-f">12</div></div>' +
+          '<div class="sc-rarrow">→</div><div class="sc-res sc-box sc-ok">10 000 ₽</div><div class="sc-note">рассчитанный платёж</div>' +
+          '');
+        const r2 = row(526, 170, "sc-row-t",
+          '<div class="sc-badge">2</div><div class="sc-cond">срок неверный</div>' +
+          '<div class="sc-fw"><div class="sc-box sc-bad sc-f">1,5</div><div class="sc-msg" data-layout-allow-overflow>сообщение у поля</div></div>' +
+          '<div class="sc-rarrow">→</div><div class="sc-res sc-box">—</div><div class="sc-note">вместо суммы — прочерк</div>' +
+          '');
+        const part = (card, sel) => Array.from(card.el.querySelectorAll(sel));
+        // Result parts and the field message arrive with their own phrases.
+        const res1 = part(r1, ".sc-rarrow, .sc-res"), note1 = part(r1, ".sc-note");
+        const res2 = part(r2, ".sc-rarrow, .sc-res"), note2 = part(r2, ".sc-note"), msg = part(r2, ".sc-msg");
+        gsap.set([...res1, ...note1, ...res2, ...note2, ...msg], { autoAlpha: 0 });
+        r1.show(T_R1); r2.show(T_R2);
+        res1.forEach((el) => Kit.popIn(S, el, T_R1RES)); note1.forEach((el) => Kit.popIn(S, el, T_R1NOTE));
+        msg.forEach((el) => Kit.popIn(S, el, T_MSG));
+        res2.forEach((el) => Kit.popIn(S, el, T_R2RES)); note2.forEach((el) => Kit.popIn(S, el, T_R2RES + 0.2));
+        read("срок верный 12", T_R1, DUR);
+        read("10 000 ₽ рассчитанный платёж", T_R1RES, DUR);
+        read("срок неверный 1,5 сообщение у поля", T_R2, DUR);
+        read("вместо суммы — прочерк", T_R2RES, DUR);
+
+        const wish = Kit.aside(S, { parent: s1, x: 96, y: 708, w: 1010, h: 100, tail: false,
+          html: '<div>«сделать понятнее» — пожелание, а не правило</div>' });
+        wish.el.classList.add("sc-wish");
+        wish.show(T_WISH);
+        read("сделать понятнее — пожелание, а не правило", T_WISH, DUR);
+
+        /* Closing question: are four scenarios enough — the colleagues decide. */
+        const enough = Kit.aside(S, { parent: s1, x: 1130, y: 708, w: 694, h: 100, tail: false,
+          html: '<div class="ttl">Хватит ли этих сценариев?</div><div class="sub">решат коллеги</div>' });
+        enough.el.classList.add("sc-top", "sc-enough");
+        Object.assign(enough.el.style, { display: "flex", flexDirection: "column", justifyContent: "center" });
+        const eSub = enough.el.querySelector(".sub");
+        gsap.set(eSub, { autoAlpha: 0 });
+        enough.show(T_ENOUGH); Kit.popIn(S, eSub, T_COLL);
+        read("Хватит ли этих сценариев?", T_ENOUGH, DUR);
+        read("решат коллеги", T_COLL, DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

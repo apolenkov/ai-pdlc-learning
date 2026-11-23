@@ -1,0 +1,167 @@
+{
+ "method": "TASK-671 pilot r2: two-pass loudnorm, voice only, no music, no SFX",
+ "loudnorm": {
+  "I": -16,
+  "TP": -2.5,
+  "LRA": 11
+ },
+ "sampleRate": 48000,
+ "totalSamples": 10800000,
+ "voices": [
+  {
+   "scene": "0m",
+   "file": "assets/vo/scene-0m.mp3",
+   "delaySamples": 4800,
+   "fadeIn": 0
+  },
+  {
+   "scene": "0",
+   "file": "assets/vo/scene-0.mp3",
+   "delaySamples": 494400,
+   "fadeIn": 0
+  },
+  {
+   "scene": "0b",
+   "file": "assets/vo/scene-0b.mp3",
+   "delaySamples": 1368000,
+   "fadeIn": 0
+  },
+  {
+   "scene": "1",
+   "file": "assets/vo/scene-1.mp3",
+   "delaySamples": 2049600,
+   "fadeIn": 0
+  },
+  {
+   "scene": "2",
+   "file": "assets/vo/scene-2.mp3",
+   "delaySamples": 3360000,
+   "fadeIn": 0
+  },
+  {
+   "scene": "3",
+   "file": "assets/vo/scene-3.mp3",
+   "delaySamples": 4872000,
+   "fadeIn": 0.01
+  },
+  {
+   "scene": "4",
+   "file": "assets/vo/scene-4.mp3",
+   "delaySamples": 7828800,
+   "fadeIn": 0.01
+  },
+  {
+   "scene": "5",
+   "file": "assets/vo/scene-5.mp3",
+   "delaySamples": 8856000,
+   "fadeIn": 0
+  },
+  {
+   "scene": "6",
+   "file": "assets/vo/scene-6.mp3",
+   "delaySamples": 10132800,
+   "fadeIn": 0
+  }
+ ],
+ "pass1": {
+  "input_i": "-19.08",
+  "input_tp": "-1.56",
+  "input_lra": "3.00",
+  "input_thresh": "-29.24",
+  "output_i": "-16.39",
+  "output_tp": "-2.50",
+  "output_lra": "3.00",
+  "output_thresh": "-26.53",
+  "normalization_type": "dynamic",
+  "target_offset": "0.39"
+ },
+ "pass2": {
+  "input_i": "-19.08",
+  "input_tp": "-1.56",
+  "input_lra": "3.00",
+  "input_thresh": "-29.24",
+  "output_i": "-16.17",
+  "output_tp": "-2.50",
+  "output_lra": "3.10",
+  "output_thresh": "-26.30",
+  "normalization_type": "dynamic",
+  "target_offset": "0.17"
+ },
+ "argv1": [
+  "-nostdin",
+  "-hide_banner",
+  "-i",
+  "renders/block-p4.raw.mp4",
+  "-i",
+  "assets/vo/scene-0m.mp3",
+  "-i",
+  "assets/vo/scene-0.mp3",
+  "-i",
+  "assets/vo/scene-0b.mp3",
+  "-i",
+  "assets/vo/scene-1.mp3",
+  "-i",
+  "assets/vo/scene-2.mp3",
+  "-i",
+  "assets/vo/scene-3.mp3",
+  "-i",
+  "assets/vo/scene-4.mp3",
+  "-i",
+  "assets/vo/scene-5.mp3",
+  "-i",
+  "assets/vo/scene-6.mp3",
+  "-filter_complex",
+  "anullsrc=r=48000:cl=mono,atrim=end_sample=10800000,asetpts=PTS-STARTPTS[base];[1:a:0]asetpts=PTS-STARTPTS,aresample=48000,aformat=sample_fmts=fltp:sample_rates=48000:channel_layouts=mono,adelay=delays=4800S:all=1[vo1];[2:a:0]asetpts=PTS-STARTPTS,aresample=48000,aformat=sample_fmts=fltp:sample_rates=48000:channel_layouts=mono,adelay=delays=494400S:all=1[vo2];[3:a:0]asetpts=PTS-STARTPTS,aresample=48000,aformat=sample_fmts=fltp:sample_rates=48000:channel_layouts=mono,adelay=delays=1368000S:all=1[vo3];[4:a:0]asetpts=PTS-STARTPTS,aresample=48000,aformat=sample_fmts=fltp:sample_rates=48000:channel_layouts=mono,adelay=delays=2049600S:all=1[vo4];[5:a:0]asetpts=PTS-STARTPTS,aresample=48000,aformat=sample_fmts=fltp:sample_rates=48000:channel_layouts=mono,adelay=delays=3360000S:all=1[vo5];[6:a:0]asetpts=PTS-STARTPTS,aresample=48000,aformat=sample_fmts=fltp:sample_rates=48000:channel_layouts=mono,afade=t=in:st=0:d=0.01,adelay=delays=4872000S:all=1[vo6];[7:a:0]asetpts=PTS-STARTPTS,aresample=48000,aformat=sample_fmts=fltp:sample_rates=48000:channel_layouts=mono,afade=t=in:st=0:d=0.01,adelay=delays=7828800S:all=1[vo7];[8:a:0]asetpts=PTS-STARTPTS,aresample=48000,aformat=sample_fmts=fltp:sample_rates=48000:channel_layouts=mono,adelay=delays=8856000S:all=1[vo8];[9:a:0]asetpts=PTS-STARTPTS,aresample=48000,aformat=sample_fmts=fltp:sample_rates=48000:channel_layouts=mono,adelay=delays=10132800S:all=1[vo9];[base][vo1][vo2][vo3][vo4][vo5][vo6][vo7][vo8][vo9]amix=inputs=10:duration=first:dropout_transition=0:normalize=0[voicebus];[voicebus]loudnorm=I=-16:TP=-2.5:LRA=11:dual_mono=false:print_format=json[aout]",
+  "-map",
+  "[aout]",
+  "-f",
+  "null",
+  "-"
+ ],
+ "argv2": [
+  "-n",
+  "-nostdin",
+  "-hide_banner",
+  "-i",
+  "renders/block-p4.raw.mp4",
+  "-i",
+  "assets/vo/scene-0m.mp3",
+  "-i",
+  "assets/vo/scene-0.mp3",
+  "-i",
+  "assets/vo/scene-0b.mp3",
+  "-i",
+  "assets/vo/scene-1.mp3",
+  "-i",
+  "assets/vo/scene-2.mp3",
+  "-i",
+  "assets/vo/scene-3.mp3",
+  "-i",
+  "assets/vo/scene-4.mp3",
+  "-i",
+  "assets/vo/scene-5.mp3",
+  "-i",
+  "assets/vo/scene-6.mp3",
+  "-filter_complex",
+  "anullsrc=r=48000:cl=mono,atrim=end_sample=10800000,asetpts=PTS-STARTPTS[base];[1:a:0]asetpts=PTS-STARTPTS,aresample=48000,aformat=sample_fmts=fltp:sample_rates=48000:channel_layouts=mono,adelay=delays=4800S:all=1[vo1];[2:a:0]asetpts=PTS-STARTPTS,aresample=48000,aformat=sample_fmts=fltp:sample_rates=48000:channel_layouts=mono,adelay=delays=494400S:all=1[vo2];[3:a:0]asetpts=PTS-STARTPTS,aresample=48000,aformat=sample_fmts=fltp:sample_rates=48000:channel_layouts=mono,adelay=delays=1368000S:all=1[vo3];[4:a:0]asetpts=PTS-STARTPTS,aresample=48000,aformat=sample_fmts=fltp:sample_rates=48000:channel_layouts=mono,adelay=delays=2049600S:all=1[vo4];[5:a:0]asetpts=PTS-STARTPTS,aresample=48000,aformat=sample_fmts=fltp:sample_rates=48000:channel_layouts=mono,adelay=delays=3360000S:all=1[vo5];[6:a:0]asetpts=PTS-STARTPTS,aresample=48000,aformat=sample_fmts=fltp:sample_rates=48000:channel_layouts=mono,afade=t=in:st=0:d=0.01,adelay=delays=4872000S:all=1[vo6];[7:a:0]asetpts=PTS-STARTPTS,aresample=48000,aformat=sample_fmts=fltp:sample_rates=48000:channel_layouts=mono,afade=t=in:st=0:d=0.01,adelay=delays=7828800S:all=1[vo7];[8:a:0]asetpts=PTS-STARTPTS,aresample=48000,aformat=sample_fmts=fltp:sample_rates=48000:channel_layouts=mono,adelay=delays=8856000S:all=1[vo8];[9:a:0]asetpts=PTS-STARTPTS,aresample=48000,aformat=sample_fmts=fltp:sample_rates=48000:channel_layouts=mono,adelay=delays=10132800S:all=1[vo9];[base][vo1][vo2][vo3][vo4][vo5][vo6][vo7][vo8][vo9]amix=inputs=10:duration=first:dropout_transition=0:normalize=0[voicebus];[voicebus]loudnorm=I=-16:TP=-2.5:LRA=11:dual_mono=false:measured_I=-19.08:measured_TP=-1.56:measured_LRA=3.00:measured_thresh=-29.24:offset=0.39:linear=true:print_format=json,aresample=48000[aout]",
+  "-map",
+  "0:v:0",
+  "-map",
+  "[aout]",
+  "-map_metadata",
+  "0",
+  "-c:v",
+  "copy",
+  "-c:a",
+  "aac",
+  "-b:a",
+  "128k",
+  "-ar:a",
+  "48000",
+  "-ac:a",
+  "1",
+  "-movflags",
+  "+faststart",
+  "renders/block-p4.mp4"
+ ]
+}

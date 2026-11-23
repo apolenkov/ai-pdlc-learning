@@ -1,0 +1,40 @@
+const g1 = el("s8-g"), g2 = el("s8-g");
+gsap.set(g2, { autoAlpha: 0 });
+const TEAM = "Команда развития процессов AI PDLC"; // course-names.json › teamName
+const h1 = L.head("До старта <span>нужно договориться</span>", 0.1);
+const X = [96, 680, 1264], Y = [190, 540];
+const items = [
+  ["robot", "Границы полномочий агента", "<ul><li>какие данные допустимы</li><li>где проверяет человек</li><li>когда агент останавливается</li></ul>", t("Границы")],
+  ["gear", "Стартовый набор инструментов", "<p>Kilo + OpenSpec, остальное — по правилу решений</p>", t("Стартовый")],
+  ["folder", "Общий репозиторий решений", "<p>шаблоны, ADR, версии и откат</p>", t("Общий")],
+  ["users", "Наставник-доброволец", "<p>в потоке продукта и учёт его часов</p>", t("Наставник-доброволец")],
+  ["flag", "Выпуск с эксплуатацией", "<p>кто отвечает за выпуск и наблюдение</p>", t("Выпуск")],
+  ["star", "Ответственный за AI-сервис", "<p>доступы, доступность, допустимость данных</p>", t("назначенный")],
+];
+const cards = items.map(([ic, ttl, body, when], i) => {
+  const icon = ic === "robot" ? People.robotIcon(52) : F.icon(ic, 52, i % 2 ? F.C.accS : F.C.ok);
+  const c = el("lg-card " + (i % 2 ? "acc" : "ok") + " s8-card", "<h3>" + icon + "<span>" + ttl + "</span></h3>" + body, g1);
+  c.style.left = X[i % 3] + "px"; c.style.top = Y[Math.floor(i / 3)] + "px";
+  show(c, when - 0.15, 14);
+  return c;
+});
+const bullets = cards[0].querySelectorAll("li");
+[t("данные"), t("проверка"), t("останавливается") - 0.3].forEach((w, k) => { gsap.set(bullets[k], { autoAlpha: 0 }); tl.fromTo(bullets[k], { autoAlpha: 0, x: -10 }, { autoAlpha: 1, x: 0, duration: 0.3, immediateRender: false }, w); });
+const ends = [t("Стартовый") - 0.2, t("Общий") - 0.2, t("Наставник-доброволец") - 0.2, t("Выпуск") - 0.2, t("назначенный") - 0.2, t("Подробности") - 0.9];
+L.focus(cards, items.map((x) => x[3]), t("Подробности") - 0.9, { color: ["ok", "acc", "ok", "acc", "ok", "acc"] });
+// финал: страница команды
+const fAt = t("Подробности");
+tl.to(g1, { autoAlpha: 0, duration: 0.45, ease: "power2.in" }, fAt - 0.6);
+tl.to(h1, { autoAlpha: 0, duration: 0.35 }, fAt - 0.6);
+tl.set(g2, { autoAlpha: 1 }, fAt - 0.1);
+const end = el("s8-end", "<small>Команды и поддержка</small><b>" + TEAM.replace("Команда развития", "<em>Команда развития</em>").replace("процессов ", "процессов<br>") + "</b><span>аудит и развитие · страница команды</span>", g2); show(end, fAt, 16);
+const btn = el("s8-btn", F.icon("users", 64, F.C.accS) + "<span>Страница команды</span>", g2); show(btn, t("странице") - 0.1, 14);
+// тихий click по кнопке в конце
+const clk = DUR - 1.7;
+const cur = el("s8-cur", '<svg width="56" height="56" viewBox="0 0 24 24"><path d="m3 3 7.07 16.97 2.51-7.39 7.39-2.51L3 3z" fill="#eef0f3" stroke="#0f1115" stroke-width="1.4" stroke-linejoin="round"/></svg>', g2); cur.setAttribute("data-layout-allow-overlap", "");
+gsap.set(cur, { x: 1500, y: 900, autoAlpha: 0 });
+tl.set(cur, { autoAlpha: 1 }, clk - 1.6);
+tl.to(cur, { x: 900, y: 790, duration: 1.3, ease: "power2.inOut" }, clk - 1.5);
+const ring = el("s8-ring", "", g2); F.setPos(ring, 905, 750); gsap.set(ring, { autoAlpha: 0 }); ring.setAttribute("data-layout-allow-overlap", "");
+tl.fromTo(ring, { autoAlpha: 1, scale: 0.4 }, { autoAlpha: 0, scale: 1.5, duration: 0.6, ease: "power2.out", immediateRender: false }, clk);
+tl.to(btn, { borderColor: F.C.accS, backgroundColor: "rgba(255,122,89,.14)", boxShadow: "0 0 0 6px rgba(255,122,89,.16)", duration: 0.3 }, clk);

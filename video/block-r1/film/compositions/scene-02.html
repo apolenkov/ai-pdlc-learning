@@ -1,0 +1,125 @@
+<template id="scene-02-template">
+  <div data-composition-id="scene-02" data-width="1920" data-height="1080" data-duration="34.2">
+    <style>
+      [data-composition-id="scene-02"] .sp-col { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; pointer-events: none; }
+      [data-composition-id="scene-02"] .sp-col > .k-aside { box-sizing: border-box; padding: 10px 24px; display: flex; flex-direction: column; justify-content: center; }
+      [data-composition-id="scene-02"] .sp-t { font-size: 38px; font-weight: 700; line-height: 1.15; }
+      [data-composition-id="scene-02"] .sp-s { font-size: 30px; font-weight: 500; line-height: 1.25; color: var(--k-text-2); margin-top: 2px; }
+      [data-composition-id="scene-02"] .sp-lab { position: absolute; top: 198px; font-size: 30px; font-weight: 700; line-height: 1.2; color: var(--k-text-2); }
+      [data-composition-id="scene-02"] .sp-lab.mono { font-family: var(--k-font-mono); font-weight: 500; }
+      [data-composition-id="scene-02"] .sp-chip { position: absolute; right: 18px; width: 214px; height: 44px; box-sizing: border-box; display: grid; place-items: center; border: 3px solid var(--k-info); border-radius: 12px; background: var(--k-panel-2); font-size: 28px; font-weight: 700; letter-spacing: 0.02em; }
+      [data-composition-id="scene-02"] .sp-r { box-sizing: border-box; display: flex; align-items: center; padding: 0 26px; font-size: 40px; font-weight: 700; line-height: 1.1; border-width: 4px; }
+      [data-composition-id="scene-02"] .sp-arr { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; pointer-events: none; overflow: visible; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("02"), t = S.t, DUR = 34.2;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const NS = "http://www.w3.org/2000/svg";
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const div = (cls, html, parent) => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; parent.appendChild(el); return el; };
+        const INFO = Kit.token("--k-info"), LINE = Kit.token("--k-line");
+
+        Kit.header(S, { header: { mode: "parts", total: 7 }, chapter: "Шаблон спецификации", step: 2, duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* Left column: five sections of specification.md, visible from the first frame (names only). It starts centred and slides left. */
+        const left = div("sp-col", "", s1);
+        const lab = div("sp-lab mono", "specification.md", left); lab.style.left = "96px";
+        const L = [
+          { t: "Цель и границы", s: "объём", y: 246, h: 100, at: t("Цель и границы") },
+          { t: "Требования и сценарии", s: "поведение и проверка", y: 358, h: 128, at: t("Требования") },
+          { t: "Проектные замечания", s: "ограничения расчёта", y: 498, h: 100, at: t("Проектные") },
+          { t: "Открытые вопросы", s: "то, что ещё неизвестно", y: 610, h: 100, at: t("Открытые вопросы") },
+          { t: "Условия готовности", s: "хватает ли данных, чтобы всё проверить", y: 722, h: 100, at: t("Условия") },
+        ];
+        const cards = L.map((o) => {
+          const c = Kit.aside(S, { parent: left, x: 96, y: o.y, w: 860, h: o.h, tail: false, html: `<div class="sp-t">${o.t}</div><div class="sp-s">${o.s}</div>` });
+          gsap.set(c.el, { autoAlpha: 1 });
+          return c.el;
+        });
+        const subs = cards.map((c) => c.querySelector(".sp-s"));
+        hide(...subs);
+        // Two chips inside «Требования и сценарии»: the targets of two arrows.
+        const chipR = div("sp-chip", "ПРАВИЛА", cards[1]); chipR.style.top = "14px";
+        const chipS = div("sp-chip", "СЦЕНАРИИ", cards[1]); chipS.style.top = "68px";
+        hide(chipR, chipS);
+
+        gsap.set(left, { x: 434 }); gsap.set(lab, { autoAlpha: 1 });
+        const hl = (el, on, off) => {
+          S.tl.to(el, { borderColor: INFO, duration: 0.3 }, on);
+          S.tl.to(el, { borderColor: LINE, duration: 0.3 }, off);
+        };
+        L.forEach((o, i) => {
+          const off = i < 4 ? L[i + 1].at - 0.1 : t("Части замысла") - 0.3;
+          Kit.popIn(S, subs[i], o.at);
+          hl(cards[i], o.at, off);
+          read(o.t + " " + o.s, o.at, DUR);
+        });
+
+        /* Right column: five parts of the intent, same order as in the document. */
+        const T_R = t("Части замысла");
+        S.tl.to(left, { x: 0, duration: 0.8, ease: "power2.inOut" }, T_R - 0.5);
+        const rlab = div("sp-lab", "Части замысла", s1); rlab.style.left = "1340px"; hide(rlab);
+        Kit.popIn(S, rlab, T_R + 0.2);
+        const P = [
+          { t: "Проблема", c: 296, col: Kit.token("--k-accent"), at: t("«Проблема»") },
+          { t: "Результат", c: 415, col: Kit.token("--k-ok"), at: t("«Результат»") },
+          { t: "Границы", c: 534, col: "#ffd37a", at: t("«Границы»") },
+          { t: "Признаки успеха", c: 653, col: Kit.token("--k-info"), at: t("«Признаки") },
+          { t: "Открытые вопросы", c: 772, col: "#c4b5fd", at: t("«Открытые") },
+        ];
+        const rcards = P.map((p, i) => {
+          const c = Kit.aside(S, { parent: s1, x: 1340, y: p.c - 46, w: 484, h: 92, tail: false, html: `<div class="sp-t">${p.t}</div>` });
+          c.el.className += " sp-r";
+          c.show(T_R + 0.3 + i * 0.12);
+          read(p.t, T_R + 0.3 + i * 0.12, DUR);
+          return c.el;
+        });
+
+        /* Arrows: right card → left target. Each is drawn when the narrator names the part. */
+        const svg = document.createElementNS(NS, "svg");
+        svg.setAttribute("class", "sp-arr"); svg.setAttribute("viewBox", "0 0 1920 1080");
+        s1.appendChild(svg);
+        const X1 = 1334, X2 = 966;
+        const arrow = (p, i, y2, at, target) => {
+          const y1 = p.c;
+          const path = document.createElementNS(NS, "path");
+          path.setAttribute("d", `M ${X1} ${y1} C ${X1 - 150} ${y1}, ${X2 + 150} ${y2}, ${X2} ${y2}`);
+          path.setAttribute("fill", "none"); path.setAttribute("stroke", p.col); path.setAttribute("stroke-width", "5"); path.setAttribute("stroke-linecap", "round");
+          path.setAttribute("pathLength", "1"); path.setAttribute("stroke-dasharray", "1"); path.setAttribute("stroke-dashoffset", "1");
+          const head = document.createElementNS(NS, "path");
+          head.setAttribute("d", `M ${X2 - 4} ${y2} l 24 -14 v 28 z`); head.setAttribute("fill", p.col);
+          svg.appendChild(path); svg.appendChild(head);
+          gsap.set([path, head], { autoAlpha: 0 });
+          S.tl.set(path, { autoAlpha: 1 }, at);
+          S.tl.to(path, { strokeDashoffset: 0, duration: 0.7, ease: "power1.inOut" }, at);
+          S.tl.to(head, { autoAlpha: 1, duration: 0.2 }, at + 0.6);
+          // The target is outlined in the colour of its source from the moment the arrow lands.
+          S.tl.to(target, { borderColor: p.col, duration: 0.3 }, at + 0.6);
+        };
+        // Highlight the part card in its own colour when it is named.
+        P.forEach((p, i) => S.tl.to(rcards[i], { borderColor: p.col, duration: 0.3 }, p.at));
+
+        arrow(P[0], 0, 296, P[0].at + 0.35, cards[0]);
+        Kit.popIn(S, chipR, P[1].at + 0.3);
+        arrow(P[1], 1, 394, P[1].at + 0.35, chipR);
+        const T_SC = t("в сценарии") - 0.3;
+        Kit.popIn(S, chipS, T_SC - 0.1);
+        arrow(P[3], 3, 450, T_SC, chipS);
+        arrow(P[3], 3, 772, t("и условия") - 0.2, cards[4]);
+        arrow(P[2], 2, 548, P[2].at + 0.35, cards[2]);
+        arrow(P[4], 4, 660, P[4].at + 0.35, cards[3]);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

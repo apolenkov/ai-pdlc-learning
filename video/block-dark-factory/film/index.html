@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ru" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <link rel="stylesheet" href="kit/tokens.css" />
+    <link rel="stylesheet" href="kit/components.css" />
+    <link rel="stylesheet" href="kit/sketch.css" />
+    <script src="assets/gsap.min.js"></script>
+    <script src="assets/vo/scene-0m.alignment.js"></script>
+    <script src="assets/vo/scene-00.alignment.js"></script>
+    <script src="assets/vo/scene-01.alignment.js"></script>
+    <script src="assets/vo/scene-02.alignment.js"></script>
+    <script src="assets/vo/scene-03.alignment.js"></script>
+    <script src="assets/vo/scene-04.alignment.js"></script>
+    <script src="assets/vo/scene-05.alignment.js"></script>
+    <script src="assets/vo/scene-06.alignment.js"></script>
+    <script src="assets/vo/scene-07.alignment.js"></script>
+    <script>window.KIT_SCENES = {"0m":{"n":"0m","duration":11.1,"chapter":"Зачем это нужно","step":null,"title":"Карта маршрута","audio":"assets/vo/scene-0m.mp3","header":{"mode":"parts","total":7},"audioDuration":9.56},"00":{"n":0,"duration":19.3,"chapter":"Зачем это нужно","step":null,"title":"Крючок","audio":"assets/vo/scene-0.mp3","header":{"mode":"parts","total":7},"audioDuration":17.68},"01":{"n":1,"duration":22.9,"chapter":"Что такое фабрика","step":1,"title":"Что такое фабрика","audio":"assets/vo/scene-1.mp3","header":{"mode":"parts","total":7},"audioDuration":21.39},"02":{"n":2,"duration":23.4,"chapter":"Откуда берётся работа","step":2,"title":"Откуда берётся работа","audio":"assets/vo/scene-2.mp3","header":{"mode":"parts","total":7},"audioDuration":21.84},"03":{"n":3,"duration":17.5,"chapter":"Ночь: работают агенты","step":3,"title":"Ночь: работают агенты","audio":"assets/vo/scene-3.mp3","header":{"mode":"parts","total":7},"audioDuration":15.83},"04":{"n":4,"duration":22.1,"chapter":"Утро: решают люди","step":4,"title":"Утро: решают люди","audio":"assets/vo/scene-4.mp3","header":{"mode":"parts","total":7},"audioDuration":20.49},"05":{"n":5,"duration":12.3,"chapter":"Петля самоулучшения","step":5,"title":"Петля самоулучшения","audio":"assets/vo/scene-5.mp3","header":{"mode":"parts","total":7},"audioDuration":10.62},"06":{"n":6,"duration":15.6,"chapter":"Честно о нагрузке","step":6,"title":"Честно о нагрузке","audio":"assets/vo/scene-6.mp3","header":{"mode":"parts","total":7},"audioDuration":13.92},"07":{"n":7,"duration":30.1,"chapter":"Люди остаются","step":7,"title":"Люди остаются","audio":"assets/vo/scene-7.mp3","header":{"mode":"parts","total":7},"audioDuration":25.13}};</script>
+    <script>window.KIT_TERMS = [["сорс контрол(?:е|а|у|ом)?","Source Control"],["ворд(?:е|а|у|ом)?","Word"],["конфлюенс(?:е|а|у|ом)?","Confluence"],["мейнтейнер(?:а|у|ом|ы)?","Maintainer"],["пятнадцать десять","15.10"],["интент точка эм-ди","intent.md"],["мёрдж реквест","Merge Request"],["эс-ди-ди","SDD"],["опенспек(?:е|а|у|ом)?","OpenSpec"],["гитлаб(?:е|а|у|ом)?","GitLab"],["гитигнор",".gitignore"],["маркдаун","Markdown"],["гит(?:е|а|у|ом)?","Git"],["джир(?:е|а|у|ой)","Jira"],["эм-эр","MR"],["сентри","Sentry"],["дарк фактори","Dark Factory"]];</script>
+    <script src="kit/kit.js"></script>
+    <script src="kit/sketches.js"></script>
+    <script src="kit/sketch.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--k-bg); }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--k-bg); }
+      #bg { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: hidden; }
+      #grid { position: absolute; left: -128px; top: -128px; width: 2176px; height: 1336px; background-image: linear-gradient(var(--k-grid) 1px, transparent 1px), linear-gradient(90deg, var(--k-grid) 1px, transparent 1px); background-size: 64px 64px; }
+      #glow { position: absolute; left: 1100px; top: -380px; width: 1100px; height: 1100px; border-radius: 50%; background: radial-gradient(closest-side, var(--k-glow), transparent); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="174.29999999999998" data-width="1920" data-height="1080">
+      <div id="bg"><div id="grid"></div><div id="glow"></div></div>
+      <div id="scene-0m" class="clip" data-composition-id="scene-0m" data-composition-src="compositions/scene-0m.html" data-start="0" data-duration="11.1" data-track-index="1"></div>
+      <audio id="vo-0m" src="assets/vo/scene-0m.mp3" data-start="0" data-duration="9.56" data-track-index="10" data-volume="1"></audio>
+      <div id="scene-00" class="clip" data-composition-id="scene-00" data-composition-src="compositions/scene-00.html" data-start="11.1" data-duration="19.3" data-track-index="2"></div>
+      <audio id="vo-00" src="assets/vo/scene-0.mp3" data-start="11.1" data-duration="17.68" data-track-index="11" data-volume="1"></audio>
+      <div id="scene-01" class="clip" data-composition-id="scene-01" data-composition-src="compositions/scene-01.html" data-start="30.4" data-duration="22.9" data-track-index="3"></div>
+      <audio id="vo-01" src="assets/vo/scene-1.mp3" data-start="30.4" data-duration="21.39" data-track-index="12" data-volume="1"></audio>
+      <div id="scene-02" class="clip" data-composition-id="scene-02" data-composition-src="compositions/scene-02.html" data-start="53.3" data-duration="23.4" data-track-index="4"></div>
+      <audio id="vo-02" src="assets/vo/scene-2.mp3" data-start="53.3" data-duration="21.84" data-track-index="13" data-volume="1"></audio>
+      <div id="scene-03" class="clip" data-composition-id="scene-03" data-composition-src="compositions/scene-03.html" data-start="76.69999999999999" data-duration="17.5" data-track-index="5"></div>
+      <audio id="vo-03" src="assets/vo/scene-3.mp3" data-start="76.69999999999999" data-duration="15.83" data-track-index="14" data-volume="1"></audio>
+      <div id="scene-04" class="clip" data-composition-id="scene-04" data-composition-src="compositions/scene-04.html" data-start="94.19999999999999" data-duration="22.1" data-track-index="6"></div>
+      <audio id="vo-04" src="assets/vo/scene-4.mp3" data-start="94.19999999999999" data-duration="20.49" data-track-index="15" data-volume="1"></audio>
+      <div id="scene-05" class="clip" data-composition-id="scene-05" data-composition-src="compositions/scene-05.html" data-start="116.29999999999998" data-duration="12.3" data-track-index="7"></div>
+      <audio id="vo-05" src="assets/vo/scene-5.mp3" data-start="116.29999999999998" data-duration="10.62" data-track-index="16" data-volume="1"></audio>
+      <div id="scene-06" class="clip" data-composition-id="scene-06" data-composition-src="compositions/scene-06.html" data-start="128.6" data-duration="15.6" data-track-index="8"></div>
+      <audio id="vo-06" src="assets/vo/scene-6.mp3" data-start="128.6" data-duration="13.92" data-track-index="17" data-volume="1"></audio>
+      <div id="scene-07" class="clip" data-composition-id="scene-07" data-composition-src="compositions/scene-07.html" data-start="144.2" data-duration="30.1" data-track-index="9"></div>
+      <audio id="vo-07" src="assets/vo/scene-7.mp3" data-start="144.2" data-duration="25.13" data-track-index="18" data-volume="1"></audio>
+      <div id="scene-poster" class="clip" data-composition-id="scene-poster" data-composition-src="compositions/scene-poster.html" data-start="0" data-duration="2.6" data-track-index="90" style="z-index:70"></div>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#grid", { x: 0, y: 0 }, { x: -64, y: -64, duration: 174.29999999999998, ease: "none" }, 0);
+      tl.fromTo("#glow", { x: 0, y: 0 }, { x: -120, y: 80, duration: 174.29999999999998, ease: "none" }, 0);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

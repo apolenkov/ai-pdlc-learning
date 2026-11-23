@@ -1,0 +1,142 @@
+<template id="scene-07-template">
+  <div data-composition-id="scene-07" data-width="1920" data-height="1080" data-duration="16.2">
+    <style>
+      [data-composition-id="scene-07"] .sc-mb { height: 100%; display: flex; flex-direction: column; justify-content: space-between; }
+      [data-composition-id="scene-07"] .sc-a { height: 104px; display: flex; align-items: stretch; gap: 14px; }
+      [data-composition-id="scene-07"] .sc-a .who { flex: 1 1 0; min-width: 0; display: flex; align-items: center; gap: 14px; padding: 0 18px; border-radius: 18px; background: var(--k-panel-2); border: 3px solid var(--k-line); white-space: nowrap; opacity: 0; }
+      [data-composition-id="scene-07"] .sc-a .who.ok { flex-grow: 1.35; background: var(--k-ok-tint); border-color: var(--k-ok); }
+      [data-composition-id="scene-07"] .sc-a .bub { flex: none; width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; color: var(--k-ok); border: 3px solid var(--k-ok); }
+      [data-composition-id="scene-07"] .sc-a .bub svg { width: 30px; height: 30px; }
+      [data-composition-id="scene-07"] .sc-a .col { display: flex; flex-direction: column; gap: 2px; }
+      [data-composition-id="scene-07"] .sc-a .r { font-size: 28px; font-weight: 600; color: var(--k-text-2); line-height: 1.15; }
+      [data-composition-id="scene-07"] .sc-a .s { font-size: 38px; font-weight: 800; letter-spacing: -0.01em; line-height: 1.1; }
+      [data-composition-id="scene-07"] .sc-a .who.ok .s { color: var(--k-ok); }
+      [data-composition-id="scene-07"] .sc-b { position: relative; height: 96px; border-radius: 18px; background: var(--k-ok-tint); border: 2px solid var(--k-ok); color: var(--k-ok); display: flex; align-items: center; gap: 18px; padding: 0 26px; font-size: 46px; font-weight: 800; opacity: 0; }
+      [data-composition-id="scene-07"] .sc-b svg { width: 40px; height: 40px; }
+      [data-composition-id="scene-07"] .sc-b .rd, [data-composition-id="scene-07"] .sc-b .md { display: flex; align-items: center; gap: 18px; }
+      [data-composition-id="scene-07"] .sc-b .md { position: absolute; left: 26px; opacity: 0; }
+      [data-composition-id="scene-07"] .sc-c { height: 92px; display: flex; align-items: center; gap: 26px; opacity: 0; }
+      [data-composition-id="scene-07"] .sc-c .mbtn { position: relative; height: 84px; padding: 0 44px; border-radius: 18px; background: var(--k-panel-2); border: 3px solid var(--k-line); display: flex; align-items: center; font-size: 46px; font-weight: 800; letter-spacing: -0.01em; }
+      [data-composition-id="scene-07"] .sc-c .mbtn .ring { position: absolute; inset: -9px; border-radius: 24px; border: 4px solid var(--k-accent); box-shadow: var(--k-shadow-ring); opacity: 0; }
+      [data-composition-id="scene-07"] .sc-c .tg { font-size: 34px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-07"] .sc-d { position: relative; height: 92px; border-radius: 20px; display: flex; align-items: center; gap: 24px; padding: 0 22px; border: 4px solid transparent; opacity: 0; }
+      [data-composition-id="scene-07"] .sc-d .cb { flex: none; position: relative; width: 56px; height: 56px; border-radius: 14px; border: 4px solid var(--k-text-2); background: var(--k-info); display: grid; place-items: center; color: var(--k-on-accent); }
+      [data-composition-id="scene-07"] .sc-d .cb svg { width: 34px; height: 34px; }
+      [data-composition-id="scene-07"] .sc-d .lab { font-size: 44px; font-weight: 700; letter-spacing: -0.01em; }
+      [data-composition-id="scene-07"] .sc-br { height: 100%; display: flex; flex-direction: column; align-items: stretch; justify-content: center; gap: 14px; }
+      [data-composition-id="scene-07"] .sc-n { position: relative; height: 112px; border-radius: 18px; background: var(--k-panel-2); border: 3px solid var(--k-line); padding: 12px 22px; display: flex; flex-direction: column; justify-content: center; gap: 2px; }
+      [data-composition-id="scene-07"] .sc-n .n { font-family: var(--k-font-mono); font-size: 32px; font-weight: 600; white-space: nowrap; }
+      [data-composition-id="scene-07"] .sc-n .s { font-size: 30px; font-weight: 700; color: var(--k-text); opacity: 0; }
+      [data-composition-id="scene-07"] .sc-n.old .n { color: var(--k-text-2); }
+      [data-composition-id="scene-07"] .sc-brar { display: flex; align-items: center; justify-content: center; height: 54px; opacity: 0; }
+      [data-composition-id="scene-07"] .sc-brar svg { width: 40px; height: 54px; overflow: visible; }
+      [data-composition-id="scene-07"] .sc-j { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 14px; }
+      [data-composition-id="scene-07"] .sc-j .t { font-size: 46px; font-weight: 800; letter-spacing: -0.02em; }
+      [data-composition-id="scene-07"] .sc-j .lk { display: flex; align-items: center; gap: 16px; height: 70px; padding: 0 20px; border-radius: 16px; background: var(--k-panel-2); border: 3px solid var(--k-line); font-size: 32px; font-weight: 700; white-space: nowrap; opacity: 0; }
+      [data-composition-id="scene-07"] .sc-j .lk svg { width: 32px; height: 32px; color: var(--k-info); flex: none; }
+      [data-composition-id="scene-07"] .sc-j .one { display: flex; align-items: baseline; gap: 16px; font-size: 34px; font-weight: 600; color: var(--k-text-2); opacity: 0; }
+      [data-composition-id="scene-07"] .sc-j .one b { font-size: 72px; font-weight: 800; color: var(--k-text); line-height: 1; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("07"), t = S.t, DUR = 16.2;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.end("запрос.") < 1.5) throw new Error("Недостаточный хвост сцены");
+        const tok = Kit.token, tl = S.tl, q = (el, c) => el.querySelector(c), qa = (el, c) => [...el.querySelectorAll(c)];
+        const POP = "back.out(2)";
+        const pop = (el, at, d = 0.6) => tl.fromTo(el, { autoAlpha: 0, scale: 0.88 }, { autoAlpha: 1, scale: 1, duration: d, ease: POP, immediateRender: false }, at);
+        const rise = (el, at, d = 0.6) => tl.fromTo(el, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: d, ease: tok("--k-ease-out"), immediateRender: false }, at);
+        const CHECK = Kit.icons.check;
+
+        Kit.header(S, { header: { mode: "parts", total: 7 }, chapter: "Принимаем версию", step: 7, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* ---- блок слияния ---- */
+        const blk = Kit.aside(S, { parent: s1, x: 96, y: 225, w: 1130, h: 560, tail: false,
+          html: '<div class="sc-mb">' +
+                '<div class="sc-a"><span class="who ok"><span class="bub">' + CHECK + '</span><span class="col"><span class="r">Владелец продукта</span><span class="s">Approved</span></span></span>' +
+                '<span class="who"><span class="col"><span class="r">Аналитик</span><span class="s">Комментарий</span></span></span>' +
+                '<span class="who"><span class="col"><span class="r">Техлид</span><span class="s">Комментарий</span></span></span></div>' +
+                '<div class="sc-b"><span class="rd">' + CHECK + '<span>Ready to merge</span></span><span class="md">' + CHECK + '<span>Слит (Merged)</span></span></div>' +
+                '<div class="sc-c"><span class="mbtn">Merge<i class="ring"></i></span><span class="tg">в stage-1-error-result</span></div>' +
+                '<div class="sc-d"><span class="cb">' + CHECK + '</span><span class="lab">Delete source branch</span></div></div>' });
+        blk.show(2.0);   // до 2.0 с — заставка части
+        const A = qa(blk.el, ".sc-a .who"), B = q(blk.el, ".sc-b"), C = q(blk.el, ".sc-c"), D = q(blk.el, ".sc-d");
+        A.forEach((b, i) => pop(b, 2.1 + i * 0.18, 0.5));
+        read("Владелец продукта Approved Аналитик Комментарий Техлид Комментарий", 2.9, DUR, 0);
+        pop(B, 2.6, 0.6);
+
+        /* нажмите Merge: блок Merge уже в кадре, но кнопка пока не активна; флажок виден включённым */
+        const ring = q(blk.el, ".sc-c .ring");
+        const btn = q(blk.el, ".sc-c .mbtn");
+        const T_M1 = t("нажмите");
+        rise(C, T_M1, 0.6);
+        tl.fromTo(btn, { scale: 1 }, { scale: 1.05, duration: 0.2, yoyo: true, repeat: 1, ease: "power1.out", immediateRender: false }, t("Merge") - 0.1);   // мягкий акцент без фокуса
+        read("Merge в stage-1-error-result", T_M1 + 0.6, DUR);
+        const T_CB = T_M1 + 0.9;                       // флажок появляется включённым сразу под Merge
+        rise(D, T_CB, 0.5);
+        read("Delete source branch", T_CB + 0.5, DUR);
+
+        /* Сначала снимите флажок: фокус на нём, на слове «снимите» галочка снимается, и только потом оживает Merge */
+        tl.to(D, { borderColor: tok("--k-accent"), boxShadow: tok("--k-shadow-ring"), duration: 0.4 }, t("Снимите"));
+        const cb = q(blk.el, ".sc-d .cb");
+        const T_UN = t("снимите") + 0.5;
+        tl.to(cb, { backgroundColor: "rgba(0,0,0,0)", duration: 0.3 }, T_UN);
+        tl.to(q(cb, "svg"), { opacity: 0, scale: 0.5, duration: 0.25 }, T_UN);
+        tl.fromTo(cb, { scale: 1 }, { scale: 1.15, duration: 0.15, yoyo: true, repeat: 1, ease: "power1.out", immediateRender: false }, T_UN);
+        // флажок снят: фокус уходит, кнопка Merge становится активной
+        const T_ACT = T_UN + 0.7;
+        tl.to(D, { borderColor: "rgba(0,0,0,0)", boxShadow: "0 0 0 rgba(0,0,0,0)", duration: 0.35 }, T_ACT - 0.1);
+        // мгновенная смена заливки и цвета: плавный переход проходил бы через нечитаемые промежуточные цвета
+        tl.set(btn, { backgroundColor: tok("--k-accent"), color: tok("--k-on-accent"), borderColor: tok("--k-accent") }, T_ACT);
+        tl.fromTo(btn, { scale: 1 }, { scale: 1.07, duration: 0.18, yoyo: true, repeat: 1, ease: "power1.out", immediateRender: false }, T_ACT);
+        const T_M2 = t("дальше") + 0.05;
+        tl.to(btn, { scale: 0.95, duration: 0.12 }, T_M2 + 0.55);
+        tl.to(btn, { scale: 1, duration: 0.25 }, T_M2 + 0.67);
+        tl.to(q(B, ".rd"), { opacity: 0, duration: 0.25 }, T_M2 + 0.7);
+        tl.to(q(B, ".md"), { opacity: 1, duration: 0.35 }, T_M2 + 0.85);
+        tl.to(C, { autoAlpha: 0, duration: 0.3 }, T_M2 + 0.95);   // нажато — кнопка уходит, остаётся статус Merged
+        read("Ready to merge", 3.2, T_M2 + 0.7, 0);
+        read("Слит Merged", T_M2 + 1.2, DUR, 0);
+
+        /* ---- правая колонка: куда уходят правки; затем Jira ---- */
+        const br = Kit.aside(S, { parent: s1, x: 1290, y: 225, w: 534, h: 290, tail: false,
+          html: '<div class="sc-br"><div class="sc-n"><div class="n">stage-2-reset</div><div class="s">нужна дальше</div></div>' +
+                '<div class="sc-brar"><svg viewBox="0 0 40 54" fill="none"><path class="ar" pathLength="1" d="M20 3V46M8 34L20 48L32 34" stroke="' + tok("--k-text-2") + '" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>' +
+                '<div class="sc-n old"><div class="n">stage-1-error-result</div></div></div>' });
+        br.show(t("правки"));
+        const ar = q(br.el, ".sc-brar");
+        gsap.set(q(br.el, ".ar"), { strokeDasharray: 1, strokeDashoffset: 1 });
+        tl.set(ar, { opacity: 1 }, t("в прежнюю"));
+        tl.to(q(br.el, ".ar"), { strokeDashoffset: 0, duration: 0.6, ease: "power2.out" }, t("в прежнюю"));
+        const nodeNew = q(br.el, ".sc-n");
+        tl.to(nodeNew, { borderColor: tok("--k-text"), duration: 0.4 }, t("новая ветка"));
+        gsap.set(q(nodeNew, ".n"), { y: 21 });
+        tl.to(q(nodeNew, ".n"), { y: 0, duration: 0.5, ease: tok("--k-ease-out") }, t("нужна"));
+        tl.to(q(nodeNew, ".s"), { opacity: 1, duration: 0.5 }, t("нужна"));
+        read("stage-2-reset нужна дальше stage-1-error-result", t("нужна") + 0.5, DUR);
+
+        const jr = Kit.aside(S, { parent: s1, x: 1290, y: 540, w: 534, h: 245, tail: false,
+          html: '<div class="sc-j"><div class="t">Jira</div>' +
+                '<div class="lk"><svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"><path d="M24 32a9 9 0 0 0 13 0l8-8a9 9 0 0 0-13-13l-3 3M32 24a9 9 0 0 0-13 0l-8 8a9 9 0 0 0 13 13l3-3"/></svg><span>Запрос на слияние !7</span></div>' +
+                '<div class="one"><b>1</b><span>ссылка</span></div></div>' });
+        jr.show(t("В джире"));
+        const lk = q(jr.el, ".lk"), one = q(jr.el, ".one");
+        rise(lk, t("оставьте"), 0.5);
+        rise(one, t("одну"), 0.5);
+        tl.to(lk, { borderColor: tok("--k-ok"), duration: 0.4 }, t("слитый"));
+        read("Jira Запрос на слияние !7", t("оставьте") + 0.5, DUR);
+        read("1 ссылка", t("одну") + 0.5, DUR, 0.5);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

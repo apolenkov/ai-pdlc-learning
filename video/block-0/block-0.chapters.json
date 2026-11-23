@@ -1,0 +1,102 @@
+[
+  {
+    "n": 0,
+    "title": "Вступление",
+    "step": null,
+    "chapter": "Вступление",
+    "start": 0,
+    "titleStart": 0,
+    "speechStart": 0,
+    "end": 117.6
+  },
+  {
+    "n": 1,
+    "title": "Ошибка передачи",
+    "step": null,
+    "chapter": "Ошибка передачи",
+    "start": 117.6,
+    "titleStart": 117.6,
+    "speechStart": 117.6,
+    "end": 146.9
+  },
+  {
+    "n": 2,
+    "title": "Уточняем запрос",
+    "step": null,
+    "chapter": "Уточняем запрос",
+    "start": 146.9,
+    "titleStart": 146.9,
+    "speechStart": 146.9,
+    "end": 179.4
+  },
+  {
+    "n": 3,
+    "title": "Записываем замысел",
+    "step": null,
+    "chapter": "Записываем замысел",
+    "start": 179.4,
+    "titleStart": 179.4,
+    "speechStart": 179.4,
+    "end": 230.6
+  },
+  {
+    "n": 4,
+    "title": "Описываем поведение",
+    "step": null,
+    "chapter": "Описываем поведение",
+    "start": 230.6,
+    "titleStart": 230.6,
+    "speechStart": 230.6,
+    "end": 259.2
+  },
+  {
+    "n": 5,
+    "title": "Проверяем",
+    "step": null,
+    "chapter": "Проверяем",
+    "start": 259.2,
+    "titleStart": 259.2,
+    "speechStart": 259.2,
+    "end": 293.6
+  },
+  {
+    "n": 6,
+    "title": "Одобряем и передаём",
+    "step": null,
+    "chapter": "Одобряем и передаём",
+    "start": 293.6,
+    "titleStart": 293.6,
+    "speechStart": 293.6,
+    "end": 325.8
+  },
+  {
+    "n": 7,
+    "title": "Версии и источники",
+    "step": null,
+    "chapter": "Версии и источники",
+    "start": 325.8,
+    "titleStart": 325.8,
+    "speechStart": 325.8,
+    "end": 348.4
+  },
+  {
+    "n": 8,
+    "title": "Помощь модели",
+    "step": null,
+    "chapter": "Помощь модели",
+    "start": 348.4,
+    "titleStart": 348.4,
+    "speechStart": 348.4,
+    "end": 369.8
+  },
+  {
+    "n": 9,
+    "title": "Что дальше",
+    "step": null,
+    "chapter": "Что дальше",
+    "start": 369.8,
+    "titleStart": 369.8,
+    "speechStart": 369.8,
+    "end": 386.2
+  }
+]

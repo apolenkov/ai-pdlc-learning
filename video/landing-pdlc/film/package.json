@@ -1,0 +1,9 @@
+{
+  "name": "landing-pdlc",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "npx --yes hyperframes@0.8.172 check",
+    "render": "npx --yes hyperframes@0.8.172 render --output renders/landing-pdlc.mp4 --video-frame-format png"
+  }
+}

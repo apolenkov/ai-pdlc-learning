@@ -1,0 +1,250 @@
+[
+  {
+    "n": "0m",
+    "duration": 9.6,
+    "chapter": "Проблема → цель",
+    "step": null,
+    "title": "Карта маршрута",
+    "audio": "assets/vo/scene-0m.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 7
+    },
+    "audioDuration": 8.1
+  },
+  {
+    "n": 0,
+    "duration": 30.8,
+    "chapter": "Проблема → цель",
+    "step": null,
+    "title": "Проблема → цель",
+    "audio": "assets/vo/scene-0.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 7
+    },
+    "audioDuration": 29.25
+  },
+  {
+    "n": "0b",
+    "duration": 25.9,
+    "chapter": "Как меняется работа",
+    "step": null,
+    "title": "Как меняется работа",
+    "audio": "assets/vo/scene-0b.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 7
+    },
+    "audioDuration": 24.24
+  },
+  {
+    "id": "t1",
+    "kind": "title",
+    "of": 1,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Вход",
+    "step": 1,
+    "title": "Вход",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 7
+    }
+  },
+  {
+    "n": 1,
+    "duration": 28,
+    "chapter": "Вход",
+    "step": 1,
+    "title": "Вход",
+    "audio": "assets/vo/scene-1.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 7
+    },
+    "audioDuration": 25.83
+  },
+  {
+    "id": "t2",
+    "kind": "title",
+    "of": 2,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Черновик модели",
+    "step": 2,
+    "title": "Черновик модели",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 7
+    }
+  },
+  {
+    "n": 2,
+    "duration": 14.7,
+    "chapter": "Черновик модели",
+    "step": 2,
+    "title": "Черновик модели",
+    "audio": "assets/vo/scene-2.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 7
+    },
+    "audioDuration": 12.63
+  },
+  {
+    "id": "t3",
+    "kind": "title",
+    "of": 3,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Пять вопросов",
+    "step": 3,
+    "title": "Пять вопросов",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 7
+    }
+  },
+  {
+    "n": 3,
+    "duration": 41.7,
+    "chapter": "Пять вопросов",
+    "step": 3,
+    "title": "Пять вопросов",
+    "audio": "assets/vo/scene-3.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 7
+    },
+    "audioDuration": 39.55
+  },
+  {
+    "id": "t4",
+    "kind": "title",
+    "of": 4,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Сохранить и отправить",
+    "step": 4,
+    "title": "Сохранить и отправить",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 7
+    }
+  },
+  {
+    "n": 4,
+    "duration": 16.2,
+    "chapter": "Сохранить и отправить",
+    "step": 4,
+    "title": "Сохранить и отправить",
+    "audio": "assets/vo/scene-4.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 7
+    },
+    "audioDuration": 14.11
+  },
+  {
+    "id": "t5",
+    "kind": "title",
+    "of": 5,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Merge Request",
+    "step": 5,
+    "title": "Merge Request",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 7
+    }
+  },
+  {
+    "n": 5,
+    "duration": 29.4,
+    "chapter": "Merge Request",
+    "step": 5,
+    "title": "Merge Request",
+    "audio": "assets/vo/scene-5.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 7
+    },
+    "audioDuration": 27.35
+  },
+  {
+    "id": "t6",
+    "kind": "title",
+    "of": 6,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Комментарии и одобрение",
+    "step": 6,
+    "title": "Комментарии и одобрение",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 7
+    }
+  },
+  {
+    "n": 6,
+    "duration": 48.8,
+    "chapter": "Комментарии и одобрение",
+    "step": 6,
+    "title": "Комментарии и одобрение",
+    "audio": "assets/vo/scene-6.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 7
+    },
+    "audioDuration": 47.18
+  },
+  {
+    "id": "t7",
+    "kind": "title",
+    "of": 7,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Принимаем версию",
+    "step": 7,
+    "title": "Принимаем версию",
+    "audio": null,
+    "header": {
+      "mode": "parts",
+      "total": 7
+    }
+  },
+  {
+    "n": 7,
+    "duration": 16.2,
+    "chapter": "Принимаем версию",
+    "step": 7,
+    "title": "Принимаем версию",
+    "audio": "assets/vo/scene-7.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 7
+    },
+    "audioDuration": 14.2
+  },
+  {
+    "n": 8,
+    "duration": 23.1,
+    "chapter": "Что дальше",
+    "step": null,
+    "title": "Что дальше",
+    "audio": "assets/vo/scene-8.mp3",
+    "header": {
+      "mode": "parts",
+      "total": 7
+    },
+    "audioDuration": 20.02
+  }
+]

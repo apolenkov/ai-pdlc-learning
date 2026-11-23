@@ -1,0 +1,71 @@
+<template id="scene-06-template">
+  <div data-composition-id="scene-06" data-width="1920" data-height="1080" data-duration="26.7">
+    <style>
+      [data-composition-id="scene-06"] .cmpr { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+      [data-composition-id="scene-06"] .cmpr .side { display: flex; align-items: center; gap: 20px; font-size: 34px; font-weight: 700; white-space: nowrap; }
+      [data-composition-id="scene-06"] .cmpr .side small { font-size: 30px; font-weight: 500; color: var(--k-text-2); }
+      [data-composition-id="scene-06"] .cmpr .mono { font-family: var(--k-font-mono); font-size: 32px; font-weight: 600; color: var(--k-code-head); padding: 6px 14px; border-radius: 10px; background: var(--k-accent-tint); }
+      [data-composition-id="scene-06"] .cmpr .eq { font-size: 54px; font-weight: 300; color: var(--k-accent-soft); }
+      [data-composition-id="scene-06"] .sc-item { height: 100%; display: flex; align-items: center; gap: 28px; font-size: 40px; font-weight: 700; letter-spacing: -0.015em; line-height: 1.15; }
+      [data-composition-id="scene-06"] .sc-ok { position: relative; flex: none; width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; color: var(--k-ok); border: 3px solid var(--k-line); background: var(--k-panel-2); }
+      [data-composition-id="scene-06"] .sc-ok b { position: absolute; inset: 0; display: grid; place-items: center; font-size: 30px; font-weight: 700; color: var(--k-text-2); }
+      [data-composition-id="scene-06"] .sc-ok svg { width: 34px; height: 34px; opacity: 0; }
+      [data-composition-id="scene-06"] .one { height: 100%; display: flex; align-items: center; font-size: 36px; font-weight: 700; color: var(--k-accent-soft); }
+      [data-composition-id="scene-06"] .sum { height: 100%; display: flex; align-items: center; justify-content: center; gap: 18px; font-size: 38px; font-weight: 800; letter-spacing: -0.015em; white-space: nowrap; }
+      [data-composition-id="scene-06"] .sum .sg { opacity: 0; }
+      [data-composition-id="scene-06"] .sum .dot { color: var(--k-accent); opacity: 0; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("06"), t = S.t, DUR = 26.7;
+        if (DUR - S.end("точка") < 1.5) throw new Error("Недостаточный хвост сцены");
+
+        Kit.header(S, { header: { mode: "parts", total: 7 }, chapter: "Сверка с образцом", step: 6, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* Ваш файл = учебный образец */
+        const cmp = Kit.aside(S, { parent: s1, x: 96, y: 205, w: 1728, h: 100, tail: false,
+          html: '<div class="cmpr"><div class="side"><small>ваш файл</small><span class="mono">specification.md</span></div><div class="eq">≈</div><div class="side"><small>сверяем с</small><span>учебным образцом</span></div></div>' });
+        cmp.show(0.3);
+
+        /* Четыре признака: номер превращается в галочку на фразе диктора */
+        const items = [
+          { html: "Каждое правило проверяемо", at: t("Каждое правило"), tick: S.end("проверяемо") - 0.3 },
+          { html: "Сценарии называют точные числа", at: t("Сценарии называют"), tick: S.end("точные числа") - 0.3 },
+          { html: "Способ реализации не добавлен", at: t("Способ реализации"), tick: S.end("не добавлен") - 0.3 },
+          { html: "Нет лишнего сверх части замысла про результат", at: t("И нет"), tick: S.end("замысла") - 0.3 },
+        ];
+        const T_ROWS = t("Четыре признака");
+        items.forEach((it, i) => {
+          const row = Kit.aside(S, { parent: s1, x: 96, y: 332 + i * 84, w: 1728, h: 72, tail: false,
+            html: '<div class="sc-item"><span class="sc-ok"><b>' + (i + 1) + "</b>" + Kit.icons.check + "</span><span>" + it.html + "</span></div>" });
+          row.show(T_ROWS + i * 0.2);
+          const ok = row.el.querySelector(".sc-ok");
+          S.tl.to(ok.querySelector("b"), { opacity: 0, duration: 0.25 }, it.tick);
+          S.tl.to(ok.querySelector("svg"), { opacity: 1, duration: 0.3 }, it.tick);
+          S.tl.to(ok, { borderColor: Kit.token("--k-ok"), backgroundColor: Kit.token("--k-ok-tint"), duration: 0.3 }, it.tick);
+        });
+
+        /* Итог: одна исходная точка */
+        const one = Kit.aside(S, { parent: s1, x: 96, y: 668, w: 1728, h: 48, tail: false, html: '<div class="one">У всех в «Проверяем и согласуем требования» — одна исходная точка</div>' });
+        one.el.style.cssText += ";background:transparent;border:none;box-shadow:none;padding:0";
+        one.show(t("у всех"));
+        const sum = Kit.aside(S, { parent: s1, x: 96, y: 726, w: 1728, h: 92, tail: false,
+          html: '<div class="sum"><span class="sg">пять разделов</span><span class="dot">·</span><span class="sg">правило ошибки</span><span class="dot">·</span><span class="sg">пять сценариев</span><span class="dot">·</span><span class="sg">открытых вопросов нет</span></div>' });
+        sum.el.style.borderColor = Kit.token("--k-ok");
+        const sg = sum.el.querySelectorAll(".sg"), dots = sum.el.querySelectorAll(".dot");
+        const T_SUM = t("Пять разделов");
+        sum.show(T_SUM - 0.2);
+        [T_SUM, t("правило ошибки"), t("пять сценариев"), t("открытых")].forEach((at, i) => {
+          S.tl.to(sg[i], { opacity: 1, duration: 0.35 }, at);
+          if (i) S.tl.to(dots[i - 1], { opacity: 1, duration: 0.35 }, at);
+        });
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

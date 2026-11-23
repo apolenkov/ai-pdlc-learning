@@ -1,0 +1,104 @@
+<template id="scene-04-template">
+  <div data-composition-id="scene-04" data-width="1920" data-height="1080" data-duration="22.1">
+    <style>
+      [data-composition-id="scene-04"] .pad { position: absolute; left: 150px; top: 706px; width: 340px; height: 6px; border-radius: 3px; background: var(--k-line); }
+      [data-composition-id="scene-04"] .lb { font-size: 30px; font-weight: 700; color: var(--k-accent-soft); }
+      [data-composition-id="scene-04"] .ph { display: flex; align-items: center; gap: 18px; font-size: 44px; font-weight: 800; }
+      [data-composition-id="scene-04"] .ph svg { width: 56px; height: 56px; flex: none; }
+      [data-composition-id="scene-04"] .tabs { display: flex; align-items: center; gap: 18px; margin-top: 16px; font-size: 32px; color: var(--k-text-2); }
+      [data-composition-id="scene-04"] .tab { padding: 10px 24px; border-radius: 14px; background: var(--k-panel-2); border: 2px solid var(--k-line); color: var(--k-text); font-size: 34px; font-weight: 700; }
+      [data-composition-id="scene-04"] .chips { display: flex; align-items: center; gap: 16px; margin-top: 12px; }
+      [data-composition-id="scene-04"] .chip { padding: 10px 22px; border-radius: 26px; border: 2px solid var(--k-line); background: var(--k-panel-2); font-size: 32px; font-weight: 700; white-space: nowrap; }
+      [data-composition-id="scene-04"] .chip.warn { border-color: var(--k-accent); background: var(--k-accent-tint); color: var(--k-accent-soft); }
+      [data-composition-id="scene-04"] .chip.ok { border-color: var(--k-ok); background: var(--k-ok-tint); color: var(--k-ok); }
+      [data-composition-id="scene-04"] .arr { font-size: 48px; font-weight: 300; color: var(--k-text-2); }
+      [data-composition-id="scene-04"] .gate { display: flex; align-items: center; gap: 22px; font-size: 52px; font-weight: 800; letter-spacing: -0.02em; }
+      [data-composition-id="scene-04"] .gate svg { width: 72px; height: 72px; flex: none; }
+      [data-composition-id="scene-04"] .depth { position: absolute; left: 96px; width: 1728px; top: 470px; font-size: 40px; font-weight: 700; color: var(--k-text-2); }
+      [data-composition-id="scene-04"] .depth b { color: var(--k-text); }
+      [data-composition-id="scene-04"] .bd { position: absolute; left: 96px; width: 1728px; top: 560px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+      [data-composition-id="scene-04"] .bd > div { padding: 24px 28px; border-radius: 20px; border: 2px solid var(--k-line); background: var(--k-panel); font-size: 44px; font-weight: 700; }
+      [data-composition-id="scene-04"] .bars { display: flex; gap: 10px; margin-top: 18px; }
+      [data-composition-id="scene-04"] .bars i { display: block; width: 64px; height: 14px; border-radius: 7px; background: var(--k-line); }
+      [data-composition-id="scene-04"] .marks { position: absolute; left: 800px; top: 330px; }
+      [data-composition-id="scene-04"] .nomark { display: flex; align-items: center; gap: 20px; font-size: 40px; font-weight: 700; color: var(--k-text); }
+      [data-composition-id="scene-04"] .nomark svg { width: 52px; height: 52px; flex: none; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("04"), t = S.t, DUR = 22.1;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»: ${(off - at - reveal).toFixed(1)} с, нужно ${needed.toFixed(1)}`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const div = (cls, html, parent) => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; parent.appendChild(el); return el; };
+        const NS = "http://www.w3.org/2000/svg";
+        const add = (svg, tag, attrs) => { const e = document.createElementNS(NS, tag); Object.entries(attrs).forEach(([k, v]) => e.setAttribute(k, v)); svg.appendChild(e); return e; };
+        const C = (n) => Kit.token("--k-" + n);
+        const ic = (inner, col) => '<svg viewBox="0 0 56 56" fill="none" stroke="' + C(col) + '" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">' + inner + "</svg>";
+        const BOX = '<path d="M8 18l20-10 20 10v22L28 50 8 40z"/><path d="M8 18l20 10 20-10M28 28v22"/>';
+        const MERGE = '<circle cx="16" cy="12" r="5"/><circle cx="16" cy="44" r="5"/><circle cx="42" cy="32" r="5"/><path d="M16 17v22M16 17c0 14 26 4 26 10"/>';
+        const NOMARK = '<circle cx="28" cy="28" r="20"/><path d="M14 42L42 14"/>';
+
+        Kit.header(S, { duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        // ракета возвращается на площадку
+        const sA = S.stage(); gsap.set(sA, { autoAlpha: 1 });
+        const pad = div("pad", "", sA); hide(pad); Kit.popIn(S, pad, 0.1);
+        const rocket = Kit.sketch(S, { parent: sA, name: "rocket", x: 80, y: 444, w: 480, at: 0.05, dur: 0.5 });
+        const flame = add(rocket.svg, "path", { d: "M306 350 Q320 398 334 350", stroke: C("accent"), "stroke-width": 7, fill: "none", "stroke-linecap": "round" });
+        S.tl.to(flame, { scaleY: 0.55, svgOrigin: "320 350", duration: 0.14, yoyo: true, repeat: 11, ease: "sine.inOut" }, 0.1);
+        S.tl.to(flame, { opacity: 0, duration: 0.3 }, 1.8);
+        S.tl.fromTo(rocket.el, { y: -300 }, { y: 0, duration: 1.8, ease: "power3.out", immediateRender: true }, 0.05);
+
+        const pk = Kit.aside(S, { parent: sA, x: 640, y: 250, w: 1184, tail: false, html: '<div class="ph">' + ic(BOX, "accent") + "Пакет для проверки</div>" });
+        pk.show(t("пакету")); read("Пакет для проверки", t("пакету"), t("тогда") + 2.4);
+        const tabs = div("tabs", "", pk.el);
+        const tab1 = div("tab", "Спецификация", tabs), or = div("", "или", tabs), tab2 = div("tab", "Реализация", tabs);
+        hide(tab1, or, tab2);
+        Kit.popIn(S, tab1, t("спецификации")); Kit.popIn(S, or, t("или")); Kit.popIn(S, tab2, t("реализации"));
+        read("Спецификация или Реализация", t("реализации"), t("тогда") + 2.4);
+
+        const md = Kit.aside(S, { parent: sA, x: 640, y: 470, w: 1184, tail: false, html: '<div class="lb">Модель может вернуть</div>' });
+        md.show(t("Модель")); read("Модель может вернуть", t("Модель"), t("тогда") + 2.4);
+        const chips = div("chips", "", md.el);
+        const q = div("chip warn", "Вопросы", chips), f = div("chip warn", "Проверки не пройдены", chips), ar = div("arr", "→", chips), ok = div("chip ok", "Работают люди", chips);
+        hide(q, f, ar, ok);
+        Kit.popIn(S, q, t("вопросы")); Kit.popIn(S, f, t("проверки", 2)); Kit.popIn(S, ar, t("тогда")); Kit.popIn(S, ok, t("тогда") + 0.1);
+        read("Проверки не пройдены", t("проверки", 2), t("тогда") + 2.4); read("Работают люди", t("тогда") + 0.1, t("тогда") + 2.4);
+
+        // слияние только после проверок; глубина — по границам продукта
+        const sB = S.stage();
+        const gate = Kit.aside(S, { parent: sB, x: 96, y: 300, w: 1728, tail: false, html: '<div class="gate">' + ic(MERGE, "ok") + "Слияние — только после проверок</div>" });
+        gsap.set(gate.el, { autoAlpha: 1 });
+        const T_B = t("тогда") + 2.9;
+        read("Слияние — только после проверок", T_B, t("Одобряют") - 0.2);
+        const depth = div("depth", "Глубина проверок зависит от <b>границ продукта</b>", sB); hide(depth); Kit.popIn(S, depth, t("глубина"));
+        read(depth.textContent, t("глубина"), t("Одобряют") - 0.2);
+        const bd = div("bd", "", sB);
+        [["Риски", "риски"], ["Данные", "данные"], ["Безопасность", "безопасность"]].forEach(([txt, w], i) => {
+          const c = div("", txt + '<div class="bars"><i></i><i></i><i></i></div>', bd); hide(c);
+          Kit.popIn(S, c, t("границ") + 0.2 + i * 0.12); read(txt, t("границ") + 0.2 + i * 0.12, t("Одобряют") - 0.2);
+          S.tl.to(c, { borderColor: C("accent"), duration: 0.3 }, t(w));
+          S.tl.to(c.querySelectorAll("i"), { backgroundColor: C("accent"), duration: 0.2, stagger: 0.12 }, t(w));
+        });
+        Kit.stageOut(S, sA, t("тогда") + 2.4); Kit.stageIn(S, sB, T_B);
+
+        // одобрение — у людей
+        const sC = S.stage();
+        Kit.sketch(S, { parent: sC, name: "thinking", x: 96, y: 290, w: 620, at: t("Одобряют") + 0.3, dur: 2.0 });
+        const marks = Kit.kinetic(S, { parent: sC, x: 800, y: 340, size: 96, text: "Одобрение — у людей", at: t("Одобряют") + 0.3, stagger: 0.08 });
+        read("Одобрение — у людей", t("Одобряют") + 0.3, DUR);
+        const nm = Kit.aside(S, { parent: sC, x: 800, y: 540, w: 1024, tail: false, html: '<div class="nomark">' + ic(NOMARK, "text") + "Модель не одобряет</div>" });
+        nm.show(t("Модель", 2)); read("Модель не одобряет", t("Модель", 2), DUR);
+        Kit.stageOut(S, sB, t("Одобряют") - 0.2); Kit.stageIn(S, sC, t("Одобряют") + 0.3);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

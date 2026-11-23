@@ -1,0 +1,85 @@
+{
+  "format": 1,
+  "purpose": "R2 two-tail plan (t2/t4) and the only two authorized cue END trims; fail-closed producer guard config; facts recomputed in W3b (TASK-685) for the re-voiced narration; headSeconds = authored 0.1 s film head before the first scene (TASK-685: the strict position validator forbids lag 0, so the first replica must not start at 0; declared before render, never fitted)",
+  "provenance": [
+    "W3b TASK-685: new narration assets/vo-v3/block-{0,0b,1..6} (eleven_v4, vo-normalize), block 0m unchanged",
+    "previousHtmlAudioDuration/previousDecodedDuration: ffmpeg-decoded 48000 Hz sample span of vo-v3 block (no browser probe in W3b); ffprobe format duration within clock.indexDurationRoundingSeconds",
+    "previousConservativeEnd: previousSceneStart + max(ffprobe, alignment end, rounded index duration)",
+    "previousReadDeadline: previous cue start + wordCount/3 + 1 s",
+    "previousCue: last cue of the previous scene as built by tools/build-captions.mjs before the trim",
+    "R2 baseline (TASK-670): APPROVED-R2-SPEC.json, BROWSER-PLAYBACK-CLOCK.json, 59-cue block-p4.vtt, 236.6 s",
+    "TASK-685 p4 stage 2: new blocks 3 and 5 (eleven_v4, 0.95, request stitching with the real neighbours); film 224.9 s; t4 facts from the new block 3"
+  ],
+  "filmSeconds": 224.9,
+  "titleDurationSeconds": 2,
+  "clock": {
+    "convention": "HTMLAudio.currentTime starts at 0; HTMLAudio.duration and decoded 48000 Hz sample span reconcile within 1 decoded sample; index data-duration is rounded to 0.01 s",
+    "indexDurationRoundingSeconds": 0.005,
+    "oneDecodedSampleSeconds": 2.0833333333333333e-05
+  },
+  "tails": [
+    {
+      "titleId": "t2",
+      "of": 2,
+      "visualStart": 67.9,
+      "visualEnd": 69.9,
+      "previousBlock": "1",
+      "previousSceneStart": 42.6,
+      "previousIndexAudioDataDuration": 25.21,
+      "previousHtmlAudioDuration": 25.21325,
+      "previousDecodedDuration": 25.21325,
+      "previousAlignmentSpokenEnd": 25.2132,
+      "previousConservativeEnd": 67.813243,
+      "previousReadDeadline": 67.165667,
+      "previousCue": {
+        "originalStart": 62.499,
+        "originalEnd": 68.163,
+        "trimmedEnd": 67.9,
+        "wordCount": 11,
+        "neededSeconds": 4.666667,
+        "availableSeconds": 5.401,
+        "text": "Рабочее пространство: локальные папки и\nинструменты, прав агенту они не дают."
+      }
+    },
+    {
+      "titleId": "t4",
+      "of": 4,
+      "visualStart": 161,
+      "visualEnd": 163,
+      "previousBlock": "3",
+      "previousSceneStart": 101.4,
+      "previousIndexAudioDataDuration": 59.31,
+      "previousHtmlAudioDuration": 59.306438,
+      "previousDecodedDuration": 59.306438,
+      "previousAlignmentSpokenEnd": 59.3864,
+      "previousConservativeEnd": 160.78640000000001,
+      "previousReadDeadline": 160.36020000000002,
+      "previousCue": {
+        "originalStart": 156.36,
+        "originalEnd": 161.136,
+        "trimmedEnd": 161,
+        "wordCount": 9,
+        "neededSeconds": 4,
+        "availableSeconds": 4.6398,
+        "text": "Синхронизации нет — перед работой\nзабирайте изменения через git pull."
+      }
+    }
+  ],
+  "cueCount": 57,
+  "chaptersVoiceStarts": [
+    69.9,
+    163
+  ],
+  "cueEndExceptions": [
+    [
+      68.163,
+      67.9
+    ],
+    [
+      161.136,
+      161
+    ]
+  ],
+  "otherCueRecordsUnchanged": 55,
+  "headSeconds": 0.1
+}

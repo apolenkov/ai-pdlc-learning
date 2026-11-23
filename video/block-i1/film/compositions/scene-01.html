@@ -1,0 +1,79 @@
+<template id="scene-01-template">
+  <div data-composition-id="scene-01" data-width="1920" data-height="1080" data-duration="28.4">
+    <style>
+      [data-composition-id="scene-01"] .sc-tile { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 8px; padding: 16px 24px; border-radius: 20px; }
+      [data-composition-id="scene-01"] .sc-tile b { font-size: 44px; font-weight: 800; }
+      [data-composition-id="scene-01"] .sc-tile span { font-size: 30px; font-weight: 500; color: var(--k-text-2); }
+      [data-composition-id="scene-01"] .sc-link { height: 100%; display: grid; place-items: center; font-size: 64px; font-weight: 800; color: var(--k-text-2); }
+      [data-composition-id="scene-01"] .sc-note { height: 100%; display: flex; align-items: center; gap: 16px; padding: 0 28px; font-size: 34px; font-weight: 600; }
+      [data-composition-id="scene-01"] .sc-note .k { flex: none; font-size: 30px; font-weight: 800; padding: 6px 18px; border-radius: 12px; background: var(--k-accent-tint); color: var(--k-accent-soft); }
+      [data-composition-id="scene-01"] .sc-fill { height: 100%; padding: 16px 28px; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+      [data-composition-id="scene-01"] .sc-fill .cap { font-size: 36px; font-weight: 800; }
+      [data-composition-id="scene-01"] .sc-fill .row { display: flex; gap: 14px; }
+      [data-composition-id="scene-01"] .sc-fill .cell { flex: 1; border-radius: 14px; background: var(--k-panel-2); border-top: 6px solid var(--k-ok); padding: 12px 16px; font-size: 32px; font-weight: 600; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("01"), t = S.t, DUR = 28.4;
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+
+        Kit.header(S, { header: { mode: "parts", total: 4 }, chapter: "Три вопроса до работы", step: 1, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* Три плитки: появляются, когда диктор называет вопрос */
+        const tiles = [
+          { head: "Проблема", sub: "в чём проблема человека", at: t("проблема человека") },
+          { head: "Эффект", sub: "какой эффект ждём", at: t("какой эффект ждём") },
+          { head: "Границы", sub: "что не трогаем", at: t("что не трогаем") },
+        ].map((d, i) => {
+          const c = Kit.aside(S, { parent: s1, x: 96 + i * 592, y: 250, w: 544, h: 220, tail: false,
+            html: '<div class="sc-tile"><b>' + d.head + "</b><span>" + d.sub + "</span></div>" });
+          c.show(Math.max(d.at, 2.1)); // заставка части держится первые 2 с
+          read(d.head + " " + d.sub, Math.max(d.at, 2.1), DUR);
+          return c;
+        });
+        [1, 2].forEach((i) => {
+          const a = Kit.aside(S, { parent: s1, x: 96 + (i - 1) * 592 + 544, y: 250, w: 48, h: 220, tail: false,
+            html: '<div class="sc-link">→</div>' });
+          a.el.style.borderStyle = "none"; a.el.style.background = "transparent";
+          a.show(2.1);
+        });
+
+        /* Письмо — антипод записи */
+        const anti = Kit.aside(S, { parent: s1, x: 96, y: 500, w: 824, h: 120, tail: false,
+          html: '<div class="sc-note"><span class="k">Письмо</span><span>просит готовое решение</span></div>' });
+        anti.show(t("Письмо просит"));
+        const team = Kit.aside(S, { parent: s1, x: 944, y: 500, w: 880, h: 120, tail: false,
+          html: '<div class="sc-note"><span class="k">Запись</span><span>способ решения оставляет команде</span></div>' });
+        team.show(t("оставляет команде"));
+        read("Письмо просит готовое решение", t("Письмо просит"), DUR);
+        read("способ решения оставляет команде", t("оставляет команде"), DUR);
+
+        /* Кто и когда менял документ */
+        const hist = Kit.aside(S, { parent: s1, x: 96, y: 640, w: 1728, h: 70, tail: false,
+          html: '<div class="sc-note"><span class="k">Общая история версий</span><span>помнит, кто и когда менял документ</span></div>' });
+        hist.el.style.borderStyle = "dashed";
+        hist.show(t("Общая история версий помнит"));
+        read("помнит кто и когда менял документ", t("Общая история версий помнит"), DUR);
+
+        /* Что заполнит зритель */
+        const fill = Kit.aside(S, { parent: s1, x: 96, y: 640, w: 1728, h: 180, tail: false,
+          html: '<div class="sc-fill"><div class="cap">Вы заполните: начало записи</div>' +
+                '<div class="row"><div class="cell">проблему</div><div class="cell">результат</div><div class="cell">признаки успеха</div></div></div>' });
+        fill.el.style.borderColor = Kit.token("--k-accent");
+        fill.show(t("К концу ролика"));
+        read("Вы заполните начало записи проблему результат признаки успеха", t("К концу ролика"), DUR);
+        hist.hide(t("К концу ролика") - 0.1);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

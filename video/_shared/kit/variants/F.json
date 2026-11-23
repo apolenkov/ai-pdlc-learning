@@ -1,0 +1,62 @@
+{
+ "variant": "F",
+ "description": "подписи шапки B плюс старая ветка субтитров: без NBSP-фикса и без caption-zone у тени окна",
+ "bodySha256": "8811229f0cedba69b50459e951fd20d7a6896b7bf266f1e731c93a09d8c4ec7c",
+ "hunks": [
+  {
+   "start": 148,
+   "remove": [
+    "      ? (m === \"intro\" ? `<b>${total} частей</b>` : m === \"done\" ? `<b>Готово: ${total} из ${total}</b>` : `<b>Часть ${n} из ${total}</b>`)"
+   ],
+   "add": [
+    "      ? (m === \"intro\" ? `<b>${total} частей</b>` : m === \"done\" ? `<b>Готово</b>` : `<b>Часть ${n} ·</b>`)"
+   ]
+  },
+  {
+   "start": 150,
+   "remove": [
+    "      : m === \"done\" ? `<b>Готово: ${total} из ${total}</b>`",
+    "      : `<b>Шаг ${n} из ${total}</b><span> · ${left(n)}</span>`;"
+   ],
+   "add": [
+    "      : m === \"done\" ? `<b>Готово</b>`",
+    "      : `<b>Шаг ${n}</b><span> · ${left(n)}</span>`;"
+   ]
+  },
+  {
+   "start": 249,
+   "remove": [
+    "    // короткий предлог не остаётся в конце строки субтитра: неразрывный пробел после него",
+    "    return s.replace(/(?<![\\p{L}\\p{N}])(в|во|к|ко|с|со|у|о|об|от|по|на|до|за|из)[ \\t]+/giu, \"$1\\u00a0\");"
+   ],
+   "add": [
+    "    return s;"
+   ]
+  },
+  {
+   "start": 255,
+   "remove": [
+    "    const text = S.align.characters.join(\"\").replace(/(?<![\\p{L}\\p{N}])(в|во|к|ко|с|со|у|о|об|от|по|на|до|за|из)[ \\t]+/giu, (m) => m.replace(/[ \\t]+$/, \"\\u00a0\"));   // длина та же: индексы выравнивания не сдвигаются; предлог не оказывается в конце реплики"
+   ],
+   "add": [
+    "    const text = S.align.characters.join(\"\");"
+   ]
+  },
+  {
+   "start": 258,
+   "remove": [
+    "    box.setAttribute(\"data-layout-allow-caption-zone\", \"\"); // субтитры живут в нижней полосе; остальной контент — выше SAFE_BOTTOM (tools/scene.mjs check)"
+   ],
+   "add": [
+    "    box.setAttribute(\"data-layout-allow-caption-zone\", \"\"); // субтитры живут в нижней полосе; остальной контент — выше y≈825"
+   ]
+  },
+  {
+   "start": 551,
+   "remove": [
+    "    shadow.setAttribute(\"data-layout-allow-caption-zone\", \"\");   // тень-ореол окна: декор, расходится за рамку при движении камеры"
+   ],
+   "add": []
+  }
+ ]
+}

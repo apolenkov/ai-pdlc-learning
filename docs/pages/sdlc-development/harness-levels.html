@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ru" data-atmos data-section="analysis">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Три ступени harness, от локального до Dark Factory: что делает человек на каждой и почему без первой не понять третью.">
+  <meta name="theme-color" content="#f4f1e8">
+  <title>Ступени harness и Dark Factory · AI PDLC Learning</title>
+  <link rel="stylesheet" data-site-nav-styles href="./site-nav.css">
+  <link rel="stylesheet" data-atmos-styles href="./atmosphere.css">
+  <link rel="stylesheet" href="./help-reference.css">
+  <link rel="stylesheet" href="./harness-levels.css">
+</head>
+<body class="reference-page">
+  <a class="skip-link" href="#main-content">К содержанию</a>
+  <nav class="site-topbar" data-global-nav data-expanded="false" onkeydown="if(event.key==='Escape'&&this.getAttribute('data-expanded')==='true'){this.setAttribute('data-expanded','false');document.documentElement.style.removeProperty('--site-nav-reserve');var more=this.querySelector('.site-nav-more');if(more){more.setAttribute('aria-expanded','false');more.focus()}}" aria-label="Основная навигация PDLC"><div class="site-topbar__identity"><a class="site-home" data-global-home data-home-link data-course-root data-nav-item="home" href="__CUSTOMDEV_ROOT__" aria-current="location">Маршрут курса</a></div><div class="site-page-actions"><a class="site-catalog-return" data-catalog-return href="__CUSTOMDEV_ROOT__"><span aria-hidden="true">←</span><span>К маршруту курса</span></a></div></nav>
+  <main id="main-content" class="reference-shell" tabindex="-1">
+    <header class="reference-intro">
+      <p class="reference-kicker">Направление · от базы к Dark Factory</p>
+      <h1>Ступени harness и Dark Factory</h1>
+      <p>Harness — агентская среда: то, что окружает ИИ-агента в работе, — инструменты, правила, автоматические проверки и журнал. Сначала человек проходит локальный harness сам, потом оркестрацию, и только затем разговор о Dark Factory становится осмысленным.</p>
+    </header>
+
+    <nav class="reference-links" aria-label="Разделы страницы">
+      <strong>Разделы</strong>
+      <div><a href="#was-will-be">Трансформация</a><a href="#levels">Ступени harness</a><a href="#dark-factory">Dark Factory</a><a href="#benchmark">Бенчмарк</a><a href="#compare">Для сравнения</a></div>
+    </nav>
+
+    <section id="was-will-be" class="reference-panel" aria-labelledby="was-will-be-title">
+      <header><div><h2 id="was-will-be-title">Трансформация: от классического PDLC к AI PDLC</h2><p>Семь этапов PDLC: что делает человек и что агент.</p></div></header>
+      <ol class="harness-stages">
+        <li><div><h3>1. Намерение и план</h3><small>решает владелец продукта</small></div><div><b>Человек</b><p>Пишет и одобряет проблему, ожидаемый эффект и границы; помогает аналитик.</p></div><div><b>Агент</b><p>Собирает обратную связь и контекст, готовит варианты и план изменений.</p></div></li>
+        <li><div><h3>2. Анализ требований</h3><small>подтверждает владелец продукта</small></div><div><b>Человек</b><p>Аналитик отвечает за бизнес-смысл и доводит спецификацию до подтверждаемой.</p></div><div><b>Агент</b><p>Превращает намерение в спецификацию: сценарии, критерии приёмки, поиск пробелов и противоречий.</p></div></li>
+        <li><div><h3>3. Архитектура и дизайн</h3><small>утверждает архитектор (ADR)</small></div><div><b>Человек</b><p>Архитектор пишет design.md, формулирует ограничения и утверждает ADR.</p></div><div><b>Агент</b><p>Исследует репозитории и спецификации, предлагает варианты и анализ влияния, готовит ADR и design.md.</p></div></li>
+        <li><div><h3>4. Реализация</h3><small>принимает техлид</small></div><div><b>Человек</b><p>Разработчик формулирует задачу и ограничения; техлид принимает MR.</p></div><div><b>Агент</b><p>Исследует код, планирует шаги, реализует в отдельной ветке, прогоняет тесты, готовит документацию.</p></div></li>
+        <li><div><h3>5. Тестирование</h3><small>решает инженер качества</small></div><div><b>Человек</b><p>Отвечает за стратегию проверки и приёмку; владелец продукта смотрит результат.</p></div><div><b>Агент</b><p>Генерирует тест-модель, кейсы, данные и автотесты по спецификации, разбирает падения. Автопроверки обязательны до ревью человеком.</p></div></li>
+        <li><div><h3>6. Выпуск</h3><small>решает техлид</small></div><div><b>Человек</b><p>Инженер инфраструктуры готовит версию; инженер качества подтверждает проверки; допускает техлид.</p></div><div><b>Агент</b><p>Предлагает изменения сборки, поставки и конфигурации, диагностирует падения и логи.</p></div></li>
+        <li><div><h3>7. Наблюдение</h3><small>решает владелец продукта</small></div><div><b>Человек</b><p>Эксплуатация и аналитик ведут наблюдение; сигналы возвращаются в новое намерение.</p></div><div><b>Агент</b><p>Связывает обращение с логами, кодом и историей, готовит вывод о причине и вариант исправления.</p></div></li>
+      </ol>
+      <div class="harness-prose">
+        <p>Сквозной принцип: человек владеет целью и принимает решение, агент готовит и исполняет в заданных границах, автопроверки подтверждают результат до ревью человеком. Агент решений не принимает.</p>
+      </div>
+      <figure class="harness-figure">
+        <figcaption>Схема BPMN процесса PDLC: роли, ИИ-агент и инструменты по этапам; агент готовит, человек решает. Схема в натуральную величину: прокрутите её внутри рамки. <a class="harness-figure-open" href="harness-levels-bpmn.png" target="_blank" rel="noopener noreferrer">Открыть схему целиком</a></figcaption>
+        <div class="harness-figure-scroll" tabindex="0" role="region" aria-label="Схема BPMN процесса PDLC, прокрутка"><img src="harness-levels-bpmn.png" width="3094" height="1532" decoding="async" alt="Схема BPMN: процесс PDLC по семи этапам с ролями. По строкам идут владелец продукта, аналитик, архитектор, техлид, разработчик, инженер качества, эксплуатация, ИИ-агент и инструменты; решения «Принято?» возвращают работу на доработку, а наблюдение замыкает цикл новым намерением."></div>
+      </figure>
+    </section>
+
+    <section id="levels" class="reference-panel" aria-labelledby="levels-title">
+      <header><div><h2 id="levels-title">Ступени harness</h2><p>Три ступени. Каждую человек проходит по очереди: пропустить первую нельзя.</p></div></header>
+      <ol class="harness-steps">
+        <li><h3>Локальный harness</h3><p>Один агент в терминале, хуки, pre-push, OpenSpec.</p><p class="harness-human"><b>Человек:</b> читает каждый diff.</p></li>
+        <li><h3>Оркестрация локально</h3><p>Несколько harness, диспетчер, журнал; ревью делает не автор.</p><p class="harness-human"><b>Человек:</b> читает итоги работы агентов и результаты обязательных проверок.</p></li>
+        <li><h3>Dark Factory / облако</h3><p>Агенты работают по расписанию, без человека в цикле кода.</p><p class="harness-human"><b>Человек:</b> задаёт намерение, принимает результат, наблюдает эффект.</p></li>
+      </ol>
+      <div class="harness-prose"><p><strong>Критерий первой ступени.</strong> Человек сам провёл изменение от намерения до Merge через агента в терминале: прочитал каждый diff и прогнал проверки.</p><p>Сейчас мы проходим первые две ступени — локальный harness и оркестрацию локально. Третья ступень — облачный harness в виде Dark Factory — показывает, куда мы стремимся; без dev-контура её пока не сделать.</p></div>
+      <div class="harness-prose">
+        <p>Это близко по духу совету Anthropic из статьи <a href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank" rel="noopener noreferrer">«Building effective agents»</a> (о создании агентных систем): искать самое простое решение и усложнять только тогда, когда это нужно.</p>
+      </div>
+    </section>
+
+    <section id="dark-factory" class="reference-panel" aria-labelledby="dark-factory-title">
+      <header><div><h2 id="dark-factory-title">Dark Factory</h2><p>Верхняя ступень: человек задаёт намерение, код пишут и проверяют агенты.</p></div></header>
+      <div class="harness-prose">
+        <p>Шкалу из пяти уровней, от острого автодополнения (spicy autocomplete) до Dark Factory, описал Дэн Шапиро в <a href="https://www.danshapiro.com/blog/2026/01/the-five-levels-from-spicy-autocomplete-to-the-software-factory/" target="_blank" rel="noopener noreferrer">статье</a> (январь 2026), пересказ есть у <a href="https://simonwillison.net/2026/Jan/28/the-five-levels/" target="_blank" rel="noopener noreferrer">Саймона Уиллисона</a>. Шкала построена по аналогии с уровнями автоматизации вождения (NHTSA).</p>
+      </div>
+      <div class="harness-pair">
+        <div><h3>Зачем</h3><p>Скорость и масштаб без роста команды.</p></div>
+        <div><h3>Что должно быть готово до неё</h3><ul><li>стадии процесса;</li><li>обязательные проверки;</li><li>наблюдение;</li><li>откат.</li></ul></div>
+        <div><h3>Что остаётся человеку</h3><ul><li>намерение;</li><li>критерии приёмки;</li><li>наблюдение эффекта: результат против намерения, это этап 7.</li></ul><p>Человек не читает код, но контролирует работу: контроль переезжает с кода на намерение, обязательные проверки и наблюдение.</p></div>
+        <div><h3>Риски</h3><p>Ошибка тиражируется без глаз: никто не читает код, поэтому обязательные проверки и наблюдение должны поймать её раньше.</p></div>
+      </div>
+      <div class="harness-prose">
+        <p><strong>Когда рано.</strong> Пока человек не прошёл локальный harness и оркестрацию, а перечисленное выше не готово: без этого непонятно, что контролировать и чем.</p>
+      </div>
+      <div class="harness-prose">
+        <p><strong>Вождение и автопилот</strong> — аналогия: сначала водишь сам и знаешь правила, потом включаешь автопилот. Все умеют писать, но многие печатают; здесь важен не навык руки, а контроль.</p>
+      </div>
+    </section>
+
+    <section id="benchmark" class="reference-panel" aria-labelledby="benchmark-title">
+      <header><div><h2 id="benchmark-title">Бенчмарк: метод</h2><p>Одна и та же задача на каждой ступени. Здесь только метод, без цифр.</p></div></header>
+      <ul class="reference-rule-list">
+        <li><strong>Одна и та же задача</strong> проходит все три ступени.</li>
+        <li><strong>На каждой ступени меряем</strong> время, стоимость и дефекты после ревью.</li>
+        <li><strong>Числа берём только из реального прогона.</strong> Пока прогона нет, цифр на странице нет.</li>
+      </ul>
+    </section>
+
+    <section id="compare" class="reference-panel" aria-labelledby="compare-title">
+      <header><div><h2 id="compare-title">Для сравнения</h2><p>Похожие инструменты; это не рекомендация.</p></div></header>
+      <ul class="harness-compare">
+        <li><p><a href="https://temporal.io" target="_blank" rel="noopener noreferrer">Temporal</a> — открытая платформа durable execution, лицензия MIT. В такой схеме её можно использовать как детерминированный оркестратор: порядок стадий, переходы, блокирующие проверки, восстановление после сбоя.</p></li>
+        <li><p><a href="https://github.com/omnigent-ai/omnigent" target="_blank" rel="noopener noreferrer">Omnigent</a> — открытый мета-harness над Claude Code, Codex, Pi и другими агентами. В такой схеме его можно использовать как агентный движок внутри шага.</p></li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

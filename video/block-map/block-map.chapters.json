@@ -1,0 +1,62 @@
+[
+  {
+    "n": 0,
+    "title": "Вступление",
+    "step": null,
+    "chapter": "Вступление",
+    "start": 0,
+    "titleStart": 0,
+    "speechStart": 0,
+    "end": 24.8
+  },
+  {
+    "n": 1,
+    "title": "Что на карте",
+    "step": 1,
+    "chapter": "Что на карте",
+    "start": 24.8,
+    "titleStart": 24.8,
+    "speechStart": 26.8,
+    "end": 47
+  },
+  {
+    "n": 2,
+    "title": "С чего начать",
+    "step": 2,
+    "chapter": "С чего начать",
+    "start": 47,
+    "titleStart": 47,
+    "speechStart": 49,
+    "end": 60.4
+  },
+  {
+    "n": 3,
+    "title": "Как выбрать маршрут",
+    "step": 3,
+    "chapter": "Как выбрать маршрут",
+    "start": 60.4,
+    "titleStart": 60.4,
+    "speechStart": 62.4,
+    "end": 74.5
+  },
+  {
+    "n": 4,
+    "title": "Как вернуться",
+    "step": 4,
+    "chapter": "Как вернуться",
+    "start": 74.5,
+    "titleStart": 74.5,
+    "speechStart": 76.5,
+    "end": 86.6
+  },
+  {
+    "n": 5,
+    "title": "Свой темп",
+    "step": 5,
+    "chapter": "Свой темп",
+    "start": 86.6,
+    "titleStart": 86.6,
+    "speechStart": 88.6,
+    "end": 107.5
+  }
+]

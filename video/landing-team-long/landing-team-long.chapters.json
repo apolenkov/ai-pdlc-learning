@@ -1,0 +1,132 @@
+[
+  {
+    "n": 1,
+    "title": "Зачем нужна команда",
+    "step": null,
+    "chapter": "Зачем нужна команда",
+    "start": 0,
+    "titleStart": 0,
+    "speechStart": 0,
+    "end": 33.6
+  },
+  {
+    "n": 2,
+    "title": "Семь этапов: кто решает",
+    "step": null,
+    "chapter": "Семь этапов: кто решает",
+    "start": 33.6,
+    "titleStart": 33.6,
+    "speechStart": 33.6,
+    "end": 129.8
+  },
+  {
+    "n": 3,
+    "title": "Где лежит метод",
+    "step": null,
+    "chapter": "Где лежит метод",
+    "start": 129.8,
+    "titleStart": 129.8,
+    "speechStart": 129.8,
+    "end": 152.4
+  },
+  {
+    "n": 4,
+    "title": "Три яруса и наставник",
+    "step": null,
+    "chapter": "Три яруса и наставник",
+    "start": 152.4,
+    "titleStart": 152.4,
+    "speechStart": 152.4,
+    "end": 184.6
+  },
+  {
+    "n": 5,
+    "title": "Шесть задач по кругу",
+    "step": null,
+    "chapter": "Шесть задач по кругу",
+    "start": 184.6,
+    "titleStart": 184.6,
+    "speechStart": 184.6,
+    "end": 224.6
+  },
+  {
+    "n": 6,
+    "title": "План изменений",
+    "step": null,
+    "chapter": "План изменений",
+    "start": 224.6,
+    "titleStart": 224.6,
+    "speechStart": 224.6,
+    "end": 293
+  },
+  {
+    "n": 7,
+    "title": "Аудит этапов",
+    "step": null,
+    "chapter": "Аудит этапов",
+    "start": 293,
+    "titleStart": 293,
+    "speechStart": 293,
+    "end": 339.1
+  },
+  {
+    "n": 8,
+    "title": "Обучение по ролям",
+    "step": null,
+    "chapter": "Обучение по ролям",
+    "start": 339.1,
+    "titleStart": 339.1,
+    "speechStart": 339.1,
+    "end": 389.8
+  },
+  {
+    "n": 9,
+    "title": "Метрики до и после",
+    "step": null,
+    "chapter": "Метрики до и после",
+    "start": 389.8,
+    "titleStart": 389.8,
+    "speechStart": 389.8,
+    "end": 414.1
+  },
+  {
+    "n": 10,
+    "title": "Путь к самостоятельности",
+    "step": null,
+    "chapter": "Путь к самостоятельности",
+    "start": 414.1,
+    "titleStart": 414.1,
+    "speechStart": 414.1,
+    "end": 443.3
+  },
+  {
+    "n": 11,
+    "title": "Один путь и правило решений",
+    "step": null,
+    "chapter": "Один путь и правило решений",
+    "start": 443.3,
+    "titleStart": 443.3,
+    "speechStart": 443.3,
+    "end": 476.5
+  },
+  {
+    "n": 12,
+    "title": "До старта договориться",
+    "step": null,
+    "chapter": "До старта договориться",
+    "start": 476.5,
+    "titleStart": 476.5,
+    "speechStart": 476.5,
+    "end": 507.3
+  },
+  {
+    "n": 13,
+    "title": "С чего начать",
+    "step": null,
+    "chapter": "С чего начать",
+    "start": 507.3,
+    "titleStart": 507.3,
+    "speechStart": 507.3,
+    "end": 522.6
+  }
+]

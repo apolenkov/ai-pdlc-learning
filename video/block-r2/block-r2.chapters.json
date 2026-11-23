@@ -1,0 +1,82 @@
+[
+  {
+    "n": 0,
+    "title": "Вступление",
+    "step": null,
+    "chapter": "Вступление",
+    "start": 0,
+    "titleStart": 0,
+    "speechStart": 0,
+    "end": 66.4
+  },
+  {
+    "n": 1,
+    "title": "Вход",
+    "step": 1,
+    "chapter": "Вход",
+    "start": 66.4,
+    "titleStart": 66.4,
+    "speechStart": 66.4,
+    "end": 94.4
+  },
+  {
+    "n": 2,
+    "title": "Черновик модели",
+    "step": 2,
+    "chapter": "Черновик модели",
+    "start": 94.4,
+    "titleStart": 94.4,
+    "speechStart": 94.4,
+    "end": 109.1
+  },
+  {
+    "n": 3,
+    "title": "Пять вопросов",
+    "step": 3,
+    "chapter": "Пять вопросов",
+    "start": 109.1,
+    "titleStart": 109.1,
+    "speechStart": 109.1,
+    "end": 150.8
+  },
+  {
+    "n": 4,
+    "title": "Сохранить и отправить",
+    "step": 4,
+    "chapter": "Сохранить и отправить",
+    "start": 150.8,
+    "titleStart": 150.8,
+    "speechStart": 150.8,
+    "end": 167
+  },
+  {
+    "n": 5,
+    "title": "Merge Request",
+    "step": 5,
+    "chapter": "Merge Request",
+    "start": 167,
+    "titleStart": 167,
+    "speechStart": 167,
+    "end": 196.4
+  },
+  {
+    "n": 6,
+    "title": "Комментарии и одобрение",
+    "step": 6,
+    "chapter": "Комментарии и одобрение",
+    "start": 196.4,
+    "titleStart": 196.4,
+    "speechStart": 196.4,
+    "end": 245.2
+  },
+  {
+    "n": 7,
+    "title": "Принимаем версию",
+    "step": 7,
+    "chapter": "Принимаем версию",
+    "start": 245.2,
+    "titleStart": 245.2,
+    "speechStart": 245.2,
+    "end": 261.4
+  }
+]

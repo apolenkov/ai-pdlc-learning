@@ -1,0 +1,107 @@
+<template id="scene-09-template">
+  <div data-composition-id="scene-09" data-width="1920" data-height="1080" data-duration="21.1">
+    <style>
+      [data-composition-id="scene-09"] .g-c { height: 100%; display: flex; flex-direction: column; justify-content: flex-start; gap: 12px; }
+      [data-composition-id="scene-09"] .g-t { font-size: 36px; font-weight: 800; letter-spacing: -0.015em; line-height: 1.2; opacity: 0; }
+      [data-composition-id="scene-09"] .g-s { font-size: 30px; font-weight: 500; color: var(--k-text-2); line-height: 1.3; opacity: 0; }
+      [data-composition-id="scene-09"] .g-n { font-size: 88px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; color: var(--k-ok); opacity: 0; }
+      [data-composition-id="scene-09"] .lk { position: absolute; width: 56px; height: 40px; }
+      [data-composition-id="scene-09"] .lk svg { display: block; width: 100%; height: 100%; overflow: visible; }
+      [data-composition-id="scene-09"] .nt { height: 100%; display: flex; align-items: center; gap: 18px; font-size: 34px; font-weight: 700; white-space: nowrap; }
+      [data-composition-id="scene-09"] .nt svg { flex: none; width: 40px; height: 40px; color: var(--k-text-2); }
+      [data-composition-id="scene-09"] .nt i { flex: none; width: 30px; height: 30px; border-radius: 50%; border: 4px solid var(--k-text-2); }
+      [data-composition-id="scene-09"] .sc-next { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+      [data-composition-id="scene-09"] .sc-next .lab { font-size: 36px; font-weight: 700; color: var(--k-accent-soft); white-space: nowrap; }
+      [data-composition-id="scene-09"] .sc-next .nm { font-size: 58px; font-weight: 800; letter-spacing: -0.02em; white-space: nowrap; }
+      [data-composition-id="scene-09"] .sc-next svg { flex: none; width: 76px; height: 41px; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("09"), t = S.t, DUR = 21.1;
+        // Считаем только полностью проявленный неподвижный текст: переходы временем чтения не считаются.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.end("люди.") < 1.5) throw new Error("Недостаточный хвост сцены");
+        const tok = Kit.token, tl = S.tl, q = (el, c) => el.querySelector(c);
+        const E_OUT = tok("--k-ease-out"), POP = "back.out(2)";
+        const slide = (el, x, at, d = 0.6) => tl.fromTo(el, { autoAlpha: 0, x }, { autoAlpha: 1, x: 0, duration: d, ease: E_OUT, immediateRender: false }, at);
+        const rise = (el, at, d = 0.55, y = 20) => tl.fromTo(el, { autoAlpha: 0, y }, { autoAlpha: 1, y: 0, duration: d, ease: E_OUT, immediateRender: false }, at);
+        const pop = (el, at, d = 0.55) => tl.fromTo(el, { autoAlpha: 0, scale: 0.86 }, { autoAlpha: 1, scale: 1, duration: d, ease: POP, immediateRender: false }, at);
+        const fade = (el, at, d = 0.4) => tl.fromTo(el, { autoAlpha: 0 }, { autoAlpha: 1, duration: d, immediateRender: false }, at);
+        const gray = tok("--k-text-2"), acc = tok("--k-accent");
+        const ARR = (c) => '<svg viewBox="0 0 56 30" fill="none"><path d="M3 15H49M39 5L50 15L39 25" stroke="' + c + '" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        const LOCK = '<svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><rect x="11" y="25" width="34" height="25" rx="5"/><path d="M18 25v-7a10 10 0 0 1 20 0v7"/></svg>';
+
+        /* Итог без шага: все части пройдены, шапка «Готово» */
+        Kit.header(S, { header: { mode: "parts", total: 8 }, chapter: "Что дальше", step: null, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* ---- скетч идеи справа: рисуется, пока идут итоги ---- */
+        Kit.sketch(S, { parent: s1, name: "intro-idea", x: 1410, y: 215, w: 414, at: 0.4, dur: 4.2 });
+
+        /* ---- цепочка из трёх групп: слова диктора ---- */
+        const W = 390, H = 250, Y = 235, GAP = 55;
+        const X = [96, 96 + W + GAP, 96 + 2 * (W + GAP)];
+        const mk = (i, html) => Kit.aside(S, { parent: s1, x: X[i], y: Y, w: W, h: H, tail: false, html: '<div class="g-c">' + html + "</div>" });
+
+        const g1 = mk(0, '<div class="g-t">Файлы по назначению</div><div class="g-s">предложение, разница требований, план задач</div>');
+        slide(g1.el, -60, t("изменение") - 0.05, 0.6);
+        fade(q(g1.el, ".g-t"), t("по назначению"), 0.45);
+        fade(q(g1.el, ".g-s"), t("файлов,") + 0.1, 0.45);
+        read("Файлы по назначению", t("по назначению") + 0.45, DUR, 0);
+        read("предложение разница требований план задач", t("файлов,") + 0.55, DUR, 0);
+
+        const g2 = mk(1, '<div class="g-t">Перенос</div><div class="g-n">8/8</div><div class="g-s">+ срок в годах</div>');
+        // карточка целиком (заголовок и 8/8) приходит на слове «восемь»: пустой каркас не показываем
+        pop(g2.el, t("восемь") - 0.05, 0.45);
+        fade(q(g2.el, ".g-t"), t("восемь") - 0.05, 0.3);
+        tl.fromTo(q(g2.el, ".g-n"), { autoAlpha: 0, scale: 0.7 }, { autoAlpha: 1, scale: 1, duration: 0.5, ease: POP, immediateRender: false }, t("восемь"));
+        fade(q(g2.el, ".g-s"), t("срок"), 0.45);
+        read("Перенос 8/8", t("восемь") + 0.5, DUR, 0);
+        read("срок в годах", t("срок") + 0.45, DUR, 0);
+
+        const g3 = mk(2, '<div class="g-t">Ревью и одобрение</div><div class="g-s" style="font-size:28px;line-height:1.25">одобряет владелец продукта; аналитик и техлид — комментарии</div>');
+        rise(g3.el, t("получили") - 0.05, 0.6, 28);
+        fade(q(g3.el, ".g-t"), t("одобрение"), 0.45);
+        fade(q(g3.el, ".g-s"), t("людей."), 0.45);
+        read("Ревью и одобрение", t("одобрение") + 0.45, DUR, 0);
+        read("одобряет владелец продукта аналитик и техлид комментарии", t("людей.") + 0.45, DUR, 0);
+
+        [[0, t("восемь") - 0.1], [1, t("получили") - 0.05]].forEach(([i, at]) => {
+          const a = document.createElement("div");
+          a.className = "lk"; a.setAttribute("data-layout-allow-overlap", "");
+          a.style.left = (X[i] + W - 0) + "px"; a.style.top = (Y + H / 2 - 20) + "px";
+          a.innerHTML = ARR(gray); s1.appendChild(a); gsap.set(a, { autoAlpha: 0 });
+          fade(a, at, 0.4);
+        });
+
+        /* ---- код не менялся, задачи открыты (нейтрально) ---- */
+        const n1 = Kit.aside(S, { parent: s1, x: 96, y: 540, w: 440, h: 84, tail: false,
+          html: '<div class="nt">' + LOCK + '<span>код не менялся</span></div>' });
+        n1.el.style.padding = "0 26px";
+        slide(n1.el, -50, t("людей.") + 0.05, 0.45);   // непрозрачным к слову «Код»
+        read("код не менялся", t("людей.") + 0.5, DUR, 0);
+        const n2 = Kit.aside(S, { parent: s1, x: 576, y: 540, w: 470, h: 84, tail: false,
+          html: '<div class="nt"><i></i><span>12 задач открыто</span></div>' });
+        n2.el.style.padding = "0 26px";
+        pop(n2.el, t("задачи"), 0.55);
+        read("12 задач открыто", t("задачи") + 0.55, DUR, 0);
+
+        /* ---- мост к следующему гайду: как в ролике 3, блок 9 ---- */
+        const T_NEXT = t("«Как работает") - 0.05;
+        const next = Kit.aside(S, { parent: s1, x: 96, y: 650, w: 1728, h: 160, tail: false,
+          html: '<div class="sc-next"><div><div class="lab">Дальше</div><div class="nm">Как работает команда продукта</div></div>' + ARR(acc).replace('<svg ', '<svg class="go" ') + "</div>" });
+        next.el.style.borderColor = acc;
+        rise(next.el, T_NEXT, 0.65, 26);
+        read("Дальше Как работает команда продукта", T_NEXT + 0.65, DUR, 0);
+        tl.to(q(next.el, ".go"), { x: 14, duration: 0.6, ease: "sine.inOut", yoyo: true, repeat: 3 }, S.end("люди.") - 0.2);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

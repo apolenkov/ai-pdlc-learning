@@ -1,0 +1,92 @@
+<template id="scene-06-template">
+  <div data-composition-id="scene-06" data-width="1920" data-height="1080" data-duration="19.5">
+    <style>
+      [data-composition-id="scene-06"] .tr { height: 100%; display: flex; flex-direction: column; gap: 10px; }
+      [data-composition-id="scene-06"] .tr .ttl { font-size: 30px; font-weight: 700; letter-spacing: 0.04em; color: var(--k-text-2); }
+      [data-composition-id="scene-06"] .tr .dir { font-family: var(--k-font-mono); font-size: 30px; font-weight: 700; color: var(--k-code-head); line-height: 1.25; word-break: break-all; opacity: 0; }
+      [data-composition-id="scene-06"] .tr .f { position: relative; display: flex; flex-direction: column; gap: 2px; margin-left: 28px; padding: 10px 18px; border-radius: 14px; border: 2px solid transparent; opacity: 0; }
+      [data-composition-id="scene-06"] .tr .f .nm { font-family: var(--k-font-mono); font-size: 32px; font-weight: 700; line-height: 1.25; }
+      [data-composition-id="scene-06"] .tr .f .ds { font-size: 32px; font-weight: 500; color: var(--k-text-2); line-height: 1.25; }
+      [data-composition-id="scene-06"] .tr .f.sp { margin-left: 28px; }
+      [data-composition-id="scene-06"] .cond { height: 100%; display: flex; align-items: center; gap: 22px; font-size: 38px; font-weight: 700; letter-spacing: -0.015em; line-height: 1.15; }
+      [data-composition-id="scene-06"] .cond svg { flex: none; width: 52px; height: 52px; }
+      [data-composition-id="scene-06"] .cond .stop { display: flex; align-items: center; gap: 18px; flex-wrap: nowrap; }
+      [data-composition-id="scene-06"] .cond .no { position: relative; display: inline-flex; align-items: center; padding: 6px 20px; border-radius: 12px; border: 2px dashed var(--k-accent); background: var(--k-accent-tint); color: var(--k-text-2); font-size: 32px; font-weight: 700; white-space: nowrap; }
+      [data-composition-id="scene-06"] .cond .no i { position: absolute; left: 12px; right: 12px; top: 50%; height: 4px; margin-top: -2px; border-radius: 2px; background: var(--k-accent); transform-origin: 0 50%; transform: scaleX(0); }
+      [data-composition-id="scene-06"] .cond .nw { flex: none; margin-left: auto; padding: 4px 16px; border-radius: 12px; background: var(--k-accent-tint); color: var(--k-accent-soft); font-size: 30px; font-weight: 700; white-space: nowrap; }
+      [data-composition-id="scene-06"] .cond .t { white-space: nowrap; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("06"), t = S.t, DUR = 19.5;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.5) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»: ${(off - at - reveal).toFixed(2)} < ${needed.toFixed(2)}`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const rev = (el, at, d = 0.45) => { gsap.set(el, { y: 14 }); S.tl.to(el, { opacity: 1, y: 0, duration: d, ease: "power3.out" }, at); };
+
+        Kit.header(S, { header: { mode: "parts", total: 8 }, chapter: "Изменение", step: 6, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* ---- Дерево папки изменения ---- */
+        const FILES = [
+          { id: "f1", nm: "proposal.md", ds: "предложение", at: t("предложение,") },
+          { id: "f2", nm: "specs/…/spec.md", ds: "новые и уточнённые требования", at: t("требования,") },
+          { id: "f3", nm: "design.md", ds: "описание устройства решения", at: t("описание") },
+          { id: "f4", nm: "tasks.md", ds: "задачи", at: t("задачи.") },
+        ];
+        const tree = Kit.aside(S, { parent: s1, x: 96, y: 210, w: 700, h: 610, tail: false,
+          html: '<div class="tr"><div class="ttl">ИЗМЕНЕНИЕ</div><div class="dir">openspec/changes/<br>limit-credit-amount/</div>' +
+            FILES.map((f) => '<div class="f ' + f.id + '"><span class="nm">' + f.nm + '</span><span class="ds">' + f.ds + "</span></div>").join("") + "</div>" });
+        tree.show(t("создаёт") - 0.1);
+        const tq = (sel) => tree.el.querySelector(sel);
+        rev(tq(".dir"), t("изменение лимита"));
+        FILES.forEach((f) => { rev(tq("." + f.id), f.at); read(f.nm + " " + f.ds, f.at, DUR); });
+
+        /* ---- Открытый файл: настоящий текст требования ---- */
+        const T_ED = t("Читайте");
+        const ed = Kit.editor(S, { parent: s1, x: 830, y: 210, w: 994, crumb: "limit-credit-amount / specs", visible: false,
+          tabs: [{ name: "spec.md", active: true }],
+          lines: [
+            "## Лимит суммы",
+            "Сумма от 10 000 до 100 000 000 ₽ включительно.",
+            "Вне диапазона — ошибка и «—» во всех результатах.",
+          ] });
+        ed.show(T_ED);
+        ed.caretOff(T_ED);
+        ed.reveal(0, 2, T_ED + 0.5);
+        ed.mark(1, t("каждую"), { tone: "ok" });
+        ed.mark(2, t("строку") + 0.3, { tone: "ok" });
+        read("Сумма от 10 000 до 100 000 000 ₽ включительно. Вне диапазона — ошибка и «—» во всех результатах.", T_ED, DUR);
+        // открытый файл выделен в дереве
+        S.tl.to(tq(".f2"), { backgroundColor: Kit.token("--k-accent-tint"), borderColor: Kit.token("--k-accent"), duration: 0.4 }, T_ED);
+
+        /* ---- Условия ---- */
+        const Y0 = 504, H = 96, G = 10;
+        const mk = (i, html, color) => {
+          const a = Kit.aside(S, { parent: s1, x: 830, y: Y0 + i * (H + G), w: 994, h: H, tail: false,
+            html: '<div class="cond">' + html + "</div>" });
+          a.el.style.padding = "0 26px"; a.el.style.borderColor = color;
+          return a;
+        };
+        const lnk = '<svg viewBox="0 0 24 24" fill="none" stroke="' + Kit.token("--k-info") + '" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-7"/></svg>';
+        const c1 = mk(0, lnk + '<span class="t">зависит от всех действующих изменений</span>', Kit.token("--k-info"));
+        const c2 = mk(1, lnk + '<span class="t">заменяет только подтверждённые ожидания</span>', Kit.token("--k-info"));
+        const c3 = mk(2, '<span class="stop"><span class="no">перенос в код<i></i></span><span class="no">архивация<i></i></span></span><span class="nw">не сейчас</span>', Kit.token("--k-accent"));
+        const T_C1 = t("зависит"), T_C2 = t("заменяет"), T_C3 = t("Перенос");
+        c1.show(T_C1 - 0.2); c2.show(T_C2 - 0.2); c3.show(T_C3 - 0.1);
+        read("зависит от всех действующих изменений", T_C1, DUR); read("заменяет только подтверждённые ожидания", T_C2, DUR);
+        read("не сейчас перенос в код архивация не запускать", T_C3, DUR);
+        c3.el.querySelectorAll(".no").forEach((n) => { n.setAttribute("data-layout-allow-occlusion", ""); });
+        c3.el.querySelectorAll(".no i").forEach((i, k) => { i.setAttribute("data-layout-allow-occlusion", ""); S.tl.to(i, { scaleX: 1, duration: 0.4, ease: "power2.out" }, k ? t("архивацию") + 0.5 : t("код") + 0.3); });
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

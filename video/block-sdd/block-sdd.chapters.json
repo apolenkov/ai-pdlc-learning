@@ -1,0 +1,62 @@
+[
+  {
+    "n": 0,
+    "title": "Вступление",
+    "step": null,
+    "chapter": "Вступление",
+    "start": 0,
+    "titleStart": 0,
+    "speechStart": 0,
+    "end": 67.1
+  },
+  {
+    "n": 1,
+    "title": "Спецификация до кода",
+    "step": null,
+    "chapter": "Спецификация до кода",
+    "start": 67.1,
+    "titleStart": 67.1,
+    "speechStart": 67.1,
+    "end": 106.5
+  },
+  {
+    "n": 2,
+    "title": "Где лежат требования",
+    "step": null,
+    "chapter": "Где лежат требования",
+    "start": 106.5,
+    "titleStart": 106.5,
+    "speechStart": 106.5,
+    "end": 138.8
+  },
+  {
+    "n": 3,
+    "title": "Стандарт анализа",
+    "step": null,
+    "chapter": "Стандарт анализа",
+    "start": 138.8,
+    "titleStart": 138.8,
+    "speechStart": 138.8,
+    "end": 160.4
+  },
+  {
+    "n": 4,
+    "title": "Три уровня",
+    "step": null,
+    "chapter": "Три уровня",
+    "start": 160.4,
+    "titleStart": 160.4,
+    "speechStart": 160.4,
+    "end": 191.5
+  },
+  {
+    "n": 5,
+    "title": "Куда мы идём",
+    "step": null,
+    "chapter": "Куда мы идём",
+    "start": 191.5,
+    "titleStart": 191.5,
+    "speechStart": 191.5,
+    "end": 218.8
+  }
+]

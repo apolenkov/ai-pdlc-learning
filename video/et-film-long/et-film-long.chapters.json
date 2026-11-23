@@ -1,0 +1,82 @@
+[
+  {
+    "n": 1,
+    "title": "Зачем команда",
+    "step": null,
+    "chapter": "Зачем команда",
+    "start": 0,
+    "titleStart": 0,
+    "speechStart": 2,
+    "end": 24.8
+  },
+  {
+    "n": 2,
+    "title": "Три яруса",
+    "step": null,
+    "chapter": "Три яруса",
+    "start": 24.8,
+    "titleStart": 24.8,
+    "speechStart": 24.8,
+    "end": 48.2
+  },
+  {
+    "n": 3,
+    "title": "Шесть задач",
+    "step": null,
+    "chapter": "Шесть задач",
+    "start": 48.2,
+    "titleStart": 48.2,
+    "speechStart": 48.2,
+    "end": 81.6
+  },
+  {
+    "n": 4,
+    "title": "Семь этапов",
+    "step": null,
+    "chapter": "Семь этапов",
+    "start": 81.6,
+    "titleStart": 81.6,
+    "speechStart": 81.6,
+    "end": 104.2
+  },
+  {
+    "n": 5,
+    "title": "План изменений",
+    "step": null,
+    "chapter": "План изменений",
+    "start": 104.2,
+    "titleStart": 104.2,
+    "speechStart": 104.2,
+    "end": 127.6
+  },
+  {
+    "n": 6,
+    "title": "Один путь",
+    "step": null,
+    "chapter": "Один путь",
+    "start": 127.6,
+    "titleStart": 127.6,
+    "speechStart": 127.6,
+    "end": 153.1
+  },
+  {
+    "n": 7,
+    "title": "Выход из сопровождения",
+    "step": null,
+    "chapter": "Выход из сопровождения",
+    "start": 153.1,
+    "titleStart": 153.1,
+    "speechStart": 153.1,
+    "end": 181
+  },
+  {
+    "n": 8,
+    "title": "До старта договориться",
+    "step": null,
+    "chapter": "До старта договориться",
+    "start": 181,
+    "titleStart": 181,
+    "speechStart": 181,
+    "end": 209.6
+  }
+]

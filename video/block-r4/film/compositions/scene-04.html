@@ -1,0 +1,64 @@
+<template id="scene-04-template">
+  <div data-composition-id="scene-04" data-width="1920" data-height="1080" data-duration="11.5">
+    <style>
+      [data-composition-id="scene-04"] .tk { position: absolute; left: 340px; top: 206px; width: 1240px; }
+      [data-composition-id="scene-04"] .tk > .k-aside { position: relative; left: 0; top: 0; padding: 22px 28px 26px; }
+      [data-composition-id="scene-04"] .tk-cap { font-size: 30px; font-weight: 600; color: var(--k-text-2); line-height: 1.2; }
+      [data-composition-id="scene-04"] .tk-t { font-size: 46px; font-weight: 800; line-height: 1.15; margin: 6px 0 14px; }
+      [data-composition-id="scene-04"] .tk-r { display: grid; grid-template-columns: 540px 1fr; align-items: center; column-gap: 16px; height: 76px; margin-top: 12px; padding: 0 20px; box-sizing: border-box; border: 3px solid var(--k-line); border-radius: 14px; background: var(--k-panel-2); }
+      [data-composition-id="scene-04"] .tk-l { font-size: 34px; font-weight: 600; color: var(--k-text-2); line-height: 1.1; white-space: nowrap; }
+      [data-composition-id="scene-04"] .tk-v { justify-self: start; padding: 4px 18px; border: 3px solid var(--k-line); border-radius: 12px; font-size: 34px; font-weight: 700; line-height: 1.2; white-space: nowrap; }
+      [data-composition-id="scene-04"] .tk-v.ok { border-color: var(--k-ok); background: var(--k-ok-tint); color: var(--k-ok); }
+      [data-composition-id="scene-04"] .tk-v.inf { border-color: var(--k-info); color: var(--k-info); }
+      [data-composition-id="scene-04"] .stk { position: relative; display: inline-block; }
+      [data-composition-id="scene-04"] .stk-l { position: absolute; left: -6px; right: -6px; top: 52%; height: 5px; border-radius: 3px; background: #ff8a8a; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("04"), t = S.t, DUR = 11.5;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const div = (cls, html, parent) => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; parent.appendChild(el); return el; };
+
+        Kit.header(S, { header: { mode: "parts", total: 8 }, chapter: "Задача в Jira", step: 4, duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* One neutral task mock; its rows appear on the narrator's words. */
+        const wrap = div("tk", "", s1);
+        const card = Kit.aside(S, { parent: wrap, tail: false, html:
+          '<div class="tk-cap">Задача</div><div class="tk-t">Ограничить допустимую сумму кредита в учебном калькуляторе</div>' +
+          '<div class="tk-r"><div class="tk-l">Исполнитель</div><div class="tk-v">вы</div></div>' +
+          '<div class="tk-r"><div class="tk-l"><span class="stk">Диапазон суммы<i class="stk-l"></i></span></div><div class="tk-v inf">живёт в файле требований</div></div>' +
+          '<div class="tk-r"><div class="tk-l">Ссылка на файл требований</div><div class="tk-v ok">добавлена</div></div>' +
+          '<div class="tk-r"><div class="tk-l">Отчёт подготовки</div><div class="tk-v ok">приложен</div></div>' });
+        const rows = Array.from(card.el.querySelectorAll(".tk-r")); hide(...rows);
+        const line = card.el.querySelector(".stk-l"); gsap.set(line, { scaleX: 0, transformOrigin: "left center" });
+        const note = rows[1].querySelector(".tk-v"); hide(note);
+
+        const T_CARD = Math.max(t("джире"), 2.1);   // the part title card covers the first 2 s
+        card.show(T_CARD);
+        read("Задача Ограничить допустимую сумму кредита в учебном калькуляторе", T_CARD, DUR);
+        const T = [t("личная"), t("Диапазон"), t("ссылка"), t("отчёт")];
+        rows.forEach((r, i) => { Kit.popIn(S, r, T[i]); });
+        read("Исполнитель вы", T[0], DUR);
+        read("Ссылка на файл требований добавлена", T[2], DUR);
+        read("Отчёт подготовки приложен", T[3], DUR);
+
+        /* «Не пишем»: the range line is struck out; then «живёт в файле требований». */
+        S.tl.to(line, { scaleX: 1, duration: 0.45, ease: "power2.out" }, t("не пишем"));
+        S.tl.to(rows[1], { borderColor: "#ff8a8a", duration: 0.3 }, t("не пишем"));
+        Kit.popIn(S, note, t("он живёт"));
+        read("Диапазон суммы живёт в файле требований", t("он живёт"), DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

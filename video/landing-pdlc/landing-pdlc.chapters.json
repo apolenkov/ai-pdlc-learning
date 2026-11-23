@@ -1,0 +1,92 @@
+[
+  {
+    "n": 1,
+    "title": "Цикл продукта · PDLC",
+    "step": null,
+    "chapter": "Цикл продукта · PDLC",
+    "start": 0,
+    "titleStart": 0,
+    "speechStart": 0,
+    "end": 8.4
+  },
+  {
+    "n": 2,
+    "title": "Как было",
+    "step": null,
+    "chapter": "Как было",
+    "start": 8.4,
+    "titleStart": 8.4,
+    "speechStart": 8.4,
+    "end": 16.6
+  },
+  {
+    "n": 3,
+    "title": "Как стало · с ИИ-агентами",
+    "step": null,
+    "chapter": "Как стало · с ИИ-агентами",
+    "start": 16.6,
+    "titleStart": 16.6,
+    "speechStart": 16.6,
+    "end": 26.5
+  },
+  {
+    "n": 4,
+    "title": "Анализ · OpenSpec · MR: комментарии → одно одобрение",
+    "step": null,
+    "chapter": "Анализ · OpenSpec · MR: комментарии → одно одобрение",
+    "start": 26.5,
+    "titleStart": 26.5,
+    "speechStart": 26.5,
+    "end": 33.7
+  },
+  {
+    "n": 5,
+    "title": "ADR → код → тесты",
+    "step": null,
+    "chapter": "ADR → код → тесты",
+    "start": 33.7,
+    "titleStart": 33.7,
+    "speechStart": 33.7,
+    "end": 41.5
+  },
+  {
+    "n": 6,
+    "title": "DORA · до и после",
+    "step": null,
+    "chapter": "DORA · до и после",
+    "start": 41.5,
+    "titleStart": 41.5,
+    "speechStart": 41.5,
+    "end": 49.9
+  },
+  {
+    "n": 7,
+    "title": "Команда развития · план пилота на 8 недель",
+    "step": null,
+    "chapter": "Команда развития · план пилота на 8 недель",
+    "start": 49.9,
+    "titleStart": 49.9,
+    "speechStart": 49.9,
+    "end": 65.1
+  },
+  {
+    "n": 8,
+    "title": "Найдите свой этап",
+    "step": null,
+    "chapter": "Найдите свой этап",
+    "start": 65.1,
+    "titleStart": 65.1,
+    "speechStart": 65.1,
+    "end": 75.8
+  },
+  {
+    "n": 9,
+    "title": "Пройти аудит · команда развития",
+    "step": null,
+    "chapter": "Пройти аудит · команда развития",
+    "start": 75.8,
+    "titleStart": 75.8,
+    "speechStart": 75.8,
+    "end": 81.1
+  }
+]

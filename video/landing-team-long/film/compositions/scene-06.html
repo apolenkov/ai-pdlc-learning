@@ -1,0 +1,52 @@
+<template id="scene-06-template">
+  <div data-composition-id="scene-06" data-width="1920" data-height="1080" data-duration="68.4">
+    <script>
+      (function () {
+        const L = Long.begin("06"), { S, tl, el, show, hide, at, t, DUR } = L;
+        const T = Team.use(L);
+        T.title("План <span>изменений</span>");
+        const TONE = ["info", "info", "ok", "ok", "acc", "ok", "ok"];
+        const SHORT = ["Установочная встреча", "Подготовка по гайдам", "Аудит: беседа", "План изменений", "Обучение", "Внедрение", "Метрики и аудит"];
+        const ST = ["Первый", "Второй", "Третий", "Четвёртый", "Пятый", "Шестой", "Седьмой"].map((w) => t(w));
+        T.plates([["Один выбранный поток", 0.4], ["Семь шагов", t("Семь шагов") - 0.1, "info"], ["Проблема → цель", t("Каждый разрыв") - 0.1, "acc"]]);
+        // легенда: цвет шага
+        const lg = [["теория", "info"], ["практика", "ok"], ["теория + практика", "acc"]];
+        let lx = 1190;
+        lg.forEach(([txt, tone], i) => {
+          const p = el("tm-pill " + tone, txt); p.style.position = "absolute"; p.style.top = "148px"; p.style.left = lx + "px"; p.style.whiteSpace = "nowrap";
+          lx += [150, 190, 300][i] + 14;
+          T.fadeIn(p, 0.8, 8);
+        });
+        // лента из семи шагов
+        const PITCH = 1728 / 7, cx = (i) => 96 + PITCH * (i + 0.5);
+        const nodes = SHORT.map((name, i) => {
+          const n = el("tm-node " + TONE[i], '<div class="c">' + (i + 1) + '</div><div class="l">' + name + "</div>");
+          n.style.left = cx(i) - 114 + "px"; n.style.top = "236px";
+          T.fadeIn(n, 0.8 + 0.15 * i, 12); T.cue("pop", 0.8 + 0.15 * i, cx(i));
+          if (i < 6) {
+            const b = el("tm-bar", null); b.style.left = cx(i) + 56 + "px"; b.style.width = PITCH - 112 + "px"; b.style.top = "274px";
+            T.fadeIn(b, 0.8 + 0.15 * i + 0.1, 0);
+          }
+          return n;
+        });
+        L.focus(nodes, ST, DUR - 1.4, { color: "acc" });
+        const D = [
+          ["Установочная встреча", [["Ведёт", "команда развития"], ["Делаем", "выбираем один поток и одно сквозное изменение, договариваемся о целях"], ["Выход", "выбранный поток и протокол старта"]]],
+          ["Подготовка по гайдам", [["Ведёт", "наставник команды с коучем"], ["Изучаем", "«Зачем меняем процесс», «Markdown и Git», «SDD и OpenSpec», «Мета-репозиторий»"]]],
+          ["Аудит: беседа с командой", [["Ведут", "команда продукта и команда развития"], ["Выход", "заполненная страница аудита в Confluence"]]],
+          ["План изменений", [["Ведут", "владелец продукта и менеджер внедрения"], ["Главное", "каждый разрыв — это проблема, а план превращает её в цель"], ["Дальше", "разрывы сопоставляют с контрактами и оформляют в ADR"]]],
+          ["Обучение и мета-репозиторий", [["Делаем", "роли проходят учебные маршруты на своей задаче"]]],
+          ["Внедрение первым потоком", [["Делаем", "изменение проходит от намерения до наблюдения"], ["Затем", "разбор с коучем"]]],
+          ["Метрики и повторный аудит", [["Делаем", "метрики и повторный аудит"], ["Затем", "решение о тираже"]]],
+        ];
+        D.forEach(([h, lines], i) => {
+          const c = el("tm-card " + TONE[i], '<div class="tm-kick">Шаг ' + (i + 1) + "</div><h3>" + h + "</h3>" + lines.map(([k, v]) => '<p style="font-size:40px;margin-top:14px"><b>' + k + ":</b> " + v + "</p>").join(""));
+          c.style.left = "96px"; c.style.top = "450px"; c.style.width = "1728px"; c.style.height = "400px";
+          const out = i < 6 ? ST[i + 1] - 0.5 : DUR - 0.9;
+          T.fadeIn(c, ST[i] - 0.1, 10); T.cue("pop", ST[i] - 0.1, 960); T.fadeOut(c, out);
+        });
+        L.fin();
+      })();
+    </script>
+  </div>
+</template>

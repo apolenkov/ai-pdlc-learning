@@ -1,0 +1,24 @@
+<template id="scene-t1-template">
+  <div data-composition-id="scene-t1" data-width="1920" data-height="1080" data-duration="2">
+    <script>
+      (function () {
+        /* ГЕНЕРИРУЕТСЯ: node tools/build-titles.mjs. Руками не править. */
+        window.ALIGN = window.ALIGN || {};
+        window.ALIGN["t1"] = { characters: [], character_start_times_seconds: [], character_end_times_seconds: [] };
+        const S = Kit.scene("t1");
+        const DURATION = 2;
+        const center = (k) => { k.el.style.left = "96px"; k.el.style.width = "1728px"; k.el.style.textAlign = "center"; return k; };
+        /* заставка: без шапки и рейла (шапка повторяла бы титул), только крупный титул */
+        const s1 = S.stage();
+        /* заставка лежит поверх начала сцены: сплошной фон скрывает то, что под ней */
+        const cover = document.createElement("div"); cover.style.cssText = "position:absolute;inset:0;background:var(--k-bg)"; s1.prepend(cover);
+        gsap.set(s1, { autoAlpha: 1 });
+        center(Kit.kinetic(S, { parent: s1, x: 0, y: 290, size: 120, color: "var(--k-accent)", text: "Часть 1", at: 0, stagger: 0, dur: 0.01 }));
+        center(Kit.kinetic(S, { parent: s1, x: 0, y: 530, size: 72, text: "Карта метарепозитория", at: 0, stagger: 0, dur: 0.01 }));
+        center(Kit.kinetic(S, { parent: s1, x: 0, y: 670, size: 48, color: "var(--k-text-2)", text: "Где что лежит", at: 0, stagger: 0, dur: 0.01 }));
+        S.tl.to(s1, { autoAlpha: 0, duration: 0.3, ease: "power2.in" }, DURATION - 0.3);
+        S.finish(DURATION);
+      })();
+    </script>
+  </div>
+</template>

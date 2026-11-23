@@ -1,0 +1,116 @@
+<template id="scene-06-template">
+  <div data-composition-id="scene-06" data-width="1920" data-height="1080" data-duration="32.2">
+    <style>
+      [data-composition-id="scene-06"] .sc-role { padding: 20px 24px; height: 380px; }
+      [data-composition-id="scene-06"] .sc-role.sc-opt { border-style: dashed; }
+      [data-composition-id="scene-06"] .sc-ic { width: 56px; height: 56px; color: var(--k-info); }
+      [data-composition-id="scene-06"] .sc-ic svg { width: 56px; height: 56px; }
+      [data-composition-id="scene-06"] .sc-ttl { margin-top: 10px; font-size: 34px; font-weight: 700; line-height: 1.2; }
+      [data-composition-id="scene-06"] .sc-act { margin-top: 8px; font-size: 32px; line-height: 1.3; font-weight: 500; }
+      [data-composition-id="scene-06"] .sc-res { display: flex; align-items: center; gap: 22px; }
+      [data-composition-id="scene-06"] .sc-res-t { font-size: 44px; line-height: 1.2; font-weight: 700; color: var(--k-ok); }
+      [data-composition-id="scene-06"] .sc-chip { padding: 6px 18px 8px; border: 2px solid var(--k-info); border-radius: 14px; font-size: 30px; line-height: 1.25; font-weight: 600; }
+      [data-composition-id="scene-06"] .sc-chip-open { border-style: dashed; border-color: var(--k-text-2); }
+      [data-composition-id="scene-06"] .sc-order .sub { margin-top: 0; font-size: 32px; color: var(--k-text); text-wrap: balance; }
+      [data-composition-id="scene-06"] .sc-result { border-color: var(--k-ok); }
+      [data-composition-id="scene-06"] .sc-quote { margin-top: 8px; font-size: 30px; line-height: 1.3; font-weight: 600; color: var(--k-info); }
+      [data-composition-id="scene-06"] .sc-items { margin-top: 4px; font-size: 32px; line-height: 1.3; font-weight: 600; }
+      [data-composition-id="scene-06"] .sc-res-sub { margin-top: 8px; font-size: 30px; line-height: 1.3; color: var(--k-text-2); }
+      [data-composition-id="scene-06"] .sc-ver-t { font-size: 40px; line-height: 1.2; font-weight: 700; }
+      [data-composition-id="scene-06"] .sc-ver-s { font-size: 30px; line-height: 1.2; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-06"] .sc-note { margin-top: 10px; font-size: 30px; line-height: 1.3; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-06"] .sc-marks { display: flex; gap: 16px; margin-left: auto; }
+      [data-composition-id="scene-06"] .sc-mark { position: relative; width: 44px; height: 44px; box-sizing: border-box; border: 3px solid var(--k-text-2); border-radius: 50%; }
+      [data-composition-id="scene-06"] .sc-mark.sc-opt-m { border-style: dashed; }
+      [data-composition-id="scene-06"] .sc-mark b { position: absolute; left: 14px; top: 6px; width: 10px; height: 20px; border: solid var(--k-bg); border-width: 0 4px 4px 0; transform: rotate(45deg); opacity: 0; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("06"), t = S.t, DUR = 32.2;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const mk = (parent, cls, html) => { const e = document.createElement("div"); e.className = cls; e.innerHTML = html || ""; parent.appendChild(e); return e; };
+        const fade = (el, at, dur = 0.45) => {
+          gsap.set(el, { autoAlpha: 0 });
+          S.tl.fromTo(el, { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: dur, ease: "power2.out", immediateRender: false }, at);
+        };
+
+        // The state caption would repeat the header, so it stays blank.
+        Kit.header(S, { header: { mode: "parts", total: 9 }, chapter: "Одобряем и передаём", step: 6, duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* The version is approved by the product owner alone; analyst and tech lead comment (590): one tile with one mark, four cards that follow the voice. */
+        const T_VER = Math.max(t("версию"), 2.05);   // the first 2 s are covered by the part title card
+        const ver = Kit.aside(S, { parent: s1, x: 96, y: 650, w: 1000, tail: false,
+          html: '<div class="sc-res"><span class="sc-ver-t">Версия требований</span><span class="sc-ver-s">одобряет владелец продукта</span><span class="sc-marks"><i class="sc-mark"><b></b></i></span></div>' });
+        ver.show(T_VER);
+        const marks = Array.from(ver.el.querySelectorAll(".sc-mark"));
+        marks.forEach((m) => gsap.set(m, { autoAlpha: 0 }));
+        const verSub = ver.el.querySelector(".sc-ver-s"); gsap.set(verSub, { autoAlpha: 0 });
+        const markIn = (m, at) => S.tl.fromTo(m, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4, ease: "power2.out", immediateRender: false }, at);
+        const check = (m, at) => {
+          S.tl.to(m, { borderColor: "var(--k-ok)", backgroundColor: "var(--k-ok)", duration: 0.35 }, at);
+          S.tl.to(m.querySelector("b"), { opacity: 1, duration: 0.25 }, at + 0.1);
+        };
+        marks.forEach((m, i) => markIn(m, t("одобряет") + i * 0.12));
+        S.tl.fromTo(verSub, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4, ease: "power2.out", immediateRender: false }, t("одобряет"));
+        read("одобряет владелец продукта", t("одобряет"), t("Порядок"), 0.4);
+        read("Версия требований", T_VER, t("Порядок"), 0.6);
+
+        const person = '<svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><circle cx="28" cy="18" r="9"/><path d="M9 49c0-11 8-18 19-18s19 7 19 18"/></svg>';
+        const roles = [
+          { title: "Владелец продукта", at: t("владелец продукта"), act: "сверяет с замыслом", actAt: t("сверяет"),
+            quote: "«это то, что я просил»", quoteAt: t("это то"), tick: t("просил") + 0.45 },
+          { title: "Аналитик", at: t("Аналитик"), act: "отвечает за смысл и полноту", actAt: t("отвечает"), note: "комментирует", noteAt: t("полноту") + 0.45 },
+          { title: "Техлид", at: t("Техлид"), act: "оценивает, можно ли это сделать", actAt: t("оценивает"), note: "комментирует", noteAt: t("сделать") + 0.45 },
+          { title: "Архитектор", at: t("Архитектора"), act: "если затронуты:", actAt: t("если затронуты"), opt: true,
+            items: [["данные", t("данные")], ["интеграции", t("интеграции")], ["безопасность", t("безопасность")], ["производительность", t("производительность")]] },
+        ];
+        roles.forEach((r, i) => {
+          const card = Kit.aside(S, { parent: s1, x: 96 + i * 441, y: 220, w: 405, tail: false,
+            html: `<div class="sc-ic">${person}</div><div class="sc-ttl">${r.title}</div><div class="sc-act">${r.act}</div>` +
+                  (r.quote ? `<div class="sc-quote">${r.quote}</div>` : "") + (r.note ? `<div class="sc-note">${r.note}</div>` : "") +
+                  (r.items ? `<div class="sc-items">${r.items.map(([w]) => `<div>${w}</div>`).join("")}</div>` : "") });
+          card.el.classList.add("sc-role"); if (r.opt) card.el.classList.add("sc-opt");
+          card.show(T_VER + i * 0.12);
+          fade(card.el.querySelector(".sc-ttl"), r.at);
+          fade(card.el.querySelector(".sc-act"), r.actAt);
+          read(r.title, r.at, DUR, 0.45);
+          read(r.act, r.actAt, DUR, 0.45);
+          if (r.quote) { fade(card.el.querySelector(".sc-quote"), r.quoteAt); read(r.quote, r.quoteAt, DUR, 0.45); }
+          if (r.items) card.el.querySelectorAll(".sc-items div").forEach((d, k) => { fade(d, r.items[k][1]); read(r.items[k][0], r.items[k][1], DUR, 0.45); });
+          if (r.note) { fade(card.el.querySelector(".sc-note"), r.noteAt); read(r.note, r.noteAt, DUR, 0.45); }
+          if (r.tick) check(marks[0], r.tick);
+        });
+
+        /* The order is the team's: one small note, the result card replaces the version tile when the voice names it. */
+        const order = Kit.aside(S, { parent: s1, x: 1120, y: 660, w: 704, tail: false, text: "Порядок одобрения определяет команда" });
+        order.el.classList.add("sc-order"); order.show(t("Порядок"));
+        read("Порядок одобрения определяет команда", t("Порядок"), DUR, 0.6);
+
+        const T_RES = t("Принятая версия");
+        S.tl.to(ver.el, { autoAlpha: 0, scale: 1.04, filter: "blur(10px)", duration: 0.4, ease: "power2.in" }, T_RES - 0.5);
+        const res = Kit.aside(S, { parent: s1, x: 96, y: 650, w: 1000, tail: false,
+          html: '<div class="sc-res"><span class="sc-res-t">Принятая версия</span><span class="sc-chip sc-chip-link">ссылка</span><span class="sc-chip sc-chip-open">открытые вопросы</span></div><div class="sc-res-sub">результат этапа анализа</div>' });
+        res.el.classList.add("sc-result"); res.show(T_RES);
+        const chipLink = res.el.querySelector(".sc-chip-link"), chipOpen = res.el.querySelector(".sc-chip-open"), sub = res.el.querySelector(".sc-res-sub");
+        fade(sub, t("результат")); fade(chipLink, t("по ссылке")); fade(chipOpen, t("открытыми вопросами"));
+        read("Принятая версия", T_RES, DUR, 0.6);
+        read("результат этапа анализа", t("результат"), DUR, 0.45);
+        read("ссылка", t("по ссылке"), DUR, 0.45);
+        read("открытые вопросы", t("открытыми вопросами"), DUR, 0.45);
+
+        Kit.subtitles(S, {});
+        // Keep the last spoken cue with the final frame through the silent tail.
+        const lastSubtitle = S.root.querySelector(".k-sub:last-child");
+        S.tl.getTweensOf(lastSubtitle).find((tw) => tw.vars.autoAlpha === 0).kill();
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

@@ -1,0 +1,106 @@
+[
+  {
+    "n": 1,
+    "duration": 33.6,
+    "chapter": "Зачем нужна команда",
+    "title": "Зачем нужна команда",
+    "audio": "assets/vo/scene-01.mp3",
+    "audioDuration": 32.33
+  },
+  {
+    "n": 2,
+    "duration": 96.2,
+    "chapter": "Семь этапов: кто решает",
+    "title": "Семь этапов: кто решает",
+    "audio": "assets/vo/scene-02.mp3",
+    "audioDuration": 94.97
+  },
+  {
+    "n": 3,
+    "duration": 22.6,
+    "chapter": "Где лежит метод",
+    "title": "Где лежит метод",
+    "audio": "assets/vo/scene-03.mp3",
+    "audioDuration": 21.34
+  },
+  {
+    "n": 4,
+    "duration": 32.2,
+    "chapter": "Три яруса и наставник",
+    "title": "Три яруса и наставник",
+    "audio": "assets/vo/scene-04.mp3",
+    "audioDuration": 30.97
+  },
+  {
+    "n": 5,
+    "duration": 40,
+    "chapter": "Шесть задач по кругу",
+    "title": "Шесть задач по кругу",
+    "audio": "assets/vo/scene-05.mp3",
+    "audioDuration": 38.75
+  },
+  {
+    "n": 6,
+    "duration": 68.4,
+    "chapter": "План изменений",
+    "title": "План изменений",
+    "audio": "assets/vo/scene-06.mp3",
+    "audioDuration": 67.18
+  },
+  {
+    "n": 7,
+    "duration": 46.1,
+    "chapter": "Аудит этапов",
+    "title": "Аудит этапов",
+    "audio": "assets/vo/scene-07.mp3",
+    "audioDuration": 44.87
+  },
+  {
+    "n": 8,
+    "duration": 50.7,
+    "chapter": "Обучение по ролям",
+    "title": "Обучение по ролям",
+    "audio": "assets/vo/scene-08.mp3",
+    "audioDuration": 49.44
+  },
+  {
+    "n": 9,
+    "duration": 24.3,
+    "chapter": "Метрики до и после",
+    "title": "Метрики до и после",
+    "audio": "assets/vo/scene-09.mp3",
+    "audioDuration": 23.09
+  },
+  {
+    "n": 10,
+    "duration": 29.2,
+    "chapter": "Путь к самостоятельности",
+    "title": "Путь к самостоятельности",
+    "audio": "assets/vo/scene-10.mp3",
+    "audioDuration": 27.96
+  },
+  {
+    "n": 11,
+    "duration": 33.2,
+    "chapter": "Один путь и правило решений",
+    "title": "Один путь и правило решений",
+    "audio": "assets/vo/scene-11.mp3",
+    "audioDuration": 31.99
+  },
+  {
+    "n": 12,
+    "duration": 30.8,
+    "chapter": "До старта договориться",
+    "title": "До старта договориться",
+    "audio": "assets/vo/scene-12.mp3",
+    "audioDuration": 29.53
+  },
+  {
+    "n": 13,
+    "duration": 15.3,
+    "chapter": "С чего начать",
+    "title": "С чего начать",
+    "audio": "assets/vo/scene-13.mp3",
+    "audioDuration": 14.01
+  }
+]

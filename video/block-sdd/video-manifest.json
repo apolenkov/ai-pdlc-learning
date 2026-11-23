@@ -1,0 +1,16 @@
+{
+  "file": "block-sdd-720p.mp4",
+  "sha256": "e2026aa107d850f0ea72aa4292c09a863f8e4a93305f7251085493242fc9ec27",
+  "size": 5755354,
+  "url": "https://github.com/apolenkov/ai-pdlc-learning/releases/download/media-v1/e2026aa107d8-block-sdd-720p.mp4",
+  "version": "e2026aa107d8",
+  "audio": "voice-only",
+  "master": {
+    "file": "block-sdd-1080p.mp4",
+    "sha256": "023adc219ee2a4b8c8d17f0ea6f610cf85ffa86e97bed3370ff1cfb069a2f49b",
+    "size": 14950561,
+    "lost": "утерян до сдачи Mac 25.11.2026: файла нет ни на Диске, ни локально; пин сохранён"
+  },
+  "duration": 237.5,
+  "note": "TASK-671: звук только из голоса (озвучка без музыки и SFX), видео побайтно прежнее, AAC-LC 48 кГц моно, около −16 LUFS; мастер 1080p — прежний микс (вне этапа)"
+}

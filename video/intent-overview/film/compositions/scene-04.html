@@ -1,0 +1,40 @@
+<template id="scene-04-template">
+  <div data-composition-id="scene-04" data-width="1920" data-height="1080" data-duration="8.1">
+    <style>
+      [data-composition-id="scene-04"] .h-h { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 58px; font-weight: 800; }
+      [data-composition-id="scene-04"] .h-box { position: absolute; top: 380px; height: 150px; border: 2px solid var(--k-line); border-radius: 24px; background: var(--k-panel); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 8px; }
+      [data-composition-id="scene-04"] .h-b1 { font-family: var(--k-font-mono); font-size: 46px; font-weight: 700; }
+      [data-composition-id="scene-04"] .h-bt { font-size: 38px; font-weight: 800; }
+      [data-composition-id="scene-04"] .h-bs { font-size: 28px; font-weight: 700; color: var(--k-text-2); }
+      [data-composition-id="scene-04"] .h-arr { position: absolute; top: 440px; width: 46px; font-size: 40px; font-weight: 800; line-height: 40px; color: var(--k-text-2); text-align: center; }
+      [data-composition-id="scene-04"] .h-spec { position: absolute; padding: 8px 22px; border: 2px solid var(--k-ok); border-radius: 16px; color: var(--k-ok); font-family: var(--k-font-mono); font-size: 30px; font-weight: 700; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("04"), DUR = 8.1;
+        const tt = (w, d) => { try { return S.t(w); } catch (e) { return d; } };
+        const el = (cls, html, x, y, w) => { const e = document.createElement("div"); e.className = cls; e.innerHTML = html; e.style.left = x + "px"; e.style.top = y + "px"; if (w) e.style.width = w + "px"; S.root.appendChild(e); return e; };
+        const show = (e, at) => { (Array.isArray(e) ? e : [e]).forEach((x) => { gsap.set(x, { autoAlpha: 0 }); S.tl.fromTo(x, { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.38, ease: "power2.out", immediateRender: false }, at); }); };
+        const head = el("h-h", "Одно одобрение", 96, 64); show(head, 0.08);
+        const b1 = el("h-box", '<div class="h-b1">Intent</div>', 96, 380, 240); show(b1, 0.5);
+        const b3 = el("h-box", '<div class="h-bt">одобрение</div><div class="h-bs">владелец продукта</div>', 636, 380, 420); show(b3, tt("владельца", 1.16));
+        S.tl.to(b3, { borderColor: "rgba(255,122,89,0.9)", boxShadow: "0 0 40px 3px rgba(255,122,89,0.2)", duration: 0.3 }, tt("владельца", 1.16));
+        const b2 = el("h-box", '<div class="h-b1">MR</div>', 386, 380, 200); show(b2, tt("MR", 2.86));
+        const a1 = el("h-arr", "→", 340, 440); show(a1, tt("MR", 2.86) - 0.05);
+        const a2 = el("h-arr", "→", 590, 440); show(a2, tt("MR", 2.86));
+        S.tl.to(b2, { borderColor: "rgba(60,207,145,0.9)", duration: 0.3 }, tt("MR", 2.86));
+        const b4 = el("h-box", '<div class="h-bt">ревизия</div>', 1106, 380, 220); show(b4, tt("ревизией", 4.38));
+        S.tl.fromTo(b4, { scale: 0.9 }, { scale: 1, duration: 0.3, ease: "power2.out" }, tt("ревизией", 4.38));
+        const a3 = el("h-arr", "→", 1060, 440); show(a3, tt("ревизией", 4.38) - 0.05);
+        const b5 = el("h-box", '<div class="h-bt">Анализ требований</div>', 1376, 380, 448); show(b5, tt("анализ", 5.31));
+        const a4 = el("h-arr", "→", 1330, 440); show(a4, tt("анализ", 5.31) - 0.05);
+        const sp = el("h-spec", "Spec", 0, 0); show(sp, tt("Spec", 6.51));
+        S.tl.fromTo(sp, { scale: 0.8 }, { scale: 1, duration: 0.28, ease: "power2.out" }, tt("Spec", 6.51));
+        sp.style.left = "1440px"; sp.style.top = "596px";
+        Kit.sketch(S, { name: "merge", x: 1300, y: 680, w: 420, at: 1.5, dur: 2.6 });
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

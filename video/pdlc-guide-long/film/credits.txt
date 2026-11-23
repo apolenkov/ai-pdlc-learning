@@ -1,0 +1,14 @@
+Звук ролика «Подробно» для гайда PDLC (pdlc-guide-long) — музыка и эффекты: источники, лицензии, изменения (R11)
+
+Голос Allan (ElevenLabs eleven_v4). Эффекты (swipe, pop) — набор video/_shared/sfx (credits.txt рядом). Сведение — по методу v3.5b
+(video/_shared/tools/sfx-mix.ts → mix-v35.ts): подложка под голосом с даком, затем подложка ещё на 3,5 дБ тише (как в E1).
+
+--- Музыка (подложка под весь ролик) ---
+Смесь двух треков Matio888 (Freesound), лицензия CC BY 4.0. Изменения: обрезаны (0:20–2:25 и 0:20–2:15), сведены кроссфейдом 5 с
+(5 циклов по 60 с), нормализованы (подложка −35 LUFS, затем −3,5 дБ), приглушены под голосом. Исходные файлы в Git не хранятся.
+
+"Relaxing Ambient" by Matio888 is licensed under CC BY 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/.
+Источник: https://freesound.org/people/Matio888/sounds/796050
+
+"Serene and Peaceful Ambience" by Matio888 is licensed under CC BY 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/.
+Источник: https://freesound.org/people/Matio888/sounds/796135

@@ -1,0 +1,27 @@
+{
+ "variant": "B",
+ "description": "короткие подписи шапки из a1d1bb96: «Готово» без счётчика, «Шаг N», «Часть N ·»",
+ "bodySha256": "8f0990c28d7ff306d27a4bd2cb31c7e48d568cc18c37066ce78444c74e30b96c",
+ "hunks": [
+  {
+   "start": 148,
+   "remove": [
+    "      ? (m === \"intro\" ? `<b>${total} частей</b>` : m === \"done\" ? `<b>Готово: ${total} из ${total}</b>` : `<b>Часть ${n} из ${total}</b>`)"
+   ],
+   "add": [
+    "      ? (m === \"intro\" ? `<b>${total} частей</b>` : m === \"done\" ? `<b>Готово</b>` : `<b>Часть ${n} ·</b>`)"
+   ]
+  },
+  {
+   "start": 150,
+   "remove": [
+    "      : m === \"done\" ? `<b>Готово: ${total} из ${total}</b>`",
+    "      : `<b>Шаг ${n} из ${total}</b><span> · ${left(n)}</span>`;"
+   ],
+   "add": [
+    "      : m === \"done\" ? `<b>Готово</b>`",
+    "      : `<b>Шаг ${n}</b><span> · ${left(n)}</span>`;"
+   ]
+  }
+ ]
+}

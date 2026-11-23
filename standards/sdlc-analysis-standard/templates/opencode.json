@@ -1,0 +1,40 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "corp-llm/<модель из корпоративной инструкции>",
+  "permission": {
+    "*": "deny",
+    "read": {
+      "*": "allow",
+      "*.env": "deny",
+      "*.env.*": "deny",
+      "*.env.example": "allow"
+    },
+    "glob": "allow",
+    "grep": "deny",
+    "list": "allow",
+    "edit": "deny",
+    "bash": "deny",
+    "task": "deny",
+    "webfetch": "deny",
+    "websearch": "deny",
+    "external_directory": "deny"
+  },
+  "provider": {
+    "corp-llm": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "corp-llm",
+      "options": {
+        "baseURL": "https://<адрес из корпоративной инструкции>/v1"
+      },
+      "models": {
+        "<модель из корпоративной инструкции>": {
+          "name": "<модель из корпоративной инструкции>",
+          "limit": {
+            "context": 131072,
+            "output": 32768
+          }
+        }
+      }
+    }
+  }
+}

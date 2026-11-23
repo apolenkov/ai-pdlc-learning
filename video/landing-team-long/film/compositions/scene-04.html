@@ -1,0 +1,19 @@
+<template id="scene-04-template">
+  <div data-composition-id="scene-04" data-width="1920" data-height="1080" data-duration="32.2">
+    <script>
+      (function () {
+        const L = Long.begin("04"), { S, tl, el, show, hide, at, t, DUR } = L;
+        const T = Team.use(L);
+        T.title("Три яруса <span>и наставник</span>");
+        const P = T.panel("team-three-tiers", { x: 230, y: 236, w: 1460, at: 0.4 });
+        const R = [[36, 102, 888, 106], [36, 238, 888, 104], [36, 372, 888, 102]];
+        const t1 = t("Команда развития"), t2 = t("Наставник"), t3 = t("Продуктовая");
+        P.hl(R[0], t1 - 0.1, t2 - 0.15, "ok");
+        P.hl(R[1], t2 - 0.1, t3 - 0.15, "ok");
+        P.hl(R[2], t3 - 0.1, DUR - 1.0, "ok");
+        T.plates([["Команда развития", t1 - 0.1], ["Менеджер внедрения, коучи", t("В ней") - 0.1, "info"], ["Наставник — доброволец", t2 - 0.1, "acc"], ["Продуктовая команда", t3 - 0.1]]);
+        L.fin();
+      })();
+    </script>
+  </div>
+</template>

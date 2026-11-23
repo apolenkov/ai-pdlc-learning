@@ -1,0 +1,104 @@
+<template id="scene-03-template">
+  <div data-composition-id="scene-03" data-width="1920" data-height="1080" data-duration="53.4">
+    <style>
+      [data-composition-id="scene-03"] .sc-nums { padding: 10px 20px 12px; display: flex; flex-direction: column; justify-content: center; gap: 5px; text-align: center; }
+      [data-composition-id="scene-03"] .sc-big { font-size: 72px; font-weight: 800; letter-spacing: -0.02em; white-space: nowrap; }
+      [data-composition-id="scene-03"] .sc-big .arr { color: var(--k-accent); }
+      [data-composition-id="scene-03"] .sc-per { font-size: 28px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-03"] .sc-chip { align-self: center; font-size: 25px; font-weight: 700; padding: 4px 18px; border-radius: 14px; background: var(--k-accent-tint); border: 2px solid var(--k-accent); color: var(--k-accent-soft); }
+      [data-composition-id="scene-03"] .sc-notes { display: flex; flex-direction: column; gap: 8px; }
+      [data-composition-id="scene-03"] .sc-note { padding: 7px 16px; font-size: 25px; font-weight: 600; line-height: 1.3; background: var(--k-panel-2); border: 2px solid var(--k-line); border-radius: 14px; }
+      [data-composition-id="scene-03"] .sc-diff { height: 100%; padding: 22px 32px; display: flex; flex-direction: column; justify-content: center; gap: 12px; }
+      [data-composition-id="scene-03"] .sc-diff .cap { font-size: 34px; font-weight: 800; }
+      [data-composition-id="scene-03"] .sc-diff .was { font-size: 34px; font-weight: 600; padding: 12px 20px; border-radius: 14px; background: var(--k-panel-2); border-left: 6px solid var(--k-text-2); }
+      [data-composition-id="scene-03"] .sc-diff .was .tag { font-size: 28px; font-weight: 700; color: var(--k-text-2); border: 2px solid var(--k-line); border-radius: 12px; padding: 2px 14px; margin-left: 14px; }
+      [data-composition-id="scene-03"] .sc-diff .row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+      [data-composition-id="scene-03"] .sc-diff .cell { border-radius: 14px; background: var(--k-panel-2); border-top: 6px solid var(--k-ok); padding: 12px 18px; font-size: 32px; font-weight: 600; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("03"), t = S.t, DUR = 53.4;
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+
+        Kit.header(S, { header: { mode: "parts", total: 4 }, chapter: "Проблема и эффект с числом", step: 3, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        /* ---- План 1: карточка записи и числа ---- */
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+        const ed = Kit.editor(S, { parent: s1, x: 96, y: 215, w: 1180, h: 596, crumb: "калькулятор · учебный пример", visible: false,
+          tabs: [{ name: "intent.md", active: true }],
+          lines: [
+            "# Запись намерения",
+            "",
+            "Проблема: после неверного ввода",
+            "клиент видит старый платёж и путается",
+            "",
+            "Результат: расчёт не выполнен —",
+            "видно, какое поле исправить",
+            "",
+            "Признаки успеха: 42 → 25 обращений",
+            "в неделю, проверка — март",
+          ] });
+        ed.show(2.05); // заставка части держится первые 2 с
+        ed.caretOff(2.1);
+        ed.reveal(0, 0, 2.05); // строка 1 пустая: reveal только заголовка (пустых целей нет)
+        const T_PROB = t("словами пользователя"), T_RES = t("Результат:"), T_EFF = t("42 обращения");
+        ed.reveal(2, 3, T_PROB);
+        ed.mark(2, T_PROB, { tone: "accent" });
+        ed.reveal(5, 6, T_RES);
+        ed.mark(5, T_RES, { tone: "accent" });
+        ed.reveal(8, 9, T_EFF);
+        ed.mark(8, T_EFF, { tone: "ok" });
+        read("Запись намерения Проблема после неверного ввода клиент видит старый платёж и путается", 2.05, DUR);
+        read("Результат расчёт не выполнен видно какое поле исправить", T_RES, DUR);
+        read("Признаки успеха 42 25 обращений в неделю проверка март", T_EFF, DUR);
+
+        /* Числа крупно: оба — учебные значения */
+        const nums = Kit.aside(S, { parent: s1, x: 1304, y: 215, w: 520, tail: false,
+          html: '<div class="sc-nums"><div class="sc-big">42 <span class="arr">→</span> 25</div>' +
+                '<div class="sc-per">обращения в неделю</div><span class="sc-chip">учебные значения</span></div>' });
+        const chip = nums.el.querySelector(".sc-chip");
+        hide(chip);
+        nums.show(T_EFF);
+        Kit.popIn(S, chip, t("учебные значения"));
+        read("42 25 обращения в неделю учебные значения", T_EFF, DUR);
+
+        /* Заметки правой колонки — словами диктора */
+        const notes = [
+          { text: "Решение в проблему не включаем", at: t("Решение в проблему") },
+          { text: "срок проверки · способ измерения", at: t("У числа указаны") },
+          { text: "Нет числа — способ, ответственный, срок", at: t("Нет числа") },
+          { text: "условие одобрения", at: t("условием одобрения") },
+        ];
+        // Одна колонка нужной ширины: карточка растёт по содержимому, перенос допустим, касаний нет.
+        const notesBox = Kit.aside(S, { parent: s1, x: 1304, y: 452, w: 520, tail: false,
+          html: '<div class="sc-notes">' + notes.map((n) => '<div class="sc-note">' + n.text + "</div>").join("") + "</div>" });
+        const noteEls = Array.from(notesBox.el.querySelectorAll(".sc-note"));
+        hide(...noteEls);
+        notesBox.show(notes[0].at);
+        notes.forEach((n, i) => Kit.popIn(S, noteEls[i], n.at));
+        notes.forEach((n) => read(n.text, n.at, DUR, 0));
+
+        /* ---- План 2: слабый вариант переписываем по правилу ---- */
+        const T_WEAK = t("Второй слабый");
+        const s2 = S.stage();
+        const T_S2 = Kit.swap(S, s1, s2, T_WEAK - 0.2);
+        const diff = Kit.aside(S, { parent: s2, x: 96, y: 250, w: 1728, h: 420, tail: false,
+          html: '<div class="sc-diff"><div class="cap">Второй слабый вариант — перепишите по правилу</div>' +
+                '<div class="was">«Добавьте поле „срок в годах“»<span class="tag">пример</span></div>' +
+                '<div class="row"><div class="cell">проблема</div><div class="cell">число со сроком</div><div class="cell">граница</div></div></div>' });
+        diff.show(T_S2 + 0.1);
+        read("Второй слабый вариант перепишите по правилу Добавьте поле срок в годах пример", T_S2 + 0.1, DUR);
+        read("проблема число со сроком граница", t("проблема, число"), DUR, 0);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

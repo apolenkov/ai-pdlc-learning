@@ -1,0 +1,100 @@
+<template id="scene-03-template">
+  <div data-composition-id="scene-03" data-width="1920" data-height="1080" data-duration="25.2">
+    <style>
+      [data-composition-id="scene-03"] .r3-abs { position: absolute; }
+      [data-composition-id="scene-03"] .r3-fold { left: 96px; top: 232px; width: 760px; height: 150px; padding: 0 30px; display: flex; align-items: center; gap: 20px; font-family: var(--k-font-mono); font-size: 34px; font-weight: 600; white-space: nowrap; }
+      [data-composition-id="scene-03"] .r3-fold .ic { width: 58px; height: 58px; color: var(--k-text-2); flex: none; }
+      [data-composition-id="scene-03"] .r3-fold .ic svg { width: 100%; height: 100%; display: block; }
+      [data-composition-id="scene-03"] .r3-x1 { margin-left: auto; width: 70px; height: 70px; border-radius: 50%; border: 3px solid var(--k-text); display: flex; align-items: center; justify-content: center; font-family: var(--k-font-sans); font-size: 34px; font-weight: 800; flex: none; }
+      [data-composition-id="scene-03"] .r3-bd { top: 232px; height: 150px; display: flex; align-items: center; justify-content: center; font-size: 44px; font-weight: 800; letter-spacing: -0.01em; white-space: nowrap; }
+      [data-composition-id="scene-03"] .r3-pr { left: 96px; top: 420px; width: 900px; height: 230px; padding: 20px 30px; }
+      [data-composition-id="scene-03"] .r3-fn { font-family: var(--k-font-mono); font-size: 38px; font-weight: 700; line-height: 1.2; white-space: nowrap; }
+      [data-composition-id="scene-03"] .r3-sub { margin-top: 4px; font-size: 32px; font-weight: 500; color: var(--k-text-2); line-height: 1.25; }
+      [data-composition-id="scene-03"] .r3-chips { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 14px; }
+      [data-composition-id="scene-03"] .r3-chip { padding: 6px 20px; border-radius: 16px; border: 2px solid var(--k-text-2); background: var(--k-panel-2); font-size: 32px; font-weight: 600; white-space: nowrap; }
+      [data-composition-id="scene-03"] .r3-doc { left: 1024px; width: 800px; height: 105px; padding: 10px 30px; display: flex; align-items: center; justify-content: space-between; }
+      [data-composition-id="scene-03"] .r3-doc .r3-sub { margin: 0; }
+      [data-composition-id="scene-03"] .r3-des { left: 96px; top: 723px; width: 560px; height: 92px; padding: 0 30px; display: flex; align-items: center; }
+      [data-composition-id="scene-03"] .r3-no { left: 700px; top: 736px; padding: 8px 24px; border-radius: 18px; border: 2px solid var(--k-text-2); background: var(--k-panel-2); font-size: 34px; font-weight: 600; white-space: nowrap; }
+      [data-composition-id="scene-03"] .r3-up { left: 785px; top: 639px; width: 30px; height: 86px; }
+      [data-composition-id="scene-03"] .r3-strike { position: absolute; left: -8px; right: -8px; top: 50%; height: 7px; margin-top: -2px; border-radius: 4px; background: var(--k-text); transform-origin: 0 50%; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("03"), t = S.t, DUR = 25.2;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const div = (cls, html, parent) => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; parent.appendChild(el); return el; };
+        const UP = '<svg viewBox="0 0 30 86" fill="none" stroke="#ff7a59" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M15 82V10"/><path pathLength="1" d="M4 24l11-16 11 16"/></svg>';
+        const T0 = 2.0;   // the part title covers the first 2 s: nothing is visible before it
+        const ACC = Kit.token("--k-accent"), TINT = Kit.token("--k-accent-tint"), LINE = Kit.token("--k-line"), PANEL = Kit.token("--k-panel");
+        const focus = (el, on, off) => { S.tl.to(el, { borderColor: ACC, backgroundColor: TINT, duration: 0.4 }, on); if (off != null) S.tl.to(el, { borderColor: LINE, backgroundColor: PANEL, duration: 0.5 }, off); };
+        const fromIn = (el, from, at, d = 0.7, ease = "power3.out") => S.tl.fromTo(el, { autoAlpha: 0, ...from }, { autoAlpha: 1, x: 0, y: 0, scale: 1, filter: "blur(0px)", duration: d, ease, immediateRender: false }, at);
+        // the strike is an overlay on purpose: it is drawn over the word it cancels
+        const strike = (host, at) => { host.style.position = "relative"; host.style.display = "inline-block"; host.setAttribute("data-layout-allow-occlusion", ""); const s = div("r3-strike", "", host); s.setAttribute("data-layout-allow-occlusion", ""); gsap.set(s, { scaleX: 0 }); S.tl.to(s, { scaleX: 1, duration: 0.45, ease: "power2.out" }, at); };
+
+        Kit.header(S, { header: { mode: "parts", total: 8 }, chapter: "Папка изменения", step: 3, duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* ---- создаётся ровно один раз ---- */
+        const fold = div("k-card r3-abs r3-fold", `<span class="ic">${Kit.icons.folder}</span><span>add-reset-and-years-term/</span><span class="r3-x1">×1</span>`, s1);
+        const x1 = fold.querySelector(".r3-x1"); hide(fold, x1);
+        fromIn(fold, { x: -90 }, T0, 0.8);
+        Kit.popIn(S, x1, t("один раз") + 0.15, 0.5);
+        read("add-reset-and-years-term", T0, DUR);
+
+        /* ---- команды подсказывают, содержание — вы ---- */
+        const bA = div("k-card r3-abs r3-bd", "подсказка", s1); bA.style.left = "900px"; bA.style.width = "400px";
+        const bB = div("k-card r3-abs r3-bd", "содержание — вы", s1); bB.style.left = "1328px"; bB.style.width = "496px";
+        hide(bA, bB);
+        fromIn(bA, { y: 40, scale: 0.94 }, t("подсказывают") - 0.05, 0.6, "back.out(2)");
+        fromIn(bB, { scale: 1.06, filter: "blur(14px)" }, t("содержание") - 0.05);
+        focus(bB, t("содержание"), t("Сначала") - 0.1);
+        read("подсказка", t("подсказывают"), DUR); read("содержание — вы", t("содержание"), DUR);
+
+        /* ---- сначала предложение: цель, граница, связь ---- */
+        const pr = div("k-card r3-abs r3-pr", '<div class="r3-fn">proposal.md</div><div class="r3-sub">предложение</div><div class="r3-chips"><span class="r3-chip a">цель</span><span class="r3-chip b">граница</span><span class="r3-chip c">замысел · запрос · ветка</span></div>', s1);
+        const ca = pr.querySelector(".a"), cb = pr.querySelector(".b"), cc = pr.querySelector(".c");
+        hide(pr, ca, cb, cc);
+        fromIn(pr, { x: -80 }, t("Сначала") - 0.05);
+        focus(pr, t("предложение"), t("Потом") - 0.1);
+        Kit.popIn(S, ca, t("цель,"), 0.5);
+        fromIn(cb, { x: 40 }, t("граница"), 0.6);
+        fromIn(cc, { scale: 0.85 }, t("связь"), 0.6, "back.out(2)");
+        read("proposal.md предложение цель граница", t("предложение"), DUR);
+        read("замысел запрос ветка", t("связь"), DUR);
+
+        /* ---- потом разница требований и план задач ---- */
+        const sp = div("k-card r3-abs r3-doc", '<span class="r3-fn">spec.md</span><span class="r3-sub">разница требований</span>', s1); sp.style.top = "420px";
+        const tk = div("k-card r3-abs r3-doc", '<span class="r3-fn">tasks.md</span><span class="r3-sub">план задач</span>', s1); tk.style.top = "545px";
+        hide(sp, tk);
+        fromIn(sp, { x: 80 }, t("разница") - 0.05);
+        fromIn(tk, { y: 40, scale: 0.94 }, t("план") - 0.05, 0.6, "back.out(2)");
+        read("spec.md разница требований", t("разница"), DUR); read("tasks.md план задач", t("план"), DUR);
+
+        /* ---- устройство решения нужно только по признакам: design.md не нужен ---- */
+        const de = div("k-card r3-abs r3-des", '<span class="r3-fn" style="color:var(--k-text-2)"><span class="w">design.md</span></span>', s1); hide(de);
+        fromIn(de, { scale: 1.06, filter: "blur(14px)" }, t("Файл") - 0.05);
+        const no = div("r3-abs r3-no", "признаки не затронуты", s1); hide(no);
+        Kit.popIn(S, no, t("здесь"), 0.5);
+        strike(de.querySelector(".w"), t("не затронуты"));
+        read("design.md", t("Файл"), DUR); read("признаки не затронуты", t("здесь"), DUR);
+
+        /* ---- причину записываем в предложение ---- */
+        const up = div("r3-abs r3-up", UP, s1); hide(up);
+        S.tl.set(up, { autoAlpha: 1 }, t("причину"));
+        up.querySelectorAll("path").forEach((p, i) => S.tl.fromTo(p, { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.5, ease: "power2.out", immediateRender: false }, t("причину") + i * 0.35));
+        focus(pr, t("предложение", 2) - 0.2);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

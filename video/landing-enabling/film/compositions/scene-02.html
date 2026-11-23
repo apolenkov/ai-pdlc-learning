@@ -1,0 +1,33 @@
+<template id="scene-02-template">
+  <div data-composition-id="scene-02" data-width="1920" data-height="1080" data-duration="10.1">
+    <style>
+      [data-composition-id="scene-02"] .et-h { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 58px; font-weight: 800; }
+      [data-composition-id="scene-02"] .et-grid { position: absolute; left: 96px; top: 240px; width: 1728px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+      [data-composition-id="scene-02"] .et-task { padding: 26px 28px; border: 2px solid var(--k-line); border-radius: 22px; background: var(--k-panel-2); min-height: 190px; }
+      [data-composition-id="scene-02"] .et-ic { font-size: 38px; color: var(--k-accent-soft); }
+      [data-composition-id="scene-02"] .et-t { margin-top: 10px; font-size: 34px; font-weight: 800; }
+      [data-composition-id="scene-02"] .et-core { position: absolute; left: 796px; top: 700px; width: 328px; text-align: center; font-size: 40px; font-weight: 800; color: var(--k-ok); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("02"), DUR = 10.1;
+        const h = document.createElement("div"); h.className = "et-h"; h.textContent = "Шесть задач"; S.root.appendChild(h);
+        S.tl.fromTo(h, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: "power2.out", immediateRender: true }, 0.1);
+        const grid = document.createElement("div"); grid.className = "et-grid"; S.root.appendChild(grid);
+        const tasks = [["мониторинг", "1", "Мониторинг"], ["исследование", "2", "Исследование"], ["метод", "3", "Метод"], ["аудит", "4", "Аудит готовности"], ["обучение", "5", "Обучение"], ["сопровождение", "6", "Сопровождение"]];
+        tasks.forEach(([word, ic, t], i) => {
+          const el = document.createElement("div"); el.className = "et-task";
+          el.innerHTML = '<div class="et-ic">' + ic + '</div><div class="et-t">' + t + "</div>";
+          el.style.fontSize = "28px"; el.style.color = "var(--k-text-2)";
+          grid.appendChild(el);
+          let at = 0.3 + i * 0.4;
+          try { at = Math.min(S.t(word), DUR - 1.2); } catch (e) { at = 0.3 + i * 0.4; }
+          S.tl.fromTo(el, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: "power2.out", immediateRender: true }, at);
+        });
+        const core = document.createElement("div"); core.className = "et-core"; core.textContent = "· продукт ·"; S.root.appendChild(core);
+        S.tl.fromTo(core, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4, immediateRender: true }, Math.min(S.t("мониторинг"), DUR - 1.2));
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

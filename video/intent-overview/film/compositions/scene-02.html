@@ -1,0 +1,38 @@
+<template id="scene-02-template">
+  <div data-composition-id="scene-02" data-width="1920" data-height="1080" data-duration="6.9">
+    <style>
+      [data-composition-id="scene-02"] .h-h { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 58px; font-weight: 800; }
+      [data-composition-id="scene-02"] .h-rail { position: absolute; left: 96px; top: 476px; width: 1728px; height: 6px; border-radius: 3px; background: var(--k-line); }
+      [data-composition-id="scene-02"] .h-card { position: absolute; top: 380px; width: 400px; height: 200px; padding: 28px 30px; border: 2px solid var(--k-line); border-radius: 26px; background: var(--k-panel); font-size: 40px; font-weight: 800; line-height: 1.2; }
+      [data-composition-id="scene-02"] .h-arr { position: absolute; top: 442px; width: 44px; font-size: 40px; font-weight: 800; color: var(--k-text-2); line-height: 40px; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("02"), DUR = 6.9;
+        const tt = (w, d) => { try { return S.t(w); } catch (e) { return d; } };
+        const el = (cls, html, x, y, w) => { const e = document.createElement("div"); e.className = cls; e.innerHTML = html; e.style.left = x + "px"; e.style.top = y + "px"; if (w) e.style.width = w + "px"; S.root.appendChild(e); return e; };
+        const show = (e, at) => { (Array.isArray(e) ? e : [e]).forEach((x) => { gsap.set(x, { autoAlpha: 0 }); S.tl.fromTo(x, { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.38, ease: "power2.out", immediateRender: false }, at); }); };
+        const head = el("h-h", "Шаги курса", 96, 64); show(head, 0.08);
+        const rail = el("h-rail", "", 96, 476, 1728);
+        gsap.set(rail, { scaleX: 0 }); S.tl.to(rail, { scaleX: 1, duration: 0.8, ease: "power2.out" }, 0.15);
+        // Четыре шага без номеров и кодов: карточки зажигаются на своих названиях.
+        const xs = [96, 540, 984, 1428];
+        const names = ["Проблема и эффект", "Границы и вопросы", "План изменений", "Проверка и одобрение"];
+        const times = [tt("проблема", 0.87), tt("границы", 2.12), tt("план", 3.45), tt("проверка", 4.33)];
+        const cards = names.map((n, i) => { const c = el("h-card", n, xs[i], 380, 400); show(c, times[i]); return c; });
+        // Стрелки в разрывах ленты.
+        const ax = [498, 942, 1386];
+        ax.forEach((x, i) => { const a = el("h-arr", "→", x, 442); show(a, times[i + 1] - 0.15); });
+        // Подсветка текущего шага.
+        cards.forEach((c, i) => {
+          const next = i < cards.length - 1 ? times[i + 1] - 0.05 : DUR - 0.9;
+          S.tl.to(c, { borderColor: "rgba(60,207,145,0.9)", boxShadow: "0 0 36px 2px rgba(60,207,145,0.18)", duration: 0.28, ease: "power2.out" }, times[i]);
+          S.tl.to(c, { borderColor: "rgba(42,47,58,1)", boxShadow: "0 0 0 0 rgba(60,207,145,0)", duration: 0.3, ease: "power2.inOut" }, next);
+        });
+        Kit.sketch(S, { name: "pair-analyst", x: 120, y: 700, w: 460, at: 0.3, dur: 2.8 });
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

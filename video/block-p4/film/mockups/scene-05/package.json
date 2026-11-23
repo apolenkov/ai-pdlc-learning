@@ -1,0 +1,9 @@
+{
+  "name": "p4-scene-05-mock",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "npx --no-install hyperframes@0.8.164 check",
+    "lint": "npx --no-install hyperframes@0.8.164 lint"
+  }
+}

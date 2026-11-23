@@ -1,0 +1,16 @@
+{
+  "file": "intent-overview-720p.mp4",
+  "sha256": "a55d5039d6903d7d2243aad1a16ba25b9e158679389e0551e413444ca52bd395",
+  "size": 1003404,
+  "url": "https://github.com/apolenkov/ai-pdlc-learning/releases/download/media-v1/a55d5039d690-intent-overview-720p.mp4",
+  "version": "a55d5039d690",
+  "audio": "voice-only",
+  "master": {
+    "file": "intent-overview-1080p.mp4",
+    "sha256": "c708a7bc6e3c763cfce9b27c22d3187211a56766a60151442175e03912b5fb3f",
+    "size": 5405814,
+    "lost": "утерян до сдачи Mac 25.11.2026: файла нет ни на Диске, ни локально; пин сохранён"
+  },
+  "duration": 40.9,
+  "note": "TASK-671: звук только из голоса (озвучка без музыки и SFX), видео побайтно прежнее, AAC-LC 48 кГц моно, около −16 LUFS; мастер 1080p — прежний микс (вне этапа)"
+}

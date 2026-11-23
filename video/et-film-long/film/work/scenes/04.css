@@ -1,0 +1,15 @@
+.s4-who { position: absolute; width: 228px; text-align: center; }
+.s4-who .f-person { margin: 0 auto; }
+.s4-agent { position: absolute; width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center; background: var(--k-panel); border: 3px solid var(--k-ok); }
+.s4-card { position: absolute; left: 96px; top: 560px; width: 1728px; height: 300px; padding: 26px 34px; }
+.s4-card h3 { font-size: 40px; font-weight: 800; margin-bottom: 18px; }
+.s4-role { position: absolute; top: 90px; width: 520px; height: 170px; padding: 20px 24px; border-radius: 22px; border: 2px solid var(--k-line); background: var(--k-panel-2); }
+.s4-role small { display: block; font-size: 28px; font-weight: 800; letter-spacing: .06em; color: var(--k-text-2); margin-bottom: 8px; }
+.s4-role b { display: block; font-size: 38px; font-weight: 800; line-height: 1.2; }
+.s4-role.acc { border-color: var(--k-accent); background: var(--k-accent-tint); }
+.s4-role.acc small { color: var(--k-accent-soft); }
+.s4-bar { position: absolute; width: 150px; border-radius: 12px 12px 4px 4px; border: 3px solid var(--k-ok); background: var(--k-ok-tint); }
+.s4-note { position: absolute; font-size: 36px; font-weight: 800; text-align: center; color: var(--k-ok); }
+.s4-tag { position: absolute; font-size: 32px; font-weight: 800; text-align: center; color: var(--k-accent-soft); }
+.s4-pnl { position: absolute; top: 690px; width: 840px; height: 190px; display: flex; align-items: center; gap: 26px; padding: 0 36px; font-size: 40px; line-height: 1.25; font-weight: 600; color: var(--k-text-2); }
+.s4-pnl b { color: var(--k-text); font-weight: 800; }

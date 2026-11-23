@@ -1,0 +1,54 @@
+<template id="scene-06-template">
+  <div data-composition-id="scene-06" data-width="1920" data-height="1080" data-duration="15.6">
+    <style>
+      [data-composition-id="scene-06"] .ln { display: grid; grid-template-columns: 120px 1fr; align-items: center; gap: 34px; }
+      [data-composition-id="scene-06"] .ic { width: 120px; height: 120px; border-radius: 28px; display: grid; place-items: center; border: 3px solid; }
+      [data-composition-id="scene-06"] .ic svg { width: 68px; height: 68px; }
+      [data-composition-id="scene-06"] .big { font-size: 60px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; white-space: nowrap; }
+      [data-composition-id="scene-06"] .sub { font-size: 32px; font-weight: 500; color: var(--k-text-2); margin-top: 10px; }
+      [data-composition-id="scene-06"] .meter { height: 22px; border-radius: 11px; background: var(--k-line); overflow: hidden; }
+      [data-composition-id="scene-06"] .meter i { display: block; height: 100%; border-radius: 11px; transform-origin: left center; }
+      [data-composition-id="scene-06"] .notes { position: absolute; left: 96px; width: 1728px; top: 700px; display: flex; gap: 20px; }
+      [data-composition-id="scene-06"] .note { padding: 12px 28px; border-radius: 30px; border: 2px solid var(--k-line); background: var(--k-panel-2); font-size: 34px; font-weight: 700; white-space: nowrap; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("06"), t = S.t, DUR = 15.6;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»: ${(off - at - reveal).toFixed(1)} с, нужно ${needed.toFixed(1)}`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const div = (cls, html, parent) => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; parent.appendChild(el); return el; };
+        const C = (n) => Kit.token("--k-" + n);
+        const ic = (inner, col) => '<svg viewBox="0 0 56 56" fill="none" stroke="' + C(col) + '" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">' + inner + "</svg>";
+
+        Kit.header(S, { duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        const row = (y, col, icon, big, at, from, to, growAt) => {
+          const a = Kit.aside(S, { parent: s1, x: 96, y, w: 1728, tail: false, html: '<div class="ln"><div class="ic">' + ic(icon, col) + '</div><div><div class="big">' + big + '</div></div></div>' });
+          a.el.querySelector(".ic").style.borderColor = C(col);
+          a.show(at); read(big, at, DUR);
+          return a;
+        };
+        const CHECK = '<circle cx="24" cy="24" r="14"/><path d="M34 34l14 14"/>';
+        const ROCKET = '<path d="M28 6c8 8 10 18 10 30H18c0-12 2-22 10-30z"/><path d="M18 30l-8 12 8-2M38 30l8 12-8-2M22 44l-2 8h16l-2-8"/>';
+        const r1 = row(250, "accent", CHECK, "Проверки — больше", 0.2, 0.35, 0.8, t("расти") - 0.3);
+        const sub = div("sub", "Решение модели всё равно проверяет человек", r1.el.querySelector(".ln > div:nth-child(2)"));
+        hide(sub); Kit.popIn(S, sub, t("решение")); read(sub.textContent, t("решение"), DUR);
+        row(490, "ok", ROCKET, "Скорость доставки — может вырасти", t("скорость"), 0.25, 0.9, t("вырасти"));
+
+        const notes = div("notes", "", s1);
+        [["Цель, а не обещание: без сроков и цифр", "цель"], ["Эффект проверим на пробном запуске", "Эффект"]].forEach(([txt, w]) => {
+          const n = div("note", txt, notes); hide(n); Kit.popIn(S, n, t(w)); read(txt, t(w), DUR);
+        });
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

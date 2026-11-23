@@ -1,0 +1,705 @@
+:root {
+  color-scheme: light; /* только светлая тема: см. DESIGN.md */
+  /* Shared visual foundation: primitives → semantic roles → frame component.
+     Page-specific area colours may vary, but the digest keeps one paper,
+     typography, rhythm and fixed navigation contract. */
+  --customdev-paper-0: #f4f1e8;
+  --customdev-paper-1: #fffdf8;
+  --customdev-paper-2: #eef3ef;
+  --customdev-ink-strong: #1f2d2a;
+  --customdev-ink-muted: #626862;
+  --customdev-line: #d6d0c4;
+  --customdev-green: #216650;
+  --customdev-green-soft: #e3f0ea;
+  --customdev-blue: #3f6f88;
+  --customdev-blue-soft: #e8f0f5;
+  --customdev-amber-soft: #fff0d1;
+  --customdev-amber: #a86716;
+  /* Text-only amber: 5.3:1 on amber tints, 6.0:1 on white. Fills/icons keep --customdev-amber. */
+  --customdev-amber-text: #8f5610;
+  /* Control-only border: 3.11:1 on #fffdf8, 3.16:1 on #fff. Dividers keep --customdev-line. */
+  --customdev-line-control: #8a938d;
+  /* Control-only border for paper/subtle fills: 3.91:1 on #f3f0e8, 4.38:1 on #fffdf8. */
+  --customdev-line-control-paper: #6f7a75;
+  --customdev-risk: #9b4a3d;
+  /* Poster palette (course films, catalog hero): paper-0, ink-strong and green above, plus this amber for text on paper (4.9:1 on paper-0, 5.4:1 on paper-1). */
+  --customdev-amber-ink: #965b0d;
+  /* Neutral steps that the guides used as local literals. */
+  --customdev-line-strong: #aeb7b1;
+  --customdev-graphite: #17231f;
+  /* 589: steps that pages carried as literals; values unchanged, notation tokenized */
+  --customdev-white: #fff;
+  --customdev-paper-tint: #f8faf7;
+  --customdev-line-green: #a9bdb5;
+  /* the "was" side of the was/now compare block */
+  --customdev-gray-line: #b9b2a4;
+  --customdev-gray-line-soft: #d8d3c8;
+  --customdev-gray-fill: #eceae4;
+  --customdev-gray-ink: #55504a;
+  --customdev-gray-ink-muted: #6d675c;
+  --customdev-scheme-line: #173229;
+  --customdev-ink-caption: #5b6b63;
+  /* 589 wave B2a (Fable decision 19.10 14:44): roles for the remaining colour literals.
+     Each value is the approved cluster colour from TOKEN-CANDIDATES §3; the split
+     steps below keep every replacement inside the token within ΔE2000 ≤ 2. */
+  --customdev-green-ink: #2e8a68;
+  /* Split of green-ink: the hover step of the green action button. */
+  --customdev-green-deep: #1a5443;
+  /* Split of green-ink: the reference badge border and its translucent overlay. */
+  --customdev-reference-border-green: #3d6758;
+  --customdev-surface-quiet: #f5f8f1;
+  --customdev-surface-blue: #eef4f8;
+  --customdev-reference-ink: #315f79;
+  /* Split of reference-ink: the table-head slate of the help reference. */
+  --customdev-reference-slate: #496674;
+  --customdev-team-plum: #765474;
+  /* Split of team-plum: the darker ink step on the team pages. */
+  --customdev-team-plum-ink: #563e55;
+  --customdev-team-soft: #f1e8ef;
+  /* Split of team-soft: the blush background of the gap label. */
+  --customdev-team-soft-blush: #f6e1dd;
+  --customdev-tint-warm: #fffaf0;
+  --customdev-warning-ink: #7a2a1f;
+  /* Split of warning-ink: the pending block heading keeps its own amber step. */
+  --customdev-pending-ink: #694a1a;
+  --customdev-line-muted: #c7afc2;
+  /* Split of line-muted: the pending dotted frame on the team pages. */
+  --customdev-team-line: #c4b79f;
+  /* Poster island (catalog + pdlc only): the poster palette does not extend to canon pages. */
+  --customdev-poster-route: #172b26;
+  /* Split of poster-route: the video backdrop step of the poster island. */
+  --customdev-video-bg: #0b0e11;
+  --customdev-poster-mint: #b1eccb;
+  --customdev-poster-mint-pale: #dbf0e2;
+  /* Split of poster-mint-pale: the quiet mint hover of the pdlc bridge. */
+  --customdev-poster-mint-quiet: #d3e8de;
+  --customdev-poster-gold: #ffd98a;
+  --customdev-poster-paper: #f3f7f2;
+  --customdev-space-1: 4px;
+  --customdev-space-2: 8px;
+  --customdev-space-3: 12px;
+  --customdev-space-4: 16px;
+  --customdev-space-6: 24px;
+  --customdev-space-8: 32px;
+  --customdev-radius-xs: 4px;
+  --customdev-radius-sm: 8px;
+  --customdev-radius-md: 12px;
+  --customdev-radius-lg: 16px;
+  --customdev-shadow-frame: 0 10px 32px rgb(31 45 42 / .08);
+  --customdev-shadow-card: 0 10px 24px rgb(31 45 42 / .08);
+  --customdev-page-bg: var(--customdev-paper-0);
+  --customdev-surface: var(--customdev-paper-1);
+  --customdev-surface-subtle: var(--customdev-paper-2);
+  --customdev-ink: var(--customdev-ink-strong);
+  --customdev-muted: var(--customdev-ink-muted);
+  /* Подпись: свёрнутая светлее, раскрытая — прежняя (CC BY). */
+  --customdev-credit-ink: #b0b0b0;
+  --customdev-credit-ink-open: #9a9a9a;
+  --customdev-accent: var(--customdev-green);
+  --customdev-accent-soft: var(--customdev-green-soft);
+  /* One font stack for body copy, headings and code on every site page. */
+  --customdev-font-body: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --customdev-font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  /* One desktop contract for the catalog, maps, decks and guides. */
+  --site-shell-max: 1408px;
+  --site-page-gutter: 16px;
+  /* A 64px panel + breathing room. Content starts below the opaque backing
+     strip instead of visibly sliding behind it while scrolling. */
+  --site-nav-reserve: 112px;
+  --site-nav-bg: var(--raised, var(--surface, var(--customdev-surface)));
+  /* A full-width paper veil joins the floating navigation to the page instead
+     of leaving the scrolling document visible through its rounded outer gaps. */
+  --site-nav-veil: var(--customdev-page-bg, var(--site-nav-bg));
+  --site-nav-ink: var(--ink, var(--color-ink, var(--customdev-ink)));
+  --site-nav-muted: var(--muted, var(--color-muted, var(--customdev-muted)));
+  --site-nav-line: var(--line, var(--color-line, var(--customdev-line)));
+  --site-nav-accent: var(--green, var(--color-managed-strong, var(--customdev-accent)));
+  --site-nav-accent-soft: var(--green-soft, var(--color-forest-soft, var(--customdev-accent-soft)));
+  --site-nav-focus: var(--blue, var(--color-focus, var(--customdev-blue)));
+  /* One control contract for every presentation deck. Page-local palettes may
+     change the colours, but geometry and typography must not jump between
+     SDD, business-case, or future slide materials. */
+  --deck-control-height: 36px;
+  --deck-control-gap: 8px;
+  --deck-control-pad-y: 8px;
+  --deck-control-pad-x: 12px;
+  --deck-control-radius: 8px;
+  --deck-control-font: var(--customdev-font-body);
+  --deck-control-font-size: clamp(13px, .84vw, .9rem);
+  --deck-control-font-weight: 700;
+  --deck-slide-radius: 28px;
+}
+
+/* The menu floats 12px below the viewport edge, so the band must still cover
+   the frame's top, side and lower gaps. Its lower edge dissolves into the page
+   with a transparency gradient instead of a hard cut — one rule for all pages. */
+html:has([data-global-nav]) { background: var(--site-nav-veil); }
+html:has([data-global-nav])::before {
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: calc(var(--site-nav-reserve, 112px) + 16px);
+  background: linear-gradient(180deg,
+    var(--site-nav-veil) 0%, var(--site-nav-veil) 56%,
+    color-mix(in srgb, var(--site-nav-veil) 45%, transparent) 84%, transparent 100%);
+  content: "";
+  pointer-events: none;
+}
+
+.skip-link {
+  position: fixed;
+  /* The skip target must sit above the persistent frame when it receives focus. */
+  z-index: 1100;
+  top: 12px;
+  left: 12px;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+  border-radius: var(--customdev-radius-sm);
+  background: var(--site-nav-accent);
+  color: #fff;
+  box-shadow: var(--customdev-shadow-frame);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.skip-link:focus-visible {
+  width: auto;
+  height: auto;
+  padding: 8px 12px;
+  margin: 0;
+  overflow: visible;
+  clip-path: none;
+  white-space: normal;
+  outline: 3px solid var(--site-nav-focus);
+  outline-offset: 2px;
+}
+
+.site-topbar,
+.site-topbar * { box-sizing: border-box; }
+
+.site-topbar {
+  /* The shared frame is deliberately viewport-attached. Several pages place
+     the nav inside a short header, so `position: sticky` would stop at that
+     header and disappear as soon as the main content starts scrolling. */
+  position: fixed;
+  z-index: 1000;
+  isolation: isolate;
+  contain: paint;
+  top: 12px;
+  left: 50%;
+  right: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, auto);
+  gap: 12px 20px;
+  width: min(var(--site-shell-max), calc(100vw - (2 * var(--site-page-gutter))));
+  height: 64px;
+  min-height: 64px;
+  align-items: center;
+  margin: 0;
+  transform: translateX(-50%);
+  padding: 9px 12px;
+  border: 1px solid color-mix(in srgb, var(--site-nav-line) 92%, transparent);
+  border-radius: var(--customdev-radius-lg);
+  background: var(--site-nav-bg);
+  background-clip: padding-box;
+  color: var(--site-nav-ink);
+  box-shadow: var(--customdev-shadow-frame);
+  font-family: var(--customdev-font-body);
+  line-height: 1.2;
+  /* The backing veil already masks the scrolling document. Keep the frame
+     opaque so text does not smear through its rounded surface. */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.site-topbar__identity,
+.site-page-actions {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 7px;
+}
+
+/* External page frames own the spacing below the shared bar. Keeping that
+   spacing on the child margin would collapse the frame and move the bar. */
+.site-frame { padding-bottom: 0; }
+.site-frame > .site-topbar { margin-bottom: 0 !important; }
+
+/* Some deck pages wrap the fixed bar in a low-z-index frame. That frame
+   becomes a stacking context, so the document-wide veil (z-index: 999) can
+   paint over every navigation label even though the bar itself declares 1000.
+   Lift the whole frame above the veil; the fixed bar remains the only
+   interactive element in this layer. */
+.site-frame:has([data-global-nav]),
+.catalog-frame:has([data-global-nav]) {
+  position: relative;
+  z-index: 1001;
+  isolation: isolate;
+}
+
+.site-topbar__identity { flex-wrap: wrap; }
+.site-page-actions { justify-content: flex-end; }
+
+.site-global-link {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  padding: 7px 9px;
+  border-radius: var(--customdev-radius-sm);
+  color: var(--site-nav-muted);
+  font-size: 13px;
+  font-weight: 800;
+  white-space: nowrap;
+  transition: background 160ms ease, border-color 160ms ease, box-shadow 160ms ease, color 160ms ease;
+}
+.site-global-link:hover { background: var(--site-nav-accent-soft); color: var(--site-nav-accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--site-nav-accent) 11%, transparent); }
+.site-global-link[aria-current] { background: var(--site-nav-accent-soft); color: var(--site-nav-accent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--site-nav-accent) 32%, transparent), 0 0 0 3px color-mix(in srgb, var(--site-nav-accent) 9%, transparent); }
+
+.site-topbar a {
+  color: inherit;
+  text-decoration: none;
+  text-underline-offset: .18em;
+}
+
+.site-topbar a:focus-visible,
+.site-topbar button:focus-visible {
+  outline: 3px solid var(--site-nav-focus);
+  outline-offset: 2px;
+}
+
+.site-home,
+.site-section,
+.site-page-link,
+.site-current {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  padding: 7px 10px;
+  border-radius: var(--customdev-radius-sm);
+  font-size: 13px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.site-home {
+  gap: 7px;
+  border: 1px solid var(--site-nav-line);
+  background: var(--site-nav-bg);
+  color: var(--site-nav-accent);
+  transition: background 160ms ease, border-color 160ms ease, box-shadow 160ms ease, color 160ms ease;
+}
+
+.site-home:hover,
+.site-home[aria-current],
+.site-page-link:hover { border-color: var(--site-nav-accent); background: var(--site-nav-accent-soft); color: var(--site-nav-accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--site-nav-accent) 11%, transparent); }
+.site-home svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+.site-section { background: var(--site-nav-accent-soft); color: var(--site-nav-accent); }
+.site-section[aria-current="location"] { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--site-nav-accent) 32%, transparent); }
+.site-current { min-width: 0; padding-inline: 4px; color: var(--site-nav-muted); white-space: normal; }
+.site-current::before { margin-right: 7px; color: var(--site-nav-line); content: "/"; }
+
+.site-page-link {
+  border: 1px solid var(--site-nav-line);
+  background: transparent;
+  color: var(--site-nav-muted);
+}
+
+/* Deep materials do not repeat the catalog's three-card groups. They keep one
+   concrete return destination in the shared frame, which also works after a
+   direct URL entry and is not dependent on browser history. */
+.site-catalog-return {
+  display: inline-flex;
+  min-width: 0;
+  min-height: 36px;
+  align-items: center;
+  gap: 2px;
+  padding: 7px 9px;
+  border: 1px solid color-mix(in srgb, var(--site-nav-line) 92%, transparent);
+  border-radius: var(--customdev-radius-sm);
+  background: var(--site-nav-bg);
+  color: var(--site-nav-muted);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 160ms ease, border-color 160ms ease, box-shadow 160ms ease, color 160ms ease;
+}
+
+.site-catalog-return:hover {
+  border-color: color-mix(in srgb, var(--site-nav-accent) 48%, var(--site-nav-line));
+  background: var(--site-nav-accent-soft);
+  color: var(--site-nav-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--site-nav-accent) 11%, transparent);
+}
+
+.site-catalog-return:focus-visible { outline: 3px solid var(--site-nav-focus); outline-offset: 2px; }
+.site-catalog-return__section { color: currentColor; }
+
+/* The narrow-screen disclosure lives in the same row as the home link.
+   Hidden on desktop: the full destination row is unchanged there. */
+.site-nav-more {
+  display: none;
+  flex: 0 0 auto;
+  min-height: 36px;
+  align-items: center;
+  padding: 7px 12px;
+  border: 1px solid var(--customdev-line-control, var(--site-nav-line));
+  border-radius: var(--customdev-radius-sm);
+  background: var(--site-nav-bg);
+  color: var(--site-nav-muted);
+  font-family: var(--customdev-font-body);
+  font-size: 13px;
+  font-weight: 800;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.site-nav-more:hover { border-color: var(--site-nav-accent); background: var(--site-nav-accent-soft); color: var(--site-nav-accent); }
+.site-nav-more[aria-expanded="true"] { background: var(--site-nav-accent-soft); color: var(--site-nav-accent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--site-nav-accent) 32%, transparent); }
+
+/* Reserve the space formerly occupied by the nav in pages whose markup puts
+   it inside `.shell`. The nav itself is fixed, while the following content
+   keeps its original visual start position and cannot slide underneath it. */
+.shell:has(> .site-topbar:not(.site-topbar--deck):not(.deck-topbar)) {
+  padding-top: var(--site-nav-reserve);
+}
+
+/* Anchor jumps must clear the persistent frame. */
+body:has(.site-topbar:not(.site-topbar--deck):not(.deck-topbar)) [id] {
+  scroll-margin-top: calc(var(--site-nav-reserve) - 4px);
+}
+
+/* The maturity map has an inline `#main-content` rule with stronger
+   specificity. Override it explicitly: after Skip link / hash navigation the
+   focused heading must land below the persistent global frame. */
+body:has(.site-topbar) :is(#main-content, #guide-content, #content) {
+  scroll-margin-top: calc(var(--site-nav-reserve) - 4px);
+}
+
+/* Third navigation level: one compact line under the fixed menu and course
+   strip — «Карта PDLC → раздел → страница». Chrome, not content: quiet muted
+   text, underline only on hover. */
+.site-crumbs {
+  margin: 0;
+  padding: 0 0 var(--customdev-space-1, 4px);
+  font: 500 13px/1.45 var(--customdev-font-body, system-ui, sans-serif);
+  color: var(--customdev-muted, #576460);
+}
+.site-crumbs ol {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px;
+  margin: 0; padding: 0; list-style: none;
+}
+.site-crumbs li { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.site-crumbs li + li::before { content: "→"; color: var(--customdev-line); }
+.site-crumbs a { color: inherit; text-decoration: none; }
+.site-crumbs a:hover { color: var(--customdev-green); text-decoration: underline; text-underline-offset: .18em; }
+.site-crumbs a:focus-visible { outline: 2px solid var(--customdev-green); outline-offset: 2px; border-radius: var(--customdev-radius-xs); }
+.site-crumbs [aria-current] { color: var(--customdev-ink); }
+@media print {
+  .site-crumbs { display: none; }
+}
+
+/* Presentation pages use the same light frame; only their content remains dark. */
+.site-topbar.site-topbar--deck {
+  position: fixed !important;
+  top: 12px !important;
+  left: 50% !important;
+  right: auto !important;
+  width: min(var(--site-shell-max), calc(100vw - (2 * var(--site-page-gutter)))) !important;
+  height: 64px !important;
+  min-height: 64px !important;
+  margin: 0 !important;
+  transform: translateX(-50%) !important;
+  border-color: var(--site-nav-line) !important;
+  background: var(--site-nav-bg) !important;
+  color: var(--site-nav-ink) !important;
+  box-shadow: var(--customdev-shadow-frame) !important;
+}
+
+/* Slide decks run a dark surface, so their backing band matches it (not paper). */
+html:has(.site-topbar--deck),
+html:has(.deck-topbar) { --site-nav-veil: var(--color-ink, var(--customdev-graphite)); }
+/* The deck keeps only the strip above its floating bar: no slide text in the gap, no fade over the slide. */
+html:has(.deck-topbar)::before { height: 12px; background: var(--site-nav-veil); }
+
+.site-topbar.site-topbar--deck .site-home { border-color: var(--site-nav-line) !important; background: var(--site-nav-bg) !important; color: var(--site-nav-accent) !important; }
+.site-topbar.site-topbar--deck .site-global-link { color: var(--site-nav-muted) !important; }
+.site-topbar.site-topbar--deck .site-global-link:hover,
+.site-topbar.site-topbar--deck .site-global-link[aria-current] { background: var(--site-nav-accent-soft) !important; color: var(--site-nav-accent) !important; }
+.site-topbar.site-topbar--deck .site-current { color: var(--site-nav-muted) !important; }
+
+/* The analytics deck keeps its slide controls in the single global row. */
+.deck-topbar.site-topbar {
+  position: fixed !important;
+  top: 12px !important;
+  left: 50% !important;
+  right: auto !important;
+  width: min(var(--site-shell-max), calc(100vw - (2 * var(--site-page-gutter)))) !important;
+  height: 64px !important;
+  min-height: 64px !important;
+  margin: 0 !important;
+  transform: translateX(-50%) !important;
+  border-color: var(--site-nav-line) !important;
+  background: var(--site-nav-bg) !important;
+  color: var(--site-nav-ink) !important;
+  box-shadow: var(--customdev-shadow-frame) !important;
+}
+
+/* The deck keeps its slide controls on the right. A compact visual label
+   leaves the shared global destinations on one line at every desktop width;
+   the full current-page name remains in the accessible text. */
+.deck-topbar .site-topbar__identity { flex-wrap: nowrap; }
+.deck-topbar .site-page-actions { gap: 8px; }
+.deck-topbar :is(.site-catalog-return, .control-button, .counter) {
+  min-height: var(--deck-control-height);
+  font-family: var(--deck-control-font);
+  font-size: var(--deck-control-font-size);
+  font-weight: var(--deck-control-font-weight);
+  line-height: 1;
+}
+.deck-topbar .control-button {
+  gap: var(--deck-control-gap);
+  padding: var(--deck-control-pad-y) var(--deck-control-pad-x);
+  border-radius: var(--deck-control-radius);
+}
+.deck-topbar .counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 4.5rem;
+  padding-inline: 8px;
+  font-family: var(--deck-control-font);
+  font-variant-numeric: proportional-nums;
+  letter-spacing: 0;
+}
+.deck-topbar .site-current { font-size: 0; white-space: nowrap; }
+.deck-topbar .site-current::after { content: "SDD / OpenSpec"; font-size: 13px; }
+.deck-topbar .site-catalog-return { padding-inline: 8px; }
+/* Wide screens have room for the section name of the catalog return; narrower ones keep one row. */
+@media (max-width: 1279px) {
+  .deck-topbar .site-catalog-return__section { display: none; }
+}
+
+/* On the narrow edge of the supported desktop range, preserve one calm row
+   by switching deck-only controls to their already labelled icon form. */
+@media (min-width: 1000px) and (max-width: 1279px) {
+  /* Between 1000 and 1279px the four destinations, the catalog return and the deck controls fit one
+     row only with icon controls. Buttons keep their
+     aria-label; the catalog return keeps its text for assistive technology, only the arrow stays visible. */
+  .site-topbar--deck #previous > span,
+  .site-topbar--deck #next > span,
+  .deck-topbar #previous > span,
+  .deck-topbar #next > span,
+  .deck-topbar #overview-toggle > span,
+  .deck-topbar #speaker-toggle > span { display: none; }
+  .site-topbar--deck .site-catalog-return > span:not([aria-hidden]),
+  .deck-topbar .site-catalog-return > span:not([aria-hidden]) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .site-topbar--deck .control-button,
+  .deck-topbar .control-button { padding-inline: 9px; }
+  .deck-topbar .counter { min-width: 3.5rem; padding-inline: 4px; }
+}
+
+/* The long analytical deck has a document/presentation switch. In document
+   mode its slides need to clear the fixed frame. Do not apply that layout to
+   the separate two-slide director deck: it has a 16:9 canvas and its own
+   compact safe area below the single global row. */
+body:not(.is-presentation):has(.deck-topbar) .deck > .slide { padding-top: max(var(--slide-top), var(--site-nav-reserve)); }
+
+/* Only the analytical deck's wrapper needs to reserve a document-mode slot
+   for the fixed frame. */
+body:not(.is-presentation):has(.deck-topbar) .site-frame:has(> .site-topbar) {
+  min-height: var(--site-nav-reserve);
+  padding-top: var(--site-nav-reserve) !important;
+}
+
+@media (max-width: 999px) {
+  :root { --site-nav-reserve: 136px; }
+  .site-topbar { height: auto; min-height: 64px; grid-template-columns: 1fr; }
+  .site-topbar.site-topbar--deck,
+  .deck-topbar.site-topbar { height: auto !important; min-height: 64px !important; }
+  .site-page-actions { width: 100%; justify-content: flex-start; overflow-x: auto; padding-bottom: 2px; }
+}
+
+/* Narrow screens: the frame collapses to one calm row — «Карта PDLC» +
+   «Ещё» (plus the short unified return in the same row). The disclosure
+   is a <button>: natively keyboard-operable, aria-expanded, Escape
+   closes via the nav-level handler. Collapsed extras are display:none.
+   The open menu never overlays content: both handlers set the reserve to
+   the measured menu height (as the CustomDev nav script does) and drop it
+   on close, so the page moves down on every page alike. The route strip
+   below the menu remeasures itself from the nav height, so it stays tight
+   under the bar. */
+@media (max-width: 760px) {
+  :root { --site-nav-reserve: 100px; }
+  /* The analytical deck contains intentionally wide inner diagrams. Keep
+     those bounded to their own components; never let them widen the page
+     viewport or make the fixed navigation drag sideways. */
+  body:has(.deck-topbar) { overflow-x: hidden; }
+  .site-topbar {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 8px;
+    height: 64px;
+    min-height: 64px;
+    grid-template-columns: none;
+    overflow: visible;
+  }
+  /* The deck pins its own heights below 1000px: keep the single row there too. */
+  .deck-topbar.site-topbar { height: 64px !important; }
+  /* The clip keeps a 6px margin: the focus ring (3px + 2px offset) and the
+     3px hover shadow of «Карта PDLC» and «Ещё» stay whole. */
+  .site-topbar__identity {
+    flex: 0 1 auto;
+    flex-wrap: nowrap;
+    overflow: clip;
+    overflow-clip-margin: 6px;
+  }
+  /* Keep the global home and More button together beside the slide controls. */
+  .deck-topbar .site-topbar__identity { flex: 0 0 auto; overflow: visible; }
+  /* Keep the counter and slide arrows whole; secondary actions open through More. */
+  .deck-topbar[data-expanded="false"] .site-page-actions > :is(.site-catalog-return, #overview-toggle, #speaker-toggle) { display: none; }
+  .deck-topbar .counter { flex-shrink: 0; white-space: nowrap; padding-inline: 4px; }
+  .site-topbar__identity > .site-global-link { display: none; }
+  .site-nav-more { display: inline-flex; }
+  /* The strip scrolls, so it clips: 6px of padding keep the focus ring and
+     hover shadow inside it, the negative margin keeps the controls in place,
+     and the scroll padding stops a focused control 6px short of either edge. */
+  .site-page-actions {
+    flex: 1 1 auto;
+    width: auto;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    overflow-x: auto;
+    padding: 6px;
+    margin: -6px;
+    scroll-padding-inline: 6px;
+  }
+  .site-catalog-return { flex: 0 0 auto; }
+  /* Expanded: hidden destinations wrap into rows below the single bar. */
+  .site-topbar[data-expanded="true"] { flex-wrap: wrap; height: auto; }
+  .deck-topbar.site-topbar[data-expanded="true"] { height: auto !important; }
+  .site-topbar[data-expanded="true"] .site-topbar__identity {
+    flex: 1 1 100%;
+    flex-wrap: wrap;
+    overflow: visible;
+  }
+  .site-topbar[data-expanded="true"] .site-topbar__identity > .site-global-link {
+    display: inline-flex;
+  }
+  .site-topbar[data-expanded="true"] .site-page-actions {
+    flex: 1 1 100%;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    overflow-x: visible;
+  }
+}
+
+@media (max-width: 560px) {
+  :root { --site-nav-reserve: 100px; }
+  .site-topbar { gap: 8px; margin-bottom: 18px; padding: 8px; border-radius: 12px; }
+  .site-home,
+  .site-section,
+  .site-page-link,
+  .site-current { min-height: 34px; padding: 6px 8px; font-size: 13px; }
+  .site-current { flex-basis: 100%; }
+  .site-current::before { display: none; }
+}
+
+@media (max-width: 389px) {
+  .deck-topbar[data-expanded="false"] #previous { display: none; }
+}
+
+@media (max-width: 360px) {
+  /* Keep room for the counter and Next beside the global navigation at 320px. */
+  .deck-topbar .site-page-actions { gap: 4px; }
+  .deck-topbar .counter { min-width: 3.25rem; }
+}
+
+@media (max-width: 430px) {
+  /* «Маршрут курса» is longer than the old map label: tighter buttons keep Previous and the counter whole. */
+  .deck-topbar .site-home,
+  .deck-topbar .site-nav-more { padding-inline: 6px; font-size: 12px; }
+  .deck-topbar .site-topbar__identity { gap: 4px; }
+}
+
+/* Keep the narrow map and guide bridge inside their mobile content columns.
+   Their local layouts intentionally use compact multi-column cards; the
+   shared frame owns the final viewport-width constraint. */
+@media (max-width: 767px) {
+  body:has(.map-layout) .analysis-stage { grid-template-columns: minmax(0, 1fr); }
+  body:has(.map-layout) .map-layout,
+  body:has(.map-layout) .development-digest { width: 100%; }
+  body:has(.map-layout) .panel-heading { align-items: flex-start; flex-direction: column; }
+  body:has(.map-layout) .panel-heading-actions { width: 100%; }
+  body:has(.map-layout) .map-batch-actions { flex-wrap: wrap; }
+  body.route-page .specification-bridge__steps { min-width: 0; }
+  body.route-page .specification-bridge__steps > li > * { min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:has([data-global-nav]) { scroll-behavior: auto; }
+  .site-topbar,
+  .site-home,
+  .site-global-link,
+  .site-catalog-return { scroll-behavior: auto; transition: none; }
+}
+
+/* Keep both navigation groups intact on the smallest phones. */
+@media (max-width: 360px) {
+  body .site-topbar__identity { flex-shrink: 0; }
+  body .site-catalog-return > span:not([aria-hidden]) {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip-path: inset(50%); white-space: nowrap;
+  }
+}
+
+@media (max-width: 360px) {
+  /* Long role names must fit the reference card's single grid track. */
+  .reference-role-index a { grid-template-columns: minmax(0, 1fr); }
+  body .reference-chips i { white-space: normal; }
+}
+
+/* TASK-562: the resting phone header, including its top inset, stays within 64px. */
+@media (max-width: 480px) {
+  :root { --site-nav-reserve: 64px; }
+  body .site-topbar[data-global-nav] {
+    top: 4px !important;
+    height: 56px !important;
+    min-height: 56px !important;
+    padding: 5px 8px;
+  }
+  body .site-topbar[data-global-nav][data-expanded='true'] {
+    height: auto !important;
+    max-height: calc(100dvh - 8px);
+    overflow-y: auto;
+  }
+  /* The list scrolls, so it clips: 4px around the links hold the 2px ring and
+     its 2px offset; the negative block margin keeps the line where it was. */
+  .site-crumbs ol { flex-wrap: nowrap; overflow-x: auto; padding: 4px; margin: -2px 0; scroll-padding-inline: 4px; }
+  .site-crumbs li { flex-shrink: 0; white-space: nowrap; }
+  /* The page's own name may be longer than the line: it ends in «…» (the full name is the page heading). */
+  .site-crumbs li[aria-current] { display: block; flex-shrink: 1; overflow: hidden; text-overflow: ellipsis; }
+  .site-crumbs li[aria-current]::before { margin-right: 8px; }
+}
+
+/* The maturity maps (.workspace-layout, .intent-page) are exported from customdev and must not be edited here (their inline style is pinned
+   by a CSP hash): the course-side layout fixes for them live in this shared sheet. */
+@media screen and (min-width: 768px) {
+  /* Below the shell width the map keeps the menu's side gutters instead of touching the window edges. */
+  :root .page-shell:has(.workspace-layout, .intent-page) { max-width: min(var(--site-shell-max, 1408px), calc(100vw - 2 * var(--site-page-gutter, 16px))); }
+}
+/* A long word in a table cell moves to its own line before it is split. */
+:root .intent-table :is(td, th) { overflow-wrap: break-word; }
+@media (max-width: 700px) {
+  /* The caption stays one full-width line above the stacked rows. */
+  :root .intent-table caption { display: block; width: 100%; }
+}

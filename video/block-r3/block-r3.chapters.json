@@ -1,0 +1,92 @@
+[
+  {
+    "n": 0,
+    "title": "Проблема → цель",
+    "step": null,
+    "chapter": "Проблема → цель",
+    "start": 0,
+    "titleStart": 0,
+    "speechStart": 0,
+    "end": 50
+  },
+  {
+    "n": 1,
+    "title": "Вход и ветка",
+    "step": 1,
+    "chapter": "Вход и ветка",
+    "start": 50,
+    "titleStart": 50,
+    "speechStart": 50,
+    "end": 76.6
+  },
+  {
+    "n": 2,
+    "title": "Правила и OpenSpec",
+    "step": 2,
+    "chapter": "Правила и OpenSpec",
+    "start": 76.6,
+    "titleStart": 76.6,
+    "speechStart": 76.6,
+    "end": 101.5
+  },
+  {
+    "n": 3,
+    "title": "Папка изменения",
+    "step": 3,
+    "chapter": "Папка изменения",
+    "start": 101.5,
+    "titleStart": 101.5,
+    "speechStart": 101.5,
+    "end": 126.7
+  },
+  {
+    "n": 4,
+    "title": "Накопительные требования",
+    "step": 4,
+    "chapter": "Накопительные требования",
+    "start": 126.7,
+    "titleStart": 126.7,
+    "speechStart": 126.7,
+    "end": 164.7
+  },
+  {
+    "n": 5,
+    "title": "Проверка переноса",
+    "step": 5,
+    "chapter": "Проверка переноса",
+    "start": 164.7,
+    "titleStart": 164.7,
+    "speechStart": 164.7,
+    "end": 190.8
+  },
+  {
+    "n": 6,
+    "title": "Сохранение версии",
+    "step": 6,
+    "chapter": "Сохранение версии",
+    "start": 190.8,
+    "titleStart": 190.8,
+    "speechStart": 190.8,
+    "end": 214.8
+  },
+  {
+    "n": 7,
+    "title": "Запрос и одобрение",
+    "step": 7,
+    "chapter": "Запрос и одобрение",
+    "start": 214.8,
+    "titleStart": 214.8,
+    "speechStart": 214.8,
+    "end": 258.6
+  },
+  {
+    "n": 8,
+    "title": "Передача в «Контекст продукта»",
+    "step": 8,
+    "chapter": "Передача в «Контекст продукта»",
+    "start": 258.6,
+    "titleStart": 258.6,
+    "speechStart": 258.6,
+    "end": 285.3
+  }
+]

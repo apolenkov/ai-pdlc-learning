@@ -1,0 +1,7 @@
+# Полоса 3: пять роликов — три варианта A (эталон) и два варианта C (block-i2, block-i3).
+# Конфиг ролика — targets/<ролик>.json { variant, bodySha256 }: C — kit/variants/C.json, A — эталон.
+landing-team-long
+pdlc-guide-long
+pdlc-guide-short
+block-i2
+block-i3

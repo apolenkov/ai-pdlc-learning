@@ -1,0 +1,123 @@
+<template id="scene-0m-template">
+  <div data-composition-id="scene-0m" data-width="1920" data-height="1080" data-duration="10.3">
+    <style>
+      [data-composition-id="scene-0m"] .mp-grp { position: absolute; top: 160px; height: 44px; text-align: center; font-size: 26px; font-weight: 700; letter-spacing: 0.02em; min-width: 0; text-transform: uppercase; white-space: nowrap; color: var(--k-text-2); border-bottom: 3px solid var(--k-line); padding-bottom: 8px; }
+      [data-composition-id="scene-0m"] .mp-track { position: absolute; top: 280px; height: 8px; border-radius: 4px; background: var(--k-line); transform-origin: left center; }
+      [data-composition-id="scene-0m"] .mp-fill { position: absolute; top: 280px; height: 8px; border-radius: 4px; background: var(--k-accent); transform-origin: left center; }
+      [data-composition-id="scene-0m"] .mp-node { position: absolute; width: 80px; height: 80px; border-radius: 50%; display: grid; place-items: center; font-size: 36px; font-weight: 800; background: var(--k-panel-2); border: 4px solid var(--k-line); color: var(--k-text); }
+      [data-composition-id="scene-0m"] .mp-node.done { border-color: var(--k-accent-soft); color: var(--k-accent-soft); }
+      [data-composition-id="scene-0m"] .mp-node.here { background: var(--k-accent); border-color: var(--k-accent); color: var(--k-bg); box-shadow: 0 0 0 10px var(--k-glow); }
+      [data-composition-id="scene-0m"] .mp-lab { position: absolute; top: 340px; text-align: center; font-size: 25px; font-weight: 600; line-height: 1.2; color: var(--k-text-2); }
+      [data-composition-id="scene-0m"] .mp-lab.here { color: var(--k-text); }
+      [data-composition-id="scene-0m"] .mp-cd { display: block; font-size: 24px; font-weight: 800; letter-spacing: 0.02em; color: var(--k-accent-soft); margin-bottom: 2px; }
+      [data-composition-id="scene-0m"] .mp-pin { position: absolute; top: 196px; width: 160px; text-align: center; font-size: 28px; font-weight: 800; color: var(--k-accent); }
+      [data-composition-id="scene-0m"] .mp-br { position: absolute; top: 520px; width: 270px; padding: 14px 10px; text-align: center; border: 3px dashed var(--k-line); border-radius: 18px; background: var(--k-panel-2); font-size: 25px; font-weight: 600; line-height: 1.2; color: var(--k-text-2); }
+      [data-composition-id="scene-0m"] .mp-br b { display: block; font-size: 30px; color: var(--k-text); margin-bottom: 4px; }
+      [data-composition-id="scene-0m"] .mp-br.here { border-style: solid; border-color: var(--k-accent); color: var(--k-text); box-shadow: 0 0 0 8px var(--k-glow); }
+      [data-composition-id="scene-0m"] .mp-cur { position: absolute; left: 96px; width: 1728px; top: 690px; font-size: 52px; font-weight: 800; letter-spacing: -0.015em; }
+      [data-composition-id="scene-0m"] .mp-cur span { color: var(--k-accent-soft); }
+      [data-composition-id="scene-0m"] .mp-goal { position: absolute; left: 96px; width: 1728px; top: 770px; font-size: 30px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-0m"] .mp-goal b { color: var(--k-text); }
+
+      [data-composition-id="scene-0m"] .poster-cover { position:absolute; inset:0; display:grid; place-items:center; background:#F4F1E8; background-image:linear-gradient(#e9e3d7 1px,transparent 1px),linear-gradient(90deg,#e9e3d7 1px,transparent 1px); background-size:64px 64px; }
+      [data-composition-id="scene-0m"] .poster-card { position:relative; width:1792px; height:952px; overflow:hidden; box-sizing:border-box; border:2px solid #dedbcf; border-radius:36px; background:#FCFAF7; }
+      [data-composition-id="scene-0m"] .poster-copy { position:absolute; left:64px; top:82px; z-index:1; width:1020px; color:#1D3028; }
+      [data-composition-id="scene-0m"] .poster-kicker { color:#1C624B; font-size:34px; font-weight:800; letter-spacing:.025em; text-transform:uppercase; }
+      [data-composition-id="scene-0m"] .poster-rule { width:120px; height:7px; margin-top:23px; border-radius:4px; background:#9A6500; }
+      [data-composition-id="scene-0m"] .poster-heading { margin-top:94px; font-size:102px; font-weight:800; line-height:1.03; letter-spacing:-.025em; }
+      [data-composition-id="scene-0m"] .poster-sub { margin-top:27px; color:#1C624B; font-size:52px; font-weight:700; line-height:1.18; }
+      [data-composition-id="scene-0m"] .poster-prev { position:absolute; left:64px; bottom:230px; z-index:1; max-width:1020px; color:#1D3028; font-size:34px; font-weight:600; }
+      [data-composition-id="scene-0m"] .poster-prev b { color:#1C624B; }
+      [data-composition-id="scene-0m"] .poster-art { position:absolute; right:65px; top:240px; width:700px; }
+      [data-composition-id="scene-0m"] .poster-art svg { width:100%; height:auto; }
+    </style>
+    <script>
+      (function () {
+        const D = {"version":2,"steps":[{"id":"0","num":"","code":"Подготовка","title":"Зачем меняем процесс","label":"Зачем меняем процесс","group":"prep"},{"id":"0a","num":"","code":"Подготовка","title":"Markdown, Git, GitLab","label":"Markdown, Git, GitLab","group":"prep"},{"id":"sdd","num":"","code":"Подготовка","title":"SDD и OpenSpec","label":"SDD и OpenSpec","group":"prep"},{"id":"metarepo","num":"","code":"Подготовка","title":"Мета-репозиторий","label":"Мета-репозиторий","group":"prep"}],"branches":[],"groups":{"prep":"Подготовка"},"here":"0a"};
+        const S = Kit.scene("0m"), t = S.t, tl = S.tl, DUR = 10.3;
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const title = document.createElement("div");
+        title.style.cssText = "position:absolute;left:96px;top:38px;font-size:34px;font-weight:800;color:var(--k-text)";
+        title.textContent = "Маршрут подготовки";
+        S.root.appendChild(title);
+        gsap.set(title, { autoAlpha: 0 }); tl.set(title, { autoAlpha: 1 }, 2.4);
+        const st = S.stage(); tl.set(st, { autoAlpha: 1 }, 2.4);
+        const el = (cls, html, css) => { const e = document.createElement("div"); e.className = cls; e.innerHTML = html || ""; Object.assign(e.style, css || {}); st.appendChild(e); gsap.set(e, { autoAlpha: 0 }); return e; };
+        const show = (e, at, dur = 0.45, y = 14) => tl.fromTo(e, { autoAlpha: 0, y }, { autoAlpha: 1, y: 0, duration: dur, ease: "power2.out", immediateRender: false }, at);
+        const X0 = 96, W = 1728, pitch = W / D.steps.length, cx = (i) => X0 + pitch * (i + 0.5);
+        const hereStep = D.steps.findIndex((s) => s.id === D.here);
+        const hereBranch = D.branches.find((b) => b.id === D.here);
+        const focus = hereBranch ? D.steps.findIndex((s) => s.id === hereBranch.parent) : hereStep;
+
+        show(el("mp-prep", "Если ещё не работали с Markdown, Git и SDD", { position: "absolute", left: "96px", top: "100px", fontSize: "26px", color: "var(--k-text-2)" }), 0.05, 0.25, 0);
+        const lastIdx = D.steps.length - 1;
+
+        // дорожка и заполнение до текущего шага
+        const trackL = cx(0), trackW = cx(lastIdx) - cx(0);
+        show(el("mp-track", "", { left: trackL + "px", width: trackW + "px" }), 0.05, 0.25, 0);
+        const fill = el("mp-fill", "", { left: trackL + "px", width: cx(focus) - trackL + "px" });
+        tl.fromTo(fill, { autoAlpha: 1, scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut", immediateRender: false }, t("Тема") + 0.5);
+
+        // остановки
+        D.steps.forEach((s, i) => {
+          const cls = "mp-node" + (i < focus || (hereBranch && i === focus) ? " done" : i === focus ? " here" : "");
+          const n = el(cls, s.num, { left: cx(i) - 40 + "px", top: "248px" });
+          show(n, 0.05 + i * 0.01, 0.25, 10);
+          if (i === focus && !hereBranch) tl.to(n, { scale: 1.18, duration: 0.5, ease: "back.out(1.6)", immediateRender: false }, t("Тема") + 0.5);
+          const lab = el("mp-lab" + (i === focus ? " here" : ""), s.label, { left: cx(i) - (pitch - 14) / 2 + "px", width: pitch - 14 + "px" });
+          show(lab, 0.05 + i * 0.01, 0.25, 8);
+        });
+        const pin = el("mp-pin", hereBranch ? "" : "вы здесь", { left: cx(focus) - 80 + "px" });
+        if (!hereBranch) show(pin, t("Тема") + 0.6, 0.4, 10);
+
+        // ответвления шага (если есть)
+        if (D.branches.length) {
+          const px = cx(D.steps.findIndex((s) => s.id === D.branches[0].parent));
+          const bw = 270, gap = 24, total = D.branches.length * bw + (D.branches.length - 1) * gap;
+          const left0 = Math.min(px + 90 - total, 1824 - total);
+          const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+          svg.setAttribute("style", "position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible");
+          st.appendChild(svg); gsap.set(svg, { autoAlpha: 0 });
+          D.branches.forEach((b, i) => {
+            const bx = left0 + i * (bw + gap) + bw / 2;
+            const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            p.setAttribute("d", "M" + px + " 446 V 476 H " + bx + " V 516");
+            p.setAttribute("fill", "none"); p.setAttribute("stroke", "var(--k-line)"); p.setAttribute("stroke-width", "4"); p.setAttribute("stroke-dasharray", "10 8");
+            svg.appendChild(p);
+            const card = el("mp-br" + (b.id === D.here ? " here" : ""), "<b>" + b.code + "</b>" + b.label, { left: left0 + i * (bw + gap) + "px" });
+            show(card, 0.5 + i * 0.1, 0.3, 12);
+            if (b.id === D.here) {
+              const bp = el("mp-pin", "вы здесь", { left: bx + 12 + "px", top: "482px", textAlign: "left", width: "123px", fontSize: "24px" }); show(bp, t("Тема") + 0.6, 0.4, 10);
+            }
+          });
+          tl.to(svg, { autoAlpha: 1, duration: 0.3 }, 0.5);
+        }
+
+        // текущий шаг и что получите
+        const current = hereBranch || D.steps[hereStep];
+        const curText = "<span>" + current.code + " ·</span> " + current.title;
+        const curEl = el("mp-cur", curText);
+        if (curEl.textContent.length > 63) curEl.style.fontSize = "44px";   // длинное название не переносится на строку «Что получите»
+        show(curEl, t("Тема") + 0.9, 0.5);
+
+        Kit.subtitles(S, {});
+        const sT = S.stage(); gsap.set(sT, { autoAlpha: 1 });
+        const cover = document.createElement("div");
+        cover.className = "poster-cover";
+        cover.innerHTML = '<div class="poster-card"><div class="poster-copy"><div class="poster-kicker">Подготовка</div><div class="poster-rule"></div><div class="poster-heading">Markdown, Git, GitLab</div></div><div class="poster-art"></div></div>';
+        const art = cover.querySelector(".poster-art");
+        art.innerHTML = window.SKETCHES["ch-computer"];
+        art.querySelectorAll("path").forEach((path) => {
+          const colors = { "#eef0f3": "#1D3028", "#8e96a3": "#84938A", "#a3a9b4": "#84938A", "#ff7a59": "#9A6500", "#3ccf91": "#1C624B" };
+          path.setAttribute("stroke", colors[path.getAttribute("stroke")] || "#1D3028");
+          path.style.strokeDasharray = "none";
+          path.style.strokeDashoffset = "0";
+        });
+        sT.appendChild(cover);
+        tl.to(sT, { autoAlpha: 0, duration: 0.4, ease: "none" }, 2.0);
+
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

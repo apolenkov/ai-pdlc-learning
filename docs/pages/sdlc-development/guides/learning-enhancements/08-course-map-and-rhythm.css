@@ -1,0 +1,158 @@
+/* «Как пользоваться картой»: шаги перед картой курса, тем же языком карточек. */
+.map-howto{grid-column:1/-1;margin:0 0 20px;padding:24px;border:1px solid var(--line);border-radius:16px;background:var(--raised)}
+.map-howto h2{margin:0}
+.map-howto__head{display:flex;flex-wrap:wrap;align-items:center;gap:8px 24px;margin:0 0 12px}
+.map-howto__legend{max-width:none;display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px;margin:0 0 14px;color:var(--muted);font-size:.88rem}
+.map-howto__key{display:inline-flex;align-items:center;gap:7px}
+.map-howto__key i{width:11px;height:11px;border:2px solid var(--line);border-radius:50%;background:var(--paper)}
+.map-howto__key.is-passed i{border-color:var(--green);background:var(--green)}
+.map-howto__key.is-optional i{border-style:dashed}
+/* The same check mark the route strip puts beside a number once the self-check passes. */
+.map-howto__key.is-selfchecked i{display:grid;place-items:center;width:14px;height:14px;border:0;background:var(--green);color:var(--customdev-surface);font:800 11px/1 var(--body)}
+.map-howto__key.is-selfchecked i::before{content:"✓"}
+.map-howto__key.is-current i{width:13px;height:13px;border:3px solid var(--green);box-shadow:0 0 0 3px var(--green-soft)}
+.map-howto__reset{margin-left:auto;padding:5px 10px;border:1px solid var(--line);border-radius:8px;background:transparent;color:var(--muted);font:600 .82rem/1.2 var(--body);cursor:pointer}
+.map-howto__reset:hover{border-color:var(--green);color:var(--green)}
+.map-howto__reset:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.map-howto__film:empty{display:none}
+.map-howto__film{margin:0 0 16px}
+.map-howto__steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:12px;margin:0;padding:0;list-style:none;counter-reset:howto}
+.map-howto__steps>li{position:relative;padding:16px 16px 16px 52px;border:1px solid var(--line);border-radius:var(--customdev-radius-md);background:color-mix(in srgb, var(--customdev-surface) 96%, transparent);counter-increment:howto}
+.map-howto__steps>li::before{position:absolute;top:14px;left:14px;display:grid;width:1.75rem;height:1.75rem;place-items:center;border-radius:50%;background:var(--green-soft);color:var(--green);font:800 .85rem/1 var(--utility);content:counter(howto)}
+.map-howto__steps strong{display:block;margin:2px 0 6px}
+.map-howto__steps p{margin:0;color:var(--muted);font-size:.93rem;line-height:1.45}
+.map-howto__steps a{color:var(--green);text-underline-offset:.18em}
+/* «Почему Markdown и Git»: перенесено с прежней главной курса (спецификация machine-readable-course-framing). */
+.comparison{grid-column:1/-1;margin:0 0 28px;padding:24px;border:1px solid var(--line);border-radius:16px;background:var(--raised)}
+.course-surface{margin:0 0 28px;padding:24px;border:1px solid var(--line);border-radius:16px;background:var(--raised)}
+.course-surface>h2{margin-top:0}
+.comparison>p{max-width:70ch}
+.comparison-scroll{max-width:100%;overflow-x:auto}
+.comparison-scroll:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.comparison table{width:100%;min-width:40rem;border-collapse:collapse;table-layout:fixed;text-align:left}
+.comparison th,.comparison td{padding:12px 10px;border-bottom:1px solid var(--line);vertical-align:top;overflow-wrap:break-word}
+.comparison thead th{background:var(--green-soft)}
+.comparison th:first-child{width:22%}
+/* Below 1024 px the table sits at its 40rem minimum: 22 % would split «ответственность» inside the word. */
+@media (max-width:1023px){.comparison th:first-child{width:11rem}}
+.comparison .sources{font-size:.9rem;color:var(--muted)}
+.course-map{grid-column:1/-1;margin:0 0 28px;padding:24px;border:1px solid var(--line);border-radius:16px;background:color-mix(in srgb, var(--customdev-surface) 96%, transparent)}
+.course-map h2{margin:0 0 6px}
+.course-map__lead{margin:0 0 16px;color:var(--muted)}
+.course-map__group+.course-map__group{margin-top:18px}
+.course-map__group h3{margin:0 0 8px;color:var(--muted);font:800 13px/1.3 var(--utility);letter-spacing:.08em;text-transform:uppercase}
+/* Branches and steps share column edges. Only a single card in its group fills the row. */
+.course-map__list{display:flex;flex-wrap:wrap;gap:10px;margin:0;padding:0;list-style:none}
+.course-map__list>.course-map__step{flex:0 1 calc((100% - 20px)/3);min-width:0;max-width:none}
+.course-map__list>.course-map__step:only-child{flex-grow:1}
+.course-map__step{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.course-map__step>.course-map__body:only-child{grid-column:1/-1}
+.course-map__no{display:grid;place-items:center;box-sizing:border-box;min-width:2.2rem;height:2.2rem;padding:0 .45rem;border-radius:var(--customdev-radius-lg);white-space:nowrap;background:var(--green);color:#fff;font:800 .95rem var(--utility)}
+.course-map__body h4{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;margin:0 0 6px;font-size:1.02rem}
+.course-map__body h4 a{color:var(--ink);font-weight:800;overflow-wrap:normal}
+.course-map__code{color:var(--muted);font:800 13px var(--utility)}
+.course-map__facts{display:grid;grid-template-columns:minmax(0,1fr);gap:4px;margin:0;padding:0;list-style:none;font-size:.9rem}
+.course-map__facts span{display:block;color:var(--muted);font:800 13px/1.3 var(--utility);letter-spacing:.06em;text-transform:uppercase}
+.course-map__branches{flex:1 1 100%;min-width:0;max-width:none;padding:2px 0 0;list-style:none}
+.course-map__branch-note{margin:0 0 8px;padding-left:.7rem;border-left:3px solid var(--green-soft);color:var(--muted);font-size:.9rem}
+.course-map__step--branch{background:var(--green-soft)}
+/* An extra continues its guide: a dashed frame on the page tone and the «Дополнение» label keep it secondary to the four preparation guides (hubs-03). */
+.course-map__step--extra{border-style:dashed;background:transparent}
+.course-map__kind{margin:0 0 4px;color:var(--muted);font:700 13px/1.3 var(--body)}
+/* A lone card takes the row; its facts read in two columns instead of one long stripe. */
+.course-map__list>.course-map__step:only-child .course-map__facts{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:24px}
+@media(max-width:1100px){.course-map__list>.course-map__step{flex:0 1 calc((100% - 10px)/2)}}
+@media(max-width:760px){.course-map__list>.course-map__step,.course-map__branches{flex:1 1 100%}.course-map__list>.course-map__step:only-child .course-map__facts{grid-template-columns:minmax(0,1fr);column-gap:0}.course-map{padding:14px}.course-map__step{gap:10px}.course-map__no{min-width:1.9rem;height:1.9rem;border-radius:var(--customdev-radius-lg)}}
+
+/* Перспектива: фабрика — схема-петля на тёмной панели и два крупных вывода. */
+.course-figure--factory svg { min-width: 1040px; }
+.course-figure--wide svg text.factory-t { fill: var(--customdev-paper-0); font-size: 15px; font-weight: 700; }
+.course-figure--wide svg text.factory-t--small { font-size: 14px; font-weight: 600; }
+.course-figure--wide svg text.factory-t--big { fill: #8ad6bb; font-size: 21px; }
+.course-figure--wide svg text.factory-s { fill: #bfd8cd; font-size: 13px; }
+.course-figure--wide svg text.factory-h { fill: var(--customdev-graphite); font-size: 16px; font-weight: 700; }
+.course-figure--wide svg text.factory-hs { fill: #5c4a1b; font-size: 13px; }
+.factory-claims { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 22px 0; }
+.factory-claims span { display: flex; align-items: center; padding: 16px 18px; border-radius: var(--customdev-radius-md); background: var(--customdev-graphite); color: var(--customdev-paper-0); font-size: 1.25rem; font-weight: 700; line-height: 1.25; }
+.factory-claims span:first-child { background: #fbf5e8; color: var(--customdev-graphite); box-shadow: inset 0 0 0 2px #e0a526; }
+.step-why .factory-verdict, .factory-verdict { margin: 22px 0 0; padding: 18px 20px; border-left: 6px solid #e0a526; border-radius: 0 var(--customdev-radius-md) var(--customdev-radius-md) 0; background: #fbf5e8; color: var(--customdev-graphite) !important; font-size: 1.3rem !important; font-weight: 700; line-height: 1.35; }
+@media (max-width: 640px) { .factory-claims { grid-template-columns: 1fr; } .factory-verdict { font-size: 1.1rem; } }
+
+/* Keep diagrams readable and make their horizontal continuation visible.
+   The hint is a rule of the scrolling element itself: a wide scheme or a wide table scrolls on a phone,
+   and on a tablet the scheme keeps scrolling until the content column fits its 1040px. */
+@media (max-width: 719px) {
+  /* The hint sits inside each scrolling viewport, right above its scheme, so a stepper or a multi-scheme figure never moves it away from the scheme. A viewport around a table gets no hint of its own: the table scrolls inside its own box. */
+  .course-figure__viewport:not(:has(> table)):not(.layout-shift__narrow)::before { content: "Схема шире экрана — прокрутите её вправо"; display: block; position: sticky; left: 0; margin-bottom: 12px; color: var(--customdev-muted); font-size: .875rem; }
+  .course-figure__viewport > svg { min-width: 1040px; max-width: none; }
+}
+@media (min-width: 720px) and (max-width: 1040px) {
+  .course-figure__viewport:not(:has(> table)):not(.layout-shift__narrow)::before { content: "Схема шире экрана — прокрутите её вправо"; display: block; position: sticky; left: 0; margin-bottom: 12px; color: var(--customdev-muted); font-size: .875rem; }
+}
+/* A table scrolls inside its own box (see 06-course-figures.css) while the column is narrower than its columns: below 555px a three-column table needs its 409px. */
+@media (max-width: 554px) {
+  .course-figure__table::before { content: "Таблица шире экрана — прокрутите её вправо"; display: block; position: sticky; left: 0; margin-bottom: 12px; color: var(--customdev-muted); font-size: .875rem; }
+}
+.course-figure--delivery .course-figure__sequence { display: none; }
+@media (max-width: 719px) {
+  .course-figure--delivery .course-figure__viewport, .course-figure--delivery figcaption { display: none !important; }
+  .course-figure--delivery .course-figure__sequence { display: grid; gap: 16px; margin: 0; padding-left: 1.5em; }
+  .course-figure__sequence li { padding-left: 4px; }
+  .course-figure__sequence strong, .course-figure__sequence span { display: block; }
+}
+.mode-switch{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:4px 0 12px}
+.mode-switch__label{margin-right:4px;color:var(--muted);font-size:.9rem;font-weight:650}
+.mode-switch__btn{min-height:36px;padding:6px 14px;border:1px solid var(--line-strong);border-radius:999px;background:var(--customdev-surface-subtle);color:var(--muted);font:inherit;font-size:.9rem;font-weight:650;cursor:pointer}
+.mode-switch__btn:hover{border-color:var(--green);color:var(--green)}
+.mode-switch__btn[aria-pressed="true"]{border-color:var(--green);background:var(--green-soft);color:var(--green)}
+.mode-switch__btn:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.mode-b{margin-top:16px;padding:16px 20px;border:1px solid var(--line);border-left:4px solid var(--green);border-radius:8px;background:var(--customdev-surface-subtle)}
+/* Метка варианта у блока: переключатель один на страницу, а подпись остаётся у каждого текста (владелица, A). */
+.step-variant-tag{margin:0 0 8px;color:var(--muted);font-size:.8rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+.mode-b>h4{margin:0 0 10px;color:var(--green);font-size:1rem}
+.mode-b ol{margin:0;padding-left:1.4em}
+.mode-b li{margin-bottom:8px}
+#guide-content.mode-enhanced[data-mode="a"] [data-mode-b]{display:none}
+#guide-content.mode-enhanced[data-mode="b"] .step-actions--mode-a{display:none}
+#guide-content.mode-enhanced[data-mode="b"] .step-instructions--mode-a{display:none}
+/* Intent course (TASK-563): the how-to block lives only with its film. */
+.map-howto--film-gated:has(.map-howto__film:empty){display:none}
+.route-page[data-course="intent"] .route-outcome{margin-left:0}
+/* Section rhythm (owner, 19.10): every course page separates its top-level sections by one 24px gap,
+   and the margins of the blocks never add to it. The QA gate scripts/lint-ui-layout.ts (customdev) checks it. */
+#guide-content{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+#guide-content:not(.grid){grid-template-columns:minmax(0,1fr)}
+#guide-content>*{margin-block:0}
+.calculator-page main.grid{gap:24px}
+
+/* 390 px (дизайн-ревью 19.10): те же правила .grid{1fr} из guide.css не срабатывают из-за ID выше;
+   на телефоне сетка курса — одна колонка, иначе карточки card--wide сжимаются до 169 px. */
+@media (max-width:760px){#guide-content{grid-template-columns:minmax(0,1fr)}}
+
+/* Inline-code typography (renderer/inline-code.ts) and the two preparation paragraphs. */
+.nobr-flag { white-space: nowrap; }
+#guide-content code.code--tight { padding-right: 1px; }
+.card--prep > p + p { margin-top: 12px; }
+
+/* Course map films (route-strip/preview.ts): a badge in the card corner, a faint muted loop behind the card text on hover. */
+.course-map__step.has-film { position: relative; }
+.course-map__step.has-film h4 { padding-right: 72px; }
+/* The badge carries the film length; the static «Ролик m:ss» row stays for pages without this script. */
+.course-map__step.has-film li[data-film] { display: none; }
+.course-map__film-badge {
+  position: absolute; z-index: 6; top: 12px; right: 12px; display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 9px; border-radius: 999px; background: var(--customdev-green); color: var(--customdev-white);
+  font: 700 13px/1.2 var(--customdev-font-body, Inter, sans-serif); text-decoration: none; font-variant-numeric: tabular-nums;
+}
+.course-map__step .course-map__film-badge:hover, .course-map__step .course-map__film-badge:focus-visible { background: var(--customdev-green-deep); color: var(--customdev-white); }
+.course-map__film-badge:focus-visible { outline: 2px solid var(--customdev-green); outline-offset: 2px; }
+/* The loop sits behind the card text: films are dark, so it is inverted to paper tones and blurred — motion and colour, no second text over the fields. */
+.course-map__step.has-film > :not(.film-preview, .course-map__film-badge) { position: relative; z-index: 1; }
+.film-preview {
+  position: absolute; inset: 0; z-index: 0; overflow: hidden; border-radius: inherit; contain: paint; clip-path: inset(0 round 12px);
+  opacity: 0; transition: opacity .14s ease; pointer-events: none;
+}
+.film-preview.is-playing { opacity: .35; }
+/* While the loop plays, the title and facts sit on a paper backing: the motion shows around them, the text keeps its contrast. */
+.course-map__step:has(> .film-preview.is-playing) :is(h4, .course-map__facts > li) { background: color-mix(in srgb, var(--customdev-white) 92%, transparent); border-radius: var(--customdev-radius-xs); box-shadow: 0 0 0 3px color-mix(in srgb, var(--customdev-white) 92%, transparent); }
+.film-preview video { display: block; width: 100%; height: 100%; object-fit: cover; filter: invert(1) hue-rotate(180deg) blur(5px); }

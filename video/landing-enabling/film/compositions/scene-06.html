@@ -1,0 +1,38 @@
+<template id="scene-06-template">
+  <div data-composition-id="scene-06" data-width="1920" data-height="1080" data-duration="13.8">
+    <style>
+      [data-composition-id="scene-06"] .et-h { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 58px; font-weight: 800; }
+      [data-composition-id="scene-06"] .et-h span { color: var(--k-text-2); font-weight: 600; }
+      [data-composition-id="scene-06"] .et-grid { position: absolute; left: 96px; top: 240px; width: 1728px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+      [data-composition-id="scene-06"] .et-m { padding: 24px 28px; border: 2px solid var(--k-line); border-radius: 22px; background: var(--k-panel-2); min-height: 180px; }
+      [data-composition-id="scene-06"] .et-m .t { font-size: 29px; font-weight: 700; color: var(--k-text-2); }
+      [data-composition-id="scene-06"] .et-m .v { margin-top: 8px; font-size: 38px; font-weight: 800; color: var(--k-ok); }
+      [data-composition-id="scene-06"] .et-m.own { border-color: var(--k-accent); }
+      [data-composition-id="scene-06"] .et-m.own .v { color: var(--k-accent-soft); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("06"), DUR = 13.8;
+        const h = document.createElement("div"); h.className = "et-h";
+        h.innerHTML = "Метрики до и после <span>· DORA и время до эффекта</span>"; S.root.appendChild(h);
+        S.tl.fromTo(h, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out", immediateRender: true }, 0.1);
+        const grid = document.createElement("div"); grid.className = "et-grid"; S.root.appendChild(grid);
+        const ms = [
+          ["частота", "частота выпусков", "до → после ↑", ""],
+          ["время до", "время до прода", "до → после ↓", ""],
+          ["доля сбоев", "доля сбоев", "до → после ↓", ""],
+          ["восстановления", "время восстановления", "до → после ↓", ""],
+          ["доработок", "доля доработок", "до → после ↓", ""],
+          ["намерения", "от намерения до эффекта", "время ↓", "own"],
+        ];
+        ms.forEach(([word, t, v, cls]) => {
+          const el = document.createElement("div"); el.className = "et-m" + (cls ? " " + cls : "");
+          el.innerHTML = '<div class="t">' + t + '</div><div class="v">' + v + "</div>";
+          grid.appendChild(el);
+          S.tl.fromTo(el, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: "power2.out", immediateRender: true }, Math.min(S.t(word), DUR - 2));
+        });
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

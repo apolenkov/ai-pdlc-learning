@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path class="s" pathLength="1" stroke="#3ccf91" stroke-width="5" d="M493 98 L493 152 C493 156 497 160 501 160 L569 160 C573 160 577 156 577 152 L577 106 C577 102 573 98 569 98 L529 98 L521 88 L501 88 C497 88 493 92 493 96 Z"/>
+  <path class="s" pathLength="1" stroke="#a3a9b4" stroke-width="3" d="M509 118 L509 146"/>
+  <path class="s" pathLength="1" stroke="#eef0f3" stroke-width="3" d="M509 113 C512 113 514 115 514 118 C514 121 512 123 509 123 C506 123 504 121 504 118 C504 115 506 113 509 113 Z"/>
+  <path class="s" pathLength="1" stroke="#eef0f3" stroke-width="3" d="M509 127 C512 127 514 129 514 132 C514 135 512 137 509 137 C506 137 504 135 504 132 C504 129 506 127 509 127 Z"/>
+  <path class="s" pathLength="1" stroke="#eef0f3" stroke-width="3" d="M509 141 C512 141 514 143 514 146 C514 149 512 151 509 151 C506 151 504 149 504 146 C504 143 506 141 509 141 Z"/>
+  <path class="s" pathLength="1" stroke="#a3a9b4" stroke-width="3" d="M523 118 L561 118"/>
+  <path class="s" pathLength="1" stroke="#a3a9b4" stroke-width="3" d="M523 132 L553 132"/>
+  <path class="s" pathLength="1" stroke="#a3a9b4" stroke-width="3" d="M523 146 L541 146"/>
+</svg>

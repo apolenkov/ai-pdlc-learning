@@ -1,0 +1,127 @@
+[
+  {
+    "n": 1,
+    "duration": 8.4,
+    "chapter": "Цикл продукта · PDLC",
+    "step": null,
+    "title": "Цикл продукта · PDLC",
+    "audio": "assets/vo/scene-1.mp3",
+    "audioDuration": 8.367
+  },
+  {
+    "n": 2,
+    "duration": 8.2,
+    "chapter": "Как было",
+    "step": null,
+    "title": "Как было",
+    "audio": "assets/vo/scene-2.mp3",
+    "audioDuration": 8.179
+  },
+  {
+    "id": "t1",
+    "kind": "title",
+    "of": 3,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Как стало · с ИИ-агентами",
+    "step": null,
+    "title": "Часть 1 · Как стало · с ИИ-агентами",
+    "audio": null
+  },
+  {
+    "n": 3,
+    "duration": 9.9,
+    "chapter": "Как стало · с ИИ-агентами",
+    "step": null,
+    "title": "Как стало · с ИИ-агентами",
+    "audio": "assets/vo/scene-3.mp3",
+    "audioDuration": 9.808
+  },
+  {
+    "id": "t2",
+    "kind": "title",
+    "of": 4,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Анализ · OpenSpec · MR: комментарии → одно одобрение",
+    "step": null,
+    "title": "Часть 2 · Анализ · OpenSpec · MR: комментарии → одно одобрение",
+    "audio": null
+  },
+  {
+    "n": 4,
+    "duration": 7.2,
+    "chapter": "Анализ · OpenSpec · MR: комментарии → одно одобрение",
+    "step": null,
+    "title": "Анализ · OpenSpec · MR: комментарии → одно одобрение",
+    "audio": "assets/vo/scene-4.mp3",
+    "audioDuration": 7.097
+  },
+  {
+    "n": 5,
+    "duration": 7.8,
+    "chapter": "ADR → код → тесты",
+    "step": null,
+    "title": "ADR → код → тесты",
+    "audio": "assets/vo/scene-5.mp3",
+    "audioDuration": 7.747
+  },
+  {
+    "n": 6,
+    "duration": 8.4,
+    "chapter": "DORA · до и после",
+    "step": null,
+    "title": "DORA · до и после",
+    "audio": "assets/vo/scene-6.mp3",
+    "audioDuration": 8.398
+  },
+  {
+    "id": "t3",
+    "kind": "title",
+    "of": 7,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Команда развития · план пилота на 8 недель",
+    "step": null,
+    "title": "Часть 3 · Команда развития · план пилота на 8 недель",
+    "audio": null
+  },
+  {
+    "n": 7,
+    "duration": 15.2,
+    "chapter": "Команда развития · план пилота на 8 недель",
+    "step": null,
+    "title": "Команда развития · план пилота на 8 недель",
+    "audio": "assets/vo/scene-7.mp3",
+    "audioDuration": 15.08
+  },
+  {
+    "id": "t4",
+    "kind": "title",
+    "of": 8,
+    "overlay": true,
+    "duration": 2,
+    "chapter": "Найдите свой этап",
+    "step": null,
+    "title": "Часть 4 · Найдите свой этап",
+    "audio": null
+  },
+  {
+    "n": 8,
+    "duration": 10.7,
+    "chapter": "Найдите свой этап",
+    "step": null,
+    "title": "Найдите свой этап",
+    "audio": "assets/vo/scene-8.mp3",
+    "audioDuration": 10.657
+  },
+  {
+    "n": 9,
+    "duration": 5.3,
+    "chapter": "Пройти аудит · команда развития",
+    "step": null,
+    "title": "Пройти аудит · команда развития",
+    "audio": "assets/vo/scene-9.mp3",
+    "audioDuration": 5.175
+  }
+]

@@ -1,0 +1,31 @@
+{
+  "all": true,
+  "src": [
+    "scripts",
+    "docs/pages",
+    "standards"
+  ],
+  "include": [
+    "scripts/**/*.ts",
+    "docs/pages/**/*.ts",
+    "standards/**/tools/**/*.ts"
+  ],
+  "exclude": [
+    "**/*.test.*",
+    "**/*.d.ts",
+    "**/node_modules/**",
+    "**/.worktrees/**",
+    "scripts/*-test-support.ts",
+    "scripts/learner-guide-contract*.ts",
+    "**/*-types.ts"
+  ],
+  "reporter": [
+    "text-summary",
+    "text"
+  ],
+  "check-coverage": true,
+  "lines": 72,
+  "branches": 78,
+  "functions": 65,
+  "statements": 72
+}

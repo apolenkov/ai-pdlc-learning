@@ -1,0 +1,28 @@
+<template id="scene-07-template">
+  <div data-composition-id="scene-07" data-width="1920" data-height="1080" data-duration="9.2">
+    <style>
+      [data-composition-id="scene-07"] .ov-h { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 58px; font-weight: 800; }
+      [data-composition-id="scene-07"] .ov-btns { position: absolute; left: 96px; top: 300px; width: 1728px; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+      [data-composition-id="scene-07"] .ov-btn { padding: 44px 40px; border-radius: 28px; background: var(--k-accent); color: var(--k-on-accent); font-size: 44px; font-weight: 800; text-align: center; }
+      [data-composition-id="scene-07"] .ov-btn.ghost { background: var(--k-panel-2); color: var(--k-text); border: 3px solid var(--k-accent); }
+      [data-composition-id="scene-07"] .ov-brand { position: absolute; left: 96px; top: 640px; width: 1728px; font-size: 34px; color: var(--k-text-2); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("07"), DUR = 9.2;
+        const h = document.createElement("div"); h.className = "ov-h"; h.textContent = "Начните с карты"; S.root.appendChild(h);
+        S.tl.fromTo(h, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out", immediateRender: false }, 0.1);
+        const btns = document.createElement("div"); btns.className = "ov-btns";
+        btns.innerHTML = '<div class="ov-btn">Карта этапов</div><div class="ov-btn ghost">Пройти аудит</div>';
+        S.root.appendChild(btns);
+        S.tl.fromTo(btns.children, { autoAlpha: 0, y: 22 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out", stagger: 0.15, immediateRender: false }, Math.min(S.t("карты этапов"), DUR - 2.5));
+        const brand = document.createElement("div"); brand.className = "ov-brand";
+        brand.textContent = "Команда развития пройдёт путь вместе с вами";
+        S.root.appendChild(brand);
+        S.tl.fromTo(brand, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4, immediateRender: false }, Math.min(S.t("вместе с вами"), DUR - 2));
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

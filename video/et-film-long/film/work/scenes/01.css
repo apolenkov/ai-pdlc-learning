@@ -1,0 +1,11 @@
+.s1-tag { position: absolute; left: 96px; top: 176px; }
+.s1-card { position: absolute; top: 240px; width: 560px; height: 340px; padding: 24px 30px; }
+.s1-card h3 { font-size: 36px; font-weight: 800; line-height: 1.15; margin-bottom: 18px; }
+.s1-ch { position: absolute; left: 30px; display: flex; align-items: center; gap: 12px; padding: 8px 18px; border-radius: 16px; border: 2px solid var(--k-line); background: var(--k-panel-2); font-size: 30px; font-weight: 700; line-height: 1.1; white-space: nowrap; }
+.s1-ch.n { border-color: var(--k-ok); background: var(--k-ok-tint); color: var(--k-ok); }
+.s1-team { position: absolute; left: 96px; top: 636px; width: 1728px; height: 118px; display: flex; align-items: center; gap: 26px; padding: 0 40px; font-size: 46px; font-weight: 800; letter-spacing: -.01em; }
+.s1-team span { color: var(--k-accent-soft); }
+.s1-thread { position: absolute; left: 96px; top: 786px; width: 1728px; height: 110px; }
+.s1-thread .cap { position: absolute; top: 56px; font-size: 30px; font-weight: 700; color: var(--k-text-2); white-space: nowrap; }
+.s1-dot { position: absolute; top: 14px; width: 30px; height: 30px; border-radius: 50%; border: 5px solid var(--k-ok); background: var(--k-ok-tint); }
+.s1-plate { position: absolute; left: 96px; top: 930px; width: 1728px; padding: 20px 36px; border: 3px solid var(--k-accent); border-radius: 24px; background: var(--k-accent-tint); font-size: 40px; font-weight: 800; text-align: center; color: var(--k-accent-soft); }

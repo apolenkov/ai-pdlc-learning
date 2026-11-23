@@ -1,0 +1,83 @@
+<template id="scene-0b-template">
+  <div data-composition-id="scene-0b" data-width="1920" data-height="1080" data-duration="40.8">
+    <style>
+      [data-composition-id="scene-0b"] .sc-def { font-size: 42px; font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; }
+      [data-composition-id="scene-0b"] .sc-line { position: absolute; left: 96px; top: 580px; width: 760px; height: 8px; border-radius: 4px; background: var(--k-ok); transform-origin: 0 50%; }
+      [data-composition-id="scene-0b"] .sc-tag { position: absolute; }
+      [data-composition-id="scene-0b"] .sc-goals { position: absolute; left: 96px; top: 380px; width: 1728px; display: flex; gap: 30px; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("0b");
+        const t = S.t;
+        const DUR = 40.8;
+        // текст на экране держится не меньше слов/3 + 1 с
+        const rd = (txt, a, b) => { const w = txt.trim().split(/\s+/).length; if (b - a < w / 3 + 1 - 1e-6) throw new Error(`текст «${txt}» на экране ${(b - a).toFixed(1)} с, нужно ${(w / 3 + 1).toFixed(1)} с`); };
+        const mk = (cls, html, parent, css) => { const e = document.createElement("div"); e.className = cls; e.innerHTML = html; if (css) e.style.cssText += css; parent.appendChild(e); gsap.set(e, { autoAlpha: 0 }); return e; };
+        Kit.header(S, { step: null, mode: "intro", total: 10, duration: DUR });
+
+        const T1_OUT = t("Маркдаун") - 0.3;              // «иначе» отзвучало
+        const T2_IN = t("Маркдаун") - 0.05;
+        const T2_OUT = t("Почему") - 0.17;
+        const T3_IN = t("Почему") + 0.23;
+        const T3_OUT = t("Вот") + 0.15;
+        const T4_IN = t("Вот") + 0.5;
+
+        /* ---- кадр 1: «иначе» — зеркало блока 0, одна спокойная линия вместо хаоса копий ---- */
+        const s1 = S.stage();
+        const tag = mk("sc-tag k-pill", "цель", s1, "left:96px;top:300px;");
+        Kit.popIn(S, tag, t("Поэтому") + 0.1);
+        const k1 = Kit.kinetic(S, { parent: s1, x: 96, y: 380, size: 140, text: "Ведём иначе", at: t("ведём") - 0.2, stagger: 0.12 });
+        const line = mk("sc-line", "", s1);
+        S.tl.fromTo(line, { autoAlpha: 1, scaleX: 0 }, { scaleX: 1, duration: 1.2, ease: "power2.inOut", immediateRender: false }, t("иначе") - 0.2);
+        Kit.stageOut(S, s1, T1_OUT);
+        S.tl.to(line, { autoAlpha: 0, duration: 0.4, ease: "power2.in" }, T1_OUT);
+        S.tl.to(tag, { autoAlpha: 0, duration: 0.4, ease: "power2.in" }, T1_OUT);
+
+        /* ---- кадр 2: цепочка Markdown → Git → GitLab, под ней одно определение за раз ---- */
+        const s2 = S.stage();
+        Kit.path(S, { parent: s2, x: 96, y: 270, sep: "→", items: [
+          { icon: "file", text: "Markdown", at: t("Маркдаун") },
+          { icon: "folder", text: "Git", at: t("Гит") },
+          { icon: "folder2", text: "GitLab", at: t("Гитлаб") } ] });
+        const def = (txt, at, off) => {
+          const a = Kit.aside(S, { parent: s2, x: 96, y: 470, w: 1100, tail: false, html: `<div class="sc-def">${txt}</div>` });
+          a.show(at); if (off != null) a.hide(off);
+          rd(txt.replace(/<[^>]+>/g, ""), at, off != null ? off : T2_OUT);
+        };
+        def("Простой текст с разметкой, понятный человеку и модели", t("простой"), t("Версии") - 0.15);
+        def("Запоминает каждое состояние файла: что, когда и почему", t("программа"), t("Общее") - 0.3);
+        def("Репозиторий — общее место хранения", t("Общее") + 0.14, t("сайт") - 0.4);
+        def("Версии хранят и проверяют вместе", t("сайт"), T2_OUT);
+
+        /* ---- кадр 3: модель правит, Git показывает, можно проверить и откатить ---- */
+        const s3 = S.stage();
+        Kit.kinetic(S, { parent: s3, x: 96, y: 260, size: 72, text: "Почему именно так", color: "var(--k-text-2)", at: t("Почему") + 0.28, stagger: 0.1 });
+        Kit.path(S, { parent: s3, x: 96, y: 470, sep: "→", items: [
+          { icon: "file", text: "модель правит", at: t("модель", 2) },
+          { icon: "folder", text: "Git показывает", at: t("Гит", 2) },
+          { icon: "folder2", text: "проверка, откат", at: t("проверить") } ] });
+        rd("проверка, откат", t("проверить"), T3_OUT);
+
+        /* ---- кадр 4: вы сделаете — четыре карточки по словам (разметка и классы как у Kit.goals) ---- */
+        const s4 = S.stage();
+        Kit.kinetic(S, { parent: s4, x: 96, y: 240, size: 100, text: "Вы сделаете", at: t("Вот") + 0.65, stagger: 0.12 });
+        const row = document.createElement("div"); row.className = "sc-goals"; s4.appendChild(row);
+        const GOALS = [["file", "замысел", t("напишете")], ["commit", "история", t("сохраните")], ["branch", "отдельный вариант", t("попробуете")], ["cloud", "правка коллегам", t("отправите")]];
+        GOALS.forEach(([icon, text, at]) => {
+          const c = mk("k-goal", `<div class="ic">${Kit.icons[icon]}</div><div class="tx">${text}</div>`, row);
+          c.style.flex = "1";
+          Kit.popIn(S, c, at - 0.1);
+          rd(text, at - 0.1, DUR);
+        });
+
+        Kit.stageIn(S, s1, 0.05);
+        Kit.stageOut(S, s2, T2_OUT); Kit.stageIn(S, s3, T3_IN);
+        Kit.stageIn(S, s2, T2_IN);
+        Kit.stageOut(S, s3, T3_OUT); Kit.stageIn(S, s4, T4_IN);
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

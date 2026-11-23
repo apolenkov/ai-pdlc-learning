@@ -1,0 +1,43 @@
+<template id="scene-00-template">
+  <div data-composition-id="scene-00" data-width="1920" data-height="1080" data-duration="9.5">
+    <style>
+      [data-composition-id="scene-00"] .sc-mark { position: absolute; box-sizing: border-box; border: 3px solid var(--k-accent); border-radius: 10px; pointer-events: none; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("00"), t = S.t, DUR = 9.5;
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const mark = (scr, r, at, soft) => {
+          const el = document.createElement("div"); el.className = "sc-mark";
+          Object.assign(el.style, { left: r.x - 6 + "px", top: r.y - 4 + "px", width: r.w + 12 + "px", height: r.h + 8 + "px" });
+          if (soft) el.style.borderColor = Kit.token("--k-accent-soft");
+          scr.layer.appendChild(el); gsap.set(el, { autoAlpha: 0 });
+          S.tl.to(el, { autoAlpha: 1, duration: 0.5, ease: "sine.out" }, at);
+          return el;
+        };
+        const dim = (el, at) => S.tl.to(el, { opacity: 0.4, duration: 0.4 }, at);
+
+        Kit.header(S, { header: { mode: "parts", total: 5 }, chapter: "Карта курса", step: null, mode: "intro", duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+        const scr = Kit.screen(S, { parent: s1, x: 60, y: 330, w: 1800, h: 232, natural: { w: 1920, h: 1080 },
+          src: "assets/page/s1-git-top.png", alt: "Шаг 1 · Требования в Git: меню «Карта PDLC» и линия маршрута",
+          camera: [
+            { t: 0, cx: 960, cy: 75, scale: 1.35, dur: 0 },
+            { t: 0.2, cx: 960, cy: 75, scale: 1.36, dur: DUR - 0.4, ease: "sine.inOut" },
+          ] });
+        scr.show(0, true);
+        const FIRST = { x: 457, y: 89, w: 44, h: 44 }, CURRENT = { x: 770, y: 89, w: 44, h: 44 };
+        const AHEAD = { x: 814, y: 89, w: 463, h: 44 }, STATUS = { x: 1341, y: 94, w: 310, h: 34 };
+        const a = mark(scr, FIRST, t("с чего начать") - 0.1);
+        dim(a, t("где вы сейчас") - 0.1);
+        const b = mark(scr, CURRENT, t("где вы сейчас") - 0.1);
+        const c = mark(scr, STATUS, t("где вы сейчас") + 0.3, true);
+        dim(b, t("куда идти дальше") - 0.1); dim(c, t("куда идти дальше") - 0.1);
+        mark(scr, AHEAD, t("куда идти дальше") - 0.1);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

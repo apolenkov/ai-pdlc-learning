@@ -1,0 +1,30 @@
+<template id="scene-04-template">
+  <div data-composition-id="scene-04" data-width="1920" data-height="1080" data-duration="13.3">
+    <script>
+      (function () {
+        const L = Long.begin("04"), { S, tl, el, show, hide, at, t, DUR } = L;
+        // сцена 4 · Команда развития · камера Y 969, правая карточка #enabling
+        const { R } = PageWin;
+        const W = PageWin.begin(L, { cam: { Y: 969, s: 1.15 }, spot: R.enL });
+        W.hopSpot(R.enR, 0.05, 0.7);
+        const ZONE = [1400, 1478];                          // свободное место внизу постера правой карточки
+        const k = t("команда");
+        W.ring({ x: 1004, y: 1012, w: 560, h: 36 }, k - 0.1, t("формирует") - 0.2);
+        W.call("Команда развития", { to: ZONE, side: "center", at: k - 0.1, until: t("формирует") - 0.3 });
+        const f = t("формирует");
+        W.ring({ x: 1006, y: 1056, w: 566, h: 48 }, f - 0.1, t("шаг за шагом") - 0.2);
+        W.call("Метод", { to: ZONE, side: "center", at: f, until: t("шаг за шагом") - 0.3 });
+        const sh = t("шаг за шагом");
+        W.ring({ x: 1006, y: 1135, w: 566, h: 22 }, sh - 0.1, t("аудит,") - 0.2);
+        W.call("Шаг за шагом", { to: [1640, 1176], side: "below", align: "r", gap: 6, at: sh, until: t("аудит,") - 0.3 });
+        const a = t("аудит,");
+        W.ring({ x: 1006, y: 1104, w: 566, h: 26 }, a - 0.1, t("метрики.") + 0.2);
+        W.call("Аудит → метрики", { to: ZONE, side: "center", at: a, until: t("метрики.") - 0.2 });
+        const m = t("метрики.");
+        W.ring(R.btnAudit, m - 0.1, DUR - 0.5);
+        W.call("Аудит", { to: [1558, 1538], side: "above", gap: 24, align: "r", at: m + 0.05, until: DUR - 0.6 });
+        L.fin();
+      })();
+    </script>
+  </div>
+</template>

@@ -1,0 +1,38 @@
+<template id="scene-05-template">
+  <div data-composition-id="scene-05" data-width="1920" data-height="1080" data-duration="6">
+    <style>
+      [data-composition-id="scene-05"] .sc-mark { position: absolute; box-sizing: border-box; border: 3px solid var(--k-accent); border-radius: 10px; pointer-events: none; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("05"), t = S.t, DUR = 6;
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const mark = (scr, r, at, soft) => {
+          const el = document.createElement("div"); el.className = "sc-mark";
+          Object.assign(el.style, { left: r.x - 2 + "px", top: r.y - 2 + "px", width: r.w + 4 + "px", height: r.h + 4 + "px" });
+          if (soft) el.style.borderColor = Kit.token("--k-accent-soft");
+          scr.layer.appendChild(el); gsap.set(el, { autoAlpha: 0 });
+          S.tl.to(el, { autoAlpha: 1, duration: 0.5, ease: "sine.out" }, at);
+          return el;
+        };
+
+        Kit.header(S, { header: { mode: "parts", total: 5 }, chapter: "Свой темп", step: 5, duration: DUR, parts: [{ n: 5, blank: true, at: 0 }] });
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+        // Снимок assets/page/howto.png (1920 × 900): блок «Как пользоваться картой» собранного сайта, четыре карточки столбцом.
+        const HEAD = { x: 281, y: 140, w: 1020, h: 62 }, CARDS = { x: 281, y: 218, w: 705, h: 482 };
+        const BACK = { x: 281, y: 612, w: 705, h: 88 };
+        const scr = Kit.screen(S, { parent: s1, x: 60, y: 200, w: 1800, h: 610, natural: { w: 1920, h: 900 },
+          src: "assets/page/howto.png", alt: "Блок «Как пользоваться картой»: четыре карточки, последняя — «Как вернуться»",
+          camera: [
+            { t: 0, cx: 960, cy: 415, scale: 1.05, dur: 0, protect: [HEAD, CARDS] },
+            { t: t("прерваться"), cx: 633.5, cy: 545, scale: 1.8, dur: Math.max(0.1, t("вернуться к любому шагу") - 0.15 - t("прерваться")), ease: "sine.inOut", protect: [BACK] },
+          ] });
+        scr.show(0, true);
+        mark(scr, BACK, t("вернуться к любому шагу") - 0.1);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

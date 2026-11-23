@@ -1,0 +1,29 @@
+Музыка роликов курса — источники и лицензии (TASK-588)
+
+Файлы музыки в Git не хранятся. Правило для ЛЮБОГО трека (Mixkit, Freesound, любой другой источник):
+исходный файл лежит вне репозитория, в Git остаются готовый ролик (в Registry), этот credits.txt
+и credits ролика. Причина: условия Mixkit (п. 9.4, https://mixkit.co/terms/) ограничивают предоставление исходных треков
+третьим лицам, а CC BY требует указать источник и изменения, но не требует раздавать оригинал.
+`.gitignore` закрывает `video/_shared/music/*.{mp3,wav,flac,ogg,m4a,aac}`.
+
+Исходники лежат локально: ~/work/handoffs/customdev-unify/588/music-src/ (список и sha256 — SHA256SUMS
+рядом). Положил новый трек — добавь строку сюда и в SHA256SUMS, файл в Git не добавляй.
+
+--- Ролик hero v3.5 (музыкальная подложка) ---
+Смесь двух треков Matio888 (Freesound, через Openverse), лицензия CC BY 4.0. Обрезаны, сведены
+кроссфейдом 5 с, нормализованы (подложка −35 LUFS) и приглушены под голосом (sidechain).
+Исходник — HQ-превью Freesound (cdn.freesound.org/previews), а не оригинальная загрузка.
+
+"Relaxing Ambient" by Matio888 is licensed under CC BY 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/.
+Источник: https://freesound.org/people/Matio888/sounds/796050
+Локально: freesound-796050-matio888-relaxing-ambient.mp3, sha256 0efc50edccc1acc5cb73ca9b40336ff0aaaf7ac2be8c92c172c85b99dd257a3a
+
+"Serene and Peaceful Ambience" by Matio888 is licensed under CC BY 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/.
+Источник: https://freesound.org/people/Matio888/sounds/796135
+Локально: freesound-796135-matio888-serene-and-peaceful-ambience.mp3, sha256 5cf593544399d010bd5ab2e694b07e429d46156d46aa28e4488a4b3be4080b7a
+
+Готовая подложка: bed-v3.5.wav (там же, sha256 1814da034db538c7f3152cd6d091d35d5c2a64abb30edaabe5dda93589ca70f6).
+
+--- Не используется (удалено из Git 18.10) ---
+Три кандидата Mixkit (ID 22, 34, 732; Mixkit Stock Music Free License) в ролики не вошли. Их MP3 убраны
+из репозитория, сохранены вне Git; текст лицензии и источники — music-src/mixkit-credits-archive.txt.

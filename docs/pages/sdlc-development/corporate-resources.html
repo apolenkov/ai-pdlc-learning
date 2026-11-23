@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="ru" data-atmos data-section="help">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Корпоративные ресурсы, доступы и официальные внешние источники курса AI PDLC Learning.">
+  <meta name="theme-color" content="#f4f1e8">
+  <title>Ресурсы · AI PDLC Learning</title>
+  <link rel="stylesheet" data-site-nav-styles href="./site-nav.css">
+  <link rel="stylesheet" href="./help-reference.css">
+  <link rel="stylesheet" href="./corporate-resources.css">
+  <link rel="stylesheet" data-atmos-styles href="./atmosphere.css">
+</head>
+<body class="reference-page resources-page">
+  <a class="skip-link" href="#main-content">К содержанию</a>
+  <nav class="site-topbar" data-global-nav data-expanded="false" onkeydown="if(event.key==='Escape'&&this.getAttribute('data-expanded')==='true'){this.setAttribute('data-expanded','false');document.documentElement.style.removeProperty('--site-nav-reserve');var more=this.querySelector('.site-nav-more');if(more){more.setAttribute('aria-expanded','false');more.focus()}}" aria-label="Основная навигация PDLC"><div class="site-topbar__identity"><a class="site-home" data-global-home data-home-link data-course-root data-nav-item="home" href="__CUSTOMDEV_ROOT__">Маршрут курса</a></div><div class="site-page-actions"><a class="site-catalog-return" data-catalog-return href="__CUSTOMDEV_ROOT__"><span aria-hidden="true">←</span><span>К маршруту курса</span></a></div></nav>
+  <main id="main-content" class="reference-shell" tabindex="-1">
+    <header class="reference-intro">
+      <p class="reference-kicker">Справка · рабочие источники</p>
+      <h1>Ресурсы</h1>
+      <p>Корпоративные системы и постоянные официальные источники, к которым обращаются в учебном маршруте и работе.</p>
+    </header>
+
+    <nav class="resource-index" aria-label="Быстрые переходы к ресурсам">
+      <a href="#jira">Jira</a><a href="#git">GitLab</a><a href="#confluence">Confluence</a><a href="#ai">Корпоративный ИИ</a><a href="#tools">Инструменты и установка</a><a href="#installation-request">Заявка на установку ПО</a><a href="#external-resources">Внешние источники</a>
+    </nav>
+
+    <section id="corporate-resources" class="resource-section" aria-labelledby="corporate-resources-title">
+      <header class="resource-section__header">
+        <p class="reference-kicker">Доступ внутри компании</p>
+        <h2 id="corporate-resources-title">Корпоративные ресурсы</h2>
+        <p>Для каждой системы указано, где взять адрес, как получить доступ, обходной путь и простая проверка готовности. Комплект инструментов и доступов для каждого шага — в таблице ниже; гайд «Что такое SDD и OpenSpec» читается в браузере, без Jira, Git и OpenSpec CLI.</p>
+      </header>
+      <div class="resource-list">
+        <article id="step-resources" class="resource-card resource-card--corporate">
+          <header><h3 id="step-needs-title">Что нужно по шагам</h3></header>
+          <div class="reference-table-wrap">
+            <table class="reference-table" aria-labelledby="step-needs-title">
+              <thead><tr><th scope="col" style="position: static">Шаг</th><th scope="col" style="position: static">Что нужно</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">1. Требования в Git</th><td data-label="Что нужно"><a href="#jira">Jira</a> и <a href="#git">GitLab</a>: вход и доступ; <a href="#tools">Git и VS Code</a>; для блоков «С моделью» — <a href="#kilo-vscode">Kilo Code</a>.</td></tr>
+                <tr><th scope="row">2. Проверяем и согласуем</th><td data-label="Что нужно">Тот же комплект, что на шаге 1; продолжайте в той же рабочей копии.</td></tr>
+                <tr><th scope="row">3. Изменение в OpenSpec</th><td data-label="Что нужно">Тот же комплект, что на шаге 1, плюс <a href="#tools">Node.js 22+ и OpenSpec CLI</a>.</td></tr>
+                <tr><th scope="row">4. Команда продукта</th><td data-label="Что нужно">Только браузер: Git и OpenSpec CLI на этом шаге не нужны.</td></tr>
+                <tr><th scope="row">5. Контекст продукта</th><td data-label="Что нужно">Git, Node.js 22+, npm и OpenSpec CLI; VS Code с Kilo Code и утверждённой моделью; право создать задачу в проекте вашей команды и связать её с учебным эпиком курса.</td></tr>
+                <tr><th scope="row">6а. Начинаем требования для нового продукта</th><td data-label="Что нужно">Выданный организатором пустой репозиторий; Git, Node.js 22+, OpenSpec CLI; VS Code с Kilo Code и моделью.</td></tr>
+                <tr><th scope="row">6б. Описываем действующий продукт</th><td data-label="Что нужно">Выданная база legacy; Git для своей копии базы, Word и экспорт текста из Confluence; VS Code с Kilo Code и моделью.</td></tr>
+                <tr><th scope="row">7. Практикум разработки</th><td data-label="Что нужно">Принятая база шага 5 и две папки — форк требований и копия кода; нужны Git, OpenSpec CLI и VS Code с Kilo Code и моделью.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+        <article id="jira" class="resource-card resource-card--corporate">
+          <header><h3>Jira</h3><span class="resource-card__action">Адрес — в корпоративной инструкции</span></header>
+          <dl><div><dt>Как войти</dt><dd>Откройте Jira, войдите с корпоративной учётной записью и выберите проект вашей команды.</dd></div><div><dt>Кто выдаёт доступ</dt><dd>администраторы проекта вашей команды; их список выдаёт организатор курса.</dd></div><div><dt>Если не получилось</dt><dd>Если Jira не открывается, проверьте рабочую сеть и запросите сетевой доступ. Если Jira открывается, но проект вашей команды недоступен, обратитесь к любому администратору проекта.</dd></div><div><dt>Проверка готовности</dt><dd>Проект вашей команды открывается, а разрешённые вашей ролью действия доступны.</dd></div></dl>
+        </article>
+
+        <article id="git" class="resource-card resource-card--corporate">
+          <header><h3>Корпоративный GitLab</h3></header>
+          <dl><div><dt>Как войти</dt><dd>Откройте GitLab и выберите вход через корпоративный <strong>SAML Single Sign-On</strong>. Если система не открывается, проверьте подключение к рабочей сети и запросите доступ к рабочей сети; вход выполняется кнопкой SAML.</dd></div><div><dt>Кто выдаёт доступ</dt><dd>Корпоративная система Git: SAML-вход, доступ к группе вашей команды и право создать fork учебного репозитория в личном namespace. Write в центральном репозитории не нужен; <code>main</code> защищена, работайте в личных ветках <code>course/&lt;login&gt;/...</code>.</dd></div><div><dt>Если не получилось</dt><dd>Если fork не создаётся, проверьте рабочую сеть и разрешённый namespace. Если push отклонён, выполните <code>git remote get-url origin</code>: адрес должен вести в ваш namespace; затем проверьте имя личной ветки. Если корпоративная политика запрещает fork, остановитесь и сообщите организатору.</dd></div><div><dt>Проверка готовности</dt><dd>Личная ветка <code>course/&lt;login&gt;/...</code> отправлена в <code>origin</code> и не отстаёт от него, а MR создан внутри fork; как это проверить, описано в блоке «Токен и Git CLI: авторизация и диагностика». Получите одобрение владельца продукта и комментарии аналитика и техлида; архитектора подключите по признакам или при споре. Затем можно объединить MR с личной base-веткой fork. Модель одобрение не даёт.</dd></div></dl>
+
+          <section class="resource-card__request" aria-labelledby="git-vscode-path-title">
+            <h4 id="git-vscode-path-title">Основной путь: fork в GitLab → клонирование и работа в VS Code</h4>
+            <p>Создайте личный fork учебного репозитория из группы вашей команды и откройте его в VS Code: сами действия коротко повторяет <a href="guides/p2-git.html#git-process-title">карта Git-процесса</a>, подробности и пояснения — в подготовке «Markdown, Git, GitLab». Каждому действию соответствует место на карте: <a href="guides/p2-git.html#git-process-fork">Fork и Clone</a> → <a href="guides/p2-git.html#git-process-branch">Create Branch</a> → <a href="guides/p2-git.html#git-process-change">правка и diff</a> → <a href="guides/p2-git.html#git-process-commit">Stage и Commit</a> → <a href="guides/p2-git.html#git-process-push">Push</a> → <a href="guides/p2-git.html#git-process-pr">MR</a> → <a href="guides/p2-git.html#git-process-review">review</a> → <a href="guides/p2-git.html#git-process-merge">merge</a>.</p>
+          </section>
+
+          <details class="resource-more">
+            <summary>Токен и Git CLI: авторизация и диагностика (продвинутый уровень)</summary>
+            <div class="resource-more__body">
+              <p>Терминальный Git и запрос пароля из VS Code при работе по HTTPS используют личный токен доступа, а не пароль домена.</p>
+              <ol class="resource-steps">
+                <li>Войдите в GitLab через <strong>SAML Single Sign-On</strong>.</li>
+                <li>Создайте токен: аватар → <strong>Edit profile</strong> → <strong>Access tokens</strong> → <strong>Add new token</strong>; имя <code>course-git</code>, срок действия — короткий, scopes <code>read_repository</code> и <code>write_repository</code>; скопируйте токен сразу — он показывается один раз.</li>
+                <li>При первом <code>clone</code> или <code>push</code>: <strong>Username</strong> — корпоративный логин GitLab, <strong>Password</strong> — токен, а не пароль домена.</li>
+                <li>Проверьте доступ к репозиторию: <code>git ls-remote https://&lt;адрес GitLab&gt;/&lt;логин&gt;/&lt;репозиторий&gt;.git</code>. Увидите список ссылок репозитория — ветки и теги; если вместо него появилась ошибка доступа, проверьте токен и вход через SAML.</li>
+                <li>Проверьте менеджер учётных данных: <code>git config --global --get credential.helper</code>. Увидите имя помощника, например <code>manager</code> на Windows или <code>osxkeychain</code> на macOS; пустой ответ значит, что Git будет спрашивать логин и токен при каждом действии.</li>
+                <li>Обновите сведения об удалённых ветках: <code>git fetch</code>. Команда завершится без ошибок и покажет новые ветки, если они появились.</li>
+                <li>Проверьте свою ветку: <code>git status --short --branch</code>. В строке с вашей веткой видно, на сколько она ушла вперёд или отстала от <code>origin</code>.</li>
+                <li>Токен не вставляйте в чат, файлы, URL и скриншоты; при утечке отзовите его в <strong>Access tokens</strong> и выпустите новый.</li>
+              </ol>
+            </div>
+          </details>
+        </article>
+
+        <article id="confluence" class="resource-card resource-card--corporate">
+          <header><h3>Confluence</h3><span class="resource-card__action">Адрес — в корпоративной инструкции</span></header>
+          <dl><div><dt>Как войти</dt><dd>Откройте Confluence и войдите с корпоративной учётной записью.</dd></div><div><dt>Кто выдаёт доступ</dt><dd>Владелец нужной страницы или пространства.</dd></div><div><dt>Если не получилось</dt><dd>Если Confluence не открывается, проверьте рабочую сеть и запросите сетевой доступ. Если вход выполнен, но страница закрыта, запросите права у её владельца.</dd></div><div><dt>Проверка готовности</dt><dd>Открывается именно нужная страница или пространство.</dd></div></dl>
+        </article>
+
+        <article id="ai" class="resource-card resource-card--corporate">
+          <header><h3>Корпоративный ИИ</h3><span class="resource-card__action">Инструкцию выдаёт организатор курса</span></header>
+          <dl><div><dt>Как начать</dt><dd><ol class="resource-steps"><li>Откройте инструкцию и войдите.</li><li>Выберите утверждённый инструмент и модель по инструкции.</li><li>Отправьте тестовый запрос.</li></ol></dd></div><div><dt>Кто выдаёт доступ</dt><dd>Ответственный, указанный в корпоративной инструкции.</dd></div><div><dt>Если не получилось</dt><dd>При недоступной инструкции запросите сетевой доступ. При ошибке модели остановитесь и передайте ответственному точный текст ошибки без ключей и других секретов.</dd></div><div><dt>Проверка готовности</dt><dd>Тестовый запрос к корпоративной модели возвращает ответ.</dd></div></dl>
+
+          <section class="resource-card__request" aria-labelledby="ai-access-request-title">
+            <h4 id="ai-access-request-title">Текст обращения к администратору модели</h4>
+            <p>Для учебного маршрута укажите цель и проект в заявке на доступ к корпоративной LLM. Подставьте свой корпоративный логин и выданную учебную задачу.</p>
+            <button class="copy-request" type="button" data-copy="#ai-access-request-template">Скопировать текст заявки</button>
+            <span class="copy-status" role="status" aria-live="polite"></span>
+            <pre id="ai-access-request-template" class="resource-request-template" tabindex="0">Заявка на доступ к корпоративной LLM
+
+Цель использования: прохождение учебного маршрута SDD (Custom Development) —
+подготовка плановых документов OpenSpec (proposal, спецификации, design, tasks)
+и ИИ-ревью требований. Нужные сценарии: Brainstorming, Research, анализ,
+планирование, реализация и ревью. Использование только для обучения,
+не для продуктового кода.
+
+Для бюджета: доступ и потребление утверждённой модели для <число участников>
+на <период обучения>. Лимит и модель — по корпоративной политике.
+
+Проект: проект вашей команды, учебный эпик курса
+(либо выданная учебная задача в этом проекте).
+
+Корпоративный логин: <ваш логин>
+
+Пароли, токены и ключи к заявке не прикладывайте.</pre>
+          </section>
+        </article>
+
+        <article id="tools" class="resource-card resource-card--corporate">
+          <span id="installation" class="anchor-alias" aria-hidden="true"></span>
+          <header><h3>Установка инструментов</h3><div class="action-group"><a class="resource-card__action" href="https://openspec.dev/docs/installation" target="_blank" rel="noopener noreferrer">OpenSpec</a><a class="resource-card__action" href="https://opencode.ai/docs/windows-wsl" target="_blank" rel="noopener noreferrer">OpenCode · Windows/WSL</a><a class="resource-card__action" href="https://github.com/onllm-dev/onUI" target="_blank" rel="noopener noreferrer">onUI</a></div></header>
+          <aside class="resource-warning" role="note"><strong>Установка и ИБ:</strong> инструменты, нужные в вашем гайде, и расширение Kilo Code для VS Code на Windows и в VDI ставятся только после заявки и согласования ИБ/ИТ. OpenCode и WSL — необязательный продвинутый вариант; то же правило согласования действует для onUI — инструмента авторов и проверяющих, который ученику не нужен. macOS и Linux в этом маршруте — личные машины: используйте официальные инструкции и ссылки этой карточки. Если загрузка или магазин расширений заблокированы, запросите согласованный корпоративный пакет.</aside>
+
+          <section class="resource-card__request" aria-labelledby="openspec-install-title">
+            <h4 id="openspec-install-title">OpenSpec CLI: установка из npm</h4>
+            <p><strong>Единый рецепт курса для всех ОС — npm-вариант <a href="https://openspec.dev/docs/installation" target="_blank" rel="noopener noreferrer">официальной инструкции OpenSpec</a>.</strong> Официальная инструкция ставит один бинарный файл без Node.js; npm она предлагает при Node.js 20.19+, курс закрепляет npm-версию. Инструменты для вашего шага — в таблице «Что нужно по шагам». На Windows и в VDI глобальную установку выполняйте только согласованным пакетом и выданными правами после <a href="#installation-request">заявки на установку ПО</a>; sudo и обходные схемы не применяйте.</p>
+            <ol class="resource-steps">
+              <li>Для курса проверьте Node.js версии <code>22</code> или новее: <code>node --version</code>. Если версия ниже, установите Node.js LTS с <a href="https://nodejs.org/en/download/" target="_blank" rel="noopener noreferrer">официальной страницы</a>.</li>
+              <li>Установите CLI закреплённой курсом версии: <code>npm install -g @fission-ai/openspec@1.12.0</code>. Официальная инструкция предлагает <code>@latest</code>; ориентир версии курса — pin <code>@fission-ai/openspec@1.12.0</code> в <code>package-lock.json</code> учебных репозиториев, обновляйте глобальный CLI только вместе с этим pin.</li>
+              <li>Проверьте установку: <code>openspec --version</code> должна вывести <code>1.12.0</code>.</li>
+              <li>Когда гайд предпишет инициализацию, выполните <code>openspec init</code> в корне вашего существующего проекта — не заранее и не в произвольной папке.</li>
+            </ol>
+          </section>
+
+          <section id="kilo-vscode" class="resource-card__request" aria-labelledby="kilo-vscode-title">
+            <h4 id="kilo-vscode-title">Kilo Code в VS Code: настройка работы с моделью</h4>
+            <p><strong>Настройте подключение один раз.</strong> На шагах 1–2 вам нужны Git и VS Code. Если выбираете блоки «С моделью» внутри шагов 1–3, используйте Kilo Code с корпоративным провайдером модели. Шаг 5 выполняется только с моделью. <strong>VS Code + Kilo Code — основной инструмент работы с моделью в курсе.</strong> Node.js 22+ и OpenSpec CLI нужны начиная с шага 3. Project skills для Kilo приходят вместе с базой учебного блока: шаги 1, 2 и отдельный эталон шага 3 содержат три навыка планирования в <code>.kilo/skills</code>; на шаге 3 команда <code>openspec init --tools none</code> создаёт только корень OpenSpec и не создаёт и не меняет навыки. Выданная база шага 5 содержит skill подготовки в <code>.agents/skills/</code>. Выберите один маршрут работы с моделью: основной Kilo или продвинутую альтернативу OpenCode. Инструкции OpenCode находятся в закрытом блоке ниже. Результат модели проверяете вы, а одобрение дают люди.</p>
+            <details class="resource-more">
+              <summary>Для сопровождающих · что подтвердила локальная проверка</summary>
+            <p><strong>Зафиксированная локальная проверка — одна конфигурация, а не глобальная сертификация:</strong> 23.09.2026 расширение <code>kilocode.kilo-code</code> в VS Code с корпоративным провайдером и корпоративной моделью загрузило project skill <code>setup-analysis-workspace</code> из <code>.agents/skills/</code> в одноразовом несекретном клоне требований для шага 5 и полностью его выполнило: Store doctor без замечаний, обе подготовки окружения завершились успешно. Наблюдаемая версия расширения — <code>7.7.7</code>; эта версия не обязательна, ставьте разрешённую актуальную. Локальная проверка — свидетельство сопровождающих, а не указание ученику выполнять дополнительную инициализацию. До отдельного решения ИБ работайте только в несекретном учебном проекте.</p>
+            </details>
+            <p><strong>Установите и проверьте Kilo Code</strong> перед первым блоком «С моделью» в шагах 1–3 или перед началом шага 5:</p>
+            <ol class="resource-steps">
+              <li>На Windows или VDI сначала оформите <a href="#installation-request">заявку на установку ПО</a>. Затем откройте Extensions в VS Code, найдите расширение по точному идентификатору <code>kilocode.kilo-code</code> и установите его разрешённым способом. Сверяйтесь с официальными инструкциями по <a href="https://kilo.ai/docs/getting-started/installing" target="_blank" rel="noopener noreferrer">установке</a> и <a href="https://kilo.ai/docs/code-with-ai/platforms/vscode" target="_blank" rel="noopener noreferrer">работе в VS Code</a>.</li>
+              <li>В Kilo откройте Settings → Providers и добавьте корпоративный провайдер с идентификатором из корпоративной инструкции. Адрес подключения получите только из <a href="#ai">корпоративной инструкции</a> или у администратора: не публикуйте и не переносите его из чужой конфигурации. Порядок полей описан в <a href="https://kilo.ai/docs/code-with-ai/agents/custom-models" target="_blank" rel="noopener noreferrer">Custom Models</a>.</li>
+              <li>Выберите модель, указанную в корпоративной инструкции, по её полному идентификатору. В проверенном файле конфигурации поле API-ключа отсутствует — официальная документация допускает провайдера без ключа; не добавляйте его без отдельного требования администратора. Варианты авторизации сверяйте с <a href="https://kilo.ai/docs/getting-started/setup-authentication" target="_blank" rel="noopener noreferrer">официальной инструкцией Kilo</a>.</li>
+              <li>Откройте несекретный учебный проект и отправьте в Kilo проверочный запрос: <code>Ответь ровно: подключение работает</code>. Проверка пройдена, когда выбран корпоративный провайдер и корпоративная модель отвечает «подключение работает». Не вставляйте в чат токены, пароли, ключи или содержимое закрытых конфигураций.</li>
+              <li>Задачи курса начинайте кнопкой <strong>«Новая сессия»</strong> над полем ввода Kilo. Кнопку <strong>«Новое Worktree»</strong> рядом не нажимайте: она создаёт копию репозитория в <code>.kilo/worktrees/</code>, и правки не попадут в вашу учебную папку. Если нажали, закройте вкладку Agent Manager и начните снова через «Новая сессия».</li>
+            </ol>
+            <figure class="resource-shot">
+              <a href="guides/assets/kilo-installed-extension.png" aria-label="Открыть установленное расширение Kilo Code в VS Code крупно"><img src="guides/assets/kilo-installed-extension.png" width="425" height="395" alt="Панель Extensions в VS Code с установленным расширением Kilo Code от проверенного издателя." loading="lazy" decoding="async" style="display:block;max-width:100%;height:auto"></a>
+              <figcaption>Фрагмент панели Extensions: реальная установка расширения Kilo Code в VS Code на проверенной машине; рабочее выполнение project skill зафиксировано 23.09.2026 (см. выше). <a href="guides/assets/kilo-installed-extension.png">Открыть крупно</a></figcaption>
+            </figure>
+
+            <p id="kilo-limits"><strong>Лимиты модели — это нормально.</strong> У корпоративной модели и сервиса есть пределы на запрос, контекст и объём ответа, поэтому Kilo Code иногда останавливается без результата — это не обязательно ваша ошибка. При ограничении частоты запросов повторите попытку через время, указанное в самом сообщении. Если ответ оборвался, проверьте уже сохранённые файлы и попросите в той же задаче продолжить оставшуюся часть, не дублируя сделанное; при повторном обрыве сократите запрос. Если Kilo показывает <code>The model hit its output limit while reasoning and produced no actionable output</code>, модель израсходовала предел ответа на рассуждение: напишите в той же задаче «продолжай». Незавершённый отчёт не считается успешной проверкой или ревью; автоматическое восстановление не гарантируется.</p>
+
+            <details id="opencode-setup" class="resource-more">
+              <summary>OpenCode · необязательная продвинутая альтернатива Kilo для работы с моделью · запуск во встроенном терминале VS Code</summary>
+              <p>Для блоков «С моделью» в шагах 1–3 и для шага 5 вы можете выбрать OpenCode вместо Kilo. На шаге 3 он работает с project skills, в шаге 5 — с project skills и Store. В сквозном маршруте инициализацию шага 3 выполняйте по отдельному шагу; отдельные эталоны уже содержат нужные skills. Запускайте OpenCode во встроенном терминале VS Code командой <code>opencode</code> из корня проекта.</p>
+              <dl>
+                <div>
+                  <dt>1. Установка и провайдер</dt>
+                  <dd>
+                    <p>На Windows или VDI сначала оформите <a href="#installation-request">заявку на установку ПО</a>. Установите OpenCode по <a href="https://opencode.ai/docs/" target="_blank" rel="noopener noreferrer">официальной инструкции</a> или <a href="https://opencode.ai/docs/windows-wsl" target="_blank" rel="noopener noreferrer">маршруту Windows/WSL</a>. Из корня проекта запустите <code>opencode</code> либо <code>opencode web</code>.</p>
+                    <p>Возьмите параметры только из <a href="#ai">корпоративной инструкции</a>. В OpenCode Web откройте <strong>Настройки → Провайдеры</strong>, добавьте пользовательского провайдера с идентификатором из корпоративной инструкции и заполните поля по выданным значениям. Адрес подключения на этой странице намеренно не публикуется. Сверяйтесь с <a href="https://opencode.ai/docs/providers/#custom-provider" target="_blank" rel="noopener noreferrer">официальной инструкцией провайдера</a>.</p>
+                    <p>Ключ, если его потребует администратор, вводите только в защищённое поле настроек; не переносите его в сообщение, команду, Git или снимок экрана.</p>
+                    <figure style="margin:12px 0">
+                      <a href="guides/assets/opencode-web-provider-form.png" aria-label="Открыть пустую форму провайдера OpenCode крупно"><img src="guides/assets/opencode-web-provider-form.png" width="1404" height="1138" alt="Пустая форма пользовательского провайдера OpenCode с полями идентификатора, имени, адреса и ключа." loading="lazy" decoding="async" style="display:block;max-width:100%;height:auto"></a>
+                      <figcaption>Форма провайдера: поля адреса и ключа на снимке не заполнены. <a href="guides/assets/opencode-web-provider-form.png">Открыть крупно</a></figcaption>
+                    </figure>
+                  </dd>
+                </div>
+                <div>
+                  <dt>2. Корпоративная модель</dt>
+                  <dd>
+                    <p>Откройте модели корпоративного провайдера и выберите полный идентификатор модели из корпоративной инструкции. Не сокращайте имя и не выбирайте публичную модель по умолчанию. Точный порядок выбора описан в <a href="https://opencode.ai/docs/models/" target="_blank" rel="noopener noreferrer">официальной инструкции по моделям</a>.</p>
+                    <p>В настройках моделей OpenCode Web модели корпоративного провайдера собраны в отдельную группу с его именем. Выбранная модель отмечена в ней полным идентификатором: сверьте его с корпоративной инструкцией символ в символ.</p>
+                  </dd>
+                </div>
+                <div>
+                  <dt>3. Проверочный запрос</dt>
+                  <dd>
+                    <p>В несекретном учебном проекте отправьте: <code>Ответь ровно: подключение работает</code>. Продолжайте курс только после ответа «подключение работает» от выбранной корпоративной модели. При ошибке передайте поддержке её текст без токенов, ключей и конфигурации.</p>
+                    <figure style="margin:12px 0">
+                      <a href="guides/assets/opencode-web-provider-form.png" aria-label="Открыть форму подключения провайдера OpenCode Web крупно"><img src="guides/assets/opencode-web-provider-form.png" width="1404" height="1138" alt="Форма подключения провайдера в OpenCode Web: поля идентификатора, имени, адреса и ключа." loading="lazy" decoding="async" style="display:block;max-width:100%;height:auto"></a>
+                      <figcaption>Форма подключения провайдера в OpenCode Web. После ввода адреса и ключа из «Корпоративных ресурсов» отправьте «Ответь ровно: подключение работает» — модель должна ответить этой фразой. <a href="guides/assets/opencode-web-provider-form.png">Открыть крупно</a></figcaption>
+                    </figure>
+                  </dd>
+                </div>
+              </dl>
+            </details>
+
+            <p><strong>Другие варианты:</strong> <a href="https://docs.cline.bot/" target="_blank" rel="noopener noreferrer">Cline</a> и <a href="https://docs.continue.dev/" target="_blank" rel="noopener noreferrer">Continue</a> на обследованной машине не установлены и в учебном маршруте не проверены. Ссылки даны только для сравнения; поддержка и совместимость не заявляются.</p>
+          </section>
+
+          <section class="resource-card__request" aria-labelledby="installation-request-title">
+            <span id="installation-request" class="anchor-alias" aria-hidden="true"></span>
+            <h4 id="installation-request-title">Заявка на установку ПО (Windows / VDI)</h4>
+            <p><strong>Запросите комплект рабочего места по блокам курса.</strong> Откройте систему заявок на установку ПО (адрес — в корпоративной инструкции) и укажите каждый инструмент отдельной позицией, чтобы ИБ/ИТ и бюджетный владелец видели весь состав. Для шагов 1–2 вам нужны Git и VS Code. Kilo Code потребуется для выбранных блоков «С моделью» в шагах 1–3 и для шага 5, которая выполняется только с моделью. Начиная с шага 3 также нужны Node.js 22+ и OpenSpec. OpenCode — необязательная продвинутая альтернатива Kilo; WSL нужен только для выбранного маршрута OpenCode на Windows. onUI используют авторы и проверяющие, вам для прохождения курса он не нужен.</p>
+            <ol class="resource-steps">
+              <li>Наименование программного обеспечения → инструменты из таблицы «Что нужно по шагам» для тех шагов, которые вы проходите; для авторов и проверяющих — onUI.</li>
+              <li>Ссылка на официальный сайт производителя → возьмите соответствующую ссылку из списка «Официальные сайты» в тексте заявки ниже.</li>
+              <li>Ссылка на лицензионное соглашение → укажите лицензию соответствующего продукта из списка «Лицензии» в тексте заявки ниже.</li>
+              <li>Обоснование → подготовка рабочего места для блоков курса; полный состав и привязка к шагам — в таблице «Что нужно по шагам» и в тексте заявки ниже.</li>
+            </ol>
+            <button class="copy-request" type="button" data-copy="#installation-request-template">Скопировать текст заявки</button>
+            <span class="copy-status" role="status" aria-live="polite"></span>
+            <details class="request-more">
+              <summary>Показать текст заявки целиком</summary>
+            <pre id="installation-request-template" class="resource-request-template" tabindex="0">Заявка на установку программного обеспечения
+
+Наименование программного обеспечения:
+  обязательный комплект полного курса (шаги 1–5, 6а или 6б и практикум):
+    Git for Windows / Git Bash
+    Node.js LTS и npm
+    OpenSpec
+    VS Code
+    расширение Kilo Code для VS Code — основной инструмент для блоков «С моделью» в шагах 1–3 и для шага 5
+    OpenCode — необязательная продвинутая альтернатива Kilo для блоков «С моделью» в шагах 1–3 и для шага 5; запуск во встроенном терминале VS Code
+    WSL 2 с Ubuntu — рекомендуемая Linux-среда для выбранного маршрута OpenCode на Windows
+    расширение VS Code для WSL
+  для авторов и проверяющих: onUI
+
+Официальные сайты:
+  Git for Windows — https://git-scm.com/install/windows
+  Node.js — https://nodejs.org/en/download/
+  OpenSpec — https://openspec.dev/
+  OpenCode — https://opencode.ai/
+  VS Code — https://code.visualstudio.com/download
+  Kilo Code — https://kilo.ai/docs/getting-started/installing
+  WSL — https://learn.microsoft.com/windows/wsl/install
+  VS Code для WSL — https://code.visualstudio.com/docs/remote/wsl-tutorial
+  onUI — https://onui.onllm.dev/
+
+Лицензии:
+  Git (GPLv2) — https://git-scm.com/about/free-and-open-source
+  Node.js (MIT) — https://github.com/nodejs/node/blob/main/LICENSE
+  OpenSpec (MIT) — https://github.com/Fission-AI/OpenSpec/blob/main/LICENSE
+  OpenCode (MIT) — https://github.com/anomalyco/opencode/blob/dev/LICENSE
+  VS Code — https://code.visualstudio.com/license
+  Kilo Code (MIT) — https://github.com/Kilo-Org/kilocode/blob/main/LICENSE
+  WSL (MIT) — https://github.com/microsoft/WSL/blob/master/LICENSE
+  onUI (GPL-3.0) — https://github.com/onllm-dev/onUI/blob/main/LICENSE
+
+Обоснование: полный комплект рабочего места для PDLC.
+
+Назначение компонентов:
+  Git — получение репозиториев, ветки, коммиты и передача изменений.
+  Node.js и npm — запуск проекта, зависимостей, сборки и проверок.
+  OpenSpec — подготовка proposal, спецификаций, design и tasks.
+  VS Code — редактор, терминал и запуск проверок.
+  Kilo Code и корпоративная LLM — основной маршрут курса внутри VS Code:
+    Brainstorming, Research, анализ, планирование, реализация и ревью.
+    Модель подключают один раз; она нужна в блоках «✦ С моделью» внутри
+    шагов 1–3, а шаг 5 выполняется только с моделью. Project
+    skills приходят с базой учебного блока; папка зависит от источника: в базе шагов 1–3 — .kilo/skills, в базе шага 5 — .agents/skills; на шаге 3 команда openspec init --tools none создаёт только структуру OpenSpec и навыков не создаёт.
+    Локальный прогон шага 5 через Kilo зафиксирован 23.09.2026;
+    доступ и потребление модели — в бюджете.
+  OpenCode — необязательная продвинутая альтернатива Kilo для блоков
+    «С моделью» в шагах 1–3 и для шага 5 (в шаге 3 — с project skills, в шаге 5 — с project
+    skills и Store); запуск — во встроенном терминале VS Code.
+  WSL 2 с Ubuntu — рекомендуемая Linux-среда для выбранного маршрута OpenCode на Windows;
+    нужна только при выборе OpenCode вместо Kilo в блоках «С моделью» шагов 1–3 и в шаге 5.
+  Прямой запуск в Windows допустим; остальной комплект работает без WSL.
+  Расширение VS Code для WSL — проект и терминал WSL из VS Code.
+  onUI — инструмент авторов и проверяющих для визуальных замечаний; в комплект ученика не входит.
+  SSH и Remote-SSH — только для удалённой VM; в базовый комплект не входят.
+
+Для шагов 1–2: git --version; VS Code открывает рабочую папку.
+Для блоков «С моделью»: Kilo Code отвечает в том же проекте.
+Начиная с шага 3: node --version (22+); npm --version; openspec --version.
+opencode --version проверяйте только при выборе альтернативы Kilo;
+onUI (только для авторов и проверяющих) отмечает элемент и копирует отчёт.
+Не прикладывайте пароли, токены и ключи. tsx, TypeScript и Vite отдельно
+не запрашивайте: проект устанавливает локальные версии командой npm ci
+из package-lock.json. make в этом маршруте не используется.</pre>
+            </details>
+          </section>
+
+          <dl>
+            <div>
+              <dt>Windows / VDI</dt>
+              <dd>
+                <p><strong>Обязательно:</strong> на Windows и в VDI любую установку из этой карточки выполняйте только после заявки и согласования ИБ/ИТ.</p>
+                <ol class="resource-steps">
+                  <li>Git for Windows: откройте <a href="https://git-scm.com/install/windows" target="_blank" rel="noopener noreferrer">официальную страницу</a>, установите Git и запускайте Bash-команды гайда в Git Bash.</li>
+                  <li>Node.js: установите LTS с <a href="https://nodejs.org/en/download/" target="_blank" rel="noopener noreferrer">официальной страницы</a>; npm входит в установку. Для курса используйте Node.js 22+.</li>
+                  <li>OpenSpec: откройте <a href="https://openspec.dev/docs/installation" target="_blank" rel="noopener noreferrer">официальную инструкцию</a> и установите CLI разрешённым способом; инициализацию выполняйте только в том гайде, где она указана.</li>
+                  <li>OpenCode (необязательная продвинутая альтернатива Kilo для работы с моделью): если выбрали этот инструмент, откройте <a href="https://opencode.ai/docs/windows-wsl" target="_blank" rel="noopener noreferrer">инструкцию Windows/WSL</a> и подключите только утверждённую корпоративную модель.</li>
+                  <li>VS Code: откройте <a href="https://code.visualstudio.com/download" target="_blank" rel="noopener noreferrer">страницу загрузки VS Code</a>, установите редактор и откройте рабочую папку. Для работы с моделью поставьте расширение <code>kilocode.kilo-code</code>; порядок настройки находится в разделе выше. Для проекта в WSL добавьте <a href="https://code.visualstudio.com/docs/remote/wsl-tutorial" target="_blank" rel="noopener noreferrer">Remote Development with WSL</a>.</li>
+                  <li>onUI (только для авторов и проверяющих): откройте <a href="https://chromewebstore.google.com/detail/onui/hllgijkdhegkpooopdhbfdjialkhlkan" target="_blank" rel="noopener noreferrer">магазин Chrome</a> или <a href="https://microsoftedge.microsoft.com/addons/detail/onui/fkcmlckehjhcicihbnmhkadfhjhfnond" target="_blank" rel="noopener noreferrer">магазин Edge</a>, добавьте расширение, отметьте элемент, скопируйте отчёт и отправьте его по согласованному каналу.</li>
+                </ol>
+                <p><strong>Команды:</strong> Bash-синтаксис гайда запускайте в Git Bash. Для OpenCode на Windows можно использовать WSL; его установка (включая <code>wsl --install</code>, права администратора и перезапуск) выполняется только после заявки и согласования ИБ/ИТ. В PowerShell используйте <code>npm.cmd ci</code> и <code>npm.cmd run check</code>; не переписывайте Bash-команды наугад. Проверку установленного набора выполняйте по раскрывающемуся блоку «Зависимости, Remote-SSH, ограничения и проверка готовности» ниже: там у каждой команды есть ожидаемый результат.</p>
+              </dd>
+            </div>
+            <div>
+              <dt>macOS (личная машина)</dt>
+              <dd>
+                <p>Устанавливайте инструменты для своих шагов по официальным ссылкам: <a href="https://git-scm.com/downloads" target="_blank" rel="noopener noreferrer">Git</a>, <a href="https://code.visualstudio.com/download" target="_blank" rel="noopener noreferrer">VS Code</a>, <a href="https://nodejs.org/en/download/" target="_blank" rel="noopener noreferrer">Node.js 22+</a>, <a href="https://openspec.dev/docs/installation" target="_blank" rel="noopener noreferrer">OpenSpec</a>. Для работы с моделью установите расширение <code>kilocode.kilo-code</code> по официальной документации Kilo; <a href="https://opencode.ai/docs/" target="_blank" rel="noopener noreferrer">OpenCode</a> — необязательная продвинутая альтернатива Kilo, настройка обоих инструментов описана в <a href="#kilo-vscode">общей инструкции</a>. Авторам и проверяющим: onUI добавьте из <a href="https://chromewebstore.google.com/detail/onui/hllgijkdhegkpooopdhbfdjialkhlkan" target="_blank" rel="noopener noreferrer">Chrome Web Store</a> или <a href="https://microsoftedge.microsoft.com/addons/detail/onui/fkcmlckehjhcicihbnmhkadfhjhfnond" target="_blank" rel="noopener noreferrer">Edge Add-ons</a>.</p>
+                <p>В <code>zsh</code> (или Bash) проверьте Git и откройте учебную папку в VS Code. Остальные проверки выполняйте по раскрывающемуся блоку «Зависимости, Remote-SSH, ограничения и проверка готовности» ниже: там у каждой команды есть ожидаемый результат. Дальнейшие действия выполняйте по инструкции своего гайда.</p>
+              </dd>
+            </div>
+            <div>
+              <dt>Linux (личная машина)</dt>
+              <dd>
+                <p>Устанавливайте инструменты для своих шагов по официальным ссылкам: <a href="https://git-scm.com/downloads" target="_blank" rel="noopener noreferrer">Git</a>, <a href="https://code.visualstudio.com/download" target="_blank" rel="noopener noreferrer">VS Code</a>, <a href="https://nodejs.org/en/download/" target="_blank" rel="noopener noreferrer">Node.js 22+</a>, <a href="https://openspec.dev/docs/installation" target="_blank" rel="noopener noreferrer">OpenSpec</a>. Пакетный менеджер дистрибутива используйте только в рамках официальной документации. Для работы с моделью установите расширение <code>kilocode.kilo-code</code>; OpenCode — необязательная продвинутая альтернатива Kilo, см. <a href="#kilo-vscode">общую инструкцию</a>. Авторам и проверяющим: onUI добавьте из <a href="https://chromewebstore.google.com/detail/onui/hllgijkdhegkpooopdhbfdjialkhlkan" target="_blank" rel="noopener noreferrer">Chrome Web Store</a> или <a href="https://microsoftedge.microsoft.com/addons/detail/onui/fkcmlckehjhcicihbnmhkadfhjhfnond" target="_blank" rel="noopener noreferrer">Edge Add-ons</a>.</p>
+                <p>В <code>Bash</code> проверьте Git и откройте учебную папку в VS Code. Остальные проверки выполняйте по раскрывающемуся блоку «Зависимости, Remote-SSH, ограничения и проверка готовности» ниже: там у каждой команды есть ожидаемый результат. Дальнейшие действия выполняйте по инструкции своего гайда.</p>
+              </dd>
+            </div>
+          </dl>
+
+          <details class="resource-more">
+            <summary>Зависимости, Remote-SSH, ограничения и проверка готовности</summary>
+            <dl>
+              <div><dt>Что ставит npm ci</dt><dd>В учебных репозиториях шагов 3–5 <code>npm ci</code> читает <code>package-lock.json</code> и ставит локальные dev-зависимости: <code>@fission-ai/openspec@1.12.0</code>, <code>tsx</code>, <code>typescript</code>, <code>@types/node</code>; в code checkout также <code>vite</code>. Команды <code>npm exec openspec</code> и <code>npm exec tsx</code> используют эти локальные версии. В сквозном маршруте шага 3 отдельно нужен native OpenSpec CLI в PATH для bare-команд <code>openspec</code>. Playwright в этих учебных manifest не входит, а onUI устанавливается как расширение браузера, не через npm. <code>tsx</code>, TypeScript и Vite отдельно не запрашивайте: это локальные зависимости проекта из <code>package-lock.json</code>. <code>make</code> в маршруте не используется. Если npm предлагает скачать пакет вне lock-файла, остановитесь и согласуйте реестр или пакет с ИБ.</dd></div><div><dt>Remote-SSH (если нужен)</dt><dd>Для подключения к VM с Windows, macOS или Linux нужны VS Code с расширением Remote-SSH, клиент OpenSSH и корпоративная сеть; проверьте <code>ssh -V</code>. На VM остаются Node.js/runtime, Docker, базы данных и инструмент работы с моделью. JetBrains Toolbox и DBeaver устанавливайте только если этого требует стек проекта; на Windows/VDI — после заявки и согласования ИБ/ИТ.</dd></div><div><dt>Что не ставится</dt><dd>Jira, GitLab, Confluence и корпоративный ИИ — это веб-системы: им нужны рабочая сеть, SSO и выданные права. Установка локального CLI сама по себе не выдаёт доступ к проекту, модели или репозиторию.</dd></div><div><dt>Кто выдаёт доступ</dt><dd>Для корпоративной машины или VDI заявку согласует ИБ; установочный пакет и права выдаёт владелец рабочего места или корпоративная поддержка.</dd></div><div><dt>Если не получилось</dt><dd>Если загрузка, магазин расширений, Git Bash или WSL заблокированы, передайте корпоративной поддержке название инструмента и прямую ссылку из этой карточки. Для Windows/VDI оформите <a href="#installation-request">заявку на установку ПО</a>.</dd></div><div><dt>Проверка Git</dt><dd><code>git --version</code> — увидите номер версии без ошибки. Вместе с VS Code этого достаточно для шагов 1–2; полный комплект — в таблице «Что нужно по шагам».</dd></div><div><dt>Проверка Node.js</dt><dd><code>node --version</code> — увидите <code>v22</code> или новее.</dd></div><div><dt>Проверка npm</dt><dd><code>npm --version</code> — увидите номер версии.</dd></div><div><dt>Проверка OpenSpec</dt><dd><code>openspec --version</code> — увидите <code>1.12.0</code>.</dd></div><div><dt>Проверка Kilo Code</dt><dd>Перед первым блоком «С моделью» отправьте проверочный запрос в панели Kilo: модель должна ответить «подключение работает» (см. раздел «Kilo Code в VS Code»).</dd></div><div><dt>Проверка OpenCode</dt><dd><code>opencode --version</code> — увидите номер версии; нужна только при выборе этой альтернативы Kilo.</dd></div><div><dt>Проверки проекта</dt><dd>Установку зависимостей, сборку и тесты выполняйте по инструкции своего гайда в репозитории с нужными файлами; onUI нужен только авторам и проверяющим.</dd></div>
+            </dl>
+          </details>
+        </article>
+      </div>
+    </section>
+
+    <section id="external-resources" class="resource-section" aria-labelledby="external-resources-title">
+      <header class="resource-section__header">
+        <p class="reference-kicker">Официальные источники</p>
+        <h2 id="external-resources-title">Внешние ресурсы</h2>
+        <p>Открывайте первичную документацию, когда нужна точная команда, правило или исследование. Все внешние ссылки открываются в новой вкладке и не предоставляют корпоративные права.</p>
+      </header>
+      <div class="resource-groups">
+        <article class="resource-group resource-group--external">
+          <h3>Инструменты разработки</h3>
+          <p class="resource-warning resource-warning--compact"><strong>Установка инструментов:</strong> Windows и VDI — до любой установки оформите заявку и получите согласование ИБ/ИТ; macOS и Linux — личные машины, используйте официальную документацию.</p>
+          <ul class="resource-links">
+            <li><a href="https://git-scm.com/docs" target="_blank" rel="noopener noreferrer">Git</a><span>Когда нужна точная команда или поведение Git.</span></li>
+            <li><a href="https://git-scm.com/install/windows" target="_blank" rel="noopener noreferrer">Git for Windows</a><span>Когда работаете на Windows и запускаете Bash-команды курса через Git Bash.</span></li>
+            <li><a href="https://nodejs.org/en/download/" target="_blank" rel="noopener noreferrer">Node.js LTS</a><span>Когда нужны Node.js и npm для OpenSpec и зависимостей учебного репозитория.</span></li>
+            <li><a href="https://docs.gitlab.com/" target="_blank" rel="noopener noreferrer">GitLab Docs</a><span>Когда настраиваете репозиторий, fork, токены и merge request в GitLab.</span></li>
+            <li><a href="https://code.visualstudio.com/docs" target="_blank" rel="noopener noreferrer">Visual Studio Code</a><span>Когда настраиваете редактор и встроенную работу с Git.</span></li>
+            <li><a href="https://openspec.dev/docs/installation" target="_blank" rel="noopener noreferrer">OpenSpec</a><span>Когда устанавливаете CLI и оформляете изменение как проверяемые спецификации и задачи.</span></li>
+            <li><a href="https://opencode.ai/docs/" target="_blank" rel="noopener noreferrer">OpenCode</a><span>Когда подключаете модель, сессию или инструменты OpenCode.</span></li>
+            <li><a href="https://opencode.ai/docs/windows-wsl" target="_blank" rel="noopener noreferrer">OpenCode · Windows/WSL</a><span>Когда запускаете OpenCode на Windows; WSL рекомендован официальным маршрутом для лучшей совместимости.</span></li>
+            <li><a href="https://learn.microsoft.com/en-us/windows/wsl/install" target="_blank" rel="noopener noreferrer">WSL</a><span>Когда нужен Linux-маршрут на Windows; в VDI установку предварительно согласуйте с ИБ/ИТ.</span></li>
+            <li><a href="https://code.visualstudio.com/docs/remote/wsl-tutorial" target="_blank" rel="noopener noreferrer">VS Code · WSL</a><span>Когда открываете репозиторий внутри WSL из VS Code.</span></li>
+            <li><a href="https://code.visualstudio.com/docs/remote/ssh" target="_blank" rel="noopener noreferrer">VS Code · Remote-SSH</a><span>Когда открываете папку на удалённой VM через SSH.</span></li>
+            <li><a href="https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse" target="_blank" rel="noopener noreferrer">OpenSSH для Windows</a><span>Когда на Windows нужен SSH-клиент для подключения к VM.</span></li>
+            <li><a href="https://man.openbsd.org/ssh" target="_blank" rel="noopener noreferrer">OpenSSH · macOS/Linux</a><span>Когда используете системный SSH-клиент на личной macOS или Linux.</span></li>
+            <li><a href="https://www.jetbrains.com/toolbox-app/" target="_blank" rel="noopener noreferrer">JetBrains Toolbox</a><span>Когда стек проекта требует JetBrains IDE; лицензия и установка согласуются отдельно.</span></li>
+            <li><a href="https://dbeaver.io/download/" target="_blank" rel="noopener noreferrer">DBeaver Community</a><span>Когда нужен локальный GUI для базы данных; используйте только по требованиям проекта.</span></li>
+            <li><a href="https://code.claude.com/docs" target="_blank" rel="noopener noreferrer">Claude Code</a><span>Вне маршрута курса: когда настраиваете агентную разработку и проверку кода.</span></li>
+            <li><a href="https://github.com/onllm-dev/onUI" target="_blank" rel="noopener noreferrer">onUI</a><span>Когда автор или проверяющий собирает визуальные замечания по интерфейсу.</span></li>
+            <li><a href="https://playwright.dev/" target="_blank" rel="noopener noreferrer">Playwright</a><span>Когда автоматизируете проверку поведения в браузере.</span></li>
+          </ul>
+        </article>
+
+        <article class="resource-group resource-group--external">
+          <h3>Анализ, качество и стандарты</h3>
+          <ul class="resource-links">
+            <li><a href="https://www.iiba.org/business-analysis-blogs/insight-enables-confidence-the-2026-global-state-of-business-analysis-report/" target="_blank" rel="noopener noreferrer">IIBA · Global State of Business Analysis</a><span>Когда сверяете практики анализа с отраслевым исследованием.</span></li>
+            <li><span class="resource-links__name">DORA</span><span><a href="https://dora.dev/insights/balancing-ai-tensions/" target="_blank" rel="noopener noreferrer">ИИ и качество</a> · <a href="https://dora.dev/capabilities/platform-engineering/" target="_blank" rel="noopener noreferrer">платформенная инженерия</a> — когда оцениваете поток поставки и среду разработки.</span></li>
+            <li><span class="resource-links__name">NIST / CSRC</span><span><a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank" rel="noopener noreferrer">AI RMF</a> · <a href="https://csrc.nist.gov/pubs/sp/800/218/final" target="_blank" rel="noopener noreferrer">SSDF</a> — когда фиксируете риски ИИ и безопасной разработки.</span></li>
+            <li><a href="https://genai.owasp.org/resource/state-of-agentic-ai-security-and-governance/" target="_blank" rel="noopener noreferrer">OWASP GenAI Security Project</a><span>Когда проверяете риски агентных ИИ-систем и меры управления.</span></li>
+            <li><a href="https://www.thoughtworks.com/insights/articles/preparing-your-team-for-agentic-software-development-life-cycle" target="_blank" rel="noopener noreferrer">Thoughtworks · Agentic SDLC</a><span>Когда обсуждаете готовность команды к агентной разработке.</span></li>
+            <li><a href="https://www.markdownguide.org/basic-syntax/" target="_blank" rel="noopener noreferrer">Markdown Guide · Basic Syntax</a><span>Когда проверяете оформление Markdown-документа.</span></li>
+            <li><a href="https://research.google/pubs/understanding-architectural-complexity-maintenance-burden-and-developer-sentiment-a-large-scale-study/" target="_blank" rel="noopener noreferrer">Google Research · Architectural complexity</a><span>Когда нужна исследовательская опора для обсуждения сложности и сопровождения.</span></li>
+          </ul>
+        </article>
+
+        <article class="resource-group resource-group--external">
+          <h3>Документация поставщиков</h3>
+          <ul class="resource-links">
+            <li><span class="resource-links__name">Atlassian</span><span><a href="https://www.atlassian.com/software/jira/guides" target="_blank" rel="noopener noreferrer">Jira Guides</a> · <a href="https://confluence.atlassian.com/spaces/JIRASOFTWARESERVER/pages/939938925/Creating%2Bissues%2Band%2Bsub-tasks" target="_blank" rel="noopener noreferrer">Atlassian · документация Jira</a> — документация Jira, размещённая на Confluence Atlassian.</span></li>
+            <li><a href="https://learn.microsoft.com/en-us/troubleshoot/azure/virtual-desktop/troubleshoot-connection-quality" target="_blank" rel="noopener noreferrer">Microsoft Learn · Azure Virtual Desktop</a><span>Когда диагностируете качество подключения к удалённой среде.</span></li>
+            <li><a href="https://developers.openai.com/api/docs/guides/latest-model?model=gpt-5.6" target="_blank" rel="noopener noreferrer">OpenAI Developers · model guidance</a><span>Когда выбираете модель и режим работы по официальным рекомендациям.</span></li>
+            <li><span class="resource-links__name">Agent Skills</span><span><a href="https://agentskills.io" target="_blank" rel="noopener noreferrer">спецификация</a> · <a href="https://github.com/anthropics/skills" target="_blank" rel="noopener noreferrer">библиотека примеров</a> — когда создаёте или проверяете переносимый skill.</span></li>
+            <li><a href="https://github.blog/news-insights/research/does-github-copilot-improve-code-quality-heres-what-the-data-says/" target="_blank" rel="noopener noreferrer">GitHub Blog · Copilot and code quality</a><span>Когда нужна первичная публикация исследования GitHub о качестве кода.</span></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+  <script>
+    (() => {
+      document.querySelectorAll('.copy-request').forEach((button) => {
+        const status = button.parentElement ? button.parentElement.querySelector('.copy-status') : null;
+        const source = document.querySelector(button.getAttribute('data-copy'));
+        if (!status || !source) return;
+        button.addEventListener('click', async () => {
+          status.textContent = '';
+          const text = source.textContent || '';
+          try {
+            await navigator.clipboard.writeText(text);
+            status.textContent = 'Текст заявки скопирован.';
+          } catch {
+            const selection = window.getSelection();
+            if (selection) {
+              const range = document.createRange();
+              range.selectNodeContents(source);
+              selection.removeAllRanges();
+              selection.addRange(range);
+            }
+            source.focus();
+            source.scrollIntoView({ block: 'nearest' });
+            status.textContent = 'Не удалось скопировать автоматически. Текст выделен — нажмите Ctrl/Cmd+C.';
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

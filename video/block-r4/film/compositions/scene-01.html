@@ -1,0 +1,79 @@
+<template id="scene-01-template">
+  <div data-composition-id="scene-01" data-width="1920" data-height="1080" data-duration="22.1">
+    <style>
+      [data-composition-id="scene-01"] .mp-col { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; pointer-events: none; }
+      [data-composition-id="scene-01"] .mp-col > .k-aside { box-sizing: border-box; padding: 0 24px; display: flex; align-items: center; gap: 22px; }
+      [data-composition-id="scene-01"] .mp-n { flex: 0 0 500px; font-family: var(--k-font-mono); font-size: 32px; font-weight: 500; line-height: 1.2; color: var(--k-accent-soft); }
+      [data-composition-id="scene-01"] .mp-c { flex: 1 1 auto; font-size: 30px; font-weight: 500; line-height: 1.2; color: var(--k-text); }
+      [data-composition-id="scene-01"] .pl-cap { font-size: 30px; font-weight: 600; color: var(--k-text-2); line-height: 1.2; }
+      [data-composition-id="scene-01"] .pl-t { font-size: 44px; font-weight: 800; line-height: 1.15; margin-top: 6px; }
+      [data-composition-id="scene-01"] .pl-s { font-size: 36px; font-weight: 700; line-height: 1.2; margin-top: 8px; color: var(--k-accent-soft); }
+      [data-composition-id="scene-01"] .pl-r { border-color: var(--k-info); }
+      [data-composition-id="scene-01"] .pl-r .pl-s { color: var(--k-info); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("01"), t = S.t, DUR = 22.1;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const div = (cls, html, parent) => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; parent.appendChild(el); return el; };
+        const INFO = Kit.token("--k-info"), LINE = Kit.token("--k-line"), ACC = Kit.token("--k-accent");
+
+        Kit.header(S, { header: { mode: "parts", total: 8 }, chapter: "Карта метарепозитория", step: 1, duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* Left: the map, seven items, captions from the page (what it is / who writes). It starts centred and slides left when the right column is needed. */
+        const col = div("mp-col", "", s1);
+        const M = [
+          ["intents/", "Смысл до решения. Пишет владелец продукта"],
+          ["openspec/specs/", "Как продукт работает сейчас. Руками не правят"],
+          ["openspec/changes/", "Изменения в работе: одна доработка — одна папка"],
+          ["openspec/changes/archive/", "Архив реализованного. Читать можно, править нельзя"],
+          ["AGENTS.md", "Правила для модели. Пишет техлид"],
+          [".agents/skills/", "Навыки для модели. Пишет команда платформы"],
+          ["README.md", "Что здесь лежит и с чего начать. Пишет владелец продукта"],
+        ];
+        const T_MAP = Math.max(t("карты"), 2.1);   // the part title card covers the first 2 s
+        const rows = M.map(([n, c], i) => {
+          const a = Kit.aside(S, { parent: col, x: 96, y: 206 + i * 86, w: 1144, h: 80, tail: false, html: `<div class="mp-n">${n}</div><div class="mp-c">${c}</div>` });
+          a.show(T_MAP + i * 0.12);
+          read(n + " " + c, T_MAP + i * 0.12, DUR);
+          return a.el;
+        });
+        gsap.set(col, { x: 292 });
+
+        const hl = (el, on, off, col2) => {
+          S.tl.to(el, { borderColor: col2 || INFO, duration: 0.3 }, on);
+          S.tl.to(el, { borderColor: LINE, duration: 0.3 }, off);
+        };
+        hl(rows[0], t("Смысл"), t("как продукт") - 0.1);
+        hl(rows[1], t("как продукт"), t("а новые") - 0.1);
+        hl(rows[2], t("в отдельных"), t("Вход здесь") - 0.1);
+
+        /* Right column: the input of this guide, then the architect sign. */
+        const T_IN = t("Вход здесь");
+        S.tl.to(col, { x: 0, duration: 0.8, ease: "power2.inOut" }, T_IN - 0.5);
+        S.tl.to(rows[0], { borderColor: ACC, duration: 0.3 }, T_IN);
+
+        const p1 = Kit.aside(S, { parent: s1, x: 1304, y: 206, w: 520, tail: true, html:
+          '<div class="pl-cap">Вход</div><div class="pl-t">Замысел два</div><div class="pl-s">«Лимит суммы из системы банка»</div>' });
+        p1.show(T_IN + 0.3);
+        read("Вход Замысел два Лимит суммы из системы банка", T_IN + 0.3, DUR);
+
+        const p2 = Kit.aside(S, { parent: s1, x: 1304, y: 470, w: 520, tail: false, html:
+          '<div class="pl-t" style="margin-top:0">Связь с банком</div><div class="pl-s">→ нужен архитектор</div>' });
+        p2.el.classList.add("pl-r");
+        p2.show(t("связь"));
+        read("Связь с банком нужен архитектор", t("связь"), DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

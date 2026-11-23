@@ -1,0 +1,52 @@
+[
+  {
+    "n": 0,
+    "title": "Вступление",
+    "step": null,
+    "chapter": "Вступление",
+    "start": 0,
+    "titleStart": 0,
+    "speechStart": 0,
+    "end": 33.3
+  },
+  {
+    "n": 1,
+    "title": "Что такое план изменений",
+    "step": null,
+    "chapter": "Что такое план изменений",
+    "start": 33.3,
+    "titleStart": 33.3,
+    "speechStart": 33.3,
+    "end": 78.8
+  },
+  {
+    "n": 2,
+    "title": "Три изменения калькулятора",
+    "step": null,
+    "chapter": "Три изменения калькулятора",
+    "start": 78.8,
+    "titleStart": 78.8,
+    "speechStart": 78.8,
+    "end": 138.2
+  },
+  {
+    "n": 3,
+    "title": "Риски с запасным ходом",
+    "step": null,
+    "chapter": "Риски с запасным ходом",
+    "start": 138.2,
+    "titleStart": 138.2,
+    "speechStart": 138.2,
+    "end": 178.5
+  },
+  {
+    "n": 4,
+    "title": "План готов",
+    "step": null,
+    "chapter": "План готов",
+    "start": 178.5,
+    "titleStart": 178.5,
+    "speechStart": 178.5,
+    "end": 200.6
+  }
+]

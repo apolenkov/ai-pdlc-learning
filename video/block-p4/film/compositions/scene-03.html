@@ -1,0 +1,192 @@
+<template id="scene-03-template">
+  <div data-hf-id="hf-brmu" data-composition-id="scene-03" data-width="1920" data-height="1080" data-duration="61.6">
+    <style>
+      [data-composition-id="scene-03"] .st-strip { position: absolute; left: 96px; top: 206px; width: 1728px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+      [data-composition-id="scene-03"] .st-chip { position: relative; height: 58px; display: flex; align-items: center; justify-content: center; padding: 0 8px 0 44px; border: 2px solid var(--k-line); border-radius: 14px; background: var(--k-panel-2); }
+      [data-composition-id="scene-03"] .st-layer { position: absolute; inset: -2px; border-radius: 14px; border: 2px solid var(--k-accent); }
+      [data-composition-id="scene-03"] .st-layer.done { border-color: var(--k-ok); background: var(--k-ok-tint); }
+      [data-composition-id="scene-03"] .st-mark { position: absolute; left: 12px; top: 12px; width: 30px; height: 30px; color: var(--k-ok); }
+      [data-composition-id="scene-03"] .st-mark svg { width: 30px; height: 30px; display: block; }
+      [data-composition-id="scene-03"] .st-label { position: relative; font-size: 30px; font-weight: 600; color: var(--k-text-2); white-space: nowrap; }
+      [data-composition-id="scene-03"] .tm { position: absolute; left: 96px; top: 288px; width: 1728px; height: 456px; }
+      [data-composition-id="scene-03"] .tm-bar { height: 56px; display: flex; align-items: center; gap: 28px; padding: 0 26px; background: var(--k-win-bar); border-bottom: 1px solid var(--k-line); }
+      [data-composition-id="scene-03"] .tm-crumb { font-size: 28px; color: var(--k-text-2); font-weight: 500; white-space: nowrap; }
+      [data-composition-id="scene-03"] .tm-body { position: absolute; left: 0; right: 0; top: 57px; bottom: 0; overflow: hidden; }
+      [data-composition-id="scene-03"] .tm-lines { position: absolute; left: 28px; right: 28px; top: 14px; bottom: 14px; }
+      [data-composition-id="scene-03"] .tm-ln { position: absolute; left: 0; right: 0; font-family: var(--k-font-mono); font-size: 30px; line-height: 40px; color: var(--k-text-2); white-space: pre; }
+      [data-composition-id="scene-03"] .tm-ln.cmd { color: var(--k-code-text); }
+      [data-composition-id="scene-03"] .tm-ln .pr { color: var(--k-accent-soft); }
+      [data-composition-id="scene-03"] .tm-ln.ok { color: var(--k-ok); }
+      [data-composition-id="scene-03"] .tm-ln.ui { font-family: var(--k-font-sans); font-weight: 700; color: var(--k-accent-soft); }
+      [data-composition-id="scene-03"] .st-pull { position: absolute; left: 96px; top: 760px; padding: 6px 22px; border: 2px solid var(--k-accent); border-radius: 14px; background: var(--k-panel-2); font-family: var(--k-font-mono); font-size: 30px; line-height: 40px; color: var(--k-text); }
+      [data-composition-id="scene-03"] .pr-row { position: absolute; left: 96px; width: 1728px; display: grid; align-items: stretch; gap: 24px; }
+      [data-composition-id="scene-03"] .pr-row > .k-aside { position: relative; }
+      [data-composition-id="scene-03"] .pr-t { font-size: 44px; font-weight: 700; line-height: 1.15; }
+      [data-composition-id="scene-03"] .pr-c { font-size: 30px; line-height: 1.3; color: var(--k-text-2); margin-top: 8px; }
+      [data-composition-id="scene-03"] .pr-sub { position: absolute; left: 96px; width: 1728px; font-size: 40px; font-weight: 700; color: var(--k-accent-soft); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("03"), t = S.t, DUR = 61.6;
+        // W3b (TASK-685): «Store шаг за шагом» — шесть шагов цепочки store; терминал на каждой машине, строки копятся и
+        // уезжают вверх целыми строками. Команды и вывод — из research/EXPERIMENT-LOG.md (B3, G3, C1, C2, D1, D2, B6).
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»: ${(off - at - reveal).toFixed(1)} с, нужно ${needed.toFixed(1)}`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const div = (cls, html, parent) => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; parent.appendChild(el); return el; };
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const row = (p, top, cols) => { const r = div("pr-row", "", p); r.style.top = top + "px"; r.style.gridTemplateColumns = cols; return r; };
+        const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+        Kit.header(S, { header: { mode: "parts", total: 5 }, chapter: "Store шаг за шагом", step: 3, duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        // Полоса шагов: заставка части закрывает первые 2 с, полоса появляется сразу после неё.
+        const STEPS = [["создать", t("Сначала один человек")], ["отправить", t("В гитлабе")], ["подключить", t("На другой машине")],
+          ["связать", t("В репозитории кода")], ["изменить", t("Команда new change")], ["проверить", t("Команда store doctor")]];
+        const strip = div("st-strip", "", s1);
+        const STRIP_AT = 2.1;
+        // Состояние шага — слои под текстом чипа (текущий: акцентная рамка; пройден: зелёная заливка и галочка); только твины,
+        // поэтому перемотка детерминирована, а текст в чипе один.
+        STEPS.forEach(([name, at], i) => {
+          const chip = div("st-chip", "", strip);
+          const on = div("st-layer on", "", chip), done = div("st-layer done", "", chip);
+          const mark = div("st-mark", Kit.icons.check, chip), label = div("st-label", name, chip);
+          gsap.set([chip, on, done, mark], { autoAlpha: 0 });
+          Kit.popIn(S, chip, STRIP_AT + i * 0.08);
+          read(name, STRIP_AT + i * 0.08, DUR - 2);
+          const doneAt = i + 1 < STEPS.length ? STEPS[i + 1][1] : S.end("метаданные");
+          S.tl.to(on, { autoAlpha: 1, duration: 0.25 }, at);
+          S.tl.to(label, { color: Kit.token("--k-text"), duration: 0.25 }, at);
+          S.tl.to(on, { autoAlpha: 0, duration: 0.3 }, doneAt);
+          S.tl.to([done, mark], { autoAlpha: 1, duration: 0.3 }, doneAt);
+        });
+
+        // Терминал машины: строки появляются по озвучке; если не помещаются, окно прокручивается на целые строки.
+        const LH = 40, ROWS = 9;
+        const terminal = (crumb) => {
+          const win = div("k-win tm", "", s1);
+          gsap.set(win, { autoAlpha: 0 });
+          const bar = div("tm-bar", "", win);
+          div("k-dots", "<i></i><i></i><i></i>", bar);
+          div("tm-crumb", esc(crumb), bar);
+          const body = div("tm-body", "", win);
+          const inner = div("tm-lines", "", body);
+          return { win, inner, crumb, items: [] };
+        };
+        const add = (T, kind, text, at, rows = 1) => {
+          const html = text.split("\n").map((part) => {
+            const m = kind === "cmd" ? /^(\S+ \$ )(.*)$/.exec(part) : null;
+            return m ? '<span class="pr">' + esc(m[1]) + "</span>" + esc(m[2]) : esc(part);
+          }).join("\n");
+          const el = div("tm-ln " + kind, html, T.inner);
+          gsap.set(el, { autoAlpha: 0 });
+          T.items.push({ el, text: text.replace(/\n/g, " "), at, rows });
+        };
+        // Прокрутка целыми строками: каждая строка стоит на своей позиции; новая строка, которой не хватает места,
+        // сдвигает окно к ближайшей границе строки, ушедшие вверх строки гаснут (в кадре нет обрезанных строк).
+        const layout = (T, outAt) => {
+          let total = 0, offset = 0;
+          const starts = T.items.map((it) => { const s = total; total += it.rows; return s; });
+          const off = T.items.map(() => outAt);
+          const base = [];
+          T.items.forEach((it, i) => {
+            const need = starts[i] + it.rows - ROWS;
+            if (need > offset) {
+              const next = starts.find((s) => s >= need);
+              for (let j = 0; j < i; j++) {
+                if (off[j] !== outAt) continue;
+                if (starts[j] < next) { off[j] = it.at; S.tl.to(T.items[j].el, { autoAlpha: 0, duration: 0.15 }, it.at); }
+                else S.tl.to(T.items[j].el, { y: -(next - base[j]) * LH, duration: 0.3, ease: "power2.out" }, it.at + 0.15);
+              }
+              offset = next;
+            }
+            base[i] = offset;
+            it.shown = it.at + (need > 0 ? 0.45 : 0);
+            it.el.style.top = (starts[i] - offset) * LH + "px";
+            S.tl.fromTo(it.el, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out", immediateRender: false }, it.shown);
+          });
+          T.items.forEach((it, i) => read(it.text, it.shown, off[i]));
+        };
+
+        // Машина 1: шаг 1 (setup) и шаг 2 (GitLab и push). Окно машины 1 гаснет до «клонируем», окно машины 2 входит за 0,2 с до слова.
+        const M1_IN = t("Сначала один человек"), M1_OUT = t("клонируем") - 0.4;
+        const m1 = terminal("Машина 1 · терминал");
+        Kit.stageIn(S, m1.win, M1_IN - 0.1);
+        add(m1, "cmd", "~ $ openspec store setup product-specs --path ~/openspec/product-specs", t("командой store setup"));
+        const SETUP_OUT = t("Команда создаёт");
+        add(m1, "out", "Store ready: product-specs", SETUP_OUT);
+        add(m1, "out", "OpenSpec root: ready", SETUP_OUT + 0.9);
+        add(m1, "out", "Registry: registered", SETUP_OUT + 1.8);
+        const GL = t("В гитлабе");
+        add(m1, "ui", "В GitLab: пустой проект", GL + 0.05);
+        add(m1, "ui", "В терминале:", GL + 0.45);
+        add(m1, "cmd", "~ $ git -C ~/openspec/product-specs remote add origin <адрес>", GL + 0.6);
+        add(m1, "cmd", "~ $ git -C ~/openspec/product-specs push -u origin HEAD", GL + 2.2);
+        layout(m1, M1_OUT);
+        S.tl.to(m1.win, { autoAlpha: 0, duration: 0.2, ease: "power1.in" }, M1_OUT);
+
+        // Машина 2: шаг 3 (clone и register), шаги 4–5 в репозитории кода api; затем карточка Git-пути и doctor.
+        const M2_IN = t("клонируем") - 0.2;
+        const GIT_IN = t("Чтобы коллеги"), GIT_OUT = t("Команда store doctor") - 0.05;
+        const m2 = terminal("Машина 2 · терминал");
+        Kit.stageIn(S, m2.win, M2_IN);
+        add(m2, "cmd", "~ $ git clone <адрес> ~/openspec/product-specs", M2_IN + 0.3);
+        add(m2, "cmd", "~ $ openspec store register ~/openspec/product-specs", t("подключаем"));
+        add(m2, "out", "Store registered: product-specs", t("register"));
+        add(m2, "out", "Registry: registered", t("register") + 0.9);
+        add(m2, "cmd", "api $ mkdir -p openspec", t("создаём папку"));
+        add(m2, "cmd", "api $ printf 'store: product-specs\\n' > openspec/config.yaml", t("пишем"));
+        add(m2, "cmd", "api $ openspec init --tools claude", t("init:"));
+        add(m2, "ok", "✔ Setup complete for Claude Code", t("init:") + 0.9);
+        add(m2, "out", "Config: openspec/config.yaml (exists)", t("иначе появятся"));
+        add(m2, "cmd", "api $ openspec new change exp-001-export", t("Команда new change") + 0.3);
+        add(m2, "out", "Using OpenSpec root: product-specs", t("Команда new change") + 1.06);
+        add(m2, "out", "Created change 'exp-001-export'", t("Команда new change") + 1.26);
+        layout(m2, GIT_IN - 0.3);
+        S.tl.to(m2.win, { autoAlpha: 0, duration: 0.25, ease: "power1.in" }, GIT_IN - 0.3);
+
+        // Шаг 5: изменение становится общим только через ветку Store, коммит, отправку и MR. Подробные команды — в гайде:
+        // четыре пары «окно / терминал» не помещаются в речь (слов / 3 + 1 с на каждое состояние), поэтому три плитки.
+        const gt = row(s1, 330, "1fr 1fr 1fr");
+        const gtTile = (at, ttl, sub) => { const a = Kit.aside(S, { parent: gt, tail: false, html: '<div class="pr-t">' + ttl + '</div><div class="pr-c">' + sub + "</div>" }); a.show(at); read(ttl + " " + sub.replace(/<[^>]+>/g, " "), at, GIT_OUT); a.hide(GIT_OUT); return a; };
+        gtTile(GIT_IN, "Ветка Store", "В VS Code: Create Branch<br>В терминале: switch -c");
+        gtTile(t("сохраняем"), "Commit и push", "В VS Code: Stage, Commit, Publish<br>В терминале: add, commit, push");
+        gtTile(t("на ревью"), "MR в Store", "В GitLab");
+        const gtNote = div("pr-sub", "Раньше кода · команды в гайде", s1);
+        gtNote.style.top = "640px"; hide(gtNote); Kit.popIn(S, gtNote, t("Это не отправка кода")); read("Раньше кода · команды в гайде", t("Это не отправка кода"), GIT_OUT); S.tl.to(gtNote, { autoAlpha: 0, duration: 0.25 }, GIT_OUT);
+
+        // Шаг 6: doctor проверяет структуру Store, не принятие требований.
+        const m3 = terminal("Машина 2 · терминал");
+        Kit.stageIn(S, m3.win, GIT_OUT + 0.05);
+        const DOC = t("Команда store doctor");
+        add(m3, "cmd", "api $ openspec store doctor product-specs", DOC + 0.4);
+        const DOC_OUT = t("корень опенспек");
+        add(m3, "out", "Store doctor", DOC_OUT);
+        add(m3, "out", "product-specs", DOC_OUT);
+        add(m3, "out", "  OpenSpec root: ok", DOC_OUT);
+        add(m3, "out", "  Metadata: ok", DOC_OUT + 0.6);
+        add(m3, "ok", "  Issues: none", DOC_OUT + 1.2);
+        layout(m3, DUR - 2);
+
+        // Последняя фраза части — синхронизации нет: под окном метка git pull без дополнительного текста.
+        const PULL = t("Синхронизации");
+        const pull = div("st-pull", "git pull", s1);
+        gsap.set(pull, { autoAlpha: 0 });
+        Kit.popIn(S, pull, PULL);
+        read("git pull", PULL, DUR - 2);
+
+        Kit.subtitles(S, {});
+        // Заставка следующей части лежит на последних 2 с сцены (tail, сплошной фон): содержимое под ней гасим,
+        // чтобы проверка кадра не считала закрытый текст наложением или низким контрастом. В кадре ничего не меняется.
+        const COVER = DUR - 2;
+        S.tl.set(Array.from(S.root.children).filter((el) => !/^(SCRIPT|STYLE)$/.test(el.tagName)), { autoAlpha: 0 }, COVER);
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

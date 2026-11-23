@@ -1,0 +1,16 @@
+{
+  "file": "pdlc-guide-long-720p.mp4",
+  "sha256": "fd133e4b73417e0a712ee2bb0744cd9b02b2af57566495ddff8e31dd5733e1aa",
+  "size": 12485933,
+  "url": "https://github.com/apolenkov/ai-pdlc-learning/releases/download/media-v1/fd133e4b7341-pdlc-guide-long-720p.mp4",
+  "version": "fd133e4b7341",
+  "audio": "voice-only",
+  "master": {
+    "file": "pdlc-guide-long-1080p.mp4",
+    "sha256": "1fb6fb28a43dd6c1a0bcdd35ca0d5be8aa6e93841158b2a086becffb19e78e83",
+    "size": 23575385,
+    "lost": "утерян до сдачи Mac 25.11.2026: файла нет ни на Диске, ни локально; пин сохранён"
+  },
+  "duration": 455.5,
+  "note": "Registry (проект 6656), версия = первые 12 знаков sha256; readback MATCH. TASK-671: звук только из голоса (озвучка без музыки и SFX), видео побайтно прежнее, AAC-LC 48 кГц моно, около −16 LUFS; мастер 1080p — прежний микс (вне этапа)"
+}

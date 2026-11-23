@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path class="s" pathLength="1" stroke="#a3a9b4" stroke-width="4" d="M20 440 H620"/>
+  <path class="s" pathLength="1" stroke="#eef0f3" stroke-width="4" d="M30 440 V210 L146 160 V210 L262 160 V210 L378 160 V210 L494 160 V210 L610 160 V440"/>
+  <path class="s" pathLength="1" stroke="#a3a9b4" stroke-width="3" d="M320 210 V232 M300 248 L320 232 L340 248 Z"/>
+  <path class="s" pathLength="1" stroke="#eef0f3" stroke-width="4" d="M70 392 H570 M70 410 H570"/>
+  <path class="s" pathLength="1" stroke="#a3a9b4" stroke-width="3" d="M86 410 v14 M200 410 v14 M314 410 v14 M428 410 v14 M542 410 v14"/>
+  <path class="s" pathLength="1" stroke="#a3a9b4" stroke-width="3" d="M110 392 v-26 h28 v26"/>
+  <path class="s" pathLength="1" stroke="#a3a9b4" stroke-width="3" d="M250 392 v-26 h28 v26"/>
+  <path class="s" pathLength="1" stroke="#a3a9b4" stroke-width="3" d="M470 392 v-26 h28 v26"/>
+  <path class="s" pathLength="1" stroke="#eef0f3" stroke-width="4" d="M148 392 V378 H192 V392"/>
+  <path class="s" pathLength="1" stroke="#eef0f3" stroke-width="4" d="M170 378 L198 312"/>
+  <path class="s" pathLength="1" stroke="#eef0f3" stroke-width="4" d="M198 312 L156 286"/>
+  <path class="s" pathLength="1" stroke="#eef0f3" stroke-width="3" d="M156 286 l-10 14 M156 286 l-16 -6"/>
+  <path class="s" pathLength="1" stroke="#ff7a59" stroke-width="4" d="M198 306 a6 6 0 1 0 0.1 0"/>
+  <path class="s" pathLength="1" stroke="#eef0f3" stroke-width="4" d="M338 392 V378 H382 V392"/>
+  <path class="s" pathLength="1" stroke="#eef0f3" stroke-width="4" d="M360 378 L388 312"/>
+  <path class="s" pathLength="1" stroke="#eef0f3" stroke-width="4" d="M388 312 L346 286"/>
+  <path class="s" pathLength="1" stroke="#eef0f3" stroke-width="3" d="M346 286 l-10 14 M346 286 l-16 -6"/>
+  <path class="s" pathLength="1" stroke="#ff7a59" stroke-width="4" d="M388 306 a6 6 0 1 0 0.1 0"/>
+  <path class="s" pathLength="1" stroke="#eef0f3" stroke-width="4" d="M498 392 V378 H542 V392"/>
+  <path class="s" pathLength="1" stroke="#eef0f3" stroke-width="4" d="M520 378 L548 312"/>
+  <path class="s" pathLength="1" stroke="#eef0f3" stroke-width="4" d="M548 312 L506 286"/>
+  <path class="s" pathLength="1" stroke="#eef0f3" stroke-width="3" d="M506 286 l-10 14 M506 286 l-16 -6"/>
+  <path class="s" pathLength="1" stroke="#ff7a59" stroke-width="4" d="M548 306 a6 6 0 1 0 0.1 0"/>
+</svg>

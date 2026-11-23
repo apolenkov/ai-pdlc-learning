@@ -1,0 +1,51 @@
+<template id="scene-11-template">
+  <div data-composition-id="scene-11" data-width="1920" data-height="1080" data-duration="22.7">
+    <style>
+      [data-composition-id="scene-11"] .sc-goals { position: absolute; left: 96px; top: 330px; width: 1728px; display: flex; gap: 30px; }
+      [data-composition-id="scene-11"] .sc-goals .k-goal { min-width: 0; }
+      [data-composition-id="scene-11"] .sc-goals .k-goal .tx { font-size: 44px; }
+      [data-composition-id="scene-11"] .sc-next { position: absolute; left: 96px; top: 300px; display: inline-flex; align-items: center; gap: 18px; padding: 12px 30px; border-radius: 20px; background: var(--k-accent-tint); border: 2px solid var(--k-accent); font-size: 40px; font-weight: 700; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("11");
+        const t = S.t;
+        const DUR = 22.7;
+        const mk = (cls, html, parent) => { const d = document.createElement("div"); d.className = cls; if (html != null) d.innerHTML = html; parent.appendChild(d); return d; };
+
+        Kit.header(S, { duration: DUR });
+
+        const T1 = t("Замысел") - 0.5, T2 = t("Дальше") - 0.5;   // план уходит за 0,5 с до своей фразы, новый входит на ней
+
+        /* ---- план 1: что вы сделали (четыре карточки, каждая на своём слове) ---- */
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+        const row = mk("sc-goals", null, s1);
+        [["file", "Документ в\u00a0Markdown", "документ"], ["commit", "История в\u00a0Git", "историю"], ["branch", "Вариант в\u00a0ветке", "вариант"], ["merge", "Проверка в\u00a0GitLab", "проверку"]]
+          .forEach(([ic, text, word]) => {
+            const c = mk("k-goal", `<div class="ic">${Kit.icons[ic]}</div><div class="tx">${text}</div>`, row);
+            gsap.set(c, { autoAlpha: 0 });
+            Kit.popIn(S, c, t(word));
+          });
+
+        /* ---- план 2: замысел из первого ролика -> репозиторий ---- */
+        const s2 = S.stage();
+        Kit.sketch(S, { parent: s2, name: "intro-idea", x: 96, y: 250, w: 700, at: t("Замысел"), dur: 2.4 });
+        const path = Kit.path(S, { parent: s2, x: 920, y: 450, sep: "→", items: [{ icon: "file", text: "замысел", at: t("Замысел") + 0.4 }, { icon: "folder", text: "репозиторий", at: t("репозиторий") }] });
+
+        Kit.stageOut(S, s1, T1); Kit.stageIn(S, s2, T1 + 0.5);
+
+        /* ---- план 3: что дальше ---- */
+        const s3 = S.stage();
+        const next = mk("sc-next", "Дальше", s3);
+        gsap.set(next, { autoAlpha: 0 });
+        Kit.popIn(S, next, t("Дальше"));
+        Kit.kinetic(S, { parent: s3, x: 96, y: 430, at: t("Что такое"), text: "Что такое SDD и OpenSpec" });
+
+        Kit.stageOut(S, s2, T2); Kit.stageIn(S, s3, T2 + 0.5);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

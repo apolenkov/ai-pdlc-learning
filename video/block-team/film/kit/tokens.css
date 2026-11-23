@@ -1,0 +1,141 @@
+/* Токены стиля «Студия». Смена стиля = правка только этого файла.
+   JS-набор (kit.js) читает длительности, easing и цвета отсюда через getComputedStyle. */
+
+@font-face {
+  font-family: "Inter";
+  font-weight: 100 900;
+  src: url("../assets/fonts/inter-cyrillic.woff2") format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "Inter";
+  font-weight: 100 900;
+  src: url("../assets/fonts/inter-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "JetBrains Mono Local";
+  font-weight: 100 800;
+  src: url("../assets/fonts/jetbrains-mono-cyrillic.woff2") format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "JetBrains Mono Local";
+  font-weight: 100 800;
+  src: url("../assets/fonts/jetbrains-mono-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  /* --- цвета: холст и текст --- */
+  --k-bg: #0f1115;
+  --k-grid: rgba(238, 240, 243, 0.045);
+  --k-glow: rgba(255, 122, 89, 0.10);
+  --k-text: #eef0f3;
+  --k-text-2: #a3a9b4;
+  --k-on-accent: #0f1115;
+
+  /* --- цвета: поверхности --- */
+  --k-panel: #171a21;
+  --k-panel-2: #1d212a;
+  --k-line: #2a2f3a;
+  --k-win: #151820;
+  --k-win-bar: #1a1e27;
+  --k-win-dot: #3a404c;
+  --k-sub-bg: rgba(15, 17, 21, 0.88);
+
+  /* --- цвета: акценты --- */
+  --k-accent: #ff7a59;
+  --k-accent-soft: #ffb59f;
+  --k-accent-tint: rgba(255, 122, 89, 0.14);
+  --k-ok: #3ccf91;
+  --k-ok-tint: rgba(60, 207, 145, 0.14);
+  --k-info: #7cc4ff;
+  /* шапка-прогресс: сегменты шагов (контраст текста AA: off-fg на off-bg 5,6; text на cur-bg 11; on-accent на accent 7) */
+  --k-seg-off-bg: #181b23;
+  --k-seg-off-line: #2f3542;
+  --k-seg-off-fg: #8d94a1;
+  --k-seg-cur-bg: #3a2219;
+  --k-seg-glow: rgba(255, 122, 89, 0.55);
+
+  /* --- цвета: клавиши --- */
+  --k-key-bg: #262b36;
+  --k-key-edge: #0b0d11;
+  --k-key-press-bg: #ff7a59;
+  --k-key-press-fg: #0f1115;
+
+  /* --- цвета: код (Markdown) --- */
+  --k-code-text: #eef0f3;
+  --k-code-no: #8e96a3;
+  --k-code-mark: #ff7a59;
+  --k-code-head: #ffb59f;
+  --k-code-dash: #3ccf91;
+  --k-code-quote: #c4b5fd;
+  --k-code-bold: #ffd37a;
+  --k-code-inline: #7cc4ff;
+  --k-code-link: #7cc4ff;
+  --k-code-url: #a3a9b4;
+  --k-diff-add-bg: rgba(60, 207, 145, 0.16);
+  --k-diff-add-bar: #3ccf91;
+
+  /* --- цвета: Git-схема --- */
+  --k-git-main: #7cc4ff;
+  --k-git-feature: #ff7a59;
+  --k-git-remote: #3ccf91;
+  --k-git-line: #3a404c;
+
+  /* --- шрифты --- */
+  --k-font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --k-font-mono: "JetBrains Mono Local";
+
+  /* --- размеры текста (минимум 28px) --- */
+  --k-fs-header: 30px;
+  --k-fs-part: 38px;
+  --k-fs-label: 30px;
+  --k-fs-body: 32px;
+  --k-fs-sub: 42px;
+  --k-fs-code: 30px;
+  --k-fs-view-h1: 38px;
+  --k-fs-view-h2: 34px;
+  --k-fs-view-p: 32px;
+  --k-fs-key: 44px;
+  --k-fs-goal: 46px;
+  --k-fs-sum: 42px;
+  --k-goal-h: 260px;
+  --k-goal-ic: 72px;
+  --k-fs-kin: 140px;
+  --k-lh-code: 42px;
+  --k-key-h: 84px;
+
+  /* --- радиусы и тени --- */
+  --k-r-win: 22px;
+  --k-r-card: 24px;
+  --k-r-key: 16px;
+  --k-r-pill: 22px;
+  --k-shadow-win: 0 50px 120px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.03);
+  --k-shadow-card: 0 24px 60px rgba(0, 0, 0, 0.4);
+  --k-shadow-ring: 0 0 0 2px #0f1115, 0 0 22px rgba(255, 122, 89, 0.7);
+
+  /* --- длительности (секунды) --- */
+  --k-dur-in: 0.7s;
+  --k-dur-out: 0.55s;
+  --k-dur-pop: 0.6s;
+  --k-dur-word: 0.75s;
+  --k-dur-cam: 1.2s;
+  --k-dur-press: 0.14s;
+  --k-dur-release: 0.25s;
+  --k-stagger-word: 0.1s;
+  --k-type-dur-per-char: 0.04s;
+
+  /* --- easing (имена GSAP) --- */
+  --k-ease-out: power3.out;
+  --k-ease-in: power2.in;
+  --k-ease-inout: power3.inOut;
+  --k-ease-word: power4.out;
+  --k-ease-back: back.out(2);
+
+  /* --- переход между частями (blur и scale) --- */
+  --k-blur: 14px;
+  --k-scale-in: 0.95;
+  --k-scale-out: 1.05;
+}

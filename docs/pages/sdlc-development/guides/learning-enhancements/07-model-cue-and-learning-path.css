@@ -1,0 +1,99 @@
+/* Shared, labelled model cue: the icon never carries the meaning alone. */
+.model-icon{display:inline-block;width:22px;height:22px;flex:none;vertical-align:middle}
+.step-model>summary .model-icon{margin-right:8px}
+.model-label{display:inline-flex;align-items:center;gap:8px;color:var(--blue);font-weight:800;white-space:nowrap}
+.model-role{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px 14px;font-size:.9rem}
+
+.git-rationale{margin:0 0 32px;padding:24px;border:1px solid var(--line);border-radius:16px;background:var(--raised)}
+.git-rationale h2{margin:0 0 12px;font-size:1.7rem}
+.git-rationale-lead{max-width:80ch;margin:0 0 24px}
+.git-rationale-flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;margin:0;padding:0;list-style:none}
+.git-rationale-flow>li{position:relative;min-width:0;padding:16px;border-top:3px solid var(--line-strong);background:var(--paper)}
+.git-rationale-flow>li:nth-child(2){border-color:var(--green)}
+.git-rationale-flow>li:last-child{border-color:var(--blue)}
+.git-rationale-flow>li:not(:last-child)::after{position:absolute;right:-26px;top:50%;content:"→";color:var(--green);font-size:1.4rem}
+.git-rationale-stage{color:var(--muted);font-size:13px;font-weight:700}
+.git-rationale-flow h3{margin:8px 0 16px;font-size:1.1rem;line-height:1.35}
+.git-rationale-flow p{margin:16px 0 0;font-size:.93rem}
+.context-sources{display:flex;min-height:136px;align-content:center;align-items:center;flex-wrap:wrap;gap:8px}
+.context-sources span{padding:8px 10px;border:1px solid var(--line-strong);border-radius:var(--customdev-radius-sm);background:var(--raised);font-size:.83rem}
+.context-version{display:flex;min-height:136px;align-items:center;gap:14px;padding:16px;border:1px solid var(--green);border-radius:8px;background:var(--green-soft);font-size:.9rem}
+.context-version .intro-icon{width:36px;height:36px;color:var(--green)}
+.context-repository{min-height:136px;padding:12px;border:1px solid var(--blue);border-radius:8px;background:var(--blue-soft);font-size:.85rem}
+.context-repository ul{margin:8px 0 0;padding-left:18px}
+.context-repository li{margin:3px 0}
+.git-rationale-note{margin:22px 0 0;padding-top:16px;border-top:1px solid var(--line);font-size:.9rem;max-width:90ch}
+@media(max-width:760px){.git-rationale-flow{grid-template-columns:1fr}.git-rationale-flow>li:not(:last-child)::after{right:auto;top:auto;bottom:-32px;left:50%;content:"↓"}}
+
+.learning-path{margin:8px 0 24px;padding:24px;border:1px solid var(--line);border-radius:16px;background:var(--raised)}
+.learning-path>ol{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;margin:12px 0;padding:0;list-style:none}
+.learning-path>ol>li{position:relative;min-width:0}
+.learning-path>ol>li:not(:last-child)::after{position:absolute;right:-18px;top:24px;color:var(--green);content:"→"}
+.learning-path__note{margin:10px 0 0;color:var(--muted);font-size:.85rem}
+.learning-path>ol a{display:grid;gap:7px;height:100%;padding:16px 18px;border:1px solid var(--line);border-radius:12px;background:var(--paper);color:var(--ink);text-decoration:none}
+.learning-path>ol a:hover{border-color:var(--green)}
+.learning-path>ol a>span{color:var(--green);font-size:13px;font-weight:850}
+.learning-path>p:last-child{font-size:.85rem;color:var(--muted)}
+.course-introduction{padding:24px;border:1px solid var(--line);border-radius:16px;background:var(--raised)}
+.course-introduction>h2{margin:0 0 10px;font-size:1.6rem}
+.intro-lead{max-width:76ch;margin:0 0 20px}
+.route-intro{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.route-intro .route-card{display:flex;flex-direction:column}
+.route-intro .route-card h3{margin:14px 0 10px;font-size:1.25rem}
+.intro-card-label{display:flex;align-items:center;gap:10px;color:var(--green);font-size:.85rem;font-weight:750}
+.intro-icon{width:26px;height:26px;flex:none}
+.route-intro .route-open{margin-top:auto}
+.guide-reading{margin:20px 0;padding:20px 24px;border:1px solid var(--line);border-radius:12px;background:var(--raised)}
+.guide-reading h3{margin:0 0 12px;font-size:1.1rem}
+.guide-reading ol{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px 32px;margin:0;padding-left:20px}
+.guide-reading li{padding-left:3px;font-size:.95rem}
+.route-preparation-details{margin:0 0 28px;border:1px solid var(--line-strong);border-radius:12px;background:var(--raised)}
+.route-preparation-details>summary{display:flex;min-height:56px;padding:16px 24px;align-items:center;cursor:pointer;font-weight:750;color:var(--green);border-radius:var(--customdev-radius-md)}
+.route-preparation-details>summary::before{content:"+";margin-right:10px}
+.route-preparation-details[open]>summary::before{content:"−"}
+.route-preparation-details[open]>summary{border-bottom:1px solid var(--line);border-radius:var(--customdev-radius-md) var(--customdev-radius-md) 0 0;background:var(--green-soft)}
+.route-preparation-body{padding:20px 24px 24px}
+.route-preparation-body>p,.route-preparation-body>.route-before{max-width:78ch}
+.route-preparation-body>.route-before{margin:12px 0 20px;padding-left:24px}
+.route-preparation-body>p{margin:0 0 16px}
+.route-preparation-body>p:last-child,.route-preparation-body>.warning:last-child{margin-bottom:0}
+@media(min-width:761px) and (max-width:900px){.route-intro .route-card h3{font-size:1.05rem}}
+@media(max-width:760px){.learning-path>ol,.route-intro,.guide-reading ol{grid-template-columns:1fr}.learning-path>ol>li:not(:last-child)::after{top:auto;bottom:-23px;left:18px;right:auto;content:"↓"}}
+
+.learning-path .route-block-title,.course-introduction>.route-block-title{padding-left:0;margin-bottom:12px}
+.route-page .route-legend{margin-left:0}
+.learning-path>ol a{background:var(--raised)}
+
+/* The route uses the same stage codes in the overview and the detailed path. */
+.route-row--r4 .r4-entries{grid-column:2/-1;margin:0}
+.route-row--r4>.route-marker{align-self:start;margin-top:24px}
+.platform-note{margin-top:16px;color:var(--muted);font-size:.85rem}
+.course-figure figcaption{min-width:0;max-width:min(100%,76ch);white-space:normal;overflow-wrap:anywhere}
+
+.route-row--r4 .star-route{margin-left:0}
+.route-page .route-outcome+.team-practice{margin-top:24px}
+
+
+/* Learning outcomes stay outside navigation and reuse the reading surface. */
+.lesson-goal { grid-column: 1 / -1; padding: 1.25rem 1.5rem; background: var(--paper, var(--customdev-surface)); border: 1px solid var(--line, #d8d5ca); border-radius: var(--customdev-radius-md); }
+.lesson-goal h2 { margin-top: 0; }
+.lesson-goal p, .lesson-goal ul, .step-self-check, .step-next-use { max-width: 72ch; }
+.lesson-goal__links { display: flex; flex-wrap: wrap; gap: .75rem 1.5rem; }
+.step-self-check { margin: 1rem 0; }
+.step-self-check ul { padding-left: 1.2rem; margin: .35rem 0; }
+.step-next-use { margin-bottom: 1.5rem; }
+.beginner-extra[open], .step-trouble[open], .step-platforms[open], .step-advanced[open], .step-model[open], .step-screenshots[open] { background: var(--paper, var(--customdev-surface)); border: 1px solid var(--line, #d8d5ca); border-radius: 12px; padding: 1rem 1.25rem; }
+
+.sdlc-overview { display: flex; flex-wrap: wrap; align-items: stretch; gap: .6rem; padding: 0; list-style: none; margin: 1.25rem 0; }
+.sdlc-overview li { padding: .65rem .8rem; border: 1px solid var(--line, #d8d5ca); border-radius: var(--customdev-radius-md); background: var(--paper, var(--customdev-surface)); }
+.sdlc-overview__current { color: #174d3d; background: var(--customdev-green-soft) !important; }
+.sdlc-overview__current span { display: block; font-size: 13px; margin-top: .15rem; }
+
+.hero h1 { font-size: clamp(2.5rem, 4vw, 4rem); max-width: 24ch; }
+
+/* Level choice card (TASK-457): links sit under the option text. */
+.level-choice__links{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:10px!important}
+
+.layout-shift .layout-shift__narrow { display: none; }
+@media (max-width: 519px) { .layout-shift .layout-shift__wide { display: none; } .layout-shift .layout-shift__narrow { display: block; } .course-figure--wide.layout-shift .layout-shift__narrow > svg { min-width: 0; width: 100%; } }
+

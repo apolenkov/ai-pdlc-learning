@@ -1,0 +1,75 @@
+<template id="scene-02-template">
+  <div data-composition-id="scene-02" data-width="1920" data-height="1080" data-duration="31.3">
+    <style>
+      [data-composition-id="scene-02"] .sc-mail { height: 100%; padding: 20px 30px; display: flex; flex-direction: column; gap: 10px; }
+      [data-composition-id="scene-02"] .sc-mail .cap { display: flex; align-items: center; gap: 16px; font-size: 34px; font-weight: 800; }
+      [data-composition-id="scene-02"] .sc-mail .tag { font-size: 28px; font-weight: 700; padding: 4px 16px; border-radius: 12px; border: 2px solid var(--k-line); color: var(--k-text-2); }
+      [data-composition-id="scene-02"] .sc-mail .ln { font-size: 32px; line-height: 1.35; padding: 8px 16px; border-radius: 12px; }
+      [data-composition-id="scene-02"] .sc-mail .hl { background: var(--k-accent-tint); border-left: 6px solid var(--k-accent); font-weight: 700; }
+      [data-composition-id="scene-02"] .sc-mail .hl-tag { align-self: flex-start; font-size: 30px; font-weight: 800; color: var(--k-accent-soft); }
+      [data-composition-id="scene-02"] .sc-empty { height: 100%; display: flex; align-items: center; gap: 16px; padding: 0 28px; font-size: 36px; font-weight: 700; color: var(--k-text-2); border-style: dashed; }
+      [data-composition-id="scene-02"] .sc-empty .q { margin-left: auto; font-size: 40px; font-weight: 800; }
+      [data-composition-id="scene-02"] .sc-task { height: 100%; padding: 14px 28px; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+      [data-composition-id="scene-02"] .sc-task .cap { font-size: 34px; font-weight: 800; color: var(--k-accent-soft); }
+      [data-composition-id="scene-02"] .sc-task .row { font-size: 32px; font-weight: 600; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("02"), t = S.t, DUR = 31.3;
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+
+        Kit.header(S, { header: { mode: "parts", total: 4 }, chapter: "Что не так с письмом", step: 2, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        /* Стилизованное письмо вместо скриншота почты; выдумка подписана */
+        const mail = Kit.aside(S, { parent: s1, x: 96, y: 220, w: 940, h: 420, tail: false,
+          html: '<div class="sc-mail"><div class="cap">Обращение калькулятора <span class="tag">пример</span></div>' +
+                '<div class="ln">Здравствуйте!</div>' +
+                '<div class="ln sol">В письме готовое решение — кнопка «Очистить».</div>' +
+                '<div class="ln">Нужно срочно, пользователи ждут.</div>' +
+                '<div class="hl-tag">готовое решение</div></div>' });
+        const sol = mail.el.querySelector(".sol"), hlt = mail.el.querySelector(".hl-tag");
+        hide(hlt);
+        mail.show(Math.max(t("обращение калькулятора"), 2.1)); // заставка части держится первые 2 с
+        const T_SOL = t("готовое решение");
+        S.tl.to(sol, { backgroundColor: Kit.token("--k-accent-tint"), borderLeftColor: Kit.token("--k-accent"),
+          borderLeftWidth: 6, duration: 0.4 }, T_SOL);
+        Kit.popIn(S, hlt, T_SOL + 0.1);
+        read("Обращение калькулятора пример Здравствуйте В письме готовое решение кнопка Очистить", Math.max(t("обращение калькулятора"), 2.1), DUR);
+        read("готовое решение", T_SOL, DUR);
+
+        /* Три пустых поля — нет ответа на три вопроса */
+        const fields = ["проблема", "эффект", "границы"].map((f, i) => {
+          const c = Kit.aside(S, { parent: s1, x: 1072, y: 220 + i * 130, w: 752, h: 110, tail: false,
+            html: '<div class="sc-empty"><span>' + f + '</span><span class="q">?</span></div>' });
+          c.el.style.borderStyle = "dashed";
+          return c;
+        });
+        const T_NO = t("Нет ответа");
+        fields.forEach((c, i) => c.show(T_NO + i * 0.15));
+        S.tl.to(fields[1].el, { borderColor: Kit.token("--k-accent"), duration: 0.4 }, t("Эффект не назван"));
+        S.tl.to(fields[2].el, { borderColor: Kit.token("--k-accent"), duration: 0.4 }, t("границы не названы"));
+        read("проблема эффект границы", T_NO, DUR);
+
+        /* Первое задание гайда */
+        const task = Kit.aside(S, { parent: s1, x: 96, y: 660, w: 1728, h: 160, tail: false,
+          html: '<div class="sc-task"><div class="cap">Первое задание гайда: найдите в письме</div>' +
+                '<div class="row">готовое решение · пропущенный эффект · пропущенные границы</div></div>' });
+        task.el.style.borderColor = Kit.token("--k-accent");
+        const T_TASK = t("Найдите в письме");
+        task.show(T_TASK);
+        read("Первое задание гайда найдите в письме готовое решение пропущенный эффект пропущенные границы", T_TASK, DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

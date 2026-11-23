@@ -1,0 +1,30 @@
+[
+  {
+    "n": 1,
+    "title": "Команда",
+    "duration": 9.5,
+    "audio": "assets/vo/scene-01.mp3",
+    "audioDuration": 8.41
+  },
+  {
+    "n": 2,
+    "title": "Путь продукта",
+    "duration": 9.6,
+    "audio": "assets/vo/scene-02.mp3",
+    "audioDuration": 8.53
+  },
+  {
+    "n": 3,
+    "title": "Маршруты и ролики",
+    "duration": 8.3,
+    "audio": "assets/vo/scene-03.mp3",
+    "audioDuration": 7.27
+  },
+  {
+    "n": 4,
+    "title": "Выбор",
+    "duration": 6.8,
+    "audio": "assets/vo/scene-04.mp3",
+    "audioDuration": 4.64
+  }
+]

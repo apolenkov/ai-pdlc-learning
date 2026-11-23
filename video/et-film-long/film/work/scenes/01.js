@@ -1,0 +1,58 @@
+// светлая заставка = кадр 0 (постер), растворяется к 2,1 с; речь начинается в 2,0 с
+People.poster(S, { kicker: "Команда · AI PDLC", title: "Что делает команда развития", sketch: { name: "team-done", x: 1010, y: 270, w: 760 }, until: 1.45, fade: 0.65 });
+const TEAM = "Команда развития процессов AI PDLC"; // course-names.json › teamName
+L.head("Зачем нужна <span>команда</span>", 2.3);
+// --- было: три продукта, у каждого свои метод, инструменты и агент ---
+const tagW = el("s1-tag f-tag was", "СЕЙЧАС"); show(tagW, t("Сегодня") + 0.1, 10);
+const prods = [["A", 96, ["doc", "mail", "cursor"]], ["B", 680, ["branch", "cal", "gear"]], ["C", 1264, ["box", "folder", "play"]]];
+const cards = [], olds = [], news = [];
+prods.forEach(([nm, x, ic], i) => {
+  const c = el("lg-card s1-card", "<h3>Продукт " + nm + "</h3>"); c.style.left = x + "px";
+  show(c, t("продуктовых") + i * 0.2, 14); cards.push(c);
+  const rows = [["метод", "свой метод"], ["инструменты", "свои инструменты"], ["агент", "агент по-своему"]];
+  const oldRow = rows.map(([k, tx], r) => {
+    const ch = el("s1-ch", (r === 2 ? People.robotIcon(32) : F.icon(ic[r], 32, F.C.t2, 2.2)) + tx, c); ch.style.top = 94 + r * 70 + "px";
+    return ch;
+  });
+  const newTx = ["общий метод", "поддерживаемый путь", "агент в границах"];
+  const newRow = newTx.map((tx, r) => { const ch = el("s1-ch n", (r === 2 ? People.robotIcon(32) : F.icon("box", 32, F.C.ok, 2.2)) + tx, c); ch.style.top = 94 + r * 70 + "px"; return ch; });
+  olds.push(oldRow); news.push(newRow);
+  // старые чипы появляются по репликам: методы → инструменты → агент
+  const w = [t("разные методы") + 0.1, t("разные инструменты") + 0.1, t("агента") + 0.1];
+  oldRow.forEach((ch, r) => show(ch, w[r] + i * 0.15, 10));
+  newRow.forEach((ch) => gsap.set(ch, { autoAlpha: 0 }));
+});
+// несогласованность: чипы агента «дрожат» вразнобой
+olds.forEach((row, i) => tl.fromTo(row[2], { rotation: -2 }, { rotation: 2 + i, duration: 0.3, ease: "sine.inOut", yoyo: true, repeat: 5, immediateRender: false }, t("встраивает") + i * 0.12));
+// --- команда и цель: один метод ---
+const gAt = t("Команда", 1);
+const team = el("lg-card acc s1-team", F.icon("users", 64, F.C.accS) + "<div>" + TEAM.replace("Команда развития", "<span>Команда развития</span>") + "</div>");
+show(team, gAt, 16);
+const svg = F.layer(S.root);
+const mAt = t("метод", 2) - 0.1;
+[376, 960, 1544].forEach((x, i) => { const p = F.path(svg, `M ${x} 632 L ${x} 592`, F.C.ok, 5); F.draw(tl, p, mAt + i * 0.12, 0.35, "power1.out"); });
+cards.forEach((c, i) => {
+  tl.to(olds[i], { autoAlpha: 0, duration: 0.3 }, mAt);
+  news[i].forEach((ch, r) => tl.fromTo(ch, { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: "power2.out", immediateRender: false }, mAt + 0.2 + r * 0.12 + i * 0.1));
+  tl.to(c, { borderColor: F.C.ok, duration: 0.4 }, mAt + 0.2);
+});
+tl.to(tagW, { autoAlpha: 0, duration: 0.3 }, mAt);
+const tagN = el("s1-tag f-tag now", "ЦЕЛЬ"); show(tagN, mAt + 0.2, 10);
+// нить «от намерения до наблюдения»: 7 точек
+const th = el("s1-thread", "");
+const X0 = 340, X1 = 1580, dots = [];
+const base = F.path(svg, `M ${X0} 815 L ${X1} 815`, F.C.ok, 5);
+const nAt = t("от намерения") , oAt = t("наблюдения");
+F.draw(tl, base, nAt - 0.1, oAt - nAt + 0.6, "none");
+for (let i = 0; i < 7; i++) {
+  const d = el("s1-dot", "", th); d.style.left = X0 - 96 + (X1 - X0) * i / 6 - 15 + "px";
+  show(d, nAt - 0.1 + (oAt - nAt + 0.5) * i / 6, 6); dots.push(d);
+}
+const c0 = el("cap", "намерение", th); c0.style.left = X0 - 96 - 70 + "px"; show(c0, nAt, 8);
+const c1 = el("cap", "наблюдение", th); c1.style.left = X1 - 96 - 70 + "px"; show(c1, oAt, 8);
+const mid = el("cap", "метод — один на все продукты", th); mid.style.left = "540px"; mid.style.top = "56px"; show(mid, t("метод", 2) + 0.2, 8);
+// команды ведут метод сами: карточка команды отступает, продукты светятся
+const sAt = t("сами");
+tl.to(team, { opacity: 0.3, scale: 0.97, duration: 0.6, ease: "power2.inOut" }, sAt);
+cards.forEach((c, i) => tl.to(c, { boxShadow: "0 0 0 4px rgba(60,207,145,1), 0 0 36px rgba(60,207,145,.38)", duration: 0.4 }, sAt + 0.1 + i * 0.15));
+const plate = el("s1-plate", "Предложение для обсуждения · проверяем в работе"); show(plate, t("предложение") - 0.1, 14);

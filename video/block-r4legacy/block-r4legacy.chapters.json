@@ -1,0 +1,82 @@
+[
+  {
+    "n": 0,
+    "title": "Вступление",
+    "step": null,
+    "chapter": "Вступление",
+    "start": 0,
+    "titleStart": 0,
+    "speechStart": 0,
+    "end": 71
+  },
+  {
+    "n": 1,
+    "title": "Вход и выход",
+    "step": 1,
+    "chapter": "Вход и выход",
+    "start": 71,
+    "titleStart": 71,
+    "speechStart": 71,
+    "end": 94.9
+  },
+  {
+    "n": 2,
+    "title": "Копия базы и источники",
+    "step": 2,
+    "chapter": "Копия базы и источники",
+    "start": 94.9,
+    "titleStart": 94.9,
+    "speechStart": 94.9,
+    "end": 117.7
+  },
+  {
+    "n": 3,
+    "title": "Три компонента",
+    "step": 3,
+    "chapter": "Три компонента",
+    "start": 117.7,
+    "titleStart": 117.7,
+    "speechStart": 117.7,
+    "end": 136.8
+  },
+  {
+    "n": 4,
+    "title": "Черновик модели",
+    "step": 4,
+    "chapter": "Черновик модели",
+    "start": 136.8,
+    "titleStart": 136.8,
+    "speechStart": 136.8,
+    "end": 163.3
+  },
+  {
+    "n": 5,
+    "title": "Шесть расхождений",
+    "step": 5,
+    "chapter": "Шесть расхождений",
+    "start": 163.3,
+    "titleStart": 163.3,
+    "speechStart": 163.3,
+    "end": 212.3
+  },
+  {
+    "n": 6,
+    "title": "Проверка и одобрение",
+    "step": 6,
+    "chapter": "Проверка и одобрение",
+    "start": 212.3,
+    "titleStart": 212.3,
+    "speechStart": 212.3,
+    "end": 256.8
+  },
+  {
+    "n": 7,
+    "title": "Следующее пожелание",
+    "step": 7,
+    "chapter": "Следующее пожелание",
+    "start": 256.8,
+    "titleStart": 256.8,
+    "speechStart": 256.8,
+    "end": 277
+  }
+]

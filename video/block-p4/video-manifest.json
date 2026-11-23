@@ -1,0 +1,16 @@
+{
+  "file": "block-p4-720p.mp4",
+  "sha256": "6d7a307f1f5c86702c8cbeb87b89598c2f7134f57a05e7637078817c0dc09faa",
+  "size": 5521426,
+  "url": "https://github.com/apolenkov/ai-pdlc-learning/releases/download/media-v1/6d7a307f1f5c-block-p4-720p.mp4",
+  "version": "6d7a307f1f5c",
+  "audio": "voice-only",
+  "master": {
+    "file": "block-p4-1080p.mp4",
+    "sha256": "ac193fe72068663c8e53501e133ba377a51724a0c8fd4f48a94e65e200149429",
+    "size": 12322473,
+    "lost": "утерян до сдачи Mac 25.11.2026: файла нет ни на Диске, ни локально; пин сохранён"
+  },
+  "duration": 225.0,
+  "note": "TASK-685, TASK-671: части 3 и 5 озвучены заново, голова фильма 0,1 с; звук только из голоса; 720p и мастер 1080p — одной сборки. RV685video P2-5: в Git-фрагменте сцены 3 добавлена пара «В терминале:» перед remote add/push; кадры перерендерены, QC по методу native-only reference пройден. Файлы в Registry НЕ загружены (адреса вычислены по версии)"
+}

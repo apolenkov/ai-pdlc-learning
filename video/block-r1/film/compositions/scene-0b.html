@@ -1,0 +1,81 @@
+<template id="scene-0b-template">
+  <div data-composition-id="scene-0b" data-width="1920" data-height="1080" data-duration="26.3">
+    <style>
+      [data-composition-id="scene-0b"] .pr-row { position: absolute; left: 96px; width: 1728px; display: grid; align-items: stretch; }
+      [data-composition-id="scene-0b"] .pr-flow { top: 214px; grid-template-columns: 1fr 64px 1fr 64px 1fr; }
+      [data-composition-id="scene-0b"] .pr-flow > .k-aside { position: relative; left: 0; top: 0; }
+      [data-composition-id="scene-0b"] .pr-t { font-size: 54px; font-weight: 700; line-height: 1.1; }
+      [data-composition-id="scene-0b"] .pr-c { font-size: 32px; line-height: 1.25; color: var(--k-text-2); margin-top: 10px; min-height: 80px; }
+      [data-composition-id="scene-0b"] .pr-arr { align-self: center; text-align: center; font-size: 56px; font-weight: 300; color: var(--k-text-2); line-height: 1; }
+      [data-composition-id="scene-0b"] .pr-pl { position: absolute; left: 96px; width: 1728px; height: 96px; padding: 0 34px; display: flex; align-items: center; gap: 28px; box-sizing: border-box; }
+      [data-composition-id="scene-0b"] .pr-pl .lab { font-size: 34px; font-weight: 700; color: var(--k-accent-soft); min-width: 330px; }
+      [data-composition-id="scene-0b"] .pr-pl .txt { font-size: 46px; font-weight: 700; line-height: 1.1; }
+      [data-composition-id="scene-0b"] .pr-pl .mono { font-family: var(--k-font-mono); font-size: 40px; font-weight: 500; padding: 4px 14px; border-radius: 10px; background: var(--k-accent-tint); }
+      [data-composition-id="scene-0b"] .pr-ok { border-color: var(--k-ok); background: var(--k-ok-tint); }
+      [data-composition-id="scene-0b"] .pr-ok .lab { color: var(--k-ok); }
+      [data-composition-id="scene-0b"] .pr-no .lab { color: var(--k-text-2); }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("0b"), t = S.t, DUR = 26.3;
+        // Count only fully revealed, stationary text; transitions do not count as reading time.
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+        const div = (cls, html, parent) => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; parent.appendChild(el); return el; };
+        const INFO = Kit.token("--k-info"), LINE = Kit.token("--k-line"), OK = Kit.token("--k-ok");
+
+        Kit.header(S, { header: { mode: "parts", total: 7 }, chapter: "Как меняется процесс", step: null, mode: "intro", duration: DUR, parts: [{ n: 1, blank: true, at: 0 }] });
+
+        const sA = S.stage(); gsap.set(sA, { autoAlpha: 1 });
+
+        /* Three tiles are on screen from the first frame; the narrator fills each one in turn. */
+        const flow = div("pr-row pr-flow", "", sA);
+        const tiles = [
+          ["Замысел", "что нужно и зачем", 0],
+          ["Спецификация", "какое поведение и как его проверить", 0],
+          ["Проверка", "человек решает, модель помогает", 0],
+        ].map(([title, sub], i) => {
+          const tile = Kit.aside(S, { parent: flow, tail: false, html: `<div class="pr-t">${title}</div><div class="pr-c">${sub}</div>` });
+          gsap.set(tile.el, { autoAlpha: 1 });
+          if (i < 2) { const a = div("pr-arr", "→", flow); }
+          return tile;
+        });
+        const subs = tiles.map((tl) => tl.el.querySelector(".pr-c"));
+        hide(...subs);
+        const T = [t("Замысел говорит"), t("Спецификация —"), t("Модель")];
+        subs.forEach((sub, i) => { Kit.popIn(S, sub, T[i]); read(sub.textContent, T[i], DUR); });
+
+        // Blue outline follows the narration; the middle tile turns green for «Вы сделаете» (the step the viewer does).
+        const hl = (tile, on, off, col) => {
+          S.tl.to(tile.el, { borderColor: col || INFO, duration: 0.3 }, on);
+          S.tl.to(tile.el, { borderColor: LINE, duration: 0.3 }, off);
+        };
+        hl(tiles[0], t("Мы переходим") + 0.6, t("Спецификация —") - 0.1);
+        hl(tiles[1], t("Спецификация —"), t("Вы сделаете") - 0.1);
+        S.tl.to(tiles[1].el, { borderColor: OK, duration: 0.3 }, t("Вы сделаете"));
+        S.tl.to(tiles[1].el, { borderColor: LINE, duration: 0.3 }, t("Модель") - 0.1);
+        hl(tiles[2], t("Модель"), t("На выходе") - 0.1);
+
+        /* Plates: what you will do, what comes out, what is not needed. */
+        const plate = (cls, top, lab, html, at, words) => {
+          const p = Kit.aside(S, { parent: sA, x: 96, y: top, w: 1728, tail: false, html: `<div class="lab">${lab}</div><div class="txt">${html}</div>` });
+          p.el.className += " pr-pl " + cls;
+          p.el.style.left = "96px"; p.el.style.top = top + "px";
+          p.show(at);
+          read(words, at, DUR);
+          return p;
+        };
+        plate("", 470, "Вы сделаете", "правило ошибки + один сценарий", t("Вы сделаете"), "Вы сделаете правило ошибки один сценарий");
+        plate("pr-ok", 596, "На выходе", '<span class="mono">specification.md</span> в вашей ветке', t("На выходе"), "На выходе specification.md в вашей ветке");
+        plate("pr-no", 722, "Здесь не нужны", "код и OpenSpec", t("Код и"), "Здесь не нужны код и OpenSpec");
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>

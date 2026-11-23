@@ -1,0 +1,148 @@
+<template id="scene-03-template">
+  <div data-composition-id="scene-03" data-width="1920" data-height="1080" data-duration="56.1">
+    <style>
+      [data-composition-id="scene-03"] .sc-bar { height: 100%; display: flex; align-items: center; gap: 18px; padding: 0 26px; position: relative; }
+      [data-composition-id="scene-03"] .sc-bar .ph { position: absolute; left: 26px; right: 26px; display: flex; align-items: center; gap: 18px; font-size: 30px; font-weight: 700; }
+      [data-composition-id="scene-03"] .sc-bar .br { font-size: 26px; font-weight: 800; padding: 5px 16px; border-radius: 12px; background: var(--k-panel-2); border: 2px solid var(--k-line); white-space: nowrap; }
+      [data-composition-id="scene-03"] .sc-bar .br b { color: var(--k-accent-soft); }
+      [data-composition-id="scene-03"] .sc-bar .mock { margin-left: auto; font-size: 23px; font-weight: 700; padding: 3px 13px; border-radius: 10px; border: 2px dashed var(--k-line); color: var(--k-text-2); white-space: nowrap; }
+      [data-composition-id="scene-03"] .sc-cmts { height: 100%; padding: 16px 28px; display: flex; flex-direction: column; gap: 12px; }
+      [data-composition-id="scene-03"] .sc-cmts .cap { font-size: 29px; font-weight: 800; }
+      [data-composition-id="scene-03"] .sc-cm { display: flex; align-items: flex-start; gap: 14px; padding: 10px 18px; border-radius: 14px; background: var(--k-panel-2); }
+      [data-composition-id="scene-03"] .sc-cm .av { flex: none; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; font-size: 22px; font-weight: 800; background: var(--k-accent-tint); color: var(--k-accent-soft); border: 2px solid var(--k-accent); }
+      [data-composition-id="scene-03"] .sc-cm .bd { flex: 1; }
+      [data-composition-id="scene-03"] .sc-cm .who { font-size: 24px; font-weight: 800; color: var(--k-text-2); }
+      [data-composition-id="scene-03"] .sc-cm .tx { font-size: 28px; font-weight: 600; line-height: 1.2; }
+      [data-composition-id="scene-03"] .sc-cm .done { flex: none; font-size: 22px; font-weight: 800; padding: 4px 14px; border-radius: 10px; background: var(--k-ok-tint); border: 2px solid var(--k-ok); color: var(--k-ok); white-space: nowrap; margin-top: 8px; }
+      [data-composition-id="scene-03"] .sc-appr { height: 100%; display: flex; align-items: center; gap: 22px; padding: 0 28px; }
+      [data-composition-id="scene-03"] .sc-appr .who { font-size: 28px; font-weight: 700; }
+      [data-composition-id="scene-03"] .sc-appr .who b { font-weight: 800; }
+      [data-composition-id="scene-03"] .sc-appr .btn { position: relative; width: 240px; height: 62px; flex: none; }
+      [data-composition-id="scene-03"] .sc-appr .btn span { position: absolute; inset: 0; display: grid; place-items: center; font-size: 30px; font-weight: 800; border-radius: 16px; }
+      [data-composition-id="scene-03"] .sc-appr .btn .b1 { background: var(--k-accent); color: var(--k-bg); }
+      [data-composition-id="scene-03"] .sc-appr .btn .b2 { background: var(--k-win); border: 3px solid var(--k-ok); color: var(--k-ok); }
+      [data-composition-id="scene-03"] .sc-appr .st { margin-left: auto; font-size: 28px; font-weight: 800; padding: 9px 22px; border-radius: 14px; border: 2px solid var(--k-line); color: var(--k-text-2); }
+      [data-composition-id="scene-03"] .sc-appr .st b { color: var(--k-ok); }
+      [data-composition-id="scene-03"] .sc-tr { height: 100%; padding: 16px 30px; display: flex; flex-direction: column; gap: 11px; }
+      [data-composition-id="scene-03"] .sc-tr .cap { font-size: 32px; font-weight: 800; }
+      [data-composition-id="scene-03"] .sc-tr .row { display: flex; gap: 14px; }
+      [data-composition-id="scene-03"] .sc-tr .f { flex: 1; border-radius: 14px; background: var(--k-panel-2); border-top: 5px solid var(--k-accent); padding: 9px 16px; }
+      [data-composition-id="scene-03"] .sc-tr .f .k { font-size: 24px; font-weight: 800; color: var(--k-text-2); }
+      [data-composition-id="scene-03"] .sc-tr .f .v { font-size: 28px; font-weight: 700; line-height: 1.15; }
+      [data-composition-id="scene-03"] .sc-tr .foot { font-size: 26px; font-weight: 600; color: var(--k-text-2); }
+      [data-composition-id="scene-03"] .sc-tr .foot b { color: var(--k-text); }
+      [data-composition-id="scene-03"] .sc-rules { height: 100%; display: flex; align-items: center; gap: 16px; padding: 0 26px; }
+      [data-composition-id="scene-03"] .sc-rules .nt { flex: 1; font-size: 27px; font-weight: 600; line-height: 1.2; padding: 10px 18px; border-radius: 14px; background: var(--k-panel-2); border-left: 6px solid var(--k-accent); }
+      [data-composition-id="scene-03"] .sc-rules .nt b { font-weight: 800; }
+    </style>
+    <script>
+      (function () {
+        const S = Kit.scene("03"), t = S.t, DUR = 56.1;
+        const read = (text, at, off, reveal = 0.6) => {
+          const needed = text.trim().split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length / 3 + 1;
+          if (off - at - reveal < needed - 1e-6) throw new Error(`Недостаточно времени для «${text}»`);
+        };
+        if (DUR - S.speechEnd < 1.5) throw new Error("Недостаточный хвост сцены");
+        const hide = (...els) => els.forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+
+        Kit.header(S, { header: { mode: "parts", total: 3 }, chapter: "Комментарии, одобрение и передача", step: 3, duration: DUR,
+          parts: [{ n: 1, blank: true, at: 0 }] });
+
+        /* ---- План 1: учебный макет запроса на слияние ---- */
+        const s1 = S.stage(); gsap.set(s1, { autoAlpha: 1 });
+
+        const bar = Kit.aside(S, { parent: s1, x: 96, y: 215, w: 1728, h: 84, tail: false,
+          html: '<div class="sc-bar"><span class="ph p1"><span class="br">ветка <b>intent/clear-result</b></span> копия документа для правок</span>' +
+            '<span class="ph p2"><span class="br"><b>intent/clear-result</b> → main</span> запрос на слияние !3 <span class="mock">учебный макет</span></span></div>' });
+        const p1 = bar.el.querySelector(".p1"), p2 = bar.el.querySelector(".p2");
+        hide(p2);
+        bar.show(t("отдельной ветке") - 0.3);
+        const T_MR = t("запрос на слияние");
+        S.tl.to(p1, { autoAlpha: 0, duration: 0.3 }, T_MR - 0.25);
+        S.tl.fromTo(p2, { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power3.out", immediateRender: false }, T_MR);
+        read("ветка intent/clear-result копия документа для правок", t("отдельной ветке"), T_MR);
+        read("intent/clear-result main запрос на слияние !3 учебный макет", T_MR, DUR, 0);
+
+        const cmts = Kit.aside(S, { parent: s1, x: 96, y: 315, w: 1728, h: 275, tail: false,
+          html: '<div class="sc-cmts"><div class="cap">Обсуждение</div>' +
+            '<div class="sc-cm c1"><span class="av">ИМ</span><div class="bd"><div class="who">И. Макетов · техлид</div>' +
+            '<div class="tx">реализуемость плана проверил — замечаний нет</div></div><span class="done">закрыт правками</span></div>' +
+            '<div class="sc-cm c2"><span class="av">АП</span><div class="bd"><div class="who">А. Примерова · аналитик</div>' +
+            '<div class="tx">документа хватает для анализа</div></div><span class="done">закрыт правками</span></div></div>' });
+        const c1 = cmts.el.querySelector(".c1"), c2 = cmts.el.querySelector(".c2");
+        const d1 = c1.querySelector(".done"), d2 = c2.querySelector(".done");
+        hide(c1, c2, d1, d2);
+        cmts.show(T_MR + 0.2);
+        Kit.popIn(S, c1, t("Техлид"));
+        Kit.popIn(S, c2, t("аналитик"));
+        Kit.popIn(S, d1, t("Комментарии закрываем"));
+        Kit.popIn(S, d2, t("в той же ветке"));
+        read("Обсуждение", T_MR + 0.2, DUR, 0);
+        read("И. Макетов техлид реализуемость плана проверил замечаний нет", t("Техлид"), DUR);
+        read("А. Примерова аналитик документа хватает для анализа", t("аналитик"), DUR);
+        read("закрыт правками", t("Комментарии закрываем"), DUR, 0);
+
+        /* Одно одобрение — состояние становится «принят» */
+        const ap = Kit.aside(S, { parent: s1, x: 96, y: 608, w: 1728, h: 125, tail: false,
+          html: '<div class="sc-appr"><span class="who"><b>владелец продукта</b> записывает одно одобрение</span>' +
+            '<span class="btn"><span class="b1">Одобрить</span><span class="b2">✓ Одобрено</span></span>' +
+            '<span class="st">состояние: <b>«принят»</b></span></div>' });
+        const b1 = ap.el.querySelector(".b1"), b2 = ap.el.querySelector(".b2"), stc = ap.el.querySelector(".st");
+        hide(b2, stc);
+        ap.show(t("владелец продукта") - 0.3);
+        const T_OK = t("одно одобрение") + 0.6, T_ST = t("«принят»") + 0.4;
+        S.tl.set(b1, { autoAlpha: 0 }, T_OK);
+        S.tl.set(b2, { autoAlpha: 1 }, T_OK);
+        S.tl.fromTo(b2, { scale: 0.9 }, { scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, T_OK);
+        Kit.popIn(S, stc, T_ST);
+        read("владелец продукта записывает одно одобрение Одобрить", t("владелец продукта"), DUR);
+        read("Одобрено состояние принят", T_OK, DUR, 0);
+
+        /* ---- План 2: запись передачи и правила одного документа ---- */
+        const s2 = S.stage();
+        const T_S2 = Kit.swap(S, s1, s2, t("передача в анализ") - 0.45);
+        const trf = Kit.aside(S, { parent: s2, x: 96, y: 215, w: 1728, h: 280, tail: false,
+          html: '<div class="sc-tr"><div class="cap">Передача в анализ — отдельная запись</div>' +
+            '<div class="row"><div class="f f1"><div class="k">кто принял в работу</div><div class="v">аналитик</div></div>' +
+            '<div class="f f2"><div class="k">где решение</div><div class="v">ссылка на запрос !3</div></div>' +
+            '<div class="f f3"><div class="k">к какой ревизии</div><div class="v">хеш коммита или тег</div></div></div>' +
+            '<div class="foot">каждое изменение анализа ссылается на <b>свой пункт плана и ревизию</b></div></div>' });
+        const fs = [".f1", ".f2", ".f3"].map((c) => trf.el.querySelector(c));
+        const foot = trf.el.querySelector(".foot");
+        hide(...fs, foot);
+        trf.show(T_S2 + 0.1);
+        Kit.popIn(S, fs[0], t("кто принял"));
+        Kit.popIn(S, fs[1], t("ссылка на запрос"));
+        Kit.popIn(S, fs[2], t("ревизии"));
+        Kit.popIn(S, foot, t("пункт плана и ревизию") - 0.4);
+        read("Передача в анализ отдельная запись", T_S2 + 0.1, DUR, 0);
+        read("кто принял в работу аналитик где решение ссылка на запрос !3 к какой ревизии хеш коммита или тег", t("кто принял"), DUR);
+        read("каждое изменение анализа ссылается на свой пункт плана и ревизию", t("пункт плана и ревизию") - 0.4, DUR);
+
+        const r1 = Kit.aside(S, { parent: s2, x: 96, y: 520, w: 1728, h: 105, tail: false,
+          html: '<div class="sc-rules"><div class="nt n1"><b>копий записи нет</b> — документ один</div>' +
+            '<div class="nt n2">история хранится в <b>общей истории версий</b></div></div>' });
+        const ns = [".n1", ".n2"].map((c) => r1.el.querySelector(c));
+        hide(...ns);
+        r1.show(t("Копий записи нет") - 0.3);
+        Kit.popIn(S, ns[0], t("Копий записи нет"));
+        Kit.popIn(S, ns[1], t("истории версий") - 0.4);
+        read("копий записи нет документ один история хранится в общей истории версий", t("Копий записи нет"), DUR);
+
+        const r2 = Kit.aside(S, { parent: s2, x: 96, y: 645, w: 1728, h: 105, tail: false,
+          html: '<div class="sc-rules"><div class="nt m1">изменение смысла после одобрения → <b>через владельца</b></div>' +
+            '<div class="nt m2">новая потребность → <b>новая запись владельца</b>, а не правка чужой строки</div></div>' });
+        const ms = [".m1", ".m2"].map((c) => r2.el.querySelector(c));
+        hide(...ms);
+        r2.show(t("Изменение смысла") - 0.3);
+        Kit.popIn(S, ms[0], t("Изменение смысла"));
+        Kit.popIn(S, ms[1], t("новая потребность"));
+        read("изменение смысла после одобрения через владельца", t("Изменение смысла"), DUR);
+        read("новая потребность новая запись владельца а не правка чужой строки", t("новая потребность"), DUR);
+
+        Kit.subtitles(S, {});
+        S.finish(DUR);
+      })();
+    </script>
+  </div>
+</template>
