@@ -14,6 +14,13 @@ for i in $(seq 1 "$N"); do
   [ -f "$FILM/renders/scene-$nn.mp4" ] || { echo "нет рендера сцены $nn" >&2; exit 1; }
   [ -f "$FILM/assets/vo/scene-$nn.mp3" ] || { echo "нет голоса сцены $nn" >&2; exit 1; }
 done
+# Каждый рендер — ровно своя сцена: иначе сдвиг между главами (одна длиннее, другая короче) прошёл бы общий гейт кадров.
+for i in $(seq 1 "$N"); do
+  nn=$(printf %02d "$i")
+  want=$(node -e "console.log(Math.round(require('$FILM/scenes.json')[$i-1].duration*30))")
+  got=$(ffprobe -v error -select_streams v -count_frames -show_entries stream=nb_read_frames -of csv=p=0 "$FILM/renders/scene-$nn.mp4")
+  [ "$got" = "$want" ] || { echo "СТОП: сцена $nn — $got кадров, ждём $want" >&2; exit 1; }
+done
 if grep -q '"estimate": *true' "$FILM"/assets/vo/scene-*.alignment.json; then echo "СТОП: разметка слов оценочная, голоса нет" >&2; exit 1; fi
 mkdir -p "$OUT"
 TOTAL=$(node -e "console.log(require('$FILM/scenes.json').reduce((a,s)=>a+s.duration,0).toFixed(3))")

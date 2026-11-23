@@ -3,9 +3,9 @@
     <script>
       (function () {
         const L = Long.begin("02"), { S, tl, el, show, hide, at, t, DUR } = L;
-        // сцена 2 · Карта PDLC · камера Y 200 (s 1,15) → раздел 01 (шов со сценой 3); прожектор на полосе
+        // сцена 2 · Карта PDLC · камера Y 330 (s 1,15: верх кадра — под шапкой, заголовок не режется) → раздел 01 (шов со сценой 3); прожектор на полосе
         const { R } = PageWin;
-        const W = PageWin.begin(L, { cam: { Y: 200, s: 1.15 }, spot: R.sdlc });
+        const W = PageWin.begin(L, { cam: { Y: 330, s: 1.15 }, spot: R.sdlc });
         const HDR = [1420, R.sdlc.y + 32];                 // свободное место в шапке полосы, справа от подзаголовка
         const N = R.nodes.slice(0, 7), AG = R.agents.slice(0, 7), RO = R.roles.slice(0, 7), CH = R.chips.slice(0, 7), CT = R.ctas;
         const row = (list) => ({ x: list[0].x - 6, y: Math.min(...list.map((r) => r.y)) - 2, w: list[6].x + list[6].w - list[0].x + 12, h: Math.max(...list.map((r) => r.h)) + 4 });
@@ -37,7 +37,7 @@
         [2, 4, 5, 6].forEach((i, k) => W.ring(CT[i], ot + 0.1 + k * 0.15, DUR - 1.4));
         W.call("В работе", { to: HDR, side: "center", at: ot, until: DUR - 1.4 });
         W.moveCam(DUR - 1.2, 1.1, { Y: 536, s: 1.15 });
-        W.hopSpot(R.intent, DUR - 1.2, DUR - 0.3);
+        W.hopSpot(R.intent, DUR - 1.2, DUR - 0.5);   // проявление 0,4 с заканчивается до конца сцены
         L.fin();
       })();
     </script>

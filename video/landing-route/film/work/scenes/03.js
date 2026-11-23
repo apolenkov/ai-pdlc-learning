@@ -10,4 +10,4 @@ W.ring(C2, c, DUR - 1.4);
 W.call("Курс", { to: HDR, side: "center", at: c + 0.05, until: f - 0.25 });
 W.call("Четыре шага", { to: HDR, side: "center", at: f, until: DUR - 1.4 });
 W.moveCam(DUR - 1.2, 1.1, { Y: 919, s: 1.15 });
-W.hopSpot(R.analysis, DUR - 1.2, DUR - 0.3);
+W.hopSpot(R.analysis, DUR - 1.2, DUR - 0.5);   // проявление 0,4 с заканчивается до конца сцены

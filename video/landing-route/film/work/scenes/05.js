@@ -11,7 +11,7 @@ STEPS.forEach(([, label], i) => {
   W.call(label, { to: HDR, side: "center", at: T[i] + 0.05, until: until - 0.05 });
 });
 // «начните с карты этапов и найдите свой»: назад к полосе, первый этап пульсирует
-W.moveCam(go, 1.3, { Y: 200, s: 1.15 }, "power3.inOut");
+W.moveCam(go, 1.3, { Y: 330, s: 1.15 }, "power3.inOut");
 W.hopSpot(R.sdlc, go, go + 1.1);
 W.call("Найдите свой этап", { to: [1420, R.sdlc.y + 32], side: "center", at: go + 1.2 });
 W.ring(R.nodes[0], go + 1.3, null, "round");

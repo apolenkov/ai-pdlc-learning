@@ -20,5 +20,5 @@ W.ring(NAV[0], v - 0.05, out + 0.6);
 // «Карта PDLC»: только кольцо (подпись видна на самой ссылке); выноска под ссылкой закрыла бы заголовок, справа указывала бы на «Справку»
 W.ring(NAV[1], s - 0.05, out + 0.6);
 W.call("Справка", { to: [NAV[1].x + NAV[1].w, NAV[1].y + NAV[1].h / 2], side: "right", gap: 40, at: s, until: out });
-W.moveCam(out, DUR - out - 0.2, { Y: 200, s: 1.15 }, "power2.inOut");
+W.moveCam(out, DUR - out - 0.2, { Y: 330, s: 1.15 }, "power2.inOut");
 W.hopSpot(R.sdlc, out - 0.1, DUR - 0.5);

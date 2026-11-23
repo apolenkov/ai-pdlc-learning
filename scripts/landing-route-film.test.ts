@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { test } from 'node:test';
@@ -83,14 +84,45 @@ await test('landing-route: манифест совпадает с MEDIA.sha256, 
       .map(([sum, ...file]) => [file.join(' '), sum ?? ''] as const),
   );
   const sha256 = String(manifest['sha256']);
-  assert.equal(sums.get('./film/renders/landing-route-720p.mp4'), sha256);
-  assert.equal(sums.get('./film/renders/landing-route-1080p.mp4'), master['sha256']);
+  assert.equal(sums.get('./film/renders/final/landing-route-720p.mp4'), sha256);
+  assert.equal(sums.get('./film/renders/final/landing-route-1080p.mp4'), master['sha256']);
   assert.equal(sums.get('./landing-route-poster.webp'), poster['sha256']);
+  // The player takes the poster and both tracks from this directory: each pin matches the file in Git.
+  const tracks = manifest['tracks'];
+  assert.ok(isRecord(tracks));
+  const pinned = [poster, ...Object.values(tracks)];
+  for (const entry of pinned) {
+    assert.ok(isRecord(entry));
+    const file = String(entry['file']);
+    const bytes = readFileSync(resolve(dir, file));
+    assert.equal(createHash('sha256').update(bytes).digest('hex'), entry['sha256'], file);
+    assert.equal(bytes.length, entry['size'], file);
+    assert.equal(sums.get(`./${file}`), entry['sha256'], `${file} в MEDIA.sha256`);
+  }
+  // Every MEDIA.sha256 line that names a file kept in Git matches it (renders stay outside Git).
+  for (const [file, sum] of sums) {
+    if (file.startsWith('./film/renders/')) continue;
+    assert.equal(
+      createHash('sha256')
+        .update(readFileSync(resolve(dir, file)))
+        .digest('hex'),
+      sum,
+      file,
+    );
+  }
   assert.equal(manifest['version'], sha256.slice(0, 12));
   assert.equal(manifest['url'], mediaUrl('landing-route.mp4', sha256));
   assert.equal(num(manifest, 'duration'), total);
-  const cues = vttBlocks(read('landing-route.vtt')).length;
-  assert.equal(num(manifest, 'captions'), cues);
+  const cueBlocks = vttBlocks(read('landing-route.vtt'));
+  assert.equal(num(manifest, 'captions'), cueBlocks.length);
+  // Each cue lasts 1-7 s and does not overlap the next one.
+  cueBlocks.forEach((lines, i) => {
+    const [from, to] = (lines[1] ?? '').split(' --> ');
+    const length = seconds(to ?? '') - seconds(from ?? '');
+    assert.ok(length >= 1 && length <= 7, `реплика ${String(i + 1)}: ${String(length)} с`);
+    const next = cueBlocks[i + 1];
+    if (next) assert.ok(startOf(next) >= seconds(to ?? ''), `реплика ${String(i + 1)}: перекрытие`);
+  });
   assert.equal(num(manifest, 'chapters'), vttBlocks(read('landing-route.chapters.vtt')).length);
 });
 

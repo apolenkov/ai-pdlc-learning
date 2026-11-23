@@ -9,4 +9,4 @@ W.call("Карта зрелости", { to: HDR, side: "center", at: k + 0.05, u
 W.ring(C2, u, DUR - 1.4);
 W.call("Учебный маршрут", { to: HDR, side: "center", at: u + 0.05, until: DUR - 1.4 });
 W.moveCam(DUR - 1.2, 1.1, { Y: 1380, s: 1.1 });
-W.hopSpot(R.help, DUR - 1.2, DUR - 0.3);
+W.hopSpot(R.help, DUR - 1.2, DUR - 0.5);   // проявление 0,4 с заканчивается до конца сцены

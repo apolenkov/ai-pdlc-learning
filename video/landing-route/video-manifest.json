@@ -1,15 +1,15 @@
 {
   "file": "landing-route.mp4",
-  "sha256": "64f3b2453526621415459ec5f00bc13d9bb77d826fc2316a1a6034dfbf3ed692",
-  "size": 2672368,
-  "url": "https://github.com/apolenkov/ai-pdlc-learning/releases/download/media-v1/64f3b2453526-landing-route.mp4",
-  "version": "64f3b2453526",
+  "sha256": "6e3b833ea59970f76503b05a09ba15754e405ec5c6612ae481b78a3aa05d5932",
+  "size": 2641325,
+  "url": "https://github.com/apolenkov/ai-pdlc-learning/releases/download/media-v1/6e3b833ea599-landing-route.mp4",
+  "version": "6e3b833ea599",
   "audio": "voice-only",
   "master": {
     "file": "landing-route-1080p.mp4",
-    "sha256": "1d616d904bf4a48cc0a98a33d18694ba58e810ba80665a4758966e8b6227da4d",
-    "size": 12360180,
-    "version": "1d616d904bf4",
+    "sha256": "3255e6a2c1c0116fffa066f4d8e9a6c8b223a6ad29555bb407d1e96846cca29d",
+    "size": 12125742,
+    "version": "3255e6a2c1c0",
     "note": "мастер 1080p в релиз не выкладывается; веб-версию собирает из него tools/assemble.sh"
   },
   "poster": {
@@ -17,8 +17,29 @@
     "sha256": "9c58a313cc5595566a22b827aa812e3c0367416b19ebe092ed559a6adb8aeb4c",
     "size": 22216
   },
+  "tracks": {
+    "captions": {
+      "file": "landing-route.vtt",
+      "sha256": "5c46b7c43c43dde113df7beb974d45a0574b700b775d266f47b2879ea10e36c7",
+      "size": 2096,
+      "kind": "captions",
+      "srclang": "ru"
+    },
+    "chapters": {
+      "file": "landing-route.chapters.vtt",
+      "sha256": "8af7f128161429f5926cf8f5dd8334771b13c5c8ea00d98a16cf0af1bd1251b5",
+      "size": 262,
+      "kind": "chapters",
+      "srclang": "ru"
+    },
+    "chaptersJson": {
+      "file": "landing-route.chapters.json",
+      "sha256": "1b13ea324acec555cd0840be8a475f83cd19c067e3f60c1e6136362a88b18c73",
+      "size": 959
+    }
+  },
   "duration": 70.6,
-  "captions": 19,
+  "captions": 17,
   "chapters": 5,
   "note": "v1 23.11.2026 (TASK-944, по запросу TASK-923): ролик шапки публичной главной (figure.hero-media). Главы по порядку страницы: Главная, Карта PDLC, Намерение и план, Анализ, Справка. Кадр снят с опубликованной главной (public main 16d112d) инструментом tools/shoot-page.ts. Голос Allan, eleven_v4, 847 знаков; тайминги слов из синтеза ElevenLabs (with-timestamps). −16,2 LUFS, true peak −5,2 dBTP, 2118 кадров, 1280×720, CRF 30."
 }

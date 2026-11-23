@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Субтитры VTT из alignment озвучки: одна реплика на предложение (или часть после «;»/«:»), время сцены + её смещение.
+// Субтитры VTT из alignment озвучки: одна реплика на предложение (длинное, > 62 знаков, — по частям после «;»/«:»), время сцены + её смещение.
 //   node tools/make-vtt.mjs [out.vtt]     пишет дорожку
 //   node tools/make-vtt.mjs --selftest    проверяет зажим конца реплики, файлов не пишет
 // Конец реплики: последняя буква + хвост 0,2 с, но не позже конца сцены и не позже начала следующей реплики минус зазор 0,02 с —
@@ -13,7 +13,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const scenes = JSON.parse(readFileSync(`${root}/scenes.json`, "utf8"));
 const terms = JSON.parse(readFileSync(`${root}/terms.json`, "utf8"));
 const ts = (x) => { const h = Math.floor(x / 3600), m = Math.floor((x % 3600) / 60), s = x % 60; return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${s.toFixed(3).padStart(6, "0")}`; };
-const GAP = 0.02;
+const GAP = 0.02, MAX = 62;
 const backSub = (s) => terms.reduce((acc, [from, to]) => acc.replace(new RegExp(`(?<![\\p{L}\\p{N}])${from}(?![\\p{L}\\p{N}])`, "giu"), to), s);
 
 /** Конец реплики — не позже конца сцены и не позже начала следующей минус зазор; перекрытие — ошибка. */
@@ -39,9 +39,14 @@ if (process.argv[2] === "--selftest") {
   for (const s of scenes) {
     const a = JSON.parse(readFileSync(`${root}/assets/vo/scene-${String(s.n).padStart(2, "0")}.alignment.json`, "utf8"));
     const text = a.characters.join("");
-    const re = /[^.!?;:]+[.!?;:]?/g; let m;
+    // реплика — предложение; по «;»/«:» режется только предложение длиннее MAX знаков (иначе «Второй раздел: анализ.» дало бы реплику 0,8 с)
+    const parts = [];
+    for (const sm of text.matchAll(/[^.!?]+[.!?]?/g)) {
+      if (sm[0].trim().length <= MAX) { parts.push({ 0: sm[0], index: sm.index }); continue; }
+      for (const pm of sm[0].matchAll(/[^;:]+[;:]?/g)) parts.push({ 0: pm[0], index: sm.index + pm.index });
+    }
     const cues = [];
-    while ((m = re.exec(text))) {
+    for (const m of parts) {
       const raw = m[0], lead = raw.length - raw.trimStart().length, body = raw.trim();
       if (!body) continue;
       const i0 = m.index + lead; let i1 = m.index + lead + body.length - 1;
