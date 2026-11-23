@@ -47,16 +47,16 @@
     "start": 64.1,
     "titleStart": 64.1,
     "speechStart": 64.1,
-    "end": 82.2
+    "end": 77.3
   },
   {
     "n": 6,
     "title": "С чего начать",
     "step": null,
     "chapter": "С чего начать",
-    "start": 82.2,
-    "titleStart": 82.2,
-    "speechStart": 82.2,
-    "end": 92.2
+    "start": 77.3,
+    "titleStart": 77.3,
+    "speechStart": 77.3,
+    "end": 87.3
   }
 ]

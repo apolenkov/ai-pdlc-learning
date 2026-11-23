@@ -1,7 +1,7 @@
-// сцена 5 · Разделы страницы · камера проходит по секциям: намерение → анализ → среда → справка
+// сцена 5 · Разделы страницы · камера проходит по секциям: намерение → анализ → справка
 const { R } = PageWin;
 const W = PageWin.begin(L, { cam: { Y: 969, s: 1.15 }, spot: R.enR });
-const S1 = { Y: 1640, s: 1.1 }, S2 = { Y: 2043, s: 1.1 }, S3 = { Y: 2538, s: 1.1 }, S5 = { Y: 3247, s: 1.1 };
+const S1 = { Y: 1640, s: 1.1 }, S2 = { Y: 2043, s: 1.1 }, S5 = { Y: 2538, s: 1.1 };
 W.moveCam(0, 1.0, S1);
 W.hopSpot(R.intent, 0.05, 1.0);
 const na = t("Намерение");
@@ -10,15 +10,10 @@ const an = t("Анализ");
 W.moveCam(an - 0.7, 0.7, S2);
 W.hopSpot(R.analysis, an - 0.7, an);
 W.call("Анализ", { to: [1150, 2160], side: "center", cam: S2, at: an, until: t("гайды") - 0.3 });
-W.call("Гайды и курсы", { to: [1150, 2160], side: "center", cam: S2, at: t("гайды"), until: t("Среда") - 0.2 });
-const env = t("Среда");
-W.moveCam(env - 0.7, 0.7, S3);
-W.hopSpot(R.env, env - 0.7, env);
-W.call("Среда и контуры", { to: [1150, 2628], side: "center", cam: S3, at: env, until: t("границы") - 0.35 });
-W.call("Границы среды", { to: [1150, 2628], side: "center", cam: S3, at: t("границы"), until: t("Внизу") - 0.25 });
 const hp = t("Внизу");
+W.call("Гайды и курсы", { to: [1150, 2160], side: "center", cam: S2, at: t("гайды"), until: hp - 0.9 });
 W.moveCam(hp - 0.7, 0.7, S5);
 W.hopSpot(R.help, hp - 0.7, hp);
-W.call("Справка", { to: [1150, 3332], side: "center", cam: S5, at: hp, until: t("всех") - 0.3 });
-W.call("Для всех ролей", { to: [1150, 3332], side: "center", cam: S5, at: t("всех"), until: t("Где") - 0.2 });
-W.call("В работе", { to: [1450, 3856], side: "center", cam: S5, notail: true, at: t("Где") + 0.1, until: DUR - 0.8 });
+W.call("Справка", { to: [1150, 2623], side: "center", cam: S5, at: hp, until: t("всех") - 0.3 });
+W.call("Для всех ролей", { to: [1150, 2623], side: "center", cam: S5, at: t("всех"), until: t("Где") - 0.2 });
+W.call("В работе", { to: [1450, 3147], side: "center", cam: S5, notail: true, at: t("Где") + 0.1, until: DUR - 0.8 });

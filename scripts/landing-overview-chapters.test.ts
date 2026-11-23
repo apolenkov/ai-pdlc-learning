@@ -83,7 +83,7 @@ await test('overview: главы монотонны, смежны и закан�
       assert.equal(c.start, chapters[i - 1]?.end, `глава ${String(c.n)}: стык с предыдущей`);
   });
   const last = chapters.at(-1)?.end ?? Infinity;
-  assert.ok(last <= 92.2, `конец ролика ${String(last)} с`);
+  assert.ok(last <= 87.3, `конец ролика ${String(last)} с`);
   assert.equal(last, total, 'конец равен сумме длительностей сцен');
 });
 
@@ -103,7 +103,7 @@ await test('overview: начало главы — старт сцены или �
   }
 });
 
-await test('overview: манифест sections пинует web и master v5b (мастер утерян, пин сохранён), 22 реплики и 6 глав', () => {
+await test('overview: манифест sections пинует web v6 и master v5b (мастер утерян, пин сохранён), 21 реплика и 6 глав', () => {
   const manifest = readJson('video-manifest.json');
   const master = manifest['master'];
   assert.ok(isRecord(master), 'master — объект');
@@ -117,9 +117,9 @@ await test('overview: манифест sections пинует web и master v5b (
       .map(([sum, ...file]) => [file.join(' '), sum ?? ''] as const),
   );
   assert.equal(
-    sums.get('./film/renders/landing-overview-sections-v5b-720p.mp4'),
+    sums.get('./film/renders/landing-overview-sections-v6-720p.mp4'),
     sha256,
-    'web-пин совпадает с MEDIA.sha256 (рендер v5b 720p)',
+    'web-пин совпадает с MEDIA.sha256 (сборка v6 720p)',
   );
   assert.equal(
     sums.get('./film/renders/landing-overview-sections-v5b-1080p.mp4'),
@@ -127,14 +127,22 @@ await test('overview: манифест sections пинует web и master v5b (
     'master-пин совпадает с MEDIA.sha256 (рендер v5b 1080p)',
   );
   assert.equal(manifest['version'], sha256.slice(0, 12));
-  assert.equal(num(manifest, 'size'), 3681673);
+  assert.equal(num(manifest, 'size'), 3395213);
   assert.equal(num(master, 'size'), 18841011);
   assert.equal(manifest['url'], mediaUrl('landing-overview.mp4', sha256));
   // The 1080p master was lost before the Mac handover: its pin stays, the release URL is gone.
   assertMasterPin(master);
-  assert.equal(num(manifest, 'duration'), 92.2);
+  assert.equal(num(manifest, 'duration'), 87.3);
   const cues = [...read('landing-overview-sections.vtt').matchAll(/-->/gu)].length;
-  assert.equal(cues, 22, 'субтитры — 22 реплики');
+  assert.equal(cues, 21, 'субтитры — 21 реплика');
+  // TASK-911: the removed section is gone from the voice text, subtitles, chapters and scene 5 frames.
+  for (const file of [
+    'landing-overview-sections.vtt',
+    'landing-overview-sections.chapters.vtt',
+    'film/work/vo-input.md',
+    'film/work/scenes/05.js',
+  ])
+    assert.doesNotMatch(read(file), /Среда\s+и\s+контуры/u, file);
   assert.equal(num(manifest, 'captions'), cues);
   const chapterBlocks = vttBlocks(read('landing-overview-sections.chapters.vtt')).length;
   assert.equal(chapterBlocks, 6, 'главы — 6');

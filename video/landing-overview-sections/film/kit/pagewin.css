@@ -1,8 +1,8 @@
 /* Шаблон «окно страницы» (TASK-602-bis): скриншот главной в окне на тёмном фоне kit, камера по Y, затемнение с кольцом, выноски ≤2 слов.
    Окно: x 150–1770, y 40–820 (ниже y=825 — зона субтитров плеера, контента нет). Всё через S.tl, детерминированно. */
 .pw-win { position: absolute; left: 150px; top: 40px; width: 1620px; height: 780px; overflow: hidden; border-radius: 22px; background: #f3efe6; box-shadow: 0 26px 70px rgba(0, 0, 0, .55); }
-.pw-layer { position: absolute; left: 0; top: 0; width: 1920px; height: 4110px; transform-origin: 0 0; }
-.pw-img { position: absolute; left: 128px; top: 0; width: 1664px; height: 4110px; display: block; }
+.pw-layer { position: absolute; left: 0; top: 0; width: 1920px; height: 3401px; transform-origin: 0 0; }
+.pw-img { position: absolute; left: 128px; top: 0; width: 1664px; height: 3401px; display: block; }
 .pw-spot { position: absolute; border: 4px solid var(--k-accent); border-radius: 28px; box-shadow: 0 0 0 4000px rgba(8, 10, 14, .64), 0 0 26px 2px rgba(255, 122, 89, .42); }
 .pw-ring { position: absolute; border: 4px solid var(--k-accent); border-radius: 16px; box-shadow: 0 0 20px 2px rgba(255, 122, 89, .5); }
 .pw-ring.round { border-radius: 50%; }
