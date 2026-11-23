@@ -255,7 +255,7 @@ export const redirectStub = (target: string, removedLabel?: string): string => {
     : `Страница переехала: <a href="${target}">открыть новый адрес</a>.`;
   return `<!doctype html>
 <html lang="ru">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>html{background:#f4f1e8;color:#1f2a26;font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;padding:24px}a{color:#216650}</style><meta http-equiv="refresh" content="0;url=${target}"><link rel="canonical" href="${target}"><title>${title} · AI PDLC Learning</title><script>location.replace("${target}" + location.hash);</script></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>html{background:#f4f1e8;color:#1f2a26;font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;padding:24px}a{color:#216650}</style><meta http-equiv="refresh" content="0;url=${target}"><link rel="canonical" href="${target}"><title>${title} · AI PDLC Learning</title><script>location.replace("${target}"${target.includes('#') ? '' : ' + location.hash'});</script></head>
 <body><p>${body}</p></body>
 </html>
 `;

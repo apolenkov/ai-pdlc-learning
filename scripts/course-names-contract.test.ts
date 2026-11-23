@@ -162,6 +162,14 @@ await test('guide titles and redirects match their stable routes', async () => {
       stub.includes('href="s1-git.html"'),
     'a stub forwards, keeps the #step anchor and has a link',
   );
+  // The retired analysis map opens the levels block; its own anchor replaces the old one, not a second «#».
+  assert.deepEqual(
+    pageRedirects.find((item) => item.outputPath === 'analysis-maturity-map.html'),
+    { outputPath: 'analysis-maturity-map.html', target: 'guides/index.html#maturity-levels' },
+  );
+  const anchored = redirectStub('guides/index.html#maturity-levels');
+  assert.ok(anchored.includes('location.replace("guides/index.html#maturity-levels");'), anchored);
+  assert.ok(!anchored.includes('location.hash'), 'an anchored target drops the old anchor');
   for (const outputPath of ['environment-scales.html', 'environment-contours.html'])
     assert.ok(
       retiredPageRedirects.some((item) => item.outputPath === outputPath),

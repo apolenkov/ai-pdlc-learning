@@ -85,8 +85,9 @@ npm run preview       # http://127.0.0.1:4177/
 
 ## Генерируемые страницы
 
-Страницы ролей, глоссария и карт зрелости обновляйте из генератора CustomDev через pull request.
-После обновления запустите `npm run site-nav:update`. Тест `scripts/generated-pages-marker.test.ts` проверяет маркеры генератора.
+Роли и глоссарий правьте в `scripts/help-reference/`. Соберите страницы командой `npm run help:build`,
+затем обновите меню командой `npm run site-nav:update`. Карту намерений правьте прямо в
+`docs/pages/sdlc-development/intent-maturity-map.html`.
 
 ## Что в курс не входит
 

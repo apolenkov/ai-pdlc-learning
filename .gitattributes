@@ -4,11 +4,9 @@
 *.pdf binary
 *.zip binary
 
-# exported from customdev by npm run learning:export (scripts/export-generated-to-learning.ts); not edited here
+# Built by npm run help:build from scripts/help-reference/.
 docs/pages/sdlc-development/roles.html linguist-generated=true
 docs/pages/sdlc-development/glossary.html linguist-generated=true
-docs/pages/sdlc-development/help-reference.css linguist-generated=true
-docs/pages/sdlc-development/intent-maturity-map.html linguist-generated=true
 
 # written by `node --experimental-strip-types scripts/course-map.ts --write`; the build splices it into guides/intent.html, edit the page, not this part
 docs/pages/sdlc-development/guides/intent/course-map.html linguist-generated=true

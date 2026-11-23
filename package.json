@@ -17,6 +17,7 @@
   },
   "scripts": {
     "build:site": "node --experimental-strip-types scripts/build-learning-pages.ts",
+    "help:build": "node --experimental-strip-types scripts/help-reference/build.ts",
     "site-nav:update": "node --experimental-strip-types scripts/update-site-navigation.ts",
     "preview": "node --experimental-strip-types scripts/preview-pages.ts",
     "test": "node --experimental-strip-types --test --test-concurrency=1 scripts/*.test.ts standards/sdlc-analysis-standard/checks/*.test.*",

@@ -45,6 +45,8 @@ export const retiredHome = {
 
 /** Previous addresses of the course pages and of the retired AI stages: each one is a stub that forwards to the current page and keeps the #step anchor. */
 export const pageRedirects = [
+  // The analysis maturity map left the course (TASK-951): its address opens the three levels on the course home.
+  { outputPath: 'analysis-maturity-map.html', target: 'guides/index.html#maturity-levels' },
   { outputPath: 'guides/metarepository.html', target: 'p4-metarepository.html' },
   { outputPath: 'guides/stage-1-ai.html', target: 's1-git.html' },
   { outputPath: 'guides/stage-2-ai.html', target: 's2-review.html' },
