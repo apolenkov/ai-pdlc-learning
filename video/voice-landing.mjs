@@ -31,6 +31,8 @@ const FILMS = [
   { name: "et-film-long", blocks: 8, sharedFrom: null, lead: { 1: 2.0 } },
   // Обзорный ролик курса «Намерение и план» (intent-overview): 5 фраз, 30–45 с, на приёмку Fable.
   { name: "intent-overview", blocks: 5, sharedFrom: null, tempo: 1.2, tail: 1.0, finalTail: 2.0 },
+  // Ролик публичной главной (TASK-923 · 944): заголовок → полоса PDLC → 01 → 02 → «Справка», 5 сцен; голос без ускорения, lead — светлая заставка.
+  { name: "landing-route", blocks: 5, sharedFrom: null, lead: { 1: 2.0 } },
 ];
 const STEPS = ["voice", "vo-normalize", "build-vo", "sync-dur", "build-captions", "build-titles", "build-index"];
 const MODELS_URL = "https://api.elevenlabs.io/v1/models";

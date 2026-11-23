@@ -1,0 +1,45 @@
+<template id="scene-02-template">
+  <div data-composition-id="scene-02" data-width="1920" data-height="1080" data-duration="23">
+    <script>
+      (function () {
+        const L = Long.begin("02"), { S, tl, el, show, hide, at, t, DUR } = L;
+        // сцена 2 · Карта PDLC · камера Y 200 (s 1,15) → раздел 01 (шов со сценой 3); прожектор на полосе
+        const { R } = PageWin;
+        const W = PageWin.begin(L, { cam: { Y: 200, s: 1.15 }, spot: R.sdlc });
+        const HDR = [1420, R.sdlc.y + 32];                 // свободное место в шапке полосы, справа от подзаголовка
+        const N = R.nodes.slice(0, 7), AG = R.agents.slice(0, 7), RO = R.roles.slice(0, 7), CH = R.chips.slice(0, 7), CT = R.ctas;
+        const row = (list) => ({ x: list[0].x - 6, y: Math.min(...list.map((r) => r.y)) - 2, w: list[6].x + list[6].w - list[0].x + 12, h: Math.max(...list.map((r) => r.h)) + 4 });
+        W.call("Карта PDLC", { to: HDR, side: "center", at: t("карта") - 0.1, until: t("Семь") - 0.3 });
+        // «семь этапов»: волна по узлам, затем первый и последний этап
+        const w0 = t("Семь"), na = t("намерения и"), nb = t("наблюдения");
+        W.call("7 этапов", { to: HDR, side: "center", at: w0, until: na - 0.2 });
+        N.forEach((r, i) => W.ring(r, w0 + 0.15 + i * 0.12, na + 0.1, "round"));
+        W.ring(N[0], na, nb - 0.1, "round");
+        W.call("Намерение", { to: HDR, side: "center", at: na + 0.05, until: nb - 0.15 });
+        W.ring(N[6], nb, t("агент") - 0.2, "round");
+        W.call("Наблюдение", { to: HDR, side: "center", at: nb, until: t("агент") - 0.2 });
+        // «агент готовит, а человек решает» — две строки этапов по очереди
+        const ag = t("агент"), hu = t("человек");
+        W.ring(row(AG), ag, hu - 0.15);
+        W.call("Агент готовит", { to: HDR, side: "center", at: ag + 0.05, until: hu - 0.2 });
+        W.ring(row(RO), hu, t("артефакт") - 0.2);
+        W.call("Человек решает", { to: HDR, side: "center", at: hu + 0.05, until: t("артефакт") - 0.25 });
+        // «свой артефакт, от намерения до метрик»: кольца по тегам Intent → DORA
+        const ar = t("артефакт"), me = t("метрик"), cu = t("Курсы");
+        W.call("Артефакт этапа", { to: HDR, side: "center", at: ar, until: cu - 0.25 });
+        CH.forEach((r, i) => W.ring(r, ar + 0.1 + (i * (me - ar)) / 6, cu - 0.2));
+        // «курсы у первых двух, у реализации практикум, остальные в работе»
+        const pr = t("реализации"), ot = t("остальные");
+        [0, 1].forEach((i) => W.ring(CT[i], cu + 0.2 + i * 0.25, pr - 0.2));
+        W.call("Есть курс", { to: HDR, side: "center", at: cu + 0.1, until: pr - 0.25 });
+        W.ring(CT[3], pr, ot - 0.2);
+        W.call("Практикум", { to: HDR, side: "center", at: pr + 0.05, until: ot - 0.25 });
+        [2, 4, 5, 6].forEach((i, k) => W.ring(CT[i], ot + 0.1 + k * 0.15, DUR - 1.4));
+        W.call("В работе", { to: HDR, side: "center", at: ot, until: DUR - 1.4 });
+        W.moveCam(DUR - 1.2, 1.1, { Y: 536, s: 1.15 });
+        W.hopSpot(R.intent, DUR - 1.2, DUR - 0.3);
+        L.fin();
+      })();
+    </script>
+  </div>
+</template>

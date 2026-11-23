@@ -1,0 +1,13 @@
+// сцена 3 · Намерение и план · камера Y 536 (s 1,15) → раздел 02 (шов со сценой 4); прожектор на разделе 01
+const { R } = PageWin;
+const W = PageWin.begin(L, { cam: { Y: 536, s: 1.15 }, spot: R.intent });
+const HDR = [1380, R.intent.y + 48], [C1, C2] = R.intentCards;
+W.call("Намерение и план", { to: HDR, side: "center", at: t("Первый"), until: t("Карта") - 0.25 });
+const k = t("Карта"), c = t("Курс проведёт"), f = t("четырём");
+W.ring(C1, k, c - 0.2);
+W.call("Карта зрелости", { to: HDR, side: "center", at: k + 0.05, until: c - 0.25 });
+W.ring(C2, c, DUR - 1.4);
+W.call("Курс", { to: HDR, side: "center", at: c + 0.05, until: f - 0.25 });
+W.call("Четыре шага", { to: HDR, side: "center", at: f, until: DUR - 1.4 });
+W.moveCam(DUR - 1.2, 1.1, { Y: 919, s: 1.15 });
+W.hopSpot(R.analysis, DUR - 1.2, DUR - 0.3);

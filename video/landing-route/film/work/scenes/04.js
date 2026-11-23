@@ -1,0 +1,12 @@
+// сцена 4 · Анализ · камера Y 919 (s 1,15) → «Справка» (шов со сценой 5); прожектор на разделе 02
+const { R } = PageWin;
+const W = PageWin.begin(L, { cam: { Y: 919, s: 1.15 }, spot: R.analysis });
+const HDR = [1380, R.analysis.y + 48], [C1, C2] = R.analysisCards;
+W.call("Анализ", { to: HDR, side: "center", at: t("Второй"), until: t("Карта") - 0.25 });
+const k = t("Карта"), u = t("учебный");
+W.ring(C1, k, u - 0.2);
+W.call("Карта зрелости", { to: HDR, side: "center", at: k + 0.05, until: u - 0.25 });
+W.ring(C2, u, DUR - 1.4);
+W.call("Учебный маршрут", { to: HDR, side: "center", at: u + 0.05, until: DUR - 1.4 });
+W.moveCam(DUR - 1.2, 1.1, { Y: 1380, s: 1.1 });
+W.hopSpot(R.help, DUR - 1.2, DUR - 0.3);
