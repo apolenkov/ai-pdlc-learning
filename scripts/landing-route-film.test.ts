@@ -90,6 +90,19 @@ await test('landing-route: манифест совпадает с MEDIA.sha256, 
   // The player takes the poster and both tracks from this directory: each pin matches the file in Git.
   const tracks = manifest['tracks'];
   assert.ok(isRecord(tracks));
+  // The player needs all three tracks under these names; an empty tracks object must fail.
+  const TRACKS: Record<string, string> = {
+    captions: 'landing-route.vtt',
+    chapters: 'landing-route.chapters.vtt',
+    chaptersJson: 'landing-route.chapters.json',
+  };
+  assert.deepEqual(Object.keys(tracks).sort(), Object.keys(TRACKS).sort());
+  for (const [key, file] of Object.entries(TRACKS)) {
+    const track: unknown = tracks[key];
+    assert.ok(isRecord(track), `tracks.${key}`);
+    assert.equal(track['file'], file, `tracks.${key}.file`);
+  }
+  assert.equal(poster['file'], 'landing-route-poster.webp');
   const pinned = [poster, ...Object.values(tracks)];
   for (const entry of pinned) {
     assert.ok(isRecord(entry));

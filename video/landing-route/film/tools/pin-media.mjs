@@ -12,9 +12,10 @@ const dir = resolve(film, "..");
 const MEDIA_RELEASE = "https://github.com/apolenkov/ai-pdlc-learning/releases/download/media-v1"; // как scripts/media-release.ts
 const sha = (rel) => createHash("sha256").update(readFileSync(resolve(dir, rel))).digest("hex");
 const pin = (rel) => ({ file: rel.split("/").pop(), sha256: sha(rel), size: statSync(resolve(dir, rel)).size });
+const POSTER_SRC = "film/renders/final/landing-route-poster.webp";
 const cues = (rel) => (readFileSync(resolve(dir, rel), "utf8").match(/-->/g) ?? []).length;
 
-copyFileSync(resolve(film, "renders/final/landing-route-poster.webp"), resolve(dir, "landing-route-poster.webp"));
+// все входы читаются и хешируются до первой записи: при ошибке не остаётся смеси двух сборок
 const scenes = JSON.parse(readFileSync(resolve(film, "scenes.json"), "utf8"));
 const duration = Number(scenes.reduce((a, s) => a + s.duration, 0).toFixed(3));
 const WEB = "film/renders/final/landing-route-720p.mp4", MASTER = "film/renders/final/landing-route-1080p.mp4";
@@ -29,7 +30,7 @@ const manifest = {
   version: web.sha256.slice(0, 12),
   audio: "voice-only",
   master: { file: "landing-route-1080p.mp4", sha256: master.sha256, size: master.size, version: master.sha256.slice(0, 12), note: "мастер 1080p в релиз не выкладывается; веб-версию собирает из него tools/assemble.sh" },
-  poster: pin("landing-route-poster.webp"),
+  poster: { ...pin(POSTER_SRC), file: "landing-route-poster.webp" },
   tracks: {
     captions: { ...pin("landing-route.vtt"), kind: "captions", srclang: "ru" },
     chapters: { ...pin("landing-route.chapters.vtt"), kind: "chapters", srclang: "ru" },
@@ -40,13 +41,17 @@ const manifest = {
   chapters: cues("landing-route.chapters.vtt"),
   note: old.note,
 };
-writeFileSync(resolve(dir, "video-manifest.json"), JSON.stringify(manifest, null, 2) + "\n");
-
 const lines = [];
 for (const s of scenes) {
   const nn = String(s.n).padStart(2, "0");
   for (const ext of ["mp3", "alignment.json"]) lines.push(`film/assets/vo/scene-${nn}.${ext}`);
 }
-lines.push(WEB, MASTER, "landing-route-poster.webp", "landing-route.vtt", "landing-route.chapters.vtt", "landing-route.chapters.json");
-writeFileSync(resolve(dir, "MEDIA.sha256"), lines.map((rel) => `${sha(rel)}  ./${rel}`).join("\n") + "\n");
+lines.push(WEB, MASTER);
+const sums = lines.map((rel) => `${sha(rel)}  ./${rel}`);
+sums.push(`${manifest.poster.sha256}  ./landing-route-poster.webp`);
+for (const rel of ["landing-route.vtt", "landing-route.chapters.vtt", "landing-route.chapters.json"]) sums.push(`${sha(rel)}  ./${rel}`);
+
+copyFileSync(resolve(dir, POSTER_SRC), resolve(dir, "landing-route-poster.webp"));
+writeFileSync(resolve(dir, "video-manifest.json"), JSON.stringify(manifest, null, 2) + "\n");
+writeFileSync(resolve(dir, "MEDIA.sha256"), sums.join("\n") + "\n");
 console.log(`pin-media: ${manifest.version}, ${duration} с, ${manifest.captions} реплик, ${manifest.chapters} глав`);

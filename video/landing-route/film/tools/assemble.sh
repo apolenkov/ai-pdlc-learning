@@ -20,6 +20,9 @@ for i in $(seq 1 "$N"); do
   want=$(node -e "console.log(Math.round(require('$FILM/scenes.json')[$i-1].duration*30))")
   got=$(ffprobe -v error -select_streams v -count_frames -show_entries stream=nb_read_frames -of csv=p=0 "$FILM/renders/scene-$nn.mp4")
   [ "$got" = "$want" ] || { echo "СТОП: сцена $nn — $got кадров, ждём $want" >&2; exit 1; }
+  # кадров может быть столько же при другой частоте: длительность рендера тоже должна совпасть со сценой
+  dur=$(ffprobe -v error -select_streams v -show_entries stream=duration -of csv=p=0 "$FILM/renders/scene-$nn.mp4")
+  node -e "const [d,w]=process.argv.slice(1).map(Number);process.exit(Math.abs(d-w/30)<0.02?0:1)" "$dur" "$want" || { echo "СТОП: сцена $nn длится $dur с, ждём $(node -e "console.log($want/30)") с" >&2; exit 1; }
 done
 if grep -q '"estimate": *true' "$FILM"/assets/vo/scene-*.alignment.json; then echo "СТОП: разметка слов оценочная, голоса нет" >&2; exit 1; fi
 mkdir -p "$OUT"
