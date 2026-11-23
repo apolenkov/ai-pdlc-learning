@@ -293,7 +293,9 @@ const assertExpandedMenu = async (page: Page, file: string, width: number): Prom
     true,
     `${file} at ${width}: expanded menu exposes every page control`,
   );
-  await page.focus('[data-global-nav] .site-catalog-return');
+  await page.focus(
+    file === 'index.html' ? '[data-nav-item="help"]' : '[data-global-nav] .site-catalog-return',
+  );
   await page.keyboard.press('Escape');
   assert.deepEqual(
     await page.$eval('.site-nav-more', (el) => ({

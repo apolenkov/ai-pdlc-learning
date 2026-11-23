@@ -99,13 +99,12 @@ await test('the intent course page names its own course in the crumb line (#13)'
   assert.ok(step);
   assert.deepEqual(
     crumbItems({
-      home: { label: 'Маршрут курса', href: './' },
+      home,
       step,
       stepCourse: { label: 'Намерение и план', href: 'intent.html' },
-      courseRoot: true,
     }).map((item) => [item.label, item.href]),
     [
-      ['Маршрут курса', './'],
+      [home.label, home.href],
       ['Намерение и план', 'intent.html'],
       ['Шаг\u00a01\u00a0· Проблема и эффект', undefined],
     ],

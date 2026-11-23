@@ -23,6 +23,8 @@ const runtimeAssets = [
   'guides/metarepository.css',
   'guides/learning-enhancements.css',
   'help-reference.css',
+  'landing.css',
+  'landing.js',
   'site-nav.css',
 ] as const;
 

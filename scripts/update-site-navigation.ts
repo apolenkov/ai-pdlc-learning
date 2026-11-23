@@ -9,8 +9,8 @@ import { escapeHtml, replaceSiteNavigation, type SiteSection } from './site-navi
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const PAGES = resolve(ROOT, 'docs/pages/sdlc-development');
 
-/** The CustomDev section whose catalog lists the page; every other course page belongs to «Анализ» of the SDLC map. */
-const CUSTOMDEV_SECTIONS: Readonly<Record<string, SiteSection>> = {
+/** The landing section whose catalog lists the page; every other course page belongs to «Анализ» of the SDLC map. */
+const CATALOG_SECTIONS: Readonly<Record<string, SiteSection>> = {
   'roles.html': 'help',
   'glossary.html': 'help',
   'corporate-resources.html': 'help',
@@ -36,16 +36,9 @@ export const updateSiteNavigation = async (check: boolean): Promise<string[]> =>
     if (!html.includes('data-global-nav')) continue;
     // With «/» separators, as the maps below are keyed: on Windows `relative` returns «guides\index.html».
     const page = relative(PAGES, file).split(sep).join('/');
-    const section = CUSTOMDEV_SECTIONS[page] ?? 'sdlc';
+    const section = CATALOG_SECTIONS[page] ?? 'sdlc';
     const deck = file === resolve(PAGES, 'analytics-process-sdd.html');
-    // Intent course pages (data-course="intent") return to the intent catalog card, like analysis returns to «Анализ».
-    const course = html.includes('data-course="intent"') ? ('intent' as const) : undefined;
-    const courseRoot = page === 'guides/index.html';
-    const target = {
-      section,
-      ...(course === undefined ? {} : { course }),
-      ...(courseRoot ? { courseRoot } : {}),
-    };
+    const target = { section, landing: page === 'index.html' };
     let next = replaceSiteNavigation(
       html,
       deck ? { ...target, navClass: 'deck-topbar site-topbar', preservePageActions: true } : target,

@@ -21,12 +21,16 @@ export const LEARNING_ENHANCEMENT_PARTS = [
 ] as const;
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const PARTS_DIR = 'docs/pages/sdlc-development/guides/learning-enhancements';
+const PAGES = resolve(ROOT, 'docs/pages/sdlc-development');
 
-/** The published stylesheet: the parts joined byte for byte, without separators. */
-export const readLearningEnhancementsCss = async (): Promise<string> =>
-  (
-    await Promise.all(
-      LEARNING_ENHANCEMENT_PARTS.map((part) => readFile(resolve(ROOT, PARTS_DIR, part), 'utf8')),
-    )
-  ).join('');
+/** Join each stylesheet's parts in cascade order, byte for byte. */
+const readCssParts = async (directory: string, parts: readonly string[]): Promise<string> =>
+  (await Promise.all(parts.map((part) => readFile(resolve(PAGES, directory, part), 'utf8')))).join(
+    '',
+  );
+
+export const readLearningEnhancementsCss = (): Promise<string> =>
+  readCssParts('guides/learning-enhancements', LEARNING_ENHANCEMENT_PARTS);
+
+export const readLandingCss = (): Promise<string> =>
+  readCssParts('landing', ['catalog.css', 'route.css', 'panels.css', 'responsive.css']);

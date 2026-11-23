@@ -1,0 +1,97 @@
+:root {
+  color-scheme: light;
+  --catalog-paper: var(--site-nav-veil);
+  --catalog-surface: var(--site-nav-bg);
+  --catalog-ink: var(--site-nav-ink);
+  --catalog-muted: var(--site-nav-muted);
+  --catalog-line: var(--site-nav-line);
+  --catalog-route: #172b26;
+  --catalog-mint: #b1eccb;
+  --catalog-gold: #ffd98a;
+  --catalog-green: var(--site-nav-accent);
+  --catalog-green-soft: var(--site-nav-accent-soft);
+  --catalog-blue: var(--site-nav-focus);
+  --catalog-blue-soft: #e8f0f5;
+  --catalog-shadow: 0 10px 32px rgb(31 45 42 / 0.08);
+  --catalog-shadow-small: 0 10px 24px rgb(31 45 42 / 0.08);
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    sans-serif;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+/* Direct catalog anchors are URL state, not an animated carousel. Native
+   smooth scrolling races the fixed-frame state on an initial #fragment
+   load, briefly leaving the previous area active. Keep the jump atomic so
+   a bookmarked section and its highlighted global destination agree. */
+html {
+  scroll-behavior: auto;
+}
+body {
+  min-width: 320px;
+  margin: 0;
+  background: var(--catalog-paper);
+  color: var(--catalog-ink);
+  line-height: 1.5;
+}
+a {
+  color: inherit;
+  touch-action: manipulation;
+}
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--catalog-blue);
+  outline-offset: 4px;
+}
+[id] {
+  scroll-margin-top: 28px;
+}
+.catalog-frame {
+  width: 100%;
+  min-height: var(--site-nav-reserve);
+  margin: 0;
+  padding: 24px 0;
+}
+.catalog-frame .site-topbar.site-topbar--root {
+  margin-bottom: 0 !important;
+}
+/* SHELL-UNIFY: the shell width is the shared contract in site-nav.css. */
+.catalog-main {
+  width: min(var(--site-shell-max), calc(100% - 2 * var(--site-page-gutter)));
+  margin-inline: auto;
+  padding: 4px 0 76px;
+}
+.catalog-hero {
+  padding: 24px;
+  border: 1px solid var(--catalog-line);
+  border-radius: 12px;
+  background: var(--catalog-surface);
+  box-shadow: var(--catalog-shadow);
+}
+.catalog-hero__text {
+  max-width: 1060px;
+}
+.catalog-hero h1 {
+  font-size: clamp(2.25rem, 3.9vw, 3.6rem);
+}
+h1 {
+  max-width: var(--site-shell-max, 1408px);
+  margin: 0;
+  font-size: clamp(2.5rem, 5.2vw, 5rem);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+.catalog-lede {
+  max-width: 770px;
+  margin: 18px 0 0;
+  color: var(--catalog-muted);
+  font-size: 1.07rem;
+}

@@ -31,7 +31,7 @@ export const pageOutputPaths = [
 
 /**
  * Addresses of sections that left the course. Their stub leads to the home of the build's menu row
- * (retiredHome): the course route in the public build, the CustomDev PDLC map one level above the course.
+ * (retiredHome): the landing in the public build, the CustomDev PDLC map one level above the course.
  */
 export const retiredPageRedirects = [
   { outputPath: 'environment-scales.html' },
@@ -40,7 +40,7 @@ export const retiredPageRedirects = [
 
 /** Where a retired address leads and what its link says, per menu row (COURSE_NAV). */
 export const retiredHome = {
-  public: { target: './', label: 'открыть маршрут курса' },
+  public: { target: './', label: 'открыть карту PDLC' },
   customdev: { target: '../', label: 'открыть карту PDLC' },
 } as const satisfies Record<'public' | 'customdev', { target: string; label: string }>;
 

@@ -1,0 +1,193 @@
+.catalog-layout {
+  display: block;
+  margin-top: 24px;
+}
+.catalog-panels {
+  display: grid;
+  min-width: 0;
+  gap: 48px;
+}
+/* Native hash links must land below the two-row fixed navigation frame. */
+.volume-route,
+.catalog-panel {
+  scroll-margin-top: calc(var(--site-nav-reserve) + 24px);
+}
+.catalog-panel {
+  display: grid;
+  gap: 18px;
+  padding: 24px;
+  border: 1px solid var(--catalog-line);
+  border-radius: 16px;
+  background: var(--catalog-surface);
+  box-shadow: var(--catalog-shadow-small);
+}
+.catalog-panel--analysis {
+  border-color: color-mix(in srgb, var(--catalog-green) 35%, transparent);
+  background: linear-gradient(145deg, #f5f8f1, var(--catalog-green-soft));
+}
+.catalog-panel--help {
+  border-color: color-mix(in srgb, var(--site-nav-focus) 35%, transparent);
+  background: #eef4f8;
+}
+.catalog-panel + .catalog-panel {
+  padding-top: 24px;
+}
+.panel-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 4px 3px 11px;
+  border-bottom: 1px solid var(--catalog-line);
+}
+.panel-heading__title {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 14px;
+}
+.panel-heading h2 {
+  margin: 0;
+  font-size: clamp(1.55rem, 2.4vw, 2.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+.panel-heading__description {
+  margin: 6px 0 0;
+  color: var(--catalog-muted);
+  font-size: 0.86rem;
+  line-height: 1.35;
+}
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.catalog-grid--two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.catalog-card {
+  position: relative;
+  display: grid;
+  min-height: 170px;
+  align-content: space-between;
+  gap: 14px;
+  overflow: hidden;
+  padding: 22px;
+  border: 1px solid var(--catalog-line);
+  border-radius: 16px;
+  background: var(--catalog-surface);
+  box-shadow: var(--catalog-shadow);
+  text-decoration: none;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background 180ms ease;
+}
+.catalog-card::before {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 5px;
+  background: var(--catalog-green);
+  content: '';
+}
+.catalog-card:hover {
+  background: #fff;
+  box-shadow: 0 22px 46px color-mix(in srgb, var(--site-nav-ink) 15%, transparent);
+  transform: translateY(-4px);
+}
+.catalog-card:focus-visible {
+  outline: 3px solid var(--catalog-blue);
+  outline-offset: 4px;
+  box-shadow:
+    0 0 0 7px color-mix(in srgb, var(--site-nav-focus) 18%, transparent),
+    var(--catalog-shadow);
+}
+.card--help::before {
+  background: var(--catalog-blue);
+}
+.card-icon {
+  display: grid;
+  width: 43px;
+  height: 43px;
+  place-items: center;
+  margin-bottom: 19px;
+  border-radius: 12px;
+  background: var(--catalog-green-soft);
+  color: var(--catalog-green);
+}
+.card--help .card-icon {
+  background: var(--catalog-blue-soft);
+  color: var(--catalog-blue);
+}
+.card-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+.catalog-card h3 {
+  margin: 8px 0 10px;
+  font-size: 1.35rem;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+.catalog-card p {
+  margin: 0;
+  color: var(--catalog-muted);
+  font-size: 0.88rem;
+}
+/* TASK-904 #3: значок и заголовок в одной строке. */
+.catalog-card > div:first-child {
+  display: grid;
+  grid-template-columns: 43px minmax(0, 1fr);
+  align-items: center;
+  column-gap: 14px;
+}
+.catalog-card > div:first-child > .card-icon {
+  margin-bottom: 0;
+}
+.catalog-card > div:first-child > h3 {
+  grid-column: 2;
+  margin: 0;
+}
+.catalog-card > div:first-child > p {
+  grid-column: 2;
+  margin-top: 12px;
+}
+@media (max-width: 560px) {
+  .catalog-card > div:first-child > p {
+    grid-column: 1 / -1;
+  }
+}
+.card-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 35px;
+  margin: 0 -22px -22px;
+  padding: 11px 22px;
+  border-top: 1px solid var(--catalog-line);
+  color: var(--catalog-green);
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+.card--help .card-cta {
+  color: var(--catalog-blue);
+}
+.site-global-link[aria-current='page'] {
+  background: var(--catalog-green-soft);
+  color: var(--catalog-green);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--catalog-green) 32%, transparent);
+}
+.site-global-link[data-nav-item='help'][aria-current='page'] {
+  background: var(--catalog-blue-soft);
+  color: var(--catalog-blue);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--catalog-blue) 32%, transparent);
+}

@@ -303,7 +303,7 @@ await test('the intent course page carries the generated intent map', async () =
   );
 });
 
-await test('intent pages return to the course route like every course page (TASK-563/1)', async () => {
+await test('intent pages return to the PDLC map like every course page (TASK-563/1)', async () => {
   const intentFiles = [
     'docs/pages/sdlc-development/guides/intent.html',
     'docs/pages/sdlc-development/guides/i1-effect.html',
@@ -314,7 +314,7 @@ await test('intent pages return to the course route like every course page (TASK
   for (const file of intentFiles) {
     const html = await readSource(file);
     assert.match(html, /data-catalog-return/u, `${file} keeps the catalog return`);
-    assert.ok(html.includes('К маршруту курса'), `${file} returns to the course route`);
+    assert.ok(html.includes('К карте PDLC'), `${file} returns to the PDLC map`);
     assert.ok(!html.includes('· Анализ'), `${file} does not point at analysis`);
   }
 });

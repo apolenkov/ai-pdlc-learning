@@ -17,8 +17,6 @@ type CrumbInput = {
   mapCourse?: string | undefined;
   section?: Crumb | undefined;
   page?: string;
-  /** The home crumb is the course route itself (the public course): no second crumb to the same page. */
-  courseRoot?: boolean;
 };
 
 export const crumbItems = (input: CrumbInput): Crumb[] => {
@@ -28,15 +26,13 @@ export const crumbItems = (input: CrumbInput): Crumb[] => {
       label: `Шаг\u00a0${input.step.number}\u00a0· ${input.step.title}`,
     });
   } else if (input.step) {
-    if (!input.courseRoot) items.push({ label: 'Курс анализа', href: 'index.html' });
+    items.push({ label: 'Курс анализа', href: 'index.html' });
     items.push({
       label: input.step.number
         ? `${GROUP_WORDS[input.step.group]}\u00a0· ${routeLabel(input.step)}`
         : routeLabel(input.step),
     });
   } else if (input.onMap) {
-    // The course root page itself: a trail would only point back at it.
-    if (input.courseRoot && !input.mapCourse) return [];
     items.push({ label: input.mapCourse || 'Курс анализа' });
   } else {
     if (input.section && input.section.href !== input.home.href) items.push(input.section);
@@ -86,21 +82,16 @@ const pageCrumbInput = (doc: Document, nav: HTMLElement, home: HTMLAnchorElement
         }
       : undefined,
     page: titleHead(doc) || doc.querySelector('h1')?.textContent?.trim() || '',
-    courseRoot: home.hasAttribute('data-course-root'),
   };
 };
 
 export const mountCrumbs = (doc: Document): void => {
   const nav = doc.querySelector<HTMLElement>('[data-global-nav]');
-  if (!nav || nav.classList.contains('deck-topbar')) return;
+  if (!nav || nav.classList.contains('deck-topbar') || nav.classList.contains('site-topbar--root'))
+    return;
   const home = nav.querySelector<HTMLAnchorElement>('[data-global-home]');
   if (!home) return;
   const items = crumbItems(pageCrumbInput(doc, nav, home));
-  if (items.length === 0) {
-    // On the course root the return link would lead to the page itself.
-    nav.querySelector('[data-catalog-return]')?.remove();
-    return;
-  }
   const host = doc.querySelector<HTMLElement>('.shell, .page-shell, .reference-shell, main');
   if (!host) return;
   const crumbs = renderCrumbs(items);

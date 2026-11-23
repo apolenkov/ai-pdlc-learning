@@ -1,0 +1,212 @@
+@media (max-width: 1120px) {
+  .route-track {
+    grid-template-columns: repeat(8, minmax(240px, 1fr));
+    overflow-x: auto;
+  }
+  .route-scroll-hint {
+    display: block;
+  }
+  /* The rail remains horizontally scrollable, but each card must grow with
+     enlarged text instead of clipping its status line at the fixed desktop
+     height. At the supported desktop widths this does not alter the visual
+     route; it only gives the compact stress viewport enough vertical room. */
+  /* Keep the compact route scrollable, but give its stacked labels enough
+     vertical room when browser text is enlarged. */
+  .route-stage {
+    min-width: 240px;
+    min-height: max(148px, 8rem);
+  }
+  .catalog-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 860px) {
+  .catalog-hero h1 {
+    font-size: clamp(2.5rem, 7vw, 3.4rem);
+  }
+  .catalog-main {
+    padding-top: 6px;
+  }
+  .catalog-frame {
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+  .panel-heading {
+    display: block;
+  }
+}
+@media (max-width: 620px) {
+  .route-track {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    overflow: visible;
+    min-height: 0;
+    margin-right: 0;
+    padding-right: 0;
+  }
+  .route-track::before,
+  .route-track > li::after {
+    content: none;
+  }
+  .route-stage {
+    min-width: 0;
+    min-height: 0;
+    padding: 10px 2px 0;
+  }
+  .route-stage__glyph {
+    width: 18px;
+    height: 18px;
+    padding: 5px;
+  }
+  .route-stage__middle {
+    gap: 6px;
+    max-width: 100%;
+  }
+  .route-stage__relay {
+    max-width: 100%;
+  }
+  .route-stage__chip {
+    padding: 1px 6px;
+    font-size: 0.75rem;
+  }
+  .route-stage__cta {
+    font-size: 0.75rem;
+  }
+  .route-scroll-hint {
+    display: none;
+  }
+  /* `justify-items: center` sizes these grid items to max-content, so an
+     uncapped title or role runs past its track and collides with the next
+     column at 4-up; 100% of the track is the real budget here. The widest
+     role («подтверждает») only fits 4-up without its icon and pill. */
+  .route-stage strong {
+    min-height: 0;
+    max-width: 100%;
+    font-size: 0.75rem;
+  }
+  /* A 12 px label is wider than a 4-up track at 390, and the stage clips
+     only its own column: long words break inside the column instead of
+     running into the next one or under the card's `overflow: hidden`. */
+  .route-stage__role {
+    max-width: 100%;
+    padding-inline: 0;
+    font-size: 0.75rem;
+    overflow-wrap: anywhere;
+  }
+  .route-stage__agent {
+    font-size: 0.75rem;
+    overflow-wrap: anywhere;
+  }
+  .route-stage__user {
+    display: none;
+  }
+  .catalog-lede {
+    font-size: 0.96rem;
+  }
+  .volume-route {
+    margin-inline: -2px;
+    padding: 18px 14px 14px;
+    border-radius: 21px;
+  }
+  .route-heading {
+    display: block;
+  }
+  .route-heading p {
+    margin-top: 5px;
+  }
+  .catalog-grid,
+  .catalog-grid--two {
+    grid-template-columns: 1fr;
+  }
+  .catalog-card {
+    min-height: 238px;
+  }
+}
+/* 390: этапы маршрута в две колонки вместо четырёх по 83 px. В узкой
+   четырёхколоночной сетке рвались слова («Подтвержд/ает»), а скрытые
+   до hover подписи «Решает/Принимает» оставляли пустой промежуток ~100 px
+   между названием и плашкой «Курс в работе». В две колонки подписи
+   помещаются, поэтому показываем их без hover. */
+@media (max-width: 560px) {
+  .route-track {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .route-stage {
+    grid-template-rows: auto auto auto auto;
+  }
+  /* 390: в две колонки коннектор правого этапа ряда (02, 04, 06) уходит за край карточки. */
+  .route-track > li:nth-child(even)::after {
+    content: none;
+  }
+  .route-stage__agent,
+  .route-stage__role {
+    overflow-wrap: normal;
+  }
+}
+/* 390: раскрытие маршрута стаггером (is-live, задержка --i × 0,8 с) держит
+   строки агента и роли у 06–07 скрытыми до ~5,6 с, а до прокрутки маршрута
+   значки всех этапов остаются пунктирными (is-ready). На узком экране
+   раскрываем сразу: те же keyframes без задержки; «Будущее» остаётся
+   пунктиром как направление, а не этап (данные не меняем). */
+@media (max-width: 760px) {
+  .volume-route.is-ready .route-stage__agent,
+  .volume-route.is-ready .route-stage__role,
+  .volume-route.is-live .route-stage__agent,
+  .volume-route.is-live .route-stage__role {
+    visibility: visible;
+    opacity: 1;
+    animation: none;
+  }
+  .volume-route.is-ready .route-stage:not(.route-stage--future) .route-stage__glyph,
+  .volume-route.is-live .route-stage:not(.route-stage--future) .route-stage__glyph {
+    animation: route-node-ignite 1ms linear 0s both;
+  }
+  /* Связки 01→02 … 07→Будущее раскрываем так же сразу: со стаггером
+     (--i × 0,8 с + 0,52 с) линия 05→06 рисовалась лишь к ~4 с, и до этого
+     значки были зажжены, а соединительной линии между ними ещё нет. */
+  .volume-route.is-ready .route-track > li:not(:last-child)::after,
+  .volume-route.is-live .route-track > li:not(:last-child)::after {
+    opacity: 1;
+    transform: scaleX(1);
+    animation: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .route-stage,
+  .catalog-card,
+  .route-stage__role,
+  .route-stage__chip,
+  .route-track > li:not(:last-child)::after {
+    transition: none;
+  }
+  .volume-route.is-ready .route-stage__glyph,
+  .volume-route.is-live .route-stage__glyph {
+    border: 2px solid var(--catalog-mint);
+    background: #2e8a68;
+    color: #fff;
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--catalog-mint) 13%, transparent);
+    animation: none;
+  }
+  .volume-route.is-ready .route-stage__agent,
+  .volume-route.is-live .route-stage__agent,
+  .volume-route.is-ready .route-stage__role,
+  .volume-route.is-live .route-stage__role {
+    visibility: visible;
+    opacity: 1;
+    animation: none;
+  }
+  .volume-route.is-ready .route-track > li:not(:last-child)::after,
+  .volume-route.is-live .route-track > li:not(:last-child)::after {
+    opacity: 1;
+    transform: scaleX(1);
+    animation: none;
+  }
+  .volume-route.is-ready .route-stage__cta--course,
+  .volume-route.is-live .route-stage__cta--course {
+    background: color-mix(in srgb, var(--catalog-gold) 15%, transparent);
+    color: var(--catalog-gold);
+    animation: none;
+  }
+}

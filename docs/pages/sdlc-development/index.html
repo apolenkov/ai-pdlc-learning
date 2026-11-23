@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ru" data-atmos data-section="analysis">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Карта PDLC: проблемы и цель по этапам, интерактивный каталог материалов.">
+  <meta name="theme-color" content="#f4f1e8">
+  <title>Карта PDLC · AI PDLC Learning</title>
+  <link rel="stylesheet" href="./landing.css">
+  <link rel="stylesheet" data-site-nav-styles href="./site-nav.css">
+  <link rel="stylesheet" data-atmos-styles href="./atmosphere.css">
+</head>
+<body class="catalog-page">
+  <a class="skip-link" href="#main-content">К содержанию</a>
+  <header class="catalog-frame">
+    <nav class="site-topbar site-topbar--root" data-global-nav data-expanded="false" onkeydown="if(event.key==='Escape'&&this.getAttribute('data-expanded')==='true'){this.setAttribute('data-expanded','false');document.documentElement.style.removeProperty('--site-nav-reserve');var more=this.querySelector('.site-nav-more');if(more){more.setAttribute('aria-expanded','false');more.focus()}}" aria-label="Основная навигация PDLC"><div class="site-topbar__identity"><a class="site-home" data-global-home data-home-link data-nav-item="home" href="./" aria-current="page">Карта PDLC</a><a class="site-global-link" data-nav-item="help" href="#help">Справка</a><button class="site-nav-more" type="button" aria-expanded="false" onclick="var nav=this.closest('nav');var open=nav.getAttribute('data-expanded')!=='true';nav.setAttribute('data-expanded',open);this.setAttribute('aria-expanded',open);var root=document.documentElement.style;if(open){root.setProperty('--site-nav-reserve',nav.getBoundingClientRect().height+2*(parseFloat(getComputedStyle(nav).top)||0)+'px')}else{root.removeProperty('--site-nav-reserve')}">Ещё</button></div><div class="site-page-actions"></div></nav>
+  </header>
+  <main id="main-content" class="catalog-main" tabindex="-1">
+    <header class="catalog-hero">
+      <div class="catalog-hero__text"><h1>Один маршрут от намерения до работающего результата</h1><p class="catalog-lede">Процесс разработки, обучение анализу, рабочая среда и ответственность команд. Выберите этап или откройте нужную справку.</p></div>
+      <!-- landing-film: the film of the public landing goes here (TASK-923, session 944) -->
+    </header>
+    <svg width="0" height="0" aria-hidden="true" style="position:absolute"><defs>
+        <symbol id="route-bot" viewBox="0 0 24 24"><path d="m7 11 2-2-2-2"></path><path d="M11 13h4"></path><rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect></symbol>
+        <symbol id="route-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></symbol>
+    </defs></svg>
+    <section class="volume-route" id="sdlc" tabindex="-1" aria-labelledby="route-title"><div class="route-heading"><h2 id="route-title">PDLC (жизненный цикл разработки продукта): 7 этапов</h2><p class="route-sub">От намерения до наблюдения за продуктом.</p></div><ol class="route-track" tabindex="0" aria-label="Семь этапов PDLC и направление «Будущее»">
+      <li style="--i: 0"><a class="route-stage" href="#intent">
+        <span class="route-stage__top"><span class="route-stage__number">01</span></span>
+        <span class="route-stage__middle"><span class="route-stage__node"><svg class="route-stage__glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg></span>
+          <strong>Намерение и план</strong>
+          <span class="route-stage__relay"><span class="route-stage__agent"><span class="route-stage__lead"><svg class="route-stage__bot" viewBox="0 0 24 24" role="img" aria-label="агент" focusable="false"><use href="#route-bot"/></svg>Собирает</span> сигналы и план</span><span class="route-stage__role"><svg class="route-stage__user" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#route-user"/></svg><span>Решает</span></span></span>
+          <span class="route-stage__cta route-stage__cta--course">Курс →</span>
+          <span class="route-stage__chip">Intent</span></span></a></li>
+      <li style="--i: 1"><a class="route-stage route-stage--analysis" href="#analysis">
+        <span class="route-stage__top"><span class="route-stage__number">02</span></span>
+        <span class="route-stage__middle"><span class="route-stage__node"><svg class="route-stage__glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg></span>
+          <strong>Анализ требований</strong>
+          <span class="route-stage__relay"><span class="route-stage__agent"><span class="route-stage__lead"><svg class="route-stage__bot" viewBox="0 0 24 24" role="img" aria-label="агент" focusable="false"><use href="#route-bot"/></svg>Готовит</span> сценарии</span><span class="route-stage__role"><svg class="route-stage__user" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#route-user"/></svg><span>Подтверждает</span></span></span>
+          <span class="route-stage__cta route-stage__cta--course">Курс →</span>
+          <span class="route-stage__chip">Spec</span></span></a></li>
+      <li style="--i: 2"><div class="route-stage route-stage--pending">
+        <span class="route-stage__top"><span class="route-stage__number">03</span></span>
+        <span class="route-stage__middle"><span class="route-stage__node"><svg class="route-stage__glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path></svg></span>
+          <strong>Архитектура и дизайн</strong>
+          <span class="route-stage__relay"><span class="route-stage__agent"><span class="route-stage__lead"><svg class="route-stage__bot" viewBox="0 0 24 24" role="img" aria-label="агент" focusable="false"><use href="#route-bot"/></svg>Варианты</span> и ADR</span><span class="route-stage__role"><svg class="route-stage__user" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#route-user"/></svg><span>Утверждает</span></span></span>
+          <span class="route-stage__cta route-stage__cta--soon">Курс в работе</span>
+          <span class="route-stage__chip">ADR</span></span></div></li>
+      <li style="--i: 3"><a class="route-stage" href="./guides/d1-delivery.html">
+        <span class="route-stage__top"><span class="route-stage__number">04</span></span>
+        <span class="route-stage__middle"><span class="route-stage__node"><svg class="route-stage__glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 6-5 6 5 6M16 6l5 6-5 6M13 4l-2 16"></path></svg></span>
+          <strong>Реализация</strong>
+          <span class="route-stage__relay"><span class="route-stage__agent"><span class="route-stage__lead"><svg class="route-stage__bot" viewBox="0 0 24 24" role="img" aria-label="агент" focusable="false"><use href="#route-bot"/></svg>Код,</span> Tests, доки</span><span class="route-stage__role"><svg class="route-stage__user" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#route-user"/></svg><span>Принимает</span></span></span>
+          <span class="route-stage__cta route-stage__cta--course">Практикум →</span>
+          <span class="route-stage__chip">MR</span></span></a></li>
+      <li style="--i: 4"><div class="route-stage route-stage--pending">
+        <span class="route-stage__top"><span class="route-stage__number">05</span></span>
+        <span class="route-stage__middle"><span class="route-stage__node"><svg class="route-stage__glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 2v7.53a2 2 0 0 1-.21.9L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.07-10.12A2 2 0 0 1 14 9.53V2"></path><path d="M8.5 2h7"></path><path d="M7 16h10"></path></svg></span>
+          <strong>Тестирование</strong>
+          <span class="route-stage__relay"><span class="route-stage__agent"><span class="route-stage__lead"><svg class="route-stage__bot" viewBox="0 0 24 24" role="img" aria-label="агент" focusable="false"><use href="#route-bot"/></svg>Тест-модель</span> и автотесты</span><span class="route-stage__role"><svg class="route-stage__user" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#route-user"/></svg><span>Проверяет</span></span></span>
+          <span class="route-stage__cta route-stage__cta--soon">Курс в работе</span>
+          <span class="route-stage__chip">Tests</span></span></div></li>
+      <li style="--i: 5"><div class="route-stage route-stage--pending">
+        <span class="route-stage__top"><span class="route-stage__number">06</span></span>
+        <span class="route-stage__middle"><span class="route-stage__node"><svg class="route-stage__glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg></span>
+          <strong>Выпуск</strong>
+          <span class="route-stage__relay"><span class="route-stage__agent"><span class="route-stage__lead"><svg class="route-stage__bot" viewBox="0 0 24 24" role="img" aria-label="агент" focusable="false"><use href="#route-bot"/></svg>Сборка</span> и диагностика</span><span class="route-stage__role"><svg class="route-stage__user" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#route-user"/></svg><span>Допускает</span></span></span>
+          <span class="route-stage__cta route-stage__cta--soon">Курс в работе</span>
+          <span class="route-stage__chip">Pipeline</span></span></div></li>
+      <li style="--i: 6"><div class="route-stage route-stage--pending">
+        <span class="route-stage__top"><span class="route-stage__number">07</span></span>
+        <span class="route-stage__middle"><span class="route-stage__node"><svg class="route-stage__glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg></span>
+          <strong>Наблюдение</strong>
+          <span class="route-stage__relay"><span class="route-stage__agent"><span class="route-stage__lead"><svg class="route-stage__bot" viewBox="0 0 24 24" role="img" aria-label="агент" focusable="false"><use href="#route-bot"/></svg>Обращение</span> ↔ логи ↔ код</span><span class="route-stage__role"><svg class="route-stage__user" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#route-user"/></svg><span>Наблюдает</span></span></span>
+          <span class="route-stage__cta route-stage__cta--soon">Курс в работе</span>
+          <span class="route-stage__chip">DORA</span></span></div></li>
+      <li style="--i: 7"><div class="route-stage route-stage--future">
+        <span class="route-stage__top"><span class="route-stage__number">→</span></span>
+        <span class="route-stage__middle"><span class="route-stage__node"><svg class="route-stage__glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path><path d="M17 18h1"></path><path d="M12 18h1"></path><path d="M7 18h1"></path></svg></span>
+          <strong>Будущее</strong>
+          <span class="route-stage__relay"><span class="route-stage__agent"><span class="route-stage__lead"><svg class="route-stage__bot" viewBox="0 0 24 24" role="img" aria-label="агент" focusable="false"><use href="#route-bot"/></svg>Петля</span> самоулучшения</span><span class="route-stage__role"><svg class="route-stage__user" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#route-user"/></svg><span>Намерение и приёмка</span></span></span>
+          <span class="route-stage__chip">Dark Factory</span></span></div></li>
+    </ol><p class="route-scroll-hint" aria-hidden="true">Прокрутите по горизонтали, чтобы увидеть все этапы&nbsp;→</p></section>
+    <div class="catalog-layout">
+      <div class="catalog-panels" role="group" aria-label="Материалы каталога">
+        <section id="intent" class="catalog-panel catalog-panel--analysis" aria-labelledby="intent-title">
+          <div class="panel-heading"><div class="panel-heading__title"><div><h2 id="intent-title">01 · Намерение и план</h2><p class="panel-heading__description">Оцените, как команда формулирует намерение, или пройдите путь от сигнала к Intent.</p></div></div></div>
+          <div class="catalog-grid catalog-grid--two">
+            <a class="catalog-card" href="./intent-maturity-map.html"><div><div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19V5m0 0h5m-5 0 4 4m4 10V9m0 0h5m-5 0 4 4m4 6V5"/></svg></div><h3>Карта зрелости намерения</h3><p>Сопоставьте, как команда собирает сигналы и фиксирует цель, границы и метрику, с уровнями зрелости.</p></div><span class="card-cta"><span>Открыть карту зрелости</span><span aria-hidden="true">→</span></span></a>
+            <a class="catalog-card" href="./guides/intent.html"><div><div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/></svg></div><h3>Курс «Намерение и план»</h3><p>Четыре шага: проблема и эффект, границы и вопросы, план, проверка и одобрение.</p></div><span class="card-cta"><span>Начать обучение</span><span aria-hidden="true">→</span></span></a>
+          </div>
+        </section>
+        <section id="analysis" class="catalog-panel catalog-panel--analysis" aria-labelledby="analysis-title">
+          <div class="panel-heading"><div class="panel-heading__title"><div><h2 id="analysis-title">02 · Анализ</h2><p class="panel-heading__description">Оцените процесс команды или пройдите путь от запроса к согласованным требованиям.</p></div></div></div>
+          <div class="catalog-grid catalog-grid--two">
+            <a class="catalog-card" href="./analysis-maturity-map.html"><div><div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19V5m0 0h5m-5 0 4 4m4 10V9m0 0h5m-5 0 4 4m4 6V5"/></svg></div><h3>Карта зрелости анализа</h3><p>Сопоставьте работу команды с уровнями зрелости, выберите инструменты и следующий шаг развития.</p></div><span class="card-cta"><span>Открыть карту зрелости</span><span aria-hidden="true">→</span></span></a>
+            <a class="catalog-card" href="./guides/index.html"><div><div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/></svg></div><h3>Учебный маршрут анализа</h3><p>Подготовьте и согласуйте требования к учебному кредитному калькулятору. Внутри: подготовка (разработка по спецификациям — SDD, OpenSpec, метарепозиторий), шаги курса и практикум разработки.</p></div><span class="card-cta"><span>Начать обучение</span><span aria-hidden="true">→</span></span></a>
+          </div>
+        </section>
+        <section id="help" class="catalog-panel catalog-panel--help" aria-labelledby="help-title"><div class="panel-heading"><div class="panel-heading__title"><div><h2 id="help-title">Справка</h2><p class="panel-heading__description">Роли, термины, работа с текстом, доступ к инструментам.</p></div></div></div><div class="catalog-grid catalog-grid--two">
+          <a id="git-markdown" class="catalog-card card--help" href="./guides/p2-git.html"><div><div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3v12a4 4 0 0 0 8 0V9M4 5h4M12 7h4M4 19h4M18 4h3v16h-3"/></svg></div><h3>Markdown, Git и совместная работа в GitLab с нуля</h3><p>Напишите документ в Markdown, ведите историю версий и ветки на компьютере, затем пройдите совместную проверку в GitLab: отправка, замечания, исправления и принятие.</p></div><span class="card-cta"><span>Открыть гайд</span><span aria-hidden="true">→</span></span></a>
+          <a id="roles" class="catalog-card card--help" href="./roles.html"><div><div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4a3 3 0 1 0 0 6 3 3 0 0 0 0-6M5 20v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v2M4 10h3m10 0h3"/></svg></div><h3>Роли и зоны ответственности</h3><p>Кто за что отвечает, что подтверждает и каким артефактом фиксирует результат.</p></div><span class="card-cta"><span>Открыть роли</span><span aria-hidden="true">→</span></span></a>
+          <a id="glossary" class="catalog-card card--help" href="./glossary.html"><div><div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14v14H5zM8 9h8M8 13h8M8 17h5"/></svg></div><h3>Глоссарий</h3><p>Полный словарь SDLC, SDD, OpenSpec и связанных понятий в одном месте.</p></div><span class="card-cta"><span>Открыть глоссарий</span><span aria-hidden="true">→</span></span></a>
+          <a id="corporate-resources" class="catalog-card card--help" href="./corporate-resources.html"><div><div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16v13H4zM7 7V4h10v3M8 11h8M8 15h5"/></svg></div><h3>Ресурсы</h3><p>Корпоративные системы, порядок доступа и официальные внешние источники для учебного маршрута и работы.</p></div><span class="card-cta"><span>Открыть ресурсы</span><span aria-hidden="true">→</span></span></a>
+        </div></section>
+      </div>
+    </div>
+  </main>
+  <script src="./landing.js"></script>
+</body>
+</html>

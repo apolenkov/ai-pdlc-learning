@@ -167,9 +167,9 @@ await test('guide titles and redirects match their stable routes', async () => {
       retiredPageRedirects.some((item) => item.outputPath === outputPath),
       `${outputPath}: a removed-section stub`,
     );
-  // The public build leads to the course route; CustomDev keeps its bookmarks on the PDLC map above the course.
+  // The public build leads to the landing; CustomDev keeps its bookmarks on the PDLC map above the course.
   for (const [row, target, label] of [
-    ['public', './', 'открыть маршрут курса'],
+    ['public', './', 'открыть карту PDLC'],
     ['customdev', '../', 'открыть карту PDLC'],
   ] as const) {
     assert.deepEqual(retiredHome[row], { target, label }, row);
@@ -204,7 +204,7 @@ await test('guide titles and redirects match their stable routes', async () => {
   assert.ok(markdown.includes(`[${courseNames.guides['3-star'].title}](s4-product.html)`));
 });
 
-await test('the build writes the retired-page stubs of the row it builds', async () => {
+await test('the build plan selects the landing, its assets and the retired-page stubs for each row', async () => {
   // Through the build plan, not the helper: a builder that picked the other row would fail here.
   const saved = process.env.COURSE_NAV;
   try {
@@ -214,6 +214,16 @@ await test('the build writes the retired-page stubs of the row it builds', async
     ] as const) {
       process.env.COURSE_NAV = row;
       const plan = await planLearningSite();
+      const index = plan.find((entry) => entry.path === 'index.html');
+      assert.ok(index && 'content' in index);
+      if (row === 'customdev') assert.equal(index.content, redirectStub('guides/index.html'));
+      else assert.match(index.content, /<ol class="route-track"/u);
+      for (const asset of ['landing.css', 'landing.js'])
+        assert.equal(
+          plan.some((entry) => entry.path === asset),
+          row === 'public',
+          `${row}: ${asset}`,
+        );
       for (const name of ['environment-scales.html', 'environment-contours.html']) {
         const entry = plan.find((item) => item.path === name);
         assert.ok(entry && 'content' in entry, `${row}: ${name} is written`);

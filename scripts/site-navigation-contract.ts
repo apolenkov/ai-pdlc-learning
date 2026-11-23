@@ -1,14 +1,6 @@
 import courseNames from '../docs/pages/sdlc-development/course-names.json' with { type: 'json' };
 
-/**
- * The only source of truth for the course navigation.
- *
- * The course is published on its own (GitHub Pages), so the public row leads only inside the course: its
- * home is the course root. The CustomDev site also publishes the course under its `course/`; built with
- * `COURSE_NAV=customdev`, the pages carry the CustomDev row instead (`${PUBLIC_ROOT}../` is the CustomDev
- * root), because CustomDev refuses a course with another row. `PUBLIC_ROOT` is a build-time marker, not a
- * hostname; the builder resolves it to `./` or `../` for each page.
- */
+/** Build marker resolved to the relative site root for each page. */
 export const PUBLIC_ROOT = '__CUSTOMDEV_ROOT__';
 
 export type SiteSection = 'sdlc' | 'teams' | 'help';
@@ -16,55 +8,29 @@ type GlobalNavigationId = 'home' | 'teams' | 'help';
 
 export type NavigationTarget = Readonly<{
   section: SiteSection;
-  /** Second course of the registry: its catalog return names the course, as in the route strip. */
-  course?: 'intent';
   /** Optional CSS class used by presentation pages. */
   navClass?: string;
   /** Keep page-specific controls (for example slide controls) in the page-actions row. */
   preservePageActions?: boolean;
   /** Which site the page is built for; the public course by default. */
   row?: NavigationRow;
-  /** The course root page: in the public row its return link would lead to the page itself, so it has none. */
-  courseRoot?: boolean;
+  /** The PDLC landing has local navigation and no return link. */
+  landing?: boolean;
 }>;
 
 export type NavigationRow = 'public' | 'customdev';
 type NavigationItem = Readonly<{ id: GlobalNavigationId; label: string; href: string }>;
 
 const HOME_LABEL = `Карта ${courseNames.lifecycleName}`;
-const CUSTOMDEV_ROOT = `${PUBLIC_ROOT}../`;
-/** The public course root is the course route page, not a PDLC map: the row names it so. */
-export const PUBLIC_HOME_LABEL = 'Маршрут курса';
+const mapNavigation = (root: string, landing = false): readonly NavigationItem[] => [
+  { id: 'home', label: HOME_LABEL, href: landing ? './' : `${root}#sdlc` },
+  { id: 'help', label: 'Справка', href: `${root}#help` },
+];
 
-const ROWS = {
-  /* The course has no help section of its own, so the public row keeps only the home item: an empty
-     anchor would lead nowhere. Deep pages hide the separate return link, so the home item itself leads
-     to the course root. */
-  public: {
-    items: [{ id: 'home', label: PUBLIC_HOME_LABEL, href: PUBLIC_ROOT }],
-    back: PUBLIC_ROOT,
-    backLabel: 'К маршруту курса',
-    // The home item is the course root itself: breadcrumbs and the root page read this marker.
-    homeMarker: ' data-course-root',
-  },
-  /* Same labels and order as `site-navigation-contract.ts` in CustomDev: the map (#sdlc) and «Справка». */
-  customdev: {
-    items: [
-      { id: 'home', label: HOME_LABEL, href: `${CUSTOMDEV_ROOT}#sdlc` },
-      { id: 'help', label: 'Справка', href: `${CUSTOMDEV_ROOT}#help` },
-    ],
-    back: `${CUSTOMDEV_ROOT}#sdlc`,
-    backLabel: 'К карте PDLC',
-    homeMarker: '',
-  },
-} as const satisfies Record<
-  NavigationRow,
-  { items: readonly NavigationItem[]; back: string; backLabel: string; homeMarker: string }
->;
+export const navigationRow = (row: NavigationRow): readonly NavigationItem[] =>
+  mapNavigation(row === 'customdev' ? `${PUBLIC_ROOT}../` : PUBLIC_ROOT);
 
-/** The public row; `navigationRow('customdev')` is the row of the course inside CustomDev. */
-export const GLOBAL_NAVIGATION = ROWS.public.items;
-export const navigationRow = (row: NavigationRow): readonly NavigationItem[] => ROWS[row].items;
+export const GLOBAL_NAVIGATION = navigationRow('public');
 
 /** The row the build writes: `COURSE_NAV=customdev` for the CustomDev site, the public row when unset.
     An empty value is refused: a CustomDev build whose variable expanded to nothing must not get the public menu. */
@@ -76,8 +42,8 @@ export const courseNavigationRow = (value = process.env.COURSE_NAV): NavigationR
 
 /* Every course page returns to the map: one label and one address per row.
    The section still decides the highlighted global destination. */
-const renderCatalogReturn = (row: NavigationRow): string =>
-  `<a class="site-catalog-return" data-catalog-return href="${ROWS[row].back}"><span aria-hidden="true">←</span><span>${ROWS[row].backLabel}</span></a>`;
+const renderCatalogReturn = (home: string): string =>
+  `<a class="site-catalog-return" data-catalog-return href="${home}"><span aria-hidden="true">←</span><span>К карте ${courseNames.lifecycleName}</span></a>`;
 
 export const escapeHtml = (value: string): string =>
   value
@@ -115,22 +81,21 @@ export const MORE_TOGGLE_HANDLER =
 
 export const renderSiteNavigation = (target: NavigationTarget): string => {
   const row = target.row ?? 'public';
-  const items: readonly NavigationItem[] = ROWS[row].items;
+  const items = target.landing ? mapNavigation('', true) : navigationRow(row);
   const links = items
     .map((item) => {
       const home = item.id === 'home';
-      const marker = home ? ` data-global-home data-home-link${ROWS[row].homeMarker}` : '';
-      return `<a class="${home ? 'site-home' : 'site-global-link'}"${marker} data-nav-item="${item.id}" href="${escapeHtml(item.href)}"${currentAttribute(item.id, target.section)}>${escapeHtml(item.label)}</a>`;
+      const marker = home ? ' data-global-home data-home-link' : '';
+      const current =
+        target.landing && home ? ' aria-current="page"' : currentAttribute(item.id, target.section);
+      return `<a class="${home ? 'site-home' : 'site-global-link'}"${marker} data-nav-item="${item.id}" href="${escapeHtml(item.href)}"${current}>${escapeHtml(item.label)}</a>`;
     })
     .join('');
-  const catalogReturn = row === 'public' && target.courseRoot ? '' : renderCatalogReturn(row);
-  // «Ещё» opens what the narrow bar hides: the global links and, on the deck, the slide actions.
-  // With neither on the page the button would open nothing, so it is left out.
-  const hidesSomething = items.length > 1 || target.preservePageActions === true;
-  const more = hidesSomething
-    ? `<button class="site-nav-more" type="button" aria-expanded="false" onclick="${MORE_TOGGLE_HANDLER}">Ещё</button>`
-    : '';
-  const navClass = target.navClass ?? 'site-topbar';
+  const catalogReturn = target.landing ? '' : renderCatalogReturn(items[0]!.href);
+  const more = `<button class="site-nav-more" type="button" aria-expanded="false" onclick="${MORE_TOGGLE_HANDLER}">Ещё</button>`;
+  const navClass = target.landing
+    ? 'site-topbar site-topbar--root'
+    : (target.navClass ?? 'site-topbar');
   return `<nav class="${escapeHtml(navClass)}" data-global-nav data-expanded="false" onkeydown="${NAV_ESCAPE_HANDLER}" aria-label="Основная навигация ${courseNames.lifecycleName}"><div class="site-topbar__identity">${links}${more}</div><div class="site-page-actions">${catalogReturn}</div></nav>`;
 };
 
@@ -165,7 +130,7 @@ export const replaceSiteNavigation = (html: string, target: NavigationTarget): s
 export const withNavigationRow = (html: string, row: NavigationRow): string => {
   if (row === 'public') return html;
   const nav = html.match(/<nav\b[^>]*data-global-nav[\s\S]*?<\/nav>/u)?.[0];
-  if (!nav) return html;
+  if (!nav || nav.includes('site-topbar--root')) return html;
   const home = nav.match(/<a\b[^>]*data-nav-item="home"[^>]*>/u)?.[0] ?? '';
   const section: SiteSection = home.includes('aria-current') ? 'sdlc' : 'help';
   const deck = /^<nav class="deck-topbar site-topbar"/u.test(nav);

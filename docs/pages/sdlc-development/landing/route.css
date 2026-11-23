@@ -1,0 +1,438 @@
+.route-sub {
+  flex: 1 1 auto;
+}
+/* One quiet route, rather than seven competing cards: the line tells the
+   story, the stations tell the state, and the material remains below. */
+.volume-route {
+  position: relative;
+  margin-top: 24px;
+  padding: 24px 20px 22px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--catalog-mint) 24%, transparent);
+  border-radius: 28px;
+  background: var(--catalog-route);
+  color: #f3f7f2;
+  box-shadow: 0 18px 42px color-mix(in srgb, var(--catalog-route) 17%, transparent);
+}
+.volume-route::before {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 50%,
+    color-mix(in srgb, var(--catalog-mint) 8%, transparent),
+    transparent 48%
+  );
+  content: '';
+  pointer-events: none;
+}
+.route-heading {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 18px;
+}
+.route-heading h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  letter-spacing: -0.02em;
+}
+.route-heading p {
+  margin: 0;
+  color: color-mix(in srgb, #f3f7f2 66%, transparent);
+  font-size: 0.79rem;
+}
+.route-track {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 0;
+  min-height: 186px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.route-track::before {
+  position: absolute;
+  z-index: 0;
+  top: 56px;
+  right: calc(100% / 16);
+  left: calc(100% / 16);
+  height: 2px;
+  background: color-mix(in srgb, var(--catalog-mint) 18%, transparent);
+  content: '';
+}
+.route-track > li {
+  position: relative;
+  display: flex;
+  min-width: 0;
+}
+.route-track > li:not(:last-child)::after {
+  position: absolute;
+  z-index: 0;
+  top: 56px;
+  left: calc(50% + 23px);
+  width: calc(100% - 46px);
+  height: 2px;
+  background: color-mix(in srgb, var(--catalog-mint) 62%, transparent);
+  transform-origin: left center;
+  transition:
+    background-color 150ms ease,
+    transform 150ms ease;
+  content: '';
+  pointer-events: none;
+}
+/* The 07 → Будущее connector is a direction marker, not a shipped stage. */
+.route-track > li:nth-last-child(2)::after {
+  background: repeating-linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--catalog-mint) 55%, transparent) 0 8px,
+    transparent 8px 14px
+  );
+}
+.route-track > li:hover::after,
+.route-track > li:focus-within::after,
+.route-track > li:has(+ li:hover)::after,
+.route-track > li:has(+ li:focus-within)::after {
+  background: var(--catalog-gold);
+  transform: scaleX(1) scaleY(2);
+}
+.route-stage {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  flex: 1 1 auto;
+  grid-template-rows: auto 1fr;
+  min-height: 180px;
+  align-content: start;
+  justify-items: center;
+  gap: 6px;
+  padding: 10px 8px 8px;
+  border-radius: 12px;
+  color: #f3f7f2;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    transform 150ms ease,
+    background-color 150ms ease,
+    color 150ms ease;
+}
+.route-stage--analysis {
+  border-radius: 12px;
+}
+a.route-stage:hover,
+a.route-stage:focus-visible {
+  background: color-mix(in srgb, var(--catalog-mint) 8%, transparent);
+}
+.route-stage--pending {
+  cursor: default;
+}
+a.route-stage:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 4px;
+}
+.route-stage__top {
+  display: flex;
+  width: 100%;
+  min-height: 19px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+.route-stage__number {
+  color: color-mix(in srgb, #f3f7f2 68%, transparent);
+  font:
+    850 0.75rem/1 ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    monospace;
+  letter-spacing: 0.08em;
+}
+.route-stage__middle {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  flex-direction: column;
+  gap: 7px;
+}
+.route-stage__node {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+}
+.route-stage__glyph {
+  position: relative;
+  box-sizing: content-box;
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+  padding: 10px;
+  border: 2px solid var(--catalog-mint);
+  border-radius: 50%;
+  background: #2e8a68;
+  color: #fff;
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--catalog-mint) 13%, transparent);
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+.route-stage strong {
+  display: flex;
+  min-height: 2.26em;
+  min-width: 0;
+  max-width: 100%;
+  align-items: flex-start;
+  justify-content: center;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+  font-size: 0.88rem;
+  line-height: 1.13;
+  text-wrap: balance;
+}
+.route-stage__relay {
+  display: grid;
+  min-height: 20px;
+  justify-items: center;
+  gap: 3px;
+}
+.route-stage__agent,
+.route-stage__role {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  font-weight: 750;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.route-stage__agent {
+  max-width: 100%;
+  padding: 0;
+  color: color-mix(in srgb, var(--catalog-mint) 78%, transparent);
+  font-size: 0.75rem;
+  font-weight: 650;
+  line-height: 1.2;
+  white-space: normal;
+  text-wrap: balance;
+}
+.route-stage__agent {
+  display: block;
+  min-height: 2.4em;
+}
+.route-stage__lead {
+  text-wrap: balance;
+}
+.route-stage__bot {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.route-stage__bot {
+  width: 16px;
+  height: 16px;
+  margin: -3px 5px -3px 0;
+  vertical-align: middle;
+  color: #f3f7f2;
+  stroke-width: 2;
+}
+.route-stage__role {
+  padding: 2px 3px;
+  border-radius: 999px;
+  color: var(--catalog-mint);
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+a.route-stage:hover .route-stage__role,
+a.route-stage:focus-visible .route-stage__role {
+  background: color-mix(in srgb, var(--catalog-mint) 16%, transparent);
+  color: #fff;
+}
+.route-stage__user {
+  width: 13px;
+  height: 13px;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+.route-stage__chip {
+  visibility: visible;
+  display: inline-flex;
+  white-space: nowrap;
+  align-items: center;
+  padding: 2px 8px;
+  border: 1px solid color-mix(in srgb, var(--catalog-mint) 42%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, #173229 88%, transparent);
+  color: #f3f7f2;
+  font:
+    700 0.75rem/1.2 ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    monospace;
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 150ms ease,
+    transform 150ms ease,
+    visibility 0s linear 150ms;
+  pointer-events: none;
+}
+a.route-stage:hover .route-stage__chip,
+a.route-stage:focus-visible .route-stage__chip {
+  border-color: var(--catalog-mint);
+}
+.route-stage__cta,
+.route-stage__relay + .route-stage__chip {
+  margin-top: auto;
+}
+.route-stage__cta {
+  display: inline-flex;
+  min-width: 0;
+  max-width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  color: var(--catalog-mint);
+  font-size: 0.75rem;
+  font-weight: 800;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+.route-stage__role {
+  max-width: 100%;
+  flex-wrap: wrap;
+  white-space: normal;
+  text-wrap: balance;
+}
+.route-stage--future .route-stage__role {
+  display: block;
+}
+.route-stage--future .route-stage__user {
+  display: inline-block;
+  margin-right: 4px;
+  vertical-align: -2px;
+}
+@media (min-width: 1360px) {
+  .route-stage--future {
+    padding-inline: 0;
+  }
+}
+.route-stage__cta--soon {
+  background: color-mix(in srgb, #fff 6%, transparent);
+  color: color-mix(in srgb, #f3f7f2 62%, transparent);
+  font-weight: 700;
+}
+.route-stage__cta--course {
+  background: color-mix(in srgb, var(--catalog-gold) 15%, transparent);
+  color: var(--catalog-gold);
+}
+.volume-route.is-ready .route-stage__glyph {
+  border: 1.5px dashed color-mix(in srgb, #f3f7f2 42%, transparent);
+  background: color-mix(in srgb, #173229 52%, transparent);
+  color: color-mix(in srgb, #dbf0e2 72%, transparent);
+  box-shadow: none;
+}
+.volume-route.is-ready .route-track > li:not(:last-child)::after {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.volume-route.is-live .route-stage__glyph {
+  animation: route-node-ignite 0.8s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--i, 0) * 0.8s) both;
+}
+/* «Будущее» stays dashed after ignite: it is a direction, not a shipped stage. */
+.route-stage--future .route-stage__glyph,
+.volume-route.is-live .route-stage--future .route-stage__glyph {
+  border: 2px dashed color-mix(in srgb, var(--catalog-mint) 55%, transparent);
+  background: color-mix(in srgb, #173229 50%, transparent);
+  color: color-mix(in srgb, #dbf0e2 78%, transparent);
+  box-shadow: none;
+  animation: none;
+}
+.route-stage--future .route-stage__number,
+.route-stage--future strong {
+  color: color-mix(in srgb, #f3f7f2 60%, transparent);
+}
+.volume-route.is-live .route-track > li:not(:last-child)::after {
+  animation: route-line-draw 0.28s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--i, 0) * 0.8s + 0.52s)
+    both;
+}
+.volume-route.is-live .route-stage__cta--course {
+  animation: route-course-cta 5.6s cubic-bezier(0.16, 1, 0.3, 1) 0s both;
+}
+@keyframes route-node-ignite {
+  0% {
+    border: 1.5px dashed color-mix(in srgb, #f3f7f2 42%, transparent);
+    background: color-mix(in srgb, #173229 52%, transparent);
+    color: color-mix(in srgb, #dbf0e2 72%, transparent);
+    box-shadow: 0 0 0 0 transparent;
+    transform: scale(0.92);
+  }
+  24% {
+    border: 2px solid var(--catalog-gold);
+    background: var(--catalog-green);
+    color: #fff;
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--catalog-gold) 22%, transparent);
+    transform: scale(1.06);
+  }
+  45%,
+  100% {
+    border: 2px solid var(--catalog-mint);
+    background: #2e8a68;
+    color: #fff;
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--catalog-mint) 13%, transparent);
+    transform: scale(1);
+  }
+}
+@keyframes route-line-draw {
+  0% {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+@keyframes route-course-cta {
+  0%,
+  90% {
+    background: color-mix(in srgb, var(--catalog-gold) 15%, transparent);
+    color: var(--catalog-gold);
+    transform: scale(1);
+  }
+  95% {
+    background: color-mix(in srgb, var(--catalog-gold) 28%, transparent);
+    color: var(--catalog-gold);
+    transform: scale(1.06);
+  }
+  100% {
+    background: color-mix(in srgb, var(--catalog-gold) 15%, transparent);
+    color: var(--catalog-gold);
+    transform: scale(1);
+  }
+}
+.route-scroll-hint {
+  display: none;
+  margin: 8px 0 0;
+  color: color-mix(in srgb, #f3f7f2 58%, transparent);
+  font-size: 0.75rem;
+  font-weight: 750;
+  letter-spacing: 0.02em;
+  text-align: right;
+}

@@ -31,7 +31,7 @@ import {
   PUBLIC_GUIDE_BINARY_ASSETS,
   PUBLIC_GUIDE_DOCUMENT_ASSETS,
 } from './guide-content.ts';
-import { readLearningEnhancementsCss } from './learning-enhancements-css.ts';
+import { readLandingCss, readLearningEnhancementsCss } from './learning-enhancements-css.ts';
 import { pageRedirects, retiredHome, retiredPageRedirects } from './pages-route-manifest.ts';
 import {
   courseNavigationRow,
@@ -286,8 +286,13 @@ export const planLearningSite = async (): Promise<SiteEntry[]> => {
 
   for (const name of SHARED_FILES) await copy(source(name), name);
   write('course-motion.js', await bundleMotion());
-  // The course starts at its map: the old home address leads there, #anchor kept (index.html also opens from a file).
-  write('index.html', redirectStub('guides/index.html'));
+  if (courseNavigationRow() === 'public') {
+    write('index.html', placeHtml(await read(source('index.html')), './'));
+    write('landing.css', await readLandingCss());
+    await copy(source('landing.js'), 'landing.js');
+  } else {
+    write('index.html', redirectStub('guides/index.html'));
+  }
   for (const [from, to, home] of [
     ['corporate-resources.html', 'corporate-resources.html', './'],
     ['analytics-process-sdd.html', 'analytics-process-sdd.html', './'],

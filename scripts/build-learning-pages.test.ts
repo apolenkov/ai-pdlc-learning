@@ -64,7 +64,7 @@ await Promise.all([
     );
     for (const page of pageOutputPaths) assert.ok(files.includes(page), `missing page ${page}`);
   }),
-  test('retired environment pages of the public build redirect to the course route and are not site files', async () => {
+  test('retired environment pages of the public build redirect to the PDLC map and are not site files', async () => {
     assert.deepEqual(
       retiredPageRedirects.map(({ outputPath }) => outputPath),
       ['environment-scales.html', 'environment-contours.html'],
@@ -77,7 +77,7 @@ await Promise.all([
       assert.match(stub, /<title>Раздел убран · AI PDLC Learning<\/title>/u, outputPath);
       assert.match(
         stub,
-        /Этого раздела больше нет: <a href="\.\/">открыть маршрут курса<\/a>/u,
+        /Этого раздела больше нет: <a href="\.\/">открыть карту PDLC<\/a>/u,
         outputPath,
       );
       assert.doesNotMatch(stub, /Страница переехала/u, outputPath);
@@ -170,34 +170,23 @@ await Promise.all([
     assert.doesNotMatch(map, /data-offline-download|site-offline\.zip|Без сети/u);
   }),
 
-  test('the published course maps mount their own current breadcrumb (#13); the public root has none', async () => {
-    // The public build marks its home item as the course root; inside CustomDev the home is the PDLC map.
-    for (const [page, expected, courseRoot] of [
-      ['intent', 'Намерение и план', true],
-      ['index', undefined, true],
-      ['index', 'Курс анализа', false],
+  test('published course maps show the path from the PDLC landing to the current course', async () => {
+    for (const [page, expected] of [
+      ['intent', 'Намерение и план'],
+      ['index', 'Курс анализа'],
     ] as const) {
       const html = await readFile(join(outputDir, `guides/${page}.html`), 'utf8');
       const body = /<body\b[^>]*>/u.exec(html)![0];
       const title = /<title>([^<]+)<\/title>/u.exec(html)![1];
+      const [, href, label] = /<a [^>]*data-global-home[^>]*href="([^"]*)"[^>]*>([^<]*)<\/a>/u.exec(
+        html,
+      )!;
+      assert.match(html, /data-catalog-return href="\.\.\/#sdlc"/u);
       let rendered = '';
-      let returnRemoved = false;
-      const homeTag = /<a [^>]*data-global-home[^>]*>/u.exec(html)![0];
-      assert.equal(homeTag.includes('data-course-root'), true, `${page}: public home marker`);
-      const home = {
-        textContent: courseRoot ? 'Маршрут курса' : 'Карта PDLC',
-        getAttribute: () => '../../',
-        hasAttribute: (name: string) => courseRoot && name === 'data-course-root',
-      };
-      const back = { remove: () => (returnRemoved = true) };
+      const home = { textContent: label, getAttribute: () => href };
       const nav = {
         classList: { contains: () => false },
-        querySelector: (selector: string) =>
-          selector === '[data-global-home]'
-            ? home
-            : selector === '[data-catalog-return]'
-              ? back
-              : null,
+        querySelector: (selector: string) => (selector === '[data-global-home]' ? home : null),
         insertAdjacentHTML: (_position: string, markup: string) => {
           rendered = markup;
         },
@@ -219,10 +208,9 @@ await Promise.all([
       assert.equal(
         /<li aria-current="page">([^<]*)<\/li>/u.exec(rendered)?.[1]?.replaceAll('\u00a0', ' '),
         expected,
-        `${page}, course root ${String(courseRoot)}`,
+        page,
       );
-      // On the public root page the return link would lead to the page itself.
-      assert.equal(returnRemoved, expected === undefined, `${page}: return link`);
+      assert.match(rendered, /<li><a href="\.\.\/#sdlc">Карта PDLC<\/a><\/li>/u);
       if (page === 'intent') {
         doc.title = 'Проверка названия · AI PDLC Learning';
         Reflect.apply(mountCrumbs, undefined, [doc]);
@@ -268,9 +256,85 @@ await Promise.all([
     assert.doesNotMatch(map, /course-route|data-route-background/u);
   }),
 
-  test('the old course home leads to the course map, anchor kept, also from a file', async () => {
-    const home = await readFile(join(outputDir, 'index.html'), 'utf8');
-    assert.match(home, /location\.replace\("guides\/index\.html" \+ location\.hash\)/u);
+  test('the root landing keeps seven stages, the future direction and only public destinations', async () => {
+    const html = await readFile(join(outputDir, 'index.html'), 'utf8');
+    assert.match(html, /<title>Карта PDLC · AI PDLC Learning<\/title>/u);
+    assert.match(html, /<h1>Один маршрут от намерения до работающего результата<\/h1>/u);
+    assert.match(
+      html,
+      /<!-- landing-film: the film of the public landing goes here \(TASK-923, session 944\) -->/u,
+    );
+    assert.doesNotMatch(html, /<video|http-equiv="refresh"|id="enabling"|dark-factory\.html/iu);
+    const css = await readFile(join(outputDir, 'landing.css'), 'utf8');
+    assert.doesNotMatch(html + css, /custom ?dev|контур|grafana|site-offline/iu);
+    const band = /<section [^>]*id="sdlc"[^>]*>([^]*?)<\/section>/u.exec(html)![1]!;
+    assert.match(band, /PDLC \(жизненный цикл разработки продукта\): 7 этапов/u);
+    const stages = [...band.matchAll(/<li\b[^>]*>([^]*?)<\/li>/gu)].map(([, stage]) => stage!);
+    assert.deepEqual(
+      stages.map((stage) => /class="route-stage__number">([^<]+)/u.exec(stage)?.[1]),
+      ['01', '02', '03', '04', '05', '06', '07', '→'],
+    );
+    assert.deepEqual(
+      stages.map((stage) => /<a [^>]*href="([^"]+)"/u.exec(stage)?.[1]),
+      [
+        '#intent',
+        '#analysis',
+        undefined,
+        './guides/d1-delivery.html',
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+      ],
+    );
+    assert.match(
+      stages[7]!,
+      /<div class="route-stage route-stage--future">[^]*?<strong>Будущее<\/strong>/u,
+    );
+    assert.deepEqual(
+      [...html.matchAll(/<section [^>]*id="([^"]+)"/gu)].map(([, id]) => id),
+      ['sdlc', 'intent', 'analysis', 'help'],
+    );
+    assert.deepEqual(
+      [...html.matchAll(/<a [^>]*class="catalog-card[^"]*"[^>]*href="([^"]+)"/gu)].map(
+        (match) => match[1],
+      ),
+      [
+        './intent-maturity-map.html',
+        './guides/intent.html',
+        './analysis-maturity-map.html',
+        './guides/index.html',
+        './guides/p2-git.html',
+        './roles.html',
+        './glossary.html',
+        './corporate-resources.html',
+      ],
+    );
+    // Resolve against a project subdirectory, just like GitHub Pages. Reject external and parent URLs.
+    const site = new URL('https://example.org/course/');
+    for (const match of html.matchAll(/\b(?:href|src)="([^"]+)"/gu)) {
+      const value = match[1]!;
+      const url = new URL(value, site);
+      assert.ok(url.href.startsWith(site.href), value);
+      const path = url.pathname.slice(site.pathname.length);
+      const target = join(outputDir, path.endsWith('/') || !path ? path + 'index.html' : path);
+      assert.ok((await stat(target)).isFile(), value);
+      if (url.hash)
+        assert.ok((await readFile(target, 'utf8')).includes(`id="${url.hash.slice(1)}"`), value);
+    }
+  }),
+
+  test('public help pages mark Help and link back to the PDLC map', async () => {
+    for (const page of ['roles.html', 'glossary.html', 'corporate-resources.html']) {
+      const html = await readFile(join(outputDir, page), 'utf8');
+      assert.match(html, /data-section="help"/u, page);
+      assert.match(
+        html,
+        /data-nav-item="help" href="\.\/#help" aria-current="location">Справка/u,
+        page,
+      );
+      assert.match(html, /data-catalog-return href="\.\/#sdlc"/u, page);
+    }
   }),
 
   test('the guide scripts are classic browser scripts without module imports', async () => {
