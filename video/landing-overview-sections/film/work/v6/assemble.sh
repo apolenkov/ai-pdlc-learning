@@ -38,6 +38,8 @@ echo "frames $frames, video $vdur s, audio $adur s"
 [ "$frames" = 2619 ] && [ "$vdur" = 87.300000 ] && [ "$adur" = 87.300000 ] || { echo "СТОП: ждали 2619 кадров и 87,3 с обеих дорожек" >&2; exit 1; }
 ffmpeg -v error -xerror -i "$OUT/landing-overview.mp4" -f null -
 echo "decode: ok"
-ffmpeg -hide_banner -i "$OUT/landing-overview.mp4" -vn -af loudnorm=print_format=json -f null - 2>&1 |
+# Separate assignment: set -e sees the ffmpeg exit code, which a pipe into awk would hide.
+loud=$(ffmpeg -hide_banner -i "$OUT/landing-overview.mp4" -vn -af loudnorm=print_format=json -f null - 2>&1)
+printf '%s\n' "$loud" |
   awk -F'"' '/"input_i"/{i=$4} /"input_tp"/{tp=$4} END{printf "loudness %s LUFS, true peak %s dBTP\n", i, tp; if (i < -16.5 || i > -15.5 || tp > -4.5) { print "СТОП: громкость или пик вне нормы"; exit 1 }}'
 shasum -a 256 "$OUT/landing-overview.mp4"
