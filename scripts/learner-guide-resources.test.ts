@@ -119,7 +119,7 @@ await test('the canonical resource makes Kilo the course-wide default and scopes
     kiloSetup.match(/<details id="opencode-setup"[^>]*>\s*<summary>([^<]*)<\/summary>/u)?.[1] ?? '';
   assert.match(
     openCodeSummary,
-    /альтернатива Kilo для работы с моделью/iu,
+    /альтернатива Kilo.*только личный компьютер/iu,
     'the collapsed OpenCode summary identifies its role',
   );
   assert.match(
@@ -150,6 +150,10 @@ await test('the canonical resource makes Kilo the course-wide default and scopes
     /onUI[^.]{0,160}(?:автор|проверяющ)/iu,
     'onUI must be marked as author/reviewer tooling where it appears',
   );
+});
+
+await test('the installation request covers domain tools only', async () => {
+  const resource = await readFile('docs/pages/sdlc-development/corporate-resources.html', 'utf8');
   const requestTemplate =
     resource.match(/<pre id="installation-request-template"[^>]*>[\s\S]*?<\/pre>/u)?.[0] ?? '';
   assert.match(
@@ -157,21 +161,7 @@ await test('the canonical resource makes Kilo the course-wide default and scopes
     /Kilo Code[^.\n]{0,160}основн\p{L}*/iu,
     'the installation request must name Kilo as the default route',
   );
-  assert.match(
-    requestTemplate,
-    /OpenCode[^.\n]{0,160}(?:альтернатив|продвинут|резерв)/iu,
-    'the installation request must scope OpenCode to the advanced-alternative stages',
-  );
-  assert.doesNotMatch(
-    requestTemplate,
-    /OpenCode[^.\n]{0,160}\bобязател\p{L}*/iu,
-    'the installation request must not keep the retired mandatory-bridge claim',
-  );
-  assert.doesNotMatch(
-    requestTemplate,
-    /OpenCode[^.\n]{0,80}не требуется|для ступени 4 не требуется/iu,
-    'the installation request must not keep the retired OpenCode exemption',
-  );
+  assert.doesNotMatch(requestTemplate, /OpenCode|WSL/iu);
   assert.match(
     requestTemplate,
     /onUI[^.\n]{0,160}(?:автор|проверяющ)[^.\n]{0,120}(?:не входит|не обязателен)/iu,
@@ -182,6 +172,29 @@ await test('the canonical resource makes Kilo the course-wide default and scopes
     /Для шагов 1–2 вам нужны Git и VS Code[\s\S]{0,240}Kilo Code потребуется для выбранных блоков «С моделью» в шагах 1–3 и для шага 5[\s\S]{0,160}Начиная с шага 3 также нужны Node\.js 22\+ и OpenSpec/u,
     'the request must distinguish learner requirements by stage and keep Kilo optional',
   );
+});
+
+await test('Windows and VDI installation uses the Kilo extension without OpenCode or WSL', async () => {
+  const resource = await readFile('docs/pages/sdlc-development/corporate-resources.html', 'utf8');
+  const windows = resource.match(/<dt>Windows \/ VDI<\/dt>\s*<dd>([\s\S]*?)<\/dd>/u)?.[1];
+  assert.ok(windows);
+  assert.match(windows, /kilocode\.kilo-code/u);
+  assert.doesNotMatch(windows, /OpenCode|WSL/iu);
+});
+
+await test('advanced OpenCode summaries identify the personal computer before opening', () => {
+  let summaries = 0;
+  for (const [id, guide] of Object.entries(guideContent.stages)) {
+    for (const step of guide.steps) {
+      for (const [summary] of (step.advanced ?? '').matchAll(
+        /<summary>[^<]*OpenCode[^<]*<\/summary>/giu,
+      )) {
+        assert.match(summary, /только личный компьютер/iu, id);
+        summaries++;
+      }
+    }
+  }
+  assert.ok(summaries > 0, 'the course must keep the optional OpenCode route');
 });
 
 await test('each guide reference card keeps one canonical resource link and one stage link', async () => {

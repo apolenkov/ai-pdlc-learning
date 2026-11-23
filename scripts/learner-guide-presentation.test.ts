@@ -110,7 +110,7 @@ await test('the shared installation warning stays once on the catalog and out of
   );
   assert.match(
     catalog,
-    /<aside class="warning machine-install-warning"[^>]*><strong>Установка инструментов:<\/strong>[\s\S]*?Git, Node\.js, OpenSpec, Kilo Code, OpenCode, VS Code или WSL[\s\S]*?Windows и в VDI[\s\S]*?заявк[\s\S]*?согласование служб информационной безопасности \(ИБ\)[\s\S]*?информационных технологий \(ИТ\)[\s\S]*?заявку на установку ПО[\s\S]*?macOS и Linux[\s\S]*?официальн[\s\S]*?<\/aside>/iu,
+    /<aside class="warning machine-install-warning"[^>]*><strong>Установка инструментов:<\/strong>[\s\S]*?Git, Node\.js, OpenSpec, Kilo Code или VS Code[\s\S]*?Windows и в VDI[\s\S]*?заявк[\s\S]*?согласование служб информационной безопасности \(ИБ\)[\s\S]*?информационных технологий \(ИТ\)[\s\S]*?заявку на установку ПО[\s\S]*?Kilo Code в VS Code[\s\S]*?OpenCode[^.]*только на личном компьютере с macOS или Linux[\s\S]*?официальн[\s\S]*?<\/aside>/iu,
   );
   assert.match(catalog, /corporate-resources\.html#installation-request/u);
   const source = await readGuideSource();
