@@ -3,13 +3,13 @@
 // и <ролик>.chapters.vtt (дорожка <track kind="chapters">).
 // Глава на границе сцены начинается со старта сцены (scenes.json, поле chapter);
 // глава внутри сцены (scenes.json, поле chapters: [{ title, from }]) — с начала реплики VTT, текст которой начинается с `from`.
-// Сначала node tools/make-vtt.mjs ../landing-overview-sections.vtt, затем:
+// Сначала node tools/make-vtt.mjs ../landing-route.vtt, затем:
 //   node tools/make-chapters.mjs
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const out = resolve(root, "..", "landing-overview-sections");
+const out = resolve(root, "..", "landing-route");
 const scenes = JSON.parse(readFileSync(`${root}/scenes.json`, "utf8"));
 const r3 = (x) => Number(x.toFixed(3));
 const ts = (x) => { const m = Math.floor(x / 60), s = x % 60; return `${String(Math.floor(m / 60)).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}:${s.toFixed(3).padStart(6, "0")}`; };
