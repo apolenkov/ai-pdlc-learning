@@ -382,4 +382,8 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
     process.stdout.write(
       `Lesson video: ${(await addGuideVideo(outputDir, undefined, spec)) ? `added to ${spec.page}` : `file absent for ${spec.page}, block hidden`}\n`,
     );
+  const { addLandingVideo, LANDING_VIDEO } = await import('./landing-video.ts');
+  process.stdout.write(
+    `Landing video: ${(await addLandingVideo(outputDir)) ? `added to ${LANDING_VIDEO.page}` : 'block hidden'}\n`,
+  );
 }

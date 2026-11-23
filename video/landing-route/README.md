@@ -9,7 +9,7 @@
 - `film/work/vo-input.md` — текст диктора (5 блоков, 847 знаков); `film/work/scenes/NN.js` — сцены; `compositions/` собирает из них `tools/wrap-scene.mjs`.
 - `film/assets/vo/scene-NN.*` — голос Allan, `eleven_v4`, lead 2,0 с у сцены 1; тайминги слов — из синтеза ElevenLabs (with-timestamps). Исходные блоки — `film/assets/vo-v3/`.
 - `landing-route.vtt` — субтитры (`tools/make-vtt.mjs`), `landing-route.chapters.{json,vtt}` — главы по сценам (`tools/make-chapters.mjs`).
-- `landing-route-poster.webp` — постер, кадр 0 веб-версии (1280×720).
+- `landing-route-poster.webp` — постер 1280×720: кадр 0 веб-версии, подпись «● AI PDLC Learning» в нём поднята на 80 px (TASK-923, 23.11): так на 1440 она не уходит под панель плеера. `tools/assemble.sh` пишет кадр 0 без этого сдвига — после пересборки сдвиг повторить.
 - `video-manifest.json` — url и sha256 mp4, мастер, постер и дорожки (`tracks`: субтитры, главы vtt и json) с sha256 и размером; `MEDIA.sha256` — те же файлы и голос сцен. Оба пишет `film/tools/pin-media.mjs`, сверяет `scripts/landing-route-film.test.ts`.
 
 ## Как собрать

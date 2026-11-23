@@ -75,6 +75,36 @@ button:focus-visible {
   background: var(--catalog-surface);
   box-shadow: var(--catalog-shadow);
 }
+.catalog-hero:has(> .hero-media) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+}
+@media (min-width: 1121px) {
+  .catalog-hero:has(> .hero-media) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
+    align-items: center;
+  }
+}
+.hero-media {
+  margin: 0;
+}
+.hero-media video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--catalog-line);
+  border-radius: 12px;
+  background: var(--catalog-paper);
+  box-shadow: var(--catalog-shadow-small);
+}
+.hero-media figcaption {
+  margin-top: 8px;
+  color: var(--catalog-muted);
+  font-size: 0.875rem;
+}
 .catalog-hero__text {
   max-width: 1060px;
 }

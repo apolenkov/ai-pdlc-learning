@@ -1,12 +1,13 @@
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { mkdir, mkdtemp, readFile, rm, symlink, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readdir, readFile, rm, symlink, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { test } from 'node:test';
 import { parse } from 'yaml';
 
-import { GUIDE_VIDEOS, sha256 } from './guide-video.ts';
+import { publishedVideos } from './landing-video.ts';
+import { GUIDE_VIDEO_DIR, sha256 } from './video-manifest.ts';
 
 /** `run:` lines of the build job of .github/workflows/pages.yml, in order. */
 const workflowRuns = async (): Promise<string[]> => {
@@ -31,7 +32,7 @@ await test('Pages checks published films, not unrelated manifests or a matching 
   const assets = join(root, 'dist/site/guides/assets/video');
   await mkdir(assets, { recursive: true });
   const bytes = Buffer.from('film');
-  for (const [i, spec] of GUIDE_VIDEOS.entries()) {
+  for (const [i, spec] of publishedVideos().entries()) {
     const manifest = join(root, spec.manifest);
     await mkdir(dirname(manifest), { recursive: true });
     await writeFile(
@@ -40,10 +41,12 @@ await test('Pages checks published films, not unrelated manifests or a matching 
         file: `${i}.mp4`,
         size: 4,
         sha256: sha256(bytes),
-        url: 'https://example.org/video',
+        url: `data:video/mp4;base64,${bytes.toString('base64')}`,
       }),
     );
-    await writeFile(join(assets, `${i}.mp4`), bytes);
+    const output = join(root, 'dist/site', spec.outputDir);
+    await mkdir(output, { recursive: true });
+    await writeFile(join(output, `${i}.mp4`), bytes);
   }
   await mkdir(join(root, 'video/unpublished'), { recursive: true });
   await writeFile(join(root, 'video/unpublished/video-manifest.json'), '{}');
@@ -65,6 +68,29 @@ await test('Pages checks published films, not unrelated manifests or a matching 
     });
   const complete = run();
   assert.equal(complete.status, 0, complete.stderr);
+  const landingDir = join(root, 'dist/site/media/landing-route');
+  const [landingFile] = await readdir(landingDir);
+  assert.ok(landingFile);
+  await mkdir(join(root, GUIDE_VIDEO_DIR), { recursive: true });
+  const fetch = spawnSync(
+    process.execPath,
+    ['--experimental-strip-types', resolve('scripts/fetch-guide-video.ts')],
+    {
+      cwd: root,
+      encoding: 'utf8',
+    },
+  );
+  assert.equal(fetch.status, 0, fetch.stderr);
+  assert.match(fetch.stdout, /fetched \(index\.html\)/u, fetch.stderr);
+  assert.deepEqual(await readFile(join(root, GUIDE_VIDEO_DIR, landingFile)), bytes);
+  const landing = join(landingDir, landingFile);
+  await rm(landing);
+  assert.notEqual(run().status, 0);
+  await writeFile(landing, 'fake');
+  assert.match(run().stderr, /SHA256 differs/u);
+  await writeFile(landing, 'truncated');
+  assert.match(run().stderr, /size differs/u);
+  await writeFile(landing, bytes);
   await rm(join(assets, '0.mp4'));
   await writeFile(join(assets, 'unrelated.mp4'), bytes);
   const missing = run();

@@ -1,28 +1,21 @@
-import { createHash } from 'node:crypto';
-import assert from 'node:assert/strict';
 import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { build } from 'esbuild';
 import { basename, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { revealCourseMapFilm } from './course-map.ts';
-import { creditTemplate, VOICE_ONLY } from './guide-video-credit.ts';
+import { creditTemplate } from './guide-video-credit.ts';
 import { guideVideoOverlay } from './guide-video-overlay.ts';
+import {
+  GUIDE_VIDEO_DIR,
+  GUIDE_VIDEO_MANIFEST,
+  readVideoManifest,
+  sha256,
+} from './video-manifest.ts';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-/** Everything video-specific lives here; the mp4 itself is git-ignored (see README, "Видео block-0a"). */
-export const GUIDE_VIDEO_DIR = 'docs/pages/sdlc-development/guides/assets/video';
-export const GUIDE_VIDEO_FILE = 'block-0a.mp4';
-export const GUIDE_VIDEO_MANIFEST = 'video-manifest.json';
+export * from './video-manifest.ts';
 export { MEDIA_RELEASE, mediaUrl } from './media-release.ts';
-
-export type VideoManifest = Readonly<{
-  file: string;
-  sha256: string;
-  size: number;
-  url: string;
-  audio?: typeof VOICE_ONLY;
-}>;
 
 /** One lesson video: the guide page that hosts the player and the tracked files that describe the git-ignored mp4. */
 export type VideoSpec = Readonly<{
@@ -256,107 +249,8 @@ export const GUIDE_VIDEOS: readonly VideoSpec[] = [
   BLOCK_MAP,
 ];
 
-/** Raw sources of a film (recordings, voice-over): tracked manifest, git-ignored files (see README, "Исходные записи"). */
-export const sourcesManifestPath = (block: string): string =>
-  `video/${block}/sources-manifest.json`;
-export const sourcesAssetsDir = (block: string): string => `video/${block}/film/assets`;
-export const SOURCES_MANIFEST = sourcesManifestPath('block-0a');
-export const SOURCES_TARGET_DIR = `${sourcesAssetsDir('block-0a')}/rec`;
-export type SourcesManifest = Readonly<{
-  file: string;
-  sha256: string;
-  size: number;
-  url?: string;
-  version: string;
-  files: readonly Readonly<{ path: string; sha256: string }>[];
-  excluded: readonly Readonly<{ path: string; reason: string }>[];
-}>;
-
 const escapeAttribute = (value: string): string =>
   value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');
-export const sha256 = (bytes: Uint8Array): string =>
-  createHash('sha256').update(bytes).digest('hex');
-export const readVideoManifest = async (
-  root = ROOT,
-  spec: VideoSpec = BLOCK_0A,
-): Promise<VideoManifest> => {
-  const manifest: unknown = JSON.parse(await readFile(resolve(root, spec.manifest), 'utf8'));
-  assert.ok(manifest && typeof manifest === 'object', 'Video manifest must be an object');
-  assert.ok('file' in manifest && typeof manifest.file === 'string', 'Video manifest file');
-  assert.ok('sha256' in manifest && typeof manifest.sha256 === 'string', 'Video manifest sha256');
-  assert.ok('size' in manifest && typeof manifest.size === 'number', 'Video manifest size');
-  assert.ok('url' in manifest && typeof manifest.url === 'string', 'Video manifest url');
-  const audio = 'audio' in manifest ? manifest.audio : undefined;
-  assert.ok(
-    audio === undefined || audio === VOICE_ONLY,
-    `Video manifest audio must be "${VOICE_ONLY}" when set`,
-  );
-  return {
-    ...manifest,
-    file: manifest.file,
-    sha256: manifest.sha256,
-    size: manifest.size,
-    url: manifest.url,
-    ...(audio === undefined ? {} : { audio }),
-  };
-};
-
-export const readSourcesManifest = async (
-  root = ROOT,
-  block = 'block-0a',
-): Promise<SourcesManifest> => {
-  const manifest: unknown = JSON.parse(
-    await readFile(resolve(root, sourcesManifestPath(block)), 'utf8'),
-  );
-  assert.ok(manifest && typeof manifest === 'object', 'Sources manifest must be an object');
-  assert.ok('file' in manifest && typeof manifest.file === 'string', 'Sources manifest file');
-  assert.ok('sha256' in manifest && typeof manifest.sha256 === 'string', 'Sources manifest sha256');
-  assert.ok('size' in manifest && typeof manifest.size === 'number', 'Sources manifest size');
-  assert.ok(!('url' in manifest) || typeof manifest.url === 'string', 'Sources manifest url');
-  assert.ok(
-    'version' in manifest && typeof manifest.version === 'string',
-    'Sources manifest version',
-  );
-  assert.ok('files' in manifest && Array.isArray(manifest.files), 'Sources manifest files');
-  assert.ok(
-    'excluded' in manifest && Array.isArray(manifest.excluded),
-    'Sources manifest exclusions',
-  );
-  const files: unknown[] = manifest.files;
-  const excluded: unknown[] = manifest.excluded;
-  assert.ok(
-    files.every(
-      (file): file is SourcesManifest['files'][number] =>
-        !!file &&
-        typeof file === 'object' &&
-        'path' in file &&
-        typeof file.path === 'string' &&
-        'sha256' in file &&
-        typeof file.sha256 === 'string',
-    ),
-  );
-  assert.ok(
-    excluded.every(
-      (file): file is SourcesManifest['excluded'][number] =>
-        !!file &&
-        typeof file === 'object' &&
-        'path' in file &&
-        typeof file.path === 'string' &&
-        'reason' in file &&
-        typeof file.reason === 'string',
-    ),
-  );
-  return {
-    ...manifest,
-    file: manifest.file,
-    sha256: manifest.sha256,
-    size: manifest.size,
-    ...('url' in manifest && typeof manifest.url === 'string' ? { url: manifest.url } : {}),
-    version: manifest.version,
-    files,
-    excluded,
-  };
-};
 
 /** A course map lives on its course page: the analysis map on guides/index.html, the intent map on guides/intent.html. */
 async function revealFilmRows(outputDir: string, spec: VideoSpec, file: string): Promise<void> {

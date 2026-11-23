@@ -8,13 +8,12 @@ import { pipeline } from 'node:stream/promises';
 import {
   BLOCK_0A,
   GUIDE_VIDEO_DIR,
-  GUIDE_VIDEOS,
   readSourcesManifest,
   readVideoManifest,
   sourcesAssetsDir,
   sourcesManifestPath,
-  type VideoSpec,
 } from './guide-video.ts';
+import { publishedVideos } from './landing-video.ts';
 
 /**
  * Fetches the lesson videos from the GitHub release named in each video-manifest.json into the
@@ -48,7 +47,7 @@ const matches = async (path: string, sha256: string): Promise<boolean> => {
 export const fetchGuideVideo = async (
   root = process.cwd(),
   downloadFile = download,
-  spec: VideoSpec = BLOCK_0A,
+  spec: { readonly manifest: string } = BLOCK_0A,
 ): Promise<'present' | 'fetched' | 'skipped'> => {
   let work: string | undefined;
   try {
@@ -180,7 +179,7 @@ if (process.argv[1] && resolve(process.argv[1]) === import.meta.filename) {
     }
   } else {
     // One diagnostic line at most: the first unavailable video stops the run (the network and the release are shared).
-    for (const spec of GUIDE_VIDEOS) {
+    for (const spec of publishedVideos()) {
       const result = await fetchGuideVideo(process.cwd(), download, spec);
       if (result === 'skipped') break;
       process.stdout.write(`fetch-guide-video: ${result} (${spec.page})\n`);
