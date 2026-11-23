@@ -1,0 +1,24 @@
+{
+  "file": "landing-route.mp4",
+  "sha256": "64f3b2453526621415459ec5f00bc13d9bb77d826fc2316a1a6034dfbf3ed692",
+  "size": 2672368,
+  "url": "https://github.com/apolenkov/ai-pdlc-learning/releases/download/media-v1/64f3b2453526-landing-route.mp4",
+  "version": "64f3b2453526",
+  "audio": "voice-only",
+  "master": {
+    "file": "landing-route-1080p.mp4",
+    "sha256": "1d616d904bf4a48cc0a98a33d18694ba58e810ba80665a4758966e8b6227da4d",
+    "size": 12360180,
+    "version": "1d616d904bf4",
+    "note": "мастер 1080p в релиз не выкладывается; веб-версию собирает из него tools/assemble.sh"
+  },
+  "poster": {
+    "file": "landing-route-poster.webp",
+    "sha256": "9c58a313cc5595566a22b827aa812e3c0367416b19ebe092ed559a6adb8aeb4c",
+    "size": 22216
+  },
+  "duration": 70.6,
+  "captions": 19,
+  "chapters": 5,
+  "note": "v1 23.11.2026 (TASK-944, по запросу TASK-923): ролик шапки публичной главной (figure.hero-media). Главы по порядку страницы: Главная, Карта PDLC, Намерение и план, Анализ, Справка. Кадр снят с опубликованной главной (public main 16d112d) инструментом tools/shoot-page.ts. Голос Allan, eleven_v4, 847 знаков; тайминги слов из синтеза ElevenLabs (with-timestamps). −16,2 LUFS, true peak −5,2 dBTP, 2118 кадров, 1280×720, CRF 30."
+}

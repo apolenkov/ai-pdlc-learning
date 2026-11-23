@@ -2,7 +2,7 @@
 # Итоговая сборка ролика главной: рендеры сцен (tools/scene.mjs N render) + голос сцен по scenes.json.
 #   sh tools/assemble.sh            из каталога film; выход — renders/final/
 # Видео: сцены склеиваются без перекодирования в мастер 1080p, веб — 1280×720, CRF 30.
-# Звук: голос каждой сцены дополняется тишиной до длительности сцены, затем loudnorm −16 LUFS и ограничитель
+# Звук: голос каждой сцены дополняется тишиной до длительности сцены, затем loudnorm −16 LUFS в два прохода и ограничитель
 # −5,2 dBFS до кодирования AAC. Гейты: число кадров = сумма сцен × 30, обе дорожки одной длины, декод без ошибок,
 # −16 ± 0,5 LUFS, true peak ≤ −4,5 dBTP по готовому файлу. Постер — кадр 0 веб-версии, webp 1280×720.
 set -eu
@@ -32,9 +32,15 @@ for i in $(seq 1 "$N"); do
   filt="$filt[$((i-1)):a]aresample=48000,aformat=channel_layouts=stereo,apad,atrim=0:$d,asetpts=N/SR/TB[a$i];"
 done
 cat=""; for i in $(seq 1 "$N"); do cat="$cat[a$i]"; done
+# Два прохода loudnorm: замер, затем линейная нормализация по замеру (один проход с ограничителем недобирал ~0,5 LU).
 # shellcheck disable=SC2086
-ffmpeg -v error -y $args -filter_complex "${filt}${cat}concat=n=$N:v=0:a=1,loudnorm=I=-16:TP=-5.5:LRA=11,alimiter=limit=0.5495:attack=2:release=50:level=disabled[o]" \
-  -map "[o]" -t "$TOTAL" -c:a aac -b:a 160k -ar 48000 -ac 2 "$OUT/audio.m4a"
+ffmpeg -v error -y $args -filter_complex "${filt}${cat}concat=n=$N:v=0:a=1[o]" -map "[o]" -t "$TOTAL" -c:a pcm_s16le "$OUT/voice.wav"
+m=$(ffmpeg -hide_banner -i "$OUT/voice.wav" -af loudnorm=I=-16:TP=-5.5:LRA=11:print_format=json -f null - 2>&1)
+mi=$(printf '%s\n' "$m" | awk -F'"' '/"input_i"/{print $4}'); mtp=$(printf '%s\n' "$m" | awk -F'"' '/"input_tp"/{print $4}')
+mlra=$(printf '%s\n' "$m" | awk -F'"' '/"input_lra"/{print $4}'); mth=$(printf '%s\n' "$m" | awk -F'"' '/"input_thresh"/{print $4}')
+moff=$(printf '%s\n' "$m" | awk -F'"' '/"target_offset"/{print $4}')
+ffmpeg -v error -y -i "$OUT/voice.wav" -af "loudnorm=I=-16:TP=-5.5:LRA=11:measured_I=$mi:measured_TP=$mtp:measured_LRA=$mlra:measured_thresh=$mth:offset=$moff:linear=true,alimiter=limit=0.5495:attack=2:release=50:level=disabled" \
+  -t "$TOTAL" -c:a aac -b:a 160k -ar 48000 -ac 2 "$OUT/audio.m4a"
 
 # 3. Мастер 1080p и веб 720p.
 ffmpeg -v error -y -i "$OUT/video.mp4" -i "$OUT/audio.m4a" -map 0:v -map 1:a -c copy -movflags +faststart -t "$TOTAL" "$OUT/landing-route-1080p.mp4"

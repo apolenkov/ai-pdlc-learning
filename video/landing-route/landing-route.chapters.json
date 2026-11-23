@@ -1,0 +1,52 @@
+[
+  {
+    "n": 1,
+    "title": "Главная",
+    "step": null,
+    "chapter": "Главная",
+    "start": 0,
+    "titleStart": 0,
+    "speechStart": 2,
+    "end": 12.5
+  },
+  {
+    "n": 2,
+    "title": "Карта PDLC",
+    "step": null,
+    "chapter": "Карта PDLC",
+    "start": 12.5,
+    "titleStart": 12.5,
+    "speechStart": 12.5,
+    "end": 35.4
+  },
+  {
+    "n": 3,
+    "title": "Намерение и план",
+    "step": null,
+    "chapter": "Намерение и план",
+    "start": 35.4,
+    "titleStart": 35.4,
+    "speechStart": 35.4,
+    "end": 50.3
+  },
+  {
+    "n": 4,
+    "title": "Анализ",
+    "step": null,
+    "chapter": "Анализ",
+    "start": 50.3,
+    "titleStart": 50.3,
+    "speechStart": 50.3,
+    "end": 58.9
+  },
+  {
+    "n": 5,
+    "title": "Справка",
+    "step": null,
+    "chapter": "Справка",
+    "start": 58.9,
+    "titleStart": 58.9,
+    "speechStart": 58.9,
+    "end": 70.6
+  }
+]
