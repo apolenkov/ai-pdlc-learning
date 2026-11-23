@@ -54,5 +54,7 @@ loud=$(ffmpeg -hide_banner -i "$F" -vn -af loudnorm=print_format=json -f null - 
 printf '%s\n' "$loud" | awk -F'"' '/"input_i"/{i=$4} /"input_tp"/{tp=$4} END{printf "loudness %s LUFS, true peak %s dBTP\n", i, tp; if (i < -16.5 || i > -15.5 || tp > -4.5) { print "СТОП: громкость или пик вне нормы"; exit 1 }}'
 
 # 5. Постер: кадр 0 (светлая заставка), webp 1280×720.
-ffmpeg -v error -y -i "$F" -frames:v 1 -c:v libwebp -quality 80 "$OUT/landing-route-poster.webp"
+# ffmpeg из Homebrew собран без libwebp: кадр в PNG, webp — через cwebp
+ffmpeg -v error -y -i "$F" -frames:v 1 "$OUT/poster.png"
+cwebp -quiet -q 80 "$OUT/poster.png" -o "$OUT/landing-route-poster.webp"
 shasum -a 256 "$OUT/landing-route-1080p.mp4" "$F" "$OUT/landing-route-poster.webp"
