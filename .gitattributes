@@ -8,7 +8,6 @@
 docs/pages/sdlc-development/roles.html linguist-generated=true
 docs/pages/sdlc-development/glossary.html linguist-generated=true
 docs/pages/sdlc-development/help-reference.css linguist-generated=true
-docs/pages/sdlc-development/analysis-maturity-map.html linguist-generated=true
 docs/pages/sdlc-development/intent-maturity-map.html linguist-generated=true
 
 # written by `node --experimental-strip-types scripts/course-map.ts --write`; the build splices it into guides/intent.html, edit the page, not this part

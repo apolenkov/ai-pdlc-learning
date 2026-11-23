@@ -6,7 +6,6 @@ export const pageOutputPaths = [
   'harness-levels.html',
   'roles.html',
   'glossary.html',
-  'analysis-maturity-map.html',
   'intent-maturity-map.html',
   'examples/credit-calculator.html',
   'guides/index.html',

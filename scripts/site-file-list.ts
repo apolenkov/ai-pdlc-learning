@@ -21,6 +21,7 @@ const runtimeAssets = [
   'harness-levels-bpmn.png',
   'guides/guide.css',
   'guides/metarepository.css',
+  'guides/course-home.css',
   'guides/learning-enhancements.css',
   'help-reference.css',
   'landing.css',

@@ -20,7 +20,7 @@ const rule = (css: string, selector: string): string => {
   return match[1]!;
 };
 
-await test('hub pages: result band under the intro, one-column map help, steps as a text column', async () => {
+await test('hub pages: result band under the intro, map help in two columns, steps as a text column', async () => {
   const css = await read('guides/learning-enhancements/09-route-hub-layout.css');
   // #1: the result card is a band under the intro, the acceptance rule reads in lines up to 68ch.
   assert.match(
@@ -33,12 +33,19 @@ await test('hub pages: result band under the intro, one-column map help, steps a
   );
   assert.match(rule(css, '.route-page .hero>.proof>p'), /max-width:68ch/u);
   assert.match(rule(css, '.route-page .hero>.proof>span'), /text-transform:none/u);
-  // #2: «Как пользоваться картой» in one column, items as tall as their text.
+  // #2: «Как пользоваться картой» fills the block in two columns (no empty right half, TASK-951);
+  // one column up to 760px, items as tall as their text.
   assert.match(
     rule(css, '.route-page .map-howto__steps'),
-    /grid-template-columns:minmax\(0,1fr\)/u,
+    /grid-template-columns:repeat\(2,minmax\(0,1fr\)\)/u,
   );
-  assert.match(rule(css, '.route-page .map-howto__steps'), /align-items:start/u);
+  assert.doesNotMatch(rule(css, '.route-page .map-howto__steps'), /max-width/u);
+  // Only the two-column rule and its narrow-screen override: a later one-column rule would bring the empty half back.
+  assert.equal(css.match(/\.route-page \.map-howto__steps\s*\{/gu)?.length, 2);
+  assert.match(
+    css,
+    /@media\(max-width:760px\)\{\.route-page \.map-howto__steps\{grid-template-columns:minmax\(0,1fr\);align-items:start/u,
+  );
   // #3: map facts labels are plain bold text, pairs 10px apart.
   assert.match(rule(css, '.course-map__facts span'), /text-transform:none/u);
   assert.match(rule(css, '.course-map__facts'), /gap:10px/u);

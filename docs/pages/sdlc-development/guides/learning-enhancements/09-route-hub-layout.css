@@ -8,8 +8,10 @@
 .route-page .hero>.proof>p{max-width:68ch;color:var(--ink);font-size:15px;line-height:1.5}
 .route-page .hero>.proof>span{color:var(--muted);font:700 14px/1.3 var(--body);letter-spacing:0;text-transform:none}
 
-/* 2. «Как пользоваться картой»: один столбец до 760 px, высота пункта по тексту. */
-.route-page .map-howto__steps{grid-template-columns:minmax(0,1fr);align-items:start;max-width:760px;gap:8px}
+/* 2. «Как пользоваться картой»: две колонки на всю ширину блока, без пустой правой половины (TASK-951);
+   пункты строки одной высоты. До 760 px — один столбец, высота пункта по тексту. */
+.route-page .map-howto__steps{grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch;gap:12px}
+@media(max-width:760px){.route-page .map-howto__steps{grid-template-columns:minmax(0,1fr);align-items:start;gap:8px}}
 
 /* 3. Карта курса: подписи обычным полужирным без капса, между парами «подпись и значение» 10 px. */
 .course-map__facts{gap:10px}

@@ -2,9 +2,9 @@
   "$schema": "./node_modules/@stryker-mutator/core/schema/stryker-schema.json",
   "testRunner": "command",
   "commandRunner": {
-    "command": "node --experimental-strip-types --test scripts/output-guard.test.ts scripts/build-learning-output-safety.test.ts"
+    "command": "node --experimental-strip-types --test scripts/output-guard.test.ts scripts/build-learning-output-safety.test.ts scripts/course-motion.test.ts"
   },
-  "mutate": ["scripts/build-learning-pages.ts:121-190"],
+  "mutate": ["scripts/build-learning-pages.ts:121-191"],
   "coverageAnalysis": "off",
   "concurrency": 1,
   "timeoutMS": 5000,

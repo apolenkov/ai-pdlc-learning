@@ -48,6 +48,7 @@ const GUIDES = `${SOURCE}/guides`;
 export const PUBLIC_GUIDE_ASSETS = [
   'guide.css',
   'metarepository.css',
+  'course-home.css',
   'index.html',
   'learning-enhancements.css',
   'p1-zachem.html',
@@ -299,7 +300,6 @@ export const planLearningSite = async (): Promise<SiteEntry[]> => {
     ['harness-levels.html', 'harness-levels.html', './'],
     ['roles.html', 'roles.html', './'],
     ['glossary.html', 'glossary.html', './'],
-    ['analysis-maturity-map.html', 'analysis-maturity-map.html', './'],
     ['intent-maturity-map.html', 'intent-maturity-map.html', './'],
     ['examples/credit-calculator.html', 'examples/credit-calculator.html', '../'],
   ] as const) {

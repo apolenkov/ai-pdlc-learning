@@ -1,0 +1,29 @@
+/* Course home only (guides/index.html), TASK-951. Loaded after guide.css. */
+/* Route backdrop of the course home (TASK-951): decoration above the result card, hidden from readers. */
+.hero-route { display: none; } /* shown only from 1001 px: no fractional width falls between two queries */
+.hero-route__relief { fill: none; stroke: var(--green); stroke-opacity: .07; stroke-width: 1.5; }
+.hero-route__path { fill: none; stroke: var(--green); stroke-opacity: .35; stroke-width: 3; stroke-dasharray: 2 8; stroke-linecap: round; }
+.hero-route circle { fill: var(--raised); stroke: var(--green); stroke-opacity: .55; stroke-width: 2; }
+.hero-route circle.is-start { fill: var(--green); }
+.hero-route text { fill: var(--green); fill-opacity: .85; font: 800 14px var(--body); text-anchor: middle; }
+.hero-route text.is-start { fill: var(--raised); fill-opacity: 1; }
+@media (min-width: 1001px) {
+  .route-page .hero:has(.hero-route) { background: linear-gradient(90deg, color-mix(in srgb, var(--customdev-surface) 96%, transparent) 45%, color-mix(in srgb, var(--green-soft) 70%, transparent)); }
+  .route-page .hero:has(.hero-route) > .proof { grid-area: 1 / 2; align-self: end; box-shadow: var(--customdev-shadow-card); }
+  .hero-route { display: block; grid-area: 1 / 2; align-self: start; width: 100%; height: auto; margin-top: 8px; pointer-events: none; }
+}
+/* Three analysis maturity levels; each leads to its course step. */
+.maturity-levels { margin-bottom: 16px; padding: 22px 26px; border: 1px solid var(--line); border-radius: var(--customdev-radius-md); background: color-mix(in srgb, var(--customdev-surface) 96%, transparent); }
+.maturity-levels__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 20px; }
+.maturity-levels h2 { margin: 0; font: 700 1.5rem/1.15 var(--display); }
+.maturity-levels__head p { margin: 0; color: var(--muted); font-size: .9rem; }
+.maturity-levels__list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 14px 0 0; padding: 0; list-style: none; }
+.maturity-levels__list a { display: grid; height: 100%; align-content: start; gap: 6px; padding: 14px 16px; border: 1px solid var(--line); border-left: 4px solid var(--green); border-radius: var(--customdev-radius-md); background: var(--raised); color: inherit; text-decoration: none; }
+.maturity-levels__list li:nth-child(2) a { border-left-color: var(--blue); }
+.maturity-levels__list li:nth-child(3) a { border-left-color: var(--amber); }
+.maturity-levels__list a:hover { border-color: var(--green); }
+.maturity-levels__list small { color: var(--muted); font: 800 12px var(--body); letter-spacing: .1em; text-transform: uppercase; }
+.maturity-levels__list strong { font-size: 1.05rem; }
+.maturity-levels__list span { color: var(--muted); font-size: .9rem; line-height: 1.4; }
+.maturity-levels__list em { color: var(--green); font-size: .9rem; font-style: normal; font-weight: 800; }
+@media (max-width: 760px) { .maturity-levels { padding: 18px; } .maturity-levels__list { grid-template-columns: minmax(0, 1fr); } }

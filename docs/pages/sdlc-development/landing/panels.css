@@ -67,6 +67,9 @@
 .catalog-grid--two {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
+.catalog-grid.catalog-grid--one {
+  grid-template-columns: minmax(0, 1fr);
+}
 .catalog-card {
   position: relative;
   display: grid;

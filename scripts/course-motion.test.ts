@@ -98,4 +98,18 @@ await test('CSP maps permit exactly the shared navigation handlers without allow
   assert.match(html, /script-src-attr 'unsafe-hashes'/u);
   assert.doesNotMatch(html, /'unsafe-inline'/u);
   assert.equal(placeHtml(html, './').match(/script-src-attr/gu)?.length, 1);
+  // Any spacing and case of the meta tag, and an own script-src-attr is replaced, not kept beside the new one.
+  const hashes = [NAV_ESCAPE_HANDLER, MORE_TOGGLE_HANDLER]
+    .map((handler) => `'sha256-${createHash('sha256').update(handler).digest('base64')}'`)
+    .join(' ');
+  const spaced = placeHtml(
+    "<html><head><meta\n  HTTP-EQUIV=\"Content-Security-Policy\"  content=\"default-src 'none'; script-src-attr 'none'; img-src 'self'\"></head><body><nav data-global-nav></nav></body></html>",
+    './',
+  );
+  assert.ok(
+    spaced.includes(
+      `content="default-src 'none';  img-src 'self'; script-src-attr 'unsafe-hashes' ${hashes};"`,
+    ),
+    spaced,
+  );
 });

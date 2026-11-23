@@ -96,10 +96,9 @@ await Promise.all([
       );
   }),
   test('a page with a CSP allows each of its inline styles and scripts', async () => {
-    // A hand edit of an inline block on such a page (the exported maturity maps) makes the browser drop it whole.
+    // A hand edit of an inline block on a page with hash-pinned CSP makes the browser drop it whole.
     // CSP3: an inline element is governed by *-src-elem, then *-src, then default-src; it runs when the list
     // names its hash, or when the list has 'unsafe-inline' and no hash or nonce (a hash disables 'unsafe-inline').
-    const pinned = { style: 0, script: 0 };
     for (const file of (await walk(outputDir)).filter((name) => name.endsWith('.html'))) {
       const html = await readFile(file, 'utf8');
       const policy = /http-equiv="Content-Security-Policy" content="([^"]*)"/u
@@ -127,20 +126,12 @@ await Promise.all([
             sources.includes(hash) || (!pinnedList && sources.includes("'unsafe-inline'")),
             `${relative(outputDir, file)}: inline <${tag}> (${hash}) is not allowed by ${sources.join(' ')}`,
           );
-          if (sources.includes(hash)) pinned[tag]++;
         }
       }
     }
-    assert.ok(
-      pinned.style > 0 && pinned.script > 0,
-      'the exported maturity map pins its inline style and scripts',
-    );
   }),
   test('every page title ends with the one site suffix', async () => {
-    // The exported analysis maturity map is a versioned artifact of the roadmap skill and keeps its own title.
-    const pages = (await walk(outputDir)).filter(
-      (file) => file.endsWith('.html') && !file.endsWith('analysis-maturity-map.html'),
-    );
+    const pages = (await walk(outputDir)).filter((file) => file.endsWith('.html'));
     for (const file of pages) {
       const title = /<title>([^<]*)<\/title>/u.exec(await readFile(file, 'utf8'))?.[1] ?? '';
       assert.match(title, / · AI PDLC Learning$/u, relative(outputDir, file));
@@ -302,7 +293,6 @@ await Promise.all([
       [
         './intent-maturity-map.html',
         './guides/intent.html',
-        './analysis-maturity-map.html',
         './guides/index.html',
         './guides/p2-git.html',
         './roles.html',

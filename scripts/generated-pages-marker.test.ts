@@ -5,7 +5,7 @@ import test from 'node:test';
 
 const GENERATED_MARKER =
   '<!-- GENERATED in customdev (canonical sources + npm run learning:export). Do not edit by hand. -->';
-const generatedPages = ['roles', 'glossary', 'analysis-maturity-map', 'intent-maturity-map'];
+const generatedPages = ['roles', 'glossary', 'intent-maturity-map'];
 
 await test('generated pages keep the marker: they are edited in customdev and copied here, never by hand', async () => {
   for (const name of generatedPages) {
