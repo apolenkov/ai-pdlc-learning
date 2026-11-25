@@ -1,5 +1,8 @@
 # ai-pdlc-learning
 
+[![License: MIT](https://img.shields.io/github/license/apolenkov/ai-pdlc-learning)](LICENSE)
+[![Сборка сайта](https://github.com/apolenkov/ai-pdlc-learning/actions/workflows/pages.yml/badge.svg)](https://github.com/apolenkov/ai-pdlc-learning/actions/workflows/pages.yml)
+
 Курс «Анализ с ИИ-агентами»: путь аналитика от запроса бизнеса к проверяемым требованиям в Git.
 Markdown, Git, GitLab, SDD и OpenSpec на одном учебном примере — кредитном калькуляторе.
 
