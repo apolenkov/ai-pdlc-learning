@@ -19,6 +19,8 @@ concurrency:
 
 jobs:
   build:
+    outputs:
+      publish: ${{ steps.pages-eligibility.outputs.publish }}
     permissions:
       contents: read
       pages: read
@@ -41,16 +43,35 @@ jobs:
       # The uploaded artifact, players and subtitles included: no outside request, build marker or internal name.
       - run: node --experimental-strip-types scripts/check-published-site.ts dist/site
       # The publication checks also run here: a change made in the web editor skips the local pre-push hook.
-      - run: node --experimental-strip-types --test scripts/build-learning-pages.test.ts scripts/site-requests.test.ts
+      - run: node --experimental-strip-types --test scripts/build-learning-pages.test.ts scripts/site-requests.test.ts scripts/pages-publication.test.ts
+      - name: Check Pages publication eligibility
+        id: pages-eligibility
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Bash compares refs case-sensitively. GitHub Actions expressions ignore case.
+          if [[ "$GITHUB_REF" != refs/heads/main || "$GITHUB_REPOSITORY" != apolenkov/ai-pdlc-learning ]]; then
+            exit 0
+          fi
+          case "$GITHUB_EVENT_NAME" in
+            push|workflow_dispatch) ;;
+            *) exit 0 ;;
+          esac
+          # Read the repository's current visibility, including on re-runs of older events.
+          repository=$(gh api "repositories/$GITHUB_REPOSITORY_ID" --jq '[.full_name, .visibility] | join(" ")')
+          if [[ "$repository" == "$GITHUB_REPOSITORY public" ]]; then
+            echo 'publish=true' >> "$GITHUB_OUTPUT"
+          fi
       - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
-        if: github.event_name != 'pull_request'
+        if: steps.pages-eligibility.outputs.publish == 'true'
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
-        if: github.event_name != 'pull_request'
+        if: steps.pages-eligibility.outputs.publish == 'true'
         with:
           path: dist/site
 
   deploy:
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && needs.build.outputs.publish == 'true'
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 10
