@@ -270,11 +270,11 @@ await Promise.all([
       [
         '#intent',
         '#analysis',
-        undefined,
-        './guides/d1-delivery.html',
-        undefined,
-        undefined,
-        undefined,
+        './architecture-maturity-map.html',
+        './implementation-maturity-map.html',
+        './testing-maturity-map.html',
+        './release-maturity-map.html',
+        './observation-maturity-map.html',
         undefined,
       ],
     );
@@ -293,6 +293,7 @@ await Promise.all([
       [
         './intent-maturity-map.html',
         './guides/intent.html',
+        './guides/index.html#maturity-levels',
         './guides/index.html',
         './guides/p2-git.html',
         './roles.html',

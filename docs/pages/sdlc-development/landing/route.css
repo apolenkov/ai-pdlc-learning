@@ -130,6 +130,9 @@ a.route-stage:focus-visible {
 .route-stage--pending {
   cursor: default;
 }
+a.route-stage--pending {
+  cursor: pointer;
+}
 a.route-stage:focus-visible {
   outline: 3px solid #fff;
   outline-offset: 4px;
