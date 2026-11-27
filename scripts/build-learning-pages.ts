@@ -32,6 +32,7 @@ import {
   PUBLIC_GUIDE_DOCUMENT_ASSETS,
 } from './guide-content.ts';
 import { readLandingCss, readLearningEnhancementsCss } from './learning-enhancements-css.ts';
+import { renderStageMaturityPages } from './stage-maturity-pages.ts';
 import { pageRedirects, retiredHome, retiredPageRedirects } from './pages-route-manifest.ts';
 import {
   courseNavigationRow,
@@ -77,6 +78,7 @@ const SHARED_FILES = [
   'help-reference.css',
   'corporate-resources.css',
   'harness-levels.css',
+  'stage-maturity.css',
   'harness-levels-bpmn.png',
 ] as const;
 
@@ -310,6 +312,7 @@ export const planLearningSite = async (): Promise<SiteEntry[]> => {
     }
     write(to, placeHtml(html, home));
   }
+  for (const page of renderStageMaturityPages()) write(page.path, placeHtml(page.content, './'));
   write(
     'examples/credit-calculator.js',
     stripTypeScriptTypes(await read(source('examples/credit-calculator.ts')), { mode: 'strip' }),

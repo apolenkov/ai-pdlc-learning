@@ -18,6 +18,7 @@ const runtimeAssets = [
   'favicon.svg',
   'corporate-resources.css',
   'harness-levels.css',
+  'stage-maturity.css',
   'harness-levels-bpmn.png',
   'guides/guide.css',
   'guides/metarepository.css',
